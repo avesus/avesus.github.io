@@ -8,6 +8,7 @@
       box-sizing: border-box;
       border: 1px solid red;
       overflow: hidden;
+      height: 100%;
     }
 
     input {
@@ -26,7 +27,7 @@
       self.heightWas = window.innerHeight;
       event.preventDefault();
       event.stopPropagation();
-      var input = event.target;//document.getElementById('input');
+      var input = event.target;
       input.style.height = '1px';
       input.style.bottom = '0px';
       input.style.position = 'absolute';
@@ -36,7 +37,7 @@
     // Restore input box position and height after focus (and scroll on iOS!) happens
     function onInputFocus (event) {
       self.focus = true;
-      var input = event.target;//document.getElementById('input');
+      var input = event.target;
       input.style.height = '20px';
       input.style.position = null;
       input.style.bottom = null;
@@ -45,13 +46,10 @@
     // Restore container's height after unfocusing
     function onDocumentBlur (event) {
       self.focus = false;
-      var style = document.getElementById('window').style;
-      style.border = '10px solid red';
       if (self.focusPatchApplied) {
         self.focusPatchApplied = false;
         var style = document.getElementById('window').style;
-        // 10 pixels are here also. Safari reports incorrect height.
-        style.height = 120 + 'px';//self.heightWas - 10 + 'px';
+        style.height = self.heightWas + 'px';
         style.top = '0px';
         window.scrollTo(0, 0);
       }
@@ -73,6 +71,7 @@
       }
     });
     
+    // IMPORTANT: this should be attached before DOMContentLoaded!
     document.addEventListener('blur', onDocumentBlur, true);
     
     document.addEventListener('DOMContentLoaded', function () {
@@ -88,7 +87,7 @@
   </script>
 </head>
 <body style="margin: 0; padding: 0; height: 100%">
-  <div id="window" style="height: 120px; top: 0px">
+  <div id="window">
     <div id="scroller" style="width: 100%; height: 100%; overflow: scroll; -webkit-overflow-scrolling: touch!important;">
       <div style="background: rgba(255,255,0,0.3); position: relative; width: 100%;">
         <input type="text" value="Tap me 1">
