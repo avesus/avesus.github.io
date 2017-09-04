@@ -46,8 +46,8 @@
       if (window.focusPatchApplied) {
         window.focusPatchApplied = false;
         var style = document.getElementById('window').style;
-        style.height = '100%';
-        style.top = '0px';
+        style.height = document.documentElement.clientHeight;//'100%';
+        style.top = null;//'0px';
         window.scrollTo(0, 0);
       }
     }
