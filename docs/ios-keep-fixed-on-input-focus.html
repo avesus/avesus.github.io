@@ -45,6 +45,8 @@
     // Restore container's height after unfocusing
     function onDocumentBlur (event) {
       self.focus = false;
+      var style = document.getElementById('window').style;
+      style.border = '10px solid red';
       if (self.focusPatchApplied) {
         self.focusPatchApplied = false;
         var style = document.getElementById('window').style;
