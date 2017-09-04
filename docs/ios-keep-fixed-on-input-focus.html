@@ -21,6 +21,7 @@
   </style>
 
   <script>
+    var self = {};
     // Move input box to the bottom of page to force Safari
     // scroll window to obtain exact height of the visible area
     function onInputClick (event) {
@@ -35,6 +36,7 @@
     
     // Restore input box position and height after focus (and scroll on iOS!) happens
     function onInputFocus (event) {
+      self.focus = true;
       var input = document.getElementById('input');
       input.style.height = '20px';
       input.style.position = null;
@@ -43,8 +45,9 @@
     
     // Restore container's height after unfocusing
     function onInputBlur (event) {
-      if (window.focusPatchApplied) {
-        window.focusPatchApplied = false;
+      self.focus = false;
+      if (self.focusPatchApplied) {
+        self.focusPatchApplied = false;
         var style = document.getElementById('window').style;
         style.height = document.documentElement.clientHeight;//'100%';
         style.top = null;//'0px';
@@ -57,7 +60,7 @@
 
     // Change container's height and vertical offset after iOS scrolls it on input box focus
     window.addEventListener('scroll', function (event) {
-      if (document.body.scrollTop !== 0) {
+      if (self.focus && document.body.scrollTop !== 0) {
         // Safari only in portrait mode reports smaller size.
         var newWindowHeight = window.innerHeight;
         // If iOS in portrait mode, real height when focused is little bit bigger:
@@ -67,7 +70,7 @@
         var style = document.getElementById('window').style;
         style.height = newWindowHeight + 'px';
         style.top = offsetTop + 'px';
-        window.focusPatchApplied = true;
+        self.focusPatchApplied = true;
       }
     });
     
