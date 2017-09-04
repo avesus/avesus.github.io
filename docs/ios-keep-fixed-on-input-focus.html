@@ -11,33 +11,18 @@
       overflow: hidden;
       height: 100%;
     }
-    #fixedsContainer {
-      position: absolute;
-      top: 0px;
-      bottom: 0px;
-      width: 320px;
-      z-index: 1;
-    }
 
     #input {
-      /* Safari zooms the page in
-         if font size is less than 16px */
+      /* Safari zooms the page in if font size is less than 16px */
       font-size: 16px;
       margin: 20px 0px;
       height: 20px;
-      /*position: absolute;
-      bottom: 0px;*/
-    }
-
-    #inputsPlane {
-      position: absolute;
-      top: 0px;
-      bottom: 0px;
-      z-index: 2;
     }
   </style>
 
   <script>
+    // Move input box to the bottom of page to force Safari
+    // scroll window to obtain exact height of the visible area
     function onInputClick (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -48,6 +33,7 @@
       input.focus();
     }
     
+    // Restore input box position and height after focus (and scroll on iOS!) happens
     function onInputFocus (event) {
       var input = document.getElementById('input');
       input.style.height = '20px';
@@ -55,6 +41,7 @@
       input.style.bottom = null;
     }
     
+    // Restore container's height after unfocusing
     function onInputBlur (event) {
       if (window.focusPatchApplied) {
         var style = document.getElementById('window').style;
@@ -68,20 +55,20 @@
     window.addEventListener('resize', function (event) {
     });
 
+    // Change container's height and vertical offset after iOS scrolls it on input box focus
     window.addEventListener('scroll', function (event) {
-      //if (document.body.scrollTop !== 0) {
-        // window.scrollLock = true;
-
+      if (document.body.scrollTop !== 0) {
         // Safari only in portrait mode reports smaller size.
         var newWindowHeight = window.innerHeight;
         // If iOS in portrait mode, real height when focused is little bit bigger:
         newWindowHeight += 10.5;
-        var offsetTop = document.body.scrollTop; // or window.pageYOffset - I don't know which is better
+
+        var offsetTop = document.body.scrollTop;
         var style = document.getElementById('window').style;
         style.height = newWindowHeight + 'px';
         style.top = offsetTop + 'px';
         window.focusPatchApplied = true;
-      //}
+      }
     });
     
     document.addEventListener('DOMContentLoaded', function () {
@@ -90,18 +77,14 @@
       input.addEventListener('touchend', onInputClick);
       input.addEventListener('mousedown', onInputClick);
       input.addEventListener('focus', onInputFocus);
-      input.addEventListener('focus', onInputBlur);
+      input.addEventListener('blur', onInputBlur);
     });
   </script>
 </head>
 <body style="margin: 0; padding: 0; height: 100%">
   <div id="window">
-    <!-- <div id="fixedsContainer"> -->
-      <div style="position: absolute; top: 0px">Top</div>
-      <div style="position: absolute; bottom: 0px">Bottom</div>
-    <!-- </div>
-    <div id="inputsPlane"> -->
-      <input id="input" type="text" value="Tap me">
-    <!-- </div> -->
+    <div style="position: absolute; top: 0px">Top</div>
+    <div style="position: absolute; bottom: 0px">Bottom</div>
+    <input id="input" type="text" value="Tap me">
   </div>
 </body>
