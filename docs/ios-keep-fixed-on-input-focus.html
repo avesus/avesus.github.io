@@ -6,8 +6,7 @@
     #window {
       position: relative;
       box-sizing: border-box;
-      border: 2px solid red;
-      border-bottom: 1px solid red;
+      border: 1px solid red;
       overflow: hidden;
       height: 100%;
     }
@@ -51,7 +50,7 @@
         self.focusPatchApplied = false;
         var style = document.getElementById('window').style;
         style.height = self.clientHeightWas;
-        style.top = null;
+        style.top = '0px';
         window.scrollTo(0, 0);
       }
     }
@@ -62,10 +61,10 @@
     // Change container's height and vertical offset after iOS scrolls it on input box focus
     window.addEventListener('scroll', function (event) {
       if (self.focus && document.body.scrollTop !== 0) {
-        // Safari only in portrait mode reports smaller size.
+        // Safari only in portrait mode reports strangely smaller size in 10px.
         var newWindowHeight = window.innerHeight;
         // If iOS in portrait mode, real height when focused is little bit bigger:
-        newWindowHeight += 10.5;
+        newWindowHeight += 10;
 
         var offsetTop = document.body.scrollTop;
         var style = document.getElementById('window').style;
