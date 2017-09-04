@@ -3,6 +3,14 @@
 <head>
   <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <style>
+    #window {
+      position: relative;
+      box-sizing: border-box;
+      border: 2px solid red;
+      border-bottom: 1px solid red;
+      overflow: hidden;
+      height: 100%;
+    }
     #fixedsContainer {
       position: absolute;
       top: 0px;
@@ -28,21 +36,8 @@
       z-index: 2;
     }
   </style>
-</head>
-<body style="margin: 0; padding: 0; height: 100%">
-  <div id="window" style="position: relative; box-sizing: border-box; border: 2px solid red; border-bottom: 1px solid red; overflow: hidden; height: 100%;">
-    <div id="fixedsContainer">
-      <div style="position: absolute; top: 0px">Top</div>
-      <div style="position: absolute; bottom: 0px">Bottom</div>
-    </div>
-    <div id="inputsPlane">
-      <input id="input" type="text" value="Tap me">
-    </div>
-  </div>
-    
 
   <script>
-
     function onInputClick (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -52,18 +47,14 @@
       input.style.position = 'absolute';
       input.focus();
     }
+    
     function onInputFocus (event) {
       var input = document.getElementById('input');
       input.style.height = '20px';
       input.style.position = null;
       input.style.bottom = null;
     }
-
-    var input = document.getElementById('input');
-    input.addEventListener('touchend', onInputClick);
-    input.addEventListener('mousedown', onInputClick);
-    input.addEventListener('focus', onInputFocus);
-
+    
     window.addEventListener('resize', function (event) {
     });
 
@@ -82,6 +73,24 @@
         window.focusPatchApplied = true;
       //}
     });
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      var input = document.getElementById('input');
+      input.addEventListener('touchend', onInputClick);
+      input.addEventListener('mousedown', onInputClick);
+      input.addEventListener('focus', onInputFocus);
+    });
   </script>
-
+</head>
+<body style="margin: 0; padding: 0; height: 100%">
+  <div id="window">
+    <div id="fixedsContainer">
+      <div style="position: absolute; top: 0px">Top</div>
+      <div style="position: absolute; bottom: 0px">Bottom</div>
+    </div>
+    <div id="inputsPlane">
+      <input id="input" type="text" value="Tap me">
+    </div>
+  </div>
 </body>
