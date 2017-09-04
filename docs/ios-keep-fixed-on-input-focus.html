@@ -11,7 +11,7 @@
       height: 100%;
     }
 
-    #input {
+    input {
       /* Safari zooms page in if font size is less than 16px */
       font-size: 16px;
       margin: 20px 0px;
@@ -27,7 +27,7 @@
       self.heightWas = window.innerHeight;
       event.preventDefault();
       event.stopPropagation();
-      var input = document.getElementById('input');
+      var input = event.target;//document.getElementById('input');
       input.style.height = '1px';
       input.style.bottom = '0px';
       input.style.position = 'absolute';
@@ -37,7 +37,7 @@
     // Restore input box position and height after focus (and scroll on iOS!) happens
     function onInputFocus (event) {
       self.focus = true;
-      var input = document.getElementById('input');
+      var input = event.target;//document.getElementById('input');
       input.style.height = '20px';
       input.style.position = null;
       input.style.bottom = null;
@@ -76,10 +76,13 @@
     
     document.addEventListener('DOMContentLoaded', function () {
       
-      var input = document.getElementById('input');
-      input.addEventListener('touchend', onInputClick);
-      input.addEventListener('mousedown', onInputClick);
-      input.addEventListener('focus', onInputFocus, true);
+      var inputs = document.getElementByTagName('input');
+      for (var idx in inputs) {
+        var input = inputs[idx];
+        input.addEventListener('touchend', onInputClick);
+        input.addEventListener('mousedown', onInputClick);
+        input.addEventListener('focus', onInputFocus, true);
+      }
       document.addEventListener('blur', onDocumentBlur, true);
     });
   </script>
@@ -88,6 +91,12 @@
   <div id="window">
     <div style="position: absolute; top: 0px">Top</div>
     <div style="position: absolute; bottom: 0px">Bottom</div>
-    <input id="input" type="text" value="Tap me">
+    <input type="text" value="Tap me 1">
+    <input type="text" value="Tap me 2">
+    <input type="text" value="Tap me 3">
+    <input type="text" value="Tap me 4">
+    <input type="text" value="Tap me 5">
+    <input type="text" value="Tap me 6">
+    <input type="text" value="Tap me 7">
   </div>
 </body>
