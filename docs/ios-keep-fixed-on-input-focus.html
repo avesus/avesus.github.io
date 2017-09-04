@@ -79,8 +79,8 @@
       var input = document.getElementById('input');
       input.addEventListener('touchend', onInputClick);
       input.addEventListener('mousedown', onInputClick);
-      input.addEventListener('focus', onInputFocus);
-      document.addEventListener('blur', onDocumentBlur);
+      input.addEventListener('focus', onInputFocus, true);
+      document.addEventListener('blur', onDocumentBlur, true);
     });
   </script>
 </head>
