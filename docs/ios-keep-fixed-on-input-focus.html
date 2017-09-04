@@ -56,9 +56,6 @@
         window.scrollTo(0, 0);
       }
     }
-    
-    window.addEventListener('resize', function (event) {
-    });
 
     // Change container's height and vertical offset after iOS scrolls it on input box focus
     window.addEventListener('scroll', function (event) {
@@ -76,6 +73,8 @@
       }
     });
     
+    document.addEventListener('blur', onDocumentBlur, true);
+    
     document.addEventListener('DOMContentLoaded', function () {
       
       var inputs = document.getElementsByTagName('input');
@@ -85,7 +84,6 @@
         input.addEventListener('mousedown', onInputClick);
         input.addEventListener('focus', onInputFocus, true);
       }
-      document.addEventListener('blur', onDocumentBlur, true);
     });
   </script>
 </head>
