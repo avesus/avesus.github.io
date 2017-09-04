@@ -55,12 +55,22 @@
       input.style.bottom = null;
     }
     
+    function onInputBlur (event) {
+      if (window.focusPatchApplied) {
+        var style = document.getElementById('window').style;
+        style.height = '100%';
+        style.top = '0px';
+        // window.scrollTo(0, 0);
+        window.focusPatchApplied = false;
+      }
+    }
+    
     window.addEventListener('resize', function (event) {
     });
 
     window.addEventListener('scroll', function (event) {
       //if (document.body.scrollTop !== 0) {
-        window.scrollLock = true;
+        // window.scrollLock = true;
 
         // Safari only in portrait mode reports smaller size.
         var newWindowHeight = window.innerHeight;
@@ -80,14 +90,15 @@
       input.addEventListener('touchend', onInputClick);
       input.addEventListener('mousedown', onInputClick);
       input.addEventListener('focus', onInputFocus);
+      input.addEventListener('focus', onInputBlur);
     });
   </script>
 </head>
 <body style="margin: 0; padding: 0; height: 100%">
   <div id="window">
     <div id="fixedsContainer">
-      <div style="position: absolute; top: 0px">Top</div>
-      <div style="position: absolute; bottom: 0px">Bottom</div>
+      <div style="position: fixed; top: 0px">Top</div>
+      <div style="position: fixed; bottom: 0px">Bottom</div>
     </div>
     <div id="inputsPlane">
       <input id="input" type="text" value="Tap me">
