@@ -44,11 +44,11 @@
     // Restore container's height after unfocusing
     function onInputBlur (event) {
       if (window.focusPatchApplied) {
+        window.focusPatchApplied = false;
         var style = document.getElementById('window').style;
         style.height = '100%';
         style.top = '0px';
-        // window.scrollTo(0, 0);
-        window.focusPatchApplied = false;
+        window.scrollTo(0, 0);
       }
     }
     
