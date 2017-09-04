@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html style="height: 100% !important; -webkit-overflow-scrolling: touch !important; overflow: auto !important;">
+<head>
+  <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <style>
+    #window {
+      position: relative;
+      box-sizing: border-box;
+      border: 1px solid red;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    input {
+      /* Safari zooms page in if font size is less than 16px */
+      font-size: 16px;
+      margin: 20px 0px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; height: 100% !important; -webkit-overflow-scrolling: touch !important; overflow: auto !important;">
+  <div id="window" style="height: 100% !important; -webkit-overflow-scrolling: touch !important; overflow: auto !important;">
+    <div id="scroller" style="width: 100%; height: 100%; overflow: scroll; -webkit-overflow-scrolling: touch!important;">
+      <div style="background: rgba(255,255,0,0.3); position: relative; width: 100%;">
+        <input type="text" value="Tap me 1">
+        <input type="text" value="Tap me 2">
+        <input type="text" value="Tap me 3">
+        <input type="text" value="Tap me 4">
+        <input type="text" value="Tap me 5">
+        <input type="text" value="Tap me 6">
+        <input type="text" value="Tap me 7">
+        <input type="text" value="Tap me 8">
+        <input type="text" value="Tap me 9">
+      </div>
+    </div>
+    <div style="position: absolute; top: 0px; width: 100%; color: white; background-color: blue">Top</div>
+    <div style="position: absolute; bottom: 0px; width: 100%; color: white; background-color: blue">Bottom</div>
+  </div>
+</body>
