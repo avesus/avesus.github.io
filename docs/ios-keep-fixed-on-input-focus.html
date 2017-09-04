@@ -31,6 +31,7 @@
       input.style.height = '1px';
       input.style.bottom = '0px';
       input.style.position = 'absolute';
+      self.clientHeightWas = document.documentElement.clientHeight;
       input.focus();
     }
     
@@ -49,8 +50,8 @@
       if (self.focusPatchApplied) {
         self.focusPatchApplied = false;
         var style = document.getElementById('window').style;
-        style.height = document.documentElement.clientHeight;//'100%';
-        style.top = null;//'0px';
+        style.height = self.clientHeightWas;
+        style.top = null;
         window.scrollTo(0, 0);
       }
     }
