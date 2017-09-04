@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+  <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <style>
+    #fixedsContainer {
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      width: 320px;
+      z-index: 1;
+    }
+
+    #input {
+      /* Safari zooms the page in
+         if font size is less than 16px */
+      font-size: 16px;
+      margin: 20px 0px;
+      height: 20px;
+      /*position: absolute;
+      bottom: 0px;*/
+    }
+
+    #inputsPlane {
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; height: 100%">
+  <div id="fixedsContainer">
+    <div style="position: absolute; top: 0px">Top</div>
+    <div style="position: absolute; bottom: 0px">Bottom</div>
+  </div>
+  <div id="inputsPlane">
+    <input id="input" type="text" value="Tap me">
+  </div>
+
+  <script>
+    function onInputClick (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      var input = document.getElementById('input');
+      input.style.height = '1px';
+      input.style.bottom = '0px';
+      input.style.position = 'absolute';
+      input.focus();
+    }
+    function onInputFocus (event) {
+      var input = document.getElementById('input');
+      input.style.height = '20px';
+      input.style.position = null;
+      input.style.bottom = null;
+    }
+
+    var input = document.getElementById('input');
+    input.addEventListener('touchend', onInputClick);
+    input.addEventListener('mousedown', onInputClick);
+    input.addEventListener('focus', onInputFocus);
+
+    window.addEventListener('resize', function (event) {
+    });
+
+    document.documentElement.addEventListener('scroll', function (event) {
+      body.style.backgroundColor = 'red';
+      //if (document.body.scrollTop !== 0) {
+        window.scrollLock = true;
+
+        // Safari only in portrait mode reports smaller size.
+        var newWindowHeight = window.innerHeight;
+        // If iOS in portrait mode, real height when focused
+        // is little bit bigger:
+        newWindowHeight += 10.5;
+        var offsetTop = document.body.scrollTop; // or window.pageYOffset - I don't know which is better
+        var style = document.getElementById('fixedsContainer').style;
+        style.bottom = null;
+        style.backgroundColor = 'red';
+        style.height = 60 + 'px';//newWindowHeight + 'px';
+        //style.top = offsetTop + 'px';
+        window.focusPatchApplied = true;
+      //}
+    });
+  </script>
+
+</body>
