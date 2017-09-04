@@ -77,7 +77,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       
       var inputs = document.getElementsByTagName('input');
-      for (var idx in inputs) {
+      for (var idx = 0; idx < inputs.length; ++idx) {
         var input = inputs[idx];
         input.addEventListener('touchend', onInputClick);
         input.addEventListener('mousedown', onInputClick);
