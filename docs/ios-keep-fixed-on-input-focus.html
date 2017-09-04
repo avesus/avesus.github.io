@@ -44,7 +44,7 @@
     }
     
     // Restore container's height after unfocusing
-    function onWindowBlur (event) {
+    function onDocumentBlur (event) {
       self.focus = false;
       if (self.focusPatchApplied) {
         self.focusPatchApplied = false;
@@ -80,7 +80,7 @@
       input.addEventListener('touchend', onInputClick);
       input.addEventListener('mousedown', onInputClick);
       input.addEventListener('focus', onInputFocus);
-      window.addEventListener('blur', onInputBlur);
+      document.addEventListener('blur', onDocumentBlur);
     });
   </script>
 </head>
