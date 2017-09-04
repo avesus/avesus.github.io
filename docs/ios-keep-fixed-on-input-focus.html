@@ -76,7 +76,7 @@
     
     document.addEventListener('DOMContentLoaded', function () {
       
-      var inputs = document.getElementByTagName('input');
+      var inputs = document.getElementsByTagName('input');
       for (var idx in inputs) {
         var input = inputs[idx];
         input.addEventListener('touchend', onInputClick);
