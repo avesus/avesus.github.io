@@ -42,9 +42,7 @@
     
 
   <script>
-    
-    body.style.backgroundColor = 'blue';
-    
+
     function onInputClick (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -69,22 +67,18 @@
     window.addEventListener('resize', function (event) {
     });
 
-    window.documentElement.addEventListener('scroll', function (event) {
-      body.style.backgroundColor = 'red';
+    window.addEventListener('scroll', function (event) {
       //if (document.body.scrollTop !== 0) {
         window.scrollLock = true;
 
         // Safari only in portrait mode reports smaller size.
         var newWindowHeight = window.innerHeight;
-        // If iOS in portrait mode, real height when focused
-        // is little bit bigger:
+        // If iOS in portrait mode, real height when focused is little bit bigger:
         newWindowHeight += 10.5;
         var offsetTop = document.body.scrollTop; // or window.pageYOffset - I don't know which is better
-        var style = document.getElementById('fixedsContainer').style;
-        style.bottom = null;
-        style.backgroundColor = 'red';
-        style.height = 60 + 'px';//newWindowHeight + 'px';
-        //style.top = offsetTop + 'px';
+        var style = document.getElementById('window').style;
+        style.height = newWindowHeight + 'px';
+        style.top = offsetTop + 'px';
         window.focusPatchApplied = true;
       //}
     });
