@@ -11,6 +11,14 @@ stylesheet.innerText = `
 @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
 
+section {
+	word-break: normal;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+	text-align: justify;
+	text-justify: auto;
+}
+
 @media print {
 	@page :first {
 		margin-top: 2in;
@@ -134,11 +142,13 @@ stylesheet.innerText = `
 	}
 
 	header {
+		line-height: 1.0;
 		font-size: 50px;
 		margin-right: -100px;
 		margin-left: -100px;
 		font-family: 'Spectral', serif;
 		text-align: center;
+		margin-bottom: 20px;
 	}
 
 	address {
@@ -161,6 +171,38 @@ stylesheet.innerText = `
 		font-weight: normal;
 	}
 }
+
+@media screen and (max-width: 920px) {
+
+	body {
+		width: auto;
+	}
+}
+
+@media screen and (min-width: 320px) and (max-width: 800px) {
+	section.abstract {
+		width: auto;
+	}
+}
+
+@media screen and (max-width: 640px) {
+	body {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+
+	header {
+		margin-right: 10px;
+		margin-left: 10px;
+	}
+}
+
+@media screen and (min-width: 801px) and (max-width: 920px) {
+/*	section.abstract {
+		width: 500px;
+	}*/
+}
+
 /*
 body {
 	line-height: 1.2;
