@@ -40,6 +40,233 @@ Another word for "control" is "regulation".
 The mysterious combination of the controlled outcomes ("results", "outputs") is often called "computation".
 </p>
 </section>
+
+<section><h1>2. Start using your browser's control over space</h1>
+<p>
+We can run many switching operations simultaneously using parallelism provided by GPU.
+Let's enable WebGL API so we can issue descriptions of what to compute to the GPU:</p>
+
+<textarea class="code">
+const gl_canvas =
+	document.createElement('canvas');
+gl_canvas.setAttribute('width', '1px');
+gl_canvas.setAttribute('height', '1px');
+
+window.gl = gl_canvas.getContext('webgl', {
+	depth: false,
+	stencil: false,
+	alpha: false,
+	antialias: false,
+	preserveDrawingBuffer: false,
+	failIfMajorPerformanceCaveat: false,
+	powerPreference: 'high-performance',
+	desynchronized: true,
+});
+
+// this.insertAdjacentElement('afterend',
+// gl_canvas);
+
+return gl;
+</textarea>
+
+<p>The sequence of calls to get our GLSL shader compiled is rather verbose.
+It follows C API, which doesn't make too much sense in JavaScript world.
+Let's ignore the fact, and pack it inside a function, so we can call it each time
+we need to compile a new shader:</p>
+
+<textarea class="code">
+window.compile_shader = (gl, vertSrc, fragSrc) => {
+
+	const vertex_shader =
+		gl.createShader(gl.VERTEX_SHADER);
+
+	gl.shaderSource(vertex_shader, vertSrc);
+	gl.compileShader(vertex_shader);
+
+	const frag_shader =
+		gl.createShader(gl.FRAGMENT_SHADER);
+
+	gl.shaderSource(frag_shader, fragSrc);
+	gl.compileShader(frag_shader);
+
+	const program = gl.createProgram();
+	gl.attachShader(program, vertex_shader);
+	gl.attachShader(program, frag_shader);
+	gl.linkProgram(program);
+
+	if (!gl.getProgramParameter(program,
+			gl.LINK_STATUS)) {
+		let error_text =
+			`Could not initialise shaders ${
+				gl.getProgramInfoLog(program) }\n`;
+
+		if (!gl.getShaderParameter(vertex_shader,
+				gl.COMPILE_STATUS)) {
+			error_text += `failed to compile vertex ${
+				gl.getShaderInfoLog(vertex_shader) }\n`;
+		}
+		
+		if (!gl.getShaderParameter(frag_shader,
+				gl.COMPILE_STATUS)) {
+			error_text += `failed to compile vertex ${
+				gl.getShaderInfoLog(frag_shader) }\n`;
+		}
+		throw Error(error_text);
+	}
+
+	const compile_log = '' +
+		gl.getShaderInfoLog(vertex_shader) +
+		gl.getShaderInfoLog(frag_shader) +
+		gl.getProgramInfoLog(program);
+
+	if (compile_log) {
+		throw Error(compile_log);
+	}
+
+	return program;
+};
+</textarea>
+
+
+<p>Now we can call the <code>compile_shader()</code> function.
+A vertex and a fragment shader source code strings are passed as arguments.
+And we also pass a WebGL API reference associated with the canvas.
+What happens next is OpenGL ES 2 driver compiles these two GLSL shader source codes
+into a corresponding GPU instruction set.</p>
+
+<textarea class="code">
+const vertex_shader = `
+#version 100
+
+precision highp float;
+attribute vec2 attr_vertex_pos;
+void main() {
+  gl_Position = vec4(attr_vertex_pos.xy,
+  	0.0, 1.0);
+}
+`;
+
+const fragment_shader = `
+#version 100
+
+# ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+precision highp int;
+precision highp sampler2D;
+# else
+precision mediump float;
+precision lowp int;
+precision lowp sampler2D;
+# endif
+
+uniform sampler2D texture_0;
+
+void main() {
+	vec4 input_data = texture2D(
+		texture_0, vec2(0.0, 0.0));
+
+	// Just return the pixel
+	gl_FragData[0] = input_data;
+}
+`;
+
+window.shader =
+	compile_shader(gl,
+		vertex_shader,
+		fragment_shader);
+
+window.attr_vertex_pos = gl.getAttribLocation(
+	shader, 'attr_vertex_pos');
+
+
+window.uniform_texture_0 =
+	gl.getUniformLocation(
+		shader, 'texture_0');
+
+return [shader,
+	attr_vertex_pos,
+	uniform_texture_0];
+</textarea>
+
+<p>Let's check out if we can write shaders which produce floating point values
+rather than 4 bytes of RGBA in the range from 0 to 255.</p>
+
+<textarea class="code">
+return gl.getExtension('WEBGL_color_buffer_float');
+</textarea>
+
+<p>If it shows <em>OK</em>, then the shader can only output 4 byte values. No float rendering on this platform.</p>
+
+<p>Perhaps, we can render simultaneously to multiple textures?</p>
+<textarea class="code">
+const ext_draw_buffers =
+	gl.getExtension('WEBGL_draw_buffers');
+return ext_draw_buffers &&
+	ext_draw_buffers.MAX_COLOR_ATTACHMENTS_WEBGL
+	// ext_draw_buffers.MAX_DRAW_BUFFERS_WEBGL
+</textarea>
+
+<p>Typically, mobile platforms don't support rendering to floating point textures,
+and don't support rendering to multiple textures simultaneously.</p>
+
+<p>When running a shader, can we at least fetch 4-vectors of floating point values?</p>
+<textarea class="code">
+return gl.getExtension('OES_texture_float');
+</textarea>
+
+<p>Let's leave high-performance rendering for special use cases, and use
+the most compatible configuration (fetch from 8 floating point vec4,
+but render to just 4 bytes - 32 bits of result in a shader thread).
+Luckily, fetching vec4 from 4 bytes doesn't have memory tranfer penalty,
+so we can move the same buffer back-and-forth while recomputing the <em>next state</em>.</p>
+
+<p>Let's run our first GLSL shader. At first, we need to understand how to invoke a shader code.
+Since GPU is a <em>graphics</em> processing unit, the traditional way is to pass a set of triangles
+to toggle rendering.</p>
+
+<p>How do we render triangles? We need a render target.
+We omitted attaching our canvas to the page, so we don't have to render to the framebuffer,
+but we're going to render into a <em>texture</em> instead.</p>
+
+<p>Note that the range of output data to be recomputed is directly determined
+by the <em>triangles</em> we're about to render. We can enable reactivity and lazy recomputation
+of only areas which do require to get updated. In general case though, when each data output
+depends on each data input, it's impossible to determine what outputs will become changed:
+that's the very purpose of any computation.</p>
+
+<p>Let's try a 1x1 pixel texture first:</p>
+<textarea class="code">
+window.gpgpu_texture_width = 1;
+window.gpgpu_texture_height = 1;
+
+gl.useProgram(shader);
+
+gl.viewport(0, 0,
+	gpgpu_texture_width, gpgpu_texture_height);
+
+// Enables multiple shader texture uniforms
+gl.activeTexture(gl.TEXTURE0);
+gl.uniform1i(uniform_texture_0, 0);
+
+gl.bindTexture(gl.TEXTURE_2D, gpgpu_texture_0);
+
+
+
+gl.enableVertexAttribArray(pos_attr);
+// BYTE: signed 8-bit integer, with values in [-128..127] (when normalized mapped to [-1..1] with step 0.0078125)
+// SHORT: signed 16-bit integer, with values in [-32768..32767] (when normalized mapped to [-1..1] with step 0.000030517)
+// UNSIGNED_BYTE: unsigned 8-bit integer, with src values in [0..255] (when normalized mapped to [0..1] with step 0.00390625)
+// UNSIGNED_SHORT: unsigned 16-bit integer, with values in [0..65535] (when normalized mapped to [0..1] with step 0.000015258)
+// FLOAT: 32-bit IEEE floating point number, never normalized
+gl.vertexAttribPointer(pos_attr, 2, gl.FLOAT, false, 0, 0);
+
+</textarea>
+
+<textarea class="code">
+gl.useProgram(compiled_shader);
+</textarea>
+
+</section>
 </main>
 
 <nav>

@@ -10,6 +10,7 @@ stylesheet.innerText = `
 
 @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
 section {
 	word-break: normal;
@@ -19,9 +20,62 @@ section {
 	text-justify: auto;
 }
 
+pre, code, textarea {
+	font-size: 16px;
+	font-family: 'Inconsolata', monospace;
+}
+
+pre.error {
+	color: #aa0000;
+	-webkit-hyphens: none;
+	hyphens: none;
+}
+
+pre.success {
+	margin-top: 0;
+	color: green;
+	-webkit-hyphens: none;
+	hyphens: none;
+}
+
+pre {
+	white-space: pre-wrap;
+}
+
+button {
+	font-family: 'Inconsolata', monospace;
+	font-size: 24px;
+	/*outline: none;
+	padding: 0;
+	border: none;
+	background: none;*/
+}
+
+textarea {
+	-webkit-hyphens: none;
+	hyphens: none;
+	width: 100%;
+	border-radius: 0;
+	padding: 0;
+	tab-size: 2;
+	outline: none;
+}
+
 @media print {
-	@page :first {
-		margin-top: 2in;
+	.run-button {
+		display: none;
+	}
+
+	textarea {
+		font-size: 8pt;
+		display: block;
+		overflow: hidden;
+		white-space: pre;
+		resize: none;
+		outline: none;
+		border: none;
+		padding: 0;
+		width: 100% !important;
 	}
 
 	@page {
@@ -33,6 +87,9 @@ section {
 	}
 
 	body {
+		margin-top: 2in;
+		margin-left: 0;
+		margin-right: 0;
 		font-size: 10pt;
 		font-family: 'EB Garamond', serif;
 	}
@@ -48,6 +105,7 @@ section {
 	}
 
 	section.abstract {
+		-webkit-column-count: 1;
 		column-count: 1;
 		width: 3.5in;
 		text-align: justify;
@@ -56,10 +114,18 @@ section {
 	}
 
 	main {
-		column-count: 2;
+		-webkit-column-count: 2 !important;
+		column-count: 2 !important;
 		/*column-width: 2.95in;*/
-		column-gap: 0.4in;
+
+		-webkit-column-gap: 0.4in !important;
+		column-gap: 0.4in !important;
 		text-align: justify;
+	}
+
+	h1 {
+		font-size: 16pt;
+		font-weight: normal;
 	}
 
 	a {
@@ -170,6 +236,13 @@ section {
 		font-size: 26px;
 		font-weight: normal;
 	}
+
+	textarea {
+		border: 0;
+		/* color: #000000;
+		background-color: #f4f4f4; */
+		white-space: pre-wrap;
+	}
 }
 
 @media screen and (max-width: 920px) {
@@ -182,6 +255,10 @@ section {
 @media screen and (min-width: 320px) and (max-width: 800px) {
 	section.abstract {
 		width: auto;
+	}
+
+	textarea {
+		font-size: 12px;
 	}
 }
 
@@ -197,31 +274,91 @@ section {
 	}
 }
 
-@media screen and (min-width: 801px) and (max-width: 920px) {
-/*	section.abstract {
-		width: 500px;
-	}*/
-}
-
-/*
-body {
-	line-height: 1.2;
-}
-
-@media screen
-	and (min-width: 320px)
-	and (max-width: 480px) {
-/*	and (resolution: 150dpi) { * /
-
-	body {
-		/*margin: 200px;* /
-		line-height: 1.4;
-	}
-}
-*/
-
 
 `;
 
 document.head.appendChild(stylesheet);
+
+const NAV = [
+	'Home', '/',
+	[	'From the ground up', 'from-the-ground-up',
+		'Scaffolding', 'scaffolding',
+	],
+];
+
+const snippets = [];
+
+const run_previous_snippets = (before_index) => {
+	if (!before_index) {
+		return true;
+	}
+
+	for (let i = 0; i < before_index; ++i) {
+		if (snippets[i]) {
+			if (!snippets[i]()) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+};
+
+const insert_report = (after_elt, text, class_name) => {
+	const message = document.createElement('pre');
+	message.className = class_name;
+	message.innerHTML = text;
+	after_elt.insertAdjacentElement('afterend', message);
+};
+
+document.addEventListener('DOMContentLoaded', e => {
+	let function_name_index = 0;
+
+	document.body.querySelectorAll('textarea.code').forEach(code_element => {
+
+
+		const lines_count = code_element.value.split(/\r*\n/).length;
+		code_element.setAttribute('rows', lines_count);
+		code_element.setAttribute('spellcheck', false);
+		code_element.id = `code-${ function_name_index }`;
+		const run_button = document.createElement('button');
+		run_button.className = 'run-button';
+		run_button.id = `run-code-${ function_name_index }`;
+		run_button.innerHTML = 'Run the code';
+
+		const generated_code_name = `dynamic_${ function_name_index }`;
+
+		const on_button_clicked_callback = function_name_index => () => {
+
+			document.body.querySelectorAll('pre.error').forEach(n => n.remove());
+
+			if (!run_previous_snippets(function_name_index)) {
+				return false;
+			}
+
+			try {
+				const code = new Function(generated_code_name, code_element.value);
+				const result = code.apply(code_element.parentElement);
+				insert_report(code_element, result || 'OK', 'success');
+
+				document.body.querySelectorAll(`button.run-button#run-${ code_element.id }`)[0].remove();
+				snippets[function_name_index] = undefined;
+
+				return true;
+
+			} catch (e) {
+				insert_report(code_element, e, 'error');
+				return false;
+			}
+		};
+		
+		const handler = on_button_clicked_callback(function_name_index);
+
+		snippets[function_name_index++] = handler;
+
+		run_button.addEventListener('click', handler);
+
+		code_element.insertAdjacentElement('afterend', run_button);
+	});
+});
 
