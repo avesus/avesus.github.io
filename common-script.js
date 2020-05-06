@@ -88,7 +88,17 @@ h2:before {
     counter-increment: h2counter;
 }
 
+dt {
+	margin-top: 0.5em;
+	font-weight: normal;
+}
+
 @media print {
+	html {
+    	-webkit-transform-origin: 0 0;
+    	transform-origin: 0 0;
+	}
+
 	.run-button {
 		display: none;
 	}
@@ -106,7 +116,7 @@ h2:before {
 	}
 
 	@page {
-		margin: 1in;
+		margin: 0in !important;
 	}
 
 	nav {
@@ -115,8 +125,8 @@ h2:before {
 
 	body {
 		margin-top: 2in;
-		margin-left: 0;
-		margin-right: 0;
+		margin-left: 1in;
+		margin-right: 1in;
 		font-size: 10pt;
 		font-family: 'EB Garamond', serif;
 	}
@@ -160,6 +170,10 @@ h2:before {
 		font-weight: normal;
 	}
 
+	p {
+    	page-break-inside: avoid;
+	}
+
 	a {
     	page-break-inside: avoid;
 	}
@@ -171,6 +185,15 @@ h2:before {
 	h1, h2, h3, h4, h5, h6 {
 		page-break-after: avoid;
     	page-break-inside: avoid
+	}
+
+	dt {
+	    page-break-after: avoid !important;
+		page-break-inside: avoid;
+	}
+
+	dd {
+		page-break-before: avoid !important;
 	}
 
 	img {
@@ -200,6 +223,7 @@ h2:before {
 
 	a[href^=http]:after {
 		content:" < " attr(href) "> ";
+		word-break: break-all;
 	}
 
 	$a:after > img {
@@ -212,6 +236,7 @@ h2:before {
 
 	a:not(:local-link):after {
 		content:" < " attr(href) "> ";
+		word-break: break-all;
 	}
 }
 
