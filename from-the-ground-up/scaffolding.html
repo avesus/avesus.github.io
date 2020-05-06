@@ -10,23 +10,16 @@
 <p>
 Let's experiment with computation using the browser, and nothing else.
 It's 2020, so we already can run almost low-level assembly instructions code in WebAssembly.
-</p>
-<p>
 We have WebGL 1.0 consistently deployed in every device fully supporting GPU rendering API
 called OpenGL ES 2.0.
-</p>
-<p>
 And we have classes and destructuring in ES6, which is the best version of JavaScript web came up with.
-</p>
-
-<p>
 Let's ignore cool kids' toolchains and frameworks: these cause trouble impeding simple explanations
 of concepts. We're going to build everything literally from scratch.
 </p>
 </section>
 
 <main>
-<section><h1>Control: relay switch to reality simulator</h1>
+<section><h1>Control: from a relay switch to a reality simulator</h1>
 <p>
 Let's explore the concept of control.</p>
 
@@ -41,7 +34,7 @@ The mysterious combination of the controlled outcomes ("results", "outputs") is 
 </p>
 </section>
 
-<section><h1>WebGL: controlling browser in space and time</h1>
+<section><h1>WebGL theory: controlling browser in space and time</h1>
 <h2>Terminology</h2>
 <p>GPU shader does this:<ol>
 	<li>reads texture bits</li>
@@ -145,7 +138,7 @@ purposes (real-time graphics and high-resolution export).</p>
 color buffer memory is often full write. As optimization,
 we can render triangles and rectangles to only run shader
 over specified block of output memory,
-when we know for sure for which areas recomputation is needed</p>.
+when we know for sure for which areas recomputation is needed.</p>
 <ul>
 <li>Mobile color buffer <pre><code>1 color buffer
 *
@@ -183,8 +176,155 @@ but it's irrelevant for GPGPU computation.</li>
 <p>On most systems, memory bandwidth is the main limiting factor of how many bits can
 be computed per second. A laptop with DDR4-2400, for example, has 18.75 GB/s.
 iPhone XS Max' LPDDR4X has 8.33 GB/s.</p>
-	
-<h2>Code</h2>
+
+<h2>Single shader run output per fragment</h1>
+
+<p>On mobile it's 32 bits. On desktop it's <em>32 times more</em>, 1024 bits.</p>
+
+<p>Discretizing to the minimum workload in fragments,
+it's a 1x1 fragment on a desktop system equalling to 8x4 fragments on a smartphone.</p>
+
+<p>8 vec4 can be read matching precisely these:
+<ul><li>8 fetches - from the same 8 output color buffers on desktop;</li>
+	<li>or 8 fetches from the same texture on mobile (doesn't have to be that way, but can).</li>
+</ul>
+Is there a performance difference between 8 different textures vs. the same texture
+accessed with 8 different coordinates in a GLSL shader?</p>
+
+<p>On low-end mobile without floating point textures (should we even support these in 2020?)
+only 8 bits per channel RGBA textures can be read.</p>
+
+<h2>Making API GLSL decisions</h2>
+
+<p>In an attempt to establish a cohesive GLSL API (which can utilize resources
+in an efficient enough manner, and still preserve a great deal of compatibility,
+to maintain scalability of demonstrational and educational purposes,
+and just for the simplicity of experimentation), we need to come up with simple
+I/O interface, abstract enough to scale to other architectures (FPGA and ASIC included),
+representing interace to digital computation in the most general way: through a set of
+binary bits I/O surfaces; with internal state bits (memory).</p>
+
+<p>All practical computing systems have these classes of bit surfaces:
+<dl>
+	<dt>INPUTS from external world</dt>
+	<dd>Happen asynchronously to internal computational processes.
+	    Can require buffering or external REQ signal synchronizer
+	    when implemented in FPGA. We split external inputs into two categories:
+		<ul>
+			<li>Synchronized REQ input signals.
+				Assumed as already passed through two flip-flops
+				clocked by any given current "computation wave" clock
+				(there might be many local clocks).</li>
+			<li>Asynchronous input signals. Volatile data, coordinated by one of the REQ signals.
+			In our computing code, to be consistent with FPGA and ASIC implementations,
+			we're not allowed to read from these bits unless a REQ signal allows us.
+			A simple way to think about this is to keep an assumption, that
+			bits in this surface can change while a GPU shader is reading these.</li>
+		</ul>
+		None of these are automatically buffered. Special actions of copying or managing
+		write/read pointers must taken. (More detail on the subject can be found in Daniel Chapiro's
+		<a target="_blank" href="https://www.researchgate.net/publication/234285814_Globally-asynchronous_locally-synchronous_systems">
+		PhD thesis work</a> on GALS - globally asynchronous-locally synchronous systems.)
+
+	</dd>
+
+	<dt>OUTPUTS visible to external world</dt>
+	<dd>The resulting bits of computation.
+		Each bit in this surface is naturally backed by a memory flip-flop,
+		so external world consumer can read it at any moment.
+		We don't have to keep it non-volatile while they are reading these bits,
+		but we must <em>electrically</em> back their 0 or 1 values.
+		This statement is equivalent to saying that we don't support the
+		<a target="_blank" href="https://en.wikipedia.org/wiki/Mealy_machine">
+		Mealey-style</a> state machines.</dd>
+
+	<dt>HIDDEN STATE, fully controlled internally and invisible to external world</dt>
+	<dd>Has many subareas:
+		<ul>
+			<li>Constant surfaces which never change (think &pi;, for example).</li>
+			<li>Fixed source code. ROM-style never update procedures.
+				On Earth, bugs are always around,
+				so these things are unlikely to be read-only forever.</li>
+			<li>Dynamic source code. Think about these as deployed multiple-data
+				processing depending on load. Or a dynamic code buit and edited in an IDE.
+				Or optimized-JIT-compiled stuff to run math more efficiently than
+				using higher level interpreted code. All source code can live in this area
+				to be upgradable.</li>
+			<li>Data caches. The most important stuff. State machine state. Intermediate state.
+				OOP field state. Momentum, velocity, pressure etc.</li>
+		</ul>
+	</dd>
+</dl>
+</p>
+
+<p>A subcategory belonging both to inputs and to outputs
+can be an Interrupt Vector Table triggering signal.
+
+Computational processes can run independently from inputs,
+<em>polling</em> values when computational process decides to do that.
+In a comletely reactive system, this polling is not necessary to
+start computation. A hardware interrupt mechanism wakes up processing
+when specified bits of data change. In a reactive system, there is
+a concept of <em>modified bits</em>. The hardware circuits of IVT simply
+set these modified bits so the rest of spiking reactive processing
+can take place.</p>
+
+<p>The IVT concept can be implemented restricting which bits
+should cause shader re-run, when code run in simulation mode.
+Instead of launching GPGPU shader on any writable by external world
+surface change, it can define a small restricted area.
+Switching between computing and sleeping modes is non-trivial idea,
+when attempting the compatibility between the classic CPU IVT model,
+FPGA reactive implmentation, and a GPGPU emulation.</p>
+
+<p>IVTs are kind of internal-code driven subscriptions.
+There should be an area visible to external world,
+an interrupt handling vector can be installed in a way
+saying, "if these bits change externally,
+write those other bits here	and there - marking those as modified",
+in the emulation mode re-running computation,
+or waking the CPU/GPU after chaning the bits.
+</p>
+
+<p>While running dynamically, even in the FPGA world,
+the three classes of bit surfaces become five:
+<ol>
+	<li>IN: externally provided state.</li>
+	<li>IN: current hidden state.</li>
+	<li>IN: current visible state.</li>
+
+	<li>OUT: next hidden state.</li>
+	<li>OUT: next visible state.</li>
+</ol>
+</p>
+
+<p>Considering the subcategories listed above,
+our textures and color buffers must concern the following ten IO types:
+<ol>
+	<li>IN_EXT_REQ: two flip-flops synchronized external state.</li>
+	<li>IN_EXT_DATA: coordinated by IN_REQ signals external state.</li>
+
+	<li>IN_CONST: never changing hidden data.</li>
+	<li>IN_CODE_ROM: never changing code.</li>
+
+	<li>IN_CODE_RAM: current code.</li>
+	<li>IN_DATA: current hidden state.</li>
+	<li>IN_VISIBLE: current visible state (provided so easier to change).</li>
+
+	<li>OUT_CODE_RAM: potentially self-modified code.</li>
+	<li>OUT_DATA: next hidden data.</li>
+	<li>OUT_VISIBLE: next visible state.</li>
+</ol>
+</p>
+
+<p>The analyzis we made is important, because it clearly shows that
+a significant part of textures is not required to be written in every shader run
+as a color buffer target.
+We never write into textures which do represent external input,
+which back constant values for our computation,
+or have fixed algorithms which we might prefer to keep intact.</p>
+
+<h1>WebGL code</h1>
 
 <p>We can run many switching operations simultaneously using parallelism provided by GPU.
 Let's enable WebGL API so we can issue descriptions of what to compute to the GPU:</p>
