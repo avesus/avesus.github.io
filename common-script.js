@@ -61,6 +61,33 @@ textarea {
 	outline: none;
 }
 
+dt {
+	font-weight: bold;
+	font-style: italic;
+}
+
+body {
+    counter-reset: h1counter;
+}
+
+h1, h2 {
+	text-align: left !important;
+}
+
+h1 {
+    counter-reset: h2counter;
+}
+
+h1:before {
+	content: counter(h1counter) ". ";
+    counter-increment: h1counter;
+}
+
+h2:before {
+	content: counter(h1counter) "." counter(h2counter) ". ";
+    counter-increment: h2counter;
+}
+
 @media print {
 	.run-button {
 		display: none;
@@ -125,6 +152,11 @@ textarea {
 
 	h1 {
 		font-size: 16pt;
+		font-weight: normal;
+	}
+
+	h2 {
+		font-size: 14pt;
 		font-weight: normal;
 	}
 
@@ -237,6 +269,11 @@ textarea {
 		font-weight: normal;
 	}
 
+	h2 {
+		font-size: 22px;
+		font-weight: normal;
+	}
+
 	textarea {
 		border: 0;
 		/* color: #000000;
@@ -324,7 +361,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		const run_button = document.createElement('button');
 		run_button.className = 'run-button';
 		run_button.id = `run-code-${ function_name_index }`;
-		run_button.innerHTML = 'Run the code';
+		run_button.innerHTML = '^^^ run this code ^^^';
 
 		const generated_code_name = `dynamic_${ function_name_index }`;
 
@@ -339,7 +376,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			try {
 				const code = new Function(generated_code_name, code_element.value);
 				const result = code.apply(code_element.parentElement);
-				insert_report(code_element, result || 'OK', 'success');
+				insert_report(code_element, result || '(code ran without errors)', 'success');
 
 				document.body.querySelectorAll(`button.run-button#run-${ code_element.id }`)[0].remove();
 				snippets[function_name_index] = undefined;

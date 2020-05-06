@@ -26,7 +26,7 @@ of concepts. We're going to build everything literally from scratch.
 </section>
 
 <main>
-<section><h1>1. Control: from switches to simulators</h1>
+<section><h1>Control: relay switch to reality simulator</h1>
 <p>
 Let's explore the concept of control.</p>
 
@@ -41,9 +41,152 @@ The mysterious combination of the controlled outcomes ("results", "outputs") is 
 </p>
 </section>
 
-<section><h1>2. Start using your browser's control over space</h1>
-<p>
-We can run many switching operations simultaneously using parallelism provided by GPU.
+<section><h1>WebGL: controlling browser in space and time</h1>
+<h2>Terminology</h2>
+<p>GPU shader does this:<ol>
+	<li>reads texture bits</li>
+	<li>intertwines texture bits</li>
+	<li>writes texture bits</li>
+</ol>
+There's literally no black magic beyond that.
+</p>
+
+<p>To avoid confusion between pixels, texels, and fragments, let's define these:</p>
+
+<dl>
+	<dt>Pixel</dt><dd>Visible on the screen <em>pic</em>ture <em>el</em>ement.</dd>
+	<dt>Texel</dt><dd><em>Tex</em>ture <em>el</em>ement when shader <em>reads</em> it.</dd>
+	<dt>Fragment</dt><dd>Pixel, texel, or an argument of resulting one when shader <em>writes</em>
+		result of computation.
+		Called "fragment" rather than "pixel" because one resulting pixel can be
+		composed of more than one fragment in many runs, plus things like stencil and depth buffers
+		influence what the result will be. It also can be <code>discard</code>'ed: no write will happen.</dd>
+	<dt>Texture image unit</dt><dd>An array of texels available for one shader run.
+		All GPUs support 8 simultaneous texture image units.
+		Some systems can have 16, or 32.</dd>
+	<dt>Color buffer</dt><dd>An array of pixels into which shader writes.
+		Most mobile platforms have only one color buffer,
+		and it's typically 32 bits per pixel wide.</dd>
+</dl>
+
+<p>The multiplicity of all texture image units, all texture sizes,
+and the number of bits per texel define full addressable range of shader inputs.</p>
+
+<p>Maximum texture size is 4096 by 4096 texels.</p>
+
+<p>The number of bits per texel is 32 on mobile platforms, and 128 on laptops.
+32 bits per texel comes from four R, G, B, and A channels 8 bits (0..255) each.
+128 bits per texel comes from four 32-bit floating point numbers.
+128 bits per texel is only available with <code>OES_texture_float</code> extension enabled.
+It's available on the most but very low-end platforms.</p>
+
+<p>Texture image units comprise primary high-bandwidth input to shader.</p>
+
+<p>Color buffers comprise the main output. On laptops there are 8 color buffers.</p>
+
+<p>Color buffer size varies from 4096x4096 on phones, to 16384x16384 on laptops.
+Due to texture flipping technique, using those color buffers for GPGPU doesn't give
+a performance advantage. The only use of the color buffer resolutions above 4096
+is for actual graphical rendering of visible images, which are not intended to be
+used as textures.</p>
+
+<p>Our main goal is to do GPGPU rather than rendering graphics, so let's assume
+that the maximum color buffer size is 4096 by 4096, and only bump it up for special
+purposes (real-time graphics and high-resolution export).</p>
+
+<h2>Total addressable shader input</h2>
+<ul>
+<li>Low-end mobile: <pre><code>8 texture units
+*
+4096 texels wide
+*
+4096 texels tall
+*
+4 RGBA channels
+*
+8 bits channel
+=
+4,294,967,296 bits
+=
+536,870,912 bytes = 512 MB.</code></pre></li>
+<li>Typical mobile: <pre><code>8 texture units
+*
+4096 texels wide
+*
+4096 texels tall
+*
+4 RGBA channels
+*
+32 bits channel (float)
+=
+17,179,869,184 bits
+=
+2,147,483,648 bytes = 2 GB.</code></pre></li>
+<li>A simple laptop: <pre><code>32 texture units
+*
+4096 texels wide
+*
+4096 texels tall
+*
+4 RGBA channels
+*
+32 bits channel (float)
+=
+68,719,476,736 bits
+=
+8,589,934,592 bytes = 8 GB.</code></pre></li>
+</ul>
+
+<p>High-end AMD and Nvidia GPUs allow addressing even larger texture memory.</p>
+
+<h2>Total addressable shader output</h2>
+
+<p>If texture unit memory is a potential access,
+color buffer memory is often full write. As optimization,
+we can render triangles and rectangles to only run shader
+over specified block of output memory,
+when we know for sure for which areas recomputation is needed</p>.
+<ul>
+<li>Mobile color buffer <pre><code>1 color buffer
+*
+4096 texels wide
+*
+4096 texels tall
+*
+4 RGBA channels
+*
+8 bits channel
+=
+536,870,912 bits
+=
+67,108,864 bytes = 64 MB.</code></pre>Not much per a shader run.
+Note that visible mobile framebuffer often has less than 8 bits per channel,
+but it's irrelevant for GPGPU computation.</li>
+<li>Laptop color buffer in GPGPU mode <pre><code>8 color buffers
+*
+4096 texels wide
+*
+4096 texels tall
+*
+4 RGBA channels
+*
+32 bits channel (float)
+=
+17,179,869,184 bits
+=
+2,147,483,648 bytes = 2 GB.</code></pre></li>
+<li>Laptop color buffer in graphics mode makes sense
+	to output just one color buffer, despite the support of 8,
+	rendering an RGB image 768 MB large (16384x16384 size).</li>
+</ul>
+
+<p>On most systems, memory bandwidth is the main limiting factor of how many bits can
+be computed per second. A laptop with DDR4-2400, for example, has 18.75 GB/s.
+iPhone XS Max' LPDDR4X has 8.33 GB/s.</p>
+	
+<h2>Code</h2>
+
+<p>We can run many switching operations simultaneously using parallelism provided by GPU.
 Let's enable WebGL API so we can issue descriptions of what to compute to the GPU:</p>
 
 <textarea class="code">
@@ -134,6 +277,7 @@ And we also pass a WebGL API reference associated with the canvas.
 What happens next is OpenGL ES 2 driver compiles these two GLSL shader source codes
 into a corresponding GPU instruction set.</p>
 
+
 <textarea class="code">
 const vertex_shader = `
 #version 100
@@ -213,6 +357,35 @@ and don't support rendering to multiple textures simultaneously.</p>
 <textarea class="code">
 return gl.getExtension('OES_texture_float');
 </textarea>
+
+<p>Let's abstract out the difference between high-performance GPU in a laptop,
+and a battery-efficient GPU in a smartphone, and write a GLSL wrapper to call our shaders.</p>
+
+<p>In the shader source code, we'll make global parameters available, so our code can adjust correspondingly.
+The code might look like this:</p>
+
+<textarea class="code">
+`
+
+void main () {
+  // Location of current output pixel.
+  gl_FragCoord.xy;
+
+  vec2 screenPos = gl_FragCoord.xy - 0.5;
+  float x = screenPos.x;
+  float y = screenPos.y;
+
+  float oddRow = mod(y, 2.0) > 0.0 ? 0.0 : 1.0;
+
+  // Writing output into a plane
+  // a) Smartphone mode - 32 bits per pixel:
+  gl_FragData[0] = vec4(0, 255, 127, 0) / 255.0;
+  // b) Laptop mode - 
+
+
+`
+</textarea>
+
 
 <p>Let's leave high-performance rendering for special use cases, and use
 the most compatible configuration (fetch from 8 floating point vec4,
