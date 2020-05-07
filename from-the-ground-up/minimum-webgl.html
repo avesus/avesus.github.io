@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="en"><head><link rel="icon" href="data:,">
+<script src="/common-script.js" type="text/javascript"></script></head>
+
+<header>Minimum JavaScript to run code inside of GPU</header>
+<address>
+	Brian Haak
+</address>
+
+<section class="abstract"><p>
+	We describe the minimum required JavaScript
+	to make WebGL API calls in the browser
+	to make our GPU hardware code. The code doesn't use any frameworks,
+	so you right-click on your browser, chose <em>Inspect</em>,
+	and navigate to the <em>Console</em> tab, and copy-paste
+	the JavaScript code presented in this article into the console.
+</p></section>
+
+<main>
+<section><h1>What the code does</h1>
+<p>The minimum GPU code runs in a single GPU hardware thread,
+and outputs 32 bits as the result of computation.
+That's the easiest way to see how it runs.</p>
+
+<p>To make that happen, we're going to execute the following sequence of commands:
+<ol>
+	<li>Create an invisible <code>&lt;canvas&gt;</code> HTML element.</li>
+	<li>Call the method <code>getContext()</code> of the element.</li>
+</ol>
+</p>
+
+</section>
+
+<section><h1>WebGL context</h1>
+
+<p>It starts from an HTML element. We're in a browser, after all:</p>
+<textarea class="code">
+window.elt_webgl = document.createElement('canvas');
+
+return elt_webgl;
+</textarea>
+
+<p>The default size of HTML canvas element is 300 by 150 pixels:</p>
+<textarea class="code">
+return `${ elt_webgl.width }x${ elt_webgl.height }`;
+</textarea>
+
+<p>So we reduce it to 1x1:</p>
+<textarea class="code">
+elt_webgl.width = elt_webgl.height = 16;
+this.insertAdjacentElement('afterend', elt_webgl);
+return `${ elt_webgl.width }x${ elt_webgl.height }`;
+</textarea>
+
+
+<p>Default WebGL init parameters are suboptimal for GPGPU&mdash;with
+a depth buffer, alpha channel processing, anti-aliasing,
+and introducing additional latency&mdash;so we disable it:</p>
+<textarea class="code">
+window.gl = elt_webgl.getContext('webgl', {
+	depth: false,
+	alpha: false,
+	antialias: false,
+	powerPreference: 'high-performance',
+	desynchronized: true,
+});
+
+return gl;
+</textarea>
+
+
+<p>When OpenGL doesn't work we need to know why.
+Let's make <code>gl.getError()</code> return text:</p>
+<textarea class="code">
+window.gl_err = (gl) => ({
+	0: 'NO_ERROR',
+	1280: 'INVALID_ENUM',
+	1281: 'INVALID_VALUE',
+	1282: 'INVALID_OPERATION',
+	1286: 'INVALID_FRAMEBUFFER_OPERATION',
+	1285: 'OUT_OF_MEMORY',
+	37442: 'CONTEXT_LOST_WEBGL' }
+		[gl.getError()]);
+</textarea>
+
+<p>To run GPU code, we need to compile it, and then render two triangles:</p>
+<textarea class="code">
+
+window.Shader = class {
+
+constructor (gl, source_code,
+	attributes = [], uniforms = []) {
+
+	this.gpu_exe = gl.createProgram();
+
+	this.gl = gl;
+	const vertex_shader = this._compile(
+		gl.VERTEX_SHADER,
+		`#version 100
+		precision highp float;
+		attribute vec2 vertex_of_rendered_area;
+		void main() {
+			gl_Position = vec4(
+				vertex_of_rendered_area.xy,
+  				0.0, 1.0);
+		}
+	`);
+
+	const fragment_shader = this._compile(
+		gl.FRAGMENT_SHADER, source_code);
+
+	gl.linkProgram(this.gpu_exe);
+
+	const compile_log = '' +
+		gl.getShaderInfoLog(vertex_shader) +
+		gl.getShaderInfoLog(fragment_shader) +
+		gl.getProgramInfoLog(this.gpu_exe);
+
+	if (compile_log) {
+		throw Error(compile_log);
+	}
+
+
+	this.attribute = {};
+	[ ...attributes,
+		'vertex_of_rendered_area'
+		].forEach(attr_name => {
+
+		this.attribute[attr_name] =
+			gl.getAttribLocation(
+				this.gpu_exe, attr_name);
+	});
+
+	gl.enableVertexAttribArray(
+		this.attribute.vertex_of_rendered_area);
+
+	this.uniform = {};
+	uniforms.forEach(unif_name => {
+		this.uniform[unif_name] =
+			gl.getUniformLocation(
+				this.gpu_exe, unif_name);
+	});
+
+	this.two_triangles = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER,
+		this.two_triangles);
+	gl.bufferData(gl.ARRAY_BUFFER,
+		new Float32Array([
+		  1.0,  1.0,
+		 -1.0,  1.0,
+		  1.0, -1.0,
+		 -1.0, -1.0 ]),
+		gl.DYNAMIC_DRAW);
+
+	gl.vertexAttribPointer(
+		this.attribute.vertex_of_rendered_area,
+		2, gl.FLOAT, false, 0, 0);
+
+	gl.bindBuffer(gl.ARRAY_BUFFER,
+		null);
+}
+
+_compile (type, src) {
+	const shader = this.gl.createShader(type);
+	this.gl.shaderSource(shader, src);
+	this.gl.compileShader(shader);
+	this.gl.attachShader(this.gpu_exe, shader);
+	return shader;
+}
+
+run (framebuffer) {
+	this.gl.useProgram(this.gpu_exe);
+
+
+	// Framebuffer's pixel range to run shader:
+	this.gl.bindBuffer(gl.ARRAY_BUFFER, this.two_triangles);
+
+	// Color buffer(s) to write results (can have many attachments):
+	gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+
+	this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
+	const run_status = gl_err(this.gl);
+	if (run_status !== 'NO_ERROR') {
+		throw Error(run_status);
+	}
+}
+
+}
+
+</textarea>
+
+<p>Now, after we got a missing API, we can run it:</p>
+<textarea class="code">
+const gpu_exe_0 = new Shader(gl, `#version 100
+
+void main () {
+  gl_FragData[0] = vec4(
+  	0.0, 255.0, 127.0, 0.0) / 255.0;
+}
+
+`);
+
+// Viewport defines framebuffer area to be impacted
+gl.viewport(0, 0, 16, 16);
+const framebuffer = null;
+
+return gpu_exe_0.run(framebuffer);
+
+</textarea>
+
+<p>We don't have to read GPU shader execution results which
+it wrote into framebuffer's color attachment(s), because these
+simply can be used as textures in new runs after swapping</p>
+<textarea class="code">
+const current_color_attachment_contents = new Uint8Array(
+	16 * 16 * 4);
+gl.readPixels(0, 0, 16, 16,
+	gl.RGBA, gl.UNSIGNED_BYTE,
+	current_color_attachment_contents);
+return current_color_attachment_contents;
+</textarea>
+
+<p>We can write a function doing all of this:</p>
+<textarea class="code">
+window.run_dynamic_gpu_code = (gl, source, width, height) => {
+	const gpu_exe = new Shader(gl, source);
+
+	// Viewport defines framebuffer area to be impacted
+	gl.viewport(0, 0, width, height);
+	const framebuffer = null;
+	gpu_exe.run(framebuffer);
+
+	const current_color_attachment_contents = new Uint8Array(
+		width * height * 4);
+	gl.readPixels(0, 0, width, height,
+		gl.RGBA, gl.UNSIGNED_BYTE,
+		current_color_attachment_contents);
+	return current_color_attachment_contents;
+};
+</textarea>
+
+<p>So we can run our dynamic shader code:</p>
+<textarea class="code">
+return run_dynamic_gpu_code(gl, `#version 100
+
+void main () {
+  gl_FragData[0] = vec4(
+  	255.0, 0.0, 0.0, 0.0) / 255.0;
+}
+
+`, 1, 1);
+</textarea>
+
+
+</section>
+</main>
+
+<nav>
+<a href="./">To First Page</a>
+</nav>
