@@ -46,19 +46,18 @@ return `${ elt_webgl.width }x${ elt_webgl.height }`;
 
 <p>So we reduce it to 1x1:</p>
 <textarea class="code">
-elt_webgl.width = elt_webgl.height = 16;
-this.insertAdjacentElement('afterend', elt_webgl);
+elt_webgl.width = elt_webgl.height = 1;
+// this.insertAdjacentElement('afterend', elt_webgl);
 return `${ elt_webgl.width }x${ elt_webgl.height }`;
 </textarea>
 
 
 <p>Default WebGL init parameters are suboptimal for GPGPU&mdash;with
-a depth buffer, alpha channel processing, anti-aliasing,
+a depth buffer and anti-aliasing,
 and introducing additional latency&mdash;so we disable it:</p>
 <textarea class="code">
 window.gl = elt_webgl.getContext('webgl', {
 	depth: false,
-	alpha: false,
 	antialias: false,
 	powerPreference: 'high-performance',
 	desynchronized: true,
