@@ -317,12 +317,20 @@ our textures and color buffers must concern the following ten IO types:
 </ol>
 </p>
 
-<p>The analyzis we made is important, because it clearly shows that
+<p>The analysis we made is important, because it clearly shows that
 a significant part of textures is not required to be written in every shader run
 as a color buffer target.
 We never write into textures which do represent external input,
 which back constant values for our computation,
 or have fixed algorithms which we might prefer to keep intact.</p>
+
+<p>Based on the analysis, let's draft how a GLSL code can look like.
+The difference between functional IO and shader runs is crucial here to understand.
+Because each shader run describes just a few bits of the <em>OUT_</em> surfaces.</p>
+
+<textarea class="code">
+
+</textarea>
 
 <h1>WebGL code</h1>
 
@@ -433,6 +441,10 @@ void main() {
 const fragment_shader = `
 #version 100
 
+// Only when WEBGL_draw_buffers
+// is there (mostly on laptops only):
+#extension GL_EXT_draw_buffers : require
+
 # ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
 precision highp int;
@@ -446,6 +458,8 @@ precision lowp sampler2D;
 uniform sampler2D texture_0;
 
 void main() {
+	// Currently rendered position:
+	gl_FragCoord.xy;
 	vec4 input_data = texture2D(
 		texture_0, vec2(0.0, 0.0));
 
@@ -454,13 +468,27 @@ void main() {
 }
 `;
 
-window.shader =
-	compile_shader(gl,
-		vertex_shader,
-		fragment_shader);
+// Enable extensions before compiling the shader:
+// To write multiple output buffers
+window.multiple_color_buffers =
+	gl.getExtension('WEBGL_draw_buffers');
+multiple_color_buffers.drawBuffersWEBGL([
+  multiple_color_buffers.COLOR_ATTACHMENT0_WEBGL
+]);
+
+// To read float textures
+gl.getExtension('OES_texture_float');
+
+// To write float fragments
+gl.getExtension('WEBGL_color_buffer_float');
+
+window.shader = compile_shader(gl,
+	vertex_shader, fragment_shader);
 
 window.attr_vertex_pos = gl.getAttribLocation(
 	shader, 'attr_vertex_pos');
+
+gl.enableVertexAttribArray(attr_vertex_pos);
 
 
 window.uniform_texture_0 =
@@ -552,6 +580,30 @@ that's the very purpose of any computation.</p>
 window.gpgpu_texture_width = 1;
 window.gpgpu_texture_height = 1;
 
+
+const gpgpu_texture_0 = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, gpgpu_texture_0);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+const pixel = new Float32Array([ 0.0, 0.0, 0.0, 0.0 ]);
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.FLOAT, pixel);
+
+const gpgpu_texture_1 = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, gpgpu_texture_1);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+const pixel2 = new Float32Array([ 1.0, 2.0, 3.0, 4.0 ]);
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.FLOAT, pixel2);
+
+// Associate a rendering framebuffer with the texture:
+const color_buffer_0 = gl.createFramebuffer();
+gl.bindFramebuffer(gl.FRAMEBUFFER, color_buffer_0);
+gl.framebufferTexture2D(gl.FRAMEBUFFER,
+	multiple_color_buffers.COLOR_ATTACHMENT0_WEBGL,
+	// gl.COLOR_ATTACHMENT0,
+	gl.TEXTURE_2D,
+	gpgpu_texture_0, 0);
+
 gl.useProgram(shader);
 
 gl.viewport(0, 0,
@@ -559,20 +611,50 @@ gl.viewport(0, 0,
 
 // Enables multiple shader texture uniforms
 gl.activeTexture(gl.TEXTURE0);
+gl.bindTexture(gl.TEXTURE_2D, gpgpu_texture_1);
+// gl.bindTexture(gl.TEXTURE_2D, gpgpu_texture_0);
 gl.uniform1i(uniform_texture_0, 0);
 
-gl.bindTexture(gl.TEXTURE_2D, gpgpu_texture_0);
 
 
+// One-time setup: attach rendered triangles
 
-gl.enableVertexAttribArray(pos_attr);
 // BYTE: signed 8-bit integer, with values in [-128..127] (when normalized mapped to [-1..1] with step 0.0078125)
 // SHORT: signed 16-bit integer, with values in [-32768..32767] (when normalized mapped to [-1..1] with step 0.000030517)
 // UNSIGNED_BYTE: unsigned 8-bit integer, with src values in [0..255] (when normalized mapped to [0..1] with step 0.00390625)
 // UNSIGNED_SHORT: unsigned 16-bit integer, with values in [0..65535] (when normalized mapped to [0..1] with step 0.000015258)
 // FLOAT: 32-bit IEEE floating point number, never normalized
-gl.vertexAttribPointer(pos_attr, 2, gl.FLOAT, false, 0, 0);
+const two_triangles = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, two_triangles);
+const vertices_of_two_triangles = new Float32Array([
+  1.0,  1.0,
+ -1.0,  1.0,
+  1.0, -1.0,
+ -1.0, -1.0,
+]);
 
+gl.bufferData(gl.ARRAY_BUFFER,
+  vertices_of_two_triangles,
+  gl.DYNAMIC_DRAW);
+
+gl.vertexAttribPointer(attr_vertex_pos, 2, gl.FLOAT, false, 0, 0);
+
+
+// gl.bindFramebuffer(gl.FRAMEBUFFER, color_buffer_0);
+
+gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+const shader_results = new Float32Array(
+	gpgpu_texture_width
+	* gpgpu_texture_height
+	* 4);
+gl.readPixels(0, 0,
+	gpgpu_texture_width,
+	gpgpu_texture_height,
+	gl.RGBA,
+	gl.FLOAT, shader_results);
+
+return shader_results;
 </textarea>
 
 <textarea class="code">
