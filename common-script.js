@@ -29,6 +29,7 @@ pre.error {
 	color: #aa0000;
 	-webkit-hyphens: none;
 	hyphens: none;
+	word-break: normal;
 }
 
 pre.success {
@@ -36,6 +37,7 @@ pre.success {
 	color: green;
 	-webkit-hyphens: none;
 	hyphens: none;
+	word-break: break-word;
 }
 
 pre {
