@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		const run_button = document.createElement('button');
 		run_button.className = 'run-button';
 		run_button.id = `run-code-${ function_name_index }`;
-		run_button.innerHTML = '^^^ run this code ^^^';
+		run_button.innerHTML = 'run ^ the code ^ above';
 
 		const generated_code_name = `dynamic_${ function_name_index }`;
 
