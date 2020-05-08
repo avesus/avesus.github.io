@@ -223,6 +223,18 @@ gl.readPixels(0, 0, 16, 16,
 return current_color_attachment_contents;
 </textarea>
 
+<h2>Float precision and GLSL 1.00</h2>
+<p>GLSL 1.00 preprocessor cuts all
+floating point literals below
+1.0000001e-37 = pow(2, -123) * (1 + 0.0633825)
+by a silly point simply shrinking
+all decimal literals below
+1e-37 to zero in a buggy way:
+the sign is ignored.
+It's preprocessor, it's not your GPU.
+There's a lot of 
+<a target="_blank" href="https://chromium.googlesource.com/angle/angle/+/master/src/compiler/translator/ConstantUnion.cpp">"garbage" buggy code</a> there.</p>
+
 <p>We can write a function doing all of this:</p>
 <textarea class="code">
 
@@ -271,16 +283,6 @@ precision highp sampler2D;
 
 
 struct Bitset8Bits {
-/*
-    lowp vec4 bit0;
-    lowp vec4 bit1;
-    lowp vec4 bit2;
-    lowp vec4 bit3;
-    lowp vec4 bit4;
-    lowp vec4 bit5;
-    lowp vec4 bit6;
-    lowp vec4 bit7;*/
-
     mediump vec4 bit0;
     mediump vec4 bit1;
     mediump vec4 bit2;
@@ -326,6 +328,11 @@ Bitset8Bits unpack_4_bytes (lowp vec4 byte) {
     return result;
 }
 
+float when_gt (float l, float r) {
+  return max(sign(l - r), 0.0);
+}
+
+
 
 
 vec4 pack_4_bytes (Bitset8Bits state) {
@@ -344,248 +351,173 @@ vec4 pack_4_bytes (Bitset8Bits state) {
   return data;
 }
 
-/*
-vec4 pack_float_in_4_bytes (float value) {
-
-    int exponent  = int( log2( abs( value ) ) + 1.0 );
-    value        /= exp2( float( exponent ) );
-    value         = (value + 1.0) * (256.0*256.0*256.0 - 1.0) / (2.0*256.0*256.0*256.0);
-    vec4 encode   = fract( value * vec4(1.0, 256.0, 256.0*256.0, 256.0*256.0*256.0) );
-    return vec4( encode.xyz - encode.yzw / 256.0 + 1.0/512.0, (float(exponent) + 127.5) / 256.0 );
-}
-
-
-const vec4 bitEnc = vec4(1.,255.,65025.,16581375.);
-vec4 pack_float_in_4_bytes_ (float v) {
-    vec4 enc = bitEnc * v;
-    enc = fract(enc);
-    enc -= enc.yzww * vec2(1./255., 0.).xxxy;
-    return enc;
-}
-
-const int emax=127;
-// Input: x>=0
-// Output: base 2 exponent of x if (x!=0 && !isnan(x) && !isinf(x))
-//         -emax if x==0
-//         emax+1 otherwise
-int floorLog2(float x)
-{
-    if(x==0.) return -emax;
-    // NOTE: there exist values of x, for which floor(log2(x)) will give wrong
-    // (off by one) result as compared to the one calculated with infinite precision.
-    // Thus we do it in a brute-force way.
-    for(int e=emax;e>=1-emax;--e)
-        if(x>=exp2(float(e))) return e;
-    // If we are here, x must be infinity or NaN
-    return emax+1;
-}
-
-// Input: any x
-// Output: IEEE 754 biased exponent with bias=emax
-int biasedExp(float x) { return emax+floorLog2(abs(x)); }
-
-// Input: any x such that (!isnan(x) && !isinf(x))
-// Output: significand AKA mantissa of x if !isnan(x) && !isinf(x)
-//         undefined otherwise
-float significand(float x)
-{
-    // converting int to float so that exp2(genType) gets correctly-typed value
-    float expo=float(floorLog2(abs(x)));
-    return abs(x)/exp2(expo);
-}
-
-// Input: x\in[0,1)
-//        N>=0
-// Output: Nth byte as counted from the highest byte in the fraction
-int part0(float x,int N) {
-    // All comments about exactness here assume that underflow and overflow don't occur
-    const float byteShift=256.;
-    // Multiplication is exact since it's just an increase of exponent by 8
-    for(int n=0;n<0;++n)
-        x*=byteShift;
-
-    // Cut higher bits away.
-    // $q \in [0,1) \cap \mathbb Q'.$
-    float q=fract(x);
-
-    // Shift and cut lower bits away. Cutting lower bits prevents potentially unexpected
-    // results of rounding by the GPU later in the pipeline when transforming to TrueColor
-    // the resulting subpixel value.
-    // $c \in [0,255] \cap \mathbb Z.$
-    // Multiplication is exact since it's just and increase of exponent by 8
-    float c=floor(byteShift*q);
-    return int(c);
-}
-
-int part1(float x,int N) {
-    // All comments about exactness here assume that underflow and overflow don't occur
-    const float byteShift=256.;
-    // Multiplication is exact since it's just an increase of exponent by 8
-    for(int n=0;n<1;++n)
-        x*=byteShift;
-
-    // Cut higher bits away.
-    // $q \in [0,1) \cap \mathbb Q'.$
-    float q=fract(x);
-
-    // Shift and cut lower bits away. Cutting lower bits prevents potentially unexpected
-    // results of rounding by the GPU later in the pipeline when transforming to TrueColor
-    // the resulting subpixel value.
-    // $c \in [0,255] \cap \mathbb Z.$
-    // Multiplication is exact since it's just and increase of exponent by 8
-    float c=floor(byteShift*q);
-    return int(c);
-}
-
-int part2(float x,int N) {
-    // All comments about exactness here assume that underflow and overflow don't occur
-    const float byteShift=256.;
-    // Multiplication is exact since it's just an increase of exponent by 8
-    for(int n=0;n<2;++n)
-        x*=byteShift;
-
-    // Cut higher bits away.
-    // $q \in [0,1) \cap \mathbb Q'.$
-    float q=fract(x);
-
-    // Shift and cut lower bits away. Cutting lower bits prevents potentially unexpected
-    // results of rounding by the GPU later in the pipeline when transforming to TrueColor
-    // the resulting subpixel value.
-    // $c \in [0,255] \cap \mathbb Z.$
-    // Multiplication is exact since it's just and increase of exponent by 8
-    float c=floor(byteShift*q);
-    return int(c);
-}
-
-// Input: any x acceptable to significand()
-// Output: significand of x split to (8,8,8)-bit data vector
-ivec3 significandAsIVec3(float x)
-{
-    ivec3 result;
-    float sig=significand(x)/2.; // shift all bits to fractional part
-    result.x=part0(sig,0);
-    result.y=part1(sig,1);
-    result.z=part2(sig,2);
-    return result;
-}
-
-// Input: any x such that !isnan(x)
-// Output: IEEE 754 defined binary32 number, packed as ivec4(byte3,byte2,byte1,byte0)
-ivec4 packIEEE754binary32(float x)
-{
-    int e = biasedExp(x);
-    // sign to bit 7
-    int s = x<0. ? 128 : 0;
-
-    ivec4 binary32;
-    binary32.yzw=significandAsIVec3(x);
-    // clear the implicit integer bit of significand
-    if(binary32.y>=128) binary32.y-=128;
-    // put lowest bit of exponent into its position, replacing just cleared integer bit
-    binary32.y+=128*int(mod(float(e),2.));
-    // prepare high bits of exponent for fitting into their positions
-    e/=2;
-    // pack highest byte
-    binary32.x=e+s;
-
-    return binary32;
-}
-
-vec4 toColor(float x)
-{
-    ivec4 binary32=packIEEE754binary32(x);
-    // Transform color components to [0,1] range.
-    // Division is inexact, but works reliably for all integers from 0 to 255 if
-    // the transformation to TrueColor by GPU uses rounding to nearest or upwards.
-    // The result will be multiplied by 255 back when transformed
-    // to TrueColor subpixel value by OpenGL.
-    return vec4(binary32)/255.;
-}
-*/
-
-vec4 brians_float_pack (highp float value) {
-
-	// GLSL 1.00 preprocessor cuts all
-	// floating point literals below
-	// 1.0000001e-37
-	// = pow(2, -123) * (1 + 0.0633825)
-	// by a silly point simply shrinking
-	// all decimal literals below
-	// 1e-37 to zero in a buggy way:
-	// the sign is ignored.
-	// It's preprocessor, it's not your GPU.
-
-	// -9.9999999e-38
-	const float below_glsl_preproc =
-		-1.0000001e-37 * 0.9999999;
-
-	const float min_float =
-		-1.0000001e-37 * 9.999999e-9;
-
-	const float minus_zero = //_z =
-		// 0.50000003 * min_float;
-		0.50000003 * min_float;
-/*
-	const float minus_zero_2 =
-		0.50000003 *
-		minus_zero_z;
-
-	const float minus_zero =
-		0.50000003 *
-		minus_zero_2;
-
-		//* -1.0000001e-37
-		//* 9.999999e-9;
-*/
-	float sign_v = sign(value); // -1..0..+1
+vec4 brians_float_pack (
+	float original_value) {
 
 	// Remove the sign
-	float pos_value = abs(value);
+	float pos_value = abs(original_value);
 
-	float exp_v = floor(log2(pos_value)) + 127.0;
+	float exp_real = floor(log2(pos_value));
+	float multiplier = pow(2.0, exp_real);
+	float normalized = pos_value / multiplier - 1.0;
+
+	float exp_v = exp_real + 127.0;
 	// if exp_v == -Inf -> 0
 	// if exp_v == +Inf -> 255
 	// if exp_v < -126.0 -> denormalized (remove the "1")
 	// otherwise + 127.0;
 
-
-
-
-	float r = value / pow(2.0, -149.0);//1.4012984643e-45;
-	float g = 255.0;
-	float b = 255.0; // MSB here is LSB of exponent
-	float a = 63.0; // MSB: sign
-
-	//Bitset8Bits exploded = unpack_4_bytes(vec4());
-	//exploded.bit7.r
-
 	Bitset8Bits packed_v;
-	//packed_v.bit7.a = step(sign_v - 1.0, -1.5); // -1..0..1 -> -2..-1..0
-	// packed_v.bit6.a = sign(0.125 * -1.0579448e-37) + 1.0;
-	//packed_v.bit6.a = sign(-9.991702e-38) + 1.0; // -> +0.0
 
-	//packed_v.bit5.a = sign(0.125 * -1.0000001e-37) + 1.0;
-	//packed_v.bit4.a = sign(4.0 * -9.9999999e-38) + 1.0;
+	packed_v.bit7.a =
+		step(sign(original_value) - 1.0, -1.5); // pos
 
-	// packed_v.bit3.a = sign(0.99999999 * minus_zero) + 1.0;
+	// Exponent 8 bits
 
-	packed_v.bit7.a = step(sign(0.0) - 1.0, -1.5); // pos
+    packed_v.bit6.a = when_gt(exp_v, 127.5);
+    float bits0to6 = exp_v - 128.0 * packed_v.bit6.a;
 
-	packed_v.bit6.a = step(sign(abs(minus_zero)) - 1.0, -1.5); // pos
-	packed_v.bit5.a = step(sign(-minus_zero) - 1.0, -1.5); // pos
+    packed_v.bit5.a = when_gt(bits0to6, 63.5);
+    float bits0to5 = bits0to6 - 64.0 * packed_v.bit5.a;
 
-	packed_v.bit4.a = step(sign(minus_zero) - 1.0, -1.5); // neg
+    packed_v.bit4.a = when_gt(bits0to5, 31.5);
+    float bits0to4 = bits0to5 - 32.0 * packed_v.bit4.a;
 
-	packed_v.bit3.a = step(sign(abs(minus_zero) * minus_zero) - 1.0, -1.5);
-	packed_v.bit2.a = step(sign(-minus_zero * minus_zero) - 1.0, -1.5);
+    packed_v.bit3.a = when_gt(bits0to4, 15.5);
+    float bits0to3 = bits0to4 - 16.0 * packed_v.bit3.a;
 
-	packed_v.bit1.a = step(sign(1.0 * minus_zero) - 1.0, -1.5); // neg
-	packed_v.bit0.a = step(sign(-1.0 * minus_zero) - 1.0, -1.5); // neg
+    packed_v.bit2.a = when_gt(bits0to3, 7.5);
+    float bits0to2 = bits0to3 - 8.0 * packed_v.bit2.a;
 
-	// packed_v.bit5.a = sign(minus_zero) + 1.0;
-	// packed_v.bit4.a = sign(0.50000003 * min_float) + 1.0;
-	// packed_v.bit3.a = sign(min_float) + 1.0;
+    packed_v.bit1.a = when_gt(bits0to2, 3.5);
+    float bits0to1 = bits0to2 - 4.0 * packed_v.bit1.a;
 
+    packed_v.bit0.a = when_gt(bits0to1, 1.5);
+    float bit0 = bits0to1 - 2.0 * packed_v.bit0.a;
+
+    packed_v.bit7.b = when_gt(bit0, 0.5);
+
+	// Significand 23 bits
+
+	float factor = 0.5;
+    // 0.4999999
+	
+	// Significand MSB bit 22:
+	packed_v.bit6.b =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit6.b;
+	factor = 0.5 * factor;
+
+	packed_v.bit5.b =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit5.b;
+	factor = 0.5 * factor;
+
+	packed_v.bit4.b =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit4.b;
+	factor = 0.5 * factor;
+
+	packed_v.bit3.b =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit3.b;
+	factor = 0.5 * factor;
+
+	packed_v.bit2.b =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit2.b;
+	factor = 0.5 * factor;
+
+	packed_v.bit1.b =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit1.b;
+	factor = 0.5 * factor;
+
+	packed_v.bit0.b =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit0.b;
+	factor = 0.5 * factor;
+
+
+	packed_v.bit7.g =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit7.g;
+	factor = 0.5 * factor;
+
+	packed_v.bit6.g =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit6.g;
+	factor = 0.5 * factor;
+
+	packed_v.bit5.g =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit5.g;
+	factor = 0.5 * factor;
+
+	packed_v.bit4.g =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit4.g;
+	factor = 0.5 * factor;
+
+	packed_v.bit3.g =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit3.g;
+	factor = 0.5 * factor;
+
+	packed_v.bit2.g =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit2.g;
+	factor = 0.5 * factor;
+
+	packed_v.bit1.g =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit1.g;
+	factor = 0.5 * factor;
+
+	packed_v.bit0.g =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit0.g;
+	factor = 0.5 * factor;
+
+
+	packed_v.bit7.r =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit7.r;
+	factor = 0.5 * factor;
+
+	packed_v.bit6.r =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit6.r;
+	factor = 0.5 * factor;
+
+	packed_v.bit5.r =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit5.r;
+	factor = 0.5 * factor;
+
+	packed_v.bit4.r =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit4.r;
+	factor = 0.5 * factor;
+
+	packed_v.bit3.r =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit3.r;
+	factor = 0.5 * factor;
+
+	packed_v.bit2.r =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit2.r;
+	factor = 0.5 * factor;
+
+	packed_v.bit1.r =
+		when_gt(normalized, factor - 0.00000005);
+	normalized = normalized - factor * packed_v.bit1.r;
+	factor = 0.5 * factor;
+
+	// LSB bit 0
+	packed_v.bit0.r =
+		when_gt(normalized, factor - 0.00000005);
 
 	vec4 result = pack_4_bytes(packed_v);
 
@@ -595,11 +527,54 @@ vec4 brians_float_pack (highp float value) {
 void main () {
 	// float a = 128.0 * pow(2.0, -149.0);//1.4012984643e-45;
 	//float a = -2.802596928649634e-45;
-	highp float a = -1e-45;//-0.0;//1.8000000;
+	// highp float a = -1e-45;//-0.0;//1.8000000;
+
+	// -9.9999999e-38
+	const float below_glsl_preproc =
+		-1.0000001e-37 * 0.9999999;
+
+	const float SMALLEST_POS_FLOAT =
+		1.0000001e-37 * 9.999999e-9;
+
+	const float SMALLEST_NEG_FLOAT =
+		-1.0000001e-37 * 9.999999e-9;
+
+	const float MINUS_ZERO =
+		0.50000003 * SMALLEST_NEG_FLOAT;
+
+	const float INFINITY = pow(2.0, 128.0);
+
+	float a = -MINUS_ZERO;
+	a = 2.0;
+	a = 1.0842022e-19;
+	a = 1.5046328e-36;
+	a = pow(2.0, -123.0);
+	a = pow(2.0, -125.0);
+	a = pow(2.0, -126.0);
+	a = SMALLEST_POS_FLOAT;
+	a = SMALLEST_NEG_FLOAT;
+	a = -INFINITY;
+	// a = INFINITY * 0.0; -> -Inf
+	a = 8.507058747670503e+37;
+	    // 8.5070586e+37;// * 2.0;
+		// Value 1e+38 is cut 3.4028234e+38;
+
+	a = 1.9999999 * pow(2.0, 127.0);
+	a = 1.999994695 * pow(2.0, 127.0);
+
+	a = 3.4028146439e+38; // The largest number
+	//  a = 3.4028234663852886e+38;
+
+	a = 8.499999;
+	a = 13.999999;
+	a = 15.999998;
+
+	a = 3.4028146439e+38; // The largest number
+
+	a = -7.81230043e-17;
+	a = -7.812301e-17;
 
 	gl_FragData[0] = brians_float_pack(a) * 3.9215686e-3;
-	//gl_FragData[0] = toColor(a);
-	//gl_FragData[0] = pack_float_in_4_bytes_(a);
 }
 
 `, 1, 1);
