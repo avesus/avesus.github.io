@@ -581,6 +581,117 @@ void main () {
 </textarea>
 
 
+<p>Let's enable shaders which produce floating point values
+rather than 4 bytes of RGBA in the range from 0 to 255.
+Also, let's render to 8 color buffers simultaneously (doesn't work in smartphones).
+Visible framebuffer has RGBA8888 attachments.
+But we can't use these attachments as data
+inside of shader code to read from.
+Also, RGBA8888 per shader run is not much of
+output (just 32 bits per GPU thread).
+On smartphones, this is the only option,
+but let's enable our desktop machines and laptops
+to run at full throttle:</p>
+<textarea class="code">
+
+// We want to use floating point textures:
+gl.getExtension('OES_texture_float');
+
+// Now we can make one:
+const float_texture = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, float_texture);
+gl.texParameteri(gl.TEXTURE_2D,
+	gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D,
+	gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+// Run just one pixel
+const width = height = 1;
+
+// Update texture and (re)define its size:
+gl.texImage2D(gl.TEXTURE_2D, 0,
+	gl.RGBA, width, height, 0,
+	gl.RGBA,
+	gl.FLOAT, new Float32Array([
+	1.4e31, -1.4e-31, 0.0, 1.0 ]));
+
+
+// Let's make our custom framebuffer.
+
+// We want to write to float textures:
+const ext_write_float =
+	gl.getExtension('WEBGL_color_buffer_float');
+
+// We want to write to multiple textures:
+//const ext_write_multiple =
+//	gl.getExtension('WEBGL_draw_buffers');
+
+const custom_framebuffer = gl.createFramebuffer();
+
+gl.bindFramebuffer(gl.FRAMEBUFFER, custom_framebuffer);
+
+// For single attachment texture write:
+gl.framebufferTexture2D(gl.FRAMEBUFFER,
+	gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D,
+	float_texture, 0);
+
+// We need to define earlier crated texture
+// to work as a render target color buffer:
+
+// Multiple attachments
+//gl.framebufferTexture2D(gl.FRAMEBUFFER,
+//	ext_write_multiple.COLOR_ATTACHMENT0_WEBGL,
+//	gl.TEXTURE_2D, float_texture, 0);
+
+// Enable multiple buffers:
+// ext_write_multiple.drawBuffersWEBGL([
+//   ext_write_multiple.COLOR_ATTACHMENT0_WEBGL, ... ]);
+
+
+// API has both, so we need to figure out
+// what one works.
+
+
+const gpu_exe_0 = new Shader(gl, `#version 100
+
+void main () {
+  gl_FragData[0] = vec4(
+  	0.0, 255.0, 127.0, 1.4e24);// / 255.0;
+}
+
+`);
+
+
+// Viewport defines framebuffer area to be impacted
+gl.viewport(0, 0, width, height);
+const framebuffer = custom_framebuffer;
+gpu_exe_0.run(framebuffer);
+
+const current_color_attachment_contents = new Float32Array(
+	width * height * 4);
+gl.readPixels(0, 0, width, height,
+	gl.RGBA,
+	gl.FLOAT,
+	current_color_attachment_contents);
+
+const result_bytes = new Uint8Array(
+	current_color_attachment_contents.buffer);
+
+const bits = [...result_bytes]
+	.map(byte => {
+		const n = byte.toString(2);
+		return '00000000'.substr(n.length) + n;
+	}).reverse();
+
+return [
+	current_color_attachment_contents,
+	result_bytes,
+	bits.join(''),
+];
+
+
+</textarea>
+
 </section>
 </main>
 
