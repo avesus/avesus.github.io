@@ -1,0 +1,2400 @@
+<!DOCTYPE html>
+<html hidden lang="en">
+<head>
+  <link rel="icon" href="data:,">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="transparent">
+  <meta name="format-detection" content="telephone=no">
+
+  <script>'use strict';
+
+console.log(document.lastModified);
+const launchedAt = performance.now();
+
+/*
+window.addEventListener('error', e => {
+  // TODO: tune in to delay until re-connected
+  // window.g_app.ws.send(e.error);
+  //e.preventDefault();
+  //e.stopPropagation();
+  window.console.error(e.error ? e.error.stack : e); //e.error.message, e.lineno, e.colno);
+  /* setTimeout(function () {
+    if (window.g_upstream.socket.readyState === 1) {
+      window.g_upstream.socket.send(e.error ? e.error.message : e.target + ' at ' + e.lineno + ':' + e.colno);
+    }
+  }, 5000); * /
+
+}, true); */
+
+document.cookie = 'abc';
+window.g_app = { launchedAt, ws: new WebSocket('wss://demo.epicmeetapp.com/api/') };
+window.g_app.ws.binaryType = 'arraybuffer';
+
+</script>
+
+<script type="module">
+
+const app = window.g_app;
+
+window.addEventListener('load', () => {
+
+  const s = window.document.createElement('script');
+  s.setAttribute('async', '');
+  s.setAttribute('id', 'REMOVE');
+  s.setAttribute('src', 'data:text/javascript;base64,d2luZG93LmdfYXBwLm1haW4oKTsKLy8jIHNvdXJjZVVSTD1odHRwczovL2RlbW8uY3Jvc3NwbGF0Zm9ybXVpLmNvbS8obG9hZHNwbGl0KQ==');
+  window.document.head.appendChild(s);
+
+
+});
+
+const socket = app.ws;
+
+{ // UUID Generator
+
+  const lut = Array(256).fill().map((_, i) => (i < 16 ? '0' : '') + (i).toString(16));
+
+  const _ = app.uuid = {
+    random128: () => { 
+      const dvals = new Uint32Array(4);
+      crypto.getRandomValues(dvals);
+      return dvals;
+    },
+
+    formatUuid: ([d0, d1, d2, d3]) =>
+      lut[d0       & 0xff]        + lut[d0 >>  8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + '-' +
+      lut[d1       & 0xff]        + lut[d1 >>  8 & 0xff] + '-' +
+      lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 & 0xff] + '-' +
+      lut[d2       & 0x3f | 0x80] + lut[d2 >>  8 & 0xff] + '-' +
+      lut[d2 >> 16 & 0xff]        + lut[d2 >> 24 & 0xff] +
+      lut[d3       & 0xff]        + lut[d3 >>  8 & 0xff] +
+      lut[d3 >> 16 & 0xff]        + lut[d3 >> 24 & 0xff],
+
+    uuid: () => _.formatUuid(_.random128())
+  };
+}
+
+
+console.log(app.uuid, app.uuid.uuid(), app.uuid.lut, app.uuid.formatUuid, app.uuid.uuid);
+app.runId = app.uuid.random128();
+
+console.log(performance.now(), 'AppRunId: ', app.uuid.formatUuid(app.runId), location.hash);
+if (location.hash) {
+  // Load state from server
+} else {
+  // Generate new state from scratch
+}
+
+
+{ // Preserve WS events
+
+
+  const empty = new ArrayBuffer();
+
+const wsEvents = app.wsEvents = {
+  close: [],
+  error: [],
+  message: [],
+  open: []
+};
+
+const preserveWsEvent = event => {
+
+
+  wsEvents[event.type].push(event);
+  // console.log(performance.now() - launchedAt, event);
+    /*if (event.data) {
+      self.postMessage({ at: performance.timeOrigin + performance.now(), safariAt: Date.now(), msg: event.data }, [event.data]);
+    } else {
+      self.postMessage({ at: performance.timeOrigin + performance.now(), safariAt: Date.now(), msg: event.type });
+    }*/
+
+  if (event.type === 'open') {
+    // socket.send(window.g_app.runId.buffer);
+    // Developer editor source code push if source hash is different
+    if (location.href.startsWith('file:///')) {
+      socket.send(['devCodePush', location.href,
+        document.documentElement.innerHTML]);
+    } else {
+      setInterval(() => socket.send(empty), 25000);
+    }
+  } else if (event.type === 'message') {
+    // const parsed = JSON.parse(event.data);
+    const commaPos = event.data.indexOf(',');
+    const msgId = event.data.substr(0, commaPos);
+    const msgBody = event.data.substr(commaPos + 1);
+
+    switch (msgId) {
+      case 'version':
+        const serverVer = msgBody;
+        if (document.documentElement.getAttribute('data-version') !== serverVer) {
+          // In client browser, refresh the page automatically
+          if (!location.href.startsWith('file:///')) {
+            //console.log('New version is available. Refresh page to see', serverVer);
+            location.reload(true);
+          }
+        }
+
+    }
+  }
+}
+
+socket.onclose = preserveWsEvent;
+socket.onerror = preserveWsEvent;
+socket.onmessage = preserveWsEvent;
+socket.onopen = preserveWsEvent;
+
+}
+
+
+
+
+
+
+app.main = () => {
+
+const s = window.document.getElementById('REMOVE');
+document.head.removeChild(s);
+
+const app = window.g_app;
+
+app.panX = 0;
+app.panY = 0;
+
+const canvasElt = window.g_app.canvasElt = window.document.getElementById('0');
+
+// Note that WebGL can only run on the main thread.
+const webGlSettings = {
+
+  //depth: true,
+  //stencil: true,
+
+  depth: false,
+  stencil: false,
+
+  // When enabling CSS "transparency", please, avoid using
+  // any transparent colorful values, because of the composition browsers do is not natural.
+  // For example, if you want to achieve the effect of a blue optical filtering glass
+  // on top of a red object, expecting that the red object will become colored
+  // in the shades of very dark blue or black, it's not going to work in web browser,
+  // it will add the red color into the mix.
+  // For layers on top of standard controls (AR on top of live video)
+  // Because of the impossibility to control the blend function of
+  // the browser compositor, we do not support any value of transparency but 0 or 1.
+  // It also drops performance a little bit.
+  alpha: false,
+
+  // The remaining parameters should be fixed:
+
+  // We are not touching the default value, assuming it always 'true'
+  // (it's impossible to set it to 'false' on mobile Safari)
+  //premultipliedAlpha: false,
+
+  // Always false, because it makes pixel to become platform-dependent,
+  // and is not supported on all systems. And it is very expensive (10 times slower)
+  antialias: false,
+
+  // gl.clear() old or buggy WebGL Androids leads to garbage when this is false.
+  // We want maximum performance and optimal memory use.
+  preserveDrawingBuffer: false,
+
+  // WebGL is the only our chance
+  failIfMajorPerformanceCaveat: false,
+
+  // We manage the rendering frequency.
+  // Faster it'll be done, more battery will be saved.
+  powerPreference: 'high-performance',
+
+  desynchronized: true
+};
+
+const gl = app.gl = window.g_app.canvasElt.getContext('webgl', webGlSettings);
+
+// Split script here so other microtasks can be run after a lenghty OpenGL init
+
+setTimeout(() => {
+
+
+
+
+// At start, window.document.activeElement equals null
+
+// window.document.activeElement equals body starting from here
+console.log('document.activeElement:', window.document.activeElement, window.document.hasFocus());
+ 
+
+// Enabling drag and drop support
+window.document.getElementById('0').addEventListener('dragover', e => {
+  e.preventDefault();
+});
+
+window.document.body.addEventListener('keyup', e => {
+  if (e.key === 'f') {
+    e.preventDefault();
+    e.stopPropagation();
+    const rfs = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen;
+    if (rfs) {
+      rfs.apply(document.documentElement);
+    }
+  }
+}, true);
+
+window.addEventListener('unload', () => {
+  window.g_app.canvasElt.parentElement.replaceChild(document.createElement('div'), window.g_app.canvasElt);
+  window.g_app = null;
+
+  // In mobile Safari, we have to call takeHeapSnapshot in order to unload WASM
+  if (console.takeHeapSnapshot) {
+    console.takeHeapSnapshot('unload');
+  }
+  console.log(performance.now(), 'unload');
+}, true);
+
+
+window.addEventListener('blur', e => {
+  console.log('blur', window.document.activeElement, window.document.hasFocus());
+}, true);
+
+window.addEventListener('focus', e => {
+  console.log('focus', window.document.activeElement, window.document.hasFocus());
+}, true);
+
+
+
+
+
+
+const getPoint = (e) => {
+
+  // TODO: update rect dynamically
+  const rect = window.g_app.canvasElt.getBoundingClientRect();
+  return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+}
+
+let point = null;
+
+window.addEventListener('touchstart', e => {
+  if (e.target === window.g_app.canvasElt || e.target === window.document.body || e.target === window.document.documentElement) {
+    point = getPoint(e.touches[0]);
+    e.stopPropagation();
+    e.preventDefault();
+  } else {
+    console.log(e);
+  }
+}, { capture: true, passive: false });
+
+window.addEventListener('touchmove', e => {
+  if (e.target === window.g_app.canvasElt || e.target === window.document.body || e.target === window.document.documentElement) {
+
+    const width = window.innerWidth;
+    const height = window.innerWidth;
+
+    const events = [...e.touches];//e.getCoalescedEvents();
+    events.forEach(ee => {
+      
+        const new_point = getPoint(ee);
+        if (point) {
+
+          let start_x = point.x * window.devicePixelRatio; //(point.x / width) * 2 - 1;
+          let start_y = point.y * window.devicePixelRatio; //(point.y / height) * 2 - 1;
+          let end_x = new_point.x * window.devicePixelRatio; //(new_point.x / width) * 2 - 1;
+          let end_y = new_point.y * window.devicePixelRatio; //(new_point.y / height) * 2 - 1;
+
+          const dx = end_x - start_x;
+          const dy = end_y - start_y;
+
+          app.panX += dx;
+          app.panY += dy;
+        }
+
+        point = new_point;
+    });
+
+
+
+/*
+  if (point) {
+    const gl = window.g_app.gl;
+    const width = window.innerWidth;
+    const height = window.innerWidth;
+    //console.log(e);
+    const events = [e.touches[0]];// e.getCoalescedEvents();
+    for (let nn in events) {
+      const e = events[nn];
+    //events.forEach((e) => {
+      const new_point = getPoint(e);
+                 
+      const buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      let start_x = (point.x / width) * 2 - 1;
+      let start_y = (point.y / height) * 2 - 1;
+      let end_x = (new_point.x / width) * 2 - 1;;
+      let end_y = (new_point.y / height) * 2 - 1;;
+      
+      //const dist = Math.sqrt((start_x - end_x) * (start_x - end_x) +
+      //      (start_y - end_y) * (start_y - end_y));
+      
+      const dx = end_x - start_x;
+      const dy = end_y - start_y;
+      end_x += dx * 8;
+      end_y += dy * 8;
+      start_x += dx * 5;
+      start_y += dy * 5;
+     
+      const vertices = [
+          start_x,  start_y, 0.0,
+          start_x + .01, start_y + .01,  0.0,
+          end_x,  end_y,  0.0,
+          end_x + .01,  end_y + .01,  0.0,
+      ];
+      
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices) , gl.DYNAMIC_DRAW); 
+      //const pos_attr = gl.getAttribLocation(shader, "a_Position");
+      //gl.enableVertexAttribArray(pos_attr);
+      gl.vertexAttribPointer(window.g_app.pos_attr, 3, gl.FLOAT, false, 0, 0);
+      
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      gl.deleteBuffer(buffer);
+      // gl.flush();
+      point = new_point;
+    }//);
+  }
+*/
+
+        e.stopPropagation();
+        e.preventDefault();
+      } else {
+        console.log(e);
+      }
+}, { capture: true, passive: false });
+
+
+window.addEventListener('mouseup', e => {
+  window.g_app.gpuCompute();
+});
+
+window.addEventListener('touchend', e => {
+      if (e.target === window.g_app.canvasElt || e.target === window.document.body || e.target === window.document.documentElement) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        // Note this must happen in this microtask,
+        // otherwise the keyboard won't appear
+        if (e.target === window.g_app.canvasElt) {
+          // editText();
+          // window.g_app.gpuCompute();
+        }
+      } else {
+        console.log(e);
+      }
+}, { capture: true, passive: false });
+
+
+
+
+const updateVisibleSizeInfo = (w, h) => {
+  window.document.documentElement.style.setProperty('--visible-width', w + 'px');
+  window.document.documentElement.style.setProperty('--visible-height', h + 'px');
+};
+
+app.clearGl = (visibleWidth) => {
+  return;
+
+  if (window.g_app.gl) {
+
+    const gl = window.g_app.gl;
+
+      gl.clearColor(0.9, 0.9, 0.9, 0.5);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      gl.enable(gl.SCISSOR_TEST);
+      gl.scissor(0, 0, visibleWidth, 1);
+      gl.clearColor(1, 0, 0, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.disable(gl.SCISSOR_TEST);
+      gl.flush();
+  }
+};
+
+app.fitTextareaInVisibleViewport = (visibleHeight, visibleWidth = window.innerWidth) => {
+
+      window.g_app.canvasElt.setAttribute('height', window.devicePixelRatio * visibleHeight + 'px');
+      window.g_app.canvasElt.setAttribute('width', window.devicePixelRatio * visibleWidth + 'px');
+
+      window.g_app.canvasElt.style.height = visibleHeight + 'px';
+      window.g_app.canvasElt.style.width = visibleWidth + 'px';
+
+      updateVisibleSizeInfo(visibleWidth, visibleHeight);
+
+      window.g_app.clearGl(visibleWidth);
+
+      // The GLSL GPU layout engine will return the extents for the textarea
+      // depending on the size of the visible area (including even font sizes!)
+
+      if (window.g_app.textboxElt) {
+
+        textboxElt.style.height = visibleHeight + 'px';
+        textboxElt.style.minHeight = visibleHeight + 'px';
+      }
+
+      // These are only when the textarea is active!
+      // On blur these must return to their empty size values.
+      window.document.documentElement.className = 'with-virtual-keyboard';
+
+      if (window.g_app.textboxElt) {
+        textboxElt.style.width = visibleWidth + 'px';
+      }
+};
+
+
+// On iOS, it doing setup, so the promise will be resolved when it completes.
+window.addEventListener('scroll', e => {
+
+      if (e.target !== window.document) {
+        return;
+      }
+
+      if (window.g_trackFocusHappens) {
+        window.g_trackFocusHappens = false;
+
+        // To keep everything visible inside of the viewport when typing:
+        window.g_app.canvasElt.style.transform = 'translate3d(0px, ' + window.document.scrollingElement.scrollTop + 'px, 0px)';
+
+        textboxElt.style.transform = 'translate3d(0px, 0px, 1px)';
+
+        let visibleHeight = (window.g_trackFocusHappensScreenBase || window.innerHeight) - window.document.scrollingElement.scrollTop;
+
+        if (window.innerHeight < visibleHeight) {
+          visibleHeight = window.innerHeight;
+        }
+        console.log('fitting in...', visibleHeight, window.document.scrollingElement.scrollTop, window.g_trackFocusHappensScreenBase);
+
+        window.g_trackFocusHappensScreenBase = 0;
+
+        window.g_app.fitTextareaInVisibleViewport(visibleHeight);
+      }
+
+
+      if (window.document.scrollingElement.scrollTop) {
+        console.log('restoring scroll pos...');
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 300);
+
+      } else {
+        // To keep everything visible inside of the viewport when typing:
+        window.g_app.canvasElt.style.transform = 'translate3d(0px, 0px, 0px)';
+        textboxElt.style.transform = 'translate3d(0px, 0px, 1px)';
+      }
+
+}, true);
+
+
+// On Android, we can get actual height only after 'resize' event if keyboard was appeared on the page reload!
+window.addEventListener('resize', () => {
+
+   setTimeout(() => {
+     window.g_app.fitTextareaInVisibleViewport(window.innerHeight);
+   }, 100);
+
+   //window.console.log(window.performance.now(), 'resize', window.innerHeight, window.document.scrollingElement.scrollHeight,
+   //  window.innerWidth, window.document.scrollingElement.scrollWidth, window.orientation);
+
+   if (window.navigator.platform === 'iPhone' || window.navigator.platform === 'iPad') {
+
+     // Dismiss the virtual keyboard if any resize happens, otherwise it'll break the layout
+     if (window.g_app.textboxElt && !textboxElt.hidden) {
+       textboxElt.blur();
+     }
+   }
+
+}, true);
+
+window.addEventListener('orientationchange', () => {
+  //console.log('orientationchange', window.innerHeight, window.document.scrollingElement.scrollHeight,
+  //  window.innerWidth, window.document.scrollingElement.scrollWidth, window.orientation);
+
+  if ((window.orientation === 0 || window.orientation === 180) && window.navigator.appVersion.indexOf('Android') !== -1) {
+    // On Android, when rotating back to portrait from landscape, it's necessary to put the width to the low size,
+    // otherwise Android will scale the viewport to the smaller size
+    window.g_app.fitTextareaInVisibleViewport(window.innerHeight, window.innerHeight);
+  } else {
+    window.g_app.fitTextareaInVisibleViewport(window.innerHeight);
+  }
+}, true);
+
+// MAIN APP CODE
+
+
+
+
+
+// setTimeout() is necessary because on iOS window.innerHeight is bigger than visible area until the animation frame finishes
+if (window.orientation && (window.orientation === -90 || window.orientation === 90)) {
+  // Only in landscape mode on iOS Safari,
+  // after the first requestAnimationFrame() and plus 10 milliseconds, Safari seems to report real
+  // visible area's height as window.innerHeight, and so we're ready to render the page!
+  window.setTimeout(() => updateVisibleSizeInfo(window.innerWidth, window.innerHeight), 10);
+} else {
+  updateVisibleSizeInfo(window.innerWidth, window.innerHeight);
+}
+
+
+
+console.log(gl.getSupportedExtensions());
+
+
+// Slow init!
+//const glExtDer = (function f1 () { return gl.getExtension('OES_standard_derivatives'); // 99% on tablets
+// })();
+
+const glExtVao = (function f2 () { return gl.getExtension('OES_vertex_array_object'); // 95% on desktops
+ })();
+const glExtBlendMinmax = (function f3 () { return gl.getExtension('EXT_blend_minmax'); // 95% on desktops, 98% on tablets, 99% on phones
+ })();
+const glExtDebug = (function f4 () { return gl.getExtension('WEBGL_debug_renderer_info');  // 99% desktop and tablet
+ })();
+
+
+// gl.hint(glExtDer.FRAGMENT_SHADER_DERIVATIVE_HINT_OES, gl.NICEST);
+
+
+// Often there
+const isUintIndex = (function f5 () { return gl.getExtension('OES_element_index_uint'); // 95% tablet, 97% phone, 99% desktop
+ })();
+const glExtInstancedArrays = (function f6 () { return gl.getExtension('ANGLE_instanced_arrays'); // 93% tablet, 97% phone, 99% desktop
+ })();
+
+// Not always there:
+const glExtSrgb = (function f7 () { return gl.getExtension('EXT_sRGB'); // 71% desktop, 4% consoles, 89% tablets, 94% phones.
+ })();
+
+// Exists on the most platforms (but not on low-end)
+// NOTE: slow init!
+//const glExtFloatIn = (function f8 () { return gl.getExtension('OES_texture_float'); // TRUE always on WebGL2
+// })();
+
+// console.log(glExtFloatIn);
+
+
+
+/*
+// Mining mode - only with 
+const glExtFloatOut = gl.getExtension('WEBGL_color_buffer_float'); //
+const glExtDrawBuffers = gl.getExtension('WEBGL_draw_buffers'); // 86% Desktop & 100% Console, 2% phones
+// Must be at least 8 for super-performant mode. (on popular WebGL2 systems, it can be 4).
+// Might support the 8K or 16K texture and render buffer size. But mostly 4K. Sometimes the texture size is bigger than the rendersize (4K textures with 8K or 16K renderbuffer) 
+// Can have 32 texture image units instead of just 8 (or just 16 on WebGL2 with 4K texture sizes and 8K renderbuffer)
+// Can have 4K uniform vectors
+// Can have 32 varyings instead of 8
+// Typically has WebGL2 support
+console.log(glExtDrawBuffers.MAX_COLOR_ATTACHMENTS_WEBGL, glExtDrawBuffers.MAX_DRAW_BUFFERS_WEBGL, glExtFloatIn, glExtFloatOut);
+
+
+const pixelss = new Uint8Array([
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+]);
+const tx = [gl.createTexture(), gl.createTexture(), gl.createTexture(), gl.createTexture()];
+
+for (let ii = 0; ii < 4; ++ii) {
+  gl.bindTexture(gl.TEXTURE_2D, tx[ii]);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixelss);
+}
+
+const fb = gl.createFramebuffer();
+gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, glExtDrawBuffers.COLOR_ATTACHMENT0_WEBGL, gl.TEXTURE_2D, tx[0], 0);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, glExtDrawBuffers.COLOR_ATTACHMENT1_WEBGL, gl.TEXTURE_2D, tx[1], 0);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, glExtDrawBuffers.COLOR_ATTACHMENT2_WEBGL, gl.TEXTURE_2D, tx[2], 0);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, glExtDrawBuffers.COLOR_ATTACHMENT3_WEBGL, gl.TEXTURE_2D, tx[3], 0);
+
+glExtDrawBuffers.drawBuffersWEBGL([
+  glExtDrawBuffers.COLOR_ATTACHMENT0_WEBGL, // gl_FragData[0]
+  glExtDrawBuffers.COLOR_ATTACHMENT1_WEBGL, // gl_FragData[1]
+  glExtDrawBuffers.COLOR_ATTACHMENT2_WEBGL, // gl_FragData[2]
+  glExtDrawBuffers.COLOR_ATTACHMENT3_WEBGL  // gl_FragData[3]
+]);
+*/
+
+// Super-slow operation. Offload after a microtask processing. Attempt to pre-init.
+// Only set on real changes.
+// app.canvasElt.setAttribute('width', window.innerWidth + 'px');
+// app.canvasElt.setAttribute('height', window.innerHeight + 'px');
+
+// Excess area in bottom of the scrollable view (will require to scroll the page back to 0):
+// const excessWindowHeightInTheBottom = window.document.scrollingElement.scrollHeight - window.innerHeight;
+
+// To make canvas visible
+window.document.documentElement.hidden = false;
+window.document.body.hidden = false;
+
+if (window.scrollY) {
+  window.scrollTo(0, 0);
+}
+
+app.clearGl(window.innerWidth);
+
+
+
+
+
+
+const VERTEX_SHADER = `#version 100
+precision highp float;
+attribute vec2 aPos;
+// varying vec4 vcolor;
+void main() {
+  // vcolor = vec4(0.0, 1.0, 0.0, 1.0);
+  gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+}
+`;
+
+
+const nodeModelLoader = `
+
+uniform sampler2D texture0;
+uniform vec2 dataWidthAndHeight;
+
+
+struct SignalPart {
+  // Defines position of green arrow, Q1, and Q2 over remained 5 ports
+  // Assuming that red arrow is at the bottom
+  // 1 out of remained 5 by 1 of out of 6 arrangements of Q1 and Q2
+  // (they are not discriminated in the permutation)
+  // Number from 1 to 30
+  lowp float greenArrowPermutedWithQ1andQ2;
+
+  // Defines internal routing
+  lowp float takeQ1fromBifTrueElseFromA; // 1 out 2 (a bit)
+  lowp float takeQ2fromBifTrueElseFromA; // 1 out 2 (a bit)
+};
+
+struct NodeStatePacked {
+  // Orientation from 1 to 6
+  lowp float redArrow;
+
+  // The same number stored as 3 bits (optimization of access for packing)
+  lowp float redArrow0;
+  lowp float redArrow1;
+  lowp float redArrow2;
+
+  SignalPart signalPart;
+
+  SignalPart signalInsideOfGreenArrow;
+
+  // Doesn't switch instantly (0 or 1)
+  lowp float greenArrowSignalAge;
+  
+  // One of these two might be empty
+  SignalPart signalGoingToQ1;
+  SignalPart signalGoingToQ2;
+};
+
+struct Bitset4_of_5_1_1_1 {
+
+  lowp vec4 bits0to4;
+  lowp vec4 bit5;
+  lowp vec4 bit6;
+  lowp vec4 bit7;
+};
+
+vec4 whenGt (vec4 l, vec4 r) {
+  return max(sign(l - r), 0.0);
+}
+
+vec3 whenLt (vec3 l, vec3 r) {
+  return max(sign(r - l), 0.0);
+}
+
+float whenGt (float l, float r) {
+  return max(sign(l - r), 0.0);
+}
+
+float whenLt (float l, float r) {
+  return max(sign(r - l), 0.0);
+}
+
+float whenGtOrEq (float l, float r) {
+  return 1.0 - whenLt(l, r);
+}
+
+float whenLtOrEq(float l, float r) {
+  return 1.0 - whenGt(l, r);
+}
+
+float allVec4 (vec4 c) {
+  return c.x * c.y * c.z * c.w;
+}
+
+float allVec3 (vec3 c) {
+  return c.x * c.y * c.z;
+}
+
+
+float gpuOr(float x, float y) {
+  return min(x + y, 1.0);
+}
+
+Bitset4_of_5_1_1_1 unpack4Bytes (vec4 byte) {
+
+  Bitset4_of_5_1_1_1 result;
+
+  result.bit7 = whenGt(byte, vec4(127.5));
+
+  vec4 bits0to6 = byte - 128.0 * result.bit7;
+
+  result.bit6 = whenGt(bits0to6, vec4(63.5));
+
+  vec4 bits0to5 = bits0to6 - 64.0 * result.bit6;
+
+  result.bit5 = whenGt(bits0to5, vec4(31.5));
+
+  result.bits0to4 = bits0to5 - 32.0 * result.bit5;
+
+  return result;
+}
+
+// Each vector component is a number from 0 to 255
+NodeStatePacked extractNodeStateFromVector (vec4 data) {
+
+  Bitset4_of_5_1_1_1 bytes = unpack4Bytes(data);
+
+  NodeStatePacked state;
+
+  // Minimum maximally packed number of states =
+  // = 6 * 30 * 2 * 2 * 30 * 2 * 2 * 30 * 2 * 2 * 30 * 2 * 2
+  // = 0..0x4A285FFF (1.2 billion combinations)
+
+  // The remainder single bit is used to store green arrow age information
+
+
+  // 3 bits of orientation information 1..6
+  state.redArrow0 = bytes.bit7.x;
+  state.redArrow1 = bytes.bit7.y;
+  state.redArrow2 = bytes.bit7.z;
+  state.redArrow = bytes.bit7.x + bytes.bit7.y * 2.0 + bytes.bit7.z * 4.0;
+
+  // 5 bits 1..30
+  state.signalPart.greenArrowPermutedWithQ1andQ2 = bytes.bits0to4.x;
+  // 1 bit
+  state.signalPart.takeQ1fromBifTrueElseFromA = bytes.bit5.x;
+  // 1 bit
+  state.signalPart.takeQ2fromBifTrueElseFromA = bytes.bit6.x;
+
+  // 3 input signals:
+
+  // 5 bits 1..30
+  state.signalInsideOfGreenArrow.greenArrowPermutedWithQ1andQ2 = bytes.bits0to4.y;
+  // 1 bit
+  state.signalInsideOfGreenArrow.takeQ1fromBifTrueElseFromA = bytes.bit5.y;
+  // 1 bit
+  state.signalInsideOfGreenArrow.takeQ2fromBifTrueElseFromA = bytes.bit6.y;
+
+  // 5 bits 1..30
+  state.signalGoingToQ1.greenArrowPermutedWithQ1andQ2 = bytes.bits0to4.z;
+  state.signalGoingToQ1.takeQ1fromBifTrueElseFromA = bytes.bit5.z;
+  state.signalGoingToQ1.takeQ2fromBifTrueElseFromA = bytes.bit6.z;
+
+  // 5 bits 1..30
+  state.signalGoingToQ2.greenArrowPermutedWithQ1andQ2 = bytes.bits0to4.w;
+  state.signalGoingToQ2.takeQ1fromBifTrueElseFromA = bytes.bit5.w;
+  state.signalGoingToQ2.takeQ2fromBifTrueElseFromA = bytes.bit6.w;
+
+  // 1 bit
+  state.greenArrowSignalAge = bytes.bit7.w;
+
+  return state;
+}
+
+
+vec2 texCoord (vec2 dataCoord) {
+  float width = dataWidthAndHeight.x;
+  float height = dataWidthAndHeight.y;
+
+  return vec2((dataCoord.x + 0.5) / width, (dataCoord.y + 0.5) / height);
+}
+
+
+vec4 fetch2d (vec2 coords) {
+  vec4 fetchedAnyway = texture2D(texture0, texCoord(coords)) * 255.0;
+  
+  float isValidCoordinate = allVec4(whenGt(vec4(coords, dataWidthAndHeight), vec4(-0.1, -0.1, coords)));
+
+  return isValidCoordinate * fetchedAnyway;
+}
+
+// green arrow is 1..5 of remained ports, Q1andQ2 is 1..6
+// perm is number from 1 to 30.
+/*
+1 1 1
+2 2 1
+3 3 1
+4 4 1
+5 5 1
+
+6 1 2
+7 2 2
+8 3 2
+9 4 2
+10 5 2
+
+11 1 3
+12 2 3
+13 3 3 
+14 4 3
+15 5 3
+
+16 1 4
+17 2 4
+18 3 4 
+19 4 4
+20 5 4
+
+21 1 5
+22 2 5
+23 3 5 
+24 4 5
+25 5 5
+
+26 1 6
+27 2 6
+28 3 6 
+29 4 6 *
+30 5 6
+
+*/
+vec2 untangleGreenArrowFromQ1andQ2 (float perm) {
+
+  // perm = 5.0 * (6.0 - 1.0) + 4.0;
+
+  float q1q2perm = floor((perm - 1.0) / 5.0);
+  float greenArrow = floor(perm - q1q2perm * 5.0);
+
+  // q1q2perm = 5.0;
+  // greenArrow = 4.0;
+
+  return vec2(greenArrow, q1q2perm + 1.0);
+}
+
+float getGreenArrowPointsTo (float redArrow, float greenArrow) {
+  return whenGt(redArrow, 0.5) * (mod(redArrow + greenArrow - 1.0, 6.0) + 1.0);
+}
+
+// Switched inputs and outputs calculated from permutation, take bits, red and green arrow locations
+struct Switching {
+  lowp float q1;
+  lowp float q2;
+  lowp float takeQ1from;
+  lowp float takeQ2from;
+};
+
+// Note that Q1andQ2perm describes the exact position of the two pass-thru outputs (number from 1 to 6)
+// greenArrowPointsTo and redArrowPointsTo do exclude options, so we left only with the choice from 4).
+
+Switching getSwitching (float redArrowPointsTo, float greenArrowPosRelativeToRedArrowCcw,
+  float Q1andQ2perm, float takeQ1fromBifTrueElseFromA, float takeQ2fromBifTrueElseFromA) {
+
+  Switching result;
+
+  float q1rel;
+  float q2rel;
+  float aRel;
+  float bRel;
+
+  if (whenGt(Q1andQ2perm, 0.5) * whenGt(1.5, Q1andQ2perm) > 0.0) {
+    q1rel = 1.0;
+    q2rel = 2.0;
+    aRel = 3.0;
+    bRel = 4.0;
+  } else if (whenGt(Q1andQ2perm, 1.5) * whenGt(2.5, Q1andQ2perm) > 0.0) {
+    q1rel = 1.0;
+    q2rel = 3.0;
+    aRel = 2.0;
+    bRel = 4.0;
+  } else if (whenGt(Q1andQ2perm, 2.5) * whenGt(3.5, Q1andQ2perm) > 0.0) {
+    q1rel = 1.0;
+    q2rel = 4.0;
+    aRel = 2.0;
+    bRel = 3.0;
+  } else if (whenGt(Q1andQ2perm, 3.5) * whenGt(4.5, Q1andQ2perm) > 0.0) {
+    q1rel = 2.0;
+    q2rel = 3.0;
+    aRel = 1.0;
+    bRel = 4.0;
+  } else if (whenGt(Q1andQ2perm, 4.5) * whenGt(5.5, Q1andQ2perm) > 0.0) {
+    q1rel = 2.0;
+    q2rel = 4.0;
+    aRel = 1.0;
+    bRel = 3.0;
+  } else if (whenGt(Q1andQ2perm, 5.5) * whenGt(6.5, Q1andQ2perm) > 0.0) {
+    q1rel = 3.0;
+    q2rel = 4.0;
+    aRel = 1.0;
+    bRel = 2.0;
+  }
+
+  result.q1 = mod(redArrowPointsTo + q1rel - whenGt(greenArrowPosRelativeToRedArrowCcw, q1rel), 6.0) + 1.0;
+  result.q2 = mod(redArrowPointsTo + q2rel - whenGt(greenArrowPosRelativeToRedArrowCcw, q2rel), 6.0) + 1.0;
+
+  float aIn = mod(redArrowPointsTo + aRel - whenGt(greenArrowPosRelativeToRedArrowCcw, aRel), 6.0) + 1.0;
+  float bIn = mod(redArrowPointsTo + bRel - whenGt(greenArrowPosRelativeToRedArrowCcw, bRel), 6.0) + 1.0;
+
+  result.takeQ1from = takeQ1fromBifTrueElseFromA > 0.0 ? bIn : aIn;
+  result.takeQ2from = takeQ2fromBifTrueElseFromA > 0.0 ? bIn : aIn;
+
+  return result;
+}
+
+`;
+
+
+
+// 1. We can have up to 8 samplers simultaneously
+// 2. texture2D(uSampler0, vec2(0, 0)) reads a single vec4.
+// 3. Enabling the OES_texture_float extension, vec4 is 4 32-bit floats
+// 3a. Otherwise, vec4 is 4 bytes.
+// 4. Typical maximum texture size is 4096x4096. It addresses 16M locations.
+//    With typical format of UNSIGNED_BYTE vec4, it's 64 megabytes.
+//    With FLOAT format, it's 256 megabytes per texture.
+// 5. There maximum typical 8 active textures attached,
+//    giving us minimum addressable RAM of 512 megabytes,
+//    extendable to 2GB on the machines supporting OES_texture_float.
+//    Some machines do support 32 texture units, which gives us maximum 8 gigabytes on those systems.
+// 6. We don't want to abuse the system resources of client machines.
+//    We might choose to limit the maximum RAM we want to use to the minimum addressable,
+//    and distribute any excess memory in other machines. For fast data access on the machines
+//    supporting OES_texture_float, 2 textures units might be used for the entirety of the data input.
+const FRAGMENT_SHADER = `#version 100
+
+// Slow init!
+// #extension GL_OES_standard_derivatives : require
+
+// Only when WEBGL_draw_buffers is there (mostly on laptops only)
+// #extension GL_EXT_draw_buffers : require
+
+// #pragma debug(on)
+// #pragma optimize(off)
+
+# ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+precision highp int;
+precision highp sampler2D;
+# else
+precision mediump float;
+precision lowp int;
+precision lowp sampler2D;
+# endif
+
+// varying vec4 vcolor;
+
+// uniform sampler2D uSampler1;
+uniform vec2 screenSize;
+uniform vec2 uniformPan;
+
+#define BITS 8      
+#define XOR
+#define AND
+
+mediump float foo();
+
+
+vec2 prev (vec2 pos) {
+  // TODO: sample
+  return pos;
+}
+
+vec2 Schrodinger (vec2 pos) {
+
+  vec2 updated;
+
+  vec2 center = prev(pos);
+    
+  float north = prev(pos + vec2(0, 1)).x;
+  float east = prev(pos + vec2(1, 0)).x;
+  float south = prev(pos - vec2(0, 1)).x;
+  float west = prev(pos - vec2(1, 0)).x;
+
+  float Laplacian = 0.25 * (north + east + south + west) - center.x;
+
+  updated = vec2(Laplacian, 0) + center.xy * mat2(1, 1,
+                                                 -1, 0);
+    
+	// Mouse + init + Boundary:  
+  /*
+    vec2 M = (pos - iMouse.xy)/10.;
+    vec2 m = (iMouse.xy - iMouse.zw)/10.;
+    
+    if (iMouse.z > 0. ) {
+        updated.xy = mix(updated.xy,
+                   vec2(cos(m.x * M.x + m.y * M.y),
+                        sin(m.x * M.x + m.y * M.y)
+                   ),
+                   exp(-.3 * dot(M, M))
+                  );
+    }
+  */
+
+  return updated;
+}
+
+float bitwise(vec2 v) {
+
+  float word  = pow(2., float(BITS));
+  float c   = 0.;
+  for(int i=0; i < BITS; i++) 
+  {
+    vec2 n  = floor(v * word);
+
+    #ifdef XOR
+    c   += mod(n.x + n.y, 2.);
+    #endif
+    
+    #ifdef AND
+    c   += mod(n.x * n.y, 2.);
+    #endif 
+    
+    c   *= .5;
+    v   *= .5;
+  }
+  
+  return c;
+}
+
+// There'd be situations where you'd prefer the hexagons to be oriented to a flat
+// top postion, which means making some simple changes.
+//#define FLAT_TOP_HEXAGON
+
+// Helper vector. If you're doing anything that involves regular triangles or hexagons, the
+// 30-60-90 triangle will be involved in some way, which has sides of 1, sqrt(3) and 2.
+#ifdef FLAT_TOP_HEXAGON
+const vec2 s = vec2(1.7320508, 1);
+#else
+const vec2 s = vec2(1, 1.7320508);
+#endif
+
+/*
+// Standard vec2 to float hash - Based on IQ's original.
+float hash21(vec2 p){ return fract(sin(dot(p, vec2(141.13, 289.97)))*43758.5453); }
+
+
+// The 2D hexagonal isosuface function: If you were to render a horizontal line and one that
+// slopes at 60 degrees, mirror, then combine them, you'd arrive at the following. As an aside,
+// the function is a bound -- as opposed to a Euclidean distance representation, but either
+// way, the result is hexagonal boundary lines.
+float hex(in vec2 p){
+    
+    p = abs(p);
+    
+    #ifdef FLAT_TOP_HEXAGON
+    // Below is equivalent to:
+    //return max(p.x*.866025 + p.y*.5, p.y); 
+
+    return max(dot(p, s*.5), p.y); // Hexagon.
+    #else
+    // Below is equivalent to:
+    //return max(p.x*.5 + p.y*.866025, p.x); 
+
+    return max(dot(p, s*.5), p.x); // Hexagon.
+    #endif
+    
+}
+
+// This function returns the hexagonal grid coordinate for the grid cell, and the corresponding 
+// hexagon cell ID -- in the form of the central hexagonal point. That's basically all you need to 
+// produce a hexagonal grid.
+//
+// When working with 2D, I guess it's not that important to streamline this particular function.
+// However, if you need to raymarch a hexagonal grid, the number of operations tend to matter.
+// This one has minimal setup, one "floor" call, a couple of "dot" calls, a ternary operator, etc.
+// To use it to raymarch, you'd have to double up on everything -- in order to deal with 
+// overlapping fields from neighboring cells, so the fewer operations the better.
+vec4 getHex(vec2 p){
+    
+    // The hexagon centers: Two sets of repeat hexagons are required to fill in the space, and
+    // the two sets are stored in a "vec4" in order to group some calculations together. The hexagon
+    // center we'll eventually use will depend upon which is closest to the current point. Since 
+    // the central hexagon point is unique, it doubles as the unique hexagon ID.
+    #ifdef FLAT_TOP_HEXAGON
+    vec4 hC = floor(vec4(p, p - vec2(1, .5))/s.xyxy) + .5;
+    #else
+    vec4 hC = floor(vec4(p, p - vec2(.5, 1))/s.xyxy) + .5;
+    #endif
+    
+    // Centering the coordinates with the hexagon centers above.
+    vec4 h = vec4(p - hC.xy*s, p - (hC.zw + .5)*s);
+    
+    // Nearest hexagon center (with respect to p) to the current point. In other words, when
+    // "h.xy" is zero, we're at the center. We're also returning the corresponding hexagon ID -
+    // in the form of the hexagonal central point.
+    //
+    // On a side note, I sometimes compare hex distances, but I noticed that Iomateron compared
+    // the squared Euclidian version, which seems neater, so I've adopted that.
+    #ifdef FLAT_TOP_HEXAGON
+    return dot(h.xy, h.xy)<dot(h.zw, h.zw) ? vec4(h.xy, hC.xy) : vec4(h.zw, hC.zw + .5);
+    #else
+    return dot(h.xy, h.xy)<dot(h.zw, h.zw) ? vec4(h.xy, hC.xy) : vec4(h.zw, hC.zw + .5);
+    #endif
+}
+*/
+
+` + nodeModelLoader + `
+
+// #define Thickness 0.05
+//#define Thickness 0.07
+#define Thickness 0.12
+
+float drawLine(vec2 p1, vec2 p2, vec2 uv) {
+
+  float a = abs(distance(p1, uv));
+  float b = abs(distance(p2, uv));
+  float c = abs(distance(p1, p2));
+
+  if ( a >= c || b >=  c ) return 0.0;
+
+  float p = (a + b + c) * 0.5;
+
+  // median to (p1, p2) vector
+  float h = 2.0 / c * sqrt( p * ( p - a) * ( p - b) * ( p - c));
+
+  // return mix(1.0, 0.0, smoothstep(0.5 * a * Thickness, 1.5 * a * Thickness, h));
+  return mix(1.0, 0.0, smoothstep(0.5 * Thickness, 1.5 * Thickness, h));
+}
+
+const vec2 leftEdgePort = vec2(-0.5, 0);
+const vec2 rightEdgePort = vec2(0.5, 0);
+const vec2 leftTopEdgePort = vec2(-0.25, -0.433012701);
+const vec2 rightTopEdgePort = vec2(0.25, -0.433012701);
+const vec2 leftBottomEdgePort = vec2(-0.25, 0.433012701);
+const vec2 rightBottomEdgePort = vec2(0.25, 0.433012701);
+
+struct RenderedDirection {
+  lowp float left;
+  lowp float leftBottom;
+  lowp float rightBottom;
+  lowp float right;
+  lowp float rightTop;
+  lowp float leftTop;
+};
+
+RenderedDirection renderArrowDir (float dir) {
+
+  RenderedDirection rd;
+  rd.left = whenGt(dir, 0.5) * whenGt(1.5, dir);
+  rd.leftBottom = whenGt(dir, 1.5) * whenGt(2.5, dir);
+  rd.rightBottom = whenGt(dir, 2.5) * whenGt(3.5, dir);
+  rd.right = whenGt(dir, 3.5) * whenGt(4.5, dir);
+  rd.rightTop = whenGt(dir, 4.5) * whenGt(5.5, dir);
+  rd.leftTop = whenGt(dir, 5.5) * whenGt(6.5, dir);
+  
+  return rd;
+}
+
+vec3 drawOutput (RenderedDirection q1GoesTo, RenderedDirection q1ComesFrom, vec2 hex, float anySignalInside) {
+
+  float intensity = anySignalInside > 0.5 ? 1.0 : 0.6;
+  vec3 color = vec3(intensity);
+
+  return color * (
+    q1GoesTo.left * (q1ComesFrom.leftBottom * drawLine(leftEdgePort, leftBottomEdgePort, hex.xy) +
+      q1ComesFrom.rightBottom * drawLine(leftEdgePort, rightBottomEdgePort, hex.xy) +
+      q1ComesFrom.right * drawLine(leftEdgePort, rightEdgePort, hex.xy) +
+      q1ComesFrom.rightTop * drawLine(leftEdgePort, rightTopEdgePort, hex.xy) +
+      q1ComesFrom.leftTop * drawLine(leftEdgePort, leftTopEdgePort, hex.xy)) +
+
+    q1GoesTo.leftBottom * (q1ComesFrom.rightBottom * drawLine(leftBottomEdgePort, rightBottomEdgePort, hex.xy) +
+      q1ComesFrom.right * drawLine(leftBottomEdgePort, rightEdgePort, hex.xy) +
+      q1ComesFrom.rightTop * drawLine(leftBottomEdgePort, rightTopEdgePort, hex.xy) +
+      q1ComesFrom.leftTop * drawLine(leftBottomEdgePort, leftTopEdgePort, hex.xy) +
+      q1ComesFrom.left * drawLine(leftBottomEdgePort, leftEdgePort, hex.xy)) +
+
+    q1GoesTo.rightBottom * (q1ComesFrom.right * drawLine(rightBottomEdgePort, rightEdgePort, hex.xy) +
+      q1ComesFrom.rightTop * drawLine(rightBottomEdgePort, rightTopEdgePort, hex.xy) +
+      q1ComesFrom.leftTop * drawLine(rightBottomEdgePort, leftTopEdgePort, hex.xy) +
+      q1ComesFrom.left * drawLine(rightBottomEdgePort, leftEdgePort, hex.xy) +
+      q1ComesFrom.leftBottom * drawLine(rightBottomEdgePort, leftBottomEdgePort, hex.xy)) +
+
+    q1GoesTo.right * (q1ComesFrom.rightTop * drawLine(rightEdgePort, rightTopEdgePort, hex.xy) +
+      q1ComesFrom.leftTop * drawLine(rightEdgePort, leftTopEdgePort, hex.xy) +
+      q1ComesFrom.left * drawLine(rightEdgePort, leftEdgePort, hex.xy) +
+      q1ComesFrom.leftBottom * drawLine(rightEdgePort, leftBottomEdgePort, hex.xy) +
+      q1ComesFrom.rightBottom * drawLine(rightEdgePort, rightBottomEdgePort, hex.xy)) +
+
+    q1GoesTo.rightTop * (q1ComesFrom.leftTop * drawLine(rightTopEdgePort, leftTopEdgePort, hex.xy) +
+      q1ComesFrom.left * drawLine(rightTopEdgePort, leftEdgePort, hex.xy) +
+      q1ComesFrom.leftBottom * drawLine(rightTopEdgePort, leftBottomEdgePort, hex.xy) +
+      q1ComesFrom.rightBottom * drawLine(rightTopEdgePort, rightBottomEdgePort, hex.xy) +
+      q1ComesFrom.right * drawLine(rightTopEdgePort, rightEdgePort, hex.xy)) +
+
+    q1GoesTo.leftTop * (q1ComesFrom.left * drawLine(leftTopEdgePort, leftEdgePort, hex.xy) +
+      q1ComesFrom.leftBottom * drawLine(leftTopEdgePort, leftBottomEdgePort, hex.xy) +
+      q1ComesFrom.rightBottom * drawLine(leftTopEdgePort, rightBottomEdgePort, hex.xy) +
+      q1ComesFrom.right * drawLine(leftTopEdgePort, rightEdgePort, hex.xy) +
+      q1ComesFrom.rightTop * drawLine(leftTopEdgePort, rightTopEdgePort, hex.xy)));
+}
+
+void main() {
+
+  vec2 screenPos = gl_FragCoord.xy - 0.5;
+  screenPos.y = screenSize.y - screenPos.y;
+
+  // {x, y, z, w} Useful when accessing vectors that represent points or normals
+  // {r, g, b, a} Useful when accessing vectors that represent colors
+  // {s, t, p, q} Useful when accessing vectors that represent texture coordinates
+
+
+  vec2 fragCoord = floor(gl_FragCoord.xy); // .zw (z - Z-buffer depth; w = 1/w)
+  //vec2 uv       = fragCoord/resolution;           //0 to 1 range
+  //vec2 aspect     = resolution/min(resolution.x, resolution.y);     //aspect ratio
+  //vec2 position     = (uv - .5) * aspect;
+
+  // dFdx(genType)
+  // dFdy(genType)
+  // fwidth(genType)
+
+  // float b = 0.0;
+  // int a = 0x1234;
+    
+
+  // For 4k
+  // float zoom = 0.003;
+  // For 128
+  //float zoom = 0.097;
+
+  // For 256
+  float zoom = 0.0485;
+
+  // Good for 64
+  //float zoom = 0.19;
+
+  // float zoom = 0.5;
+
+  // Shape debug
+  // float zoom = 1.097;
+
+  float dataWidth = dataWidthAndHeight.x;
+  float dataHeight = dataWidthAndHeight.y;
+
+  // Aspect correct screen coordinates.
+  // vec2 u = (fragCoord - iResolution.xy*.5)/iResolution.y;
+  // vec2 u = 64.0 * screenPos / 3840.0;
+
+  float screenWidth = screenSize.x;
+  float screenHeight = screenSize.x;
+
+  // This zoom is relative to the width of the screen
+  float z = zoom * 1000.0 / screenWidth;
+  float vertZ = zoom * 1000.0 / screenHeight;
+    
+  vec2 u = screenPos / (screenWidth * z);
+
+  // Scaling, translating, then converting it to a hexagonal grid cell coordinate and
+  // a unique coordinate ID. The resultant vector contains everything you need to produce a
+  // pretty pattern, so what you do from here is up to you.
+  float offsetX = uniformPan.x;
+  float offsetY = uniformPan.y;
+
+  float offsetYtransformed = -offsetY / (zoom * 152.5) - 0.6;
+
+  vec2 offset = vec2(-offsetX / (zoom * 346.5), offsetYtransformed);
+
+
+  vec2 p = vec2(u * 5.0 + s.yx * offset);
+
+  vec4 hC = floor(vec4(p, p - vec2(0.5, 1.0)) / s.xyxy) + 0.5;
+    
+  // Centering the coordinates with the hexagon centers above.
+  vec4 h = vec4(p - hC.xy * s, p - (hC.zw + 0.5) * s);
+    
+  // Nearest hexagon center (with respect to p) to the current point. In other words, when
+  // "h.xy" is zero, we're at the center. We're also returning the corresponding hexagon ID -
+  // in the form of the hexagonal central point.
+
+  // On a side note, I sometimes compare hex distances, but I noticed that Iomateron compared
+  // the squared Euclidian version, which seems neater, so I've adopted that.
+  vec4 hex = dot(h.xy, h.xy) < dot(h.zw, h.zw) ? vec4(h.xy, hC.xy) : vec4(h.zw, hC.zw + 0.5);
+    
+  vec2 nodeCoord = vec2((hex.z - 0.25) / dataWidth, (hex.w + 0.25) / (0.5 * dataWidth));
+
+  vec4 sampler1 = nodeCoord.x > 0.0 && nodeCoord.y > 0.0 && nodeCoord.x < 1.0 && nodeCoord.y < 1.0 ? texture2D(texture0, nodeCoord) : vec4(0.0);
+
+  NodeStatePacked nodeState = extractNodeStateFromVector(sampler1 * 255.0);
+  if (nodeState.redArrow < 0.5) {
+    discard;
+  }
+
+  // Left edge: -0.5..-0.495
+
+  vec2 center = vec2(0.0);
+
+  vec2 greenArrowAndQ1andQ2 = untangleGreenArrowFromQ1andQ2(nodeState.signalPart.greenArrowPermutedWithQ1andQ2);
+
+  float greenArrowPointsTo = getGreenArrowPointsTo(nodeState.redArrow, greenArrowAndQ1andQ2.x);
+  RenderedDirection greenArrowComesFrom = renderArrowDir(greenArrowPointsTo);
+
+  float redArrowPointsTo = nodeState.redArrow;
+  RenderedDirection redArrowGoesTo = renderArrowDir(redArrowPointsTo);
+
+  // greenArrowAndQ1andQ2.y describes the exact position of the two pass-thru outputs (number from 1 to 6)
+  // greenArrowPointsTo and redArrowPointsTo do exclude options, so we left only with the choice from 4)
+  Switching switching = getSwitching(redArrowPointsTo, greenArrowAndQ1andQ2.x, greenArrowAndQ1andQ2.y,
+    nodeState.signalPart.takeQ1fromBifTrueElseFromA, nodeState.signalPart.takeQ2fromBifTrueElseFromA);
+
+  RenderedDirection q1GoesTo = renderArrowDir(switching.q1);
+  RenderedDirection q2GoesTo = renderArrowDir(switching.q2);
+
+  RenderedDirection q1ComesFrom = renderArrowDir(switching.takeQ1from);
+  RenderedDirection q2ComesFrom = renderArrowDir(switching.takeQ2from);
+/*
+    greenArrowSignalAge
+
+    signalInsideOfGreenArrow:
+      greenArrowPermutedWithQ1andQ2
+      takeQ1fromBifTrueElseFromA
+      takeQ2fromBifTrueElseFromA
+    
+    signalGoingToQ1:
+      greenArrowPermutedWithQ1andQ2
+      takeQ1fromBifTrueElseFromA
+      takeQ2fromBifTrueElseFromA
+
+    signalGoingToQ2:
+      greenArrowPermutedWithQ1andQ2
+      takeQ1fromBifTrueElseFromA
+      takeQ2fromBifTrueElseFromA
+*/
+  float greenIntensity = nodeState.signalInsideOfGreenArrow.greenArrowPermutedWithQ1andQ2 > 0.5 ? nodeState.greenArrowSignalAge > 0.5 ? 0.4 : 0.6 : 1.0;
+
+/*  vec3 lineColor =
+/*    vec3(0.0, greenIntensity, 0.0) * greenArrowComesFrom.left * drawLine(center, leftEdgePort, hex.xy) +
+    vec3(0.0, greenIntensity, 0.0) * greenArrowComesFrom.leftTop * drawLine(center, leftTopEdgePort, hex.xy) +
+    vec3(0.0, greenIntensity, 0.0) * greenArrowComesFrom.rightTop * drawLine(center, rightTopEdgePort, hex.xy) +
+    vec3(0.0, greenIntensity, 0.0) * greenArrowComesFrom.right * drawLine(center, rightEdgePort, hex.xy) +
+    vec3(0.0, greenIntensity, 0.0) * greenArrowComesFrom.rightBottom * drawLine(center, rightBottomEdgePort, hex.xy) +
+    vec3(0.0, greenIntensity, 0.0) * greenArrowComesFrom.leftBottom * drawLine(center, leftBottomEdgePort, hex.xy) +
+* /
+
+    vec3(1.0, 0.0, 0.0) * redArrowGoesTo.left * drawLine(leftEdgePort, center, hex.xy) +
+    vec3(1.0, 1.0, 0.0) * redArrowGoesTo.leftTop * drawLine(leftTopEdgePort, center, hex.xy) +
+    vec3(0.0, 1.0, 0.0) * redArrowGoesTo.rightTop * drawLine(rightTopEdgePort, center, hex.xy) +
+    vec3(0.0, 1.0, 1.0) * redArrowGoesTo.right * drawLine(rightEdgePort, center, hex.xy) +
+    vec3(0.0, 0.0, 1.0) * redArrowGoesTo.rightBottom * drawLine(rightBottomEdgePort, center, hex.xy) +
+    vec3(1.0, 0.0, 1.0) * redArrowGoesTo.leftBottom * drawLine(leftBottomEdgePort, center, hex.xy);
+
+
+    drawOutput(q1GoesTo, q1ComesFrom, hex.xy, nodeState.signalGoingToQ1.greenArrowPermutedWithQ1andQ2) +
+    drawOutput(q2GoesTo, q2ComesFrom, hex.xy, nodeState.signalGoingToQ2.greenArrowPermutedWithQ1andQ2);
+*/
+
+
+  vec3 rgbaHexagon = whenGt(nodeState.redArrow, 0.5) * vec3(nodeState.signalPart.greenArrowPermutedWithQ1andQ2 * 8.5,
+    255.0 - nodeState.signalPart.takeQ1fromBifTrueElseFromA * 128.0,
+    255.0 - nodeState.signalPart.takeQ2fromBifTrueElseFromA * 128.0);
+    
+  //gl_FragData[0] = vec4(lineColor + allVec3(whenLt(lineColor, vec3(1.0 / 256.0))) * rgbaHexagon / 255.0, 1.0);
+  // gl_FragData[0] = vec4(rgbaHexagon / 255.0, 1.0);
+  gl_FragData[0] = vec4(sampler1.xyz, 1.0);
+
+  // gl_FragData[0] = vec4(lineColor, 1.0);
+}
+
+`;
+
+console.log(window.devicePixelRatio);
+
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+const canvas = app.canvasElt;
+
+
+
+const compileShader = (gl, vertSrc, fragSrc) => {
+
+    const vertex_shader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vertex_shader, vertSrc);
+    gl.compileShader(vertex_shader);
+
+    const frag_shader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(frag_shader, fragSrc);
+    gl.compileShader(frag_shader);
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vertex_shader);
+    gl.attachShader(program, frag_shader);
+    gl.linkProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.error("Could not initialise shaders " + gl.getProgramInfoLog(program));
+
+      if (!gl.getShaderParameter(vertex_shader, gl.COMPILE_STATUS)) { console.error("failed to compile vertex" + gl.getShaderInfoLog(vertex_shader)); }
+      if (!gl.getShaderParameter(frag_shader, gl.COMPILE_STATUS)) { console.error("failed to compile fragment" + gl.getShaderInfoLog(frag_shader)); }
+    } else {
+      console.log("Vertex log " + gl.getShaderInfoLog(vertex_shader));
+      console.log("Fragment log " + gl.getShaderInfoLog(frag_shader));
+      console.log("Program log " + gl.getProgramInfoLog(program));
+    }
+
+    return program;
+};
+
+const shader = compileShader(gl, VERTEX_SHADER, FRAGMENT_SHADER);
+gl.useProgram(shader);
+
+
+const pos_attr = window.g_app.pos_attr = gl.getAttribLocation(shader, 'aPos');
+gl.enableVertexAttribArray(pos_attr);
+
+const uniformTexture0ForDrawing = gl.getUniformLocation(shader, 'texture0');
+// const uSampler1 = gl.getUniformLocation(shader, 'uSampler1');
+const uniformDataWidthAndHeight2 = gl.getUniformLocation(shader, 'dataWidthAndHeight');
+const uniformScreenSize = gl.getUniformLocation(shader, 'screenSize');
+const uniformPan = gl.getUniformLocation(shader, 'uniformPan');
+
+
+
+
+const buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+
+// BYTE: signed 8-bit integer, with values in [-128..127] (when normalized mapped to [-1..1] with step 0.0078125)
+// SHORT: signed 16-bit integer, with values in [-32768..32767] (when normalized mapped to [-1..1] with step 0.000030517)
+// UNSIGNED_BYTE: unsigned 8-bit integer, with src values in [0..255] (when normalized mapped to [0..1] with step 0.00390625)
+// UNSIGNED_SHORT: unsigned 16-bit integer, with values in [0..65535] (when normalized mapped to [0..1] with step 0.000015258)
+// FLOAT: 32-bit IEEE floating point number, never normalized
+gl.vertexAttribPointer(pos_attr, 2, gl.FLOAT, false, 0, 0);
+
+
+const vertices = [
+  1.0, 1.0,
+ -1.0, 1.0,
+  1.0,  -1.0,
+ -1.0,  -1.0,
+];
+      
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
+
+
+const texture0 = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, texture0);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+const pixel = new Uint8Array([
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+]);
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+
+
+const texture1 = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, texture1);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+const pixel2 = new Uint8Array([
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+]);
+
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel2);
+
+
+
+const packStateInVector = (state) => {
+
+  let data = [];
+
+  data.push(state.signalPart.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalPart.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalPart.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.redArrow0);
+
+  data.push(state.signalInsideOfGreenArrow.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalInsideOfGreenArrow.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalInsideOfGreenArrow.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.redArrow1);
+    
+  data.push(state.signalGoingToQ1.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalGoingToQ1.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalGoingToQ1.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.redArrow2);
+
+  data.push(state.signalGoingToQ2.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalGoingToQ2.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalGoingToQ2.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.greenArrowSignalAge);
+
+  return data;
+}
+
+// App data
+// const gpgpuTextureSide = 4096;
+// const gpgpuTextureSide = 1024; // the most optimal texture size (works literally everywhere)
+const gpgpuTextureSide = 256;
+// const gpgpuTextureSide = 128;
+// const gpgpuTextureSide = 64;
+const data = new Uint8Array(gpgpuTextureSide * gpgpuTextureSide * 4);
+
+const initNodeWith = (redArrow, greenArrow, Q1andQ2perm = 6, q1fromB = 1, q2fromB = 0) => {
+
+  const perm1 = Math.floor(Math.random() * 30) + 1;
+  const perm2 = Math.floor(Math.random() * 30) + 1;
+  const b1 = Math.floor(Math.random() * 2);
+  const b2 = Math.floor(Math.random() * 2);
+  const b3 = Math.floor(Math.random() * 2);
+  const b4 = Math.floor(Math.random() * 2);
+
+  const nodeInit = {
+    redArrow0: redArrow & 1,
+    redArrow1: redArrow & 2 ? 1 : 0,
+    redArrow2: redArrow & 4 ? 1 : 0,
+  
+    signalPart: {
+      greenArrowPermutedWithQ1andQ2: greenArrow + 5.0 * (Q1andQ2perm - 1.0),
+      takeQ1fromBifTrueElseFromA: q1fromB,
+      takeQ2fromBifTrueElseFromA: q2fromB
+    },
+
+    signalInsideOfGreenArrow: {
+      greenArrowPermutedWithQ1andQ2: perm1,
+      takeQ1fromBifTrueElseFromA: b1,
+      takeQ2fromBifTrueElseFromA: b2
+    },
+    
+    signalGoingToQ1: {
+      greenArrowPermutedWithQ1andQ2: perm2,
+      takeQ1fromBifTrueElseFromA: b3,
+      takeQ2fromBifTrueElseFromA: b4,
+    },
+
+    signalGoingToQ2: {
+      greenArrowPermutedWithQ1andQ2: 0,
+      takeQ1fromBifTrueElseFromA: 0,
+      takeQ2fromBifTrueElseFromA: 0,
+    },
+  
+    greenArrowSignalAge : 0
+  };
+
+  return packStateInVector(nodeInit);
+};
+
+
+const randomNodeBytes = () => {
+
+  const redArrow = Math.floor(Math.random() * 6) + 1;
+  const greenArrow = Math.floor(Math.random() * 5) + 1;
+  const Q1andQ2perm = Math.floor(Math.random() * 6) + 1;
+  const q1fromB = Math.floor(Math.random() * 2);
+  const q2fromB = Math.floor(Math.random() * 2);
+
+  return initNodeWith(redArrow, greenArrow, Q1andQ2perm, q1fromB, q2fromB);
+};
+
+const generateRandomLattice = () => {
+//for (let y = 0; y < 4; ++y) {
+
+for (let y = 0; y < gpgpuTextureSide; ++y) {
+  for (let x = 0; x < gpgpuTextureSide; ++x) {
+    const randNode = randomNodeBytes();
+    for (let i = 0; i < 4; ++i) {
+      data[y * gpgpuTextureSide * 4 + x * 4 + i] = randNode[i];
+    }
+  }
+}
+};
+
+
+generateRandomLattice();
+
+
+const writeNode = (x, y, redArrow, greenArrow) => {
+
+  const nodeBytes = initNodeWith(redArrow, greenArrow);
+  for (let i = 0; i < 4; ++i) {
+    data[gpgpuTextureSide * 4 * y + x * 4 + i] = nodeBytes[i];
+  }
+};
+
+// Homogeneous rotation test data
+/*
+let yy = 0;
+writeNode(0, yy,   4, 3);
+writeNode(1, yy, 4, 3);
+yy += 2;
+
+writeNode(0, yy,   4, 3);
+writeNode(1, yy, 3, 4);
+yy += 2;
+
+writeNode(0, yy,   4, 3);
+writeNode(1, yy, 5, 2);
+yy += 2;
+
+writeNode(0, yy,   4, 2);
+writeNode(1, yy, 4, 3);
+yy += 2;
+
+writeNode(0, yy,   4, 2);
+writeNode(1, yy, 3, 4);
+yy += 2;
+
+writeNode(0, yy,   4, 2);
+writeNode(1, yy, 5, 2);
+yy += 2;
+
+writeNode(0, yy,   4, 4);
+writeNode(1, yy, 4, 3);
+yy += 2;
+
+writeNode(0, yy,   4, 4);
+writeNode(1, yy, 3, 4);
+yy += 2;
+
+writeNode(0, yy,   4, 4);
+writeNode(1, yy, 5, 2);
+yy += 2;
+
+
+writeNode(0, yy, 3, 4, 6, 1, 0);
+*/
+
+// Create swap chain GPGPU render textures
+const gpgpuTexture = [,];
+for (let i = 0; i < 2; ++i) {
+  gpgpuTexture[i] = {
+    texture: gl.createTexture(),
+    framebuffer: gl.createFramebuffer()
+  };
+  gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[i].texture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gpgpuTextureSide, gpgpuTextureSide, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  gl.bindFramebuffer(gl.FRAMEBUFFER, gpgpuTexture[i].framebuffer);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, gpgpuTexture[i].texture, 0);
+}
+
+// 1. texture2D(uSampler0, vec2(0, 0)) reads a single vec4 sourced from 4 bytes with normalization 0..255->0..1
+// 2. Maximum texture size is 4096x4096 with typical format of UNSIGNED_BYTE vec4, it's 64 megabytes.
+// 3. There is up to 8 active textures attached, giving us minimum addressable RAM of 512 megabytes.
+// {x, y, z, w} Useful when accessing vectors that represent points or normals
+// {r, g, b, a} Useful when accessing vectors that represent colors
+// {s, t, p, q} Useful when accessing vectors that represent texture coordinates
+
+const gpgpuShader = compileShader(gl, `#version 100
+precision highp float;
+attribute vec2 aPos;
+void main() {
+  gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+}
+`, `#version 100
+
+# ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+precision highp int;
+precision highp sampler2D;
+# else
+precision mediump float;
+precision lowp int;
+precision lowp sampler2D;
+# endif
+
+` + nodeModelLoader + `
+
+
+vec4 packStateInVector (NodeStatePacked state) {
+
+  vec4 data;
+
+  data.x = state.signalPart.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalPart.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalPart.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.redArrow0;
+
+  data.y = state.signalInsideOfGreenArrow.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalInsideOfGreenArrow.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalInsideOfGreenArrow.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.redArrow1;
+    
+  data.z = state.signalGoingToQ1.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalGoingToQ1.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalGoingToQ1.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.redArrow2;
+
+  data.w = state.signalGoingToQ2.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalGoingToQ2.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalGoingToQ2.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.greenArrowSignalAge;
+
+  return data;
+}
+
+struct ArrowBits {
+  lowp float bit0;
+	lowp float bit1;
+  lowp float bit2;
+};
+
+ArrowBits arrowBits (float val) {
+  ArrowBits result;
+
+  result.bit2 = whenGt(val, 3.5);
+
+  float bits0to1 = val - 4.0 * result.bit2;
+
+  result.bit1 = whenGt(bits0to1, 1.5);
+
+  result.bit0 = bits0to1 - 2.0 * result.bit1;
+
+  return result;
+}
+
+bool hasDirection (float signal, float direction) {
+  return whenGt(signal, direction - 0.5) * whenGt(direction + 0.5, signal) > 0.0;
+}
+
+SignalPart possibleSignalFromDirection (NodeStatePacked left, float direction) {
+
+  SignalPart result = SignalPart(0.0, 0.0, 0.0);
+
+  float oppositeDirection = mod(direction + 2.0, 6.0) + 1.0;
+
+  if (hasDirection(left.redArrow, oppositeDirection)) {
+    // Got left node's red arrow
+    result = left.signalPart;
+
+  } else {
+     vec2 leftPerm = untangleGreenArrowFromQ1andQ2(left.signalPart.greenArrowPermutedWithQ1andQ2);
+
+     Switching leftSwitching = getSwitching(left.redArrow, leftPerm.x, leftPerm.y,
+       left.signalPart.takeQ1fromBifTrueElseFromA, left.signalPart.takeQ2fromBifTrueElseFromA);
+
+     if (hasDirection(leftSwitching.q1, oppositeDirection) && left.signalGoingToQ1.greenArrowPermutedWithQ1andQ2 > 0.5) {
+       // If Q1 points torwads us and has signal inside
+       // (it will empty itself because it knows that we point our empty green arrow to it)
+       result = left.signalGoingToQ1;
+
+     } else if (hasDirection(leftSwitching.q2, oppositeDirection) && left.signalGoingToQ2.greenArrowPermutedWithQ1andQ2 > 0.5) {
+       // If Q2 points torwads us and has signal inside
+       // (it will empty itself because it knows that we point our empty green arrow to it)
+       result = left.signalGoingToQ2;
+     }
+  }
+
+  return result;
+}
+
+
+SignalPart possibleSignalFromDirection(float greenArrowPointsTo, NodeStatePacked left, NodeStatePacked bottomLeft,
+    NodeStatePacked bottomRight, NodeStatePacked right, NodeStatePacked topRight, NodeStatePacked topLeft) {
+
+  SignalPart result = SignalPart(0.0, 0.0, 0.0);
+
+  if (hasDirection(greenArrowPointsTo, 1.0) && left.redArrow > 0.5) {
+    result = possibleSignalFromDirection(left, 1.0);
+
+  } else if (hasDirection(greenArrowPointsTo, 2.0) && bottomLeft.redArrow > 0.5) {
+    result = possibleSignalFromDirection(bottomLeft, 2.0);
+
+  } else if (hasDirection(greenArrowPointsTo, 3.0) && bottomRight.redArrow > 0.5) {
+    result = possibleSignalFromDirection(bottomRight, 3.0);
+
+  } else if (hasDirection(greenArrowPointsTo, 4.0) && right.redArrow > 0.5) {
+    result = possibleSignalFromDirection(right, 4.0);
+
+  } else if (hasDirection(greenArrowPointsTo, 5.0) && topRight.redArrow > 0.5) {
+    result = possibleSignalFromDirection(topRight, 5.0);
+
+  } else if (hasDirection(greenArrowPointsTo, 6.0) && topLeft.redArrow > 0.5) {
+    result = possibleSignalFromDirection(topLeft, 6.0);
+  }
+
+  return result;
+}
+
+bool hasReadyInputPort(NodeStatePacked node, float onTheSide) {
+
+  vec2 perm = untangleGreenArrowFromQ1andQ2(node.signalPart.greenArrowPermutedWithQ1andQ2);
+
+  Switching switching = getSwitching(node.redArrow, perm.x, perm.y,
+     node.signalPart.takeQ1fromBifTrueElseFromA,
+     node.signalPart.takeQ2fromBifTrueElseFromA);
+
+  if (hasDirection(switching.takeQ1from, onTheSide) && node.signalGoingToQ1.greenArrowPermutedWithQ1andQ2 < 0.5) {
+    return true;
+  }
+
+  if (hasDirection(switching.takeQ2from, onTheSide) && node.signalGoingToQ2.greenArrowPermutedWithQ1andQ2 < 0.5) {
+    return true;
+  }
+
+  float greenArrowPointsTo = getGreenArrowPointsTo(node.redArrow, perm.x);
+  return (hasDirection(greenArrowPointsTo, onTheSide) && node.signalInsideOfGreenArrow.greenArrowPermutedWithQ1andQ2 < 0.5);
+}
+
+bool isReadyNeighborInput (float direction, NodeStatePacked left, NodeStatePacked bottomLeft,
+    NodeStatePacked bottomRight, NodeStatePacked right, NodeStatePacked topRight, NodeStatePacked topLeft) {
+
+  float oppositeDirection = mod(direction + 2.0, 6.0) + 1.0;
+
+  if (hasDirection(direction, 1.0) && left.redArrow > 0.5) {
+    return hasReadyInputPort(left, oppositeDirection);
+
+  } else if (hasDirection(direction, 2.0) && bottomLeft.redArrow > 0.5) {
+    return hasReadyInputPort(bottomLeft, oppositeDirection);
+
+  } else if (hasDirection(direction, 3.0) && bottomRight.redArrow > 0.5) {
+    return hasReadyInputPort(bottomRight, oppositeDirection);
+
+  } else if (hasDirection(direction, 4.0) && right.redArrow > 0.5) {
+    return hasReadyInputPort(right, oppositeDirection);
+
+  } else if (hasDirection(direction, 5.0) && topRight.redArrow > 0.5) {
+    return hasReadyInputPort(topRight, oppositeDirection);
+
+  } else if (hasDirection(direction, 6.0) && topLeft.redArrow > 0.5) {
+    return hasReadyInputPort(topLeft, oppositeDirection);
+  }
+
+  return false;
+}
+
+/*
+  Algorithm:
+    We have 2 or 3 inputs, and 3 outputs.
+    2 outputs can have signal content inside of them, or being empty.
+    Green arrow input can have signal content inside of it, being aged 0 or 1, or being empty.
+    A node does transition into entirely new state when its green arrow "pops" (its age is 1),
+    and its content replaces the current node.
+
+    Node can empty its signal content from either output Q1 or Q2 only when there's
+    a neighbor's input port connected to it, and one or both of its outputs emptied its signal content,
+    and that neighbor's green arrow signal's age is not 1.
+
+    Signal can enter input A or B, only if it's connected, and both Q1 and Q2 are empty.
+    When A (or B) is connected to both Q1 and Q2, two copies of signal created.
+
+    Signal can enter green arrow only if it's empty.
+
+    Fields are the following:
+    redArrow0, redArrow1, redArrow2
+    redArrow
+  
+    signalPart:
+      greenArrowPermutedWithQ1andQ2
+      takeQ1fromBifTrueElseFromA
+      takeQ2fromBifTrueElseFromA
+
+    greenArrowSignalAge
+
+    signalInsideOfGreenArrow:
+      greenArrowPermutedWithQ1andQ2
+      takeQ1fromBifTrueElseFromA
+      takeQ2fromBifTrueElseFromA
+    
+    signalGoingToQ1:
+      greenArrowPermutedWithQ1andQ2
+      takeQ1fromBifTrueElseFromA
+      takeQ2fromBifTrueElseFromA
+
+    signalGoingToQ2:
+      greenArrowPermutedWithQ1andQ2
+      takeQ1fromBifTrueElseFromA
+      takeQ2fromBifTrueElseFromA
+  
+*/
+NodeStatePacked computeNewNodeState (NodeStatePacked nodeState, NodeStatePacked left, NodeStatePacked right,
+    NodeStatePacked topLeft, NodeStatePacked topRight, NodeStatePacked bottomLeft, NodeStatePacked bottomRight) {
+
+  NodeStatePacked newNodeState;
+
+  vec2 greenArrowAndQ1andQ2 = untangleGreenArrowFromQ1andQ2(nodeState.signalPart.greenArrowPermutedWithQ1andQ2);
+  float greenArrowPointsTo = getGreenArrowPointsTo(nodeState.redArrow, greenArrowAndQ1andQ2.x);
+
+  // We are empty. We might take state from a neighbor node which has red arrow pointing to us,
+  // if that node is free to go (not bounded by internal signals and by its input neighbors)
+  if (nodeState.redArrow < 0.5) {
+    return nodeState;
+  }
+
+  // Copy existing node state by default
+  newNodeState = nodeState;
+
+  // Pick our programming input signal. Note that there's lifetime (age) counter when we replace ourselves.
+
+  // If green arrow doesn't have signal inside, we do not pop it, but we take a signal from neighbor and save it inside of it
+  if (nodeState.signalInsideOfGreenArrow.greenArrowPermutedWithQ1andQ2 < 0.5) {
+    // We can take a signal from the neighbor into our green arrow if the neighbor
+    // points its red arrow or Q1 or Q2 towards us (in the Q1/Q2 case it has signal content inside of them)
+
+    newNodeState.signalInsideOfGreenArrow = possibleSignalFromDirection(greenArrowPointsTo, left, bottomLeft, bottomRight, right, topRight, topLeft);
+
+  } else {
+    // We DO have signal inside of our green arrow
+    if (nodeState.greenArrowSignalAge < 0.5) {
+      // if its age is 0, just increment it
+      newNodeState.greenArrowSignalAge += 1.0;
+
+    } else {
+      // Age was 1.0 and it has a signal: popping it right now!
+
+      newNodeState.signalPart = nodeState.signalInsideOfGreenArrow;
+
+      // Clean all signals now
+      newNodeState.signalInsideOfGreenArrow.greenArrowPermutedWithQ1andQ2 = 0.0;
+      newNodeState.greenArrowSignalAge = 0.0;
+      newNodeState.signalGoingToQ1.greenArrowPermutedWithQ1andQ2 = 0.0;
+      newNodeState.signalGoingToQ2.greenArrowPermutedWithQ1andQ2 = 0.0;
+
+      // This port gets hit by popped green arrow's signal when it's time to pop it.
+      float redArrowHits = mod(greenArrowPointsTo + 2.0, 6.0) + 1.0;
+
+      ArrowBits ra = arrowBits(redArrowHits);
+      newNodeState.redArrow = redArrowHits;
+      newNodeState.redArrow0 = ra.bit0;
+      newNodeState.redArrow1 = ra.bit1;
+      newNodeState.redArrow2 = ra.bit2;
+
+      return newNodeState;
+    }
+  }
+
+  // Output port. We need to check this neighbor so we can disappear safely if we can guarantee that the neighbor
+  // will consume our state (the red arrow pointed neighbor's green arrow is not going to pop right now - its life is 0
+  // or the green arrow is empty inside). If the neighbor is completely empty, we might move our state into it.
+  float redArrowPointsTo = nodeState.redArrow;
+
+  // greenArrowAndQ1andQ2.y describes the exact position of the two pass-thru outputs (number from 1 to 6)
+  // greenArrowPointsTo and redArrowPointsTo do exclude options, so we left only with the choice from 4)
+  Switching switching = getSwitching(redArrowPointsTo, greenArrowAndQ1andQ2.x, greenArrowAndQ1andQ2.y,
+    nodeState.signalPart.takeQ1fromBifTrueElseFromA, nodeState.signalPart.takeQ2fromBifTrueElseFromA);
+
+  // Only clean when the recipient for sure will take us (in async - has exactly our signal in its input port)
+
+  if (nodeState.signalGoingToQ1.greenArrowPermutedWithQ1andQ2 < 0.5) {
+    newNodeState.signalGoingToQ1 = possibleSignalFromDirection(switching.takeQ1from, left, bottomLeft, bottomRight, right, topRight, topLeft);
+  } else {
+    // Possible flush - if output for sure will take us (it is empty now and points to us)
+
+    if (isReadyNeighborInput(switching.q1, left, bottomLeft, bottomRight, right, topRight, topLeft)) {
+      newNodeState.signalGoingToQ1.greenArrowPermutedWithQ1andQ2 = 0.0;
+    }
+  }
+
+  if (nodeState.signalGoingToQ2.greenArrowPermutedWithQ1andQ2 < 0.5) {
+    newNodeState.signalGoingToQ2 = possibleSignalFromDirection(switching.takeQ2from, left, bottomLeft, bottomRight, right, topRight, topLeft);
+  } else {
+
+    if (isReadyNeighborInput(switching.q2, left, bottomLeft, bottomRight, right, topRight, topLeft)) {
+      newNodeState.signalGoingToQ2.greenArrowPermutedWithQ1andQ2 = 0.0;
+    }
+  }
+
+
+  return newNodeState;
+}
+
+
+NodeStatePacked computeNewNodeStateSimple (NodeStatePacked nodeState, NodeStatePacked left, NodeStatePacked right,
+    NodeStatePacked topLeft, NodeStatePacked topRight, NodeStatePacked bottomLeft, NodeStatePacked bottomRight) {
+
+  NodeStatePacked newNodeState = nodeState;
+
+  if (hasDirection(nodeState.redArrow, 1.0) && left.redArrow > 0.5) {
+    if (left.redArrow > 1.5 && left.redArrow < 3.5) {
+      newNodeState.redArrow = 2.0;
+    } else if (left.redArrow > 4.5 && left.redArrow < 6.5) {
+      newNodeState.redArrow = 6.0;
+    } else {
+      newNodeState.redArrow = left.redArrow;
+    }
+  } else if (hasDirection(nodeState.redArrow, 2.0) && bottomLeft.redArrow > 0.5) {
+    if (bottomLeft.redArrow > 0.5 && bottomLeft.redArrow < 1.5 || bottomLeft.redArrow > 5.5 && bottomLeft.redArrow < 6.5) {
+      newNodeState.redArrow = 1.0;
+    } else if (bottomLeft.redArrow > 2.5 && bottomLeft.redArrow < 4.5) {
+      newNodeState.redArrow = 3.0;
+    } else {
+      newNodeState.redArrow = bottomLeft.redArrow;
+    }
+  } else if (hasDirection(nodeState.redArrow, 3.0) && bottomRight.redArrow > 0.5) {
+    if (bottomRight.redArrow > 0.5 && bottomRight.redArrow < 2.5) {
+      newNodeState.redArrow = 2.0;
+    } else if (bottomRight.redArrow > 3.5 && bottomRight.redArrow < 5.5) {
+      newNodeState.redArrow = 4.0;
+    } else {
+      newNodeState.redArrow = bottomRight.redArrow;
+    }
+  } else if (hasDirection(nodeState.redArrow, 4.0) && right.redArrow > 0.5) {
+    if (right.redArrow > 1.5 && right.redArrow < 3.5) {
+      newNodeState.redArrow = 3.0;
+    } else if (right.redArrow > 4.5 && right.redArrow < 6.5) {
+      newNodeState.redArrow = 5.0;
+    } else {
+      newNodeState.redArrow = right.redArrow;
+    }
+  } else if (hasDirection(nodeState.redArrow, 5.0) && topRight.redArrow > 0.5) {
+    if (topRight.redArrow > 2.5 && topRight.redArrow < 4.5) {
+      newNodeState.redArrow = 4.0;
+    } else if (topRight.redArrow > 5.5 && topRight.redArrow < 6.5 || topRight.redArrow > 0.5 && topRight.redArrow < 1.5) {
+      newNodeState.redArrow = 6.0;
+    } else {
+      newNodeState.redArrow = topRight.redArrow;
+    }
+  } else if (hasDirection(nodeState.redArrow, 6.0) && topLeft.redArrow > 0.5) {
+    if (topLeft.redArrow > 3.5 && topLeft.redArrow < 5.5) {
+      newNodeState.redArrow = 5.0;
+    } else if (topLeft.redArrow > 1.5 && topLeft.redArrow < 2.5) {
+      newNodeState.redArrow = 1.0;
+    } else {
+      newNodeState.redArrow = topLeft.redArrow;
+    }
+  }
+
+  ArrowBits ra = arrowBits(newNodeState.redArrow);
+  newNodeState.redArrow0 = ra.bit0;
+  newNodeState.redArrow1 = ra.bit1;
+  newNodeState.redArrow2 = ra.bit2;
+
+  return newNodeState;
+}
+
+
+NodeStatePacked computeNewNodeStateSimple2 (NodeStatePacked nodeState, NodeStatePacked left, NodeStatePacked right,
+    NodeStatePacked topLeft, NodeStatePacked topRight, NodeStatePacked bottomLeft, NodeStatePacked bottomRight) {
+
+  NodeStatePacked newNodeState = nodeState;
+
+  if (hasDirection(nodeState.redArrow, 1.0) && left.redArrow > 0.5) {
+    newNodeState.redArrow = left.redArrow;
+  } else if (hasDirection(nodeState.redArrow, 2.0) && bottomLeft.redArrow > 0.5) {
+    newNodeState.redArrow = bottomLeft.redArrow;
+  } else if (hasDirection(nodeState.redArrow, 3.0) && bottomRight.redArrow > 0.5) {
+    newNodeState.redArrow = bottomRight.redArrow;
+  } else if (hasDirection(nodeState.redArrow, 4.0) && right.redArrow > 0.5) {
+    newNodeState.redArrow = right.redArrow;
+  } else if (hasDirection(nodeState.redArrow, 5.0) && topRight.redArrow > 0.5) {
+    newNodeState.redArrow = topRight.redArrow;
+  } else if (hasDirection(nodeState.redArrow, 6.0) && topLeft.redArrow > 0.5) {
+    newNodeState.redArrow = topLeft.redArrow;
+  }
+
+  ArrowBits ra = arrowBits(newNodeState.redArrow);
+  newNodeState.redArrow0 = ra.bit0;
+  newNodeState.redArrow1 = ra.bit1;
+  newNodeState.redArrow2 = ra.bit2;
+
+  return newNodeState;
+}
+
+NodeStatePacked computeNewNodeStateSimple3 (NodeStatePacked nodeState, NodeStatePacked left, NodeStatePacked right,
+    NodeStatePacked topLeft, NodeStatePacked topRight, NodeStatePacked bottomLeft, NodeStatePacked bottomRight) {
+
+  NodeStatePacked newNodeState = nodeState;
+
+  if (hasDirection(nodeState.redArrow, 1.0) && left.redArrow > 0.5) {
+    newNodeState = left;
+  } else if (hasDirection(nodeState.redArrow, 2.0) && bottomLeft.redArrow > 0.5) {
+    newNodeState = bottomLeft;
+  } else if (hasDirection(nodeState.redArrow, 3.0) && bottomRight.redArrow > 0.5) {
+    newNodeState = bottomRight;
+  } else if (hasDirection(nodeState.redArrow, 4.0) && right.redArrow > 0.5) {
+    newNodeState = right;
+  } else if (hasDirection(nodeState.redArrow, 5.0) && topRight.redArrow > 0.5) {
+    newNodeState = topRight;
+  } else if (hasDirection(nodeState.redArrow, 6.0) && topLeft.redArrow > 0.5) {
+    newNodeState = topLeft;
+  }
+
+  return newNodeState;
+}
+
+// Main GPU computation
+void main() {
+  vec2 screenPos = gl_FragCoord.xy - 0.5;
+  float x = screenPos.x;
+  float y = screenPos.y;
+
+  float oddRow = mod(y, 2.0) > 0.0 ? 0.0 : 1.0;
+  
+  NodeStatePacked nodeState = extractNodeStateFromVector(fetch2d(screenPos));
+
+  NodeStatePacked left = extractNodeStateFromVector(fetch2d(vec2(x - 1.0, y)));
+  NodeStatePacked right = extractNodeStateFromVector(fetch2d(vec2(x + 1.0, y)));
+  NodeStatePacked topLeft = extractNodeStateFromVector(fetch2d(vec2(x - 1.0 + oddRow, y - 1.0)));
+  NodeStatePacked topRight = extractNodeStateFromVector(fetch2d(vec2(x + oddRow, y - 1.0)));
+  NodeStatePacked bottomLeft = extractNodeStateFromVector(fetch2d(vec2(x - 1.0 + oddRow, y + 1.0)));
+  NodeStatePacked bottomRight = extractNodeStateFromVector(fetch2d(vec2(x + oddRow, y + 1.0)));
+
+
+  // NodeStatePacked newNodeState = computeNewNodeState(nodeState, left, right, topLeft, topRight, bottomLeft, bottomRight);
+  NodeStatePacked newNodeState = computeNewNodeStateSimple3(nodeState, left, right, topLeft, topRight, bottomLeft, bottomRight);
+  // NodeStatePacked newNodeState = nodeState;
+
+  vec4 srcData = packStateInVector(newNodeState);
+
+  gl_FragData[0] = srcData / 255.0;
+}
+
+`);
+
+const uniformTexture0 = gl.getUniformLocation(gpgpuShader, 'texture0');
+const uniformDataWidthAndHeight = gl.getUniformLocation(gpgpuShader, 'dataWidthAndHeight');
+
+let chainIdSrc = 0;
+let chainIdDst = 1;
+
+let minTook = 1000;
+let currIter = 0;
+
+let begWith = performance.now();
+
+
+// Attach our quad to both shaders
+gl.useProgram(shader);
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.vertexAttribPointer(pos_attr, 2, gl.FLOAT, false, 0, 0);
+
+gl.useProgram(gpgpuShader);
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.vertexAttribPointer(pos_attr, 2, gl.FLOAT, false, 0, 0);
+
+const createAnotherRandomLattice = () => {
+  generateRandomLattice();
+  gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdSrc].texture);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gpgpuTextureSide, gpgpuTextureSide, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+};
+
+setInterval(() => {
+
+  createAnotherRandomLattice();
+/*
+  for (let i = 0; i < 50; ++i) {
+    window.g_app.doGpuCompute()
+  } */
+}, 6000);
+
+window.g_app.doGpuCompute = () => {
+  // Run GPGPU shader
+  gl.useProgram(gpgpuShader);
+  gl.viewport(0, 0, gpgpuTextureSide, gpgpuTextureSide);
+  // 3 updates is a great number for 4k by 4k texture.
+  // More depth of computation can be achieved by making the size smaller.
+  for (let i = 0; i < 1; ++i) {
+
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdSrc].texture);
+  gl.uniform1i(uniformTexture0, 0);
+
+  gl.uniform2f(uniformDataWidthAndHeight, gpgpuTextureSide, gpgpuTextureSide);
+
+  gl.bindFramebuffer(gl.FRAMEBUFFER, gpgpuTexture[chainIdDst].framebuffer);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+  // Access results (not necessary here, can render stuff instead)
+  // gl.readPixels(0, 0, gpgpuTextureSide, gpgpuTextureSide, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  let tmp = chainIdSrc;
+  chainIdSrc = chainIdDst;
+  chainIdDst = tmp;
+
+  }
+};
+
+// Run computation by timer slices
+// Run renderer by RAF
+
+window.g_app.gpuCompute = () => {
+
+  // console.log('Launching compute...');
+  const start = performance.now();
+
+  window.g_app.doGpuCompute();
+
+  gl.flush();
+
+  // console.log(performance.now() - start);
+
+  // setTimeout(window.g_app.gpuCompute, 7);
+  setTimeout(window.g_app.gpuCompute, 25);
+
+  // Switch every 12 seconds
+  // setTimeout(window.g_app.gpuCompute, 125);
+  // setTimeout(window.g_app.gpuCompute, 250);
+  // setTimeout(window.g_app.gpuCompute, 1000);
+};
+
+
+
+window.g_app.fitTextareaInVisibleViewport(window.innerHeight);
+
+
+
+window.g_app.render = () => {
+
+  // window.g_app.gpuCompute();
+
+
+  const width = window.innerWidth * window.devicePixelRatio;
+  const height = window.innerHeight * window.devicePixelRatio;
+
+  gl.useProgram(shader);
+
+    // gl.activeTexture(gl.TEXTURE1);
+    // gl.bindTexture(gl.TEXTURE_2D, texture1);
+    // gl.uniform1i(uSampler1, 1);
+
+  // After swap - most recently computed:
+  gl.activeTexture(gl.TEXTURE0);
+  // gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdSrc].texture);
+  gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdDst].texture);
+  gl.uniform1i(uniformTexture0ForDrawing, 0);
+
+  gl.uniform2f(uniformDataWidthAndHeight2, gpgpuTextureSide, gpgpuTextureSide);
+  gl.uniform2f(uniformScreenSize, width, height);
+
+  gl.uniform2f(uniformPan, window.g_app.panX, window.g_app.panY);
+
+
+  let j = 32;
+
+  const bytes = j * j * 4;
+
+  let avgTook = 0;
+
+  //gl.readPixels(0, 0, j, j, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  // gl.activeTexture(gl.TEXTURE1);
+  // gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, j, j, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  const renderStarted = performance.now();
+/*
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, texture0);
+  const pixel1_1 = new Uint8Array([
+    0, 255, 0, 255,
+    0, 0, 0, 255,
+    255, 0, 0, 255,
+    0, 0, 255, 255,
+  ]);
+  gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 2, 2, gl.RGBA, gl.UNSIGNED_BYTE, pixel1_1);
+
+*/
+    const side = j; //Math.sqrt(bytes);
+
+    // render to the canvas
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, width, height);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    // Only on retarded systems
+    gl.flush();
+
+
+    // gl.readPixels(0, 0, side, side, gl.RGBA, gl.UNSIGNED_BYTE, data);
+    const now = performance.now();
+    const took = now - begWith;
+    avgTook += took;
+    begWith = now;
+
+    // console.log(bytes / 1024 / 1024, j, (avgTook / iters), ((performance.now() - renderStarted) / iters));
+  if (currIter++ > 30 && took < minTook) {
+    minTook = took;
+  }
+
+  // console.log(minTook, took);
+
+
+  //setTimeout(() => {
+    requestAnimationFrame(window.g_app.render);
+  //}, 250);
+};
+
+
+window.g_app.gpuCompute();
+requestAnimationFrame(window.g_app.render);
+// window.g_app.render();
+
+
+}, 0);
+
+
+
+
+}
+</script><style>
+html {
+  --visible-width: 16px;
+  --visible-height: 16px;
+
+  transform-style: preserve-3d;
+}
+
+html, body {
+  overflow: visible;
+  height: 0px;
+  width: 0px;
+  background-color: transparent !important;
+}
+
+html.with-virtual-keyboard, html.with-virtual-keyboard > body {
+  height: var(--visible-height);
+  min-height: var(--visible-height);
+  width: var(--visible-width);
+}
+
+body {
+  overflow: hidden;
+  margin: 0px;
+}
+
+html, body, canvas, textarea {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  max-height: 999999px;
+
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+textarea:focus {
+  outline-offset: 0px;
+}
+
+:focus {
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #88cc88;
+}
+
+textarea {
+  -webkit-overflow-scrolling : touch !important;
+  outline: none;
+  border: none;
+  border-width: 0px;
+  border-radius: 0px;
+  border-image-width: 0px;
+  background-color: transparent;
+  resize: none;
+  padding: 0px;
+  font-size: 36px;
+  line-height: 42px;
+}
+
+canvas {
+  transform: translate3d(0px, 0px, 0px);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+         </style></head><body><canvas id="0" width="16px" height="16px" draggable="true"></canvas><input hidden="" id="1" type="file" style="position: absolute; min-height: 44px; width: 200px; background-color: red; transform: translate3d(0, 0, 2px);"></body></html>
