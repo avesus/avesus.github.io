@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="data:,">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="transparent">
+  <meta name="format-detection" content="telephone=no">
+
+  <style>
+html {
+  --visible-width: 16px;
+  --visible-height: 16px;
+
+  transform-style: preserve-3d;
+}
+
+html, body {
+  overflow: visible;
+  background-color: transparent !important;
+}
+
+html.with-virtual-keyboard, html.with-virtual-keyboard > body {
+  height: var(--visible-height);
+  min-height: var(--visible-height);
+  width: var(--visible-width);
+}
+
+body {
+  margin: 0px;
+  margin-left: 15px;
+  margin-right: 45px;
+}
+
+html, body, canvas, textarea {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  max-height: 999999px;
+
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+textarea:focus {
+  outline-offset: 0px;
+}
+
+:focus {
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #88cc88;
+}
+
+textarea {
+  -webkit-overflow-scrolling : touch !important;
+  outline: none;
+  border: none;
+  border-width: 0px;
+  border-radius: 0px;
+  border-image-width: 0px;
+  background-color: transparent;
+  resize: none;
+  padding: 0px;
+  font-size: 36px;
+  line-height: 42px;
+}
+
+canvas {
+  transform: translate3d(0px, 0px, 0px);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+         </style>
+         </head>
+         <body>
+         <h1>Brian's Cellular Automata Research</h1>
+         All these automata have extremely simple rules of evaluation.
+         Although updates are made using clocked full-state update,
+         the model is compatible with asychnronous clockless autonomous state changes.
+
+         <h2>The most feasible for general computation. Reversible and information-conservative</h2>
+         <ul>
+         <li><a href="/conservative">Conservative</a></li>
+         <li><a href="/charges">Charges ("discrete" positrons+electrons)</a>. Give this machine about 20 minutes to develop</li>
+         </ul>
+
+         <h2>Looks like your computer should. Not conservative, gets "hot"</h2>
+         <ul>
+         <li><a href="/driller">Driller</a> (wild)</li>
+         <li><a href="/machine3">Machine</a> (stable)</li>
+         <li><a href="/machine">Machine</a> (the same automata, but with random state re-init every few seconds)</li>
+         </ul>
+
+         <h2>Organic / looking like large-scale nature</h2>
+         <ul>
+         <li><a target="_blank" href="https://www.shadertoy.com/view/WsByDy">Discrete fluid</a> (a ShaderToy simulation; works only in Desktop browser. Inspired by <a target="_blank" href="http://wyattflanders.com">Wyatt Flanders</a>).</li>
+         <li><a href="/islands">Islands</a> (stable)</li>
+         <li><a href="/vortex">Vortex</a> (wild)</li>
+         </ul>
+
+         <h3>There were other two machines developed in February 2019, but these are available only as Windows apps written in C++
+         for Direct3D12</h3>
+         Please, send me a message in <a target="_blank" href="https://linkedin.com/in/brianhaak">LinkedIn</a> or <a target="_blank" href="https://twitter.com/avesus8">Twitter</a>
+         
+
+         <!--
+         <canvas id="0" width="16px" height="16px" draggable="true"></canvas>
+         <input hidden="" id="1" type="file" style="position: absolute; min-height: 44px; width: 200px; background-color: red; transform: translate3d(0, 0, 2px);"> -->
+
+         <footer>
+         &copy; Brian Cannard, 2019-2023. All rights reserved.
+         </footer>
+
+</body>
+</html>
