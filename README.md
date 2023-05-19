@@ -1,2 +1,2 @@
 # avesus.github.io
-Brian Cannard's website
+Brian's website
