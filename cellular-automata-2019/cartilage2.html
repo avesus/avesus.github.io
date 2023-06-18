@@ -161,7 +161,7 @@ document.head.removeChild(s);
 const app = window.g_app;
 
 app.panX = 0;
-app.panY = 0;
+app.panY = -880 * 80.0 / 64.0;
 
 const canvasElt = window.g_app.canvasElt = window.document.getElementById('0');
 
@@ -647,10 +647,10 @@ app.clearGl(window.innerWidth);
 
 //const COMPUTE_STEPS = 11000;
 //const COMPUTE_STEPS = 1500;
-const COMPUTE_STEPS = 400;
+//const COMPUTE_STEPS = 400;
 //const COMPUTE_STEPS = 60;
 //const COMPUTE_STEPS = 30;
-//const COMPUTE_STEPS = 1;
+const COMPUTE_STEPS = 1;
 
 const DELAY_BETWEEN_FRAMES = 0;
 //const DELAY_BETWEEN_FRAMES = 75;
@@ -658,7 +658,7 @@ const DELAY_BETWEEN_FRAMES = 0;
 //const DELAY_BETWEEN_FRAMES = 250;
 //const DELAY_BETWEEN_FRAMES = 2000;
 
-const HARDCODED_ZOOM_FACTOR = 24;
+const HARDCODED_ZOOM_FACTOR = 80;
 
 // App data
 // const gpgpuTextureSide = 4096;
@@ -670,8 +670,8 @@ const HARDCODED_ZOOM_FACTOR = 24;
 // 256 is the perfect size!!!
 // const gpgpuTextureSide = 256;
 // const gpgpuTextureSide = 128;
-const gpgpuTextureSide = 64;
-//const gpgpuTextureSide = 32;
+// const gpgpuTextureSide = 64;
+const gpgpuTextureSide = 32;
 const data = new Uint8Array(gpgpuTextureSide * gpgpuTextureSide * 4);
 
 
