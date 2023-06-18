@@ -647,15 +647,18 @@ app.clearGl(window.innerWidth);
 
 //const COMPUTE_STEPS = 11000;
 //const COMPUTE_STEPS = 1500;
-//const COMPUTE_STEPS = 400;
+//const COMPUTE_STEPS = 400; // Fast forward reconf
 //const COMPUTE_STEPS = 60;
 //const COMPUTE_STEPS = 30;
+// const COMPUTE_STEPS = 10; // Is a good reconf demo where still makes sense the signals
 const COMPUTE_STEPS = 1;
 
-//const DELAY_BETWEEN_FRAMES = 0;
+const DELAY_BETWEEN_FRAMES = 0;
 // const DELAY_BETWEEN_FRAMES = 75;
-const DELAY_BETWEEN_FRAMES = 175;
+//const DELAY_BETWEEN_FRAMES = 175;
 //const DELAY_BETWEEN_FRAMES = 250;
+//const DELAY_BETWEEN_FRAMES = 330;
+//const DELAY_BETWEEN_FRAMES = 666; // Eye can catch what's happening
 //const DELAY_BETWEEN_FRAMES = 2000;
 
 // const HARDCODED_ZOOM_FACTOR = 80;
@@ -1440,7 +1443,7 @@ vec4 draw_crossbar_signal(vec2 center, float current, float next, vec4 visual, v
 
 vec4 cfg_dbg(float val, float x, float y, vec2 p, vec4 visual, vec3 color) {
     // float s = disc(vec2(x, y), 1.1 * WIRE_THICK, p);
-    float s = disc(vec2(x, y), 1.0 * WIRE_THICK, p);
+    float s = disc(vec2(x, y), 1.6 * WIRE_THICK, p);
     visual = vec4(compose_antialias(5.0 * s, 8.0 * color * val, visual.rgb), 1.0);
     
     return visual;
@@ -1475,16 +1478,23 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
         We draw diagonal lines for the active MUX input and a short one looking like --/
         showing the selector input.
     */
-    float show_in_left = 1.0; //consumes_from_the_left(cell);
+    
+    // Without these, muxes aren't identifiable:
+    float show_in_left = consumes_from_the_left(cell);
+    float show_in_right = consumes_from_the_right(cell);
+    float show_in_top = consumes_from_the_top(cell);
+    float show_in_bottom = consumes_from_the_bottom(cell);
+
+    //float show_in_left = 1.0; //consumes_from_the_left(cell);
     float show_out_right = 1.0; //consumes_from_the_left(right);
 
-    float show_in_right = 1.0; //consumes_from_the_right(cell);
+    //float show_in_right = 1.0; //consumes_from_the_right(cell);
     float show_out_left = 1.0; //consumes_from_the_right(left);
 
-    float show_in_top = 1.0; //consumes_from_the_top(cell);
+    //float show_in_top = 1.0; //consumes_from_the_top(cell);
     float show_out_bottom = 1.0; //consumes_from_the_top(bottom);
 
-    float show_in_bottom = 1.0; //consumes_from_the_bottom(cell);
+    //float show_in_bottom = 1.0; //consumes_from_the_bottom(cell);
     float show_out_top = 1.0; //consumes_from_the_bottom(top);
 /*
     float show_in_left = consumes_from_the_left(cell);
@@ -1835,7 +1845,7 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
 
     visual = cfg_dbg(cell.PREV_CLK, 4.5, 4.0, p, visual, clk_clr);
     visual = cfg_dbg(cell.WE_ARE_FULL_DFF, 4.5, 5.0, p, visual, dat_clr);
-    // -------------------------------------------------------------------------
+     // -------------------------------------------------------------------------
     if (is_reconf_port(cell) > 0.5) {
         visual = vec4(compose(0.01 * (24.0 / zoom_factor), vec3(0.2, 0.0, 1.0), visual.rgb), 0.8);
     } else if (no_connections < 0.5 && cell.mode < 0.5 && cell.orientation > 1.5 && cell.orientation < 2.5) {
@@ -1941,7 +1951,7 @@ vec4 render (in vec2 fragCoord) {
     float twig_thickness = zoom_factor * zoom_factor / 128.0 * 0.15;
 
     // Children twigs
-    
+    /*
     p = mod(fragCoord, zoom_factor);
     if (is_right(left.parent) > 0.5) {
         vec3 twig_color = cell.LCO > 0.5 ? twig_color_clocked : twig_color;
@@ -1979,7 +1989,8 @@ vec4 render (in vec2 fragCoord) {
     if (is_bottom(cell.parent) > 0.5) {
         overlay_color = line(center + vec2(0.0, 0.25), 0.0, 0.3, parent_color, parent_thickness, zoom_factor, p, overlay_color);
     }
-    
+    */
+
     col = compose(-0.09 * (24.0 / zoom_factor), visual.rgb, overlay_color);
     
     //col = overlay_color;
@@ -2410,6 +2421,7 @@ const CFG_TO_THE_LEFT = [ 1, 1,    0, 0, 0,   0, 0, ];
 const CFG_ZERO_TO_THE_LEFT = [ 0, 1,    0, 0, 0,   0, 0, ];
 const CFG_ZERO_TO_THE_TOP = [ 0, 1,    0, 0, 0,   1, 0, ];
 const CFG_TO_THE_TOP = [ 1, 1,    0, 0, 0,   1, 0, ];
+const CFG_MUX_TO_THE_TOP = [ 0, 0,    1, 1, 1,   1, 0, ];
 const CFG_TO_THE_BOTTOM = [ 1, 1,    0, 0, 0,   1, 1, ];
 
 const CFG_LWIRE_TO_THE_TOP = [ 0, 0,    1, 0, 0,   1, 0, ];
@@ -2493,12 +2505,12 @@ const bitstream = [
   ...CFG_RWIRE_TO_THE_TOP,
   ...CFG_LWIRE_TO_THE_TOP,
   ...CFG_LWIRE_TO_THE_TOP,
-  ...CFG_TO_THE_TOP,
+  ...CFG_MUX_TO_THE_TOP,
 
   ...CFG_RWIRE_TO_THE_TOP,
   ...CFG_LWIRE_TO_THE_TOP,
   ...CFG_LWIRE_TO_THE_TOP,
-  ...CFG_TO_THE_TOP,
+  ...CFG_ZERO_TO_THE_TOP,
 
   ...CFG_RWIRE_TO_THE_TOP,
   ...CFG_LWIRE_TO_THE_TOP,
@@ -2521,7 +2533,7 @@ const bitstream = [
   ...CFG_TO_THE_BOTTOM,
   ...CFG_TO_THE_LEFT,
   ...CFG_TO_THE_BOTTOM,
-  ...CFG_TO_THE_LEFT,
+  ...CFG_BWIRE_TO_THE_LEFT,
   ...CFG_TO_THE_BOTTOM,
   ...CFG_TO_THE_LEFT,
   ...CFG_TO_THE_BOTTOM,
