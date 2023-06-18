@@ -2062,7 +2062,7 @@ void main() {
 
   vec2 offset = vec2(-offsetX / (zoom * 346.5), offsetYtransformed);
 
-  gl_FragData[0] = render(vec2(offsetX + fragCoord.x, offsetY + screenHeight - fragCoord.y));
+  gl_FragData[0] = render(vec2(fragCoord.x - offsetX, screenHeight - fragCoord.y - offsetY));
 }
 
 `;
