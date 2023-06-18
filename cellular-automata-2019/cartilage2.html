@@ -161,7 +161,7 @@ document.head.removeChild(s);
 const app = window.g_app;
 
 app.panX = 0;
-app.panY = -880 * 80.0 / 64.0;
+app.panY = -880 * 100.0 / 64.0;
 
 const canvasElt = window.g_app.canvasElt = window.document.getElementById('0');
 
@@ -652,13 +652,14 @@ app.clearGl(window.innerWidth);
 //const COMPUTE_STEPS = 30;
 const COMPUTE_STEPS = 1;
 
-const DELAY_BETWEEN_FRAMES = 0;
-//const DELAY_BETWEEN_FRAMES = 75;
-//const DELAY_BETWEEN_FRAMES = 175;
+//const DELAY_BETWEEN_FRAMES = 0;
+// const DELAY_BETWEEN_FRAMES = 75;
+const DELAY_BETWEEN_FRAMES = 175;
 //const DELAY_BETWEEN_FRAMES = 250;
 //const DELAY_BETWEEN_FRAMES = 2000;
 
-const HARDCODED_ZOOM_FACTOR = 80;
+// const HARDCODED_ZOOM_FACTOR = 80;
+const HARDCODED_ZOOM_FACTOR = 100;
 
 // App data
 // const gpgpuTextureSide = 4096;
@@ -1439,7 +1440,7 @@ vec4 draw_crossbar_signal(vec2 center, float current, float next, vec4 visual, v
 
 vec4 cfg_dbg(float val, float x, float y, vec2 p, vec4 visual, vec3 color) {
     // float s = disc(vec2(x, y), 1.1 * WIRE_THICK, p);
-    float s = disc(vec2(x, y), 0.001 * WIRE_THICK, p);
+    float s = disc(vec2(x, y), 1.0 * WIRE_THICK, p);
     visual = vec4(compose_antialias(5.0 * s, 8.0 * color * val, visual.rgb), 1.0);
     
     return visual;
@@ -1474,7 +1475,18 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
         We draw diagonal lines for the active MUX input and a short one looking like --/
         showing the selector input.
     */
+    float show_in_left = 1.0; //consumes_from_the_left(cell);
+    float show_out_right = 1.0; //consumes_from_the_left(right);
 
+    float show_in_right = 1.0; //consumes_from_the_right(cell);
+    float show_out_left = 1.0; //consumes_from_the_right(left);
+
+    float show_in_top = 1.0; //consumes_from_the_top(cell);
+    float show_out_bottom = 1.0; //consumes_from_the_top(bottom);
+
+    float show_in_bottom = 1.0; //consumes_from_the_bottom(cell);
+    float show_out_top = 1.0; //consumes_from_the_bottom(top);
+/*
     float show_in_left = consumes_from_the_left(cell);
     float show_out_right = consumes_from_the_left(right);
 
@@ -1486,7 +1498,7 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
 
     float show_in_bottom = consumes_from_the_bottom(cell);
     float show_out_top = consumes_from_the_bottom(top);
-    
+  */  
     float no_connections = show_in_left+show_out_right+show_in_right
       +show_out_left+show_in_top+show_out_bottom+show_in_bottom+show_out_top;
 
@@ -1807,7 +1819,8 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
     //}
     
     // Debug config signals:
-    /*
+    // --------------------------------------------------------------
+    
     vec3 dat_clr = vec3(1.0, 0.0, 0.0);
     visual = cfg_dbg(cell.LDO, 1.5, 2.5, p, visual, dat_clr);
     visual = cfg_dbg(cell.TDO, 6.5, 1.5, p, visual, dat_clr);
@@ -1822,13 +1835,14 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
 
     visual = cfg_dbg(cell.PREV_CLK, 4.5, 4.0, p, visual, clk_clr);
     visual = cfg_dbg(cell.WE_ARE_FULL_DFF, 4.5, 5.0, p, visual, dat_clr);
-    */
+    // -------------------------------------------------------------------------
     if (is_reconf_port(cell) > 0.5) {
         visual = vec4(compose(0.01 * (24.0 / zoom_factor), vec3(0.2, 0.0, 1.0), visual.rgb), 0.8);
     } else if (no_connections < 0.5 && cell.mode < 0.5 && cell.orientation > 1.5 && cell.orientation < 2.5) {
+        // ==================================================================================
         // skip drawing the GND cells
         
-        return vec4(1.0);
+        // return vec4(1.0);
     }
 
 
