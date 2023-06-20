@@ -1,0 +1,3953 @@
+
+<!DOCTYPE html>
+<html hidden lang="en">
+<head>
+  <link rel="icon" href="data:,">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="transparent">
+  <meta name="format-detection" content="telephone=no">
+
+  <script>'use strict';
+
+console.log(document.lastModified);
+const launchedAt = performance.now();
+
+/*
+window.addEventListener('error', e => {
+  // TODO: tune in to delay until re-connected
+  // window.g_app.ws.send(e.error);
+  //e.preventDefault();
+  //e.stopPropagation();
+  window.console.error(e.error ? e.error.stack : e); //e.error.message, e.lineno, e.colno);
+  /* setTimeout(function () {
+    if (window.g_upstream.socket.readyState === 1) {
+      window.g_upstream.socket.send(e.error ? e.error.message : e.target + ' at ' + e.lineno + ':' + e.colno);
+    }
+  }, 5000); * /
+
+}, true); */
+
+document.cookie = 'abc';
+window.g_app = { launchedAt }; //, ws: new WebSocket('wss://demo.epicmeetapp.com/api/') };
+// window.g_app.ws.binaryType = 'arraybuffer';
+
+</script>
+
+<script type="module">
+
+const app = window.g_app;
+
+window.addEventListener('load', () => {
+
+  const s = window.document.createElement('script');
+  s.setAttribute('async', '');
+  s.setAttribute('id', 'REMOVE');
+  s.setAttribute('src', 'data:text/javascript;base64,d2luZG93LmdfYXBwLm1haW4oKTsKLy8jIHNvdXJjZVVSTD1odHRwczovL2RlbW8uY3Jvc3NwbGF0Zm9ybXVpLmNvbS8obG9hZHNwbGl0KQ==');
+  window.document.head.appendChild(s);
+
+
+});
+
+const socket = app.ws;
+
+{ // UUID Generator
+
+  const lut = Array(256).fill().map((_, i) => (i < 16 ? '0' : '') + (i).toString(16));
+
+  const _ = app.uuid = {
+    random128: () => { 
+      const dvals = new Uint32Array(4);
+      crypto.getRandomValues(dvals);
+      return dvals;
+    },
+
+    formatUuid: ([d0, d1, d2, d3]) =>
+      lut[d0       & 0xff]        + lut[d0 >>  8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + '-' +
+      lut[d1       & 0xff]        + lut[d1 >>  8 & 0xff] + '-' +
+      lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 & 0xff] + '-' +
+      lut[d2       & 0x3f | 0x80] + lut[d2 >>  8 & 0xff] + '-' +
+      lut[d2 >> 16 & 0xff]        + lut[d2 >> 24 & 0xff] +
+      lut[d3       & 0xff]        + lut[d3 >>  8 & 0xff] +
+      lut[d3 >> 16 & 0xff]        + lut[d3 >> 24 & 0xff],
+
+    uuid: () => _.formatUuid(_.random128())
+  };
+}
+
+
+console.log(app.uuid, app.uuid.uuid(), app.uuid.lut, app.uuid.formatUuid, app.uuid.uuid);
+app.runId = app.uuid.random128();
+
+console.log(performance.now(), 'AppRunId: ', app.uuid.formatUuid(app.runId), location.hash);
+if (location.hash) {
+  // Load state from server
+} else {
+  // Generate new state from scratch
+}
+
+
+{ // Preserve WS events
+
+
+  const empty = new ArrayBuffer();
+
+const wsEvents = app.wsEvents = {
+  close: [],
+  error: [],
+  message: [],
+  open: []
+};
+
+const preserveWsEvent = event => {
+
+
+  wsEvents[event.type].push(event);
+  // console.log(performance.now() - launchedAt, event);
+    /*if (event.data) {
+      self.postMessage({ at: performance.timeOrigin + performance.now(), safariAt: Date.now(), msg: event.data }, [event.data]);
+    } else {
+      self.postMessage({ at: performance.timeOrigin + performance.now(), safariAt: Date.now(), msg: event.type });
+    }*/
+
+  if (event.type === 'open') {
+    // socket.send(window.g_app.runId.buffer);
+    // Developer editor source code push if source hash is different
+    if (location.href.startsWith('file:///')) {
+      socket.send(['devCodePush', location.href,
+        document.documentElement.innerHTML]);
+    } else {
+      setInterval(() => socket.send(empty), 25000);
+    }
+  } else if (event.type === 'message') {
+    // const parsed = JSON.parse(event.data);
+    const commaPos = event.data.indexOf(',');
+    const msgId = event.data.substr(0, commaPos);
+    const msgBody = event.data.substr(commaPos + 1);
+
+    switch (msgId) {
+      case 'version':
+        const serverVer = msgBody;
+        if (document.documentElement.getAttribute('data-version') !== serverVer) {
+          // In client browser, refresh the page automatically
+          if (!location.href.startsWith('file:///')) {
+            //console.log('New version is available. Refresh page to see', serverVer);
+            location.reload(true);
+          }
+        }
+
+    }
+  }
+}
+/*
+socket.onclose = preserveWsEvent;
+socket.onerror = preserveWsEvent;
+socket.onmessage = preserveWsEvent;
+socket.onopen = preserveWsEvent;
+*/
+  
+}
+
+
+
+
+
+
+app.main = () => {
+
+const s = window.document.getElementById('REMOVE');
+document.head.removeChild(s);
+
+const app = window.g_app;
+
+app.panX = 0;
+// app.panY = -880 * 100.0 / 64.0;
+app.panY = 0;
+
+const canvasElt = window.g_app.canvasElt = window.document.getElementById('0');
+
+// Note that WebGL can only run on the main thread.
+const webGlSettings = {
+
+  //depth: true,
+  //stencil: true,
+
+  depth: false,
+  stencil: false,
+
+  // When enabling CSS "transparency", please, avoid using
+  // any transparent colorful values, because of the composition browsers do is not natural.
+  // For example, if you want to achieve the effect of a blue optical filtering glass
+  // on top of a red object, expecting that the red object will become colored
+  // in the shades of very dark blue or black, it's not going to work in web browser,
+  // it will add the red color into the mix.
+  // For layers on top of standard controls (AR on top of live video)
+  // Because of the impossibility to control the blend function of
+  // the browser compositor, we do not support any value of transparency but 0 or 1.
+  // It also drops performance a little bit.
+  alpha: false,
+
+  // The remaining parameters should be fixed:
+
+  // We are not touching the default value, assuming it always 'true'
+  // (it's impossible to set it to 'false' on mobile Safari)
+  //premultipliedAlpha: false,
+
+  // Always false, because it makes pixel to become platform-dependent,
+  // and is not supported on all systems. And it is very expensive (10 times slower)
+  antialias: false,
+
+  // gl.clear() old or buggy WebGL Androids leads to garbage when this is false.
+  // We want maximum performance and optimal memory use.
+  preserveDrawingBuffer: false,
+
+  // WebGL is the only our chance
+  failIfMajorPerformanceCaveat: false,
+
+  // We manage the rendering frequency.
+  // Faster it'll be done, more battery will be saved.
+  powerPreference: 'high-performance',
+
+  desynchronized: true
+};
+
+const gl = app.gl = window.g_app.canvasElt.getContext('webgl', webGlSettings);
+
+// Split script here so other microtasks can be run after a lenghty OpenGL init
+
+setTimeout(() => {
+
+
+
+
+// At start, window.document.activeElement equals null
+
+// window.document.activeElement equals body starting from here
+console.log('document.activeElement:', window.document.activeElement, window.document.hasFocus());
+ 
+
+// Enabling drag and drop support
+window.document.getElementById('0').addEventListener('dragover', e => {
+  e.preventDefault();
+});
+
+// KEYBOARD EVENTS
+// ----------------------------------------------------------
+window.g_app.keyboardTextureUpdateKeyup = e => {};
+window.g_app.keyboardTextureUpdateKeydown = e => {};
+window.document.body.addEventListener('keyup', e => {
+  if (e.key === 'f') {
+    e.preventDefault();
+    e.stopPropagation();
+    const rfs = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen;
+    if (rfs) {
+      rfs.apply(document.documentElement);
+    }
+  } else if (e.key === ' ') {
+    console.log('SPACE');
+    // window.g_app.createAnotherRandomLattice();
+  } else {
+    window.g_app.keyboardTextureUpdateKeyup(e);
+  }
+}, true);
+
+window.document.body.addEventListener('keydown', e => {
+  window.g_app.keyboardTextureUpdateKeydown(e);
+}, true);
+
+window.g_app.mouse = { x: 0, y: 0, left: false, leftX: 0, leftY: 0 };
+
+window.addEventListener('mouseup', e => {
+  console.log('MOUSEUP', e);
+  if (e.button === 0) {
+    window.g_app.mouse.left = false;
+    window.g_app.mouse.x = e.x;
+    window.g_app.mouse.y = e.y;
+  }
+});
+
+window.addEventListener('mousedown', e => {
+  console.log('MOUSEDOWN', e, e.x, e.y, window.g_app.mouse);
+  if (e.button === 0) {
+    window.g_app.mouse.left = true;
+    window.g_app.mouse.x = e.x;
+    window.g_app.mouse.y = e.y;
+    window.g_app.mouse.leftX = e.x;
+    window.g_app.mouse.leftY = e.y;
+  } // 2 is right click
+});
+
+window.addEventListener('mousemove', e => {
+ // console.log('MOUSEMOVE', e);
+  window.g_app.mouse.x = e.x;
+  window.g_app.mouse.y = e.y;
+});
+/*
+window.addEventListener('mouseover', e => {
+  console.log('MOUSEOVER', e);
+  window.g_app.mouse.x = e.x;
+  window.g_app.mouse.y = e.y;
+});
+*/
+window.addEventListener('contextmenu', e => {
+  console.log('CONTEXT MENU');
+  e.preventDefault();
+}, true);
+
+
+window.addEventListener('unload', () => {
+  window.g_app.canvasElt.parentElement.replaceChild(document.createElement('div'), window.g_app.canvasElt);
+  window.g_app = null;
+
+  // In mobile Safari, we have to call takeHeapSnapshot in order to unload WASM
+  if (console.takeHeapSnapshot) {
+    console.takeHeapSnapshot('unload');
+  }
+  console.log(performance.now(), 'unload');
+}, true);
+
+
+window.addEventListener('blur', e => {
+  console.log('blur', window.document.activeElement, window.document.hasFocus());
+}, true);
+
+window.addEventListener('focus', e => {
+  console.log('focus', window.document.activeElement, window.document.hasFocus());
+}, true);
+
+
+
+
+
+
+const getPoint = (e) => {
+
+  // TODO: update rect dynamically
+  const rect = window.g_app.canvasElt.getBoundingClientRect();
+  return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+}
+
+let point = null;
+
+window.addEventListener('touchstart', e => {
+  if (e.target === window.g_app.canvasElt || e.target === window.document.body || e.target === window.document.documentElement) {
+    point = getPoint(e.touches[0]);
+    e.stopPropagation();
+    e.preventDefault();
+  } else {
+    console.log(e);
+  }
+}, { capture: true, passive: false });
+
+window.addEventListener('touchmove', e => {
+  if (e.target === window.g_app.canvasElt || e.target === window.document.body || e.target === window.document.documentElement) {
+
+    const width = window.innerWidth;
+    const height = window.innerWidth;
+
+    const events = [...e.touches];//e.getCoalescedEvents();
+    events.forEach(ee => {
+      
+        const new_point = getPoint(ee);
+        if (point) {
+
+          let start_x = point.x * window.devicePixelRatio; //(point.x / width) * 2 - 1;
+          let start_y = point.y * window.devicePixelRatio; //(point.y / height) * 2 - 1;
+          let end_x = new_point.x * window.devicePixelRatio; //(new_point.x / width) * 2 - 1;
+          let end_y = new_point.y * window.devicePixelRatio; //(new_point.y / height) * 2 - 1;
+
+          const dx = end_x - start_x;
+          const dy = end_y - start_y;
+
+          app.panX += dx;
+          app.panY += dy;
+        }
+
+        point = new_point;
+    });
+
+
+
+/*
+  MULTITOUCH. TODO: support two-finger pinch-zoom
+  if (point) {
+    const gl = window.g_app.gl;
+    const width = window.innerWidth;
+    const height = window.innerWidth;
+    //console.log(e);
+    const events = [e.touches[0]];// e.getCoalescedEvents();
+    for (let nn in events) {
+      const e = events[nn];
+    //events.forEach((e) => {
+      const new_point = getPoint(e);
+                 
+      const buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      let start_x = (point.x / width) * 2 - 1;
+      let start_y = (point.y / height) * 2 - 1;
+      let end_x = (new_point.x / width) * 2 - 1;;
+      let end_y = (new_point.y / height) * 2 - 1;;
+      
+      //const dist = Math.sqrt((start_x - end_x) * (start_x - end_x) +
+      //      (start_y - end_y) * (start_y - end_y));
+      
+      const dx = end_x - start_x;
+      const dy = end_y - start_y;
+      end_x += dx * 8;
+      end_y += dy * 8;
+      start_x += dx * 5;
+      start_y += dy * 5;
+     
+      const vertices = [
+          start_x,  start_y, 0.0,
+          start_x + .01, start_y + .01,  0.0,
+          end_x,  end_y,  0.0,
+          end_x + .01,  end_y + .01,  0.0,
+      ];
+      
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices) , gl.DYNAMIC_DRAW); 
+      //const pos_attr = gl.getAttribLocation(shader, "a_Position");
+      //gl.enableVertexAttribArray(pos_attr);
+      gl.vertexAttribPointer(window.g_app.pos_attr, 3, gl.FLOAT, false, 0, 0);
+      
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      gl.deleteBuffer(buffer);
+      // gl.flush();
+      point = new_point;
+    }//);
+  }
+*/
+
+        e.stopPropagation();
+        e.preventDefault();
+      } else {
+        console.log(e);
+      }
+}, { capture: true, passive: false });
+
+
+window.addEventListener('touchend', e => {
+      if (e.target === window.g_app.canvasElt || e.target === window.document.body || e.target === window.document.documentElement) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        // Note this must happen in this microtask,
+        // otherwise the keyboard won't appear
+        if (e.target === window.g_app.canvasElt) {
+          // editText();
+          // window.g_app.gpuCompute();
+        }
+      } else {
+        console.log(e);
+      }
+}, { capture: true, passive: false });
+
+
+
+
+const updateVisibleSizeInfo = (w, h) => {
+  window.document.documentElement.style.setProperty('--visible-width', w + 'px');
+  window.document.documentElement.style.setProperty('--visible-height', h + 'px');
+};
+
+app.clearGl = (visibleWidth) => {
+  return;
+
+  if (window.g_app.gl) {
+
+    const gl = window.g_app.gl;
+
+      gl.clearColor(0.9, 0.9, 0.9, 0.5);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      gl.enable(gl.SCISSOR_TEST);
+      gl.scissor(0, 0, visibleWidth, 1);
+      gl.clearColor(1, 0, 0, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.disable(gl.SCISSOR_TEST);
+      gl.flush();
+  }
+};
+
+app.fitTextareaInVisibleViewport = (visibleHeight, visibleWidth = window.innerWidth) => {
+
+      window.g_app.canvasElt.setAttribute('height', window.devicePixelRatio * visibleHeight + 'px');
+      window.g_app.canvasElt.setAttribute('width', window.devicePixelRatio * visibleWidth + 'px');
+
+      window.g_app.canvasElt.style.height = visibleHeight + 'px';
+      window.g_app.canvasElt.style.width = visibleWidth + 'px';
+
+      updateVisibleSizeInfo(visibleWidth, visibleHeight);
+
+      window.g_app.clearGl(visibleWidth);
+
+      // The GLSL GPU layout engine will return the extents for the textarea
+      // depending on the size of the visible area (including even font sizes!)
+
+      if (window.g_app.textboxElt) {
+
+        textboxElt.style.height = visibleHeight + 'px';
+        textboxElt.style.minHeight = visibleHeight + 'px';
+      }
+
+      // These are only when the textarea is active!
+      // On blur these must return to their empty size values.
+      window.document.documentElement.className = 'with-virtual-keyboard';
+
+      if (window.g_app.textboxElt) {
+        textboxElt.style.width = visibleWidth + 'px';
+      }
+};
+
+
+// On iOS, it doing setup, so the promise will be resolved when it completes.
+window.addEventListener('scroll', e => {
+
+      if (e.target !== window.document) {
+        return;
+      }
+
+      if (window.g_trackFocusHappens) {
+        window.g_trackFocusHappens = false;
+
+        // To keep everything visible inside of the viewport when typing:
+        window.g_app.canvasElt.style.transform = 'translate3d(0px, ' + window.document.scrollingElement.scrollTop + 'px, 0px)';
+
+        textboxElt.style.transform = 'translate3d(0px, 0px, 1px)';
+
+        let visibleHeight = (window.g_trackFocusHappensScreenBase || window.innerHeight) - window.document.scrollingElement.scrollTop;
+
+        if (window.innerHeight < visibleHeight) {
+          visibleHeight = window.innerHeight;
+        }
+        console.log('fitting in...', visibleHeight, window.document.scrollingElement.scrollTop, window.g_trackFocusHappensScreenBase);
+
+        window.g_trackFocusHappensScreenBase = 0;
+
+        window.g_app.fitTextareaInVisibleViewport(visibleHeight);
+      }
+
+
+      if (window.document.scrollingElement.scrollTop) {
+        console.log('restoring scroll pos...');
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 300);
+
+      } else {
+        // To keep everything visible inside of the viewport when typing:
+        window.g_app.canvasElt.style.transform = 'translate3d(0px, 0px, 0px)';
+        textboxElt.style.transform = 'translate3d(0px, 0px, 1px)';
+      }
+
+}, true);
+
+
+// On Android, we can get actual height only after 'resize' event if keyboard was appeared on the page reload!
+window.addEventListener('resize', () => {
+
+   setTimeout(() => {
+     window.g_app.fitTextareaInVisibleViewport(window.innerHeight);
+   }, 100);
+
+   //window.console.log(window.performance.now(), 'resize', window.innerHeight, window.document.scrollingElement.scrollHeight,
+   //  window.innerWidth, window.document.scrollingElement.scrollWidth, window.orientation);
+
+   if (window.navigator.platform === 'iPhone' || window.navigator.platform === 'iPad') {
+
+     // Dismiss the virtual keyboard if any resize happens, otherwise it'll break the layout
+     if (window.g_app.textboxElt && !textboxElt.hidden) {
+       textboxElt.blur();
+     }
+   }
+
+}, true);
+
+window.addEventListener('orientationchange', () => {
+  //console.log('orientationchange', window.innerHeight, window.document.scrollingElement.scrollHeight,
+  //  window.innerWidth, window.document.scrollingElement.scrollWidth, window.orientation);
+
+  if ((window.orientation === 0 || window.orientation === 180) && window.navigator.appVersion.indexOf('Android') !== -1) {
+    // On Android, when rotating back to portrait from landscape, it's necessary to put the width to the low size,
+    // otherwise Android will scale the viewport to the smaller size
+    window.g_app.fitTextareaInVisibleViewport(window.innerHeight, window.innerHeight);
+  } else {
+    window.g_app.fitTextareaInVisibleViewport(window.innerHeight);
+  }
+}, true);
+
+// MAIN APP CODE
+
+
+
+
+
+// setTimeout() is necessary because on iOS window.innerHeight is bigger than visible area until the animation frame finishes
+if (window.orientation && (window.orientation === -90 || window.orientation === 90)) {
+  // Only in landscape mode on iOS Safari,
+  // after the first requestAnimationFrame() and plus 10 milliseconds, Safari seems to report real
+  // visible area's height as window.innerHeight, and so we're ready to render the page!
+  window.setTimeout(() => updateVisibleSizeInfo(window.innerWidth, window.innerHeight), 10);
+} else {
+  updateVisibleSizeInfo(window.innerWidth, window.innerHeight);
+}
+
+
+
+console.log(gl.getSupportedExtensions());
+
+
+// Slow init!
+//const glExtDer = (function f1 () { return gl.getExtension('OES_standard_derivatives'); // 99% on tablets
+// })();
+
+const glExtVao = (function f2 () { return gl.getExtension('OES_vertex_array_object'); // 95% on desktops
+ })();
+const glExtBlendMinmax = (function f3 () { return gl.getExtension('EXT_blend_minmax'); // 95% on desktops, 98% on tablets, 99% on phones
+ })();
+const glExtDebug = (function f4 () { return gl.getExtension('WEBGL_debug_renderer_info');  // 99% desktop and tablet
+ })();
+
+
+// gl.hint(glExtDer.FRAGMENT_SHADER_DERIVATIVE_HINT_OES, gl.NICEST);
+
+
+// Often there
+const isUintIndex = (function f5 () { return gl.getExtension('OES_element_index_uint'); // 95% tablet, 97% phone, 99% desktop
+ })();
+const glExtInstancedArrays = (function f6 () { return gl.getExtension('ANGLE_instanced_arrays'); // 93% tablet, 97% phone, 99% desktop
+ })();
+
+// Not always there:
+const glExtSrgb = (function f7 () { return gl.getExtension('EXT_sRGB'); // 71% desktop, 4% consoles, 89% tablets, 94% phones.
+ })();
+
+// Exists on the most platforms (but not on low-end)
+// NOTE: slow init!
+//const glExtFloatIn = (function f8 () { return gl.getExtension('OES_texture_float'); // TRUE always on WebGL2
+// })();
+
+// console.log(glExtFloatIn);
+
+
+
+/*
+// Mining mode - only with 
+const glExtFloatOut = gl.getExtension('WEBGL_color_buffer_float'); //
+const glExtDrawBuffers = gl.getExtension('WEBGL_draw_buffers'); // 86% Desktop & 100% Console, 2% phones
+// Must be at least 8 for super-performant mode. (on popular WebGL2 systems, it can be 4).
+// Might support the 8K or 16K texture and render buffer size. But mostly 4K. Sometimes the texture size is bigger than the rendersize (4K textures with 8K or 16K renderbuffer) 
+// Can have 32 texture image units instead of just 8 (or just 16 on WebGL2 with 4K texture sizes and 8K renderbuffer)
+// Can have 4K uniform vectors
+// Can have 32 varyings instead of 8
+// Typically has WebGL2 support
+console.log(glExtDrawBuffers.MAX_COLOR_ATTACHMENTS_WEBGL, glExtDrawBuffers.MAX_DRAW_BUFFERS_WEBGL, glExtFloatIn, glExtFloatOut);
+
+
+const pixelss = new Uint8Array([
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+]);
+const tx = [gl.createTexture(), gl.createTexture(), gl.createTexture(), gl.createTexture()];
+
+for (let ii = 0; ii < 4; ++ii) {
+  gl.bindTexture(gl.TEXTURE_2D, tx[ii]);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixelss);
+}
+
+const fb = gl.createFramebuffer();
+gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, glExtDrawBuffers.COLOR_ATTACHMENT0_WEBGL, gl.TEXTURE_2D, tx[0], 0);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, glExtDrawBuffers.COLOR_ATTACHMENT1_WEBGL, gl.TEXTURE_2D, tx[1], 0);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, glExtDrawBuffers.COLOR_ATTACHMENT2_WEBGL, gl.TEXTURE_2D, tx[2], 0);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, glExtDrawBuffers.COLOR_ATTACHMENT3_WEBGL, gl.TEXTURE_2D, tx[3], 0);
+
+glExtDrawBuffers.drawBuffersWEBGL([
+  glExtDrawBuffers.COLOR_ATTACHMENT0_WEBGL, // gl_FragData[0]
+  glExtDrawBuffers.COLOR_ATTACHMENT1_WEBGL, // gl_FragData[1]
+  glExtDrawBuffers.COLOR_ATTACHMENT2_WEBGL, // gl_FragData[2]
+  glExtDrawBuffers.COLOR_ATTACHMENT3_WEBGL  // gl_FragData[3]
+]);
+*/
+
+// Super-slow operation. Offload after a microtask processing. Attempt to pre-init.
+// Only set on real changes.
+// app.canvasElt.setAttribute('width', window.innerWidth + 'px');
+// app.canvasElt.setAttribute('height', window.innerHeight + 'px');
+
+// Excess area in bottom of the scrollable view (will require to scroll the page back to 0):
+// const excessWindowHeightInTheBottom = window.document.scrollingElement.scrollHeight - window.innerHeight;
+
+// To make canvas visible
+window.document.documentElement.hidden = false;
+window.document.body.hidden = false;
+
+if (window.scrollY) {
+  window.scrollTo(0, 0);
+}
+
+app.clearGl(window.innerWidth);
+
+//const KEEP_COMPUTING = true;
+const KEEP_COMPUTING = false;
+
+//const COMPUTE_STEPS = 11000;
+//const COMPUTE_STEPS = 1500;
+//const COMPUTE_STEPS = 400; // Fast forward reconf
+//const COMPUTE_STEPS = 60;
+const COMPUTE_STEPS = 30;
+//const COMPUTE_STEPS = 10; // Is a good reconf demo where still makes sense the signals
+//const COMPUTE_STEPS = 5;
+//const COMPUTE_STEPS = 1;
+
+const DELAY_BETWEEN_FRAMES = 0;
+//const DELAY_BETWEEN_FRAMES = 75;
+//const DELAY_BETWEEN_FRAMES = 175;
+//const DELAY_BETWEEN_FRAMES = 250;
+//const DELAY_BETWEEN_FRAMES = 330;
+//const DELAY_BETWEEN_FRAMES = 666; // Eye can catch what's happening
+//const DELAY_BETWEEN_FRAMES = 2000;
+
+const HARDCODED_ZOOM_FACTOR = 32;
+//const HARDCODED_ZOOM_FACTOR = 100;
+//const HARDCODED_ZOOM_FACTOR = 20;
+
+// App data
+//const gpgpuTextureSide = 4096;
+//const gpgpuTextureSide = 2048;
+// const gpgpuTextureSide = 1024; // the most optimal texture size (works literally everywhere)
+
+// Random code higher than this is unnecessary (amount of entropy)
+//const gpgpuTextureSide = 512; // the most optimal texture size (works literally everywhere)
+// 256 is the perfect size!!!
+//const gpgpuTextureSide = 256;
+//const gpgpuTextureSide = 128;
+//const gpgpuTextureSide = 64;
+const gpgpuTextureSide = 32;
+const data = new Uint8Array(gpgpuTextureSide * gpgpuTextureSide * 4);
+
+
+
+const VERTEX_SHADER = `#version 100
+precision highp float;
+attribute vec2 aPos;
+// varying vec4 vcolor;
+void main() {
+  // vcolor = vec4(0.0, 1.0, 0.0, 1.0);
+  gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+}
+`;
+
+
+const nodeModelLoader = `
+
+uniform sampler2D texture0;
+uniform vec2 dataWidthAndHeight;
+uniform vec4 iMouse;
+
+# ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+precision highp int;
+precision highp sampler2D;
+# else
+precision mediump float;
+precision lowp int;
+precision lowp sampler2D;
+# endif
+
+//float zoom_factor = 64.0;
+
+//float zoom_factor = 24.0; // Beautiful most miniature render to study very large arrays
+
+//float zoom_factor = 16.0;
+
+//float zoom_factor = 1.0;
+
+
+// #define COMPUTER_WIDTH (119.0)
+// #define COMPUTER_HEIGHT (74.0)
+
+//#define COMPUTER_WIDTH (119.0)
+//#define COMPUTER_HEIGHT (67.0)
+
+// Try this bizarre settings:
+float zoom_factor = ${ HARDCODED_ZOOM_FACTOR }.0;
+#define COMPUTER_WIDTH (${ gpgpuTextureSide }.0)
+#define COMPUTER_HEIGHT (${ gpgpuTextureSide }.0)
+
+//#define COMPUTER_WIDTH (2.0 * 1920.0)
+//#define COMPUTER_HEIGHT (2.0 * 1080.0)
+
+// 32 bits on bit-by-bit access
+struct Bitset8Bits {
+
+    vec4 bit0;
+    vec4 bit1;
+    vec4 bit2;
+    vec4 bit3;
+    vec4 bit4;
+    vec4 bit5;
+    vec4 bit6;
+    vec4 bit7;
+};
+
+vec4 when_gt (vec4 l, vec4 r) {
+  return max(sign(l - r), 0.0);
+}
+
+// 3 * 4 bits
+struct Bitset4Bits {
+
+    vec4 bit0;
+    vec4 bit1;
+    vec4 bit2;
+    vec4 bit3;
+};
+
+Bitset4Bits unpack_4_numbers (vec4 numbers) {
+    Bitset4Bits result;
+
+    result.bit3 = when_gt(numbers, vec4(7.5));
+    
+    vec4 bits0to2 = numbers - 8.0 * result.bit3;
+    result.bit2 = when_gt(bits0to2, vec4(3.5));
+    
+    vec4 bits0to1 = numbers - 4.0 * result.bit2;
+    result.bit1 = when_gt(bits0to1, vec4(1.5));
+    
+    result.bit0 = when_gt(bits0to1 - 2.0 * result.bit1, vec4(0.5));
+
+    return result;
+}
+
+Bitset8Bits unpack_4_bytes (vec4 byte) {
+    Bitset8Bits result;
+    
+    result.bit7 = when_gt(byte, vec4(127.5));
+    
+    vec4 bits0to6 = byte - 128.0 * result.bit7;
+    result.bit6 = when_gt(bits0to6, vec4(63.5));
+    
+    vec4 bits0to5 = bits0to6 - 64.0 * result.bit6;
+    result.bit5 = when_gt(bits0to5, vec4(31.5));
+    
+    vec4 bits0to4 = bits0to5 - 32.0 * result.bit5;
+    result.bit4 = when_gt(bits0to4, vec4(15.5));
+    
+    vec4 bits0to3 = bits0to4 - 16.0 * result.bit4;
+    result.bit3 = when_gt(bits0to3, vec4(7.5));
+    
+    vec4 bits0to2 = bits0to3 - 8.0 * result.bit3;
+    result.bit2 = when_gt(bits0to2, vec4(3.5));
+    
+    vec4 bits0to1 = bits0to2 - 4.0 * result.bit2;
+    result.bit1 = when_gt(bits0to1, vec4(1.5));
+    
+    result.bit0 = when_gt(bits0to1 - 2.0 * result.bit1, vec4(0.5));
+
+    return result;
+}
+
+struct Array32Bits {
+    float bit[32];
+};
+
+void unpack_32_bits (vec4 byte, Array32Bits a) {
+    Bitset8Bits bits = unpack_4_bytes(byte);
+    
+    a.bit[0] = bits.bit0.r;
+    a.bit[1] = bits.bit1.r;
+    a.bit[2] = bits.bit2.r;
+    a.bit[3] = bits.bit3.r;
+    a.bit[4] = bits.bit4.r;
+    a.bit[5] = bits.bit5.r;
+    a.bit[6] = bits.bit6.r;
+    a.bit[7] = bits.bit7.r;
+    
+    a.bit[8] = bits.bit0.g;
+    a.bit[9] = bits.bit1.g;
+    a.bit[10] = bits.bit2.g;
+    a.bit[11] = bits.bit3.g;
+    a.bit[12] = bits.bit4.g;
+    a.bit[13] = bits.bit5.g;
+    a.bit[14] = bits.bit6.g;
+    a.bit[15] = bits.bit7.g;
+
+    
+    a.bit[16] = bits.bit0.b;
+    a.bit[17] = bits.bit1.b;
+    a.bit[18] = bits.bit2.b;
+    a.bit[19] = bits.bit3.b;
+    a.bit[20] = bits.bit4.b;
+    a.bit[21] = bits.bit5.b;
+    a.bit[22] = bits.bit6.b;
+    a.bit[23] = bits.bit7.b;
+    
+    a.bit[24] = bits.bit0.a;
+    a.bit[25] = bits.bit1.a;
+    a.bit[26] = bits.bit2.a;
+    a.bit[27] = bits.bit3.a;
+    a.bit[28] = bits.bit4.a;
+    a.bit[29] = bits.bit5.a;
+    a.bit[30] = bits.bit6.a;
+    a.bit[31] = bits.bit7.a;
+}
+
+struct Element {
+
+    // ==== First block - [8 bits] of core config determining cell's function
+
+    // --- 5 bits of wiring and control configuration ---
+    
+    // 4 orientations 0..3 for MUX or wire. For special mode diff. meaning:
+    // 0: reconf. port; 1: cross; 2: GND; 3: PWR.
+    // [2 bits]
+    float orientation;
+
+    // 8 modes: 0 - special; 1 - wire; 2..7 - MUX
+    // [3 bits]
+    float mode;
+
+    // --- 2 bits Cartilage tree engine ---
+    
+    // Pointer to the owner element
+    // [2 bits]
+    float parent; // 0..3
+    
+    // Main state bit to store the output value
+    // In silicon, it represents electric charge.
+    // There is no inherent clock or D flip-flops. This bit is ephemeral
+    // (but initialized from config to support prototype inheritance).
+    
+    lowp float right;  // 0..1
+    
+    // ==== Ephemeral [8 bits] of Intersin clock and data wires
+    // (the wires neighbor cells interface with
+    // in the reconfiguration trees overlay network) representing charges
+    // while reconfiguration happens.
+    lowp float LCO;
+    lowp float LDO;
+    lowp float TCO;
+    lowp float TDO;
+    lowp float RCO;
+    lowp float RDO;
+    lowp float BCO;
+    lowp float BDO;
+    
+    // [13 bits] of non-copy-able "hidden" state (real DFFs)
+    
+    // ====== Third block [8 bits] shift register of configuration data.
+    // Applied to the main bits (orientation/mode/parent/state bit)
+    // when one subtree is completely filled with config bits.
+    // CLOCKED(!) with config clock sourced from one of the inputs
+    // into the subtree's reconfiguration port at its root.
+    lowp float new_cfg[7]; // 8th bit is used by WE_ARE_FULL_DFF
+
+    // [4 bits]
+    // Pointer of the currently written bit into the new_cfg register.
+    // (it seems we use 3 bits, not 4!!!)
+    float write_pointer_counter;
+    // D flip-flop marking the completion of collection of new config bits
+    // in the new_cfg[7..0] shift register.
+    // [1 bit]
+    lowp float WE_ARE_FULL_DFF;
+
+    // ^^^ 29 bits consumed! ^^^
+    
+
+    // The three state bits used only to store outputs for crosses,
+    // In silicon, these represent charges. There is no inherent clock
+    // or D flip-flops. These bits are ephemeral.
+
+    lowp float left;  // 0..1
+    lowp float top;  // 0..1
+    lowp float bottom;  // 0..1
+    
+    // Spanning tree integrity. A technical signal preventing
+    // hidden ownership loops. In FPGA chains, implemented as a hops counter.
+    // We gave up on it because exhausted all 32 bits to encode electrical signals
+    // in wires. This implementation will require additional D flip-flop
+    // and protocol to send the presence signal.
+    lowp float conf_signal;
+
+    // The signal is supposed to be reflected from every leaf to the root, then re-emitted.
+    // If another signal is coming from the root, it means we got a cycle.
+    // Not implemented.
+    //lowp float conf_signal_leaf_to_root;
+    
+    // We have to sample the previous value of CLK to detect raising and falling edges.
+    lowp float PREV_CLK;
+};
+
+Bitset8Bits cfgBlockFromTexel(vec4 texel) {
+    Bitset8Bits bits = unpack_4_bytes(texel * 255.0);
+
+    return bits;
+}
+
+void elementFromTexel (in vec4 texel, inout Element elt) {
+
+    Bitset8Bits bits = unpack_4_bytes(texel * 255.0);
+    
+  
+    elt.orientation = float(bits.bit0.r + 2.0 * bits.bit1.r);
+    elt.mode = float(bits.bit2.r + 2.0 * bits.bit3.r + 4.0 * bits.bit4.r);
+    elt.parent = float(bits.bit5.r + 2.0 * bits.bit6.r);
+
+    // Main state
+    elt.right = bits.bit7.r;
+
+    // Intersin signals
+    elt.LCO = bits.bit0.g;
+    elt.LDO = bits.bit1.g;
+    elt.TCO = bits.bit2.g;
+    elt.TDO = bits.bit3.g;
+    elt.RCO = bits.bit4.g;
+    elt.RDO = bits.bit5.g;
+    elt.BCO = bits.bit6.g;
+    elt.BDO = bits.bit7.g;
+
+    // New configuration buffer
+    elt.new_cfg[0] = bits.bit0.b;
+    elt.new_cfg[1] = bits.bit1.b;
+    elt.new_cfg[2] = bits.bit2.b;
+    elt.new_cfg[3] = bits.bit3.b;
+    elt.new_cfg[4] = bits.bit4.b;
+    elt.new_cfg[5] = bits.bit5.b;
+    elt.new_cfg[6] = bits.bit6.b;
+    // elt.new_cfg[7] = bits.bit7.b; // we needed a space :-/
+
+    // [4 bits]
+    // Pointer of the currently written bit into the new_cfg register.
+    // Counts from 0 to 7
+    elt.write_pointer_counter = float(
+        bits.bit0.a +
+        2.0 * bits.bit1.a +
+        4.0 * bits.bit2.a);/* +
+        8.0 * bits.bit3.a);*/
+        
+    // D flip-flop marking the completion of collection of new config bits
+    // in the new_cfg[7..0] shift register.
+    // Clocked on FALLING EDGE of CLK
+    // Its data input is sourced from the Boolean condition when
+    // elt.write_pointer_counter reaches 7.
+    // [1 bit]
+    elt.WE_ARE_FULL_DFF = bits.bit4.a;
+
+    // Used in cross only:
+    elt.left = bits.bit5.a;
+    elt.top = bits.bit6.a;
+    elt.bottom = bits.bit7.a;
+    
+    elt.PREV_CLK = bits.bit7.b;
+    elt.conf_signal = bits.bit3.a;
+}
+
+
+//------------------------------------
+//
+//       structured data -> texels
+//
+
+vec4 pack_4_bytes (Bitset8Bits state) {
+
+  vec4 data;
+
+  data = vec4(state.bit0)
+    + 2.0 * vec4(state.bit1)
+    + 4.0 * vec4(state.bit2)
+    + 8.0 * vec4(state.bit3)
+    + 16.0 * vec4(state.bit4)
+    + 32.0 * vec4(state.bit5)
+    + 64.0 * vec4(state.bit6)
+    + 128.0 * vec4(state.bit7);
+
+  return data;
+}
+
+vec4 texelFromCfgBlock (Bitset8Bits bits) {
+
+    return pack_4_bytes(bits) / 255.0;
+}
+
+float is_config_param_block(vec2 fragCoord) {
+    // < 0.9 because normal fragCoord have 0.5 granularity
+    return fragCoord.x < 0.9 && fragCoord.y < 0.9 ? 1.0 : 0.0;
+}
+
+vec4 texelFromElement (in Element elt) {
+
+    Bitset8Bits bits;
+    
+    Bitset4Bits parameters = unpack_4_numbers(
+        vec4(elt.orientation, elt.mode, elt.parent,
+             elt.write_pointer_counter));
+    
+    // elt.orientation:
+    bits.bit0.r = parameters.bit0.r;
+    bits.bit1.r = parameters.bit1.r;
+    
+    // elt.mode:
+    bits.bit2.r = parameters.bit0.g;
+    bits.bit3.r = parameters.bit1.g;
+    bits.bit4.r = parameters.bit2.g;
+
+    // elt.parent:
+    bits.bit5.r = parameters.bit0.b;
+    bits.bit6.r = parameters.bit1.b;
+
+    // Main state
+    bits.bit7.r = elt.right;
+
+    bits.bit0.g = elt.LCO;
+    bits.bit1.g = elt.LDO;
+    bits.bit2.g = elt.TCO;
+    bits.bit3.g = elt.TDO;
+    bits.bit4.g = elt.RCO;
+    bits.bit5.g = elt.RDO;
+    bits.bit6.g = elt.BCO;
+    bits.bit7.g = elt.BDO;
+
+    bits.bit0.b = elt.new_cfg[0];
+    bits.bit1.b = elt.new_cfg[1];
+    bits.bit2.b = elt.new_cfg[2];
+    bits.bit3.b = elt.new_cfg[3];
+    bits.bit4.b = elt.new_cfg[4];
+    bits.bit5.b = elt.new_cfg[5];
+    bits.bit6.b = elt.new_cfg[6];
+    //bits.bit7.b = elt.new_cfg[7];
+    
+    // elt.write_pointer_counter:
+    bits.bit0.a = parameters.bit0.a;
+    bits.bit1.a = parameters.bit1.a;
+    bits.bit2.a = parameters.bit2.a;
+    //bits.bit3.a = parameters.bit3.a;
+    
+    
+    bits.bit4.a = elt.WE_ARE_FULL_DFF;
+
+    // Used in cross only:
+    bits.bit5.a = elt.left;
+    bits.bit6.a = elt.top;
+    bits.bit7.a = elt.bottom;
+    
+    bits.bit7.b = elt.PREV_CLK;
+    bits.bit3.a = elt.conf_signal;
+
+    return pack_4_bytes(bits) / 255.0;
+}
+
+float mux_action(float mode_code, lowp float l, lowp float r, lowp float b, lowp float t) {
+    float mode = 7.0 - mode_code;
+
+    float result = 0.0;
+    // Switch over 6 modes
+    if (mode < 0.5) {
+        result = l > 0.5 ? b : t;
+    } else if (mode > 0.5 && mode < 1.5) {
+        result = l > 0.5 ? t : b;
+    } else if (mode > 1.5 && mode < 2.5) {
+        result = l > 0.5 ? r : t;
+    } else if (mode > 2.5 && mode < 3.5) {
+        result = l > 0.5 ? t : r;
+    } else if (mode > 3.5 && mode < 4.5) {
+        result = l > 0.5 ? r : b;
+    } else if (mode > 4.5 && mode < 5.5) {
+        result = l > 0.5 ? b : r;
+    }
+    
+    return result;
+}
+
+
+float is_left(float ptr) {
+    return (ptr < 0.5) ? 1.0 : 0.0;
+}
+    
+float is_top(float ptr) {
+    return (ptr > 0.5 && ptr < 1.5) ? 1.0 : 0.0;
+}
+
+float is_right(float ptr) {
+    return (ptr > 1.5 && ptr < 2.5) ? 1.0 : 0.0;
+}
+
+float is_bottom(float ptr) {
+    return (ptr > 2.5 && ptr < 3.5) ? 1.0 : 0.0;
+}
+
+float is_reconf_port(Element elt) {
+    return (elt.mode < 0.5 && elt.orientation < 0.5) ? 1.0 : 0.0;
+}
+
+// Visual functions used due to inability of GPGPU shader to access mouse extent:
+vec2 cell_from_visual(vec2 visual, float zoom_factor) {
+
+    float scale = 1.0 / zoom_factor;
+   
+    vec2 cell_coord = floor((visual - 0.5) * scale + vec2(0.5, 0.5) * scale);
+    
+    vec2 gpgpu_coord = (0.5 + cell_coord + vec2(0.0, 0.0));
+    
+    return gpgpu_coord;
+}
+
+`;
+
+
+
+// 1. We can have up to 8 samplers simultaneously
+// 2. texture2D(uSampler0, vec2(0, 0)) reads a single vec4.
+// 3. Enabling the OES_texture_float extension, vec4 is 4 32-bit floats
+// 3a. Otherwise, vec4 is 4 bytes.
+// 4. Typical maximum texture size is 4096x4096. It addresses 16M locations.
+//    With typical format of UNSIGNED_BYTE vec4, it's 64 megabytes.
+//    With FLOAT format, it's 256 megabytes per texture.
+// 5. There maximum typical 8 active textures attached,
+//    giving us minimum addressable RAM of 512 megabytes,
+//    extendable to 2GB on the machines supporting OES_texture_float.
+//    Some machines do support 32 texture units, which gives us maximum 8 gigabytes on those systems.
+// 6. We don't want to abuse the system resources of client machines.
+//    We might choose to limit the maximum RAM we want to use to the minimum addressable,
+//    and distribute any excess memory in other machines. For fast data access on the machines
+//    supporting OES_texture_float, 2 textures units might be used for the entirety of the data input.
+const FRAGMENT_SHADER = `#version 100
+
+// Slow init!
+// #extension GL_OES_standard_derivatives : require
+
+// Only when WEBGL_draw_buffers is there (mostly on laptops only)
+// #extension GL_EXT_draw_buffers : require
+
+// #pragma debug(on)
+// #pragma optimize(off)
+
+# ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+precision highp int;
+precision highp sampler2D;
+# else
+precision mediump float;
+precision lowp int;
+precision lowp sampler2D;
+# endif
+
+uniform vec2 screenSize;
+uniform vec2 uniformPan;
+
+` + nodeModelLoader + `
+
+#define Thickness 0.05
+
+float drawLine(vec2 p1, vec2 p2, vec2 uv) {
+
+  float a = abs(distance(p1, uv));
+  float b = abs(distance(p2, uv));
+  float c = abs(distance(p1, p2));
+
+  if ( a >= c || b >=  c ) return 0.0;
+
+  float p = (a + b + c) * 0.5;
+
+  // median to (p1, p2) vector
+  float h = 2.0 / c * sqrt( p * ( p - a) * ( p - b) * ( p - c));
+
+  // return mix(1.0, 0.0, smoothstep(0.5 * a * Thickness, 1.5 * a * Thickness, h));
+  return mix(1.0, 0.0, smoothstep(0.5 * Thickness, 1.5 * Thickness, h));
+}
+
+// MUX VLSI Boolean logic Cellular Automata
+// ASDW to draw wires while pressing mouse. ZQERTYU to place a multiplexer.
+// (backtick) for ground. 1 for power. X for intersection.
+// L for reconfiguration port. Num 4-8-6-2: change parent pointer in the ownership tree.
+
+#define WIRE_THICK (0.5)
+#define HALF_WIRE_THICK (0.5 * WIRE_THICK)
+#define CENTER (4.5)
+#define SPACING (2.0)
+#define HALF_SPACING (0.5 * SPACING)
+
+// Old stuff: I had no idea what I was doing
+vec2 rotate(vec2 uv, float th) {
+  return mat2(cos(th), sin(th), -sin(th), cos(th)) * uv;
+}
+
+
+// Old stuff: I had no idea what I was doing
+float udSegment (vec2 p, float zoom, float th, vec2 a, vec2 b) {
+    vec2 ba = zoom * (b - a);
+    vec2 pa = p - zoom * a;
+    
+    float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+    
+    vec2 sqrd = pa - h * ba;
+    vec2 sqrd2 = sqrd * sqrd;
+    return sqrd2.x + sqrd2.y - th;
+}
+
+// Old stuff: I had no idea what I was doing
+vec3 line(vec2 from, float dx, float dy, vec3 color, float th, float zoom, vec2 pos, vec3 mix_into) {
+    return mix(color, mix_into, step(0.0, udSegment(pos, zoom, th, from, from + vec2(dx, dy))));
+}
+
+// Geometry transformations
+vec2 rotate (vec2 point, float sine, float cosine, vec2 origin) {
+
+    // transform point position into origin's vector space:
+    vec2 point_in_origin_space = point - origin;
+
+    // rotate point
+    float Xnew = point_in_origin_space.x * cosine - point_in_origin_space.y * sine;
+    float Ynew = point_in_origin_space.x * sine + point_in_origin_space.y * cosine;
+    // TODO: simplify to mat2(cos(th), sin(th), -sin(th), cos(th)) * uv;
+
+    // transform point back to the user vector space:
+    return vec2(Xnew, Ynew) + origin;
+}
+
+vec2 translate (vec2 point, float x, float y) {
+    return point + vec2(x, y);
+}
+
+// For composition to work, negative distance is where the the
+// composed "internals" of solids are.
+float right_of (float x, vec2 xy) {
+    return x - xy.x;
+}
+
+float left_of (float x, vec2 xy) {
+    return xy.x - x;
+}
+
+// We normalize 0 to be on top of the y axis
+float top_of (float y, vec2 xy) {
+    return xy.y - y;
+}
+
+float bottom_of (float y, vec2 xy) {
+    return y - xy.y;
+}
+
+float solid_rect (vec4 dim, vec2 xy) {
+    return max(right_of(dim.x, xy),
+        max(top_of(dim.w, xy),
+            max(bottom_of(dim.y, xy),
+                left_of(dim.z, xy)
+            )
+        )
+    );
+}
+
+// Constructive solid geometry: combintation operations
+
+float morph(float shape1, float shape2, float degree) {
+    return mix(shape1, shape2, degree);
+}
+
+float glue(float shape1, float shape2) {
+    return min(shape1, shape2);
+}
+
+float overlap(float shape1, float shape2) {
+    return max(shape1, shape2);
+}
+
+float subtract(float base, float removed) {
+    return max(base, -removed);
+}
+
+float xor(float d1, float d2) {
+    return max(min(d1, d2), -max(d1, d2)); // xor
+}
+
+// Constructive solid geometry: primitives
+
+float disc(vec2 pos, float diameter, vec2 xy) {
+    vec2 dist = xy - pos;
+    return dot(dist, dist) * 4.0 - diameter * diameter;
+}
+
+// DO NOT CHANGE THE ORDER of your calls to compose()
+vec3 compose(float shape, vec3 shape_color, vec3 color) {//, float anti_alias) {
+    //return mix(color, shape_color, step(shape, 0.0));
+    
+    //return mix(color, shape_color, smoothstep(5.0, -5.0, shape));
+    // return mix(color, shape_color, smoothstep(anti_alias, -anti_alias, shape));
+    return mix(color, shape_color, smoothstep(0.2, -0.3, 0.042 * zoom_factor * shape));
+}
+
+// Discs look better with different smooth factors to anti-alias
+vec3 compose_antialias(float shape, vec3 shape_color, vec3 color) {
+
+    return mix(color, shape_color, smoothstep(5.0, -1.0, 0.042 * zoom_factor * shape));
+}
+
+vec3 my_blend(vec3 source, vec3 dest, float alpha) {
+    return source * alpha + dest * (1.0 - alpha);
+}
+
+vec4 transparent_compose(float shape, vec4 shape_color, vec4 color) {
+    float shape_cutoff = step(shape, 0.0);
+
+    // Add two transparencies with saturation to 1.0 max.
+    float composed_alpha = min(shape_color.a + color.a, 1.0);
+    return vec4(mix(
+        color.rgb,
+        my_blend(shape_color.rgb * shape_cutoff,
+                 color.rgb,
+                 shape_color.a),
+                 shape_cutoff),
+        composed_alpha);
+}
+
+
+
+float consumes_from_the_left(Element cell) {
+    
+    // crossbar
+    return (cell.mode < 0.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
+    // wire
+    (cell.mode > 0.5 && cell.mode < 1.5 && cell.orientation < 0.5) ||
+    // a MUX with an input from the left
+    (cell.mode > 1.5 && cell.orientation > 2.5) ||
+    (((cell.mode > 1.5 && cell.mode < 3.5) || cell.mode > 5.5)
+        && cell.orientation < 2.5 && cell.orientation > 1.5) ||
+    (cell.mode > 1.5 && cell.mode < 5.5
+        && cell.orientation < 1.5 && cell.orientation > 0.5) ||
+    (cell.mode > 3.5 && cell.orientation < 0.5)
+    || is_reconf_port(cell) * is_left(cell.parent) > 0.5
+    || is_reconf_port(cell) * is_bottom(cell.parent) > 0.5
+    ? 1.0 : 0.0;
+}
+
+float consumes_from_the_right(Element cell) {
+    
+    // crossbar
+    return (cell.mode < 0.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
+    // wire
+    (cell.mode > 0.5 && cell.mode < 1.5 && cell.orientation > 2.5) ||
+    // a MUX with an input from the left
+    (cell.mode > 1.5 && cell.mode < 5.5 && cell.orientation > 2.5) ||
+    (cell.mode > 3.5 && cell.orientation < 2.5 && cell.orientation > 1.5) ||
+    (cell.mode > 1.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
+    (cell.mode > 1.5 && cell.mode < 3.5 && cell.orientation < 0.5) ||
+    (cell.mode > 5.5 && cell.orientation < 0.5)
+    || is_reconf_port(cell) * is_right(cell.parent) > 0.5
+    || is_reconf_port(cell) * is_top(cell.parent) > 0.5
+    ? 1.0 : 0.0;
+}
+
+float consumes_from_the_top(Element cell) {
+    
+    // crossbar
+    return (cell.mode < 0.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
+    // wire
+    (cell.mode > 0.5 && cell.mode < 1.5 && cell.orientation > 0.5 && cell.orientation < 1.5) ||
+    // a MUX with an input from the left
+    (cell.mode > 3.5 && cell.orientation > 2.5) ||
+    (cell.mode > 1.5 && cell.orientation < 2.5 && cell.orientation > 1.5) ||
+    (cell.orientation < 1.5 && cell.orientation > 0.5) &&
+        ((cell.mode > 1.5 && cell.mode < 3.5) || (cell.mode > 5.5)) ||
+    (cell.mode > 1.5 && cell.mode < 5.5 && cell.orientation < 0.5)
+    || is_reconf_port(cell) * is_top(cell.parent) > 0.5
+    || is_reconf_port(cell) * is_left(cell.parent) > 0.5
+    ? 1.0 : 0.0;
+}
+
+float consumes_from_the_bottom(Element cell) {
+    
+    // crossbar
+    return (cell.mode < 0.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
+    // wire
+    (cell.mode > 0.5 && cell.mode < 1.5 && cell.orientation > 1.5 && cell.orientation < 2.5) ||
+    // a MUX with an input from the left
+    (cell.orientation > 2.5 && (
+        (cell.mode > 1.5 && cell.mode < 3.5) || cell.mode > 5.5)) ||
+    (cell.mode > 1.5 && cell.mode < 5.5 && cell.orientation < 2.5 && cell.orientation > 1.5) ||
+    (cell.mode > 3.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
+    (cell.mode > 1.5 && cell.orientation < 0.5)
+    || is_reconf_port(cell) * is_bottom(cell.parent) > 0.5
+    || is_reconf_port(cell) * is_right(cell.parent) > 0.5
+    ? 1.0 : 0.0;
+}
+
+vec4 draw_crossbar_signal(vec2 center, float current, float next, vec4 visual, vec2 p) {
+
+    // TODO: I do too many computations based on black for "1" and white for "0".
+    // It will make it hard to adjust for bright and dark green palette, for example!
+    vec3 next_color = vec3(1.0 - next);
+    vec3 curr_color = vec3(1.0 - current);
+
+    float outer_disc = disc(center, 3.8 * WIRE_THICK, p); // TODO: replace the diameter with spacing param
+    visual = vec4(compose_antialias(outer_disc, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+    
+    float middle_disc = disc(center, 2.5 * WIRE_THICK, p); // TODO: replace the diameter with spacing param
+    visual = vec4(compose_antialias(middle_disc, curr_color, visual.rgb), 1.0);
+    
+    //float inner_disc = disc(center, 2.0 * WIRE_THICK, p); // TODO: replace the diameter with spacing param
+    //visual = vec4(compose(inner_disc, next_color, visual.rgb), 1.0);
+
+    return visual;
+}
+
+vec4 cfg_dbg(float val, float x, float y, vec2 p, vec4 visual, vec3 color) {
+    // float s = disc(vec2(x, y), 1.1 * WIRE_THICK, p);
+    float s = disc(vec2(x, y), 1.6 * WIRE_THICK, p);
+    visual = vec4(compose_antialias(5.0 * s, 8.0 * color * val, visual.rgb), 1.0);
+    
+    return visual;
+}
+
+vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Element bottom, vec2 p, vec4 visual) {
+
+    // p spans from 0.01 to 7.99. There's a small gap of 0.5 a cell lacks at the right and bottom,
+    // it's placed slightly asymmetric to provide a good resolution even at 8x8 pixels per cell.
+
+
+/*
+----
+\  |
+ \ |
+  \|
+*/
+
+    /*
+    
+        We combine the DFF ring with all output wires because they reflect the same physical entity.
+    
+        We draw an output if the adjacent cell has one of its inputs pointing to this cell.
+        Outputs are canonical: all cells no matter their type have 4 outputs.
+        
+        We ALWAYS draw all input wires. In advanced vis, the wires might contain signal color inside.
+            GND and PWR: 0 inputs
+            MUX: 3 inputs
+            Crossbar: 4 inputs (not clear if we should draw those lines when no consumers)
+            Wire: 1 input.
+
+        We draw diagonal lines for the active MUX input and a short one looking like --/
+        showing the selector input.
+    */
+    
+    // Without these, muxes aren't identifiable:
+    float show_in_left = consumes_from_the_left(cell);
+    float show_in_right = consumes_from_the_right(cell);
+    float show_in_top = consumes_from_the_top(cell);
+    float show_in_bottom = consumes_from_the_bottom(cell);
+
+    //float show_in_left = 1.0; //consumes_from_the_left(cell);
+    float show_out_right = 1.0; //consumes_from_the_left(right);
+
+    //float show_in_right = 1.0; //consumes_from_the_right(cell);
+    float show_out_left = 1.0; //consumes_from_the_right(left);
+
+    //float show_in_top = 1.0; //consumes_from_the_top(cell);
+    float show_out_bottom = 1.0; //consumes_from_the_top(bottom);
+
+    //float show_in_bottom = 1.0; //consumes_from_the_bottom(cell);
+    float show_out_top = 1.0; //consumes_from_the_bottom(top);
+/*
+    float show_in_left = consumes_from_the_left(cell);
+    float show_out_right = consumes_from_the_left(right);
+
+    float show_in_right = consumes_from_the_right(cell);
+    float show_out_left = consumes_from_the_right(left);
+
+    float show_in_top = consumes_from_the_top(cell);
+    float show_out_bottom = consumes_from_the_top(bottom);
+
+    float show_in_bottom = consumes_from_the_bottom(cell);
+    float show_out_top = consumes_from_the_bottom(top);
+  */  
+    float no_connections = show_in_left+show_out_right+show_in_right
+      +show_out_left+show_in_top+show_out_bottom+show_in_bottom+show_out_top;
+
+
+    // Outputs
+
+    if (show_out_right > 0.5) {
+        float out_right = solid_rect(vec4(
+            2.5, CENTER - HALF_SPACING - HALF_WIRE_THICK,
+            8.0, CENTER - HALF_SPACING + HALF_WIRE_THICK), p);
+        visual = vec4(compose(out_right, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+    }
+
+    if (show_out_left > 0.5) {
+        float out_left = solid_rect(vec4(
+            0.0, CENTER + HALF_SPACING - HALF_WIRE_THICK,
+            6.5, CENTER + HALF_SPACING + HALF_WIRE_THICK), p);
+        visual = vec4(compose(out_left, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+    }
+
+    if (show_out_bottom > 0.5) {
+        float out_bottom = solid_rect(vec4(
+            CENTER + HALF_SPACING - HALF_WIRE_THICK, 2.5,
+            CENTER + HALF_SPACING + HALF_WIRE_THICK, 8.0), p);
+        visual = vec4(compose(out_bottom, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+    }
+
+    if (show_out_top > 0.5) {
+        float out_top = solid_rect(vec4(
+            CENTER - HALF_SPACING - HALF_WIRE_THICK, 0.0,
+            CENTER - HALF_SPACING + HALF_WIRE_THICK, 6.5), p);
+        visual = vec4(compose(out_top, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+    }
+
+    // ---------------------------------------
+    // Crossbar D flip-flop state bubbles
+    if (cell.mode < 0.5 && cell.orientation > 0.5 && cell.orientation < 1.5) {
+    
+        vec2 signal_bubble_center = vec2(1.9, 3.5);
+    
+        if (show_in_left * show_out_right > 0.5) {
+            visual = draw_crossbar_signal(signal_bubble_center, cell.right, left.right, visual, p);
+        }
+        if (show_in_top * show_out_bottom > 0.5) {
+            visual = draw_crossbar_signal(signal_bubble_center, cell.bottom, top.bottom, visual,
+                rotate(p, sin(radians(-90.0)), cos(radians(-90.0)), vec2(CENTER)));
+        }
+        if (show_in_right * show_out_left > 0.5) {
+            visual = draw_crossbar_signal(signal_bubble_center, cell.left, right.left, visual,
+                rotate(p, sin(radians(-180.0)), cos(radians(-180.0)), vec2(CENTER)));
+        }
+        if (show_in_bottom * show_out_top > 0.5) {
+            visual = draw_crossbar_signal(signal_bubble_center, cell.top, bottom.top, visual,
+                rotate(p, sin(radians(-270.0)), cos(radians(-270.0)), vec2(CENTER)));
+        }
+    }
+
+    // Draw inputs on top of crossbar DFF state bubbles
+    if (show_in_left > 0.5) {
+        float in_left = solid_rect(vec4(
+            0.0, CENTER - HALF_SPACING - HALF_WIRE_THICK,
+            1.56, CENTER - HALF_SPACING + HALF_WIRE_THICK), p);
+        visual = vec4(compose(in_left, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+    }
+    
+    if (show_in_right > 0.5) {
+        float in_right = solid_rect(vec4(
+            7.35, CENTER + HALF_SPACING - HALF_WIRE_THICK,
+            8.0, CENTER + HALF_SPACING + HALF_WIRE_THICK), p);
+        visual = vec4(compose(in_right, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+    }
+    
+    if (show_in_top > 0.5) {
+        float in_top = solid_rect(vec4(
+            CENTER + HALF_SPACING - HALF_WIRE_THICK, 0.0,
+            CENTER + HALF_SPACING + HALF_WIRE_THICK, 1.56), p);
+        visual = vec4(compose(in_top, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+    }
+    
+    if (show_in_bottom > 0.5) {
+        float in_bottom = solid_rect(vec4(
+            CENTER - HALF_SPACING - HALF_WIRE_THICK, 7.35,
+            CENTER - HALF_SPACING + HALF_WIRE_THICK, 8.0), p);
+        visual = vec4(compose(in_bottom, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+    }
+    
+    if (cell.mode > 0.5 || cell.orientation > 1.5 || is_reconf_port(cell) > 0.5) {
+    
+        float next_value = 0.0;
+        float l = 0.0;
+        if (cell.mode > 1.5) {
+
+            if (cell.orientation > 2.5) {
+                next_value = mux_action(cell.mode, left.right, right.left, bottom.top, top.bottom);
+                l = left.right;
+            } else if (cell.orientation < 2.5 && cell.orientation > 1.5) {
+                next_value = mux_action(cell.mode, top.bottom, bottom.top, left.right, right.left);
+                l = top.bottom;
+            } else if (cell.orientation < 1.5 && cell.orientation > 0.5) {
+                next_value = mux_action(cell.mode, right.left, left.right, top.bottom, bottom.top);
+                l = right.left;
+            } else if (cell.orientation < 0.5) {
+                next_value = mux_action(cell.mode, bottom.top, top.bottom, right.left, left.right);
+                l = bottom.top;
+            }
+        } else if (cell.mode < 1.5 && cell.mode > 0.5) {
+            // wire
+            if (cell.orientation > 2.5) {
+                next_value = right.left;
+            } else if (cell.orientation < 2.5 && cell.orientation > 1.5) {
+                next_value = bottom.top;
+            } else if (cell.orientation < 1.5 && cell.orientation > 0.5) {
+                next_value = top.bottom;
+            } else if (cell.orientation < 0.5) {
+                next_value = left.right;
+            }
+        } else if (cell.mode < 0.5) {
+            if (cell.orientation > 2.5) {
+                next_value = 1.0;
+            } else if (cell.orientation < 2.5 && cell.orientation > 1.5) {
+                next_value = 0.0;
+            } else if (is_reconf_port(cell) > 0.5) {
+                //l = cell.parent;
+                
+                if (cell.parent > 2.5) {
+                    l = left.right;
+                } else if (cell.parent < 2.5 && cell.parent > 1.5) { 
+                    l = bottom.top;
+                } else if (cell.parent < 1.5 && cell.parent > 0.5) {
+                    l = right.left;
+                } else if (cell.parent < 0.5) {
+                    l = top.bottom;
+                }
+            }
+        }
+    
+        // Not a crossbar or reconf port
+
+        // MUX, GND, PWR, WIRE D flip-flop state (current and next)
+        // There are 4 discs on top of each other
+        float inner_disc = 0.0;
+        float bigger_inner_disc = 0.0;
+        float outer_disc = 0.0;
+        float smaller_outer_disc = 0.0;
+        
+        float outer_disc_diameter = 5.0;
+        
+        if (cell.mode > 0.5 && cell.mode < 1.5) {
+            // If it's wire, make shapes smaller please!
+            inner_disc = 100.0; //disc(vec2(4.5, 4.5), 2.0 * WIRE_THICK, p);
+            bigger_inner_disc = disc(vec2(4.5, 4.5), 4.1 * WIRE_THICK, p);
+            outer_disc_diameter = 4.1;
+        } else {
+            inner_disc = disc(vec2(4.5, 4.5), 2.0 * WIRE_THICK, p);
+            bigger_inner_disc = disc(vec2(4.5, 4.5), 5.0 * WIRE_THICK, p);
+        }
+        
+        outer_disc = disc(vec2(4.5, 4.5), outer_disc_diameter, p);
+        smaller_outer_disc = disc(vec2(4.5, 4.5), outer_disc_diameter - 2.0 * WIRE_THICK, p);
+        
+
+        visual = vec4(compose_antialias(outer_disc, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+        
+        
+        if (cell.mode > 0.5 || cell.mode < 0.5 && cell.orientation > 1.5 || is_reconf_port(cell) > 0.5) {
+
+            if (cell.right < 0.5) {
+                visual = vec4(compose_antialias(smaller_outer_disc, vec3(1.0, 1.0, 1.0), visual.rgb), 1.0);
+
+                // Don't draw if 0->1
+                //if (next_value < 0.5 || cell.right > 0.5) {
+                //    visual = vec4(compose(bigger_inner_disc, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+                //}
+            } else {
+                visual = vec4(compose_antialias(bigger_inner_disc, vec3(1.0, 1.0, 1.0), visual.rgb), 1.0);
+            }
+        }
+        
+      
+        // MUX currently switched input (s ? a : b => s = 1 -> a : s = 0 -> b)
+        float rotate_sel = (3.0 - cell.orientation) * -90.0;
+        float rotate_curr = rotate_sel;
+        
+        float rotate_alt = 0.0;
+        float mux_mode = 7.0 - cell.mode;
+     
+        // Switch over 6 modes
+        if (mux_mode < 0.5) {
+            // rotate_curr = l > 0.5 ? b : t;
+            rotate_curr += l > 0.5 ? 90.0 : -90.0;
+        } else if (mux_mode > 0.5 && mux_mode < 1.5) {
+            //result = l > 0.5 ? t : b;
+            rotate_curr += l > 0.5 ? -90.0 : 90.0;
+        } else if (mux_mode > 1.5 && mux_mode < 2.5) {
+            //result = l > 0.5 ? r : t;
+            rotate_curr += l > 0.5 ? 180.0 : 270.0;
+        } else if (mux_mode > 2.5 && mux_mode < 3.5) {
+            //result = l > 0.5 ? t : r;
+            rotate_curr += l > 0.5 ? 270.0 : 180.0;
+        } else if (mux_mode > 3.5 && mux_mode < 4.5) {
+            //result = l > 0.5 ? r : b;
+            rotate_curr += l > 0.5 ? 180.0 : 90.0;
+        } else if (mux_mode > 4.5 && mux_mode < 5.5) {
+            //result = l > 0.5 ? b : r;
+            rotate_curr += l > 0.5 ? 90.0 : 180.0;
+        }
+        
+        if (cell.mode > 0.5 && cell.mode < 1.5) {
+            // WIRE
+            if (cell.orientation > 2.5) {
+                rotate_curr = 180.0;
+            } else if (cell.orientation < 2.5 && cell.orientation > 1.5) {
+                rotate_curr = 90.0;
+            } else if (cell.orientation < 1.5 && cell.orientation > 0.5) {
+                rotate_curr = -90.0;
+            } else if (cell.orientation < 0.5) {
+                rotate_curr = 0.0;
+            }
+            
+            // visual = transparent_compose(-1.0, vec4(1.0, 0.0, 0.0, 0.5), visual);
+        } else if (is_reconf_port(cell) > 0.5) {
+            rotate_curr = (4.0 - cell.parent) * 90.0;
+        }
+        
+        //---------------------------------------------
+        // Currently selected input (A or B) for MUX or THE input for wires
+        vec2 input_vertex = vec2(1.5, CENTER - HALF_SPACING);
+        float mux_current_input_halo = solid_rect(vec4(
+            input_vertex.x, input_vertex.y - 2.0 * WIRE_THICK,
+            CENTER, CENTER - HALF_SPACING + 2.25 * WIRE_THICK),
+            
+            rotate(
+                rotate(p,
+                    sin(radians(rotate_curr)), cos(radians(rotate_curr)),
+                    vec2(CENTER)
+                ),
+                sin(radians(-18.0)), cos(radians(-18.0)),
+                input_vertex + vec2(0.0, HALF_WIRE_THICK)
+            )
+        );
+        if (cell.mode > 0.5 && cell.mode < 1.5) {
+            ;
+        } else if (cell.mode > 0.5 || is_reconf_port(cell) > 0.5) {
+            visual = vec4(compose(mux_current_input_halo, vec3(1.0, 1.0, 1.0), visual.rgb), 1.0);
+        }
+        
+        float mux_current_input = solid_rect(vec4(
+            input_vertex.x - 0.1, input_vertex.y - HALF_WIRE_THICK,
+            CENTER, CENTER - HALF_SPACING + HALF_WIRE_THICK),
+            rotate(
+                rotate(p,
+                    sin(radians(rotate_curr)), cos(radians(rotate_curr)),
+                    vec2(CENTER)
+                ),
+                sin(radians(-18.0)), cos(radians(-18.0)),
+                input_vertex + vec2(0.0, HALF_WIRE_THICK)
+            )
+        );
+
+        
+        // If 1 -> 0, don't draw this
+
+        /* if (cell.right < 0.5 && next_value < 0.5) {
+            // If 0 -> 0
+            visual = vec4(compose(inner_disc, vec3(1.0, 1.0, 1.0), visual.rgb), 1.0);
+        } else if (next_value > 0.5) {
+            // If 1->1 or 0->1
+            visual = vec4(compose(inner_disc, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+        } */
+        
+        if (cell.mode > 0.5 || is_reconf_port(cell) > 0.5) {
+            visual = vec4(compose_antialias(inner_disc, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+            visual = vec4(compose(mux_current_input, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+        }
+        
+        
+        // ------- MUX Selector Input --------------
+        
+        vec2 selector_input_vertex = vec2(1.5, CENTER - HALF_SPACING);
+        
+        if (cell.mode < 0.5) {
+            // l = 0.0; // reconf port clock source
+            rotate_sel = (3.0 - cell.parent) * 90.0;
+        }
+        
+        float engaged_selector_offset = l > 0.5 ? -0.05 : 0.55;
+        
+        float mux_selector_input = solid_rect(vec4(
+            selector_input_vertex.x,
+            selector_input_vertex.y - 2.0,
+            selector_input_vertex.x + 0.1 + WIRE_THICK,
+            selector_input_vertex.y + 0.2),
+            translate(
+                rotate(
+                    rotate(p,
+                        sin(radians(rotate_sel)), cos(radians(rotate_sel)),
+                        vec2(CENTER)
+                    ),
+                    sin(radians(-18.0)), cos(radians(-18.0)),
+                    selector_input_vertex + vec2(0.0, HALF_WIRE_THICK)
+                ),
+                engaged_selector_offset, // 0.4: not engaged; -0.1: engaged
+                -1.0
+            )
+        );
+        
+        if (cell.mode > 1.5 || is_reconf_port(cell) > 0.5) {
+            visual = vec4(compose(mux_selector_input, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
+        }
+        
+        if (cell.mode > 1.5) {
+            visual = vec4(compose(-0.15 * (24.0 / zoom_factor), 1.0 * visual.rgb, 1.0 * vec3(1.0, 0.69, 0.1)), 1.0);
+        }
+    }
+    
+    //if (cell.write_pointer_counter > 0.5) {
+        visual = vec4(compose(0.0, vec3(1.0 - 2.0 * cell.write_pointer_counter * (1.0/14.0), 1.0, 1.0), visual.rgb), 1.0);
+    //}
+    
+    // Debug config signals:
+    // --------------------------------------------------------------
+    /* 
+    vec3 dat_clr = vec3(1.0, 0.0, 0.0);
+    visual = cfg_dbg(cell.LDO, 1.5, 2.5, p, visual, dat_clr);
+    visual = cfg_dbg(cell.TDO, 6.5, 1.5, p, visual, dat_clr);
+    visual = cfg_dbg(cell.RDO, 7.0, 6.5, p, visual, dat_clr);
+    visual = cfg_dbg(cell.BDO, 2.5, 7.0, p, visual, dat_clr);
+    
+    vec3 clk_clr = vec3(0.0, 0.0, 1.0);
+    visual = cfg_dbg(cell.LCO, 1.5, 2.5 - 1.0, p, visual, clk_clr);
+    visual = cfg_dbg(cell.TCO, 6.5 + 1.0, 1.5, p, visual, clk_clr);
+    visual = cfg_dbg(cell.RCO, 7.0, 6.5 + 1.0, p, visual, clk_clr);
+    visual = cfg_dbg(cell.BCO, 2.5 - 1.0, 7.0, p, visual, clk_clr);
+
+    //visual = cfg_dbg(cell.PREV_CLK, 4.5, 4.0, p, visual, clk_clr);
+    //visual = cfg_dbg(cell.WE_ARE_FULL_DFF, 4.5, 5.0, p, visual, dat_clr);
+    */ // -------------------------------------------------------------------------
+    if (is_reconf_port(cell) > 0.5) {
+        visual = vec4(compose(0.01 * (24.0 / zoom_factor), vec3(0.2, 0.0, 1.0), visual.rgb), 0.8);
+    } else if (no_connections < 0.5 && cell.mode < 0.5 && cell.orientation > 1.5 && cell.orientation < 2.5) {
+        // ==================================================================================
+        // skip drawing the GND cells
+        
+        // return vec4(1.0);
+    }
+
+
+    
+
+    return visual;
+}
+
+vec4 render (in vec2 fragCoord) {
+
+    // vec4 m = vec4(iMouse.x, screenSize.y - iMouse.y, iMouse.zw);
+    vec4 m = vec4(iMouse.x, iMouse.y, iMouse.zw);
+
+    
+    //Bitset8Bits cfg = cfgBlockFromTexel(texture2D(texture0, vec2(0.0)));
+    //if (cfg.bit0.r > 0.5) {
+    //    zoom_factor = 128.0;
+    //}
+    
+    vec2 mouse_cell = cell_from_visual(m.xy, zoom_factor);
+    
+    float scale = 1.0 / zoom_factor;
+    vec2 tex_coord_from_screen = 1.0 / screenSize.xy;
+    
+   
+    vec2 cell_coord = floor((fragCoord - 0.5) * scale + vec2(0.5, 0.5) * scale);
+    
+    vec2 gpgpu_coord = (0.5 + cell_coord + vec2(0.0, 0.0));
+    if (gpgpu_coord.x > ${ gpgpuTextureSide }.0 || gpgpu_coord.y > ${ gpgpuTextureSide }.0
+      || gpgpu_coord.x < -0.5 || gpgpu_coord.y < -0.5) {
+      discard;
+    }
+    
+    if (is_config_param_block(gpgpu_coord) > 0.5) {
+        return vec4(0.0);
+    }
+    
+    vec2 fetch_coord = gpgpu_coord / dataWidthAndHeight.xy;
+    
+    vec4 gpgpu_data = texture2D(texture0, fetch_coord);
+    
+    //return gpgpu_data;
+    
+    // Fetch neighbor elements or IO surface bits
+    Element left, right, top, bottom;
+    elementFromTexel(texture2D(texture0, (0.5 + cell_coord - vec2(1.0, 0.0)) / dataWidthAndHeight.xy), left);
+    elementFromTexel(texture2D(texture0, (0.5 + cell_coord + vec2(1.0, 0.0)) / dataWidthAndHeight.xy), right);
+    elementFromTexel(texture2D(texture0, (0.5 + cell_coord - vec2(0.0, 1.0)) / dataWidthAndHeight.xy), top);
+    elementFromTexel(texture2D(texture0, (0.5 + cell_coord + vec2(0.0, 1.0)) / dataWidthAndHeight.xy), bottom);
+
+    vec4 green_background = vec4(0.0, 0.5, 0.0, 1.0);
+    vec4 white_background = vec4(1.0, 1.0, 1.0, 1.0);
+    // vec4 visual = green_background;
+    vec4 visual = white_background;
+    
+    // Position within a tile
+    // vec2 p = mod(fragCoord, zoom_factor);
+    vec2 p = 8.0 * mod(fragCoord * scale, 1.0);// + vec2(0.5);
+    
+    // p = vec2(p.x, 8.0 - p.y);
+    //p = vec2(8.0 - p.x, p.y);
+
+
+    Element cell;
+    elementFromTexel(gpgpu_data, cell);
+    
+    // if (zoom_factor > 15.0) {
+    if (zoom_factor > 3.0) {
+    
+        vec4 cell_visual = draw_a_cell(cell, left, top, right, bottom, p, visual);
+    
+        // Compose the cell over the background (can be transparent)
+        visual = transparent_compose(-1.0, vec4(cell_visual.rgb, 2.0), visual);
+    } else {
+        visual = transparent_compose(-1.0, vec4(vec3(1.0 - cell.right), 1.0), visual);
+    }
+    
+ 
+    // Uncomment to only show the ownership spanning tree
+    // vec3 col = vec3(1.0);
+
+    vec3 col = visual.rgb;
+    
+
+    vec2 center = vec2(0.55, 0.55);
+    vec3 overlay_color = vec3(1.0);
+    
+    vec3 parent_color = cell.PREV_CLK < 0.5 ? vec3(0.6, 0.4, 0.1) : vec3(0.8, 0.1, 0.1);
+    
+    // vec3 parent_color = vec3(0.6, 0.0, 0.0);
+    vec3 twig_color_clocked = vec3(0.0, 0.0, 0.0);
+    vec3 twig_color = vec3(0.1, 0.5, 0.0);
+    
+    float parent_thickness = zoom_factor * zoom_factor / 128.0 * 0.5;
+    float twig_thickness = zoom_factor * zoom_factor / 128.0 * 0.15;
+
+    // Children twigs
+    
+    p = mod(fragCoord, zoom_factor);
+
+    /*
+    if (is_right(left.parent) > 0.5) {
+        vec3 twig_color = cell.LCO > 0.5 ? twig_color_clocked : twig_color;
+        overlay_color = line(center, -0.5, 0.0, twig_color, twig_thickness, zoom_factor, p, overlay_color);
+    }
+    
+    if (is_bottom(top.parent) > 0.5) {
+        vec3 twig_color = cell.TCO > 0.5 ? twig_color_clocked : twig_color;
+        overlay_color = line(center, 0.0, -0.5, twig_color, twig_thickness, zoom_factor, p, overlay_color);
+    }
+    
+    if (is_left(right.parent) > 0.5) {
+        vec3 twig_color = cell.RCO > 0.5 ? twig_color_clocked : twig_color;
+        overlay_color = line(center, 0.5, 0.0, twig_color, twig_thickness, zoom_factor, p, overlay_color);
+    }
+    
+    if (is_top(bottom.parent) > 0.5) {
+        vec3 twig_color = cell.BCO > 0.5 ? twig_color_clocked : twig_color;
+        overlay_color = line(center, 0.0, 0.5, twig_color, twig_thickness, zoom_factor, p, overlay_color);
+    }
+    */
+    
+    // Parent twig
+    if (is_left(cell.parent) > 0.5) {
+        overlay_color = line(center - vec2(0.25, 0.0), -0.3, 0.0, parent_color, parent_thickness, zoom_factor, p, overlay_color);
+    }
+    
+    if (is_top(cell.parent) > 0.5) {
+        overlay_color = line(center - vec2(0.0, 0.25), 0.0, -0.3, parent_color, parent_thickness, zoom_factor, p, overlay_color);
+    }
+    
+    if (is_right(cell.parent) > 0.5) {
+        overlay_color = line(center + vec2(0.25, 0.0), 0.3, 0.0, parent_color, parent_thickness, zoom_factor, p, overlay_color);
+    }
+    
+    if (is_bottom(cell.parent) > 0.5) {
+        overlay_color = line(center + vec2(0.0, 0.25), 0.0, 0.3, parent_color, parent_thickness, zoom_factor, p, overlay_color);
+    }
+    // */
+
+    col = compose(-0.09 * (24.0 / zoom_factor), visual.rgb, overlay_color);
+    
+    //col = overlay_color;
+    
+    
+    //col = 1.5 * transparent_compose(-1.0, vec4(0.5 * col, 0.95),
+    //   vec4(5.0 * overlay_color, 0.0)).rgb;
+    //col = 1.5 * transparent_compose(-1.0, vec4(0.5 * col, 0.95),
+    //   vec4(5.0 * overlay_color, 0.0)).rgb;
+    //col = 2.0 * compose(-0.15, 0.25 * visual.rgb, 2.0 * overlay_color);
+    // col = transparent_compose(-1.0, vec4(overlay_color, 0.5), vec4(2.0 * col, 1.0)).rgb;
+    
+    if (cell.conf_signal < 0.5) {
+        col = transparent_compose(-1.0, vec4(1.0, 1.0, 1.0, 0.4), vec4(col, 1.0)).rgb;
+    }
+    
+
+    // m.z is button pressed
+    // m.w is button state changed from "not pressed" to "pressed" (only one frame)
+    if (m.z > 0.5 && abs(mouse_cell - gpgpu_coord).x < 0.5 && abs(mouse_cell - gpgpu_coord).y < 0.5) {
+    
+        return transparent_compose(-1.0, vec4(1.0, 1.0, 0.0, 0.35), vec4(col, 1.0));
+    }
+    
+    return vec4(col, 1.0);
+}
+
+void main() {
+
+  vec2 screenPos = gl_FragCoord.xy - 0.5;
+  screenPos.y = screenSize.y - screenPos.y;
+
+  // {x, y, z, w} Useful when accessing vectors that represent points or normals
+  // {r, g, b, a} Useful when accessing vectors that represent colors
+  // {s, t, p, q} Useful when accessing vectors that represent texture coordinates
+
+  vec2 fragCoord = gl_FragCoord.xy;//floor(gl_FragCoord.xy); // .zw (z - Z-buffer depth; w = 1/w)
+  //vec2 uv       = fragCoord/resolution;           //0 to 1 range
+  //vec2 aspect     = resolution/min(resolution.x, resolution.y);     //aspect ratio
+  //vec2 position     = (uv - .5) * aspect;
+
+  // dFdx(genType)
+  // dFdy(genType)
+  // fwidth(genType)    
+
+  // For 4k
+  // float zoom = 0.003;
+  // For 2k
+  //float zoom = 0.006;
+  // For 1k
+  //float zoom = 0.012;
+  // float zoom = 0.012 * 3.8;
+  
+  // For 512
+  //float zoom = 0.0243;
+
+  // For 256
+  // 0.0485 is perfect zoom!
+  float zoom = 0.0485;
+  
+  // For 128
+  //float zoom = 0.097;
+
+  // Good for 64
+  //float zoom = 0.19;
+  // 32
+  //float zoom = 0.38;
+
+  // float zoom = 0.5;
+
+  // Shape debug
+  // float zoom = 1.097;
+
+  float dataWidth = dataWidthAndHeight.x;
+  float dataHeight = dataWidthAndHeight.y;
+
+
+  float screenWidth = screenSize.x;
+  float screenHeight = screenSize.y;
+
+  // This zoom is relative to the width of the screen
+  float z = zoom * 1000.0 / screenWidth;
+  float vertZ = zoom * 1000.0 / screenHeight;
+    
+  vec2 u = screenPos / (screenWidth * z);
+
+  // Scaling, translating, then converting it to a hexagonal grid cell coordinate and
+  // a unique coordinate ID. The resultant vector contains everything you need to produce a
+  // pretty pattern, so what you do from here is up to you.
+  float offsetX = uniformPan.x;
+  float offsetY = uniformPan.y;
+
+  float offsetYtransformed = -offsetY / (zoom * 152.5) - 0.6;
+
+  vec2 offset = vec2(-offsetX / (zoom * 346.5), offsetYtransformed);
+
+  gl_FragData[0] = render(vec2(fragCoord.x - offsetX, screenHeight - fragCoord.y - offsetY));
+}
+
+`;
+
+console.log(window.devicePixelRatio);
+
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+const canvas = app.canvasElt;
+
+
+
+const compileShader = (gl, vertSrc, fragSrc) => {
+
+    const vertex_shader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vertex_shader, vertSrc);
+    gl.compileShader(vertex_shader);
+
+    const frag_shader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(frag_shader, fragSrc);
+    gl.compileShader(frag_shader);
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vertex_shader);
+    gl.attachShader(program, frag_shader);
+    gl.linkProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.error("Could not initialise shaders " + gl.getProgramInfoLog(program));
+
+      if (!gl.getShaderParameter(vertex_shader, gl.COMPILE_STATUS)) { console.error("failed to compile vertex" + gl.getShaderInfoLog(vertex_shader)); }
+      if (!gl.getShaderParameter(frag_shader, gl.COMPILE_STATUS)) { console.error("failed to compile fragment" + gl.getShaderInfoLog(frag_shader)); }
+    } else {
+      console.log("Vertex log " + gl.getShaderInfoLog(vertex_shader));
+      console.log("Fragment log " + gl.getShaderInfoLog(frag_shader));
+      console.log("Program log " + gl.getProgramInfoLog(program));
+    }
+
+    return program;
+};
+
+const shader = compileShader(gl, VERTEX_SHADER, FRAGMENT_SHADER);
+gl.useProgram(shader);
+
+
+const pos_attr = window.g_app.pos_attr = gl.getAttribLocation(shader, 'aPos');
+gl.enableVertexAttribArray(pos_attr);
+
+const uniformTexture0ForDrawing = gl.getUniformLocation(shader, 'texture0');
+// const uSampler1 = gl.getUniformLocation(shader, 'uSampler1');
+const uniformDataWidthAndHeight2 = gl.getUniformLocation(shader, 'dataWidthAndHeight');
+const uniformiMouse2 = gl.getUniformLocation(shader, 'iMouse');
+const uniformScreenSize = gl.getUniformLocation(shader, 'screenSize');
+const uniformPan = gl.getUniformLocation(shader, 'uniformPan');
+
+const uniformPhase = gl.getUniformLocation(shader, 'uniformPhase');
+
+
+
+
+const buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+
+// BYTE: signed 8-bit integer, with values in [-128..127] (when normalized mapped to [-1..1] with step 0.0078125)
+// SHORT: signed 16-bit integer, with values in [-32768..32767] (when normalized mapped to [-1..1] with step 0.000030517)
+// UNSIGNED_BYTE: unsigned 8-bit integer, with src values in [0..255] (when normalized mapped to [0..1] with step 0.00390625)
+// UNSIGNED_SHORT: unsigned 16-bit integer, with values in [0..65535] (when normalized mapped to [0..1] with step 0.000015258)
+// FLOAT: 32-bit IEEE floating point number, never normalized
+gl.vertexAttribPointer(pos_attr, 2, gl.FLOAT, false, 0, 0);
+
+
+const vertices = [
+  1.0, 1.0,
+ -1.0, 1.0,
+  1.0,  -1.0,
+ -1.0,  -1.0,
+];
+      
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
+
+
+const texture0 = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, texture0);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+const pixel = new Uint8Array([
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+]);
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+
+
+const texture1 = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, texture1);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+const pixel2 = new Uint8Array([
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+  0, 10, 0, 255,
+]);
+
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel2);
+
+
+
+const packStateInVector = (state) => {
+
+  let data = [];
+
+  data.push(state.signalPart.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalPart.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalPart.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.redArrow0);
+
+  data.push(state.signalInsideOfGreenArrow.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalInsideOfGreenArrow.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalInsideOfGreenArrow.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.redArrow1);
+    
+  data.push(state.signalGoingToQ1.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalGoingToQ1.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalGoingToQ1.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.redArrow2);
+
+  data.push(state.signalGoingToQ2.greenArrowPermutedWithQ1andQ2
+    + 32.0 * state.signalGoingToQ2.takeQ1fromBifTrueElseFromA
+    + 64.0 * state.signalGoingToQ2.takeQ2fromBifTrueElseFromA
+    + 128.0 * state.greenArrowSignalAge);
+
+  return data;
+}
+
+const FEED_QUINE_INSTEAD_OF_RANDOM_BYTES = false;
+
+
+
+const initNodeWith = (redArrow, greenArrow, Q1andQ2perm = 6, q1fromB = 1, q2fromB = 0) => {
+
+  const perm1 = Math.floor(Math.random() * 30) + 1;
+  const perm2 = Math.floor(Math.random() * 30) + 1;
+  const b1 = Math.floor(Math.random() * 2);
+  const b2 = Math.floor(Math.random() * 2);
+  const b3 = Math.floor(Math.random() * 2);
+  const b4 = Math.floor(Math.random() * 2);
+
+  const nodeInit = {
+    redArrow0: redArrow & 1,
+    redArrow1: redArrow & 2 ? 1 : 0,
+    redArrow2: redArrow & 4 ? 1 : 0,
+  
+    signalPart: {
+      greenArrowPermutedWithQ1andQ2: greenArrow + 5.0 * (Q1andQ2perm - 1.0),
+      takeQ1fromBifTrueElseFromA: q1fromB,
+      takeQ2fromBifTrueElseFromA: q2fromB
+    },
+
+    signalInsideOfGreenArrow: {
+      greenArrowPermutedWithQ1andQ2: perm1,
+      takeQ1fromBifTrueElseFromA: b1,
+      takeQ2fromBifTrueElseFromA: b2
+    },
+    
+    signalGoingToQ1: {
+      greenArrowPermutedWithQ1andQ2: perm2,
+      takeQ1fromBifTrueElseFromA: b3,
+      takeQ2fromBifTrueElseFromA: b4,
+    },
+
+    signalGoingToQ2: {
+      greenArrowPermutedWithQ1andQ2: 0,
+      takeQ1fromBifTrueElseFromA: 0,
+      takeQ2fromBifTrueElseFromA: 0,
+    },
+  
+    greenArrowSignalAge : 0
+  };
+
+  return packStateInVector(nodeInit);
+};
+
+/*
+struct Element {
+
+    // ==== First block - [8 bits] of core config determining cell's function
+
+    // --- 5 bits of wiring and control configuration ---
+    
+    // 4 orientations 0..3 for MUX or wire. For special mode diff. meaning:
+    // 0: reconf. port; 1: cross; 2: GND; 3: PWR.
+    // [2 bits]
+    float orientation;
+
+    // 8 modes: 0 - special; 1 - wire; 2..7 - MUX
+    // [3 bits]
+    float mode;
+
+    // --- 2 bits Cartilage tree engine ---
+    
+    // Pointer to the owner element
+    // [2 bits]
+    float parent; // 0..3
+    
+    // Main state bit to store the output value
+    // In silicon, it represents electric charge.
+    // There is no inherent clock or D flip-flops. This bit is ephemeral
+    // (but initialized from config to support prototype inheritance).
+    
+    lowp float right;  // 0..1
+   
+
+    // ==== Second block: Ephemeral [8 bits] of Intersin clock and data wires
+    // (the wires neighbor cells interface with
+    // in the reconfiguration trees overlay network) representing charges
+    // while reconfiguration happens.
+    lowp float LCO;
+    lowp float LDO;
+    lowp float TCO;
+    lowp float TDO;
+    lowp float RCO;
+    lowp float RDO;
+    lowp float BCO;
+    lowp float BDO;
+    
+
+    //  [13 bits] of non-copy-able "hidden" state (real DFFs)
+    
+    // ====== Third block: [8 bits] shift register of configuration data.
+    // Applied to the main bits (orientation/mode/parent/state bit)
+    // when one subtree is completely filled with config bits.
+    // CLOCKED(!) with config clock sourced from one of the inputs
+    // into the subtree's reconfiguration port at its root.
+    lowp float new_cfg[8];
+
+    // ====== Fourth block
+    // [4 bits]
+    // Pointer of the currently written bit into the new_cfg register.
+    float write_pointer_counter;
+
+    // D flip-flop marking the completion of collection of new config bits
+    // in the new_cfg[7..0] shift register.
+    // [1 bit]
+    lowp float WE_ARE_FULL_DFF;
+
+    // ^^^ 29 bits consumed! ^^^
+    
+
+    // The three state bits used only to store outputs for crosses,
+    // In silicon, these represent charges. There is no inherent clock
+    // or D flip-flops. These bits are ephemeral.
+
+    lowp float left;  // 0..1
+    lowp float top;  // 0..1
+    lowp float bottom;  // 0..1
+    
+    // Spanning tree integrity. A technical signal preventing
+    // hidden ownership loops. In FPGA chains, implemented as a hops counter.
+    // We gave up on it because exhausted all 32 bits to encode electrical signals
+    // in wires. This implementation will require additional D flip-flop
+    // and protocol to send the presence signal.
+    lowp float conf_signal;
+
+    // The signal is supposed to be reflected from every leaf to the root, then re-emitted.
+    // If another signal is coming from the root, it means we got a cycle.
+    // Not implemented.
+    //lowp float conf_signal_leaf_to_root;
+    
+    // We have to sample the previous value of CLK to detect raising and falling edges.
+    lowp float PREV_CLK;
+};
+*/
+
+// Random byte:
+// Math.floor(Math.random() * 256)
+
+const initNodeWithState = (orientation = 0.0, mode = 1.0, parent = 1.0, conf_signal = 0.0) => {
+
+  let right = 0.0;
+	if (orientation == 3.0 && mode == 0.0) {
+    right = 1.0;
+  }
+
+  let data = [orientation + 4.0 * mode + 32.0 * parent + 128.0 * right,
+              0, 0, conf_signal * 8.0];
+
+  return data;
+};
+
+
+let sourceCode = document.documentElement.innerHTML;
+let nextByte = 0;
+
+const randomNodeBytes = (conf = 0.0) => {
+
+  const srcByte = sourceCode.charCodeAt(nextByte++);
+  if (nextByte == sourceCode.length) {
+    nextByte = 0;
+  }
+  
+  let redArrow;
+  
+  if (!FEED_QUINE_INSTEAD_OF_RANDOM_BYTES) {
+    redArrow = Math.floor(Math.random() * 6) + 1;
+  } else {
+    redArrow = 1.0 + (srcByte % 6.0);// / 6.0) + 1.0;
+  }
+  const randomBit = Math.random() + .5 >> 0;//Math.floor(Math.random() * 2);
+  return initNodeWithState(2.0 + randomBit, 0.0, 0.0, conf);
+};
+
+const writeNode = ({ x, y, orientation, mode, parent, conf_signal = 0.0 }) => {
+
+  const nodeBytes = initNodeWithState(orientation, mode, parent, conf_signal);
+  for (let i = 0; i < 4; ++i) {
+    data[gpgpuTextureSide * 4 * y + x * 4 + i] = nodeBytes[i];
+  }
+};
+
+let propagation_closure = 0;
+let clk = 2.0;
+let cfg_bit_index = 0;
+let cfg_bit_index2 = 0;
+const CFG_RCF_PRT = [ 0, 0,    0, 0, 0,   0, 0, ];
+const CFG_RCF_PRT_TO_BOTTOM = [ 0, 0,    0, 0, 0,   1, 0, ];
+const CFG_TO_THE_LEFT = [ 1, 1,    0, 0, 0,   0, 0, ];
+const CFG_ZERO_TO_THE_LEFT = [ 0, 1,    0, 0, 0,   0, 0, ];
+const CFG_ZERO_TO_THE_TOP = [ 0, 1,    0, 0, 0,   1, 0, ];
+const CFG_XING_TO_THE_TOP = [ 1, 0,    0, 0, 0,   1, 0, ];
+const CFG_TO_THE_TOP = [ 1, 1,    0, 0, 0,   1, 0, ];
+const CFG_MUX_TO_THE_TOP = [ 0, 0,    1, 1, 1,   1, 0, ];
+const CFG_TO_THE_BOTTOM = [ 1, 1,    0, 0, 0,   1, 1, ];
+
+const CFG_LWIRE_TO_THE_TOP = [ 0, 0,    1, 0, 0,   1, 0, ];
+const CFG_BWIRE_TO_THE_TOP = [ 0, 1,    1, 0, 0,   1, 0, ];
+const CFG_RWIRE_TO_THE_TOP = [ 1, 1,    1, 0, 0,   1, 0, ];
+const CFG_TWIRE_TO_THE_TOP = [ 1, 0,    1, 0, 0,   1, 0, ];
+const CFG_TWIRE_TO_THE_LEFT = [ 1, 0,    1, 0, 0,   0, 0, ];
+const CFG_LWIRE_TO_THE_LEFT = [ 0, 0,    1, 0, 0,   0, 0, ];
+const CFG_LWIRE_TO_THE_BOTTOM = [ 0, 0,    1, 0, 0,   1, 1, ];
+const CFG_BWIRE_TO_THE_LEFT = [ 0, 1,    1, 0, 0,   0, 0, ];
+const CFG_BWIRE_TO_THE_BOTTOM = [ 0, 1,    1, 0, 0,   1, 1, ];
+
+// parent: l 00 t 10 r 01 b 11
+const bitstream = [
+
+  // 2
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_BWIRE_TO_THE_TOP,
+
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_BWIRE_TO_THE_TOP,
+  ...CFG_BWIRE_TO_THE_TOP,
+
+  ...CFG_TWIRE_TO_THE_TOP,
+  ...CFG_TWIRE_TO_THE_TOP,
+  ...CFG_TWIRE_TO_THE_TOP,
+  ...CFG_RWIRE_TO_THE_TOP,
+
+  ...CFG_RCF_PRT_TO_BOTTOM,
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+  ...CFG_RWIRE_TO_THE_TOP,
+
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+  ...CFG_TWIRE_TO_THE_LEFT,
+
+  ...CFG_RWIRE_TO_THE_TOP,
+
+  ...CFG_RCF_PRT,
+
+
+  ...CFG_LWIRE_TO_THE_LEFT,
+
+  ...CFG_LWIRE_TO_THE_BOTTOM,
+  ...CFG_LWIRE_TO_THE_LEFT,
+
+  ...CFG_LWIRE_TO_THE_BOTTOM,
+  ...CFG_LWIRE_TO_THE_LEFT,
+
+  ...CFG_LWIRE_TO_THE_BOTTOM,
+  ...CFG_LWIRE_TO_THE_LEFT,
+
+  ...CFG_LWIRE_TO_THE_BOTTOM,
+  ...CFG_BWIRE_TO_THE_LEFT,
+
+  ...CFG_BWIRE_TO_THE_BOTTOM,
+  ...CFG_BWIRE_TO_THE_LEFT,
+
+
+  // 1; just waiting the 2nd cell to reconfigure
+  0,
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_XING_TO_THE_TOP,
+  ...CFG_MUX_TO_THE_TOP,
+
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_ZERO_TO_THE_TOP,
+
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+
+  ...CFG_TO_THE_LEFT,
+  ...CFG_TO_THE_TOP,
+
+  ...CFG_RCF_PRT,
+  //...CFG_TO_THE_LEFT,
+
+
+  ...CFG_ZERO_TO_THE_LEFT,
+  ...CFG_TO_THE_BOTTOM,
+  ...CFG_TO_THE_LEFT,
+  ...CFG_TO_THE_BOTTOM,
+  ...CFG_TO_THE_LEFT,
+  ...CFG_TO_THE_BOTTOM,
+  ...CFG_BWIRE_TO_THE_LEFT,
+  ...CFG_TO_THE_BOTTOM,
+  ...CFG_TO_THE_LEFT,
+  ...CFG_TO_THE_BOTTOM,
+  ...CFG_TO_THE_LEFT,
+
+];
+
+const bitstream2 = [
+  // 2
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_BWIRE_TO_THE_TOP,
+
+  ...CFG_RWIRE_TO_THE_TOP,
+  ...CFG_LWIRE_TO_THE_TOP,
+  ...CFG_BWIRE_TO_THE_TOP,
+  ...CFG_BWIRE_TO_THE_TOP,
+
+  ...CFG_TWIRE_TO_THE_TOP,
+  ...CFG_TWIRE_TO_THE_TOP,
+  ...CFG_TWIRE_TO_THE_TOP,
+  ...CFG_RWIRE_TO_THE_TOP,
+
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+  ...CFG_RWIRE_TO_THE_TOP,
+
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+
+  ...CFG_TO_THE_TOP,
+  ...CFG_TO_THE_TOP,
+  ...CFG_ZERO_TO_THE_TOP,
+  ...CFG_TWIRE_TO_THE_LEFT,
+
+  ...CFG_RWIRE_TO_THE_TOP,
+
+  ...CFG_RCF_PRT,
+
+
+  ...CFG_LWIRE_TO_THE_LEFT,
+
+  ...CFG_LWIRE_TO_THE_BOTTOM,
+  ...CFG_LWIRE_TO_THE_LEFT,
+
+  ...CFG_LWIRE_TO_THE_BOTTOM,
+  ...CFG_LWIRE_TO_THE_LEFT,
+
+  ...CFG_LWIRE_TO_THE_BOTTOM,
+  ...CFG_LWIRE_TO_THE_LEFT,
+
+  ...CFG_LWIRE_TO_THE_BOTTOM,
+  ...CFG_BWIRE_TO_THE_LEFT,
+
+  ...CFG_BWIRE_TO_THE_BOTTOM,
+  ...CFG_BWIRE_TO_THE_LEFT,
+];
+let all_readouts = [];
+let all_readouts_reset = 0;
+
+let stop_edge_reconf = false;
+
+const generateRandomLattice = (onlyPerimeter = false) => {
+  
+
+  if (!onlyPerimeter) {
+    for (let y = 0; y < gpgpuTextureSide; ++y) {
+      for (let x = 0; x < gpgpuTextureSide; ++x) {
+        for (let i = 0; i < 4; ++i) {
+
+          data[y * gpgpuTextureSide * 4 + x * 4 + i] = initNodeWithState()[i];
+        }
+      }
+    }
+    
+    const barrierWidth = 1;
+
+    
+  } else {
+  
+    
+
+		++propagation_closure;
+    if (propagation_closure > 24) {
+      propagation_closure = 0;
+      clk = (clk === 3.0) ? 2.0 : 3.0;
+      if (clk === 2.0) {
+        ++cfg_bit_index;
+        ++cfg_bit_index2;
+        if (cfg_bit_index2 > bitstream2.length) {
+          cfg_bit_index2 = 0;
+        }
+
+        if (cfg_bit_index > bitstream.length) {
+          cfg_bit_index = 0;
+          stop_edge_reconf = true;
+          ++all_readouts_reset;
+          if (all_readouts_reset === 3) {
+            // console.log(all_readouts.join(''));
+            all_readouts = [];
+            all_readouts_reset = 0;
+          }
+        }
+      } else {
+        // clk rises:
+        const CFG_READOUT = data[16 * gpgpuTextureSide * 4 + 0 * 4 + 0] & 128;
+        // all_readouts.push(`${ CFG_READOUT === 128 ? '*' : ' '}${ clk == 3.0 ? '^' : '_' }`);
+        // all_readouts.push(`${ CFG_READOUT === 128 ? '1' : '0'}`);
+        if (CFG_READOUT === 128) {
+
+          cfg_bit_index2 = 0;
+          console.log('RECONFIGURATION COMPLETE');
+        }
+      }
+    }
+
+    const barrierWidth = 1;
+  
+    let y = 0;
+
+    let x = 0;
+    y = 0;
+  
+    x = gpgpuTextureSide - 1;
+    y = 0;
+    
+
+    for (let p = 1; p < gpgpuTextureSide - 1; ++p) {
+      y = p;
+      const randNode = randomNodeBytes();
+      for (let i = 0; i < 4; ++i) {
+        data[y * gpgpuTextureSide * 4 + x * 4 + i] = randNode[i];
+      }
+    }
+    
+    x = 0;
+    /*
+    for (let p = 1; p < gpgpuTextureSide - 1; ++p) {
+      y = p;
+      const randNode = randomNodeBytes();
+      for (let i = 0; i < 4; ++i) {
+        data[y * gpgpuTextureSide * 4 + x * 4 + i] = randNode[i];
+      }
+    }
+    */
+  
+    y = 0;
+    for (let x = 1; x < gpgpuTextureSide - 1; ++x) {
+      const randNode = randomNodeBytes();
+      for (let i = 0; i < 4; ++i) {
+        data[y * gpgpuTextureSide * 4 + x * 4 + i] = randNode[i];
+      }
+    }
+    
+    y = gpgpuTextureSide - 1;
+    for (let x = 1; x < gpgpuTextureSide - 1; ++x) {
+      const randNode = randomNodeBytes();
+      for (let i = 0; i < 4; ++i) {
+        data[y * gpgpuTextureSide * 4 + x * 4 + i] = randNode[i];
+      }
+    }
+
+
+		// CLK
+    writeNode({ x: 0, y: 14, orientation: stop_edge_reconf ? 2.0 : clk,
+                             mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+		// CFG
+    writeNode({ x: 0, y: 15, orientation: bitstream[cfg_bit_index] + 2,
+                mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+
+    writeNode({ x: 0, y: 17, orientation: clk, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+    writeNode({ x: 0, y: 18, orientation: bitstream2[cfg_bit_index2] + 2, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+
+
+    // Emulate walls above and below
+    writeNode({ x: 0, y: 13, orientation: 2.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+
+    // Emulate walls above and below
+    writeNode({ x: 0, y: 20, orientation: 2.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+
+		// CLK_TOP
+    writeNode({ x: 0, y: 8, orientation: clk,
+                             mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+  }
+  
+};
+
+generateRandomLattice();
+
+    // CFG_READOUT
+    writeNode({ x: 0, y: 16, orientation: 3.0, mode: 1.0, parent: 0.0, conf_signal: 1.0 });
+
+    writeNode({ x: 0, y: 19, orientation: 3.0, mode: 1.0, parent: 0.0, conf_signal: 1.0 });
+
+
+// 3x3
+
+for (let i = 7; i < 13; i += 1) {
+  writeNode({ x: 4, y: i, orientation: 2.0, mode: 0.0, parent: 3.0, conf_signal: 1.0 });
+}
+
+// 1.CTRLR 3x3 Ours top row
+for (let i = 1; i < 4; i += 1) {
+  writeNode({ x: i, y: 7, orientation: 2.0, mode: 0.0, parent: 3.0, conf_signal: 1.0 });
+}
+
+// 2. CTRLR 3x3 All zeroes
+for (let i = 1; i < 4; i += 1) {
+  writeNode({ x: i, y: 8, orientation: 2.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+}
+
+// 3. CTRLR 3x3 Ours bottom row
+for (let i = 1; i < 4; i += 1) {
+  writeNode({ x: i, y: 9, orientation: 2.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+}
+
+// reconf port
+writeNode({ x: 2, y: 9, orientation: 0.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+
+for (let i = 10; i < 13; i += 1) {
+  writeNode({ x: 1, y: i, orientation: 2.0, mode: 0.0, parent: 2.0, conf_signal: 1.0 });
+}
+for (let i = 10; i < 13; i += 1) {
+  writeNode({ x: 2, y: i, orientation: 2.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+}
+for (let i = 10; i < 13; i += 1) {
+  writeNode({ x: 3, y: i, orientation: 2.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+}
+
+// reconf port
+writeNode({ x: 3, y: 11, orientation: 0.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+
+
+// Emulate a wall above
+for (let i = 1; i < 32; i += 1) {
+  writeNode({ x: i, y: 13, orientation: 2.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+}
+
+// Emulate walls below
+for (let i = 1; i < 32; i += 1) {
+  for (let ii = 20; ii < 24; ii += 1) {
+    writeNode({ x: i, y: ii, orientation: 2.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+  }
+}
+
+// 1. Ours top row
+for (let i = 1; i < 32; i += 1) {
+  writeNode({ x: i, y: 14, orientation: 2.0, mode: 0.0, parent: 3.0, conf_signal: 1.0 });
+}
+
+
+// 2. All zeroes
+for (let i = 1; i < 32; i += 1) {
+  writeNode({ x: i, y: 15, orientation: 2.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+}
+
+// 3. Ours bottom row
+for (let i = 1; i < 32; i += 1) {
+  writeNode({ x: i, y: 16, orientation: 2.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+}
+
+// 4. inner clock
+for (let i = 1; i < 32; i += 1) {
+  writeNode({ x: i, y: 17, orientation: 3.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+}
+
+// 5. inner cfg write
+for (let i = 1; i < 32; i += 1) {
+  writeNode({ x: i, y: 18, orientation: 3.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+}
+
+// 6. inner cfg read
+for (let i = 1; i < 32; i += 1) {
+  writeNode({ x: i, y: 19, orientation: 3.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+}
+
+// Config ports at the right side only
+for (let i = 3; i < 30; i += 6) {
+  writeNode({ x: i, y: 15, orientation: 0.0, mode: 0.0, parent: 0.0 });
+}
+
+writeNode({ x: 7, y: 19, orientation: 0.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+writeNode({ x: 7, y: 20, orientation: 3.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+writeNode({ x: 8, y: 19, orientation: 2.0, mode: 0.0, parent: 1.0, conf_signal: 1.0 });
+
+// The edge element is initializer
+writeNode({ x: 1, y: 14, orientation: 0.0, mode: 1.0, parent: 0.0, conf_signal: 1.0 });
+writeNode({ x: 2, y: 14, orientation: 0.0, mode: 1.0, parent: 0.0, conf_signal: 1.0 });
+writeNode({ x: 3, y: 14, orientation: 0.0, mode: 1.0, parent: 0.0, conf_signal: 1.0 });
+
+writeNode({ x: 1, y: 15, orientation: 0.0, mode: 1.0, parent: 1.0, conf_signal: 1.0 });
+writeNode({ x: 2, y: 15, orientation: 0.0, mode: 1.0, parent: 1.0, conf_signal: 1.0 });
+
+writeNode({ x: 1, y: 16, orientation: 3.0, mode: 1.0, parent: 1.0, conf_signal: 1.0 });
+writeNode({ x: 2, y: 16, orientation: 3.0, mode: 1.0, parent: 1.0, conf_signal: 1.0 });
+writeNode({ x: 3, y: 16, orientation: 1.0, mode: 1.0, parent: 1.0, conf_signal: 1.0 });
+
+for (let i = 1; i < 4; ++i) {
+  writeNode({ x: i, y: 17, orientation: 0.0, mode: 1.0, parent: 1.0, conf_signal: 1.0 });
+  writeNode({ x: i, y: 18, orientation: 0.0, mode: 1.0, parent: 1.0, conf_signal: 1.0 });
+  writeNode({ x: i, y: 19, orientation: 3.0, mode: 1.0, parent: 1.0, conf_signal: 1.0 });
+}
+
+// Because our current fabric treats reconf port specially, we need to reparent
+// the two elements above and below the corner's reconf port:
+for (let i = 9; i < 30; i += 6) {
+  writeNode({ x: i, y: 14, orientation: 2.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+  writeNode({ x: i, y: 16, orientation: 2.0, mode: 0.0, parent: 0.0, conf_signal: 1.0 });
+}
+
+
+
+let yy = 2;
+// writeNode({ x: 1, y: yy, orientation: 0.0, mode: 0.0, parent: 1.0 });
+
+// Homogeneous rotation test data
+/*
+let yy = 0;
+writeNode(0, yy,   4, 3);
+writeNode(1, yy, 4, 3);
+yy += 2;
+
+writeNode(0, yy,   4, 3);
+writeNode(1, yy, 3, 4);
+yy += 2;
+
+writeNode(0, yy,   4, 3);
+writeNode(1, yy, 5, 2);
+yy += 2;
+
+writeNode(0, yy,   4, 2);
+writeNode(1, yy, 4, 3);
+yy += 2;
+
+writeNode(0, yy,   4, 2);
+writeNode(1, yy, 3, 4);
+yy += 2;
+
+writeNode(0, yy,   4, 2);
+writeNode(1, yy, 5, 2);
+yy += 2;
+
+writeNode(0, yy,   4, 4);
+writeNode(1, yy, 4, 3);
+yy += 2;
+
+writeNode(0, yy,   4, 4);
+writeNode(1, yy, 3, 4);
+yy += 2;
+
+writeNode(0, yy,   4, 4);
+writeNode(1, yy, 5, 2);
+yy += 2;
+
+
+writeNode(0, yy, 3, 4, 6, 1, 0);
+*/
+
+// Create swap chain GPGPU render textures
+const gpgpuTexture = [,];
+for (let i = 0; i < 2; ++i) {
+  gpgpuTexture[i] = {
+    texture: gl.createTexture(),
+    framebuffer: gl.createFramebuffer()
+  };
+  gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[i].texture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gpgpuTextureSide, gpgpuTextureSide, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  gl.bindFramebuffer(gl.FRAMEBUFFER, gpgpuTexture[i].framebuffer);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, gpgpuTexture[i].texture, 0);
+}
+
+// 1. texture2D(uSampler0, vec2(0, 0)) reads a single vec4 sourced from 4 bytes with normalization 0..255->0..1
+// 2. Maximum texture size is 4096x4096 with typical format of UNSIGNED_BYTE vec4, it's 64 megabytes.
+// 3. There is up to 8 active textures attached, giving us minimum addressable RAM of 512 megabytes.
+// {x, y, z, w} Useful when accessing vectors that represent points or normals
+// {r, g, b, a} Useful when accessing vectors that represent colors
+// {s, t, p, q} Useful when accessing vectors that represent texture coordinates
+
+const gpgpuShader = compileShader(gl, `#version 100
+precision highp float;
+attribute vec2 aPos;
+void main() {
+  gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+}
+`, `#version 100
+
+# ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+precision highp int;
+precision highp sampler2D;
+# else
+precision mediump float;
+precision lowp int;
+precision lowp sampler2D;
+# endif
+
+` + nodeModelLoader + `
+
+float whenGt (float l, float r) {
+  return max(sign(l - r), 0.0);
+}
+
+lowp vec2 ctrlOffset (float dir) {
+    
+  return vec2(-1.0,  0.0) * whenGt(dir, 0.5) * whenGt(1.5, dir) +
+         vec2( 0.0, -1.0) * whenGt(dir, 1.5) * whenGt(2.5, dir) +
+         vec2( 0.0,  1.0) * whenGt(dir, 2.5) * whenGt(3.5, dir) +
+         vec2( 1.0,  0.0) * whenGt(dir, 3.5) * whenGt(4.5, dir);
+}
+
+
+float at(float x, float y, vec2 fragCoord) {
+    if (fragCoord.x > (x + 0.1) && fragCoord.x < (x + 0.9) &&
+        fragCoord.y > (y + 0.1) && fragCoord.y < (y + 0.9)
+    ) {
+        return 1.0;
+    }
+    
+    return 0.0;
+}
+
+// "mode" "orientation" "at"
+void moa(float mode, float orientation, float x, float y, inout Element elt, vec2 fragCoord) {
+    if (at(x, y, fragCoord) > 0.5) {
+        elt.mode = mode;
+        elt.orientation = orientation;
+    }
+    elt.WE_ARE_FULL_DFF = 0.0;
+    elt.write_pointer_counter = 0.0;
+}
+
+// "mode" "orientation" "value" "at"
+void mova(float mode, float orientation, float value, float x, float y, inout Element elt, vec2 fragCoord) {
+    if (at(x, y, fragCoord) > 0.5) {
+        elt.mode = mode;
+        if (value < 1.5) { // > 1.0 will keep random
+            elt.left = elt.top = elt.bottom = elt.right = value;
+        }
+        elt.orientation = orientation;
+    }
+    
+    elt.WE_ARE_FULL_DFF = 0.0;
+    elt.write_pointer_counter = 0.0;
+}
+
+// keys
+int kA=65,kB=66,kC=67,kD=68,kE=69,kF=70,kG=71,kH=72,kI=73,kJ=74,kK=75,kL=76,kM=77,kN=78,kO=79,kP=80,kQ=81,kR=82,kS=83,kT=84,kU=85,kV=86,kW=87,kX=88,kY=89,kZ=90;
+int kBacktick = 192, k0=48,k1=49,k2=50,k3=51,k4=52,k5=53,k6=54,k7=55,k8=56,k9=57;
+int kSpace=32,kLeft=37,kUp=38,kRight=39,kDown=40;
+int kNumLeft=100, kNumUp=104, kNumDown=98, kNumRight=102;
+
+
+vec4 texelFetch(in sampler2D texture, ivec2 uv, int s) {
+  vec4 dummy = vec4(0);
+  return dummy;
+}
+
+#define iChannel1 texture0
+
+void computeElement (inout Element elt, in vec2 fragCoord) {
+
+    Bitset8Bits cfg = cfgBlockFromTexel(texture2D(texture0, vec2(0.0)));
+    if (cfg.bit0.r > 0.5) {
+        return;
+    }
+
+    // vec4 m = vec4(iMouse.x, dataWidthAndHeight.y - iMouse.y, iMouse.zw);
+    vec4 m = vec4(iMouse.x, iMouse.y, iMouse.zw);
+    vec2 mouse_cell = cell_from_visual(m.xy, zoom_factor);
+    
+    // m.z is button pressed
+    // m.w is button state changed from "not pressed" to "pressed" (only one frame)
+    if (m.z > 0.5 && abs(mouse_cell - fragCoord).x < 0.5 && abs(mouse_cell - fragCoord).y < 0.5) {
+
+        float y = 0.0;
+        // Ground
+        if (texelFetch(iChannel1, ivec2(kG, 0), 0).x > 0.5) {
+            elt.left = elt.top = elt.bottom = elt.right = 0.0;
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kBacktick, 0), 0).x > 0.5) {
+            // GND
+            mova(0., 2., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kP, 0), 0).x > 0.5) {
+            elt.left = elt.top = elt.bottom = elt.right = 1.0;
+            return;
+        } else if (texelFetch(iChannel1, ivec2(k1, 0), 0).x > 0.5) {
+            // PWR
+            mova(0., 3., 1., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kA, 0), 0).x > 0.5) {
+            // Wire from left
+            mova(1., 0., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kW, 0), 0).x > 0.5) {
+            // Wire from up
+            mova(1., 1., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kS, 0), 0).x > 0.5) {
+            // Wire down
+            mova(1., 2., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kD, 0), 0).x > 0.5) {
+            // Wire right
+            mova(1., 3., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kE, 0), 0).x > 0.5) {
+            // MUX type 1
+            mova(7., 3., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kQ, 0), 0).x > 0.5) {
+            // MUX type 2
+            mova(3., 2., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kR, 0), 0).x > 0.5) {
+            // MUX type 3 (selector from the bottom)
+            mova(5., 0., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kT, 0), 0).x > 0.5) {
+            // MUX type 4 (selector from the left but one of the inputs from the right)
+            mova(3., 3., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kZ, 0), 0).x > 0.5) {
+            // MUX type 5
+            mova(2., 2., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kY, 0), 0).x > 0.5) {
+            // MUX type 6
+            mova(6., 3., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kU, 0), 0).x > 0.5) {
+            // MUX type 7 (selector from the bottom)
+            mova(4., 0., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kX, 0), 0).x > 0.5) {
+            // Intersection
+            mova(0., 1., 1., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kL, 0), 0).x > 0.5) {
+            // Ownership subtree overlay entry (a reconfuguration port) 
+            mova(0., 0., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
+            elt.conf_signal = 0.0;
+            elt.parent = 0.0; // left
+            // elt.cfg_read = elt.cfg_write = 0.0;
+            // Subtree readback value
+            elt.left = elt.right = elt.top = elt.bottom = 0.0;
+            return;
+            
+        } else if (texelFetch(iChannel1, ivec2(kNumLeft, 0), 0).x > 0.5) {
+            // Ownership parent supertree pointer (toward the tree spaning from the
+            // reconfuguration port)
+            elt.parent = 0.0;
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kNumUp, 0), 0).x > 0.5) {
+            // Ownership parent supertree pointer (toward the tree spaning from the
+            // reconfuguration port)
+            elt.parent = 1.0;
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kNumRight, 0), 0).x > 0.5) {
+            // Ownership parent supertree pointer (toward the tree spaning from the
+            // reconfuguration port)
+            elt.parent = 2.0;
+            return;
+        } else if (texelFetch(iChannel1, ivec2(kNumDown, 0), 0).x > 0.5) {
+            // Ownership parent supertree pointer (toward the tree spaning from the
+            // reconfuguration port)
+            elt.parent = 3.0;
+            return;
+        }
+    }
+
+    // On mouse release when this cell is being rendered
+    //if (m.z < 0.5 && cfg.bit0.g > 0.5 && abs(mouse_cell - gpgpu_coord).x < 0.5 && abs(mouse_cell - gpgpu_coord).y < 0.5) {
+    //}
+    
+    // Fetch neighbor elements or IO surface bits
+    Element left, right, top, bottom;
+    elementFromTexel(texture2D(texture0, (fragCoord - vec2(1.0, 0.0))/dataWidthAndHeight.xy), left);
+    elementFromTexel(texture2D(texture0, (fragCoord + vec2(1.0, 0.0))/dataWidthAndHeight.xy), right);
+    elementFromTexel(texture2D(texture0, (fragCoord - vec2(0.0, 1.0))/dataWidthAndHeight.xy), top);
+    elementFromTexel(texture2D(texture0, (fragCoord + vec2(0.0, 1.0))/dataWidthAndHeight.xy), bottom);
+    
+    // Cell reconfiguration local clock
+    lowp float CLK = 0.0;
+    
+    if (is_config_param_block(fragCoord + vec2(0.0, -1.0)) > 0.5) {
+        top.parent = 3.0; // bottom
+        top.conf_signal = 0.0;
+        top.mode = 0.0;
+        top.orientation = 2.0;
+    } else if (is_config_param_block(fragCoord + vec2(-1.0, 0.0)) > 0.5) {
+        left.parent = 2.0; // right
+        left.conf_signal = 0.0;
+        left.mode = 0.0;
+        left.orientation = 2.0;
+    }
+    
+    if (fragCoord.x < 0.9) {
+        left.parent = 2.0; // right
+        left.conf_signal = 0.0;
+        left.mode = 0.0;
+        left.orientation = 2.0;
+    } else if (fragCoord.x > COMPUTER_WIDTH - 1.0) {
+        right.parent = 0.0; // left
+        right.conf_signal = 0.0;
+        right.mode = 0.0;
+        right.orientation = 2.0;
+    }
+    
+    if (fragCoord.y < 0.9) {
+        top.parent = 3.0; // bottom
+        top.conf_signal = 0.0;
+        top.mode = 0.0;
+        top.orientation = 2.0;
+    } else if (fragCoord.y > COMPUTER_HEIGHT - 1.0) {
+        bottom.parent = 1.0; // top
+        bottom.conf_signal = 0.0;
+        bottom.mode = 0.0;
+        bottom.orientation = 2.0;
+    }
+        
+    // If element not configured, don't flow data
+    // Disabled due to the new coarse-grained mini-FPGA model
+    // Enabled again to try the fine grained cellular model. FPGAs are not necessary.
+    if (elt.conf_signal > 0.5) {
+    
+    lowp float is_crossbar = 0.0;
+    
+    lowp float LDI = left.RDO;
+    lowp float LCI = left.RCO;
+    lowp float TDI = top.BDO;
+    lowp float TCI = top.BCO;
+    lowp float RDI = right.LDO;
+    lowp float RCI = right.LCO;
+    lowp float BDI = bottom.TDO;
+    lowp float BCI = bottom.TCO;
+
+    lowp float PARENT_IS_LEFT = is_left(elt.parent);
+    lowp float PARENT_IS_TOP = is_top(elt.parent);
+    lowp float PARENT_IS_RIGHT = is_right(elt.parent);
+    lowp float PARENT_IS_BOTTOM = is_bottom(elt.parent);
+
+    lowp float LEFT_IS_A_CHILD = LDI > 0.5 && PARENT_IS_LEFT < 0.5 ? 1.0 : 0.0;
+    lowp float TOP_IS_A_CHILD = TDI > 0.5 && PARENT_IS_TOP < 0.5 ? 1.0 : 0.0;
+    lowp float RIGHT_IS_A_CHILD = RDI > 0.5 && PARENT_IS_RIGHT < 0.5 ? 1.0 : 0.0;
+    lowp float BOTTOM_IS_A_CHILD = BDI > 0.5 && PARENT_IS_BOTTOM < 0.5 ? 1.0 : 0.0;
+    
+    lowp float LEFT_IS_FULL = LDI > 0.5 && LCI > 0.5 && PARENT_IS_LEFT < 0.5 ? 1.0 : 0.0;
+    lowp float TOP_IS_FULL = TDI > 0.5 && TCI > 0.5 && PARENT_IS_TOP < 0.5 ? 1.0 : 0.0;
+    lowp float RIGHT_IS_FULL = RDI > 0.5 && RCI > 0.5 && PARENT_IS_RIGHT < 0.5 ? 1.0 : 0.0;
+    lowp float BOTTOM_IS_FULL = BDI > 0.5 && BCI > 0.5 && PARENT_IS_BOTTOM < 0.5 ? 1.0 : 0.0;
+    
+    // In the clockwise direction from the parent
+    lowp float PRIORITY_CHILD_LEFT = 0.0;
+    lowp float PRIORITY_CHILD_FRONT = 0.0;
+    lowp float PRIORITY_CHILD_RIGHT = 0.0;
+    
+    lowp float LEFT_IS_AN_EMPTY_CHILD = LEFT_IS_A_CHILD > 0.5 && LEFT_IS_FULL < 0.5 ? 1.0 : 0.0;
+    lowp float TOP_IS_AN_EMPTY_CHILD = TOP_IS_A_CHILD > 0.5 && TOP_IS_FULL < 0.5 ? 1.0 : 0.0;
+    lowp float RIGHT_IS_AN_EMPTY_CHILD = RIGHT_IS_A_CHILD > 0.5 && RIGHT_IS_FULL < 0.5 ? 1.0 : 0.0;
+    lowp float BOTTOM_IS_AN_EMPTY_CHILD = BOTTOM_IS_A_CHILD > 0.5 && BOTTOM_IS_FULL < 0.5 ? 1.0 : 0.0;
+    
+    lowp float CLK_LEFT = 0.0;
+    lowp float CLK_TOP = 0.0;
+    lowp float CLK_RIGHT = 0.0;
+    lowp float CLK_BOTTOM = 0.0;
+    
+    lowp float DATA_OUT_L = 0.0;
+    lowp float DATA_OUT_T = 0.0;
+    lowp float DATA_OUT_R = 0.0;
+    lowp float DATA_OUT_B = 0.0;
+    
+    lowp float DATA_IN = 0.0;
+    
+    if (PARENT_IS_LEFT > 0.5) {
+        CLK = LCI;
+        lowp float CLK_AND_WE_ARE_NOT_FULL_YET = CLK > 0.5 && elt.WE_ARE_FULL_DFF < 0.5 ? 1.0 : 0.0;
+        DATA_IN = LDI;
+        PRIORITY_CHILD_LEFT = TOP_IS_AN_EMPTY_CHILD;
+        PRIORITY_CHILD_FRONT = RIGHT_IS_AN_EMPTY_CHILD;
+        PRIORITY_CHILD_RIGHT = BOTTOM_IS_AN_EMPTY_CHILD;
+        
+        if (PRIORITY_CHILD_RIGHT > 0.5) {
+            CLK_BOTTOM = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_B = LDI;
+        } else if (PRIORITY_CHILD_FRONT > 0.5) {
+            CLK_RIGHT = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_R = LDI;
+        } else if (PRIORITY_CHILD_LEFT > 0.5) {
+            CLK_TOP = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_T = LDI;
+        }
+    } else if (PARENT_IS_TOP > 0.5) {
+        CLK = TCI;
+        lowp float CLK_AND_WE_ARE_NOT_FULL_YET = CLK > 0.5 && elt.WE_ARE_FULL_DFF < 0.5 ? 1.0 : 0.0;
+        DATA_IN = TDI;
+        PRIORITY_CHILD_LEFT = RIGHT_IS_AN_EMPTY_CHILD;
+        PRIORITY_CHILD_FRONT = BOTTOM_IS_AN_EMPTY_CHILD;
+        PRIORITY_CHILD_RIGHT = LEFT_IS_AN_EMPTY_CHILD;
+        if (PRIORITY_CHILD_RIGHT > 0.5) {
+            CLK_LEFT = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_L = TDI;
+        } else if (PRIORITY_CHILD_FRONT > 0.5) {
+            CLK_BOTTOM = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_B = TDI;
+        } else if (PRIORITY_CHILD_LEFT > 0.5) {
+            CLK_RIGHT = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_R = TDI;
+        }
+    } else if (PARENT_IS_RIGHT > 0.5) {
+        CLK = RCI;
+        lowp float CLK_AND_WE_ARE_NOT_FULL_YET = CLK > 0.5 && elt.WE_ARE_FULL_DFF < 0.5 ? 1.0 : 0.0;
+        DATA_IN = RDI;
+        PRIORITY_CHILD_LEFT = BOTTOM_IS_AN_EMPTY_CHILD;
+        PRIORITY_CHILD_FRONT = LEFT_IS_AN_EMPTY_CHILD;
+        PRIORITY_CHILD_RIGHT = TOP_IS_AN_EMPTY_CHILD;
+        if (PRIORITY_CHILD_RIGHT > 0.5) {
+            CLK_TOP = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_T = RDI;
+        } else if (PRIORITY_CHILD_FRONT > 0.5) {
+            CLK_LEFT = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_L = RDI;
+        } else if (PRIORITY_CHILD_LEFT > 0.5) {
+            CLK_BOTTOM = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_B = RDI;
+        }
+    } else if (PARENT_IS_BOTTOM > 0.5) {
+        CLK = BCI;
+        lowp float CLK_AND_WE_ARE_NOT_FULL_YET = CLK > 0.5 && elt.WE_ARE_FULL_DFF < 0.5 ? 1.0 : 0.0;
+        DATA_IN = BDI;
+        PRIORITY_CHILD_LEFT = LEFT_IS_AN_EMPTY_CHILD;
+        PRIORITY_CHILD_FRONT = TOP_IS_AN_EMPTY_CHILD;
+        PRIORITY_CHILD_RIGHT = RIGHT_IS_AN_EMPTY_CHILD;
+        if (PRIORITY_CHILD_RIGHT > 0.5) {
+            CLK_RIGHT = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_R = BDI;
+        } else if (PRIORITY_CHILD_FRONT > 0.5) {
+            CLK_TOP = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_T = BDI;
+        } else if (PRIORITY_CHILD_LEFT > 0.5) {
+            CLK_LEFT = CLK_AND_WE_ARE_NOT_FULL_YET;
+            DATA_OUT_L = BDI;
+        }
+    }
+    
+    // We set this signal to 1 if the cell is a reconfiguration port.
+    // All reconfiguration ports are always terminal leaves of subtree by design.
+    lowp float ALL_CHILDREN_ARE_FULL = is_reconf_port(elt) > 0.5 ? 1.0 :
+        (((LEFT_IS_FULL > 0.5 || LEFT_IS_A_CHILD < 0.5)
+        &&
+        (TOP_IS_FULL > 0.5 || TOP_IS_A_CHILD < 0.5)
+        &&
+        (RIGHT_IS_FULL > 0.5 || RIGHT_IS_A_CHILD < 0.5)
+        &&
+        (BOTTOM_IS_FULL > 0.5 || BOTTOM_IS_A_CHILD < 0.5)) ? 1.0 : 0.0);
+        
+
+    elt.LCO = (PARENT_IS_LEFT > 0.5 && elt.WE_ARE_FULL_DFF > 0.5) ||
+        (LEFT_IS_FULL > 0.5 && elt.WE_ARE_FULL_DFF > 0.5 && CLK > 0.5) ||
+        (CLK_LEFT > 0.5 && LEFT_IS_A_CHILD > 0.5
+          && (ALL_CHILDREN_ARE_FULL < 0.5 || elt.WE_ARE_FULL_DFF > 0.5))
+        ? 1.0 : 0.0;
+
+    elt.TCO = (PARENT_IS_TOP > 0.5 && elt.WE_ARE_FULL_DFF > 0.5) ||
+        (TOP_IS_FULL > 0.5 && elt.WE_ARE_FULL_DFF > 0.5 && CLK > 0.5) ||
+        (CLK_TOP > 0.5 && TOP_IS_A_CHILD > 0.5
+          && (ALL_CHILDREN_ARE_FULL < 0.5 || elt.WE_ARE_FULL_DFF > 0.5))
+        ? 1.0 : 0.0;
+
+    elt.RCO = (PARENT_IS_RIGHT > 0.5 && elt.WE_ARE_FULL_DFF > 0.5) ||
+        (RIGHT_IS_FULL > 0.5 && elt.WE_ARE_FULL_DFF > 0.5 && CLK > 0.5) ||
+        (CLK_RIGHT > 0.5 && RIGHT_IS_A_CHILD > 0.5
+          && (ALL_CHILDREN_ARE_FULL < 0.5 || elt.WE_ARE_FULL_DFF > 0.5))
+        ? 1.0 : 0.0;
+
+    elt.BCO = (PARENT_IS_BOTTOM > 0.5 && elt.WE_ARE_FULL_DFF > 0.5) ||
+        (BOTTOM_IS_FULL > 0.5 && elt.WE_ARE_FULL_DFF > 0.5 && CLK > 0.5) ||
+        (CLK_BOTTOM > 0.5 && BOTTOM_IS_A_CHILD > 0.5
+          && (ALL_CHILDREN_ARE_FULL < 0.5 || elt.WE_ARE_FULL_DFF > 0.5))
+        ? 1.0 : 0.0;
+        
+
+    elt.LDO = (PARENT_IS_LEFT > 0.5 || DATA_OUT_L > 0.5 && PARENT_IS_LEFT < 0.5) ? 1.0 : 0.0;
+    elt.TDO = (PARENT_IS_TOP > 0.5 || DATA_OUT_T > 0.5 && PARENT_IS_TOP < 0.5) ? 1.0 : 0.0;
+    elt.RDO = (PARENT_IS_RIGHT > 0.5 || DATA_OUT_R > 0.5 && PARENT_IS_RIGHT < 0.5) ? 1.0 : 0.0;
+    elt.BDO = (PARENT_IS_BOTTOM > 0.5 || DATA_OUT_B > 0.5 && PARENT_IS_BOTTOM < 0.5) ? 1.0 : 0.0;
+
+    if (elt.PREV_CLK < 0.5 && CLK > 0.5) {
+        float next_write_ptr_ctr = 0.0;
+        if (elt.write_pointer_counter < 6.5) {
+            next_write_ptr_ctr = elt.write_pointer_counter + 1.0;
+        } else {
+            next_write_ptr_ctr = 0.0;
+        }
+        
+        if (elt.WE_ARE_FULL_DFF > 0.5) {
+            // Our cell config update happens here!
+            // Note we USE the previous values!
+            elt.orientation = float(elt.new_cfg[0] + 2.0 * elt.new_cfg[1]);
+            elt.mode = float(elt.new_cfg[2] + 2.0 * elt.new_cfg[3] + 4.0 * elt.new_cfg[4]);
+            elt.parent = float(elt.new_cfg[5] + 2.0 * elt.new_cfg[6]);
+            elt.right = elt.left = elt.top = elt.bottom = 0.0;
+            // ^^^ these will be patched slightly (PWR will make elt.right = 1.0 for example)
+            // below vvv
+        }
+
+        if (ALL_CHILDREN_ARE_FULL > 0.5) {
+            elt.write_pointer_counter = next_write_ptr_ctr;
+            elt.new_cfg[0] = elt.new_cfg[1];
+            elt.new_cfg[1] = elt.new_cfg[2];
+            elt.new_cfg[2] = elt.new_cfg[3];
+            elt.new_cfg[3] = elt.new_cfg[4];
+            elt.new_cfg[4] = elt.new_cfg[5];
+            elt.new_cfg[5] = elt.new_cfg[6];
+            elt.new_cfg[6] = DATA_IN;
+        }
+    } else if (elt.PREV_CLK > 0.5 && CLK < 0.5) {
+        // This DFF is clocked on falling edge.
+        // It's the only component which does that!
+        elt.WE_ARE_FULL_DFF = elt.write_pointer_counter > 6.5 ? 1.0 : 0.0;
+    }
+
+    // MUX
+    if (elt.mode > 1.5) {
+
+        if (elt.orientation > 2.5) {
+            elt.right = mux_action(elt.mode, left.right, right.left, bottom.top, top.bottom);
+        } else if (elt.orientation < 2.5 && elt.orientation > 1.5) {
+            elt.right = mux_action(elt.mode, top.bottom, bottom.top, left.right, right.left);
+        } else if (elt.orientation < 1.5 && elt.orientation > 0.5) {
+            elt.right = mux_action(elt.mode, right.left, left.right, top.bottom, bottom.top);
+        } else if (elt.orientation < 0.5) {
+            elt.right = mux_action(elt.mode, bottom.top, top.bottom, right.left, left.right);
+        }
+        
+    } else if (elt.mode > 0.5 && elt.mode < 1.5) {
+        // Wire
+        if (elt.orientation > 2.5) {
+            elt.right = right.left;
+        } else if (elt.orientation < 2.5 && elt.orientation > 1.5) {
+            elt.right = bottom.top;
+        } else if (elt.orientation < 1.5 && elt.orientation > 0.5) {
+            elt.right = top.bottom;
+        } else if (elt.orientation < 0.5) {
+            elt.right = left.right;
+        }
+
+    } else if (elt.mode < 0.5) {
+        if (elt.orientation > 2.5) {
+            // PWR
+            elt.right = 1.0;
+        } else if (elt.orientation < 2.5 && elt.orientation > 1.5) {
+            // GND
+            elt.right = 0.0;
+        } else if (elt.orientation < 1.5 && elt.orientation > 0.5) {
+            // Crossbar
+            elt.right = left.right;
+            elt.left = right.left;
+            elt.top = bottom.top;
+            elt.bottom = top.bottom;
+            is_crossbar = 1.0;
+        } else if (elt.orientation < 0.5) {
+            // Reconfiguration port
+            // Will interpret read/write request commands from
+            // the parent pointer direction
+            // clocked from "parent + 1.0" (clockwise)
+            float dat = 0.0;
+            float clk = 0.0;
+            if (is_left(elt.parent) > 0.5) {
+                dat = left.right;
+                clk = top.bottom;
+                elt.RCO = clk;
+                elt.RDO = dat;
+                elt.right = right.LCO;
+            } else if (is_top(elt.parent) > 0.5) {
+                dat = top.bottom;
+                clk = right.left;
+                elt.BCO = clk;
+                elt.BDO = dat;
+                elt.right = bottom.TCO;
+            } else if (is_right(elt.parent) > 0.5) {
+                dat = right.left;
+                clk = bottom.top;
+                elt.LCO = clk;
+                elt.LDO = dat;
+                elt.right = left.RCO;
+            } else if (is_bottom(elt.parent) > 0.5) {
+                dat = bottom.top;
+                clk = left.right;
+                elt.TCO = clk;
+                elt.TDO = dat;
+                elt.right = top.BCO;
+            }
+            
+            // Sample the clk and dat,
+            // execute operations on clk change.
+            
+            /* if (elt.prev_clk < 0.5 && clk > 0.5) {
+                // If neither reading or writing, let's begin
+                // depending on the data. Emulate DFF behavior using the prev_dat.
+                if (elt.cfg_read < 0.5 && elt.cfg_write < 0.5) {
+                    if (elt.prev_dat < 0.5) {
+                        elt.cfg_read = 1.0;
+                        // elt.right = 1.0;
+                    } else { // if the first bit of reconf bitstream is "1",
+                        // the client wants to write a bitstream into the port
+                        elt.cfg_write = 1.0;
+                        // Set the "busy" signal so the reprogrammer-parent
+                        // can identify when the writing is fully complete.
+                        elt.right = 1.0;
+                    }
+                }
+                
+                // Readout value
+                // elt.right = dat;//1.0 - elt.right;
+            }*/
+
+            // Read-out output
+            //elt.right = elt.right;// 0.0;
+            //elt.prev_clk = clk;
+            //elt.prev_dat = dat;
+        }
+    }
+    
+    if (is_crossbar < 0.5) {
+        elt.left = elt.right;
+        elt.top = elt.right;
+        elt.bottom = elt.right;
+    }
+    
+    } // if conf_signal
+    
+    // Disabled due to the new coarse-grained mini-FPGA model
+    // Enabled again
+    // Spanning tree integrity
+
+    if (is_left(elt.parent) > 0.5) {
+        elt.conf_signal = clamp((left.conf_signal + is_reconf_port(left)) * (1.0 - is_right(left.parent)), 0.0, 1.0);
+        if (is_reconf_port(elt) < 0.5) {
+            // Propagate overlay clock to move serial reconfiguration bitstream
+            //elt.prev_clk = left.prev_clk;
+        }
+    } else if (is_top(elt.parent) > 0.5) {
+        elt.conf_signal = clamp((top.conf_signal + is_reconf_port(top)) * (1.0 - is_bottom(top.parent)), 0.0, 1.0);
+        if (is_reconf_port(elt) < 0.5) {
+            // Propagate overlay clock to move serial reconfiguration bitstream
+            //elt.prev_clk = top.prev_clk;
+        }
+    } else if (is_right(elt.parent) > 0.5) {
+        elt.conf_signal = clamp((right.conf_signal + is_reconf_port(right)) * (1.0 - is_left(right.parent)), 0.0, 1.0);
+        if (is_reconf_port(elt) < 0.5) {
+            // Propagate overlay clock to move serial reconfiguration bitstream
+            //elt.prev_clk = right.prev_clk;
+        }
+    } else if (is_bottom(elt.parent) > 0.5) {
+        elt.conf_signal = clamp((bottom.conf_signal + is_reconf_port(bottom)) * (1.0 - is_top(bottom.parent)), 0.0, 1.0);
+        if (is_reconf_port(elt) < 0.5) {
+            // Propagate overlay clock to move serial reconfiguration bitstream
+            //elt.prev_clk = bottom.prev_clk;
+        }
+    }
+    
+    // At first, ran out of internal bits in a 32-bit pixel
+    // But then had to find one bit to sample clock.
+    // Had to give up on prototype inheritance of MUX states (for this shader code),
+    // Which decreased the range of the main counter from 0..8 to 0..7, releasing one more bit!
+    if (elt.conf_signal < 0.5) {
+        elt.parent = elt.parent + 1.0;
+        if (elt.parent > 3.5) {
+            elt.parent = 0.0;
+        }
+    } // TODO later make it work in another way. This feature is important,
+    // it supports failed FPGAs and automatically unstucks accidental ownership tree cycles.
+    
+    elt.PREV_CLK = CLK;
+}
+
+// Main GPU computation
+void main() {
+  vec2 fragCoord = gl_FragCoord.xy;// - 0.5;
+
+    // Use 1-byte color values for compatibility with mobile
+    vec4 gpgpu_data = texture2D(texture0, fragCoord/dataWidthAndHeight.xy);
+    
+    if (fragCoord.x > COMPUTER_WIDTH || fragCoord.y > COMPUTER_HEIGHT) {
+        // Skip processing of data not in computer core
+        // or not being in IO
+        // Note that we can write in this buffer realtime external inputs
+        // (mouse, keyboard, etc.)
+        gl_FragData[0] = gpgpu_data;
+        return;
+    } else if (is_config_param_block(fragCoord) > 0.5) {
+        // Configuration parameters block
+        Bitset8Bits cfg = cfgBlockFromTexel(gpgpu_data);
+
+        // vec4 m = vec4(iMouse.x, dataWidthAndHeight.y - iMouse.y, iMouse.zw);
+        vec4 m = vec4(iMouse.x, iMouse.y, iMouse.zw);
+        
+        if (m.z > 0.5) {
+            cfg.bit0.g = 1.0;
+        }
+        
+        if (m.z < -0.5) {
+            cfg.bit0.g = 0.0;
+        }
+
+        const int KEY_LEFT  = 37;
+        const int KEY_UP    = 38;
+        const int KEY_RIGHT = 39;
+        const int KEY_DOWN  = 40;
+        
+        if (texelFetch(iChannel1, ivec2(KEY_UP, 0), 0).x > 0.5) {
+            cfg.bit0.r = 1.0;
+        }
+        
+        if (texelFetch(iChannel1, ivec2(KEY_DOWN, 0), 0).x > 0.5) {
+            cfg.bit0.r = 0.0;
+        }
+
+        gl_FragData[0] = texelFromCfgBlock(cfg);
+        return;
+    }
+
+    Element elt;
+    elementFromTexel(gpgpu_data, elt);
+    computeElement(elt, fragCoord);
+    gl_FragData[0] = texelFromElement(elt);
+}
+
+`);
+
+const uniformTexture0 = gl.getUniformLocation(gpgpuShader, 'texture0');
+const uniformDataWidthAndHeight = gl.getUniformLocation(gpgpuShader, 'dataWidthAndHeight');
+const uniformiMouse = gl.getUniformLocation(gpgpuShader, 'iMouse');
+const uniformPhase2 = gl.getUniformLocation(gpgpuShader, 'uniformPhase');
+
+let chainIdSrc = 0;
+let chainIdDst = 1;
+
+let minTook = 1000;
+let currIter = 0;
+
+let begWith = performance.now();
+
+
+// Attach our quad to both shaders
+gl.useProgram(shader);
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.vertexAttribPointer(pos_attr, 2, gl.FLOAT, false, 0, 0);
+
+gl.useProgram(gpgpuShader);
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.vertexAttribPointer(pos_attr, 2, gl.FLOAT, false, 0, 0);
+
+// Partial = true injects data at the edges only
+window.g_app.createAnotherRandomLattice = (partial = false) => {
+
+  gl.bindFramebuffer(gl.FRAMEBUFFER, gpgpuTexture[chainIdSrc].framebuffer);
+  gl.readPixels(0, 0, gpgpuTextureSide, gpgpuTextureSide, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  generateRandomLattice(partial);
+
+  gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdSrc].texture);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gpgpuTextureSide, gpgpuTextureSide, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+};
+
+/*
+setInterval(() => {
+
+  window.g_app.createAnotherRandomLattice(true);
+/*
+  for (let i = 0; i < 50; ++i) {
+    window.g_app.doGpuCompute()
+  } * /
+}, 750);
+//}, 2350);
+//}, 700); */
+
+ // 2000 is cool on 256. gives enough time to settle
+
+
+let currentRotationPhase = 1;
+let currentRotationPhase2 = 1;
+
+let phaseShift = 30;
+
+
+window.g_app.doGpuCompute = () => {
+
+  // Insert data on the edge
+  // window.g_app.createAnotherRandomLattice(true);
+  // Run GPGPU shader
+  gl.useProgram(gpgpuShader);
+  gl.viewport(0, 0, gpgpuTextureSide, gpgpuTextureSide);
+  // 3 updates is a great number for 4k by 4k texture (might work for 256 to 768).
+  // More depth of computation can be achieved by making the size smaller.
+  //for (let i = 0; i < 162; ++i) {
+  for (let i = 0; i < COMPUTE_STEPS; ++i) {
+    window.g_app.createAnotherRandomLattice(true);
+  //const iterations = phaseShift ? phaseShift : 36;
+  //phaseShift = 0;
+  //for (let i = 0; i < iterations; ++i) {
+  //for (let i = 0; i < 6; ++i) {
+  //for (let i = 0; i < 3; ++i) {
+  //for (let i = 0; i < 1; ++i) {
+
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdSrc].texture);
+  gl.uniform1i(uniformTexture0, 0);
+  gl.uniform1f(uniformPhase2, currentRotationPhase);
+
+  gl.uniform2f(uniformDataWidthAndHeight, gpgpuTextureSide, gpgpuTextureSide);
+
+  gl.uniform4f(uniformiMouse, window.g_app.mouse.x, window.g_app.mouse.y,
+    window.g_app.mouse.left ? window.g_app.mouse.leftX : -window.g_app.mouse.leftX,
+    window.g_app.mouse.left ? window.g_app.mouse.leftY : -window.g_app.mouse.leftY);
+
+  gl.bindFramebuffer(gl.FRAMEBUFFER, gpgpuTexture[chainIdDst].framebuffer);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+  // Access results (not necessary here, can render stuff instead)
+  // gl.readPixels(0, 0, gpgpuTextureSide, gpgpuTextureSide, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  let tmp = chainIdSrc;
+  chainIdSrc = chainIdDst;
+  chainIdDst = tmp;
+
+/*  
+  currentRotationPhase += 1;
+  if (currentRotationPhase > 6) {
+    currentRotationPhase = 1;
+  }
+  
+  */
+  
+  currentRotationPhase += 1;
+  if (currentRotationPhase > 6) {
+    currentRotationPhase = 1;
+    /*currentRotationPhase2 += 1;
+    if (currentRotationPhase2 > 6) {
+      currentRotationPhase2 = 1;
+    }*/
+  }
+  
+  if (currentRotationPhase == 2) {
+    currentRotationPhase2 += 1;
+    if (currentRotationPhase2 > 6) {
+      currentRotationPhase2 = 1;
+    }
+  }
+
+  }
+};
+
+// Run computation by timer slices
+// Run renderer by RAF
+
+window.g_app.gpuCompute = () => {
+
+  // console.log('Launching compute...');
+  const start = performance.now();
+
+  window.g_app.doGpuCompute();
+
+  // gl.flush();
+
+  // console.log(performance.now() - start);
+  // setTimeout(window.g_app.gpuCompute, 7);
+  //setTimeout(window.g_app.gpuCompute, 25);
+
+  // Switch every 12 seconds
+  // setTimeout(window.g_app.gpuCompute, 125);
+  // setTimeout(window.g_app.gpuCompute, 250);
+  setTimeout(window.g_app.gpuCompute, 1000);
+};
+
+
+
+window.g_app.fitTextareaInVisibleViewport(window.innerHeight);
+
+
+
+window.g_app.render = () => {
+
+  // window.g_app.gpuCompute();
+  window.g_app.doGpuCompute();
+
+
+  const width = window.innerWidth * window.devicePixelRatio;
+  const height = window.innerHeight * window.devicePixelRatio;
+
+  gl.useProgram(shader);
+
+    // gl.activeTexture(gl.TEXTURE1);
+    // gl.bindTexture(gl.TEXTURE_2D, texture1);
+    // gl.uniform1i(uSampler1, 1);
+
+  // After swap - most recently computed:
+  gl.activeTexture(gl.TEXTURE0);
+  // gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdSrc].texture);
+  gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdDst].texture);
+  gl.uniform1i(uniformTexture0ForDrawing, 0);
+
+  gl.uniform2f(uniformDataWidthAndHeight2, gpgpuTextureSide, gpgpuTextureSide);
+  gl.uniform4f(uniformiMouse2, window.g_app.mouse.x, window.g_app.mouse.y,
+    window.g_app.mouse.left ? window.g_app.mouse.leftX : -window.g_app.mouse.leftX,
+    window.g_app.mouse.left ? window.g_app.mouse.leftY : -window.g_app.mouse.leftY);
+  gl.uniform2f(uniformScreenSize, width, height);
+  
+  gl.uniform1f(uniformPhase, currentRotationPhase2);
+
+  gl.uniform2f(uniformPan, window.g_app.panX, window.g_app.panY);
+
+
+  let j = 32;
+
+  const bytes = j * j * 4;
+
+  let avgTook = 0;
+
+  //gl.readPixels(0, 0, j, j, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  // gl.activeTexture(gl.TEXTURE1);
+  // gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, j, j, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+
+  const renderStarted = performance.now();
+/*
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, texture0);
+  const pixel1_1 = new Uint8Array([
+    0, 255, 0, 255,
+    0, 0, 0, 255,
+    255, 0, 0, 255,
+    0, 0, 255, 255,
+  ]);
+  gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 2, 2, gl.RGBA, gl.UNSIGNED_BYTE, pixel1_1);
+
+*/
+    const side = j; //Math.sqrt(bytes);
+
+    // render to the canvas
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, width, height);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    // Only on retarded systems
+    // gl.flush();
+
+
+    // gl.readPixels(0, 0, side, side, gl.RGBA, gl.UNSIGNED_BYTE, data);
+    const now = performance.now();
+    const took = now - begWith;
+    avgTook += took;
+    begWith = now;
+
+    // console.log(bytes / 1024 / 1024, j, (avgTook / iters), ((performance.now() - renderStarted) / iters));
+  if (currIter++ > 30 && took < minTook) {
+    minTook = took;
+  }
+
+  // console.log(minTook, took);
+
+  
+  // UNCOMMENT TO RUN VISUALIZATION
+  if (KEEP_COMPUTING) {
+    if (DELAY_BETWEEN_FRAMES) {
+      setTimeout(() => {
+        requestAnimationFrame(window.g_app.render);
+      }, DELAY_BETWEEN_FRAMES);
+    } else {
+      requestAnimationFrame(window.g_app.render);
+    }
+  }
+};
+
+
+//window.g_app.gpuCompute();
+requestAnimationFrame(window.g_app.render);
+// window.g_app.render();
+
+
+}, 0);
+
+
+
+
+}
+</script><style>
+html {
+  --visible-width: 16px;
+  --visible-height: 16px;
+
+  transform-style: preserve-3d;
+}
+
+html, body {
+  overflow: visible;
+  height: 0px;
+  width: 0px;
+  background-color: transparent !important;
+}
+
+html.with-virtual-keyboard, html.with-virtual-keyboard > body {
+  height: var(--visible-height);
+  min-height: var(--visible-height);
+  width: var(--visible-width);
+}
+
+body {
+  overflow: hidden;
+  margin: 0px;
+}
+
+html, body, canvas, textarea {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  max-height: 999999px;
+
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+textarea:focus {
+  outline-offset: 0px;
+}
+
+:focus {
+  outline: none;
+}
+
+textarea::placeholder {
+  color: #88cc88;
+}
+
+textarea {
+  -webkit-overflow-scrolling : touch !important;
+  outline: none;
+  border: none;
+  border-width: 0px;
+  border-radius: 0px;
+  border-image-width: 0px;
+  background-color: transparent;
+  resize: none;
+  padding: 0px;
+  font-size: 36px;
+  line-height: 42px;
+}
+
+canvas {
+  transform: translate3d(0px, 0px, 0px);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+         </style></head><body><canvas id="0" width="16px" height="16px" draggable="false"></canvas><input hidden="" id="1" type="file" style="position: absolute; min-height: 44px; width: 200px; background-color: red; transform: translate3d(0, 0, 2px);"></body></html>
