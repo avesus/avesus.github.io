@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html hidden lang="en">
 <head>
@@ -692,8 +693,8 @@ if (window.scrollY) {
 
 app.clearGl(window.innerWidth);
 
-//const KEEP_COMPUTING = true;
-const KEEP_COMPUTING = false;
+const KEEP_COMPUTING = true;
+//const KEEP_COMPUTING = false;
 
 //const COMPUTE_STEPS = 11000;
 //const COMPUTE_STEPS = 1500;
@@ -748,6 +749,7 @@ const nodeModelLoader = `
 uniform sampler2D texture0;
 uniform vec2 dataWidthAndHeight;
 uniform vec4 iMouse;
+uniform sampler2D iChannel1;
 
 # ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
@@ -2193,7 +2195,8 @@ const pos_attr = window.g_app.pos_attr = gl.getAttribLocation(shader, 'aPos');
 gl.enableVertexAttribArray(pos_attr);
 
 const uniformTexture0ForDrawing = gl.getUniformLocation(shader, 'texture0');
-// const uSampler1 = gl.getUniformLocation(shader, 'uSampler1');
+const uniformKeyboardTextureForDrawing = gl.getUniformLocation(shader, 'iChannel1');
+
 const uniformDataWidthAndHeight2 = gl.getUniformLocation(shader, 'dataWidthAndHeight');
 const uniformiMouse2 = gl.getUniformLocation(shader, 'iMouse');
 const uniformScreenSize = gl.getUniformLocation(shader, 'screenSize');
@@ -2254,6 +2257,33 @@ const pixel2 = new Uint8Array([
 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 2, 2, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixel2);
 
 
+const keyboardTexture = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, keyboardTexture);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+const keyboardTextureData = new Uint8Array(256);
+for (let i = 0; i < 256; ++i) {
+ keyboardTextureData[i] = 0;
+}
+
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.ALPHA, 256, 1, 0, gl.ALPHA, gl.UNSIGNED_BYTE,
+  keyboardTextureData);
+
+window.g_app.keyboardTextureUpdateKeyup = e => {
+  console.log(e.keyCode);
+  keyboardTextureData[e.keyCode] = 0;
+  gl.bindTexture(gl.TEXTURE_2D, keyboardTexture);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.ALPHA, 256, 1, 0, gl.ALPHA, gl.UNSIGNED_BYTE,
+    keyboardTextureData);
+};
+
+window.g_app.keyboardTextureUpdateKeydown = e => {
+  keyboardTextureData[e.keyCode] = 255;
+  gl.bindTexture(gl.TEXTURE_2D, keyboardTexture);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.ALPHA, 256, 1, 0, gl.ALPHA, gl.UNSIGNED_BYTE,
+    keyboardTextureData);
+};
 
 const packStateInVector = (state) => {
 
@@ -3050,11 +3080,9 @@ int kNumLeft=100, kNumUp=104, kNumDown=98, kNumRight=102;
 
 
 vec4 texelFetch(in sampler2D texture, ivec2 uv, int s) {
-  vec4 dummy = vec4(0);
-  return dummy;
+  return vec4(texture2D(iChannel1, (vec2((float(uv.x) + 0.5), 0.5)) / 256.0).a);
 }
 
-#define iChannel1 texture0
 
 void computeElement (inout Element elt, in vec2 fragCoord) {
 
@@ -3066,14 +3094,14 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
     // vec4 m = vec4(iMouse.x, dataWidthAndHeight.y - iMouse.y, iMouse.zw);
     vec4 m = vec4(iMouse.x, iMouse.y, iMouse.zw);
     vec2 mouse_cell = cell_from_visual(m.xy, zoom_factor);
-    
+
     // m.z is button pressed
     // m.w is button state changed from "not pressed" to "pressed" (only one frame)
     if (m.z > 0.5 && abs(mouse_cell - fragCoord).x < 0.5 && abs(mouse_cell - fragCoord).y < 0.5) {
 
         float y = 0.0;
         // Ground
-        if (texelFetch(iChannel1, ivec2(kG, 0), 0).x > 0.5) {
+	if (texelFetch(iChannel1, ivec2(kG, 0), 0).x > 0.5) {
             elt.left = elt.top = elt.bottom = elt.right = 0.0;
             return;
         } else if (texelFetch(iChannel1, ivec2(kBacktick, 0), 0).x > 0.5) {
@@ -3629,6 +3657,7 @@ void main() {
 `);
 
 const uniformTexture0 = gl.getUniformLocation(gpgpuShader, 'texture0');
+const uniformKeyboardTexture = gl.getUniformLocation(gpgpuShader, 'iChannel1');
 const uniformDataWidthAndHeight = gl.getUniformLocation(gpgpuShader, 'dataWidthAndHeight');
 const uniformiMouse = gl.getUniformLocation(gpgpuShader, 'iMouse');
 const uniformPhase2 = gl.getUniformLocation(gpgpuShader, 'uniformPhase');
@@ -3706,6 +3735,11 @@ window.g_app.doGpuCompute = () => {
   gl.activeTexture(gl.TEXTURE0);
   gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdSrc].texture);
   gl.uniform1i(uniformTexture0, 0);
+
+  gl.activeTexture(gl.TEXTURE1);
+  gl.bindTexture(gl.TEXTURE_2D, keyboardTexture);
+  gl.uniform1i(uniformKeyboardTexture, 1);
+
   gl.uniform1f(uniformPhase2, currentRotationPhase);
 
   gl.uniform2f(uniformDataWidthAndHeight, gpgpuTextureSide, gpgpuTextureSide);
@@ -3799,6 +3833,10 @@ window.g_app.render = () => {
   // gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdSrc].texture);
   gl.bindTexture(gl.TEXTURE_2D, gpgpuTexture[chainIdDst].texture);
   gl.uniform1i(uniformTexture0ForDrawing, 0);
+
+  gl.activeTexture(gl.TEXTURE1);
+  gl.bindTexture(gl.TEXTURE_2D, keyboardTexture);
+  gl.uniform1i(uniformKeyboardTextureForDrawing, 1);
 
   gl.uniform2f(uniformDataWidthAndHeight2, gpgpuTextureSide, gpgpuTextureSide);
   gl.uniform4f(uniformiMouse2, window.g_app.mouse.x, window.g_app.mouse.y,
