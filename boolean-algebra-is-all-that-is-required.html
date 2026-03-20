@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Boolean Algebra Is All That Is Required — Brian Greenforest</title>
-  <meta name="description" content="Landing page for the paper 'Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation' by Brian Greenforest.">
-  <link rel="canonical" href="https://avesus.github.io/boolean-algebra-is-all-that-is-required.html">
+  <title>Boolean Algebra Is All That Is Required — a multiplexer-only model of universal computation</title>
+  <meta name="description" content="Brian Greenforest's paper on a multiplexer-only Boolean model of universal computation built from 2:1 multiplexers, sequential switching networks, configuration as state, and unbounded tiling.">
+  <link rel="canonical" href="https://greenforest.io/boolean-algebra-is-all-that-is-required.html">
   <meta property="og:title" content="Boolean Algebra Is All That Is Required">
-  <meta property="og:description" content="An infinitely extensible multiplexer fabric as a unified model of computation.">
+  <meta property="og:description" content="A multiplexer-only Boolean model of universal computation based on 2:1 multiplexers, sequential switching networks, configuration as state, and unbounded tiling.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://avesus.github.io/boolean-algebra-is-all-that-is-required.html">
+  <meta property="og:url" content="https://greenforest.io/boolean-algebra-is-all-that-is-required.html">
   <meta name="citation_title" content="Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation">
   <meta name="citation_author" content="Brian Greenforest">
   <meta name="citation_publication_date" content="2026-02-08">
@@ -39,17 +39,17 @@
       "https://doi.org/10.5281/zenodo.18528623",
       "https://zenodo.org/records/18528623"
     ],
-    "url": "https://avesus.github.io/boolean-algebra-is-all-that-is-required.html",
+    "url": "https://greenforest.io/boolean-algebra-is-all-that-is-required.html",
     "encoding": {
       "@type": "MediaObject",
       "contentUrl": "https://zenodo.org/records/18528623/files/Boolean_Algebra_is_All_You_Need.pdf?download=1",
       "encodingFormat": "application/pdf"
     },
-    "description": "Build a computational substrate from only wires, constants, and 2:1 multiplexers, then allow feedback and replication. Digital computation is routinely explained through many formalisms (machines, grammars, lambda terms), while hardware practice already runs on a simpler invariant: a clocked next-state function over bits. This paper defines an explicit model in which every primitive is Boolean, time is state-to-state transition over registers, programming is installation of constraints into configuration registers, and unbounded memory is obtained by unbounded tiling."
+    "description": "Build a computational substrate from only wires, constants, and 2:1 multiplexers, then allow feedback and replication. Digital computation is routinely explained through many formalisms, while hardware practice already runs on a clocked next-state function over bits. This paper defines an explicit model in which every primitive is Boolean, time is state-to-state transition over registers, programming is installation of constraints into configuration registers, and unbounded memory is obtained by unbounded tiling."
   }
   </script>
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; line-height: 1.5; max-width: 840px; margin: 40px auto; padding: 0 16px; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; line-height: 1.5; max-width: 860px; margin: 40px auto; padding: 0 16px; }
     h1, h2 { line-height: 1.2; }
     .meta, .links { margin: 1rem 0 1.5rem; }
     a { word-break: break-word; }
@@ -72,8 +72,15 @@
     <strong>Direct PDF:</strong> <a href="https://zenodo.org/records/18528623/files/Boolean_Algebra_is_All_You_Need.pdf?download=1">Boolean_Algebra_is_All_You_Need.pdf</a></p>
   </div>
   <h2>Abstract</h2>
-  <p>Build a computational substrate from only wires, constants, and 2:1 multiplexers, then allow feedback and replication. Digital computation is routinely explained through many formalisms (machines, grammars, lambda terms), while hardware practice already runs on a simpler invariant: a clocked next-state function over bits. A single omission keeps the public model fractured: sequential switching networks—and the fact that reconfiguration is itself a Boolean, clocked process. This paper defines an explicit model in which (i) every primitive is Boolean (multiplexers, wires, constants), (ii) time is only state-to-state transition over registers realizable by those same primitives, (iii) “programming” is the installation of constraints into configuration registers, and (iv) unbounded memory is obtained by unbounded tiling (including physical self-assembly as one admissible growth mechanism). Under these assumptions the model is equivalent in power to standard universal models while remaining a single, uniform Boolean transition system.</p>
-  <h2>Suggested citation</h2>
-  <p>Greenforest, Brian. <em>Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation</em>. Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.18528623">10.5281/zenodo.18528623</a>.</p>
+  <p>Build a computational substrate from only wires, constants, and 2:1 multiplexers, then allow feedback and replication. Digital computation is routinely explained through many formalisms (machines, grammars, lambda terms), while hardware practice already runs on a simpler invariant: a clocked next-state function over bits. A single omission keeps the public model fractured: sequential switching networks—and the fact that reconfiguration is itself a Boolean, clocked process. This paper defines an explicit model in which (i) every primitive is Boolean (multiplexers, wires, constants), (ii) time is only state-to-state transition over registers realizable by those same primitives, (iii) programming is the installation of constraints into configuration registers, and (iv) unbounded memory is obtained by unbounded tiling (including physical self-assembly as one admissible growth mechanism). Under these assumptions the model is equivalent in power to standard universal models while remaining a single, uniform Boolean transition system.</p>
+  <h2>Core claim</h2>
+  <p>This note makes one engineering claim explicit: logic, state, reconfiguration, and growth can all be expressed inside one Boolean transition system built from 2:1 multiplexers, wires, constants, feedback, and local configuration registers. The separate machine layers people usually talk about are presentations on top of the same substrate.</p>
+  <h2>Related Cartilage shader demos</h2>
+  <p>These earlier browser/GPU pages matter because they demonstrate dynamic nested instantiation, tiled state, and explicit control over computation as a spatial medium.</p>
+  <ul>
+    <li><a href="/from-the-ground-up/scaffolding.html">Scaffolding</a></li>
+    <li><a href="/from-the-ground-up/minimum-webgl.html">Minimum JavaScript to run code inside of GPU</a></li>
+  </ul>
+  <p><a href="/">Back to greenforest.io</a></p>
 </body>
 </html>
