@@ -1,0 +1,44 @@
+:root {
+  --accent-color: #6b0f1a;
+  --accent-visited: #551018;
+  --accent-soft-bg: #f5ecee;
+}
+
+body {
+  accent-color: var(--accent-color);
+}
+
+header,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dt {
+  color: var(--accent-color);
+}
+
+a,
+a:visited,
+a:link {
+  color: var(--accent-color);
+}
+
+a:hover,
+a:focus {
+  color: var(--accent-visited);
+}
+
+button,
+.run-button {
+  color: var(--accent-color);
+}
+
+pre.error {
+  color: var(--accent-color) !important;
+}
+
+.libutton {
+  background-color: var(--accent-color) !important;
+}
