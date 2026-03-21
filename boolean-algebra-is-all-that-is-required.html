@@ -75,8 +75,9 @@
   <p>Build a computational substrate from only wires, constants, and 2:1 multiplexers, then allow feedback and replication. Digital computation is routinely explained through many formalisms (machines, grammars, lambda terms), while hardware practice already runs on a simpler invariant: a clocked next-state function over bits. A single omission keeps the public model fractured: sequential switching networks—and the fact that reconfiguration is itself a Boolean, clocked process. This paper defines an explicit model in which (i) every primitive is Boolean (multiplexers, wires, constants), (ii) time is only state-to-state transition over registers realizable by those same primitives, (iii) programming is the installation of constraints into configuration registers, and (iv) unbounded memory is obtained by unbounded tiling (including physical self-assembly as one admissible growth mechanism). Under these assumptions the model is equivalent in power to standard universal models while remaining a single, uniform Boolean transition system.</p>
   <h2>Core claim</h2>
   <p>This note makes one engineering claim explicit: logic, state, reconfiguration, and growth can all be expressed inside one Boolean transition system built from 2:1 multiplexers, wires, constants, feedback, and local configuration registers. The separate machine layers people usually talk about are presentations on top of the same substrate.</p>
-  <h2>Related Cartilage shader demos</h2>
-  <p>These earlier browser/GPU pages matter because they demonstrate dynamic nested instantiation, tiled state, and explicit control over computation as a spatial medium.</p>
+  <h2>Related Cartilage work</h2>
+  <p>The primary live Cartilage demo is <a href="/cellular-automata-2019/cartilage4.html">Cartilage 4</a>.</p>
+  <p>Supporting groundwork pages:</p>
   <ul>
     <li><a href="/from-the-ground-up/scaffolding.html">Scaffolding</a></li>
     <li><a href="/from-the-ground-up/minimum-webgl.html">Minimum JavaScript to run code inside of GPU</a></li>
