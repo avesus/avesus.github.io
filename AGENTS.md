@@ -13,17 +13,31 @@ Future changes should help the site answer these questions quickly:
 - What can another researcher, engineer, or builder reuse?
 - What is already complete, what is a live demo, and what still needs publication?
 
+## Publishing Model
+
+There are three real content types:
+
+1. Article: the main web-native unit. Articles inform, explain, and deliver value immediately. Use long explanatory article formats with illustrations, hyperlinks, embedded previews, and strong standalone introductions. Good inspiration includes Quanta Magazine and substantial Medium-style technical essays, without copying their tone.
+2. Paper: a printable PDF reference for academic or maker reuse. A paper is not the website article; it is the document people print, mark up, bookmark, and keep on a desk. Papers should be optimized 100% for print consumption. Target 8 to 23 pages, with about 11 pages as the ideal median. A DOI landing page only serves the PDF; it does not replace a web article.
+3. Book: an educational unit intended for paper. Books should be sold and consumed as paper books, not as web pages and not even primarily as PDFs.
+
+Everything else on the site exists to help readers find, understand, cite, print, run, or reuse articles, papers, and books.
+
+When a paper exists, create or plan a separate long explanatory article with illustrations, hyperlinks, and reader-facing context. The current DOI metadata page is a landing page for a PDF, not the final article format to emulate.
+
 ## IA Philosophy
 
 Do not assume visitors start at the homepage. Brian's model of the web is article-first: SEO, citations, links, or repositories bring readers directly to the main article URL; after reading, the end-of-article navigation block should offer the next useful read and, only if justified, the relevant index page.
 
 Navigation categories must emerge from article contents. Do not invent top-level buckets first. For each article, identify what the reader just learned, what page is now the most relevant next read, and what index page would become useful after that article. Create an index only when repeated article endings need the same collection.
 
-The homepage is a special content type, not the navigation root. It should provide access to emergent index articles plus featured and recent content. Cartilage can be a featured achievement, but the serial multiplier may have the highest direct customer value once it is public because it is a drop-in building block.
+The current `index.html` sends people to years, which is harmful. The homepage must be completely rethought before it is treated as useful. It should not route by chronology. It should provide access to emergent index articles plus featured and recent content. Cartilage can be featured because it is visually and conceptually strong, but the serial multiplier may have the highest direct customer value once it is public because it is a drop-in building block.
 
 Do not create generic "About" navigation by default. An about-like page must answer a specific reader question produced by actual articles, such as citation, collaboration, purpose, or how the projects connect.
 
 Keep meta-language, planning assumptions, and disambiguation notes in `AGENTS.md`. Public-facing content should be concrete and reader-facing.
+
+The site still needs a scalable theory for how readers move from bottom-of-article next links to index pages. Do not assume this is solved. Treat article endings, suggested next reads, and index-page discovery as an open design problem.
 
 ## Core Research And Invention Areas
 
@@ -39,6 +53,7 @@ Use these as the current IA seeds. They are not final navigation labels yet, but
 8. Magnetic material properties and formulae, gathered while studying magnetic amplifiers. This should become practical reference material for people dealing with magnetics.
 9. Magnetic amplifiers and diodeless circuit theory. Important points include second-harmonic modulation/demodulation, DC-to-DC amplification without semiconductors, parametrons, and sequential magnetic token storage/propagation devices.
 10. Smart-dust substrate ideas using fab-standard through-wafer dicing into micrometer-scale modules plus conformal SiO2 coating, enabling adjacent capacitive and inductively coupled actuation, power, clock, and data transfer without conventional post-packaging.
+11. SDR/radio work: a 1-pin fully digital SDR receiver frontend, plus a 1-pin resonant-tank transmitter driven by a fully digital SDM Weaver modulator in Verilog. There are crude PCB prototypes, some videos of receiving FM radio, and a root image `backdrop_rf.jpeg` from a LinkedIn backdrop that illustrates this work.
 
 ## Technical Disambiguation Notes
 
@@ -48,6 +63,28 @@ Use these as the current IA seeds. They are not final navigation labels yet, but
 - The backprop/autodiff simplification is that multiplications, additions, fan-outs, and elementary functions are directly wired to feed back partial derivatives. Avoid framing it through tensor or matrix partial-derivative machinery when introducing the method. The point is a straightforward path to custom online backprop engines and chip implementation.
 - The magnetics work should begin from physical properties of magnetic materials. There is a large amount of confusing theory online and in books; the public value is a practical synthesis of findings, facts, formulae, and material behavior.
 - The smart-dust substrate work should first be framed as a fabrication proposal. Prototype roadmaps can come later, including orbital self-powered data-center particles or consumer/industrial devices.
+- `cellular-automata-2019/cartilage3.html` works as an artifact but does not explain itself. This has been a long-standing problem since the August 2021 pandemic/chip-shortage work. Do not edit the artifact to solve that; create an explanatory article/wrapper.
+- Each old cellular automata demo is a marvel deserving its own explanation of why it exists. The current archive guide is only a place where the messy pages were gathered.
+- The WebGL/GPGPU material is becoming historically/technically pressured by WebGPU. When writing about it, frame it as raw browser GPGPU from first principles and/or legacy educational material unless updating the technology story to include WebGPU.
+- The old web-development/Mailchimp blog page was produced during web-development days with an early GPT version. It has a story, but low current value in present form. Its Mailchimp embed may or may not still work.
+
+## Article And Artifact Presentation
+
+The near-term publishing path is one self-contained article at a time. Do not start by designing a large site structure.
+
+For a new article, prioritize:
+
+- A search-friendly title.
+- A clear value claim.
+- Illustrations or thumbnails.
+- Internal links to the most relevant existing article, artifact, paper, or demo.
+- Metadata for search and sharing.
+- A sitemap entry.
+- A bottom navigation block that does not become a generic related-links dump.
+
+"Artifact link" means a reader-facing link/card to something usable or inspectable: runnable demo, PDF paper, image, video, source repository, circuit file, Verilog file, ShaderToy, local static HTML demo, or downloadable asset. The site does not yet have a thumbnail/card system for these. Build one before publishing many artifact-heavy articles.
+
+Use `backdrop_rf.jpeg` as a likely visual asset for an SDR/radio article or RF work preview, not as generic decoration.
 
 ## Site Architecture Principles
 
@@ -62,10 +99,12 @@ Use these as the current IA seeds. They are not final navigation labels yet, but
 ## Current Codebase Notes
 
 - `index.html` is the current homepage.
-- `common-script.js` injects shared document styling, print behavior, heading counters, and runnable code-snippet behavior.
-- `from-the-ground-up/` contains educational material around computation, WebGL, and browser-based low-level experimentation.
+- `index.html` must be rethought first because routing by years actively undercuts the value of the work.
+- `common-script.js` injects shared document styling, print behavior, heading counters, and runnable code-snippet behavior. This is the superpower of the static, backendless, frameworkless site: new articles can be plain HTML and still have useful shared behavior. It should eventually be cleaned/split because much of it only exists for the old interactive WebGL education pages.
+- `from-the-ground-up/` contains educational material around computation, WebGL, and browser-based low-level experimentation. It was originally shaped like an online book, which is not the desired model anymore. Salvage it by splitting strong article material from chunks of not-yet-organized ideas.
 - `cellular-automata-2019/` contains large self-contained WebGL/shader artifacts. Treat them as executable fossils unless doing a deliberate artifact-preservation or extraction pass.
 - `boolean-algebra-is-all-that-is-required.html` is the current polished publication-style page for the multiplexer-only Boolean computation paper.
+- `boolean-algebra-is-all-that-is-required.html` is a DOI/PDF landing page, not a complete web article. A long explanatory article with illustrations and hyperlinks should eventually supplement it.
 - `sitemap.xml`, `robots.txt`, and static HTML files are deployed as a simple GitHub Pages site.
 
 ## Editing Guidance
@@ -76,3 +115,4 @@ Use these as the current IA seeds. They are not final navigation labels yet, but
 - When adding new public-facing pages, explain significance before implementation details: result, why it matters, status, reuse path, demo/artifact links, and future work.
 - Keep generated or archived shader files out of routine mechanical sweeps when possible.
 - For the next site cleanup, prioritize article records, end-of-article next-read decisions, emergent index articles, wrappers around preserved demos, a compact routing homepage, and reusable presentation infrastructure for branded header, footer, and navigation.
+- For searchability, every new article should have a descriptive title, meta description, canonical URL, Open Graph basics, internal links from at least one existing page, and a `sitemap.xml` entry. Use structured data where it fits the content type.
