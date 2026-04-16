@@ -1,95 +1,83 @@
-<!DOCTYPE html><html lang="en"><head><link rel="icon" href="data:,">
-<script src="/common-script.js" type="text/javascript"></script></head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="data:,">
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
 
 <header>Scaffolding</header>
 <address>
-	Brian Cannard
+	Brian Greenforest
 </address>
 
 <section class="abstract">
-<p>
-Let's experiment with computation using the browser, and nothing else.
-It's 2020, so we already can run almost low-level assembly instructions code in WebAssembly.
-We have WebGL 1.0 consistently deployed in every device fully supporting GPU rendering API
-called OpenGL ES 2.0.
-And we have classes and destructuring in ES6, which is the best version of JavaScript web came up with.
-Let's ignore cool kids' toolchains and frameworks: these cause trouble impeding simple explanations
-of concepts. We're going to build everything literally from scratch.
-</p>
+    <p>
+        Let's experiment with computation using the browser, and nothing else. It's 2020, so we already can run almost low-level assembly instructions code in WebAssembly. We have WebGL 1.0 consistently deployed in every device fully supporting GPU rendering
+        API called OpenGL ES 2.0. And we have classes and destructuring in ES6, which is the best version of JavaScript web came up with. Let's ignore cool kids' toolchains and frameworks: these cause trouble impeding simple explanations of concepts.
+        We're going to build everything literally from scratch.
+    </p>
 </section>
 
 <main>
-<section><h1>Control: from a relay switch to a reality simulator</h1>
-<p>
-Let's explore the concept of control.</p>
+    <section>
+        <h1>Control: from a relay switch to a reality simulator</h1>
+        <p>
+            Let's explore the concept of control.</p>
 
-<p>
-Control is the smallest computation step, it's a basic building block of computation.
+        <p>
+            Control is the smallest computation step, it's a basic building block of computation. Control is a trivial operation. A basic building block of control is a switch, or a valve. Another word for "control" is "regulation". The mysterious combination of
+            the controlled outcomes ("results", "outputs") is often called "computation".
+        </p>
+    </section>
 
-Control is a trivial operation. A basic building block of control is a switch, or a valve.
+    <section>
+        <h1>WebGL theory: controlling browser in space and time</h1>
+        <h2>Terminology</h2>
+        <p>GPU shader does this:
+            <ol>
+                <li>reads texture bits</li>
+                <li>intertwines texture bits</li>
+                <li>writes texture bits</li>
+            </ol>
+            There's literally no black magic beyond that.
+        </p>
 
-Another word for "control" is "regulation".
+        <p>To avoid confusion between pixels, texels, and fragments, let's define these:</p>
 
-The mysterious combination of the controlled outcomes ("results", "outputs") is often called "computation".
-</p>
-</section>
+        <dl>
+            <dt>Pixel</dt>
+            <dd>Visible on the screen <em>pic</em>ture <em>el</em>ement.</dd>
+            <dt>Texel</dt>
+            <dd><em>Tex</em>ture <em>el</em>ement when shader <em>reads</em> it.</dd>
+            <dt>Fragment</dt>
+            <dd>Pixel, texel, or an argument of resulting one when shader <em>writes</em> result of computation. Called "fragment" rather than "pixel" because one resulting pixel can be composed of more than one fragment in many runs, plus things like stencil
+                and depth buffers influence what the result will be. It also can be <code>discard</code>'ed: no write will happen.</dd>
+            <dt>Texture image unit</dt>
+            <dd>An array of texels available for one shader run. All GPUs support 8 simultaneous texture image units. Some systems can have 16, or 32.</dd>
+            <dt>Color buffer</dt>
+            <dd>An array of pixels into which shader writes. Most mobile platforms have only one color buffer, and it's typically 32 bits per pixel wide.</dd>
+        </dl>
 
-<section><h1>WebGL theory: controlling browser in space and time</h1>
-<h2>Terminology</h2>
-<p>GPU shader does this:<ol>
-	<li>reads texture bits</li>
-	<li>intertwines texture bits</li>
-	<li>writes texture bits</li>
-</ol>
-There's literally no black magic beyond that.
-</p>
+        <p>The multiplicity of all texture image units, all texture sizes, and the number of bits per texel define full addressable range of shader inputs.</p>
 
-<p>To avoid confusion between pixels, texels, and fragments, let's define these:</p>
+        <p>Maximum texture size is 4096 by 4096 texels.</p>
 
-<dl>
-	<dt>Pixel</dt><dd>Visible on the screen <em>pic</em>ture <em>el</em>ement.</dd>
-	<dt>Texel</dt><dd><em>Tex</em>ture <em>el</em>ement when shader <em>reads</em> it.</dd>
-	<dt>Fragment</dt><dd>Pixel, texel, or an argument of resulting one when shader <em>writes</em>
-		result of computation.
-		Called "fragment" rather than "pixel" because one resulting pixel can be
-		composed of more than one fragment in many runs, plus things like stencil and depth buffers
-		influence what the result will be. It also can be <code>discard</code>'ed: no write will happen.</dd>
-	<dt>Texture image unit</dt><dd>An array of texels available for one shader run.
-		All GPUs support 8 simultaneous texture image units.
-		Some systems can have 16, or 32.</dd>
-	<dt>Color buffer</dt><dd>An array of pixels into which shader writes.
-		Most mobile platforms have only one color buffer,
-		and it's typically 32 bits per pixel wide.</dd>
-</dl>
+        <p>The number of bits per texel is 32 on mobile platforms, and 128 on laptops. 32 bits per texel comes from four R, G, B, and A channels 8 bits (0..255) each. 128 bits per texel comes from four 32-bit floating point numbers. 128 bits per texel is
+            only available with <code>OES_texture_float</code> extension enabled. It's available on the most but very low-end platforms.</p>
 
-<p>The multiplicity of all texture image units, all texture sizes,
-and the number of bits per texel define full addressable range of shader inputs.</p>
+        <p>Texture image units comprise primary high-bandwidth input to shader.</p>
 
-<p>Maximum texture size is 4096 by 4096 texels.</p>
+        <p>Color buffers comprise the main output. On laptops there are 8 color buffers.</p>
 
-<p>The number of bits per texel is 32 on mobile platforms, and 128 on laptops.
-32 bits per texel comes from four R, G, B, and A channels 8 bits (0..255) each.
-128 bits per texel comes from four 32-bit floating point numbers.
-128 bits per texel is only available with <code>OES_texture_float</code> extension enabled.
-It's available on the most but very low-end platforms.</p>
+        <p>Color buffer size varies from 4096x4096 on phones, to 16384x16384 on laptops. Due to texture flipping technique, using those color buffers for GPGPU doesn't give a performance advantage. The only use of the color buffer resolutions above 4096
+            is for actual graphical rendering of visible images, which are not intended to be used as textures.</p>
 
-<p>Texture image units comprise primary high-bandwidth input to shader.</p>
+        <p>Our main goal is to do GPGPU rather than rendering graphics, so let's assume that the maximum color buffer size is 4096 by 4096, and only bump it up for special purposes (real-time graphics and high-resolution export).</p>
 
-<p>Color buffers comprise the main output. On laptops there are 8 color buffers.</p>
-
-<p>Color buffer size varies from 4096x4096 on phones, to 16384x16384 on laptops.
-Due to texture flipping technique, using those color buffers for GPGPU doesn't give
-a performance advantage. The only use of the color buffer resolutions above 4096
-is for actual graphical rendering of visible images, which are not intended to be
-used as textures.</p>
-
-<p>Our main goal is to do GPGPU rather than rendering graphics, so let's assume
-that the maximum color buffer size is 4096 by 4096, and only bump it up for special
-purposes (real-time graphics and high-resolution export).</p>
-
-<h2>Total addressable shader input</h2>
-<ul>
-<li>Low-end mobile: <pre><code>8 texture units
+        <h2>Total addressable shader input</h2>
+        <ul>
+            <li>Low-end mobile: <pre><code>8 texture units
 *
 4096 texels wide
 *
@@ -102,7 +90,7 @@ purposes (real-time graphics and high-resolution export).</p>
 4,294,967,296 bits
 =
 536,870,912 bytes = 512 MB.</code></pre></li>
-<li>Typical mobile: <pre><code>8 texture units
+            <li>Typical mobile: <pre><code>8 texture units
 *
 4096 texels wide
 *
@@ -115,7 +103,7 @@ purposes (real-time graphics and high-resolution export).</p>
 17,179,869,184 bits
 =
 2,147,483,648 bytes = 2 GB.</code></pre></li>
-<li>A simple laptop: <pre><code>32 texture units
+            <li>A simple laptop: <pre><code>32 texture units
 *
 4096 texels wide
 *
@@ -128,19 +116,16 @@ purposes (real-time graphics and high-resolution export).</p>
 68,719,476,736 bits
 =
 8,589,934,592 bytes = 8 GB.</code></pre></li>
-</ul>
+        </ul>
 
-<p>High-end AMD and Nvidia GPUs allow addressing even larger texture memory.</p>
+        <p>High-end AMD and Nvidia GPUs allow addressing even larger texture memory.</p>
 
-<h2>Total addressable shader output</h2>
+        <h2>Total addressable shader output</h2>
 
-<p>If texture unit memory is a potential access,
-color buffer memory is often full write. As optimization,
-we can render triangles and rectangles to only run shader
-over specified block of output memory,
-when we know for sure for which areas recomputation is needed.</p>
-<ul>
-<li>Mobile color buffer <pre><code>1 color buffer
+        <p>If texture unit memory is a potential access, color buffer memory is often full write. As optimization, we can render triangles and rectangles to only run shader over specified block of output memory, when we know for sure for which areas recomputation
+            is needed.</p>
+        <ul>
+            <li>Mobile color buffer <pre><code>1 color buffer
 *
 4096 texels wide
 *
@@ -152,10 +137,8 @@ when we know for sure for which areas recomputation is needed.</p>
 =
 536,870,912 bits
 =
-67,108,864 bytes = 64 MB.</code></pre>Not much per a shader run.
-Note that visible mobile framebuffer often has less than 8 bits per channel,
-but it's irrelevant for GPGPU computation.</li>
-<li>Laptop color buffer in GPGPU mode <pre><code>8 color buffers
+67,108,864 bytes = 64 MB.</code></pre>Not much per a shader run. Note that visible mobile framebuffer often has less than 8 bits per channel, but it's irrelevant for GPGPU computation.</li>
+            <li>Laptop color buffer in GPGPU mode <pre><code>8 color buffers
 *
 4096 texels wide
 *
@@ -168,176 +151,120 @@ but it's irrelevant for GPGPU computation.</li>
 17,179,869,184 bits
 =
 2,147,483,648 bytes = 2 GB.</code></pre></li>
-<li>Laptop color buffer in graphics mode makes sense
-	to output just one color buffer, despite the support of 8,
-	rendering an RGB image 768 MB large (16384x16384 size).</li>
-</ul>
+            <li>Laptop color buffer in graphics mode makes sense to output just one color buffer, despite the support of 8, rendering an RGB image 768 MB large (16384x16384 size).</li>
+        </ul>
 
-<p>On most systems, memory bandwidth is the main limiting factor of how many bits can
-be computed per second. A laptop with DDR4-2400, for example, has 18.75 GB/s.
-iPhone XS Max' LPDDR4X has 8.33 GB/s.</p>
+        <p>On most systems, memory bandwidth is the main limiting factor of how many bits can be computed per second. A laptop with DDR4-2400, for example, has 18.75 GB/s. iPhone XS Max' LPDDR4X has 8.33 GB/s.</p>
 
-<h2>Single shader run output per fragment</h1>
+        <h2>Single shader run output per fragment</h1>
 
-<p>On mobile it's 32 bits. On desktop it's <em>32 times more</em>, 1024 bits.</p>
+            <p>On mobile it's 32 bits. On desktop it's <em>32 times more</em>, 1024 bits.</p>
 
-<p>Discretizing to the minimum workload in fragments,
-it's a 1x1 fragment on a desktop system equalling to 8x4 fragments on a smartphone.</p>
+            <p>Discretizing to the minimum workload in fragments, it's a 1x1 fragment on a desktop system equalling to 8x4 fragments on a smartphone.</p>
 
-<p>8 vec4 can be read matching precisely these:
-<ul><li>8 fetches - from the same 8 output color buffers on desktop;</li>
-	<li>or 8 fetches from the same texture on mobile (doesn't have to be that way, but can).</li>
-</ul>
-Is there a performance difference between 8 different textures vs. the same texture
-accessed with 8 different coordinates in a GLSL shader?</p>
+            <p>8 vec4 can be read matching precisely these:
+                <ul>
+                    <li>8 fetches - from the same 8 output color buffers on desktop;</li>
+                    <li>or 8 fetches from the same texture on mobile (doesn't have to be that way, but can).</li>
+                </ul>
+                Is there a performance difference between 8 different textures vs. the same texture accessed with 8 different coordinates in a GLSL shader?</p>
 
-<p>On low-end mobile without floating point textures (should we even support these in 2020?)
-only 8 bits per channel RGBA textures can be read.</p>
+            <p>On low-end mobile without floating point textures (should we even support these in 2020?) only 8 bits per channel RGBA textures can be read.</p>
 
-<h2>Making API GLSL decisions</h2>
+            <h2>Making API GLSL decisions</h2>
 
-<p>In an attempt to establish a cohesive GLSL API (which can utilize resources
-in an efficient enough manner, and still preserve a great deal of compatibility,
-to maintain scalability of demonstrational and educational purposes,
-and just for the simplicity of experimentation), we need to come up with simple
-I/O interface, abstract enough to scale to other architectures (FPGA and ASIC included),
-representing interace to digital computation in the most general way: through a set of
-binary bits I/O surfaces; with internal state bits (memory).</p>
+            <p>In an attempt to establish a cohesive GLSL API (which can utilize resources in an efficient enough manner, and still preserve a great deal of compatibility, to maintain scalability of demonstrational and educational purposes, and just for
+                the simplicity of experimentation), we need to come up with simple I/O interface, abstract enough to scale to other architectures (FPGA and ASIC included), representing interace to digital computation in the most general way: through a
+                set of binary bits I/O surfaces; with internal state bits (memory).</p>
 
-<p>All practical computing systems have these classes of bit surfaces:
-<dl>
-	<dt>INPUTS from external world</dt>
-	<dd>Happen asynchronously to internal computational processes.
-	    Can require buffering or external REQ signal synchronizer
-	    when implemented in FPGA. We split external inputs into two categories:
-		<ul>
-			<li>Synchronized REQ input signals.
-				Assumed as already passed through two flip-flops
-				clocked by any given current "computation wave" clock
-				(there might be many local clocks).</li>
-			<li>Asynchronous input signals. Volatile data, coordinated by one of the REQ signals.
-			In our computing code, to be consistent with FPGA and ASIC implementations,
-			we're not allowed to read from these bits unless a REQ signal allows us.
-			A simple way to think about this is to keep an assumption, that
-			bits in this surface can change while a GPU shader is reading these.</li>
-		</ul>
-		None of these are automatically buffered. Special actions of copying or managing
-		write/read pointers must taken. (More detail on the subject can be found in Daniel Chapiro's
-		<a target="_blank" href="https://www.researchgate.net/publication/234285814_Globally-asynchronous_locally-synchronous_systems">
+            <p>All practical computing systems have these classes of bit surfaces:
+                <dl>
+                    <dt>INPUTS from external world</dt>
+                    <dd>Happen asynchronously to internal computational processes. Can require buffering or external REQ signal synchronizer when implemented in FPGA. We split external inputs into two categories:
+                        <ul>
+                            <li>Synchronized REQ input signals. Assumed as already passed through two flip-flops clocked by any given current "computation wave" clock (there might be many local clocks).</li>
+                            <li>Asynchronous input signals. Volatile data, coordinated by one of the REQ signals. In our computing code, to be consistent with FPGA and ASIC implementations, we're not allowed to read from these bits unless a REQ signal allows
+                                us. A simple way to think about this is to keep an assumption, that bits in this surface can change while a GPU shader is reading these.</li>
+                        </ul>
+                        None of these are automatically buffered. Special actions of copying or managing write/read pointers must taken. (More detail on the subject can be found in Daniel Chapiro's
+                        <a target="_blank" href="https://www.researchgate.net/publication/234285814_Globally-asynchronous_locally-synchronous_systems">
 		PhD thesis work</a> on GALS - globally asynchronous-locally synchronous systems.)
 
-	</dd>
+                    </dd>
 
-	<dt>OUTPUTS visible to external world</dt>
-	<dd>The resulting bits of computation.
-		Each bit in this surface is naturally backed by a memory flip-flop,
-		so external world consumer can read it at any moment.
-		We don't have to keep it non-volatile while they are reading these bits,
-		but we must <em>electrically</em> back their 0 or 1 values.
-		This statement is equivalent to saying that we don't support the
-		<a target="_blank" href="https://en.wikipedia.org/wiki/Mealy_machine">
+                    <dt>OUTPUTS visible to external world</dt>
+                    <dd>The resulting bits of computation. Each bit in this surface is naturally backed by a memory flip-flop, so external world consumer can read it at any moment. We don't have to keep it non-volatile while they are reading these bits, but
+                        we must <em>electrically</em> back their 0 or 1 values. This statement is equivalent to saying that we don't support the
+                        <a target="_blank" href="https://en.wikipedia.org/wiki/Mealy_machine">
 		Mealey-style</a> state machines.</dd>
 
-	<dt>HIDDEN STATE, fully controlled internally and invisible to external world</dt>
-	<dd>Has many subareas:
-		<ul>
-			<li>Constant surfaces which never change (think &pi;, for example).</li>
-			<li>Fixed source code. ROM-style never update procedures.
-				On Earth, bugs are always around,
-				so these things are unlikely to be read-only forever.</li>
-			<li>Dynamic source code. Think about these as deployed multiple-data
-				processing depending on load. Or a dynamic code buit and edited in an IDE.
-				Or optimized-JIT-compiled stuff to run math more efficiently than
-				using higher level interpreted code. All source code can live in this area
-				to be upgradable.</li>
-			<li>Data caches. The most important stuff. State machine state. Intermediate state.
-				OOP field state. Momentum, velocity, pressure etc.</li>
-		</ul>
-	</dd>
-</dl>
-</p>
+                    <dt>HIDDEN STATE, fully controlled internally and invisible to external world</dt>
+                    <dd>Has many subareas:
+                        <ul>
+                            <li>Constant surfaces which never change (think &pi;, for example).</li>
+                            <li>Fixed source code. ROM-style never update procedures. On Earth, bugs are always around, so these things are unlikely to be read-only forever.</li>
+                            <li>Dynamic source code. Think about these as deployed multiple-data processing depending on load. Or a dynamic code buit and edited in an IDE. Or optimized-JIT-compiled stuff to run math more efficiently than using higher level
+                                interpreted code. All source code can live in this area to be upgradable.</li>
+                            <li>Data caches. The most important stuff. State machine state. Intermediate state. OOP field state. Momentum, velocity, pressure etc.</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </p>
 
-<p>A subcategory belonging both to inputs and to outputs
-can be an Interrupt Vector Table triggering signal.
+            <p>A subcategory belonging both to inputs and to outputs can be an Interrupt Vector Table triggering signal. Computational processes can run independently from inputs,
+                <em>polling</em> values when computational process decides to do that. In a comletely reactive system, this polling is not necessary to start computation. A hardware interrupt mechanism wakes up processing when specified bits of data change.
+                In a reactive system, there is a concept of <em>modified bits</em>. The hardware circuits of IVT simply set these modified bits so the rest of spiking reactive processing can take place.</p>
 
-Computational processes can run independently from inputs,
-<em>polling</em> values when computational process decides to do that.
-In a comletely reactive system, this polling is not necessary to
-start computation. A hardware interrupt mechanism wakes up processing
-when specified bits of data change. In a reactive system, there is
-a concept of <em>modified bits</em>. The hardware circuits of IVT simply
-set these modified bits so the rest of spiking reactive processing
-can take place.</p>
+            <p>The IVT concept can be implemented restricting which bits should cause shader re-run, when code run in simulation mode. Instead of launching GPGPU shader on any writable by external world surface change, it can define a small restricted area.
+                Switching between computing and sleeping modes is non-trivial idea, when attempting the compatibility between the classic CPU IVT model, FPGA reactive implmentation, and a GPGPU emulation.</p>
 
-<p>The IVT concept can be implemented restricting which bits
-should cause shader re-run, when code run in simulation mode.
-Instead of launching GPGPU shader on any writable by external world
-surface change, it can define a small restricted area.
-Switching between computing and sleeping modes is non-trivial idea,
-when attempting the compatibility between the classic CPU IVT model,
-FPGA reactive implmentation, and a GPGPU emulation.</p>
+            <p>IVTs are kind of internal-code driven subscriptions. There should be an area visible to external world, an interrupt handling vector can be installed in a way saying, "if these bits change externally, write those other bits here and there
+                - marking those as modified", in the emulation mode re-running computation, or waking the CPU/GPU after chaning the bits.
+            </p>
 
-<p>IVTs are kind of internal-code driven subscriptions.
-There should be an area visible to external world,
-an interrupt handling vector can be installed in a way
-saying, "if these bits change externally,
-write those other bits here	and there - marking those as modified",
-in the emulation mode re-running computation,
-or waking the CPU/GPU after chaning the bits.
-</p>
+            <p>While running dynamically, even in the FPGA world, the three classes of bit surfaces become five:
+                <ol>
+                    <li>IN: externally provided state.</li>
+                    <li>IN: current hidden state.</li>
+                    <li>IN: current visible state.</li>
 
-<p>While running dynamically, even in the FPGA world,
-the three classes of bit surfaces become five:
-<ol>
-	<li>IN: externally provided state.</li>
-	<li>IN: current hidden state.</li>
-	<li>IN: current visible state.</li>
+                    <li>OUT: next hidden state.</li>
+                    <li>OUT: next visible state.</li>
+                </ol>
+            </p>
 
-	<li>OUT: next hidden state.</li>
-	<li>OUT: next visible state.</li>
-</ol>
-</p>
+            <p>Considering the subcategories listed above, our textures and color buffers must concern the following ten IO types:
+                <ol>
+                    <li>IN_EXT_REQ: two flip-flops synchronized external state.</li>
+                    <li>IN_EXT_DATA: coordinated by IN_REQ signals external state.</li>
 
-<p>Considering the subcategories listed above,
-our textures and color buffers must concern the following ten IO types:
-<ol>
-	<li>IN_EXT_REQ: two flip-flops synchronized external state.</li>
-	<li>IN_EXT_DATA: coordinated by IN_REQ signals external state.</li>
+                    <li>IN_CONST: never changing hidden data.</li>
+                    <li>IN_CODE_ROM: never changing code.</li>
 
-	<li>IN_CONST: never changing hidden data.</li>
-	<li>IN_CODE_ROM: never changing code.</li>
+                    <li>IN_CODE_RAM: current code.</li>
+                    <li>IN_DATA: current hidden state.</li>
+                    <li>IN_VISIBLE: current visible state (provided so easier to change).</li>
 
-	<li>IN_CODE_RAM: current code.</li>
-	<li>IN_DATA: current hidden state.</li>
-	<li>IN_VISIBLE: current visible state (provided so easier to change).</li>
+                    <li>OUT_CODE_RAM: potentially self-modified code.</li>
+                    <li>OUT_DATA: next hidden data.</li>
+                    <li>OUT_VISIBLE: next visible state.</li>
+                </ol>
+            </p>
 
-	<li>OUT_CODE_RAM: potentially self-modified code.</li>
-	<li>OUT_DATA: next hidden data.</li>
-	<li>OUT_VISIBLE: next visible state.</li>
-</ol>
-</p>
+            <p>The analysis we made is important, because it clearly shows that a significant part of textures is not required to be written in every shader run as a color buffer target. We never write into textures which do represent external input, which
+                back constant values for our computation, or have fixed algorithms which we might prefer to keep intact.</p>
 
-<p>The analysis we made is important, because it clearly shows that
-a significant part of textures is not required to be written in every shader run
-as a color buffer target.
-We never write into textures which do represent external input,
-which back constant values for our computation,
-or have fixed algorithms which we might prefer to keep intact.</p>
+            <p>Based on the analysis, let's draft how a GLSL code can look like. The difference between functional IO and shader runs is crucial here to understand. Because each shader run describes just a few bits of the <em>OUT_</em> surfaces.</p>
 
-<p>Based on the analysis, let's draft how a GLSL code can look like.
-The difference between functional IO and shader runs is crucial here to understand.
-Because each shader run describes just a few bits of the <em>OUT_</em> surfaces.</p>
-
-<textarea class="code">
+            <textarea class="code">
 
 </textarea>
 
-<h1>WebGL code</h1>
+            <h1>WebGL code</h1>
 
-<p>We can run many switching operations simultaneously using parallelism provided by GPU.
-Let's enable WebGL API so we can issue descriptions of what to compute to the GPU:</p>
+            <p>We can run many switching operations simultaneously using parallelism provided by GPU. Let's enable WebGL API so we can issue descriptions of what to compute to the GPU:</p>
 
-<textarea class="code">
+            <textarea class="code">
 const gl_canvas =
 	document.createElement('canvas');
 gl_canvas.setAttribute('width', '1px');
@@ -360,12 +287,10 @@ window.gl = gl_canvas.getContext('webgl', {
 return gl;
 </textarea>
 
-<p>The sequence of calls to get our GLSL shader compiled is rather verbose.
-It follows C API, which doesn't make too much sense in JavaScript world.
-Let's ignore the fact, and pack it inside a function, so we can call it each time
-we need to compile a new shader:</p>
+            <p>The sequence of calls to get our GLSL shader compiled is rather verbose. It follows C API, which doesn't make too much sense in JavaScript world. Let's ignore the fact, and pack it inside a function, so we can call it each time we need to
+                compile a new shader:</p>
 
-<textarea class="code">
+            <textarea class="code">
 window.compile_shader = (gl, vertSrc, fragSrc) => {
 
 	const vertex_shader =
@@ -419,14 +344,11 @@ window.compile_shader = (gl, vertSrc, fragSrc) => {
 </textarea>
 
 
-<p>Now we can call the <code>compile_shader()</code> function.
-A vertex and a fragment shader source code strings are passed as arguments.
-And we also pass a WebGL API reference associated with the canvas.
-What happens next is OpenGL ES 2 driver compiles these two GLSL shader source codes
-into a corresponding GPU instruction set.</p>
+            <p>Now we can call the <code>compile_shader()</code> function. A vertex and a fragment shader source code strings are passed as arguments. And we also pass a WebGL API reference associated with the canvas. What happens next is OpenGL ES 2 driver
+                compiles these two GLSL shader source codes into a corresponding GPU instruction set.</p>
 
 
-<textarea class="code">
+            <textarea class="code">
 const vertex_shader = `
 #version 100
 
@@ -500,17 +422,16 @@ return [shader,
 	uniform_texture_0];
 </textarea>
 
-<p>Let's check out if we can write shaders which produce floating point values
-rather than 4 bytes of RGBA in the range from 0 to 255.</p>
+            <p>Let's check out if we can write shaders which produce floating point values rather than 4 bytes of RGBA in the range from 0 to 255.</p>
 
-<textarea class="code">
+            <textarea class="code">
 return gl.getExtension('WEBGL_color_buffer_float');
 </textarea>
 
-<p>If it shows <em>OK</em>, then the shader can only output 4 byte values. No float rendering on this platform.</p>
+            <p>If it shows <em>OK</em>, then the shader can only output 4 byte values. No float rendering on this platform.</p>
 
-<p>Perhaps, we can render simultaneously to multiple textures?</p>
-<textarea class="code">
+            <p>Perhaps, we can render simultaneously to multiple textures?</p>
+            <textarea class="code">
 const ext_draw_buffers =
 	gl.getExtension('WEBGL_draw_buffers');
 return ext_draw_buffers &&
@@ -518,21 +439,18 @@ return ext_draw_buffers &&
 	// ext_draw_buffers.MAX_DRAW_BUFFERS_WEBGL
 </textarea>
 
-<p>Typically, mobile platforms don't support rendering to floating point textures,
-and don't support rendering to multiple textures simultaneously.</p>
+            <p>Typically, mobile platforms don't support rendering to floating point textures, and don't support rendering to multiple textures simultaneously.</p>
 
-<p>When running a shader, can we at least fetch 4-vectors of floating point values?</p>
-<textarea class="code">
+            <p>When running a shader, can we at least fetch 4-vectors of floating point values?</p>
+            <textarea class="code">
 return gl.getExtension('OES_texture_float');
 </textarea>
 
-<p>Let's abstract out the difference between high-performance GPU in a laptop,
-and a battery-efficient GPU in a smartphone, and write a GLSL wrapper to call our shaders.</p>
+            <p>Let's abstract out the difference between high-performance GPU in a laptop, and a battery-efficient GPU in a smartphone, and write a GLSL wrapper to call our shaders.</p>
 
-<p>In the shader source code, we'll make global parameters available, so our code can adjust correspondingly.
-The code might look like this:</p>
+            <p>In the shader source code, we'll make global parameters available, so our code can adjust correspondingly. The code might look like this:</p>
 
-<textarea class="code">
+            <textarea class="code">
 `
 
 void main () {
@@ -555,28 +473,18 @@ void main () {
 </textarea>
 
 
-<p>Let's leave high-performance rendering for special use cases, and use
-the most compatible configuration (fetch from 8 floating point vec4,
-but render to just 4 bytes - 32 bits of result in a shader thread).
-Luckily, fetching vec4 from 4 bytes doesn't have memory tranfer penalty,
-so we can move the same buffer back-and-forth while recomputing the <em>next state</em>.</p>
+            <p>Let's leave high-performance rendering for special use cases, and use the most compatible configuration (fetch from 8 floating point vec4, but render to just 4 bytes - 32 bits of result in a shader thread). Luckily, fetching vec4 from 4 bytes
+                doesn't have memory tranfer penalty, so we can move the same buffer back-and-forth while recomputing the <em>next state</em>.</p>
 
-<p>Let's run our first GLSL shader. At first, we need to understand how to invoke a shader code.
-Since GPU is a <em>graphics</em> processing unit, the traditional way is to pass a set of triangles
-to toggle rendering.</p>
+            <p>Let's run our first GLSL shader. At first, we need to understand how to invoke a shader code. Since GPU is a <em>graphics</em> processing unit, the traditional way is to pass a set of triangles to toggle rendering.</p>
 
-<p>How do we render triangles? We need a render target.
-We omitted attaching our canvas to the page, so we don't have to render to the framebuffer,
-but we're going to render into a <em>texture</em> instead.</p>
+            <p>How do we render triangles? We need a render target. We omitted attaching our canvas to the page, so we don't have to render to the framebuffer, but we're going to render into a <em>texture</em> instead.</p>
 
-<p>Note that the range of output data to be recomputed is directly determined
-by the <em>triangles</em> we're about to render. We can enable reactivity and lazy recomputation
-of only areas which do require to get updated. In general case though, when each data output
-depends on each data input, it's impossible to determine what outputs will become changed:
-that's the very purpose of any computation.</p>
+            <p>Note that the range of output data to be recomputed is directly determined by the <em>triangles</em> we're about to render. We can enable reactivity and lazy recomputation of only areas which do require to get updated. In general case though,
+                when each data output depends on each data input, it's impossible to determine what outputs will become changed: that's the very purpose of any computation.</p>
 
-<p>Let's try a 1x1 pixel texture first:</p>
-<textarea class="code">
+            <p>Let's try a 1x1 pixel texture first:</p>
+            <textarea class="code">
 window.gpgpu_texture_width = 1;
 window.gpgpu_texture_height = 1;
 
@@ -657,15 +565,14 @@ gl.readPixels(0, 0,
 return shader_results;
 </textarea>
 
-<textarea class="code">
+            <textarea class="code">
 gl.useProgram(shader);
 </textarea>
 
-</section>
+    </section>
 </main>
 
 <nav>
-<a href="./">To First Page</a>
-<a href="minimum-webgl.html">Next</a>
+    <a href="./">To First Page</a>
+    <a href="minimum-webgl.html">Next</a>
 </nav>
-
