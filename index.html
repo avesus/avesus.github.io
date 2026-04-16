@@ -2,15 +2,15 @@
 <html lang="en">
 
 <head>
-    <title>Greenforest I/O</title>
+    <title>Greenforest's I/O</title>
     <meta name="description" content="Brian Greenforest's research site for computation, circuit fabrics, browser-native GPGPU, magnetic devices, digital radio, and self-assembling hardware ideas.">
     <link rel="canonical" href="https://greenforest.io/">
-    <meta property="og:title" content="Greenforest I/O">
+    <meta property="og:title" content="Greenforest's I/O">
     <meta property="og:description" content="Articles, papers, demos, and archives from Brian Greenforest's work on computation, circuit fabrics, GPGPU, magnetics, and hardware substrates.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/">
     <link rel="icon" href="data:,">
-    <script src="/common-script.js" type="text/javascript"></script>
+    <script src="/homepage.js" type="text/javascript"></script>
     <style>
         .site-logo {
             display: block;
@@ -18,35 +18,35 @@
             height: auto;
             margin: 0 auto 18px;
         }
-        
+
         .tagline {
             display: block;
             margin: -10px 0 36px;
             text-align: center;
             font-style: italic;
         }
-        
+
         .lead {
             font-size: 24px;
             line-height: 1.3;
             text-align: left;
         }
-        
+
         .entry {
             margin: 0 0 28px;
             padding-top: 18px;
             border-top: 1px solid #ddd;
         }
-        
-        h1+.entry {
+
+        h1 + .entry {
             border-top: none;
             padding-top: 0;
         }
-        
+
         .entry p {
             margin: 8px 0 0;
         }
-        
+
         .label {
             display: inline-block;
             margin-right: 0.5em;
@@ -54,122 +54,178 @@
             font-size: 16px;
             text-transform: uppercase;
         }
-        
-        .entry a {
-            font-size: 24px;
+
+        .entry-title {
+            font-size: 22px;
         }
-        
+
+        .artifact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .artifact {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .artifact img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+
+        .artifact span {
+            display: block;
+            margin-top: 6px;
+            color: #520;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.12em;
+        }
+
         figure {
             margin: 26px 0 0;
         }
-        
+
         figure img {
             display: block;
             width: 100%;
             height: auto;
         }
-        
+
         figcaption {
             margin-top: 8px;
             font-size: 16px;
             font-style: italic;
         }
-        
+
         footer {
             margin-top: 60px;
         }
-        
+
+        .math-entities {
+            word-break: normal;
+        }
+
         @media screen and (max-width: 640px) {
             .lead {
                 font-size: 22px;
             }
-            .entry a {
+
+            .entry-title {
                 font-size: 22px;
+            }
+
+            .artifact-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 
-<img class="site-logo" src="logo.png" alt="Greenforest I/O logo">
+<body>
+    <img class="site-logo" src="logo.png" alt="Greenforest's I/O logo">
 
-<header>Greenforest I/O</header>
-<sub class="tagline">The Simple Beauty of Complexity</sub>
+    <header>Greenforest's I/O</header>
+    <sub class="tagline">The Simple Beauty of Complexity</sub>
 
-<main>
-    <section class="abstract">
-        <p class="lead">Computational substrates, circuit fabrics, browser-native GPU experiments, magnetic devices, and self-assembling hardware ideas by Brian Greenforest.</p>
-    </section>
+    <main>
+        <section class="abstract">
+            <p class="lead">Computational substrates, circuit fabrics, browser-native GPU experiments, magnetic devices, digital radio, and self-assembling hardware ideas by Brian Greenforest.</p>
+        </section>
 
-    <section>
-        <h1>Public Work</h1>
+        <section>
+            <h1>Public Work</h1>
 
-        <div class="entry">
-            <span class="label">Live Demo</span>
-            <a href="cellular-automata-2019/cartilage3.html">Cartilage nested-instantiation demo</a>
-            <p>A browser/GPU artifact demonstrating dynamic nested instantiation in a tiled computational fabric. This is the strongest live demo, but it still needs a proper explanatory article.</p>
-        </div>
+            <div class="entry">
+                <span class="label">Circuit</span>
+                <a class="entry-title" href="serial_multiplier/serial_july_2025.circ">Bit-serial bubbles-free multiplier</a>
+                <p>A positive-number serial multiplier built in Logisim. After the pipeline fills, the next pair of bit-serial arguments can enter immediately after the previous pair, with output bits continuing on every clock.</p>
+                <div class="artifact-grid">
+                    <a class="artifact" href="serial_multiplier/mul.png">
+                        <img src="serial_multiplier/mul.png" alt="Logisim bit-serial multiplier circuit">
+                        <span>Multiplier circuit image</span>
+                    </a>
+                    <a class="artifact" href="serial_multiplier/add.png">
+                        <img src="serial_multiplier/add.png" alt="Logisim serial adder circuit">
+                        <span>Serial adder image</span>
+                    </a>
+                </div>
+            </div>
 
-        <div class="entry">
-            <span class="label">Paper Landing</span>
-            <a href="boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
-            <p>A DOI landing page for a printable paper on a multiplexer-only Boolean model of universal computation. The paper is the reference; a long illustrated web article still needs to be written.</p>
-        </div>
+            <div class="entry">
+                <span class="label">Live Demo</span>
+                <a class="entry-title" href="cellular-automata-2019/cartilage3.html">Cartilage nested-instantiation demo</a>
+                <p>A browser/GPU demo of a tiled computational fabric where regions can instantiate and replace daughter regions through local reconfiguration ports and serial bitstreams.</p>
+            </div>
 
-        <div class="entry">
-            <span class="label">Article Sequence</span>
-            <a href="from-the-ground-up/">From the ground up</a>
-            <p>Raw browser-side computation and WebGL GPGPU from first principles. Originally shaped like an online book; the useful parts should be salvaged into standalone articles.</p>
-        </div>
+            <div class="entry">
+                <span class="label">Paper</span>
+                <a class="entry-title" href="boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
+                <p>A printable reference paper on a multiplexer-only Boolean model of universal computation built from wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling.</p>
+            </div>
 
-        <div class="entry">
-            <span class="label">Archive Guide</span>
-            <a href="cellular-automata-2019/">Experiments with cellular automata</a>
-            <p>Older executable automata and shader artifacts. Several are visually remarkable and deserve their own explanations.</p>
-        </div>
-    </section>
+            <div class="entry">
+                <span class="label">Article Sequence</span>
+                <a class="entry-title" href="from-the-ground-up/">From the ground up</a>
+                <p>A step-by-step exploration of the beautiful world of computation, mathematics, physics, and engineering, with browser-native WebGL experiments and runnable code.</p>
+            </div>
 
-    <section>
-        <h1>Being Prepared</h1>
+            <div class="entry">
+                <span class="label">Archive Guide</span>
+                <a class="entry-title" href="cellular-automata-2019/">Experiments with cellular automata</a>
+                <p>Executable WebGL automata exploring reversible routing, information-conservative dynamics, machine-like heat, and organic large-scale patterns.</p>
+            </div>
+        </section>
 
-        <div class="entry">
-            <span class="label">Circuit</span>
-            <p>A convolution-inspired bit-serial multiplier, complete in Logisim and intended for a future Verilog/GitHub release. After initial pipelining, it accepts new serial arguments continuously without clock bubbles.</p>
-        </div>
+        <section>
+            <h1>Research Notes</h1>
 
-        <div class="entry">
-            <span class="label">Digital Radio</span>
-            <p>A 1-pin fully digital SDR receiver frontend and a 1-pin resonant-tank transmitter driven by a fully digital SDM Weaver modulator in Verilog, with crude PCB prototypes and FM receive videos.</p>
-            <figure>
-                <img src="backdrop_rf.jpeg" alt="RF prototype and signal-processing workbench">
-                <figcaption>RF and digital-radio work awaiting a proper article.</figcaption>
-            </figure>
-        </div>
+            <div class="entry">
+                <span class="label">Digital Radio</span>
+                <p>A 1-pin fully digital SDR receiver frontend and a 1-pin resonant-tank transmitter driven by a fully digital SDM Weaver modulator in Verilog, with crude PCB prototypes and FM receive videos.</p>
+                <figure>
+                    <img src="backdrop_rf.jpeg" alt="RF prototype and signal-processing workbench">
+                    <figcaption>RF and digital-radio experiments.</figcaption>
+                </figure>
+            </div>
 
-        <div class="entry">
-            <span class="label">Reference</span>
-            <p>Magnetic material properties, magnetic amplifier findings, and diodeless circuit ideas gathered from handwritten research notes.</p>
-        </div>
+            <div class="entry">
+                <span class="label">Magnetics</span>
+                <p>Magnetic material properties, magnetic amplifier behavior, second-harmonic modulation, and diodeless circuit ideas collected while studying how to build useful circuits without semiconductor fabrication.</p>
+            </div>
 
-        <div class="entry">
-            <span class="label">Method</span>
-            <p>A simpler way to wire custom online backpropagation engines from primitive operations, without presenting the method through tensor or matrix partial-derivative machinery.</p>
-        </div>
-    </section>
+            <div class="entry">
+                <span class="label">Backprop</span>
+                <p>Online backpropagation engines wired from primitive operations: multiplication, addition, fan-out, and elementary functions carrying derivative feedback directly through the computation.</p>
+            </div>
+        </section>
 
-    <section>
-        <h1>Updates</h1>
+        <section>
+            <h1>Updates</h1>
 
-        <div class="entry">
-            <span class="label">Old Update</span>
-            <a href="blog/">Research progress updates</a>
-            <p>Older project updates, including a web-development-era article. This area is preserved, but it is not the center of the site.</p>
-        </div>
-    </section>
-</main>
+            <div class="entry">
+                <span class="label">Project Note</span>
+                <a class="entry-title" href="blog/">Research progress updates</a>
+                <p>Older notes from web-development and research-progress work.</p>
+            </div>
+        </section>
+    </main>
 
-<footer>
-    <p>&copy; Brian Greenforest 2019-2026</p>
-    <p><a href="https://www.linkedin.com/in/briangreenforest" target="_blank" rel="noopener">Connect on LinkedIn</a></p>
-</footer>
+    <footer>
+        <p class="math-entities">
+            &forall; &part; &exist; &empty; &nabla; &isin; &notin; &ni; &prod; &sum; &backepsilon; &straightepsilon; &varrho; &varkappa; &gammad; &Gammad; &piv; &straightphi; &upsih; &thetasym; &alpha; &beta; &gamma; &delta; &epsilon; &zeta; &eta; &theta; &iota;
+            &kappa; &lambda; &mu; &nu; &xi; &omicron; &pi; &rho; &sigmaf; &sigma; &tau; &upsilon; &phi; &chi; &psi; &omega; &reals;
+            <a target="_blank" rel="noopener" href="https://www.w3schools.com/charsets/ref_utf_math.asp">Even more math HTML entities</a>
+        </p>
+        <p>&copy; Brian Greenforest 2019-2026</p>
+        <p><a href="https://www.linkedin.com/in/briangreenforest" target="_blank" rel="noopener">Connect on LinkedIn</a></p>
+    </footer>
+</body>
 
 </html>
