@@ -15,9 +15,13 @@ Future changes should help the site answer these questions quickly:
 
 ## IA Philosophy
 
-Do not assume visitors start at the homepage. Brian's own model of the web is article-first: SEO, citations, links, or repositories bring readers directly to the main article URL; after reading, the end-of-article navigation block should offer the next useful read and the relevant index page. Higher-level category indices can then lead upward until the homepage appears only as a compact routing page.
+Do not assume visitors start at the homepage. Brian's model of the web is article-first: SEO, citations, links, or repositories bring readers directly to the main article URL; after reading, the end-of-article navigation block should offer the next useful read and, only if justified, the relevant index page.
 
-The homepage is a special content type, not the navigation root. It should provide access to all navigation roots plus featured and recent content. Cartilage can be a featured achievement, but the serial multiplier may have the highest direct customer value once it is public because it is a drop-in building block.
+Navigation categories must emerge from article contents. Do not invent top-level buckets first. For each article, identify what the reader just learned, what page is now the most relevant next read, and what index page would become useful after that article. Create an index only when repeated article endings need the same collection.
+
+The homepage is a special content type, not the navigation root. It should provide access to emergent index articles plus featured and recent content. Cartilage can be a featured achievement, but the serial multiplier may have the highest direct customer value once it is public because it is a drop-in building block.
+
+Do not create generic "About" navigation by default. An about-like page must answer a specific reader question produced by actual articles, such as citation, collaboration, purpose, or how the projects connect.
 
 Keep meta-language, planning assumptions, and disambiguation notes in `AGENTS.md`. Public-facing content should be concrete and reader-facing.
 
@@ -71,4 +75,4 @@ Use these as the current IA seeds. They are not final navigation labels yet, but
 - Protect the user's experimental voice. Clean typos and broken markup, but do not sand away the oddness that makes the work legible as invention.
 - When adding new public-facing pages, explain significance before implementation details: result, why it matters, status, reuse path, demo/artifact links, and future work.
 - Keep generated or archived shader files out of routine mechanical sweeps when possible.
-- For the next site cleanup, prioritize end-of-article navigation blocks, index articles for major roots, wrappers around preserved demos, a compact routing homepage, and reusable presentation infrastructure for branded header, footer, and navigation.
+- For the next site cleanup, prioritize article records, end-of-article next-read decisions, emergent index articles, wrappers around preserved demos, a compact routing homepage, and reusable presentation infrastructure for branded header, footer, and navigation.

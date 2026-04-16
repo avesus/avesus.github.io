@@ -1,202 +1,210 @@
 # Information Architecture
 
-## Principles
+## Core Model
 
-Effective information architecture is not a tree. It is a system of useful second clicks.
+Information architecture starts from individual articles.
 
-The primary entry point is the article. A visitor usually arrives from search, a shared link, a citation, a repository, or a direct reference to a specific result. The page they land on must stand on its own. Navigation becomes important after the article has delivered value.
+An article is the unit of value. Navigation is the system that appears after an article has done its work. Categories, indices, and the homepage are secondary structures. They should emerge from repeated article-to-article relationships, not from a planned hierarchy.
 
-Top principles:
+The site should not begin by asking, "What are the top-level sections?"
 
-1. Articles are the main entry points.
-2. Navigation is most useful at the end of an article.
-3. The homepage is not the root of the experience.
-4. Index pages are articles with a navigational job.
-5. A hierarchy is only useful when it creates good next clicks.
-6. Every page should make the next useful action obvious.
-7. Navigation should follow the reader's intent, not the repository structure.
-8. The strongest navigation links are contextual: next read, related result, usable artifact, category index, broader index.
-9. A page should explain what has been achieved before asking the reader to explore.
-10. Reusable results should be closer to the reader than chronology.
-11. Chronology belongs in provenance sections, archive pages, and history trails.
-12. Demos and preserved artifacts need explanatory wrappers when they are not self-explanatory.
-13. The site should reveal depth gradually: article, related article, category index, broader index, homepage.
-14. The homepage should provide access to all navigation roots plus featured and recent content.
-15. Branding, headers, footers, and navigation should be reusable site infrastructure, not hand edits to old artifacts.
+It should begin by asking, for each article:
 
-## Reader Flow
+1. What did the reader come here to understand or use?
+2. What did this article actually deliver?
+3. What can the reader understand next because they read this?
+4. What is the most relevant next article?
+5. What broader collection becomes useful only after this article?
 
-The default flow:
+## Article-First Principle
 
-1. Search, citation, shared link, or repository link
-2. Main article URL
-3. Article body
-4. End-of-article navigation
-5. Suggested next read
-6. Category index
-7. Broader index
-8. Homepage only when useful
+Most readers do not enter through the homepage. They enter through a specific article, demo, paper, citation, repository link, search result, or shared URL.
 
-The homepage is a special page. It is not where the site begins for most readers. Its job is to expose navigation roots, feature important work, surface recent work, and give a compact sense of Brian Greenforest's research territory.
+Therefore, every article must behave as its own entry point.
+
+Each article needs:
+
+1. A clear result or claim.
+2. Enough context to stand alone.
+3. A satisfying ending.
+4. A next-read decision.
+5. A way to reach a relevant index only after the article has earned that move.
+
+The article is not a chapter. A chapter assumes the reader is inside a book. A web article assumes the reader arrived from nowhere and may leave at any moment.
+
+## Navigation Is Backtracking
+
+Good navigation is chosen by backtracking from the reader's new state.
+
+At the end of an article, the reader has changed. They now know something, trust something, doubt something, or can use something. The next link should be selected by asking what page is now most relevant from that changed state.
+
+Backtracking questions:
+
+1. What question did this article raise but not answer?
+2. What prerequisite did this article rely on that some readers may need next?
+3. What result follows most naturally from this one?
+4. What artifact can the reader use now?
+5. What article would make this one more valuable in retrospect?
+6. What article would prevent the biggest likely misunderstanding?
+7. What index would help only after the reader has seen this article?
+
+The answer should usually produce one strongest next read, not a menu.
 
 ## End-Of-Article Navigation
 
-Every substantial article should end with a navigation block.
+Every substantial article should end with a small navigation block.
 
-Required elements:
-
-1. Suggested next read
-2. Category index
-
-Useful optional elements:
-
-1. Related artifact
-2. Runnable demo
-3. Paper or citation
-4. Source repository
-5. Broader category
-6. Historical predecessor
-7. Practical follow-up
-
-Suggested shape:
+The minimum block:
 
 ```text
 Next:
-Title of the next most useful article
-One or two sentences explaining why it follows from this page.
+One article title
+Why this is the next most relevant read.
 
-More in this area:
-Category or index title
-One sentence explaining what kind of pages live there.
+More:
+One index article or broader collection
+Why this collection matters after reading the current article.
 ```
 
-For long research pages, a richer block can include three cards:
+The next article should be more important than the index. The index is the fallback for readers who want to browse the surrounding territory.
 
-1. Continue the idea
-2. Use the artifact
-3. Explore the category
+Avoid generic blocks such as:
 
-## Index Pages
+```text
+Related posts
+More articles
+About
+Archive
+```
 
-An index page is not a folder listing. It is a guided article whose purpose is navigation.
+Those labels do not explain why the reader should click.
 
-Good index pages:
+## How Categories Emerge
 
-1. Explain the category in a short opening.
-2. Present the most valuable entry first.
-3. Group links by reader need.
-4. Include short previews, not naked link lists.
-5. Let readers move sideways to related categories.
-6. Let readers move upward to broader indices.
+Categories are not planned first. They are discovered after multiple articles point toward the same kind of next read.
 
-Bad index pages:
+A category or index becomes real when:
 
-1. Mirror the filesystem.
-2. Begin with chronology when reuse value matters more.
-3. Hide the best artifact behind a long archive list.
-4. Assume the homepage is the universal starting point.
+1. Several articles repeatedly need the same broader collection.
+2. Several next-read paths converge on the same conceptual area.
+3. Readers would otherwise have to remember too many related pages.
+4. A recurring artifact type needs a stable collection.
+5. A repeated question appears at the end of multiple articles.
+
+Until that happens, a category is only a guess.
+
+An index article should be created only when the article graph has enough real edges to justify it.
+
+## Index Articles
+
+An index article is not a navigation root. It is a page that exists because many article endings need the same collection.
+
+An index article should:
+
+1. Explain why the collection exists.
+2. Lead with the most useful article, not the oldest article.
+3. Group entries by reader problem or next action.
+4. Include short previews for each link.
+5. Point back down to strong articles.
+6. Point sideways only when the sideways move is justified by content.
+
+An index article should not exist merely because a folder exists.
 
 ## Homepage
 
-The homepage should do four things only:
+The homepage is not the root of the site.
 
-1. State the territory.
-2. Link to all navigation roots.
-3. Feature one or two important pieces.
-4. Show recent or newly published work.
+The homepage is a special routing article. It should give access to:
 
-The primary featured achievement can be Cartilage because it is visually and conceptually strong. The highest customer-value item is likely the serial multiplier once it has a public artifact, because it is a drop-in building block.
+1. Emergent index articles that already earned their existence.
+2. Featured work.
+3. Recent work.
+4. A compact statement of the site's territory.
 
-The homepage should not try to explain everything. It should route.
+The homepage should not invent categories. It should summarize the categories that article navigation has already made real.
 
-## Navigation Roots
+If an index has no strong article paths feeding it, the homepage should not pretend it is important.
 
-Navigation roots should be treated as index articles, not as rigid hierarchy levels.
+## "About" Is Not A Default Page
 
-Candidate roots:
+"About" is not automatically meaningful.
 
-1. Circuits And Computation
-2. Cartilage And Cellular Automata
-3. WebGL GPGPU From First Principles
-4. Machine Learning And Backprop
-5. Magnetics And Magnetic Amplifiers
-6. Fabrication And Smart-Dust Substrates
-7. Archive
-8. About
+An about page only deserves to exist if it answers a specific reader question that other articles create.
 
-## Content Types
+Possible valid about-like articles:
 
-### Article
+1. Why this site exists.
+2. How to cite this work.
+3. How to collaborate.
+4. What Brian Greenforest has built.
+5. How these projects connect.
 
-The main unit of the site. It teaches, argues, documents, or explains one thing well.
+Generic biography is not IA. It is only useful if readers need it after encountering the work.
 
-### Achievement
+## Current Site Problem
 
-An article centered on a completed or substantially completed result. It should lead with what works and why it matters.
+The current site contains material shaped like chapters, books, and experiments. That structure made sense while writing educational sequences, especially around WebGL and shaders, but it does not yet create strong article-first navigation.
 
-### Artifact Wrapper
+The problem is not that the file structure is messy. The problem is that many pages do not yet behave as independent entry articles with a strong next-read decision.
 
-A page that explains an old demo, shader, circuit, file, or repository before sending the reader into it.
+The repair is not to impose a hierarchy. The repair is to turn important pages into strong articles and let navigation grow from their endings.
 
-### Demo
+## Article Record
 
-A runnable page or external interactive artifact. Demos should be linked from wrappers unless they already explain themselves.
+Before designing navigation for an article, record:
 
-### Reference
+1. Page title.
+2. Main result or claim.
+3. Reader intent.
+4. What the page delivers.
+5. What the reader can do after reading.
+6. Most relevant next article.
+7. Reason for that next article.
+8. Optional index destination.
+9. Reason for that index.
+10. Related artifact, if any.
 
-A practical facts page: formulae, constants, material properties, rules of thumb, citations, and warnings.
+This record is more important than assigning the article to a category.
 
-### Index Article
+## Choosing The Next Read
 
-A navigation article for a topic. It gives readers the best next click in that topic.
+The next read should be selected by relevance, not symmetry.
 
-### Homepage
+Prefer:
 
-A compact routing page with featured and recent content.
+1. A direct continuation.
+2. A practical artifact made understandable by the current article.
+3. A prerequisite article if misunderstanding is likely.
+4. A proof or evidence page if the current article made a strong claim.
+5. A broader index only when the reader is likely to browse.
 
-## Article Template
+Avoid:
 
-An achievement article should answer:
+1. Chronological next pages by default.
+2. Same-folder links by default.
+3. All-purpose "related" lists.
+4. Navigation that reflects author organization instead of reader momentum.
+5. Categories invented before articles create them.
 
-1. What is it?
-2. Why does it matter?
-3. What can someone use today?
-4. What is the evidence?
-5. Where should the reader go next?
+## Navigation Depth
 
-Preferred section order:
+A reader should be able to move through the site by article relevance:
 
-1. Title
-2. One-sentence value statement
-3. Result
-4. Why it matters
-5. How it works
-6. Usable artifacts
-7. Evidence, citations, or demos
-8. Limits
-9. Next navigation
+1. Article
+2. Most relevant next article
+3. Another article or artifact
+4. Index article, when browsing becomes useful
+5. Broader index, if one has emerged
+6. Homepage, if needed
 
-## Value Order
+This is a graph, not a tree.
 
-Reader value should guide placement more than chronology.
+## Practical Rule
 
-High drop-in value:
+Do not create a navigation category until repeated article endings need the same collection, or one article creates a concrete index need that cannot be solved by a single next-read link.
 
-1. Serial multiplier
-2. Reusable circuits
-3. Magnetic material reference
-4. WebGL GPGPU lessons with runnable code
+Do not create a homepage section until one or more real index articles justify it.
 
-High concept and proof value:
+Do not create an "About" page unless a real article path produces the reader question it answers.
 
-1. Cartilage
-2. Boolean multiplexer-only proof
-3. Backprop simplification
-4. Smart-dust fabrication proposal
-
-High archive and provenance value:
-
-1. Cellular automata demos
-2. ShaderToy work
-3. `from-the-ground-up/`
-4. Historical research notes
+Do not write a page as a chapter unless the page also works as an independent article.
