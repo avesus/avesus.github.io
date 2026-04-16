@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Scaffolding</title>
     <link rel="icon" href="data:,">
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
@@ -187,7 +188,7 @@
                                 us. A simple way to think about this is to keep an assumption, that bits in this surface can change while a GPU shader is reading these.</li>
                         </ul>
                         None of these are automatically buffered. Special actions of copying or managing write/read pointers must taken. (More detail on the subject can be found in Daniel Chapiro's
-                        <a target="_blank" href="https://www.researchgate.net/publication/234285814_Globally-asynchronous_locally-synchronous_systems">
+                        <a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/234285814_Globally-asynchronous_locally-synchronous_systems">
 		PhD thesis work</a> on GALS - globally asynchronous-locally synchronous systems.)
 
                     </dd>
@@ -195,7 +196,7 @@
                     <dt>OUTPUTS visible to external world</dt>
                     <dd>The resulting bits of computation. Each bit in this surface is naturally backed by a memory flip-flop, so external world consumer can read it at any moment. We don't have to keep it non-volatile while they are reading these bits, but
                         we must <em>electrically</em> back their 0 or 1 values. This statement is equivalent to saying that we don't support the
-                        <a target="_blank" href="https://en.wikipedia.org/wiki/Mealy_machine">
+                        <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mealy_machine">
 		Mealey-style</a> state machines.</dd>
 
                     <dt>HIDDEN STATE, fully controlled internally and invisible to external world</dt>

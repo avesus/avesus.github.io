@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Minimum JavaScript to run code inside of GPU</title>
     <link rel="icon" href="data:,">
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
@@ -227,7 +228,7 @@ return current_color_attachment_contents;
         <h2>Float precision and GLSL 1.00</h2>
         <p>GLSL 1.00 preprocessor cuts all floating point literals below 1.0000001e-37 = pow(2, -123) * (1 + 0.0633825) by a silly point simply shrinking all decimal literals below 1e-37 to zero in a buggy way: the sign is ignored. It's preprocessor, it's
             not your GPU. There's a lot of
-            <a target="_blank" href="https://chromium.googlesource.com/angle/angle/+/master/src/compiler/translator/ConstantUnion.cpp">"garbage" buggy code</a> there.</p>
+            <a target="_blank" rel="noopener" href="https://chromium.googlesource.com/angle/angle/+/master/src/compiler/translator/ConstantUnion.cpp">"garbage" buggy code</a> there.</p>
 
         <p>We can write a function doing all of this:</p>
         <textarea class="code">

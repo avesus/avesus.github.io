@@ -228,7 +228,7 @@ dt {
 		word-break: break-all;
 	}
 
-	$a:after > img {
+	a[href^=http]:has(img):after {
 		content: "";
 	}
 
@@ -425,4 +425,3 @@ document.addEventListener('DOMContentLoaded', e => {
 		code_element.insertAdjacentElement('afterend', run_button);
 	});
 });
-
