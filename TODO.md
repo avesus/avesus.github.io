@@ -54,7 +54,8 @@ Current repo state: `git status --short` is clean.
 
 **SDR / Digital Radio**
 - Homepage now mentions it and uses `backdrop_rf.jpeg`.
-- Missing: article page.
+- Article page exists: `how-much-radio-do-you-actually-need.html`.
+- TODO: restore the stronger homepage copy for this work instead of flattening it into a generic label: `1-pin fully digital SDR receiver frontend and a 1-pin resonant-tank transmitter driven by a fully digital SDM Weaver modulator in Verilog, with crude PCB prototypes and FM receive videos.`
 - Missing: videos of FM receiving.
 - Missing: Verilog/module summary.
 - Missing: PCB prototype images and what each proves.
