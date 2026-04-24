@@ -75,6 +75,7 @@ Current repo state: `git status --short` is clean.
 
 **Tiny Transformers**
 - Existing public artifact from June 2024: a tiny generative Transformer training example is already posted externally in the `simpler-llama` PR and mirrored as `train-dali.sh`.
+- Homepage now links to the external PR and raw training script as an early public artifact.
 - Public links:
   - `https://github.com/omnipresentalgorithm/simpler-llama/pull/1/changes`
   - `https://raw.githubusercontent.com/avesus/llama2.c/e7e79b283a344279d15f7761a525d5da222074e7/train-dali.sh`
@@ -82,7 +83,6 @@ Current repo state: `git status --short` is clean.
 - Published result: after about 50,000 iterations it generates wild tiny stories that are already intelligible enough to count as a real small emergent language model example.
 - Important implementation note from Brian: the embedding matrix uses a computed pseudo-inverse as the unembedding, and that unembedding is backpropagated.
 - Missing: a proper site article explaining why this model matters, what "first intelligible emergent Transformer with the smallest number of parameters" means here, how the tokenizer/dataset were chosen, and how to reproduce the run.
-- Missing: a homepage or article link to this existing public artifact so it is not stranded in an external PR/raw script.
 
 **Smart Dust / Fabrication Proposal**
 - Homepage now includes it with the wafer-dicing reference.
