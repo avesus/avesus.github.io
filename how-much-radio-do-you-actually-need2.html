@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>How Much Radio Do You Actually Need? 2</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A one-pin FPGA FM receiver that treats the FPGA input threshold as the RF boundary and recovers broadcast FM from a binary transition stream.">
+    <link rel="canonical" href="https://greenforest.io/how-much-radio-do-you-actually-need2.html">
+    <meta property="og:title" content="How Much Radio Do You Actually Need?">
+    <meta property="og:description" content="A one-pin FPGA FM receiver built from threshold crossings, four-phase sampling, XOR-based Weaver mixing, CIC downsampling, cross-product demodulation, and sigma-delta audio output.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/how-much-radio-do-you-actually-need2.html">
+    <meta property="og:image" content="https://greenforest.io/backdrop_rf.jpeg">
+    <meta property="article:published_time" content="2026-04-22">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="data:,">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "How Much Radio Do You Actually Need?",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            },
+            "datePublished": "2026-04-22",
+            "dateModified": "2026-04-22",
+            "image": "https://greenforest.io/backdrop_rf.jpeg",
+            "description": "A one-pin FPGA FM receiver that treats the FPGA input threshold as the RF boundary and recovers broadcast FM from a binary transition stream.",
+            "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need2.html",
+            "publisher": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        figure {
+            margin: 2rem 0;
+        }
+
+        figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        figcaption {
+            margin-top: 0.5rem;
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .key-line {
+            font-size: 24px;
+            line-height: 1.3;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .chain,
+        .formula {
+            font-family: 'Inconsolata', monospace;
+            font-size: 20px;
+            line-height: 1.35;
+            text-align: left;
+            margin: 1.2rem 0;
+            -webkit-hyphens: none;
+            hyphens: none;
+        }
+
+        .formula {
+            text-align: center;
+        }
+
+        nav.article-links {
+            margin-top: 3rem;
+        }
+
+        nav.article-links a {
+            display: block;
+            margin: 0.6rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>How Much Radio Do You Actually Need?</header>
+    <address>
+        Brian Greenforest | April 22, 2026
+    </address>
+
+    <section class="abstract">
+        <p>I fed FM RF into a single FPGA input pin and let the pin's logic threshold become the receiver's front edge.</p>
+        <p>A conventional FM receiver usually begins with an analog front end, a local oscillator, a mixer, an ADC, and a digital recovery chain.</p>
+        <p>I built around the transition stream from that pin instead of preserving RF amplitude through the usual mixer-plus-ADC path.</p>
+        <p>Otherwise, the work stayed trapped in the familiar loop: oscillator leakage, analog containment, ADC drive requirements, and DSP burden before the real question was even answered.</p>
+    </section>
+
+    <figure>
+        <img src="backdrop_rf.jpeg" alt="Waveforms, radio hardware prototype, and received spectrum">
+        <figcaption>Waveforms, prototype hardware, and received RF structure from the one-pin radio work.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h1>Radio Usually Arrives as a Stack</h1>
+            <p>A radio receiver is normally presented as a complete architecture.</p>
+            <p>Weak RF comes in. An analog front end conditions it. A local oscillator drives a mixer. The signal moves to IF or baseband. An ADC samples it. DSP performs filtering, mixing, phase recovery, and audio extraction.</p>
+            <p>That stack exists for real reasons.</p>
+            <p>Conventional receivers win when the design needs predictable sensitivity, selectivity, dynamic range, calibration, manufacturability, and operation in hostile RF environments. None of that is fake. RF engineering is full of real constraints.</p>
+            <p>But the existence of a strong standard architecture leaves a smaller question open.</p>
+            <p>For receiving broadcast FM under constrained conditions, does the signal have to enter the digital system as explicit amplitude samples?</p>
+            <p>That was the question I wanted to answer.</p>
+            <p>Not as a simulation. Not as a block diagram. Not as a clever abuse of terminology.</p>
+            <p>As hardware.</p>
+            <p>The target was narrow:</p>
+            <p class="key-line"><strong>Real FM in. One FPGA input pin at the RF boundary. Real audio out.</strong></p>
+        </section>
+
+        <section>
+            <h1>The Part I Changed</h1>
+            <p>I stopped trying to preserve RF amplitude at the input.</p>
+            <p>Instead, I used the FPGA input threshold itself as the first conversion stage.</p>
+            <p>When the RF voltage crosses the input threshold, the FPGA sees a zero or a one. The signal enters the logic fabric as a binary transition stream.</p>
+            <p>That is the central reduction.</p>
+            <p>The receiver does not begin with:</p>
+            <p class="formula">What is the RF amplitude right now?</p>
+            <p>It begins with:</p>
+            <p class="formula">When did the RF signal cross the threshold?</p>
+            <p>For FM, that question is not empty.</p>
+            <p>FM carries information in changing instantaneous frequency. Frequency appears in timing. Timing appears in threshold crossings.</p>
+            <p>So the input representation becomes:</p>
+            <pre class="chain">RF at FPGA pin
+-&gt; logic threshold
+-&gt; binary transition stream</pre>
+            <p>No fast amplitude-preserving ADC at RF or IF.</p>
+            <p>No external active mixer at the front edge.</p>
+            <p>No multi-bit RF sample word entering the FPGA.</p>
+            <p>Just crossings.</p>
+        </section>
+
+        <section>
+            <h1>The Loop I Wanted to Escape</h1>
+            <p>I did not start there.</p>
+            <p>I first moved toward the ordinary path: amplify the RF, mix it with a local oscillator, digitize the result, and demodulate it.</p>
+            <p>The problem was immediate.</p>
+            <p>The local oscillator had to be strong enough to be useful. Once it was strong, it became a physical contaminant. It leaked. It radiated. It coupled into places I did not want it.</p>
+            <p>The receiver stopped being only a signal-recovery problem. It became a containment problem for the machinery introduced to do the recovery.</p>
+            <p>The next step would have been a fast ADC. That would have moved the burden, not removed it. The analog chain would still need to preserve amplitude cleanly enough for the digital chain to use. Then the DSP would inherit that assumption and carry the cost forward.</p>
+            <p>That path works.</p>
+            <p>But it was not answering the question I cared about.</p>
+            <p>I did not want to find a cleaner way to carry the whole inherited stack.</p>
+            <p>I wanted to know what remained after I removed the parts that were not strictly necessary for this receiver.</p>
+        </section>
+
+        <section>
+            <h1>Why a Thresholded Pin Was Worth Trying</h1>
+            <p>The thresholded input looks crude if you think only in sampled amplitudes.</p>
+            <p>A one-bit stream seems like a destroyed waveform.</p>
+            <p>But a transition stream is not empty. Its timing has structure. Its density has structure. Its pattern has structure.</p>
+            <p>That intuition came from work outside radio.</p>
+            <p>About a year and a half before this receiver, I had been experimenting with neural networks that tried to discover digital circuit layouts on multiplexer-based fabrics. Digital logic is harshly nonlinear, so it is not a friendly training target. One thing that helped was adding a 50-50 stochastic binary process at the weight generator. With that noise present, simple circuits, including adders, became much more trainable.</p>
+            <p>That left me with a useful fact:</p>
+            <p class="formula">information can survive as binary statistical structure</p>
+            <p>I was also studying sigma-delta ADCs and DACs around the same period. Their lesson was similar from another direction. A smooth analog quantity can live inside the density and timing of a pulse stream.</p>
+            <p>I did not want a sigma-delta RF front end. A sigma-delta converter feeds a digital output back into the analog side and moves the effective threshold dynamically. That feedback would inject pulsing activity into the front end, which was exactly the kind of thing I was trying to avoid.</p>
+            <p>So I kept the useful idea and rejected the input architecture.</p>
+            <p>The useful idea was enough:</p>
+            <p class="formula">a one-bit stream can still carry analog information</p>
+            <p>That made the FPGA input pin a serious signal source instead of a gimmick.</p>
+        </section>
+
+        <section>
+            <h1>The Receiver Chain</h1>
+            <p>Once the RF became a transition stream, the rest of the receiver had to match that representation.</p>
+            <p>The full chain became:</p>
+            <pre class="chain">RF at one FPGA input pin
+-&gt; input threshold
+-&gt; binary transition stream
+-&gt; four-phase quadrature sampling
+-&gt; XOR-based Weaver mixing
+-&gt; CIC downsampling
+-&gt; cross-product phase-difference demodulation
+-&gt; sigma-delta audio output</pre>
+            <p>That is the radio.</p>
+            <p>Each stage exists because of the representation before it.</p>
+        </section>
+
+        <section>
+            <h1>Four-Phase Sampling</h1>
+            <p>Inside the FPGA, I sample the thresholded stream in four phases.</p>
+            <p>The point is not just to oversample blindly. The point is to preserve quadrature timing.</p>
+            <p>Those four phases give enough I/Q structure for this receiver to continue digitally. The signal has crossed the boundary as one-bit timing information, but the FPGA can still organize that timing into a quadrature representation.</p>
+            <p>The internal transition is:</p>
+            <pre class="chain">thresholded RF stream
+-&gt; four timing phases
+-&gt; usable I/Q structure</pre>
+            <p>That removes the need for a conventional analog quadrature front end in this design.</p>
+            <p>It also removes the need for the receiver to begin with a fast amplitude ADC.</p>
+        </section>
+
+        <section>
+            <h1>Mixing by Inversion</h1>
+            <p>Before arriving at this stage, I tried to follow the conventional path.</p>
+            <p>I worked through multiple Gilbert-cell mixer chips, manual designs, and datasheets. They all pointed in the same direction: the mixer wants to be driven hard. Not with a clean sine wave, but with a signal that pushes the switching devices into saturation.</p>
+            <p>In practice, that means the mixer is not behaving like an ideal analog multiplier. It is behaving like a controlled inverter.</p>
+            <p>That pattern repeated across implementations.</p>
+            <p>If the mixer is already acting like a switching element, then the essential operation is inversion under control.</p>
+            <p>Once the signal is represented inside the FPGA as a binary stream, that same operation can be expressed directly in logic.</p>
+            <p>XOR either leaves the stream unchanged or flips it. In this receiver, that controlled inversion is the mixing stage.</p>
+            <p class="formula">mixing = controlled inversion</p>
+            <p>No sine tables. No cosine tables. No multiplier chain.</p>
+            <p>Just the operation the hardware was already converging toward.</p>
+        </section>
+
+        <section>
+            <h1>CIC Downsampling</h1>
+            <p>After the quadrature and mixing stages, a CIC filter brings the rate down.</p>
+            <p>A CIC is a good fit here because it is built from simple accumulation and differencing. It does not require coefficient tables or a multiply-heavy filtering stage.</p>
+            <p>The receiver is already working with an oversampled digital structure, so the CIC performs the rate reduction in the same spirit as the rest of the design.</p>
+            <p>It is not decorative DSP.</p>
+            <p>It is the cheap rate-change machinery the chain needs.</p>
+        </section>
+
+        <section>
+            <h1>FM Demodulation by Cross Product</h1>
+            <p>After the CIC, I have baseband I and Q.</p>
+            <p>This stage came from another project.</p>
+            <p>I had been developing a phase-difference calculator for a DQPSK demodulator. That made me think in relative phase movement between successive I/Q vectors instead of absolute phase.</p>
+            <p>The usual FM path is to compute phase with <code>atan2</code>, then differentiate it.</p>
+            <p>I did not do that.</p>
+            <p>I used the 2D cross product between successive I/Q vectors:</p>
+            <p class="formula">I_cur * Q_prev - I_prev * Q_cur</p>
+            <p>That expression measures relative rotation from one sample to the next.</p>
+            <p>For small phase steps, that relative rotation approximates the FM-demodulated signal directly.</p>
+            <p>So the demodulator becomes:</p>
+            <pre class="chain">two multiplications
+one subtraction
+no atan2
+no normalization</pre>
+            <p>That result feeds the sigma-delta modulator's accumulator.</p>
+        </section>
+
+        <section>
+            <h1>Audio Output</h1>
+            <p>The last stage is a sigma-delta output.</p>
+            <p>At the input, I avoided sigma-delta-style feedback because I did not want pulsing activity injected back into the RF boundary.</p>
+            <p>At the output, the situation is different. The receiver already has a recovered audio-rate signal. A sigma-delta modulator is a compact way to turn that signal into something that can drive a speaker in the demo.</p>
+            <p>So sigma-delta appears at the end, not the beginning.</p>
+        </section>
+
+        <section>
+            <h1>What Came Out</h1>
+            <p>The receiver produced real FM audio from a signal whose RF entry point was one thresholded FPGA input pin.</p>
+            <p>The important measured fact is not that the design is universally better than a conventional receiver.</p>
+            <p>It is narrower than that.</p>
+            <p>For this receiver, explicit RF amplitude samples did not have to cross the boundary into the FPGA. Threshold crossings carried enough structure for the downstream logic to recover FM audio.</p>
+            <p>That result was not obvious before building it.</p>
+            <p>A thresholded pin could have produced a useless bitstream. The four-phase sampling could have failed to preserve enough quadrature structure. The inversion-based Weaver stage could have been too crude. The post-CIC cross product could have been too approximate. The final signal could have been unintelligible.</p>
+            <p>Instead, the chain stood.</p>
+        </section>
+
+        <section>
+            <h1>What Disappeared</h1>
+            <p>This receiver works without several pieces that usually appear early in the architecture:</p>
+            <pre class="chain">no strong external local oscillator at the RF front edge
+no Gilbert-cell-centered active analog mixer
+no high-speed amplitude-preserving ADC at RF or IF
+no sine/cosine lookup tables for mixing
+no multiplier-heavy digital mixing chain
+no atan2 phase extractor</pre>
+            <p>The design does still use arithmetic where it matters.</p>
+            <p>The cross-product demodulator uses two multiplications and one subtraction. That is not "no DSP." It is a much smaller and more direct piece of DSP.</p>
+            <p>The distinction matters.</p>
+            <p>The project did not remove computation as an ideology. It removed machinery that this receiver did not need.</p>
+        </section>
+
+        <section>
+            <h1>What This Is Not</h1>
+            <p>This is not a claim that conventional radio architectures are wrong.</p>
+            <p>It is not a replacement for a carefully engineered high-performance receiver.</p>
+            <p>It is not a claim that one FPGA input pin gives the same sensitivity, selectivity, dynamic range, calibration behavior, or robustness as a conventional RF front end.</p>
+            <p>Those architectures exist because the world is noisy, crowded, regulated, and physically unforgiving.</p>
+            <p>This project answers a narrower question.</p>
+            <p>Under these conditions, with this receiver, how much of the usual front-end and DSP burden can disappear while real FM audio still comes out?</p>
+            <p>The answer was: more than I expected.</p>
+        </section>
+
+        <section>
+            <h1>The Older Thread</h1>
+            <p>Much later, I found an obscure old Xilinx publication from roughly twenty years earlier that described an FM receiver along related lines: quiet input biasing, direct use of digital threshold behavior, and no sigma-delta feedback injected into the RF front end.</p>
+            <p>That did not make the project less interesting.</p>
+            <p>It made the direction more concrete.</p>
+            <p>This was not fantasy. It was a real design path that had existed in narrow circles, even if it never became the mainstream way people talk about receivers.</p>
+        </section>
+
+        <section>
+            <h1>The Boundary Crossing</h1>
+            <p>The receiver changed one boundary.</p>
+            <p>Instead of treating the analog-to-digital boundary as an amplitude-preserving ADC, it treated the FPGA input threshold as the boundary.</p>
+            <p>That single change forced the rest of the design to become smaller:</p>
+            <pre class="chain">crossings instead of RF amplitude words
+quadrature timing instead of analog quadrature hardware
+controlled inversion instead of sine/cosine mixing
+CIC rate reduction instead of heavy filtering
+cross-product phase difference instead of atan2
+sigma-delta output instead of an audio DAC</pre>
+            <p>The result is a working FM receiver whose active RF entry point is one FPGA input pin.</p>
+            <p>That is the answer to the question.</p>
+            <p>How much radio do you actually need?</p>
+            <p>For this receiver:</p>
+            <pre class="chain">one thresholded pin,
+four-phase quadrature sampling,
+controlled inversion,
+a CIC,
+a cross product,
+and a sigma-delta output.</pre>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <a href="how-much-radio-do-you-actually-need.html">Current article version</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>
