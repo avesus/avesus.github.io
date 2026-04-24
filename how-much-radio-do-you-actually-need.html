@@ -25,7 +25,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-04-22",
-            "dateModified": "2026-04-22",
+            "dateModified": "2026-04-24",
             "image": "https://greenforest.io/backdrop_rf.jpeg",
             "description": "A one-pin FPGA FM receiver that thresholds RF into transitions, samples in four phases, uses Weaver-style XOR mixing, CIC filtering, cross-product FM demodulation, and sigma-delta audio output.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
@@ -51,6 +51,14 @@
             margin-top: 0.5rem;
             font-size: 16px;
             font-style: italic;
+        }
+
+        .video-embed a {
+            display: block;
+        }
+
+        .video-embed img {
+            border: 1px solid #ccc;
         }
 
         .key-line {
@@ -98,6 +106,18 @@
     <figure>
         <img src="backdrop_rf.jpeg" alt="Waveforms, radio hardware prototype, and received spectrum">
         <figcaption>Waveforms, prototype hardware, and received RF structure from the one-pin radio work.</figcaption>
+    </figure>
+
+    <figure class="video-embed">
+        <a href="https://youtu.be/V40N7XRGAOo" target="_blank" rel="noopener">
+            <img src="https://img.youtube.com/vi/V40N7XRGAOo/hqdefault.jpg" alt="Thumbnail for the one-pin FPGA FM receiver video">
+        </a>
+        <figcaption><a href="https://youtu.be/V40N7XRGAOo" target="_blank" rel="noopener">Watch the one-pin FPGA FM receiver video</a></figcaption>
+    </figure>
+
+    <figure>
+        <img src="one_pin_fpga_rx.jpg" alt="Hand-drawn one-pin FPGA receiver architecture">
+        <figcaption>Working sketch of the receiver boundary: RF enters as a thresholded digital stream, then moves through tuning, quadrature processing, CIC filtering, FM recovery, and audio output.</figcaption>
     </figure>
 
     <main>
@@ -181,6 +201,10 @@
             <p>So when I reached post-CIC baseband I and Q in this receiver, I went straight to the geometric relation that mattered:</p>
             <p class="formula">I_cur Q_prev - I_prev Q_cur</p>
             <p>That is the 2D cross product of successive I/Q vectors.</p>
+            <figure>
+                <img src="approx_atan2.jpg" alt="Small-angle approximation for phase difference from vector components">
+                <figcaption>A working note from the same no-<code>atan2</code> demodulation thread: estimate phase movement from vector components instead of extracting absolute phase.</figcaption>
+            </figure>
             <p>For small phase steps, it already gives the relative rotation directly. FM only needs that rotation. So instead of computing <code>atan2</code>, then differentiating, then carrying all that arithmetic around, I just compute the cross product.</p>
             <p>Two multiplications. One subtraction. Done.</p>
             <p>That stage fits the rest of the receiver perfectly. The whole design keeps rejecting inherited heaviness in favor of the direct governing relation.</p>
