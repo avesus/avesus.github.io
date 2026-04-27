@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>The Missing Maker Fab</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="The maker movement can build boards, enclosures, firmware, fixtures, and dense interconnect, but still lacks a civic-scale process for fast, reliable, locally reproducible active devices.">
+    <link rel="canonical" href="https://greenforest.io/the-missing-maker-fab.html">
+    <meta property="og:title" content="The Missing Maker Fab">
+    <meta property="og:description" content="Open hardware remains partial until makers can fabricate fast active devices, not merely design or order them.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/the-missing-maker-fab.html">
+    <meta property="article:published_time" content="2026-04-27">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" href="data:,">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "The Missing Maker Fab",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            },
+            "datePublished": "2026-04-27",
+            "dateModified": "2026-04-27",
+            "description": "The maker movement can build boards, enclosures, firmware, fixtures, and dense interconnect, but still lacks a civic-scale process for fast, reliable, locally reproducible active devices.",
+            "mainEntityOfPage": "https://greenforest.io/the-missing-maker-fab.html",
+            "publisher": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        .key-line {
+            font-size: 24px;
+            line-height: 1.3;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        nav.article-links {
+            margin-top: 3rem;
+        }
+
+        nav.article-links a {
+            display: block;
+            margin: 0.6rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>The Missing Maker Fab</header>
+    <address>
+        Brian Greenforest | April 27, 2026
+    </address>
+
+    <section class="abstract">
+        <p>Build a board on a bench, and the boundary appears fast.</p>
+        <p>A maker can cut the enclosure, mill the copper, drill the vias, print the bracket, flash the firmware, inspect the solder joints, publish the design files, and ship a repairable artifact. Then the maker reaches the active silicon, and the loop stops. The community can own the shape, the code, the schematic, the PCB, and the assembly. It still cannot own the fast nonlinear devices inside the chips.</p>
+        <p>That fact matters more than the usual romance around &ldquo;open hardware&rdquo; admits.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The Stack Is Open Until It Isn&rsquo;t</h1>
+            <p>Open hardware has solved many layers of the stack. A small team can design a processor core, route a board, publish HDL, run open toolchains, and even send open-source chip designs through programs such as the <a href="https://ir.skywatertechnology.com/news/news-details/2021/First-Google-Sponsored-MPW-Shuttle-Launched-at-SkyWater-with-40-Open-Source-Community-Submitted-Designs/default.aspx" target="_blank" rel="noopener">Google/SkyWater/Efabless shuttle</a>. Those programs lowered the barrier to silicon design and proved that open-source digital design can reach real foundry silicon. But the maker still waits in a queue, trusts a remote wafer process, accepts the foundry&rsquo;s layer stack, and receives a black physical object that local tools cannot reproduce.</p>
+            <p>PCB fabrication gives the maker a better model. A small shop can laminate, expose, etch, drill, plate, test, scrap, and repeat. Newer direct-metallization and laser-assisted via processes show that builders can route dense multilayer structures without the full traditional electroless copper path; one <a href="https://www.sciencedirect.com/science/article/pii/S0007850621000068" target="_blank" rel="noopener">open-access process</a> combined copper ink, epoxy insulation, CO<sub>2</sub> laser drilling, and laser sintering to make multilayer vias without chemical plating. Commercial HDI shops now laser-drill microvias and plate copper at production quality, though those shops still sit outside the ordinary maker loop.</p>
+            <p>Interconnect has a path toward local ownership. Active devices do not.</p>
+        </section>
+
+        <section>
+            <h1>The Sad Boundary</h1>
+            <p>That is the sad boundary. A community lab can make conductors, insulators, connectors, mechanics, thermal parts, antennas, housings, batteries, fixtures, test rigs, and software. It can even make beautiful RF structures and dense boards. But it cannot yet make hundreds of thousands of fast, reliable, cascadable nonlinear gain elements from an open recipe with CNC machines, laser cutters, 3D printers, simple etching, practical plating, and ordinary cleanliness.</p>
+            <p>Silicon owns that role because silicon gives four things at once: gain, switching speed, density, and repeatability. A logic gate does not merely change resistance. It restores a level. It drives another gate. It rejects noise. It keeps working after billions of transitions. It fits next to a hundred thousand neighbors. The maker world can imitate one or two of those properties at a time. It cannot yet combine all of them in a local process above 10 MHz.</p>
+        </section>
+
+        <section>
+            <h1>Older Nonlinear Paths</h1>
+            <p>Magnetic amplifiers prove that nonlinear devices do not require silicon. They also prove the problem. They need magnetic cores, windings, drive power, and usually a strong AC or clocked energy system. They can amplify and switch, but they do not scale into dense local logic in the way a wafer process scales.</p>
+            <p>Vacuum tubes prove the same lesson from the other direction. They offer gain, speed, and physical intelligibility, but miniature reliable tubes demand sealed vacuum structures, cathodes, feedthroughs, alignment, heating, contamination control, and packaging discipline. A clever shop can make a tube. A city lab cannot casually print a hundred thousand matched tubes into a fast logic fabric.</p>
+        </section>
+
+        <section>
+            <h1>Memristors Are Not Enough</h1>
+            <p>Memristors deserve more respect than lazy transistor chauvinism gives them. A memristor can serve as a nonlinear, stateful, time-varying element. A pumped memristive circuit can in principle amplify. Memristive logic can compute. But the maker community needs more than a nonlinear primitive. It needs a complete family: write/read discipline, inversion, restoration, fanout, isolation, clock or pump distribution, endurance, drift control, and a process that yields large arrays. Many memristor logic proposals still lean on CMOS for inversion, sensing, restoration, or peripheral control; that dependency breaks the end-to-end local fab dream. The <a href="https://www.mdpi.com/2079-9292/11/13/2018" target="_blank" rel="noopener">read/write drift problem</a> alone shows how much support circuitry and discipline a useful memristive system still needs.</p>
+        </section>
+
+        <section>
+            <h1>The Painful Near-Miss</h1>
+            <p>Organic electrochemical transistors look like the most painful near-miss. The fast vertical OECT work matters because it does not merely offer a passive memory element. It offers a three-terminal transistor-like device, low-voltage operation, multi-valued logic, and reported access frequencies over 10 MHz. The 2023 <a href="https://doi.org/10.1002/adma.202208757" target="_blank" rel="noopener">Advanced Materials paper on monolithic tandem vertical electrochemical transistors</a> reports ternary logic gates, full voltage swing within 1 V, and access to multiple logic states over 10 MHz.</p>
+            <p>That should excite every person who wants post-CMOS local electronics.</p>
+            <p>It should not satisfy them.</p>
+            <p>The fast OECT result depends on a careful vertical device geometry, controlled organic layers, ion gels, patterned electrodes, and laboratory discipline. It does not yet give a recipe that a small city fab can run like a PCB line. It does not yet show a hundred-thousand-element open logic fabric with yield, fanout, test coverage, standard cells, clocking, aging data, repair rules, and a trusted packaging flow. Slower OECT work can look more printable and friendly, and <a href="https://www.nature.com/articles/s41528-023-00245-4" target="_blank" rel="noopener">fully 3D-printed OECTs</a> now exist, but printable does not automatically mean fast, dense, stable, and cascadable.</p>
+        </section>
+
+        <section>
+            <h1>The Trust Problem</h1>
+            <p>This gap also creates a security problem, not just a manufacturing problem.</p>
+            <p>A root of trust asks the user to trust the hardware below the software. <a href="https://opentitan.org/" target="_blank" rel="noopener">OpenTitan</a> and similar projects attack the design-transparency side of that problem by opening the root-of-trust architecture and implementation. But open HDL cannot prove that a remote physical process built exactly what the files described. <a href="https://www.mdpi.com/1424-8220/20/18/5165" target="_blank" rel="noopener">Hardware Trojan research</a> keeps repeating the same warning: attackers can alter circuits during design or fabrication, and hidden triggers can stay dormant under ordinary testing.</p>
+            <p>A local active-device process would not magically solve trust. Local builders can still make mistakes. Local equipment can drift. Local suppliers can ship bad chemistry. But locality changes the proof surface. A community can inspect the masks, audit the materials, measure the process, compare wafers or panels, destructively sample lots, and reproduce the device in another shop. Trust moves from vendor belief toward repeated physical verification.</p>
+        </section>
+
+        <section>
+            <h1>The Queue Becomes Architecture</h1>
+            <p>The current maker stack stops just below that line.</p>
+            <p>That stop slows iteration. A software bug can turn around in minutes. A PCB can turn around locally in hours or commercially in days. A printed fixture can change before lunch. But a new active device process forces the builder into institutional equipment, scarce recipes, hazardous chemistry, cleanroom schedules, remote shuttles, or vendor catalogs. The queue becomes part of the architecture. The supply chain becomes part of the design. The black box becomes part of the root of trust.</p>
+        </section>
+
+        <section>
+            <h1>The Shape of the Missing Invention</h1>
+            <p>The missing invention therefore has a very specific shape.</p>
+            <p>It does not look like &ldquo;another semiconductor.&rdquo; It looks like a complete civic-scale electronics process. It uses available materials. It tolerates ordinary lab air or cheap containment. It prints, plates, mills, sinters, laminates, cuts, or etches with tools that a regional shop can buy and repair. It creates nonlinear gain elements and passive interconnect in the same flow. It supports digital logic and multi-stage analog amplification. It switches above 10 MHz. It gives fanout and restoration. It scales to at least hundreds of thousands of elements. It exposes enough of its physics that open hardware communities can test it, model it, clone it, and distrust it constructively.</p>
+            <p>No robust mature process fills that box today.</p>
+        </section>
+
+        <section>
+            <h1>The Next Real Frontier</h1>
+            <p>That is the sad fact. The maker movement can build almost everything around intelligence except the dense fast active fabric that intelligence runs on. It can make the board but not the chip, the harness but not the root, the enclosure but not the transistor family, the firmware but not the physical substrate that executes it.</p>
+            <p>The result does not invalidate open hardware. It defines the next real frontier.</p>
+            <p class="key-line"><strong>Open hardware will remain partial until makers can fabricate their own fast active devices.</strong></p>
+            <p>Not merely design them. Not merely order them. Not merely package them. Fabricate them, measure them, scrap them, improve them, and teach another town to do the same.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Next:</p>
+        <a href="how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a>
+        <p>A one-pin FPGA radio article that shows the same boundary from the other side: a maker-scale hardware experiment still leaning on active silicon.</p>
+        <p>More:</p>
+        <a href="boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
+        <p>A printable reference for computation built from simple Boolean structure, useful after asking what kind of active fabric makers still cannot locally build.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>
