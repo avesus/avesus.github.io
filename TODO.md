@@ -14,7 +14,7 @@ Current repo state: `git status --short` is clean.
 - `sitemap.xml` needs updates for any new public article or artifact wrapper.
 - Internal links should point to article pages first, raw assets second.
 - Existing pages vary wildly in metadata quality.
-- The new `homepage.js` is not in the sitemap, which is fine; it is infrastructure, not content.
+- `common-script.js` owns shared styling and behavior, including the homepage-specific classes used by `index.html`.
 
 **Serial Multiplier**
 - There is now real public material in `serial_multiplier/`: `serial_july_2025.circ`, `mul.png`, `add.png`.

@@ -3,6 +3,10 @@ var greenforestBoot = window.greenforestBoot || (function() {
 	root.classList.add('gf-loading');
 	root.classList.remove('gf-ready');
 
+	if (location.pathname === '/' || location.pathname === '/index.html') {
+		root.classList.add('gf-homepage');
+	}
+
 	const append_to_head = element => (document.head || root).appendChild(element);
 
 	const boot_style = document.createElement('style');
@@ -147,6 +151,109 @@ section {
 
 .gf-backdrop-bottom {
 	margin: 70px calc(50% - 50vw) 0;
+}
+
+.gf-homepage a {
+	color: #520;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.12em;
+}
+
+.gf-homepage img:not(.gf-backdrop) {
+	max-width: 100%;
+}
+
+.gf-homepage .tagline {
+	display: block;
+	margin: -10px 0 36px;
+	text-align: center;
+	font-style: italic;
+}
+
+.gf-homepage .lead {
+	font-size: 24px;
+	line-height: 1.3;
+	text-align: left;
+}
+
+.gf-homepage .entry {
+	margin: 0 0 28px;
+	padding-top: 18px;
+	border-top: 1px solid #ddd;
+}
+
+.gf-homepage h1+.entry {
+	border-top: none;
+	padding-top: 0;
+}
+
+.gf-homepage .entry p {
+	margin: 8px 0 0;
+}
+
+.gf-homepage .label {
+	display: inline-block;
+	margin-right: 0.5em;
+	font-family: 'Inconsolata', monospace;
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+.gf-homepage .entry-title {
+	font-size: 22px;
+}
+
+.gf-homepage .artifact-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+	margin-top: 18px;
+}
+
+.gf-homepage .artifact {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+}
+
+.gf-homepage .artifact img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border: 1px solid #ccc;
+}
+
+.gf-homepage .artifact span {
+	display: block;
+	margin-top: 6px;
+	color: #520;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.12em;
+}
+
+.gf-homepage figure {
+	margin: 26px 0 0;
+}
+
+.gf-homepage figure img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.gf-homepage figcaption {
+	margin-top: 8px;
+	font-size: 16px;
+	font-style: italic;
+}
+
+.gf-homepage footer {
+	margin-top: 60px;
+}
+
+.gf-homepage .math-entities {
+	word-break: normal;
 }
 
 pre, code, textarea {
@@ -463,6 +570,18 @@ dt {
 
 	.gf-backdrop-top {
 		margin-top: -40px;
+	}
+
+	.gf-homepage .lead {
+		font-size: 22px;
+	}
+
+	.gf-homepage .entry-title {
+		font-size: 22px;
+	}
+
+	.gf-homepage .artifact-grid {
+		grid-template-columns: 1fr;
 	}
 
 	header {
