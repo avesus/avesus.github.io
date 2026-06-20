@@ -1,126 +1,91 @@
-Current repo state: `git status --short` is clean.
+# TODO
 
-**What Remains**
+Current repo state after the June 20, 2026 materialization pass:
 
-**Homepage**
-- Decide whether the current homepage copy is good enough to keep.
-- Replace the direct serial multiplier `.circ` link with a real serial multiplier page.
-- Decide whether `Research Notes` is the right label or if it still feels too notebook/meta.
-- Add one or two more artifact thumbnails only when they point to real public material.
-- Keep watching for meta-copy creeping back in. Homepage copy should summarize value, not apologize for missing articles.
+- Public wrapper/article pages now exist for the serial multiplier, the tiny Transformer run, and the Cartilage nested-instantiation demo.
+- Draft packets are preserved under `article-drafts/`.
+- The homepage links to article/wrapper pages first and raw artifacts second.
+- `boolean-algebra-is-all-that-is-required.html` is now an artifact-first DOI/PDF bridge with date-only visible metadata and standard next/back navigation.
+- `cellular-automata-2019/` is now an article-style archive with screenshot cards for the local demos and Cartilage ShaderToy card.
+- Visible author bylines were removed from current article pages and older book/blog address blocks where they were only repeating the obvious author.
+- `sitemap.xml` includes the new public article URLs and updated lastmod dates for touched public pages.
 
-**Searchability**
-- New pages need metadata every time: title, description, canonical, Open Graph basics.
-- `sitemap.xml` needs updates for any new public article or artifact wrapper.
-- Internal links should point to article pages first, raw assets second.
-- Existing pages vary wildly in metadata quality.
-- `common-script.js` owns shared styling and behavior, including the homepage-specific classes used by `index.html`.
+## Immediate Follow-Up
 
-**Serial Multiplier**
-- There is now real public material in `serial_multiplier/`: `serial_july_2025.circ`, `mul.png`, `add.png`.
-- Missing: a searchable landing/article page at something like `serial_multiplier/`.
-- Missing: a short explanation of interface, positive-number limitation, bit-serial behavior, and bubbles-free pipeline behavior.
-- Missing: a direct download link to the Logisim file from a page that explains what it is.
-- Later: Verilog port.
-- Later: GitHub repo / README.
-- Later: tests, timing diagrams, example waveforms, usage notes.
+### Discrete Fluid ShaderToy Preview
 
-**Cartilage**
-- `cartilage3.html` works but does not explain itself.
-- Missing: a wrapper article explaining nested instantiation, regions, reconfiguration ports, serial bitstreams, tile roles, and why it matters.
-- Missing: screenshots or thumbnails.
-- Missing: controls / what a visitor can do.
-- Missing: relation between Cartilage demo and the Boolean paper.
+The old archive draft referenced the external ShaderToy page:
+
+- `https://www.shadertoy.com/view/WsByDy`
+
+Do not publish a fake thumbnail for it. Local HTTP requests, direct media URL attempts, and headless Edge capture currently hit ShaderToy security verification or 403 responses. Restore this external card only after a real screenshot/thumbnail is available from Brian, from a working browser session, or from an authorized ShaderToy/API path.
+
+### Serial Multiplier
+
+- Port the Logisim design to Verilog.
+- Add a waveform capture that shows the no-bubble schedule after initial fill.
+- Measure LUT count, Fmax, and timing on at least one FPGA target.
+- Compare against inferred `*` and DSP-backed versions on the same target.
+- Add a public repo or README when the RTL exists.
+
+### Cartilage
+
+- Add a small screenshot or short screen recording to the wrapper article once a good capture is available.
+- Write a more complete article on local ports, parent/daughter regions, serial configuration streams, and bounded replacement.
+- Preserve `cellular-automata-2019/cartilage3.html` as the canonical live artifact rather than editing it for site chrome.
 - Later: full Web UI to save, run, and print.
 
-**Boolean Paper**
-- Existing DOI page is a PDF landing page.
-- Missing: a long explanatory web article with illustrations and hyperlinks.
-- Missing: bridge between “multiplexer-only Boolean computation” and Cartilage.
+### Tiny Transformer
+
+- Add reproduction notes if the tokenizer, dataset preparation, or training environment should be public.
+- Add a loss curve image only if it comes from the actual logged run.
+- Explain the pseudo-inverse unembedding detail in a separate technical note if supporting math/code is published.
+
+### Boolean Paper
+
+- Keep the current page as a DOI/PDF bridge.
+- Later: write the full explanatory web article with diagrams, implementation path, and hyperlinks.
 - Later: v2 paper after comments.
 
-**From The Ground Up**
-- Contains real WebGL/GPGPU teaching material.
-- Missing: article extraction from chapter/book-shaped pages.
-- Missing: decision on how to frame WebGL now that WebGPU exists.
-- Missing: separation of runnable-code article infrastructure from general site infrastructure.
-- `common-script.js` still contains code-runner behavior only needed for those old interactive pages.
+## Broader Publishing Backlog
 
-**Cellular Automata Archive**
-- Existing archive guide is useful but thin.
-- Each demo needs a short “why this exists” explanation.
-- Missing: thumbnails/previews for each automaton.
-- Missing: distinction between reversible/information-conservative, hot/machine-like, organic/nature-like, and Cartilage lineages in reader-facing prose.
+### Article System
 
-**SDR / Digital Radio**
-- Homepage now mentions it and uses `backdrop_rf.jpeg`.
-- Article page exists: `how-much-radio-do-you-actually-need.html`.
-- TODO: restore the stronger homepage copy for this work instead of flattening it into a generic label: `1-pin fully digital SDR receiver frontend and a 1-pin resonant-tank transmitter driven by a fully digital SDM Weaver modulator in Verilog, with crude PCB prototypes and FM receive videos.`
-- Missing: videos of FM receiving.
-- Missing: Verilog/module summary.
-- Missing: PCB prototype images and what each proves.
+- Define a reusable article page pattern without hand-editing archived shader files.
+- Make a reusable artifact-card/thumbnail pattern.
+- Keep bottom navigation narrow: one best next read, plus one relevant collection only when justified.
+- Avoid generic top-level navigation until repeated article endings prove the category.
 
-**Magnetics**
-- Homepage mentions it.
-- Missing: first practical reference article from handwritten notes.
-- Missing: material properties/formulae structure.
-- Missing: magnetic amplifier / diodeless circuit split.
-- Missing: citations and safety caveats.
+### Cellular Automata Archive
 
-**Backprop**
-- Homepage mentions it.
-- Missing: first article explaining primitive-operation derivative feedback.
-- Missing: code example.
-- Missing: relation to chip implementation and online training.
+- Each local demo deserves a short standalone explanation of why it exists.
+- Keep the current archive as a map, not the final article for every demo.
+- Regenerate thumbnails when better seeded states or intentional screenshots exist.
 
-**Tiny Transformers**
-- Existing public artifact from June 2024: a tiny generative Transformer training example is already posted externally in the `simpler-llama` PR and mirrored as `train-dali.sh`.
-- Homepage now links to the external PR and raw training script as an early public artifact.
-- Public links:
-  - `https://github.com/omnipresentalgorithm/simpler-llama/pull/1/changes`
-  - `https://raw.githubusercontent.com/avesus/llama2.c/e7e79b283a344279d15f7761a525d5da222074e7/train-dali.sh`
-- What is already there: a 4-layer generative Transformer with 16 attention heads, `dim=128`, `max_seq_len=128`, `vocab_size=361`, and about 834k parameters, with example inference parameters plus a training run past 50,000 iterations.
-- Published result: after about 50,000 iterations it generates wild tiny stories that are already intelligible enough to count as a real small emergent language model example.
-- Important implementation note from Brian: the embedding matrix uses a computed pseudo-inverse as the unembedding, and that unembedding is backpropagated.
-- Missing: a proper site article explaining why this model matters, what "first intelligible emergent Transformer with the smallest number of parameters" means here, how the tokenizer/dataset were chosen, and how to reproduce the run.
+### SDR / Digital Radio
 
-**Smart Dust / Fabrication Proposal**
-- Homepage now includes it with the wafer-dicing reference.
-- Missing: article explaining ordinary-fab micromodule substrate proposal.
-- Missing: diagrams for dicing, conformal SiO2, adjacent capacitive/inductive coupling.
-- Missing: distinction between fabrication proposal and future prototype roadmap.
+- Preserve the engineering framing: pin count, thresholded RF stream, four-phase sampling, XOR/Weaver mixing, CIC filtering, cross-product FM demodulation, sigma-delta output, PCB prototype, limitations.
+- Add videos of FM receiving when stable public links are available.
+- Add Verilog/module summary and PCB prototype notes.
 
-**Article System**
-- Missing: reusable article page pattern.
-- Missing: thumbnail/artifact-card system that works inside articles.
-- Missing: bottom navigation pattern that is not a generic related-links dump.
-- Missing: theory for how index pages emerge from article endings.
-- Missing: reusable footer/header/navigation that avoids touching ancient artifact files.
+### Magnetics
 
-**Next Highest Value, Smallest Effort Update**
+- First article should start from physical devices: cores, windings, bias, carrier injection, modulation/demodulation, harmonic behavior, source/load impedance, and measured transfer behavior.
+- Split practical magnetic material notes from magnetic amplifier / diodeless circuit theory.
 
-Create `serial_multiplier/index.html`.
+### Backprop
 
-Why this is the best next move:
-- It uses real files already present.
-- It turns the homepage’s highest drop-in-value item from a raw `.circ` download into a searchable public page.
-- It needs no new content from you beyond what you already told me.
-- It establishes the first reusable pattern for “artifact page with thumbnails.”
-- It gives Google a real page to index instead of only images and a Logisim file.
-- It lets the homepage link to an article-like landing page instead of directly to `serial_july_2025.circ`.
+- First article should explain the online backprop engine from primitive ops.
+- Show forward values, derivative feedback through a graph, where state is stored, and how updates happen.
+- Add a code example before making broader claims.
 
-**Proposed Scope**
-- Add `serial_multiplier/index.html`.
-- Include:
-  - Title: `Bit-Serial Bubbles-Free Multiplier`
-  - Short summary.
-  - Status: Logisim circuit artifact.
-  - Explanation of bubbles-free streaming behavior.
-  - Positive-number limitation.
-  - Links to `serial_july_2025.circ`, `mul.png`, and `add.png`.
-  - Embedded thumbnails for `mul.png` and `add.png`.
-  - One next link back to homepage or possibly Boolean paper/Cartilage if relevant.
-- Update homepage link from `.circ` to `serial_multiplier/`.
-- Add `https://greenforest.io/serial_multiplier/` to `sitemap.xml`.
+### Maker Fab
 
-That is the smallest update that creates a real article/artifact page and moves the site from “homepage listing” toward the actual publishing model.
+- Keep the article grounded as an EE/manufacturing argument.
+- Future article work should specify candidate device class, process window, yield target, equipment, and actually useful built artifacts.
+
+### Smart Dust / Fabrication Proposal
+
+- Write the article explaining ordinary-fab micromodule substrate proposal.
+- Include diagrams for through-wafer dicing, conformal SiO2, and adjacent capacitive/inductive coupling.
+- Separate fabrication proposal from later prototype roadmaps.

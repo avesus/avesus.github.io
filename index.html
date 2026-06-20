@@ -3,10 +3,10 @@
 
 <head>
     <title>Greenforest I/O</title>
-    <meta name="description" content="Brian Greenforest's research site for computation, circuit fabrics, browser-native GPGPU, magnetic devices, digital radio, and self-assembling hardware ideas.">
+    <meta name="description" content="Research articles, papers, demos, and artifacts for computation, circuit fabrics, browser-native GPGPU, magnetic devices, digital radio, and self-assembling hardware ideas.">
     <link rel="canonical" href="https://greenforest.io/">
     <meta property="og:title" content="Greenforest I/O">
-    <meta property="og:description" content="Articles, papers, demos, and archives from Brian Greenforest's work on computation, circuit fabrics, GPGPU, magnetics, and hardware substrates.">
+    <meta property="og:description" content="Articles, papers, demos, and archives on computation, circuit fabrics, GPGPU, magnetics, digital radio, and hardware substrates.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/">
     <link rel="icon" href="data:,">
@@ -19,7 +19,7 @@
 
     <main>
         <section class="abstract">
-            <p class="lead">Computational substrates, circuit fabrics, browser-native GPU experiments, magnetic devices, digital radio, and self-assembling hardware ideas by Brian Greenforest.</p>
+            <p class="lead">Computational substrates, circuit fabrics, browser-native GPU experiments, magnetic devices, digital radio, and self-assembling hardware ideas.</p>
         </section>
 
         <section>
@@ -53,7 +53,7 @@
 
             <div class="entry">
                 <span class="label">Circuit</span>
-                <a class="entry-title" href="serial_multiplier/serial_july_2025.circ">Bit-serial bubbles-free multiplier</a>
+                <a class="entry-title" href="serial_multiplier/">Bit-serial bubbles-free multiplier</a>
                 <p>A positive-number serial multiplier built in Logisim. After the pipeline fills, the next pair of bit-serial arguments can enter immediately after the previous pair, with output bits continuing on every clock.</p>
                 <div class="artifact-grid">
                     <a class="artifact" href="serial_multiplier/mul.png">
@@ -69,15 +69,16 @@
 
             <div class="entry">
                 <span class="label">Training Artifact</span>
-                <a class="entry-title" href="https://github.com/omnipresentalgorithm/simpler-llama/pull/1/changes" target="_blank" rel="noopener">Four-layer tiny Transformer training run</a>
+                <a class="entry-title" href="four-layer-tiny-transformer-training-run.html">Four-layer tiny Transformer training run</a>
                 <p>An early public generative Transformer artifact: 4 layers, 16 attention heads, 128-dimensional embeddings, 128-token context, 361-token vocabulary, about 834k parameters, trained past 50,000 iterations until the tiny model produced strange but intelligible stories.</p>
-                <p><a href="https://raw.githubusercontent.com/avesus/llama2.c/e7e79b283a344279d15f7761a525d5da222074e7/train-dali.sh" target="_blank" rel="noopener">Raw training script</a></p>
+                <p><a href="https://github.com/omnipresentalgorithm/simpler-llama/pull/1/changes" target="_blank" rel="noopener">GitHub PR</a> | <a href="https://raw.githubusercontent.com/avesus/llama2.c/e7e79b283a344279d15f7761a525d5da222074e7/train-dali.sh" target="_blank" rel="noopener">Raw training script</a></p>
             </div>
 
             <div class="entry">
                 <span class="label">Live Demo</span>
-                <a class="entry-title" href="cellular-automata-2019/cartilage3.html">Cartilage nested-instantiation demo</a>
+                <a class="entry-title" href="cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation demo</a>
                 <p>A browser/GPU demo of a tiled computational fabric where regions can instantiate and replace daughter regions through local reconfiguration ports and serial bitstreams.</p>
+                <p><a href="cellular-automata-2019/cartilage3.html">Open the live demo</a></p>
             </div>
 
             <div class="entry">

@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation</title>
-    <meta name="description" content="Brian Greenforest's paper on a multiplexer-only Boolean model of universal computation built from 2:1 multiplexers, sequential switching networks, configuration as state, and unbounded tiling.">
+    <meta name="description" content="A paper bridge for a multiplexer-only Boolean model of universal computation built from wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling.">
     <link rel="canonical" href="https://greenforest.io/boolean-algebra-is-all-that-is-required.html">
     <meta property="og:title" content="Boolean Algebra Is All That Is Required">
-    <meta property="og:description" content="A multiplexer-only Boolean model of universal computation based on 2:1 multiplexers, sequential switching networks, configuration as state, and unbounded tiling.">
+    <meta property="og:description" content="A multiplexer-only Boolean model of universal computation based on wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/boolean-algebra-is-all-that-is-required.html">
     <meta name="citation_title" content="Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation">
@@ -27,6 +27,7 @@
                 "name": "Brian Greenforest"
             }],
             "datePublished": "2026-02-08",
+            "dateModified": "2026-06-20",
             "publisher": {
                 "@type": "Organization",
                 "name": "Zenodo"
@@ -47,7 +48,7 @@
                 "contentUrl": "https://zenodo.org/records/18528623/files/Boolean_Algebra_is_All_You_Need.pdf?download=1",
                 "encodingFormat": "application/pdf"
             },
-            "description": "Build a computational substrate from only wires, constants, and 2:1 multiplexers, then allow feedback and replication. Digital computation is routinely explained through many formalisms, while hardware practice already runs on a clocked next-state function over bits. This paper defines an explicit model in which every primitive is Boolean, time is state-to-state transition over registers, programming is installation of constraints into configuration registers, and unbounded memory is obtained by unbounded tiling."
+            "description": "A paper bridge for a multiplexer-only Boolean model of universal computation built from wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling."
         }
     </script>
     <script src="/common-script.js" type="text/javascript"></script>
@@ -55,30 +56,65 @@
 
 <body class="doi-landing">
     <h1>Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation</h1>
+
+    <address>February 8, 2026</address>
+
     <div class="meta">
-        <p><strong>Author:</strong> Brian Greenforest<br>
-            <strong>License:</strong> CC BY 4.0<br>
-            <strong>Published:</strong> February 8, 2026</p>
+        <p><strong>License:</strong> CC BY 4.0</p>
     </div>
+
     <div class="links">
         <p><strong>DOI:</strong> <a href="https://doi.org/10.5281/zenodo.18528622">https://doi.org/10.5281/zenodo.18528622</a><br>
-
             <strong>Download:</strong> <a href="https://zenodo.org/records/18528623/files/Boolean_Algebra_is_All_You_Need.pdf?download=1">Boolean_Algebra_is_All_You_Need.pdf</a></p>
     </div>
-    <h2>TL;DR:</h2>
-    <p>This note makes one engineering claim explicit: logic, state, reconfiguration, and growth can all be expressed inside one Boolean transition system built from 2:1 multiplexers, wires, constants, feedback, and local configuration registers. The separate
-        machine layers people usually talk about are presentations on top of the same substrate.</p>
-    <h2>Abstract</h2>
-    <p>Build a computational substrate from only wires, constants, and 2:1 multiplexers, then allow feedback and replication. Digital computation is routinely explained through many formalisms (machines, grammars, lambda terms), while hardware practice already
-        runs on a simpler invariant: a clocked next-state function over bits. A single omission keeps the public model fractured: sequential switching networks—and the fact that reconfiguration is itself a Boolean, clocked process. This paper defines
-        an explicit model in which (i) every primitive is Boolean (multiplexers, wires, constants), (ii) time is only state-to-state transition over registers realizable by those same primitives, (iii) programming is the installation of constraints into
-        configuration registers, and (iv) unbounded memory is obtained by unbounded tiling (including physical self-assembly as one admissible growth mechanism). Under these assumptions the model is equivalent in power to standard universal models while
-        remaining a single, uniform Boolean transition system.</p>
 
-    <h2>Related Cartilage work</h2>
-    <p>The primary <a href="/cellular-automata-2019/cartilage3.html">live Cartilage demo</a> instantiates series of 6x6 MUX tile blocks in a nested manner from the left edge reconfiguration port area, streaming mere SPI bits of those areas.</p>
-    <p> You also can inspect the code of <a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/7lj3Rw">a ShaderCode  implementation of Cartilage</a> originally published in Summer 2021 as a priority date claim so we don't have to mess with patents.</p>
-    <p><a href="/">Back to greenforest.io</a></p>
+    <section class="abstract">
+        <p>Wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling are enough to define a universal, reconfigurable Boolean substrate.</p>
+        <p>That is the engineering claim. The paper makes the construction explicit so the reader can treat computation as a clocked next-state function over bits, not as a collection of unrelated machine metaphors.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>What The Paper Gives</h1>
+            <p>The paper defines a minimal computation model whose primitives are ordinary Boolean hardware primitives: wires, constants, and 2:1 multiplexers. With feedback and registers, those primitives become sequential switching networks. With configuration registers, the same substrate can be programmed. With unbounded tiling, it has unbounded memory and therefore universal computational power.</p>
+            <p>The point is not that multiplexers are mystical. The point is that a MUX fabric gives a small implementation path: conditional selection, state, reconfiguration, routing discipline, and replication can all be expressed inside the same Boolean system.</p>
+        </section>
+
+        <section>
+            <h1>Why MUXes Are Enough</h1>
+            <p>Constants supply fixed zeros and ones. Wires move bits. A 2:1 MUX selects one of two inputs under control of a select bit. Networks of those MUXes implement arbitrary Boolean functions.</p>
+            <p>Once outputs feed registers and registers feed later logic, the fabric becomes a clocked state machine. Once some registers are treated as configuration, structure becomes data. Once the pattern can be tiled without a fixed global bound, memory and machine size are no longer fixed by the first drawing.</p>
+        </section>
+
+        <section>
+            <h1>Implementation Path</h1>
+            <p>Read this as an implementation model for a reconfigurable substrate. The important terms are local wires, constants, 2:1 MUXes, feedback, configuration state, tiling, and the protocol that installs new configuration. The paper is the formal bridge; it says why that small kit is sufficient.</p>
+            <p>It also explains why reconfiguration should not be treated as outside the machine. Programming a fabric is itself a Boolean, clocked process. Configuration bits move through a substrate, land in registers, and change the next-state function the same way any other state changes it.</p>
+        </section>
+
+        <section>
+            <h1>Relation To Cartilage</h1>
+            <p>Cartilage is the live implementation direction attached to this paper. The primary <a href="/cellular-automata-2019/cartilage3.html">Cartilage demo</a> shows a tiled browser/GPU fabric where a local reconfiguration port streams bits into bounded regions and replaces tile roles such as wires, MUXes, constants, intersections, and further reconfiguration ports.</p>
+            <p>The <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation article</a> is the next useful read because it turns the formal claim into an inspectable artifact: module boundaries, local ports, serial configuration streams, bounded regions, composability, and no global magic controller.</p>
+            <p>You can also inspect the <a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/7lj3Rw">Cartilage ShaderToy artifact</a> from Summer 2021.</p>
+        </section>
+
+        <section>
+            <h1>Tradeoff</h1>
+            <p>The construction is intentionally small. It does not start from a convenient CPU, an HDL standard library, or a friendly programming language. It starts from the fewest Boolean pieces that still reach state, configuration, and unbounded growth.</p>
+            <p>The tradeoff is that the first description looks lower-level than the machines people usually name. The gain is that every layer has a direct substrate interpretation.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Read next:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
+        <p>The live artifact showing local ports, bounded regions, and serial configuration streams.</p>
+        <p>More:</p>
+        <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>
+        <p>A small arithmetic datapath whose schedule can be inspected as a circuit artifact.</p>
+        <a href="/">Go back</a>
+    </nav>
 </body>
 
 </html>

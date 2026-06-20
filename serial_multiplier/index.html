@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bit-Serial Bubbles-Free Multiplier</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A Logisim bit-serial multiplier architecture whose pipeline stays full: after fixed latency, input and output bits continue every clock with no drain gap between operand words.">
+    <link rel="canonical" href="https://greenforest.io/serial_multiplier/">
+    <meta property="og:title" content="Bit-Serial Bubbles-Free Multiplier">
+    <meta property="og:description" content="A positive-number bit-serial multiplier architecture built in Logisim for continuous streaming arithmetic on FPGA-friendly fabric.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/serial_multiplier/">
+    <meta property="og:image" content="https://greenforest.io/serial_multiplier/mul.png">
+    <meta property="article:published_time" content="2025-07-26">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="data:,">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Bit-Serial Bubbles-Free Multiplier",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            },
+            "datePublished": "2025-07-26",
+            "dateModified": "2026-06-20",
+            "image": "https://greenforest.io/serial_multiplier/mul.png",
+            "description": "A Logisim bit-serial multiplier architecture whose pipeline stays full: after fixed latency, input and output bits continue every clock with no drain gap between operand words.",
+            "mainEntityOfPage": "https://greenforest.io/serial_multiplier/",
+            "publisher": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        .artifact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin: 2rem 0;
+        }
+
+        .artifact-grid a {
+            display: block;
+        }
+
+        .artifact-grid img {
+            border: 1px solid #ccc;
+        }
+
+        .facts {
+            font-family: 'Inconsolata', monospace;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        @media screen and (max-width: 640px) {
+            .artifact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>Bit-Serial Bubbles-Free Multiplier</header>
+    <address>July 26, 2025</address>
+
+    <section class="abstract">
+        <p>A positive-number bit-serial multiplier whose pipeline stays full: after startup alignment, each clock accepts the next input bits and emits the next product bit, with no drain cycles between operand words.</p>
+        <p>The public artifact is a Logisim circuit. The rendered version is 8x8 bits with an 8-bit result stream, but the width is not the point. The point is the schedule.</p>
+    </section>
+
+    <figure>
+        <img src="mul.png" alt="Logisim schematic of the bit-serial bubbles-free multiplier">
+        <figcaption>The multiplier datapath in Logisim. The repeated lanes and serial reducing adders are the artifact to inspect.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h1>Why It Exists</h1>
+            <p>Ordinary FPGA multiplication can become the wrong abstraction. A standard Verilog <code>*</code> may infer hardware with slow clock semantics, difficult timing closure, and pressure on DSP blocks. For some compute graphs, the problem is not multiplying once. The problem is composing many multipliers and adders at high clock rate without turning the design into wide buses, placement trouble, and memory traffic.</p>
+            <p>This multiplier takes the opposite route. It keeps arithmetic in a narrow, regular, bit-serial stream. Every edge carries one bit per clock, every word advances on the same cadence, and the pipeline does not need a bubble between consecutive operands.</p>
+        </section>
+
+        <section>
+            <h1>Streaming Behavior</h1>
+            <p>The input streams are LSB-first. The output stream is also LSB-first. In the rendered 8-bit circuit, the fixed pipeline latency is 3 clocks, matching the depth of the balanced serial reduction tree. Once that latency is accounted for, output bits continue one per clock.</p>
+            <p>"Bubbles-free" means there is no idle drain period between words. The next operand word begins immediately after the previous operand word in the same stream cadence. The output side behaves the same way: after the fixed latency, result bits keep coming on every clock.</p>
+            <p>There is no reset/start framing between words and no ready/valid backpressure in this artifact. The stream phase begins from power-on phase, and the surrounding circuit must know which clock corresponds to bit 0 of each word.</p>
+        </section>
+
+        <section>
+            <h1>Schematic Anatomy</h1>
+            <p>The Logisim file contains harness and helper circuits, but the important pieces are compact:</p>
+            <ul class="facts">
+                <li><code>var</code> serializes an 8-bit value into a one-bit stream.</li>
+                <li><code>add</code> is the clocked serial adder and carries the serial carry state.</li>
+                <li><code>mul</code> generates partial-product lanes and reduces them through a balanced tree of serial adders.</li>
+                <li><code>dbg</code>, <code>main</code>, and <code>main2</code> are inspection and harness support.</li>
+            </ul>
+            <p>Partial products are not stored as a wide parallel matrix. They exist as delayed and gated bit streams feeding the serial reduction tree. Carry propagation is local to the serial adders rather than a wide carry chain across a parallel product bus.</p>
+        </section>
+
+        <section>
+            <h1>Scaling</h1>
+            <p>The design scales linearly in resources with the number of input bits. Wider versions add repeated lanes and reduction structure instead of a wide parallel multiplier block. The balanced serial reduction tree adds one clock of extra latency each time operand width doubles.</p>
+            <p>The useful output width is an application decision. In fixed-width DSP, SDR, AI, and graphics arithmetic, the designer usually knows which product bits matter. Keeping only the useful stream width is part of the architecture, not a failure to compute a decorative full-width product. Signed arithmetic can be added with a cheap parallel sign stream.</p>
+        </section>
+
+        <section>
+            <h1>Tradeoff</h1>
+            <p>The tradeoff is not simply "serial is slower." The architecture gives up wide immediate products in exchange for a uniform streaming schedule, narrow local links, and graph-style composition. That can reduce routing pressure and make large arithmetic graphs easier to reason about, place, and clock.</p>
+            <p>Hard DSP blocks and inferred <code>*</code> multipliers remain useful, but they also bring placement and clocking constraints. This design explores the opposite direction: keep multiplication in the same bit-stream rhythm as the rest of the compute graph and aim for fabric-friendly Fmax.</p>
+        </section>
+
+        <section>
+            <h1>Artifacts</h1>
+            <div class="artifact-grid">
+                <a href="serial_july_2025.circ">
+                    <img src="mul.png" alt="Logisim bit-serial multiplier circuit">
+                    Logisim circuit file
+                </a>
+                <a href="add.png">
+                    <img src="add.png" alt="Logisim serial adder circuit">
+                    Serial adder image
+                </a>
+            </div>
+            <p>The next engineering step is a Verilog port, followed by LUT count, achievable Fmax, timing reports, waveform captures, and comparison against inferred <code>*</code> and DSP-backed multipliers on the same target.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Next:</p>
+        <a href="/how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a>
+        <p>The one-pin radio work is another artifact where timing, pins, and digital signal flow matter more than inherited block diagrams.</p>
+        <p>More:</p>
+        <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
+        <p>A paper bridge for the broader Boolean substrate direction behind circuit-like computation.</p>
+        <a href="/">Go back</a>
+    </nav>
+</body>
+
+</html>
+

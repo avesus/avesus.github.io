@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cartilage Nested-Instantiation Demo</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A browser/GPU demo of hierarchical reconfiguration: local ports, bounded daughter regions, serial configuration streams, and tiled Boolean roles.">
+    <link rel="canonical" href="https://greenforest.io/cartilage-nested-instantiation-demo.html">
+    <meta property="og:title" content="Cartilage Nested-Instantiation Demo">
+    <meta property="og:description" content="A wrapper article for the Cartilage browser/GPU demo: a tiled Boolean fabric with local reconfiguration ports and nested region instantiation.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage-nested-instantiation-demo.html">
+    <link rel="icon" href="data:,">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Cartilage Nested-Instantiation Demo",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            },
+            "datePublished": "2021",
+            "dateModified": "2026-06-20",
+            "description": "A browser/GPU demo of hierarchical reconfiguration: local ports, bounded daughter regions, serial configuration streams, and tiled Boolean roles.",
+            "mainEntityOfPage": "https://greenforest.io/cartilage-nested-instantiation-demo.html",
+            "publisher": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        .artifact-link {
+            font-size: 24px;
+        }
+
+        .role-list {
+            font-family: 'Inconsolata', monospace;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <header>Cartilage Nested-Instantiation Demo</header>
+    <address>Summer 2021</address>
+
+    <section class="abstract">
+        <p>Cartilage is a browser/GPU demo of hierarchical reconfiguration: a tiled Boolean fabric can allocate a bounded daughter region, stream configuration bits through a local reconfiguration port, and replace that region's tile roles without a global magic controller.</p>
+        <p>The demo is not just a visual cellular automaton. It is a model of circuit-like regions with local ports, local ownership, local configuration streams, and tile roles that can be rewritten.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The Live Artifact</h1>
+            <p class="artifact-link"><a href="/cellular-automata-2019/cartilage3.html">Open the Cartilage 3 demo</a></p>
+            <p>The current public artifact is a standalone WebGL page. The Boolean paper page also points to it as the primary live Cartilage demo, where series of MUX tile blocks are instantiated in a nested manner from a left-edge reconfiguration port area by streaming SPI-like configuration bits.</p>
+            <p><a href="https://www.shadertoy.com/view/7lj3Rw" target="_blank" rel="noopener">Cartilage on ShaderToy</a></p>
+        </section>
+
+        <section>
+            <h1>Tile Roles</h1>
+            <p>The code identifies the model as MUX VLSI Boolean logic cellular automata. Each cell has compact configuration state for orientation, mode, parent pointer, current state, and a configuration shift register.</p>
+            <ul class="role-list">
+                <li>Mode 1: wire.</li>
+                <li>Modes 2 through 7: MUX behavior.</li>
+                <li>Special orientation 0: reconfiguration port.</li>
+                <li>Special orientation 1: cross/intersection.</li>
+                <li>Special orientation 2: GND.</li>
+                <li>Special orientation 3: PWR.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Configuration Stream</h1>
+            <p>The implementation contains an 8-bit core configuration block and an 8-bit shift register for new configuration data. The new configuration bits are applied to the main tile-role bits when the subtree has been filled with configuration bits.</p>
+            <p>The configuration stream is clocked from an input into the subtree's reconfiguration port at its root. A completion flip-flop marks when the new configuration bits have been collected.</p>
+        </section>
+
+        <section>
+            <h1>Why Local Ports Matter</h1>
+            <p>A global controller would make the demo less interesting. The point is that reconfiguration enters through local ports. The region being configured is bounded, and the parent/daughter relationship is explicit in the cell state. FPGA and EDA readers should read this as a routing and configuration discipline, not as a metaphor.</p>
+            <p>The parent pointer creates an ownership tree. Reconfiguration ports are tile roles inside the same fabric, not magic holes in the model. That is the difference between a pretty cellular automaton and a composable reconfigurable substrate.</p>
+        </section>
+
+        <section>
+            <h1>Relation To Boolean Algebra</h1>
+            <p>The Boolean paper explains why wires, constants, MUXes, feedback, configuration, and tiling are enough as a universal substrate. Cartilage is a live artifact in that direction: it shows tiles being assigned roles and reconfigured locally in a visible browser/GPU model.</p>
+        </section>
+
+        <section>
+            <h1>Controls In The Artifact</h1>
+            <p>The demo source includes editing controls: ASDW to draw wires while pressing the mouse, ZQERTYU to place multiplexers, backtick for ground, 1 for power, X for intersection, L for reconfiguration port, and numpad 4-8-6-2 to change the parent pointer in the ownership tree.</p>
+            <p>Those controls are artifact notes, not the main pitch. The main pitch is local nested instantiation.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Next:</p>
+        <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
+        <p>The formal Boolean substrate argument behind the live Cartilage demo.</p>
+        <p>More:</p>
+        <a href="/cellular-automata-2019/">Cellular Automata Experiments, 2019-2021</a>
+        <p>The archive of earlier local-rule experiments that led toward Cartilage.</p>
+        <a href="/">Go back</a>
+    </nav>
+</body>
+
+</html>
+

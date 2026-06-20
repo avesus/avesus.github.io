@@ -2,59 +2,178 @@
 <html lang="en">
 
 <head>
-    <title>Some Cool CA</title>
+    <meta charset="utf-8">
+    <title>Cellular Automata Experiments, 2019-2021</title>
+    <meta name="description" content="An archive of browser/GPU cellular automata experiments exploring reversible routing, machine-like heat, organic dynamics, and the path toward Cartilage.">
+    <link rel="canonical" href="https://greenforest.io/cellular-automata-2019/">
+    <meta property="og:title" content="Cellular Automata Experiments, 2019-2021">
+    <meta property="og:description" content="Executable WebGL automata and ShaderToy artifacts from the path toward Cartilage and local reconfigurable computation.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cellular-automata-2019/">
     <link rel="icon" href="data:,">
     <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin: 1.5rem 0 2.5rem;
+        }
+
+        .demo-card {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+
+        .demo-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border: 1px solid #ccc;
+            background: #eee;
+        }
+
+        .demo-card a {
+            display: block;
+            margin-top: 0.7rem;
+            font-size: 22px;
+        }
+
+        .demo-card p {
+            margin: 0.5rem 0 0;
+            text-align: left;
+        }
+
+        @media screen and (max-width: 640px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
-<header>Some Cool CA</header>
+<body>
+    <header>Cellular Automata Experiments, 2019-2021</header>
+    <address>2019-2021</address>
 
-<section class="abstract">
-    <p>All these automata have extremely simple rules of evaluation</p>
-</section>
+    <section class="abstract">
+        <p>This is an archive of browser/GPU cellular automata experiments: local symbol-routing machines that led from reversible and machine-like dynamics toward Cartilage, a locally reconfigurable Boolean fabric.</p>
+        <p>The old pages are preserved as executable artifacts. This page gives them a map.</p>
+    </section>
 
-<main>
+    <main>
+        <section>
+            <h1>Reversible And Information-Conservative</h1>
+            <p>These are the demos closest to conservative local routing: simple rules, visible motion, and state that behaves less like heat and more like signal.</p>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <img src="thumbs/conservative.png" alt="Screenshot preview of the Conservative cellular automaton">
+                    <a href="./conservative.html">Conservative</a>
+                    <p>A reversible or information-conservative local-routing experiment.</p>
+                </article>
+                <article class="demo-card">
+                    <img src="thumbs/charges.png" alt="Screenshot preview of the Charges cellular automaton">
+                    <a href="./charges.html">Charges</a>
+                    <p>A discrete charge-like automaton. Let it run for a while; its behavior develops over time.</p>
+                </article>
+            </div>
+        </section>
 
-    <section>
-        <h1>Cellular automata from 2019</h1>
-        <p>In the Spring of 2019, long before <a href="/cellular-automata-2019/cartilage3.html">the Cartilage idea</a> became clear in the Fall of 2020, I experimented a lot with alternative model of computation, based on passing symbols that define local
-            routing logic. Until Cartilage, these weren't very useful, but they produced amazing visuals. Extremely simple rules can be used to create unusual appearances!</p>
-        <h2>The most feasible for general computation. Reversible and information-conservative</h2>
-        <ul>
-            <li><a href="./conservative.html">Conservative</a></li>
-            <li><a href="./charges.html">Charges ("discrete" positrons+electrons)</a>. Give this machine about 20 minutes to develop</li>
-        </ul>
-        <h2>These look like your computer should look. Not information-conservative, they get "hot":</h2>
-        <ul>
-            <li><a href="./driller.html">Driller</a> (wild)</li>
-            <li><a href="./machine3.html">Machine</a> (stable)</li>
-            <li><a href="./machine.html">Machine</a> (the same automata, but with random state re-init every few seconds)</li>
-        </ul>
+        <section>
+            <h1>Machine-Like And Hot</h1>
+            <p>These look more like dense machinery. They are not information-conservative; activity accumulates and the system gets hot.</p>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <img src="thumbs/driller.png" alt="Screenshot preview of the Driller cellular automaton">
+                    <a href="./driller.html">Driller</a>
+                    <p>A wild machine-like automaton with aggressive local dynamics.</p>
+                </article>
+                <article class="demo-card">
+                    <img src="thumbs/machine3.png" alt="Screenshot preview of the stable Machine cellular automaton">
+                    <a href="./machine3.html">Machine</a>
+                    <p>The stable machine-like version.</p>
+                </article>
+                <article class="demo-card">
+                    <img src="thumbs/machine.png" alt="Screenshot preview of the Machine automaton with random reinitialization">
+                    <a href="./machine.html">Machine with re-init</a>
+                    <p>The same automaton with random state reinitialization every few seconds.</p>
+                </article>
+            </div>
+        </section>
 
-        <h2>Organic / looking like large-scale nature</h2>
-        <ul>
-            <li><a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/WsByDy">Discrete fluid</a> (in the ShaderToy window, <b>CLICK ON THE BACKGROUND</b> to start a wave).</li>
-            <li><a href="./islands.html">Islands</a> (stable)</li>
-            <li><a href="./vortex.html">Vortex</a> (wild)</li>
-        </ul>
+        <section>
+            <h1>Organic Dynamics</h1>
+            <p>These demos are less circuit-like and more visual, but they still come from simple local update rules.</p>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <img src="thumbs/islands.png" alt="Screenshot preview of the Islands cellular automaton">
+                    <a href="./islands.html">Islands</a>
+                    <p>A stable organic-looking local-rule system.</p>
+                </article>
+                <article class="demo-card">
+                    <img src="thumbs/vortex.png" alt="Screenshot preview of the Vortex cellular automaton">
+                    <a href="./vortex.html">Vortex</a>
+                    <p>A wild organic-looking local-rule system.</p>
+                </article>
+            </div>
+        </section>
 
+        <section>
+            <h1>Nonlocal Symbol Routing</h1>
+            <p>Two related February 2019 machines exist as Windows apps written in C++ for Direct3D12, not as local web demos.</p>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <img src="https://img.youtube.com/vi/8QitzYR5enM/hqdefault.jpg" alt="YouTube preview for nonlocal symbol routing machines">
+                    <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8QitzYR5enM">Nonlocal symbol routing machines</a>
+                    <p>A video record of two machines outside this static web archive.</p>
+                </article>
+            </div>
+        </section>
 
-        <h2>Nonlocal symbol routing</h2>
-        <p>There were <a href="https://www.youtube.com/watch?v=8QitzYR5enM">other two machines</a> developed in February 2019, but these are available only as Windows apps written in C++ for Direct3D12</p>
+        <section>
+            <h1>Cartilage Line</h1>
+            <p>The 2021 Cartilage branch is where the local-rule experiments became practical for circuit-like reconfiguration: local ports, parent pointers, serial configuration streams, and tile roles.</p>
+            <div class="demo-grid">
+                <article class="demo-card">
+                    <img src="thumbs/cartilage.png" alt="Screenshot preview of the first Cartilage demo">
+                    <a href="./cartilage.html">Cartilage</a>
+                    <p>The first local web Cartilage artifact in this archive.</p>
+                </article>
+                <article class="demo-card">
+                    <img src="thumbs/cartilage2.png" alt="Screenshot preview of Cartilage 2">
+                    <a href="./cartilage2.html">Cartilage 2</a>
+                    <p>A later Cartilage artifact in the same browser/GPU lineage.</p>
+                </article>
+                <article class="demo-card">
+                    <img src="thumbs/cartilage3.png" alt="Screenshot preview of Cartilage 3">
+                    <a href="./cartilage3.html">Cartilage 3</a>
+                    <p>The primary nested-instantiation demo used by the article wrapper.</p>
+                </article>
+                <article class="demo-card">
+                    <img src="thumbs/cartilage4.png" alt="Screenshot preview of Cartilage 4">
+                    <a href="./cartilage4.html">Cartilage 4</a>
+                    <p>A further Cartilage variant preserved as an executable artifact.</p>
+                </article>
+                <article class="demo-card">
+                    <img src="thumbs/cartilage-shadertoy.png" alt="Screenshot preview of the Cartilage ShaderToy">
+                    <a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/7lj3Rw">Cartilage on ShaderToy</a>
+                    <p>The ShaderToy publication from Summer 2021.</p>
+                </article>
+            </div>
+        </section>
+    </main>
 
-        <h1>Cellular automata from 2021</h1>
-        <p>Finally, there was a practical for digital circuit design new model of computation created in the middle of COVID-induced chip shortage in the summer of 2021</p>
-        <ul>
-            <li><a href="./cartilage.html">Cartilage (let it develop)</a></li>
-        </ul>
+    <nav class="article-links">
+        <p>Next:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
+        <p>The strongest next read is the article explaining why the Cartilage line matters as a reconfigurable circuit fabric.</p>
+        <a href="/">Go back</a>
+    </nav>
 
-        <p>An example of a ShaderToy you can use to browse and reverse-engineer its action here:</p>
-        <ul>
-            <li><a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/7lj3Rw">Cartilage on ShaderToy</a>(original publication from Summer 2021)</li>
-        </ul>
-</main>
+    <footer>
+        <p>&copy; Brian Greenforest 2019-2026</p>
+    </footer>
+</body>
 
-<footer>
-    &copy; Brian Greenforest, 2019-2026. All rights reserved. Find me on <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/briangreenforest">LinkedIn</a>
-
-</footer>
+</html>
