@@ -42,6 +42,45 @@ html.gf-loading body {
 		]).then(() => document.fonts.ready);
 	});
 
+	const backdrop_src = '/linkedin-forest-backdrop.jpeg';
+	const backdrop_ready = new Promise(resolve => {
+		const image = new Image();
+		image.decoding = 'sync';
+		image.addEventListener('load', () => {
+			if (image.decode) {
+				image.decode().then(resolve, resolve);
+			} else {
+				resolve();
+			}
+		}, { once: true });
+		image.addEventListener('error', resolve, { once: true });
+		image.src = backdrop_src;
+	});
+
+	const install_backdrops = () => {
+		if (!document.body || document.body.dataset.greenforestBackdrops === 'installed') {
+			return;
+		}
+
+		document.body.dataset.greenforestBackdrops = 'installed';
+
+		const create_backdrop = position => {
+			const image = document.createElement('img');
+			image.className = `gf-backdrop gf-backdrop-${ position }`;
+			image.src = backdrop_src;
+			image.width = 1400;
+			image.height = 350;
+			image.alt = '';
+			image.decoding = 'sync';
+			image.loading = 'eager';
+			image.setAttribute('aria-hidden', 'true');
+			return image;
+		};
+
+		document.body.insertAdjacentElement('afterbegin', create_backdrop('top'));
+		document.body.insertAdjacentElement('beforeend', create_backdrop('bottom'));
+	};
+
 	let ready_started = false;
 
 	return window.greenforestBoot = {
@@ -57,9 +96,13 @@ html.gf-loading body {
 			});
 
 			window.greenforestReady = Promise.race([
-				Promise.all([dom_ready, fonts_ready]).then(() => 'fonts-ready'),
+				Promise.all([dom_ready, fonts_ready, backdrop_ready]).then(() => {
+					install_backdrops();
+					return 'fonts-ready';
+				}),
 				timeout
 			]).then(status => {
+				install_backdrops();
 				root.classList.remove('gf-loading');
 				root.classList.add('gf-ready');
 				root.setAttribute('data-greenforest-ready', status);
@@ -126,6 +169,27 @@ a {
 
 img {
 	max-width: 100%;
+}
+
+.gf-backdrop {
+	display: block;
+	width: 100vw;
+	max-width: none;
+	height: clamp(96px, 28vw, 180px);
+	object-fit: cover;
+	object-position: center;
+}
+
+.gf-backdrop-top {
+	margin: -40px calc(50% - 50vw) 32px;
+}
+
+.gf-backdrop-bottom {
+	margin: 70px calc(50% - 50vw) 0;
+}
+
+.site-logo {
+	display: none !important;
 }
 
 @media print {
@@ -218,7 +282,7 @@ img {
 		padding-top: 40px;
 		padding-left: 150px;
 		padding-right: 150px;
-		padding-bottom: 100%;
+		padding-bottom: 0;
 		margin-top: 0;
 		margin-bottom: 0;
 		margin-left: auto;
@@ -260,6 +324,10 @@ img {
 	body {
 		padding-left: 40px;
 		padding-right: 40px;
+	}
+
+	.gf-backdrop-top {
+		margin-top: -40px;
 	}
 
 	header {
