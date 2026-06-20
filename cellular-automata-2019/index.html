@@ -25,13 +25,22 @@
             padding: 12px;
         }
 
-        .demo-card img {
+        .demo-card img,
+        .demo-card video {
             display: block;
             width: 100%;
             aspect-ratio: 16 / 9;
             object-fit: cover;
             border: 1px solid #ccc;
             background: #eee;
+        }
+
+        .demo-card.video-card img,
+        .demo-card.video-card video {
+            aspect-ratio: auto;
+            height: auto;
+            object-fit: contain;
+            background: #111;
         }
 
         .demo-card a {
@@ -121,12 +130,20 @@
 
         <section>
             <h1>Nonlocal Symbol Routing</h1>
-            <p>Two related February 2019 machines exist as Windows apps written in C++ for Direct3D12, not as local web demos.</p>
+            <p>The earliest machines used red and green I/O ports on hexagonal cells. A cell's routing scheme existed as a symbol; the machine streamed that symbol across the fabric and reprogrammed a receiving cell through its red port, duplicating the symbol at the target location.</p>
+            <p>That was the whole routing scheme. It was not practical as a programming interface, but it was enough to give rise to Turing-complete behavior from local symbol motion and target-cell reprogramming.</p>
             <div class="demo-grid">
+                <article class="demo-card video-card">
+                    <video controls preload="metadata" poster="thumbs/model-of-computation-routing.jpg">
+                        <source src="video/model-of-computation-routing.mp4" type="video/mp4">
+                    </video>
+                    <a href="video/model-of-computation-routing.mp4">Model of computation routing video</a>
+                    <p>A 29-second capture of the older Windows/Direct3D12 machine. The original phone video is 373 MB; this page uses a compressed web copy.</p>
+                </article>
                 <article class="demo-card">
-                    <img src="https://img.youtube.com/vi/8QitzYR5enM/hqdefault.jpg" alt="YouTube preview for nonlocal symbol routing machines">
-                    <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8QitzYR5enM">Nonlocal symbol routing machines</a>
-                    <p>A video record of two machines outside this static web archive.</p>
+                    <img src="https://img.youtube.com/vi/8QitzYR5enM/hqdefault.jpg" alt="YouTube preview for older nonlocal symbol routing video">
+                    <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8QitzYR5enM">Older YouTube record</a>
+                    <p>A rough external video record of related old machines.</p>
                 </article>
             </div>
         </section>

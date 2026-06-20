@@ -36,6 +36,11 @@ External links:
 - YouTube nonlocal symbol routing machines: https://www.youtube.com/watch?v=8QitzYR5enM
 - ShaderToy Cartilage: https://www.shadertoy.com/view/7lj3Rw
 
+Local source video:
+
+- `C:\ftp_share\ModelOfConmputation.MOV` - 373 MB iPhone source capture of the old model-of-computation routing machine.
+- `cellular-automata-2019/video/model-of-computation-routing.mp4` - compressed site derivative.
+
 ## Editorial Direction
 
 This page should become an archive/index article, not just a list.
@@ -89,6 +94,10 @@ Each demo should have:
 - one sentence on why it matters in the lineage
 - status label: local demo, external ShaderToy, or external video
 
+### Nonlocal Symbol Routing Correction
+
+The earliest machines used red and green I/O ports on hexagonal cells. A cell's routing scheme existed as a symbol. The machine streamed that symbol across the fabric and reprogrammed a receiving cell through its red port, duplicating the symbol at the target location. That was the whole mechanism. It gave rise to Turing-complete behavior, but it was not practical as a programming interface.
+
 ### Navigation
 
 Add article-style navigation later:
@@ -107,4 +116,3 @@ The archive should make clear that the earlier automata were not the endpoint. T
 - Decide whether `cartilage2.html`, `cartilage3.html`, and `cartilage4.html` should appear in the archive index now.
 - Ask Brian for one-sentence meanings for each demo if the current names are not enough.
 - Decide whether to keep `Some Cool CA` as a casual title or replace it with `Cellular Automata Experiments, 2019-2021`.
-

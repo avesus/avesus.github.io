@@ -6,7 +6,7 @@ Current repo state after the June 20, 2026 materialization pass:
 - Draft packets are preserved under `article-drafts/`.
 - The homepage links to article/wrapper pages first and raw artifacts second.
 - `boolean-algebra-is-all-that-is-required.html` is now an artifact-first DOI/PDF bridge with date-only visible metadata and standard next/back navigation.
-- `cellular-automata-2019/` is now an article-style archive with screenshot cards for the local demos and Cartilage ShaderToy card.
+- `cellular-automata-2019/` is now an article-style archive with screenshot cards for the local demos, a compressed model-of-computation routing video, and a Cartilage ShaderToy card.
 - Visible author bylines were removed from current article pages and older book/blog address blocks where they were only repeating the obvious author.
 - `sitemap.xml` includes the new public article URLs and updated lastmod dates for touched public pages.
 
@@ -61,6 +61,8 @@ Do not publish a fake thumbnail for it. Local HTTP requests, direct media URL at
 - Each local demo deserves a short standalone explanation of why it exists.
 - Keep the current archive as a map, not the final article for every demo.
 - Regenerate thumbnails when better seeded states or intentional screenshots exist.
+- The older `ModelOfConmputation.MOV` source is in `C:\ftp_share` and is about 373 MB. The site uses a compressed H.264 web copy under `cellular-automata-2019/video/`.
+- Future writing about the earliest machines must describe the actual mechanism: red/green I/O ports, a streamed routing-symbol for a single hexagon, red-port reprogramming of the receiving cell, symbol duplication at the target, and Turing-complete but impractical-for-programming behavior.
 
 ### SDR / Digital Radio
 
