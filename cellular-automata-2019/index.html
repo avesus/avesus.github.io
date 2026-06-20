@@ -54,6 +54,11 @@
             text-align: left;
         }
 
+        .rule-note {
+            border-left: 3px solid #888;
+            padding-left: 14px;
+        }
+
         @media screen and (max-width: 640px) {
             .demo-grid {
                 grid-template-columns: 1fr;
@@ -72,6 +77,12 @@
     </section>
 
     <main>
+        <section class="rule-note">
+            <h1>How These Shader Pages Run</h1>
+            <p>The old pages contain duplicated and commented GLSL experiments. The active rule is the later GPGPU update shader, not the display shader near the top. Each update pass reads a packed RGBA texture cell, fetches the six hex-neighbor cells, calls one active <code>computeNewNodeState...</code> function, packs the new state back into the swap texture, and then the display shader draws that texture.</p>
+            <p>In the rule summaries below, <code>redArrow</code> is the six-direction port/orientation stored in the cell. A copy means replacing the whole packed cell state with the selected neighbor's state. A rotation means advancing <code>redArrow</code> by one direction modulo six.</p>
+        </section>
+
         <section>
             <h1>Reversible And Information-Conservative</h1>
             <p>These are the demos closest to conservative local routing: simple rules, visible motion, and state that behaves less like heat and more like signal.</p>
@@ -79,12 +90,12 @@
                 <article class="demo-card">
                     <img src="thumbs/conservative.png" alt="Screenshot preview of the Conservative cellular automaton">
                     <a href="./conservative.html">Conservative</a>
-                    <p>A reversible or information-conservative local-routing experiment.</p>
+                    <p>Active update: <code>computeNewNodeStateSimple4</code>. A cell copies a neighbor only when the two red arrows face each other across their shared edge. If no reciprocal neighbor is found, the cell keeps its state and rotates its red arrow. The current page runs a 128x128 state texture with three update passes and partial reseeding during the render loop.</p>
                 </article>
                 <article class="demo-card">
                     <img src="thumbs/charges.png" alt="Screenshot preview of the Charges cellular automaton">
                     <a href="./charges.html">Charges</a>
-                    <p>A discrete charge-like automaton. Let it run for a while; its behavior develops over time.</p>
+                    <p>Active update: <code>computeNewNodeStateSimple5</code>. It first tries the same mutual-facing copy as Conservative, then treats <code>takeQ1fromBifTrueElseFromA</code> as a charge bit. Equal charges repel by reverting to the original cell; either way the red arrow rotates. This version uses a 1024x1024 state texture, three update passes, and periodic partial reseeding.</p>
                 </article>
             </div>
         </section>
@@ -96,17 +107,17 @@
                 <article class="demo-card">
                     <img src="thumbs/driller.png" alt="Screenshot preview of the Driller cellular automaton">
                     <a href="./driller.html">Driller</a>
-                    <p>A wild machine-like automaton with aggressive local dynamics.</p>
+                    <p>Active update: <code>computeNewNodeStateSimple3</code>. A cell copies the occupied neighbor selected by its own red arrow; the neighbor does not need to point back. On phases above 3.5, the copied/current red arrow rotates. The page runs a 128x128 state texture with 36 update passes and periodic partial reseeding.</p>
                 </article>
                 <article class="demo-card">
                     <img src="thumbs/machine3.png" alt="Screenshot preview of the stable Machine cellular automaton">
                     <a href="./machine3.html">Machine</a>
-                    <p>The stable machine-like version.</p>
+                    <p>Active update: <code>computeNewNodeStateSimple4</code>. This is the pure one-way copy rule: copy the whole occupied neighbor selected by the current red arrow, with no reciprocal-facing test and no rotation. The page runs a 128x128 state texture with 36 update passes and periodic partial reseeding.</p>
                 </article>
                 <article class="demo-card">
                     <img src="thumbs/machine.png" alt="Screenshot preview of the Machine automaton with random reinitialization">
                     <a href="./machine.html">Machine with re-init</a>
-                    <p>The same automaton with random state reinitialization every few seconds.</p>
+                    <p>Active update: <code>computeNewNodeStateSimple3</code>. The local rule is the same pure one-way copy used by the stable Machine: copy the occupied neighbor selected by the current red arrow, with no rotation. The difference is the surrounding JavaScript: this page uses a 256x256 state texture, one update pass, and full random lattice reinitialization on an interval.</p>
                 </article>
             </div>
         </section>
@@ -118,12 +129,12 @@
                 <article class="demo-card">
                     <img src="thumbs/islands.png" alt="Screenshot preview of the Islands cellular automaton">
                     <a href="./islands.html">Islands</a>
-                    <p>A stable organic-looking local-rule system.</p>
+                    <p>Active update: <code>computeNewNodeStateSimple3</code>. A cell copies the occupied neighbor selected by its red arrow, then always rotates the resulting red arrow. That one-way copy plus unconditional turn is the whole visible rule. The page runs a 128x128 state texture with 36 update passes and periodic partial reseeding.</p>
                 </article>
                 <article class="demo-card">
                     <img src="thumbs/vortex.png" alt="Screenshot preview of the Vortex cellular automaton">
                     <a href="./vortex.html">Vortex</a>
-                    <p>A wild organic-looking local-rule system.</p>
+                    <p>Active update: <code>computeNewNodeStateSimple3</code>. A cell copies the occupied neighbor selected by its red arrow, then rotates only on phase 6 (<code>uniformPhase &gt; 5.5</code>). This sparse turn schedule, 512x512 state texture, 36 update passes, and partial reseeding during the render loop produce the vortex-like motion.</p>
                 </article>
             </div>
         </section>
