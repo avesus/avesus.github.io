@@ -374,7 +374,7 @@ dt {
 
 @media screen {
 	html {
-		background-color: #bbbbbb;
+		background-color: #28363a;
 		margin: 0;
 	    height: 100%;
 	}
