@@ -65,6 +65,7 @@ set -- npx --yes playwright screenshot \
   --browser=chromium \
   --viewport-size="$VIEWPORT" \
   --full-page \
+  --wait-for-selector="html.gf-ready" \
   --wait-for-timeout="$WAIT_FOR_TIMEOUT"
 
 if [ -n "$CHANNEL" ]; then

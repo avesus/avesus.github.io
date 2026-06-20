@@ -1,3 +1,76 @@
+var greenforestBoot = window.greenforestBoot || (function() {
+	const root = document.documentElement;
+	root.classList.add('gf-loading');
+	root.classList.remove('gf-ready');
+
+	const append_to_head = element => (document.head || root).appendChild(element);
+
+	const boot_style = document.createElement('style');
+	boot_style.textContent = `
+html.gf-loading body {
+	visibility: hidden;
+}
+`;
+	append_to_head(boot_style);
+
+	const font_stylesheet = document.createElement('link');
+	font_stylesheet.rel = 'stylesheet';
+	font_stylesheet.href = '/fonts/greenforest-fonts.css';
+	const font_css_ready = new Promise(resolve => {
+		font_stylesheet.addEventListener('load', resolve, { once: true });
+		font_stylesheet.addEventListener('error', resolve, { once: true });
+	});
+	append_to_head(font_stylesheet);
+
+	const dom_ready = new Promise(resolve => {
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', resolve, { once: true });
+		} else {
+			resolve();
+		}
+	});
+
+	const fonts_ready = font_css_ready.then(() => {
+		if (!document.fonts || !document.fonts.load) {
+			return undefined;
+		}
+
+		return Promise.all([
+			document.fonts.load('400 1em "EB Garamond"', 'Greenforest I/O ∀∂∃∅∇∈∉∋∏∑αβγ'),
+			document.fonts.load('200 1em "Spectral"', 'Greenforest I/O'),
+			document.fonts.load('400 1em "Inconsolata"', 'Article Circuit Label')
+		]).then(() => document.fonts.ready);
+	});
+
+	let ready_started = false;
+
+	return window.greenforestBoot = {
+		ready: function() {
+			if (ready_started) {
+				return window.greenforestReady;
+			}
+
+			ready_started = true;
+
+			const timeout = new Promise(resolve => {
+				window.setTimeout(() => resolve('font-timeout'), 4000);
+			});
+
+			window.greenforestReady = Promise.race([
+				Promise.all([dom_ready, fonts_ready]).then(() => 'fonts-ready'),
+				timeout
+			]).then(status => {
+				root.classList.remove('gf-loading');
+				root.classList.add('gf-ready');
+				root.setAttribute('data-greenforest-ready', status);
+				return status;
+			});
+
+			return window.greenforestReady;
+		}
+	};
+})();
+
 const meta_viewport = document.createElement('meta');
 meta_viewport.name = 'viewport';
 meta_viewport.content = 'initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover';
@@ -6,10 +79,6 @@ document.head.appendChild(meta_viewport);
 const stylesheet = document.createElement('style');
 stylesheet.type = 'text/css';
 stylesheet.innerText = `
-
-@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
 body {
 	counter-reset: h1counter;
@@ -202,3 +271,4 @@ img {
 `;
 
 document.head.appendChild(stylesheet);
+greenforestBoot.ready();
