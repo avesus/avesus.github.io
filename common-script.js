@@ -118,10 +118,12 @@ html.gf-loading body {
 	};
 })();
 
-const meta_viewport = document.createElement('meta');
-meta_viewport.name = 'viewport';
-meta_viewport.content = 'initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover';
-document.head.appendChild(meta_viewport);
+if (!document.querySelector('meta[name="viewport"]')) {
+	const meta_viewport = document.createElement('meta');
+	meta_viewport.name = 'viewport';
+	meta_viewport.content = 'initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover';
+	document.head.appendChild(meta_viewport);
+}
 
 
 const stylesheet = document.createElement('style');
@@ -151,6 +153,107 @@ section {
 
 .gf-backdrop-bottom {
 	margin: 70px calc(50% - 50vw) 0;
+}
+
+img {
+	max-width: 100%;
+}
+
+figure {
+	margin: 2rem 0;
+}
+
+figure img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+figcaption {
+	margin-top: 0.5rem;
+	font-size: 16px;
+	font-style: italic;
+}
+
+.key-line {
+	font-size: 24px;
+	line-height: 1.3;
+	text-align: center;
+	margin: 1.5rem 0;
+}
+
+.chain,
+.formula {
+	font-family: 'Inconsolata', monospace;
+	font-size: 20px;
+	line-height: 1.35;
+	text-align: left;
+	margin: 1.2rem 0;
+	-webkit-hyphens: none;
+	hyphens: none;
+}
+
+.formula {
+	font-size: 22px;
+	text-align: center;
+}
+
+.video-embed a {
+	display: block;
+}
+
+.video-embed img {
+	border: 1px solid #ccc;
+}
+
+nav.article-links {
+	margin-top: 3rem;
+}
+
+nav.article-links a {
+	display: block;
+	margin: 0.6rem 0;
+}
+
+body.doi-landing .meta,
+body.doi-landing .links {
+	margin: 1rem 0 1.5rem;
+}
+
+body.doi-landing h1:before,
+body.doi-landing h2:before {
+	content: none;
+	counter-increment: none;
+}
+
+body.doi-landing h1,
+body.doi-landing h2 {
+	line-height: 1.2;
+}
+
+body.doi-landing a {
+	word-break: break-word;
+}
+
+code {
+	background: #f4f4f4;
+	padding: 0.1rem 0.3rem;
+}
+
+#mc_embed_signup {
+	background: #fff;
+	clear: left;
+	font: 14px Helvetica, Arial, sans-serif;
+	width: 600px;
+}
+
+.mc-response-hidden {
+	display: none;
+}
+
+.mc-honeypot {
+	position: absolute;
+	left: -5000px;
 }
 
 .gf-homepage a {
