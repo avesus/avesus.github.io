@@ -256,7 +256,7 @@
     .link-hit {
       cursor: pointer;
       pointer-events: stroke;
-      stroke: transparent;
+      stroke: rgba(0, 0, 0, 0.001);
       stroke-width: 18px;
     }
 
@@ -385,6 +385,8 @@
     let autoOrbit = false;
     let rotating = false;
     let lastPointer = null;
+    let pointerStart = null;
+    let applyingNavigation = false;
     let simulation = null;
     let linkSelection = null;
     let linkHitSelection = null;
@@ -398,6 +400,43 @@
         "\"": "&quot;",
         "'": "&#39;"
       })[char]);
+    }
+
+    function navigationIdFromHash() {
+      const hash = window.location.hash.replace(/^#/, "");
+      if (!hash) return "";
+      const params = new URLSearchParams(hash);
+      return params.get("navigation") || "";
+    }
+
+    function navigationHash(id) {
+      return "#navigation=" + encodeURIComponent(id || "overview");
+    }
+
+    function pushNavigation(id, replace = false) {
+      const next = navigationHash(id);
+      if (window.location.hash === next) return;
+      const state = { navigation: id || "overview" };
+      if (replace) history.replaceState(state, "", next);
+      else history.pushState(state, "", next);
+    }
+
+    function applyNavigationFromHash(options = {}) {
+      if (!nodeById.size) return;
+      const id = navigationIdFromHash();
+      applyingNavigation = true;
+      if (!id || id === "overview" || !nodeById.has(id)) {
+        selectedId = null;
+        showDetail(null);
+        render();
+      } else {
+        selectNode(id, {
+          center: options.center !== false,
+          duration: options.duration || 420,
+          push: false
+        });
+      }
+      applyingNavigation = false;
     }
 
     function resize() {
@@ -525,12 +564,7 @@
       linkHitSelection = linkHitLayer.selectAll("line")
         .data(links)
         .join("line")
-        .attr("class", "link-hit")
-        .on("click", (event, link) => {
-          event.stopPropagation();
-          const next = chooseAdjacentNode(link, event);
-          if (next) selectNode(next.id, { center: true });
-        });
+        .attr("class", "link-hit");
 
       nodeSelection = nodeLayer.selectAll("g")
         .data(nodes, d => d.id)
@@ -570,15 +604,55 @@
         .on("tick", ticked);
     }
 
-    function chooseAdjacentNode(link, event) {
+    function nodeSpecificity(node) {
+      if (node.type === "term") return 6;
+      if (node.type === "pattern") return 5;
+      if (node.type === "hub") return 4;
+      if (node.type === "section") return 3;
+      if (node.type === "course") return 2;
+      return 1;
+    }
+
+    function segmentPosition(point, source, target) {
+      const dx = target.p.x - source.p.x;
+      const dy = target.p.y - source.p.y;
+      const lengthSq = dx * dx + dy * dy;
+      if (!lengthSq) return 0;
+      return Math.max(0, Math.min(1, ((point[0] - source.p.x) * dx + (point[1] - source.p.y) * dy) / lengthSq));
+    }
+
+    function distanceToSegment(point, source, target) {
+      const t = segmentPosition(point, source, target);
+      const x = source.p.x + (target.p.x - source.p.x) * t;
+      const y = source.p.y + (target.p.y - source.p.y) * t;
+      return Math.hypot(point[0] - x, point[1] - y);
+    }
+
+    function nearestLink(point, pointerType) {
+      const threshold = pointerType === "touch" ? 36 : 20;
+      let best = null;
+      for (const link of links) {
+        if (!link.source.p || !link.target.p) continue;
+        const distance = distanceToSegment(point, link.source, link.target);
+        if (distance <= threshold && (!best || distance < best.distance)) {
+          best = { link, distance };
+        }
+      }
+      return best ? best.link : null;
+    }
+
+    function chooseAdjacentNode(link, point) {
       const source = link.source;
       const target = link.target;
       if (selectedId === source.id) return target;
       if (selectedId === target.id) return source;
-      const point = d3.pointer(event, svg.node());
-      const sourceDistance = Math.hypot(point[0] - source.p.x, point[1] - source.p.y);
-      const targetDistance = Math.hypot(point[0] - target.p.x, point[1] - target.p.y);
-      return sourceDistance <= targetDistance ? source : target;
+      const position = segmentPosition(point, source, target);
+      if (position < 0.35) return source;
+      if (position > 0.65) return target;
+      if (nodeSpecificity(source) !== nodeSpecificity(target)) {
+        return nodeSpecificity(source) > nodeSpecificity(target) ? source : target;
+      }
+      return position < 0.5 ? source : target;
     }
 
     function animateTransform(targetTransform, duration) {
@@ -611,7 +685,8 @@
       selectedId = id;
       const node = nodeById.get(id);
       showDetail(node);
-      if (node && options.center) centerNode(node);
+      if (node && options.push !== false && !applyingNavigation) pushNavigation(node.id);
+      if (node && options.center) centerNode(node, options.duration || 620);
       render();
     }
 
@@ -649,9 +724,11 @@
       query = searchEl.value.trim().toLowerCase();
       if (query) {
         const hit = nodes.find(node => node.searchText.includes(query));
-        if (hit) selectedId = hit.id;
-        showDetail(hit || null);
-        if (hit) centerNode(hit, 420);
+        if (hit) {
+          selectNode(hit.id, { center: true, duration: 420 });
+          return;
+        }
+        showDetail(null);
       }
       render();
     }
@@ -679,6 +756,7 @@
       query = "";
       searchEl.value = "";
       showDetail(null);
+      if (!applyingNavigation) pushNavigation("overview");
       render();
     }
 
@@ -695,8 +773,27 @@
       requestAnimationFrame(animate);
     }
 
+    function isNodeTarget(target) {
+      return !!(target && target.closest && target.closest(".node"));
+    }
+
+    function handleEdgeTap(event) {
+      const point = d3.pointer(event, svg.node());
+      const link = nearestLink(point, event.pointerType);
+      if (!link) return false;
+      const next = chooseAdjacentNode(link, point);
+      if (!next) return false;
+      selectNode(next.id, { center: true });
+      return true;
+    }
+
     svg.on("pointerdown", event => {
-      if (event.target.tagName !== "svg") return;
+      pointerStart = {
+        x: event.clientX,
+        y: event.clientY,
+        pointerType: event.pointerType
+      };
+      if (event.target !== svg.node()) return;
       rotating = true;
       lastPointer = [event.clientX, event.clientY];
       svg.node().setPointerCapture(event.pointerId);
@@ -716,9 +813,15 @@
     });
 
     svg.on("pointerup pointercancel", event => {
+      const start = pointerStart;
+      pointerStart = null;
+      const moved = start ? Math.hypot(event.clientX - start.x, event.clientY - start.y) : Infinity;
       rotating = false;
       lastPointer = null;
       try { svg.node().releasePointerCapture(event.pointerId); } catch (error) {}
+      if (event.type === "pointerup" && moved <= 10 && !isNodeTarget(event.target)) {
+        if (handleEdgeTap(event)) event.stopPropagation();
+      }
     });
 
     svg.on("wheel", event => {
@@ -741,6 +844,8 @@
     document.getElementById("clear").addEventListener("click", clearFocus);
     searchEl.addEventListener("input", updateSearch);
     window.addEventListener("resize", resize);
+    window.addEventListener("popstate", () => applyNavigationFromHash({ center: true }));
+    window.addEventListener("hashchange", () => applyNavigationFromHash({ center: true }));
 
     fetch("meaning-graph-data.json", { cache: "no-cache" })
       .then(response => {
@@ -760,7 +865,9 @@
         statsEl.innerHTML = "<b>" + data.summary.terms + "</b> terms - <b>" + data.summary.nodes + "</b> nodes - <b>" + data.summary.links + "</b> links";
         statusEl.textContent = "Graph ready: " + data.summary.terms + " terms, " + data.summary.links + " links. Drag empty space to rotate.";
         resize();
-        showDetail(null);
+        const initialNavigation = navigationIdFromHash();
+        if (!initialNavigation) pushNavigation("overview", true);
+        applyNavigationFromHash({ center: !!initialNavigation });
         animate();
       })
       .catch(error => {
