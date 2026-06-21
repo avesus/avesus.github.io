@@ -25,7 +25,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-04-22",
-            "dateModified": "2026-06-20",
+            "dateModified": "2026-06-21",
             "image": "https://greenforest.io/backdrop_rf.jpeg",
             "description": "A one-pin FPGA FM receiver that thresholds RF into transitions, samples in four phases, uses Weaver-style XOR mixing, CIC filtering, cross-product FM demodulation, and sigma-delta audio output.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
@@ -177,6 +177,71 @@
                 <li>a sigma-delta output stage produces sound</li>
             </ul>
             <p>That is the receiver.</p>
+        </section>
+
+        <section>
+            <h1>The Verilog Follow-Up</h1>
+            <p>The added source snapshot is now in <a href="one-pin-RF/">one-pin-RF/</a>. The selected receiver file for this article is <a href="one-pin-RF/fm_radio_demo_2026/fm_radio_nov15.sv">fm_radio_demo_2026/fm_radio_nov15.sv</a>, because <a href="one-pin-RF/fm_radio_demo_2026/build.sh">build.sh</a> is wired to synthesize that file for an iCE40 UP5K build. The nearby <code>fm_radio_2026_pin_4_3.sv</code> file is a near-identical retuned variant, not the build target.</p>
+            <p>The build path is explicit: Yosys reads the SystemVerilog, nextpnr targets UP5K SG48 with the pin constraints, IceStorm packs the bitstream, and <code>dfu-util</code> downloads it.</p>
+            <pre><code>read_verilog -sv ./fm_radio_nov15.sv
+synth_ice40 -top top -json ./build/fm_radio.json
+nextpnr-ice40 --ignore-loops --pre-pack ./timing.py --freq 336 --up5k --package sg48
+icepack ./build/fm_radio.txt ./build/fm_radio.bin</code></pre>
+            <p>The relevant pin boundary is one RF input and one sigma-delta audio output. The constraint file maps <code>DIFF_PINS_4P_3N</code> to package pin 4 and <code>PIN2</code> to package pin 2.</p>
+            <pre><code>input DIFF_PINS_4P_3N,
+output PIN2,
+
+wire [1:0] RF4X_SAMPLES;
+
+SB_IO #(
+    .PIN_TYPE(6'b000000),
+    .IO_STANDARD("SB_LVDS_INPUT")
+) ddr_sampler_2 (
+    .PACKAGE_PIN(DIFF_PINS_4P_3N),
+    .INPUT_CLK(CLK_168_MHZ),
+    .D_IN_0(RF4X_SAMPLES[0]),
+    .D_IN_1(RF4X_SAMPLES[1])
+);</code></pre>
+            <p>The sampler is not a metaphor. The comments in the source call the DDR samplers the heart of the radio: they sample binary RF values at the four-times-LO clock. The code then folds the even and odd samples into two 16-bit quadrature words.</p>
+            <pre><code>samples_even &lt;= {samples_even[n-1:0], RF4X_SAMPLES[0]};
+samples_odd  &lt;= {samples_odd [n-1:0], RF4X_SAMPLES[1]};
+
+samples_i &lt;= {
+  samples_even[7],  samples_odd[7],
+ ~samples_even[6], ~samples_odd[6],
+  samples_even[5],  samples_odd[5],
+  // same alternating pattern continues through bit 0
+};
+
+samples_q &lt;= {
+ ~samples_even[7],  samples_odd[7],
+  samples_even[6], ~samples_odd[6],
+ ~samples_even[5],  samples_odd[5],
+  // same quadrature pattern continues through bit 0
+};</code></pre>
+            <p>The digital mixer is controlled inversion. The repeated accumulation blocks XOR each one-bit sample against the DDS sign bit, then sum the results into the baseband accumulators.</p>
+            <pre><code>sum &lt;=
+    { 4'd0, samples_i[ 0] ^ dds_ch1[CH1_MSB] }
+  + { 4'd0, samples_i[ 1] ^ dds_ch1[CH1_MSB] }
+  + { 4'd0, samples_i[ 2] ^ dds_ch1[CH1_MSB] };
+
+sum_qq &lt;=
+    { 4'd0, samples_q[ 0] ^ dds_ch1_90[CH1_MSB] }
+  + { 4'd0, samples_q[ 1] ^ dds_ch1_90[CH1_MSB] }
+  + { 4'd0, samples_q[ 2] ^ dds_ch1_90[CH1_MSB] };</code></pre>
+            <p>The FM recovery stage is the same direct relative-phase calculation described above. The implementation multiplies the current and previous baseband I/Q values in the cross-product form, then feeds that into the sigma-delta output path.</p>
+            <pre><code>phase_delta &lt;= decimator[DECIMATOR_MSB] ? (
+  samples_bb[25:10] * samples_q_bb[25:10]
+  -
+  samples_bb_q[25:10] * samples[25:10]
+) : phase_delta;
+
+sd_dac &lt;= {2'd0, phase_delta, 16'd0} + 34'd6442450944 +
+  (dac_out ? 34'd8589934592 : 34'd8589934591);
+
+dac_out &lt;= sd_dac[SD_DAC_MSB];
+assign PIN2 = ~dac_out;</code></pre>
+            <p>That is the promised Verilog follow-up in miniature: thresholded RF enters one FPGA pin, the iCE40 DDR input primitive samples it, the logic builds I/Q by timing and inversion, the baseband path uses the cross product instead of <code>atan2</code>, and the recovered signal leaves as a sigma-delta bitstream.</p>
         </section>
 
         <section>

@@ -1,0 +1,343 @@
+/* FM Radio SDR receiver
+(C) Ivan Borisenko 2024
+MIT License.
+*/
+
+// Double buffer deserializer
+module DBDESER (input wire DDR_CLK, // 84MHz max
+  input wire CLK, // 1/2 DDR_CLK
+  input wire DDR_D,
+  output wire [1:0] OUT);
+
+  reg p = 1'b1;
+  reg np = 1'b0;
+
+  wire [1:0] b1w;
+  SB_DFFE b1(.D(DDR_D), .E(p), .C(DDR_CLK), .Q(b1w[0]));
+  SB_DFFE b2(.D(b1w[0]), .E(p), .C(DDR_CLK), .Q(b1w[1]));
+
+  wire [1:0] b2w;
+  SB_DFFE b3(.D(DDR_D), .E(np), .C(DDR_CLK), .Q(b2w[0]));
+  SB_DFFE b4(.D(b2w[0]), .E(np), .C(DDR_CLK), .Q(b2w[1]));
+
+  reg [1:0] r1;
+  always @(posedge CLK) begin
+    r1 <= p ? b2w : b1w;
+    p <= ~p;
+    np <= ~np;
+  end
+
+  assign OUT = r1;
+
+endmodule
+
+// Double buffer deserializer
+module DBDESER_N (input wire DDR_CLK, // 84MHz max
+  input wire CLK, // 1/2 DDR_CLK
+  input wire DDR_D,
+  output wire [1:0] OUT);
+
+  reg p = 1'b1;
+  reg np = 1'b0;
+
+  wire [1:0] b1w;
+  SB_DFFNE b1(.D(DDR_D), .E(p), .C(DDR_CLK), .Q(b1w[0]));
+  SB_DFFNE b2(.D(b1w[0]), .E(p), .C(DDR_CLK), .Q(b1w[1]));
+
+  wire [1:0] b2w;
+  SB_DFFNE b3(.D(DDR_D), .E(np), .C(DDR_CLK), .Q(b2w[0]));
+  SB_DFFNE b4(.D(b2w[0]), .E(np), .C(DDR_CLK), .Q(b2w[1]));
+
+  reg [1:0] r1;
+  always @(posedge CLK) begin
+    r1 <= p ? b2w : b1w;
+    p <= ~p;
+    np <= ~np;
+  end
+
+  assign OUT = r1;
+
+endmodule
+
+module top (
+  (* clkbuf_inhibit *) input CRYSTAL_12MHZ,
+
+  output LED_R,
+  output LED_G,
+  output LED_B,
+
+  // input DIFF_PINS_4P_3N,
+  input DIFF_PINS_32P_31N,
+
+  // Measurement & Debug pins
+  // RC-filtered audio Sigma-Delta Ready
+  output PIN2,
+
+  // High-frequency probes
+  output PIN42,
+  output PIN43
+);
+
+  assign LED_R = 1'b0;
+  assign LED_G = 1'b0;
+  assign LED_B = 1'b0;
+
+  // Reserve all MAC DSP so that the compiler doesn't randomly infer them
+  wire [31:0] m1;
+  wire [31:0] m2;
+  wire [31:0] m3;
+  wire [31:0] m4;
+  wire [31:0] m5;
+  wire [31:0] m6;
+  wire [31:0] m7;
+  wire [31:0] m8;
+  wire CLK2;
+  (* keep *) SB_MAC16 #() mac1 (.CLK(CLK2), .O(m1));
+  (* keep *) SB_MAC16 #() mac2 (.CLK(CLK2), .O(m2));
+  (* keep *) SB_MAC16 #() mac3 (.CLK(CLK2), .O(m3));
+  (* keep *) SB_MAC16 #() mac4 (.CLK(CLK2), .O(m4));
+  (* keep *) SB_MAC16 #() mac5 (.CLK(CLK2), .O(m5));
+  (* keep *) SB_MAC16 #() mac6 (.CLK(CLK2), .O(m6));
+  (* keep *) SB_MAC16 #() mac7 (.CLK(CLK2), .O(m7));
+  (* keep *) SB_MAC16 #() mac8 (.CLK(CLK2), .O(m8));
+
+  // Reserve all global buffers so that some intermediate short and small fast clock wires
+  // do not drive the whole chip's H-tree with all its power consumption and capacitance
+  // at super high clock frequency accidentally. Verilog compilers love to waste global buffers.
+
+
+
+  // Note: we must use multiple core 4 clock phases of 108MHz with extremely high resolution compute
+  wire CLK;
+  reg r42m0 = 1'b0;
+  (* keep *) SB_GB htree1 (.USER_SIGNAL_TO_GLOBAL_BUFFER (r42m0), .GLOBAL_BUFFER_OUTPUT (CLK));
+
+  always @(negedge  RF_LO_X4_PHASES_90_270_DDR) r42m0 <= ~r42m0;
+
+
+  wire CLK_90;
+  wire CLK_180;
+  wire CLK_270;
+  reg r108m90 = 1'b0;
+  reg r108m180 = 1'b0;
+  reg r108m270 = 1'b0;
+  (* keep *) SB_GB htree2 (.USER_SIGNAL_TO_GLOBAL_BUFFER (r108m90), .GLOBAL_BUFFER_OUTPUT (CLK_90));
+  (* keep *) SB_GB htree3 (.USER_SIGNAL_TO_GLOBAL_BUFFER (r108m180), .GLOBAL_BUFFER_OUTPUT (CLK_180));
+  (* keep *) SB_GB htree4 (.USER_SIGNAL_TO_GLOBAL_BUFFER (r108m270), .GLOBAL_BUFFER_OUTPUT (CLK_270));
+
+  //always @(negedge  RF_LO_X4_PHASES_0_180_DDR) r108m180 <= ~r108m180;
+  //always @(posedge  RF_LO_X4_PHASES_90_270_DDR) r108m90 <= ~r108m90;
+  //always @(negedge  RF_LO_X4_PHASES_90_270_DDR) r108m270 <= ~r108m270;
+
+
+
+
+  // Automatic clock is 21MHz allows to drive most of synthesized hyper-slow carry-propagate adder chains.
+  // Standard Verilog compilers do not add pipeline registers nor they use Wallace trees, Carry Save Adders,
+  // Nor they use Han-Carlson adders, unless you have Synopsis/Cadence license to tape out your TI-designed chips.
+  (* keep *) SB_GB htree5 (.USER_SIGNAL_TO_GLOBAL_BUFFER (clk_54mhz_reg_a), .GLOBAL_BUFFER_OUTPUT (CLK_54M));
+  
+
+  // Reserve goes into PLL
+  //(* keep *) SB_GB htree6 (.USER_SIGNAL_TO_GLOBAL_BUFFER (clk_54mhz_reg_a), .GLOBAL_BUFFER_OUTPUT (CLK_54M2));
+  //(* keep *) SB_GB htree7 (.USER_SIGNAL_TO_GLOBAL_BUFFER (clk_54mhz_reg_a), .GLOBAL_BUFFER_OUTPUT (CLK_54M3));
+
+  // Reserve and disable the super-slow and CDC-requiring built-in-oscillators. We can use them later.
+  (* clkbuf_inhibit *) wire INTERNAL_48MHZ_OSC;
+  (* keep, ROUTE_THROUGH_FABRIC=1 *) SB_HFOSC #(
+    //.CLKHF_DIV("0b00") // 80.7MHz (?!)
+    // .CLKHF_DIV("0b10") // 12MHz
+    .CLKHF_DIV("0b11") // 6MHz => 10MHz
+  ) osc48MHz (
+    .CLKHFPU(1'b0), // CLK High-Freq Power Up
+    .CLKHFEN(1'b0),
+    .CLKHF(INTERNAL_48MHZ_OSC)
+  ) /* synthesis ROUTE_THROUGH_FABRIC=1 */;
+
+  // 10kHz OSC => 16kHz measured
+  (* clkbuf_inhibit *) wire INTERNAL_10KHZ_OSC;
+  (* keep, ROUTE_THROUGH_FABRIC=1 *) SB_LFOSC #(
+  ) osc10kHz (
+    .CLKLFPU(1'b0), // CLK High-Freq Power Up
+    .CLKLFEN(1'b0),
+    .CLKLF(INTERNAL_10KHZ_OSC)
+  );
+
+  // Core DDR samplers are the heart of the radio representing
+  // an ADC that samples binary values at RF_LO_X4, where f is the target RF LO frequency.
+  // The first DDR sampler is driven without phase offset
+  (* clkbuf_inhibit, keep *) wire CLK_168_MHZ;
+
+  // The second DDR samples is driven from PLL-produced 90 degrees phase offset.
+  (* clkbuf_inhibit, keep *) wire CLK_168_MHZ_270;
+
+  // In BYPASS, this applied to only ONE of the outputs, PLLOUTCOREA
+  //reg [3:0] pll_out_delay_a = 4'd15; // 0..15 in 150ps increments (applied even in BYPASS mode)
+  reg [3:0] pll_out_delay_a = 4'd0; // 0..15 in 150ps increments (applied even in BYPASS mode)
+
+  reg disable_pll = 1'b0;
+
+  SB_PLL40_2F_PAD #(
+    .FEEDBACK_PATH("PHASE_AND_DELAY"),
+    // Feedback multiplier 0..63 => REF_CLK * 1..64
+    // This value plus 1 is the output clock multiplier, i.e. 13 => 14 * 12MHz = 168MHz
+    .DIVF(7'd13), // 168MHz  // feedback multiplier 0..63 => REF_CLK * 1..64
+    .FILTER_RANGE(3'd1), // low-pass filter before VCO 0..7
+
+    // !!! Must be kept fixed at 2 sharp for low frequencies
+    //.DIVQ(3'd2), // VCO divider 1..6 => "1": 2, "2": 4, "3": 8, "4": 16, "5": 32, "6" = 64
+    .DIVQ(3'd1), // VCO divider 1..6 => "1": 2, "2": 4, "3": 8, "4": 16, "5": 32, "6" = 64
+    .DELAY_ADJUSTMENT_MODE_RELATIVE("DYNAMIC"), // output delay
+
+    // 10MHz post-divided is the minimum input; 0 = 12MHz
+    .DIVR(4'd0), // input divider 0..15 => 1..16. Because our clock is so low, we should keep it 1 always.
+    .SHIFTREG_DIV_MODE(0), // 0 -> divide by 4; 1: divide by 7 => causes non-50% duty cycle
+    .DELAY_ADJUSTMENT_MODE_FEEDBACK("FIXED"), // feedback delay does nothing
+    .FDA_FEEDBACK(4'b0000), // => not used
+    .PLLOUT_SELECT_PORTA("SHIFTREG_90deg"),
+    .PLLOUT_SELECT_PORTB("SHIFTREG_0deg"),
+    .ENABLE_ICEGATE_PORTA(0),
+    .ENABLE_ICEGATE_PORTB(0)
+  ) the_pll (
+    .PACKAGEPIN(CRYSTAL_12MHZ),
+    .PLLOUTGLOBALA(CLK_168_MHZ), // H-tree
+    //.PLLOUTGLOBALB(RF_LO_X4_PHASES_0_180_DDR), // H-tree
+    //.PLLOUTCOREA(RF_LO_X4_PHASES_90_270_DDR),
+    .PLLOUTCOREB(CLK_168_MHZ_270),
+    .DYNAMICDELAY({ pll_out_delay_a, 4'b0 }),
+    .RESETB(1'b1),
+    .BYPASS(1'b0),
+    //.BYPASS(1'b1), // test path!
+    .LATCHINPUTVALUE(disable_pll),
+    .LOCK(),
+    .SDI(1'b0),
+    .SDO(),
+    .SCLK(1'b0)
+  );
+
+  wire [1:0] RF4X_SAMPLES;
+
+  // DDR sampler
+  SB_IO #(
+      .PIN_TYPE(6'b000000),
+      .IO_STANDARD("SB_LVDS_INPUT")
+  ) ddr_sampler_2 (
+      .PACKAGE_PIN(DIFF_PINS_32P_31N),
+      .INPUT_CLK(CLK_168_MHZ),
+      .D_IN_0(RF4X_SAMPLES[0]),
+      .D_IN_1(RF4X_SAMPLES[1])
+  );
+
+  reg [7:0] samples_even;
+  always @(posedge CLK_168_MHZ) begin
+    samples_even <= {samples_even[n-1:0], RF4X_SAMPLES[0]};
+  end
+  reg [7:0] samples_odd;
+  always @(negedge CLK_168_MHZ) begin
+    samples_odd <= {samples_odd[n-1:0], RF4X_SAMPLES[1]};
+  end
+
+  wire CLK_21_MHZ;
+  reg [3:0] r21m0 = 8'd0;
+  (* keep *) SB_GB htree8 (.USER_SIGNAL_TO_GLOBAL_BUFFER (r21m0[0]), .GLOBAL_BUFFER_OUTPUT (CLK_21_MHZ));
+  always @(posedge CLK_168_MHZ) r21m0 <= {r21m0[2:0], ~r21m0[3]};
+
+  reg [15:0] samples_i;
+  reg [15:0] samples_q;
+  always @(posedge CLK_21_MHZ) begin
+    samples_i <= {
+      ~samples_even[0],
+      samples_odd [0],
+      samples_even[1],
+      ~samples_odd [1],
+      ~samples_even[2],
+      samples_odd [2],
+      samples_even[3],
+      ~samples_odd [3],
+      ~samples_even[4],
+      samples_odd [4],
+      samples_even[5],
+      ~samples_odd [5],
+      ~samples_even[6],
+      samples_odd [6],
+      samples_even[7],
+      ~samples_odd [7] };
+    samples_q <= {
+      ~samples_even[0],
+      ~samples_odd [0],
+      samples_even[1],
+      samples_odd [1],
+      ~samples_even[2],
+      ~samples_odd [2],
+      samples_even[3],
+      samples_odd [3],
+      ~samples_even[4],
+      ~samples_odd [4],
+      samples_even[5],
+      samples_odd [5],
+      ~samples_even[6],
+      ~samples_odd [6],
+      samples_even[7],
+      samples_odd [7] };
+      
+  end
+
+  localparam CH1_MSB = 6;
+  reg [CH1_MSB:0] dds_ch1;
+  always @(posedge CLK_21_MHZ) dds_ch1 <= dds_ch1 + 7'd55;
+
+  // Accumulate every 55 samples of 16 RF points
+  localparam DECIMATOR_INIT = 7'd9;
+  localparam DECIMATOR_MSB = 6;
+  reg [DECIMATOR_MSB:0] decimator = DECIMATOR_INIT;
+  always @(posedge CLK_21_MHZ) decimator <= decimator[DECIMATOR_MSB] ? DECIMATOR_INIT : (decimator + 7'd1);
+
+  reg [4:0] sum;
+  reg [31:0] samples;
+
+  localparam SD_DAC_MSB = 8;
+  localparam SD_DAC_BITS_MINUS_ONE = 8'd0;
+  reg [SD_DAC_MSB:0] sd_dac;
+
+  always @(posedge CLK_21_MHZ) begin
+
+    samples <= decimator[DECIMATOR_MSB] ? 32'd0 : (samples + { 27'd0, sum });
+
+    sum <=
+        { 4'd0, samples_i[ 0] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[ 1] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[ 2] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[ 3] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[ 4] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[ 5] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[ 6] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[ 7] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[ 8] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[ 9] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[10] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[11] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[12] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[13] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[14] ^ dds_ch1[CH1_MSB] }
+      + { 4'd0, samples_i[15] ^ dds_ch1[CH1_MSB] };
+  end
+
+  always @(posedge CLK_21_MHZ) begin
+    sd_dac <= decimator[DECIMATOR_MSB] ?
+      (sd_dac + samples[SD_DAC_MSB:0]
+        + { SD_DAC_BITS_MINUS_ONE, ~sd_dac[SD_DAC_MSB] }) : sd_dac;
+  end
+
+  assign PIN42 = 1'b0;
+  assign PIN43 = 1'b0;
+
+  //assign PIN43 = RF4X_SAMPLES[0];
+  //assign PIN43 = RF4X_SAMPLES[1];
+  //assign PIN43 = CLK_21_MHZ;
+  //assign PIN43 = samples[11];
+
+  // assign PIN2 = samples[11];
+  assign PIN2 = ~sd_dac[SD_DAC_MSB];
+  //assign PIN2 = 1'b0;
+
+endmodule

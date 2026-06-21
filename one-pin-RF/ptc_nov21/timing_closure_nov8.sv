@@ -1,0 +1,295 @@
+/* ITCNet Radio SDR receiver
+(C) Ivan Borisenko 2024 and Meteorcomm LLC
+All rights reserved. This product is NOT open source.
+*/
+
+module DESER1_2_POSEDGE (input wire D, input C, output reg [1:0] O);
+  reg deser_reg = 1'b0;
+  always @(posedge C) begin
+    deser_reg <= ~deser_reg;
+    O[0] <= deser_reg ? O[0] : D;
+    O[1] <= deser_reg ? D : O[0];
+  end
+endmodule
+
+module DESER1_2_NEGEDGE (input wire D, input C, output reg [1:0] O);
+  reg deser_reg = 1'b0;
+  always @(negedge C) begin
+    deser_reg <= ~deser_reg;
+    O[0] <= deser_reg ? O[0] : D;
+    O[1] <= deser_reg ? D : O[0];
+  end
+endmodule
+
+/*
+Warning: Wire top.\clk_54mhz_reg_a is used but has no driver.
+Warning: Wire top.\clk_27mhz_reg_a is used but has no driver.
+Warning: Wire top.\clk_108mhz_reg_d is used but has no driver.
+Warning: Wire top.\clk_108mhz_reg_c is used but has no driver.
+
+./itcnet_nov4.sv:106: Warning: Identifier `\clk_108mhz_reg_c' is implicitly declared.
+./itcnet_nov4.sv:107: Warning: Identifier `\clk_108mhz_reg_d' is implicitly declared.
+./itcnet_nov4.sv:108: Warning: Identifier `\clk_27mhz_reg_a' is implicitly declared.
+./itcnet_nov4.sv:109: Warning: Identifier `\clk_54mhz_reg_a' is implicitly declared.
+./itcnet_nov4.sv:248: Warning: Identifier `\rf2x_0_and_4.O' is implicitly declared.
+./itcnet_nov4.sv:248: Warning: Range select out of bounds on signal `\rf2x_0_and_4.O': Setting result bit to undef.
+./itcnet_nov4.sv:249: Warning: Identifier `\rf2x_1_and_5.O' is implicitly declared.
+./itcnet_nov4.sv:249: Warning: Range select out of bounds on signal `\rf2x_1_and_5.O': Setting result bit to undef.
+./itcnet_nov4.sv:250: Warning: Identifier `\rf2x_2_and_6.O' is implicitly declared.
+./itcnet_nov4.sv:250: Warning: Range select out of bounds on signal `\rf2x_2_and_6.O': Setting result bit to undef.
+./itcnet_nov4.sv:251: Warning: Identifier `\rf2x_3_and_7.O' is implicitly declared.
+./itcnet_nov4.sv:251: Warning: Range select out of bounds on signal `\rf2x_3_and_7.O': Setting result bit to undef.
+./itcnet_nov4.sv:255: Warning: Range select out of bounds on signal `\rf2x_0_and_4.O': Setting result bit to undef.
+./itcnet_nov4.sv:256: Warning: Range select out of bounds on signal `\rf2x_1_and_5.O': Setting result bit to undef.
+./itcnet_nov4.sv:257: Warning: Range select out of bounds on signal `\rf2x_2_and_6.O': Setting result bit to undef.
+./itcnet_nov4.sv:258: Warning: Range select out of bounds on signal `\rf2x_3_and_7.O': Setting result bit to undef.
+
+*/
+
+module top (
+  (* clkbuf_inhibit *) input CRYSTAL_12MHZ,
+
+  output LED_R,
+  output LED_G,
+  output LED_B,
+
+  input DIFF_PINS_4P_3N,
+  input DIFF_PINS_32P_31N,
+
+  // Measurement & Debug pins
+  // RC-filtered audio Sigma-Delta Ready
+  output PIN2,
+
+  // High-frequency probes
+  output PIN42,
+  output PIN43
+);
+
+  assign LED_R = 1'b0;
+  assign LED_G = 1'b0;
+  assign LED_B = 1'b0;
+
+  assign PIN2 = 1'b0;
+
+  // Reserve all MAC DSP so that the compiler doesn't randomly infer them
+  wire [31:0] m1;
+  wire [31:0] m2;
+  wire [31:0] m3;
+  wire [31:0] m4;
+  wire [31:0] m5;
+  wire [31:0] m6;
+  wire [31:0] m7;
+  wire [31:0] m8;
+  wire CLK = 1'b0;
+  (* keep *) SB_MAC16 #() mac1 (.CLK(CLK), .O(m1));
+  (* keep *) SB_MAC16 #() mac2 (.CLK(CLK), .O(m2));
+  (* keep *) SB_MAC16 #() mac3 (.CLK(CLK), .O(m3));
+  (* keep *) SB_MAC16 #() mac4 (.CLK(CLK), .O(m4));
+  (* keep *) SB_MAC16 #() mac5 (.CLK(CLK), .O(m5));
+  (* keep *) SB_MAC16 #() mac6 (.CLK(CLK), .O(m6));
+  (* keep *) SB_MAC16 #() mac7 (.CLK(CLK), .O(m7));
+  (* keep *) SB_MAC16 #() mac8 (.CLK(CLK), .O(m8));
+
+  // Reserve all global buffers so that some intermediate short and small fast clock wires
+  // do not drive the whole chip's H-tree with all its power consumption and capacitance
+  // at super high clock frequency accidentally. Verilog compilers love to waste global buffers.
+  wire CLK_90;
+  wire CLK_180;
+  wire CLK_270;
+  wire CLK_27M;
+  wire CLK_54M;
+  wire CLK_54M2;
+  wire CLK_54M3;
+
+  // Drive the first clock buffer at 108MHz:
+  wire BUF_108MHZ;
+  //reg reg_108mhz = 1'b0;
+  reg o6;
+  //(* keep *) SB_GB htree1 (.USER_SIGNAL_TO_GLOBAL_BUFFER (reg_108mhz), .GLOBAL_BUFFER_OUTPUT (BUF_108MHZ));
+  (* keep *) SB_GB htree1 (.USER_SIGNAL_TO_GLOBAL_BUFFER (~o6), .GLOBAL_BUFFER_OUTPUT (BUF_108MHZ));
+  // Automatic clock is 27MHz allows to drive most of synthesized hyper-slow carry-propagate adder chains.
+  // Standard Verilog compilers do not add pipeline registers nor they use Wallace trees, Carry Save Adders,
+  // Nor they use Han-Carlson adders, unless you have Synopsis/Cadence license to tape out your TI-designed chips.
+  (* keep *) wire SLOW_AUTO_CLK;
+  (* keep *) reg [3:0] johnson_ctr_27mhz = 4'd0;
+  // This closes @ 215.15 MHz
+  // (* keep *) SB_GB htree2 (.USER_SIGNAL_TO_GLOBAL_BUFFER (johnson_ctr_27mhz[0]), .GLOBAL_BUFFER_OUTPUT (SLOW_AUTO_CLK));
+  (* keep *) wire SLOW_AUTO_CLK2;
+
+  reg o5;
+  (* keep *) SB_GB htree2 (.USER_SIGNAL_TO_GLOBAL_BUFFER (~johnson_ctr_27mhz[2]), .GLOBAL_BUFFER_OUTPUT (SLOW_AUTO_CLK2));
+
+  // Note: we can use multiple core 4 clock phases of 108MHz with extremely high resolution compute
+  (* keep *) SB_GB htree3 (.USER_SIGNAL_TO_GLOBAL_BUFFER (clk_108mhz_reg_c), .GLOBAL_BUFFER_OUTPUT (CLK_90));
+  (* keep *) SB_GB htree4 (.USER_SIGNAL_TO_GLOBAL_BUFFER (clk_108mhz_reg_d), .GLOBAL_BUFFER_OUTPUT (CLK_270));
+  (* keep *) SB_GB htree5 (.USER_SIGNAL_TO_GLOBAL_BUFFER (clk_27mhz_reg_a), .GLOBAL_BUFFER_OUTPUT (CLK_27M));
+  (* keep *) SB_GB htree6 (.USER_SIGNAL_TO_GLOBAL_BUFFER (clk_54mhz_reg_a), .GLOBAL_BUFFER_OUTPUT (CLK_54M));
+
+  (* keep *) SB_GB htree7 (.USER_SIGNAL_TO_GLOBAL_BUFFER (clk_54mhz_reg_a), .GLOBAL_BUFFER_OUTPUT (CLK_54M2));
+  (* keep *) SB_GB htree8 (.USER_SIGNAL_TO_GLOBAL_BUFFER (clk_54mhz_reg_a), .GLOBAL_BUFFER_OUTPUT (CLK_54M3));
+
+  // Reserve and disable the super-slow and CDC-requiring built-in-oscillators. We can use them later.
+  (* clkbuf_inhibit *) wire INTERNAL_48MHZ_OSC;
+  (* keep, ROUTE_THROUGH_FABRIC=1 *) SB_HFOSC #(
+    //.CLKHF_DIV("0b00") // 80.7MHz (?!)
+    // .CLKHF_DIV("0b10") // 12MHz
+    .CLKHF_DIV("0b11") // 6MHz => 10MHz
+  ) osc48MHz (
+    .CLKHFPU(1'b0), // CLK High-Freq Power Up
+    .CLKHFEN(1'b0),
+    .CLKHF(INTERNAL_48MHZ_OSC)
+  ) /* synthesis ROUTE_THROUGH_FABRIC=1 */;
+
+  // 10kHz OSC => 16kHz measured
+  (* clkbuf_inhibit *) wire INTERNAL_10KHZ_OSC;
+  (* keep, ROUTE_THROUGH_FABRIC=1 *) SB_LFOSC #(
+  ) osc10kHz (
+    .CLKLFPU(1'b0), // CLK High-Freq Power Up
+    .CLKLFEN(1'b0),
+    .CLKLF(INTERNAL_10KHZ_OSC)
+  );
+
+  // Core DDR samplers are the heart of the radio representing
+  // an ADC that samples binary values at RF_LO_X4, where f is the target RF LO frequency.
+  // The first DDR sampler is driven without phase offset
+  (* clkbuf_inhibit, keep *) wire RF_LO_X4_PHASES_0_180_DDR;
+
+  // The second DDR samples is driven from PLL-produced 90 degrees phase offset.
+  (* clkbuf_inhibit, keep *) wire RF_LO_X4_PHASES_90_270_DDR;
+
+  // In BYPASS, this applied to only ONE of the outputs, PLLOUTCOREA
+  //reg [3:0] pll_out_delay_a = 4'd15; // 0..15 in 150ps increments (applied even in BYPASS mode)
+  reg [3:0] pll_out_delay_a = 4'd0; // 0..15 in 150ps increments (applied even in BYPASS mode)
+
+  reg disable_pll = 1'b0;
+
+  wire RF_LO_X4_PHASES_90_270_DDR_HTREE;
+  wire RF_LO_X4_PHASES_0_180_DDR_HTREE;
+
+  SB_PLL40_2F_PAD #(
+    .FEEDBACK_PATH("PHASE_AND_DELAY"),
+    // Feedback multiplier 0..63 => REF_CLK * 1..64
+    // This value plus 1 is the output clock multiplier, i.e. 17 => 18 * 12MHz = 216MHz
+    .DIVF(7'd17), // 216MHz // feedback multiplier 0..63 => REF_CLK * 1..64
+    //.DIVF(7'd7), // 96MHz  // feedback multiplier 0..63 => REF_CLK * 1..64
+    .FILTER_RANGE(3'd1), // low-pass filter before VCO 0..7
+    // .DIVQ(3'd5), // VCO divider 1..6 => "1": 2, "2": 4, "3": 8, "4": 16, "5": 32, "6" = 64
+
+    // !!! Must be kept fixed at 2 sharp for low frequencies
+    // .DIVQ(3'd2), // VCO divider 1..6 => "1": 2, "2": 4, "3": 8, "4": 16, "5": 32, "6" = 64
+    // This is for 216MHz
+    .DIVQ(3'd1), // VCO divider 1..6 => "1": 2, "2": 4, "3": 8, "4": 16, "5": 32, "6" = 64
+    .DELAY_ADJUSTMENT_MODE_RELATIVE("DYNAMIC"), // output delay
+
+    // 10MHz post-divided is the minimum input; 0 = 12MHz
+    .DIVR(4'd0), // input divider 0..15 => 1..16. Because our clock is so low, we should keep it 1 always.
+    .SHIFTREG_DIV_MODE(0), // 0 -> divide by 4; 1: divide by 7 => causes non-50% duty cycle
+    .DELAY_ADJUSTMENT_MODE_FEEDBACK("FIXED"), // feedback delay does nothing
+    .FDA_FEEDBACK(4'b0000), // => not used
+    .PLLOUT_SELECT_PORTA("SHIFTREG_90deg"),
+    .PLLOUT_SELECT_PORTB("SHIFTREG_0deg")
+    //.ENABLE_ICEGATE_PORTA(1'b1),
+    //.ENABLE_ICEGATE_PORTB(1'b1)
+  ) the_pll (
+    .PACKAGEPIN(CRYSTAL_12MHZ),
+    //.PLLOUTGLOBALA(RF_LO_X4_PHASES_90_270_DDR_HTREE), // H-tree
+    //.PLLOUTGLOBALB(RF_LO_X4_PHASES_0_180_DDR_HTREE), // H-tree
+    .PLLOUTCOREA(RF_LO_X4_PHASES_90_270_DDR),
+    .PLLOUTCOREB(RF_LO_X4_PHASES_0_180_DDR),
+    .DYNAMICDELAY({ pll_out_delay_a, 4'b0 }),
+    .RESETB(1'b1),
+    .BYPASS(1'b0), // test path!
+    //.BYPASS(1'b1), // test path!
+    .LATCHINPUTVALUE(disable_pll),
+    .LOCK(),
+    .SDI(1'b0),
+    .SDO(),
+    .SCLK(1'b0)
+  );
+
+  wire [3:0] RF4X_SAMPLES;
+
+  // DDR sampler 1
+  SB_IO #(
+      .PIN_TYPE(6'b000000),
+      .IO_STANDARD("SB_LVDS_INPUT")
+  ) ddr_sampler_1 (
+      .PACKAGE_PIN(DIFF_PINS_4P_3N),
+      .INPUT_CLK(RF_LO_X4_PHASES_0_180_DDR),
+      .D_IN_0(RF4X_SAMPLES[0]),
+      .D_IN_1(RF4X_SAMPLES[2])
+  );
+
+  // DDR sampler 2
+  SB_IO #(
+      .PIN_TYPE(6'b000000),
+      .IO_STANDARD("SB_LVDS_INPUT")
+  ) ddr_sampler_2 (
+      .PACKAGE_PIN(DIFF_PINS_32P_31N),
+      .INPUT_CLK(RF_LO_X4_PHASES_90_270_DDR),
+      .D_IN_0(RF4X_SAMPLES[1]),
+      .D_IN_1(RF4X_SAMPLES[3])
+  );
+
+  // 2 pipe shift registers @ 216MHz
+  reg [31:0] sr = 32'd0;
+  reg [31:0] sr2 = 32'd0;
+  // 2 pipe shift registers @ 216MHz
+  reg [31:0] sr3 = 32'd0;
+  reg [31:0] sr4 = 32'd0;
+
+  always @(posedge RF_LO_X4_PHASES_0_180_DDR) sr <= { sr[30:0], RF4X_SAMPLES[0] };
+  always @(negedge RF_LO_X4_PHASES_0_180_DDR) sr2 <= { sr2[30:0], RF4X_SAMPLES[2] };
+  always @(posedge RF_LO_X4_PHASES_90_270_DDR) sr3 <= { sr3[30:0], RF4X_SAMPLES[1] };
+  always @(negedge RF_LO_X4_PHASES_90_270_DDR) sr4 <= { sr4[30:0], RF4X_SAMPLES[3] };
+
+  // Divide 108MHz by factor of 4
+  always @(negedge RF_LO_X4_PHASES_0_180_DDR) johnson_ctr_27mhz <= { johnson_ctr_27mhz[2:0], ~johnson_ctr_27mhz[3] };
+
+  reg o1;
+  reg o2;
+  reg o3;
+  reg o4;
+
+  //always @(posedge SLOW_AUTO_CLK) begin
+
+  // This closes at 215.15 MHz
+  /*
+  always @(posedge johnson_ctr_27mhz[3]) begin
+    o1 <= sr[31];
+    o2 <= sr2[31];
+    o3 <= sr3[31];
+    o4 <= sr4[31];
+  end
+  */
+
+  //always @(posedge SLOW_AUTO_CLK) begin
+  always @(posedge johnson_ctr_27mhz[0]) begin
+    o1 <= sr[31];
+    o2 <= sr2[31];
+    o3 <= sr3[31];
+    o4 <= sr4[31];
+
+    o5 <= o1 ^ o2;
+    o6 <= o3 ^ o4;
+  end
+
+  reg [5:0] ooo;
+  reg sum;
+  reg car;
+  always @(posedge SLOW_AUTO_CLK2) begin
+    ooo[0] <= o1;
+    ooo[1] <= o2;
+    ooo[2] <= o3;
+    ooo[3] <= o4;
+
+    ooo[4] <= o5;
+    ooo[5] <= o6;
+    sum <= ooo[0] ^ ooo[1] ^ ooo[2] ^ ooo[3] ^ ooo[4] ^ ooo[5];
+    car <= ooo[0] & ooo[1] & ooo[2] & ooo[3] & ooo[4] & ooo[5];
+  end
+
+  assign PIN42 = car; //o1 ^ o2; //sr[31] ^ sr2[31];
+  assign PIN43 = sum; //o3 ^ o4; //sr3[31] ^ sr4[31]; // 1'b0; // SLOW_AUTO_CLK;
+
+endmodule

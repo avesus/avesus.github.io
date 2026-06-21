@@ -1,0 +1,20 @@
+set_io -nowarn LED_G            39 # active-low
+set_io -nowarn LED_B            40 # active-low
+set_io -nowarn LED_R            41 # active-low
+set_io -nowarn CRYSTAL_12MHZ              35
+
+# SD DAC output
+set_io -nowarn PIN2 2
+
+#set_io -nowarn DIFF_PINS_4P_3N 4
+
+set_io -nowarn PIN4 4
+set_io -nowarn PIN3 3
+
+#set_io -nowarn PIN32 32
+set_io -nowarn DIFF_PINS_32P_31N 32
+# set_io -nowarn PIN31 31 complement of 32
+
+set_io -nowarn PIN42 42
+set_io -nowarn PIN43 43
+set_io -nowarn PIN10 10

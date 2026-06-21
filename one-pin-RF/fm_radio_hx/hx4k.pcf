@@ -1,0 +1,7 @@
+set_io -nowarn CRYSTAL_12MHZ              49
+
+# SD DAC output
+set_io -nowarn PIN2 102
+
+set_io -nowarn DIFF_PINS_32P_31N 2
+

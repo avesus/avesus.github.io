@@ -68,8 +68,10 @@ Do not publish a fake thumbnail for it. Local HTTP requests, direct media URL at
 ### SDR / Digital Radio
 
 - Preserve the engineering framing: pin count, thresholded RF stream, four-phase sampling, XOR/Weaver mixing, CIC filtering, cross-product FM demodulation, sigma-delta output, PCB prototype, limitations.
+- The single-pin FM article now has a basic Verilog follow-up section with source links and extracted snippets from the selected UP5K receiver snapshot.
 - Add videos of FM receiving when stable public links are available.
-- Add Verilog/module summary and PCB prototype notes.
+- Add deeper module/resource/timing notes only from build logs or fresh FPGA measurements, not from packed bitstream files.
+- Add PCB prototype notes.
 
 ### Magnetics
 

@@ -1,0 +1,12 @@
+set_io -nowarn CRYSTAL_12MHZ              J3
+
+# SD DAC output
+set_io -nowarn PIN2 C16
+
+# K3 K1
+set_io -nowarn DIFF_PINS_32P_31N K3
+
+
+set_io -nowarn LED_R B5
+
+
