@@ -130,6 +130,11 @@ const stylesheet = document.createElement('style');
 stylesheet.type = 'text/css';
 stylesheet.innerText = `
 
+:root {
+	--gf-backdrop-height: clamp(96px, 28vw, 180px);
+	--gf-bottom-backdrop-gap: 70px;
+}
+
 section {
 	word-break: normal;
 	-webkit-hyphens: auto;
@@ -142,7 +147,7 @@ section {
 	display: block;
 	width: 100vw;
 	max-width: none;
-	height: clamp(96px, 28vw, 180px);
+	height: var(--gf-backdrop-height);
 	object-fit: cover;
 	object-position: center;
 }
@@ -152,7 +157,11 @@ section {
 }
 
 .gf-backdrop-bottom {
-	margin: 70px calc(50% - 50vw) 0;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	margin: 0;
+	transform: translateX(-50%);
 }
 
 img {
@@ -592,11 +601,14 @@ dt {
 	body {
 		background-color: #ffffff;
 		font-size: 20px;
-		width: 600px;
+		box-sizing: border-box;
+		width: 900px;
+		position: relative;
+		min-height: 100vh;
 		padding-top: 40px;
 		padding-left: 150px;
 		padding-right: 150px;
-		padding-bottom: 0;
+		padding-bottom: calc(var(--gf-bottom-backdrop-gap) + var(--gf-backdrop-height));
 		/*min-height: 100%;*/
 		margin-top: 0;
 		margin-bottom: 0;
@@ -651,7 +663,7 @@ dt {
 @media screen and (max-width: 920px) {
 
 	body {
-		width: auto;
+		width: 100%;
 	}
 }
 
