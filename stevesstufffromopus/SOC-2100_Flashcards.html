@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOC-2100 Flashcards — Marriage & the Family</title>
+<style>
+  :root{
+    --bg:#1b2430; --bg2:#222e3c; --panel:#26323f;
+    --card:#FBF6EC; --card-edge:#ece1cb;
+    --ink:#1c2530; --ink-soft:#5a6473; --rule:#e6d9bf;
+    --accent:#c8912b; --accent-ink:#3a2a08; --accent-soft:rgba(200,145,43,.16);
+    --known:#6f9b6e; --review:#c0744a;
+    --ui:#cdd6e2; --ui-dim:#828ea0; --ui-line:#33414f;
+    --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+    --sans:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"SF Mono",ui-monospace,"Cascadia Code",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:
+      radial-gradient(120% 90% at 50% -10%, #243140 0%, var(--bg) 60%);
+    color:var(--ui); font-family:var(--sans);
+    min-height:100vh; padding:28px 18px 60px;
+    display:flex; flex-direction:column; align-items:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{width:100%; max-width:680px}
+
+  /* Header */
+  header h1{
+    font-family:var(--serif); font-weight:600; letter-spacing:.2px;
+    font-size:clamp(1.35rem,4.4vw,1.85rem); margin:0 0 4px; color:#f3ede0;
+  }
+  header .sub{
+    font-family:var(--mono); text-transform:uppercase; letter-spacing:.16em;
+    font-size:.66rem; color:var(--ui-dim); margin:0 0 18px;
+  }
+
+  /* Filter bar */
+  .filters{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:22px}
+  .filters button{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.04em;
+    color:var(--ui-dim); background:transparent;
+    border:1px solid var(--ui-line); border-radius:999px;
+    padding:6px 11px; cursor:pointer; transition:all .15s ease;
+  }
+  .filters button:hover{color:var(--ui); border-color:#4a5a6b}
+  .filters button.on{
+    color:var(--accent-ink); background:var(--accent);
+    border-color:var(--accent); font-weight:600;
+  }
+  .filters button:disabled{opacity:.34; cursor:not-allowed}
+  .filters button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+  /* Stats */
+  .stats{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.05em;
+    color:var(--ui-dim); margin-bottom:10px; gap:12px;
+  }
+  .stats .right b{color:var(--known); font-weight:600}
+  .stats .right i{color:var(--review); font-style:normal; font-weight:600}
+
+  /* Card */
+  .stage{perspective:1600px; margin-bottom:18px}
+  .card{
+    position:relative; width:100%; min-height:330px; cursor:pointer;
+    background:none; border:0; padding:0; display:block; text-align:left;
+  }
+  .inner{
+    position:relative; width:100%; min-height:330px;
+    transition:transform .5s cubic-bezier(.2,.7,.2,1);
+    transform-style:preserve-3d;
+  }
+  .card.flipped .inner{transform:rotateY(180deg)}
+  .face{
+    position:absolute; inset:0; -webkit-backface-visibility:hidden;
+    backface-visibility:hidden; background:var(--card);
+    border:1px solid var(--card-edge); border-radius:14px;
+    box-shadow:0 18px 40px -22px rgba(0,0,0,.7), 0 2px 0 var(--card-edge);
+    padding:30px 30px 26px; display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+  .back{transform:rotateY(180deg)}
+
+  /* catalog tab */
+  .tab{
+    align-self:flex-start; font-family:var(--mono); font-size:.62rem;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--accent-ink);
+    background:var(--accent); padding:4px 10px; border-radius:5px;
+    margin-bottom:auto;
+  }
+  .tab.theorist{background:var(--ink); color:#f0d79a}
+
+  /* front term */
+  .term{
+    font-family:var(--serif); color:var(--ink); font-weight:600;
+    font-size:clamp(1.5rem,6vw,2.25rem); line-height:1.16;
+    padding-top:22px; padding-bottom:16px;
+    border-bottom:2px solid var(--rule);
+  }
+  .front .hint{
+    font-family:var(--mono); font-size:.6rem; letter-spacing:.12em;
+    text-transform:uppercase; color:#a89c84; margin-top:16px;
+  }
+
+  /* back definition */
+  .def{
+    font-size:clamp(1rem,3.6vw,1.18rem); line-height:1.5; color:var(--ink);
+    padding-top:20px; margin-bottom:auto;
+  }
+  .meta{
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.05em;
+    color:var(--ink-soft); padding-top:16px; margin-top:14px;
+    border-top:1px solid var(--rule);
+  }
+  .meta b{color:var(--accent-ink); background:var(--accent-soft);
+    padding:1px 5px; border-radius:4px; font-weight:600}
+
+  /* empty state */
+  .empty{
+    background:var(--panel); border:1px dashed var(--ui-line); border-radius:14px;
+    min-height:330px; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; padding:30px; gap:10px;
+  }
+  .empty .big{font-family:var(--serif); font-size:1.4rem; color:#f0e9da}
+  .empty p{margin:0; color:var(--ui-dim); font-size:.9rem; max-width:34ch}
+
+  /* controls */
+  .controls{display:flex; gap:10px; margin-bottom:14px}
+  .controls button{
+    flex:1; font-family:var(--sans); font-size:.92rem; font-weight:500;
+    color:var(--ui); background:var(--bg2); border:1px solid var(--ui-line);
+    border-radius:10px; padding:13px 10px; cursor:pointer; transition:all .14s ease;
+  }
+  .controls button:hover{background:#2c3a49; border-color:#46566a}
+  .controls button:active{transform:translateY(1px)}
+  .controls .flip{flex:1.5; background:var(--accent); color:var(--accent-ink);
+    border-color:var(--accent); font-weight:600}
+  .controls .flip:hover{background:#d59c34}
+  .controls button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+  .markrow{display:flex; gap:10px; margin-bottom:20px}
+  .markrow button{
+    flex:1; font-family:var(--sans); font-size:.82rem; font-weight:500;
+    background:transparent; border:1px solid var(--ui-line); border-radius:10px;
+    padding:11px 10px; cursor:pointer; transition:all .14s ease; color:var(--ui-dim);
+  }
+  .markrow .known:hover{border-color:var(--known); color:var(--known)}
+  .markrow .review:hover{border-color:var(--review); color:var(--review)}
+  .markrow button.activeflag{border-color:var(--review); color:var(--review);
+    background:rgba(192,116,74,.1)}
+  .markrow button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+  .footer{display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:.64rem; letter-spacing:.06em; color:var(--ui-dim)}
+  .footer .keys span{color:var(--ui); background:var(--bg2);
+    border:1px solid var(--ui-line); border-radius:4px; padding:1px 5px; margin:0 1px}
+  .footer button{font-family:var(--mono); font-size:.64rem; letter-spacing:.06em;
+    color:var(--ui-dim); background:none; border:0; cursor:pointer; text-decoration:underline;
+    text-underline-offset:3px}
+  .footer button:hover{color:var(--review)}
+
+  @media (max-width:480px){
+    .footer .keys{display:none}
+    .face{padding:24px 22px 22px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .inner{transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Marriage &amp; the Family — Term Deck</h1>
+    <p class="sub">SOC-2100-TE · 126 cards · flip, shuffle, filter</p>
+    <div class="filters" id="filters"></div>
+  </header>
+
+  <main>
+    <div class="stats">
+      <div class="left" id="counter">Card 1 of 126</div>
+      <div class="right" id="progress"></div>
+    </div>
+
+    <div class="stage">
+      <button class="card" id="card" aria-label="Flashcard, activate to flip">
+        <div class="inner">
+          <div class="face front">
+            <span class="tab" id="tabF">A · Foundations</span>
+            <div class="term" id="term">—</div>
+            <div class="hint">Click or press space to flip</div>
+          </div>
+          <div class="face back">
+            <span class="tab" id="tabB">A · Foundations</span>
+            <div class="def" id="def">—</div>
+            <div class="meta" id="meta"></div>
+          </div>
+        </div>
+      </button>
+      <div class="empty" id="empty" style="display:none">
+        <div class="big" id="emptyBig">Deck cleared 🎉</div>
+        <p id="emptyMsg">You've marked every card here as known.</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prev">← Prev</button>
+      <button class="flip" id="flip">Flip</button>
+      <button id="next">Next →</button>
+      <button id="shuffle">↺ Shuffle</button>
+    </div>
+    <div class="markrow">
+      <button class="known" id="markKnown">✓ Got it (hide)</button>
+      <button class="review" id="markReview">★ Flag for review</button>
+    </div>
+
+    <div class="footer">
+      <div class="keys">
+        <span>←</span><span>→</span> move · <span>space</span> flip ·
+        <span>k</span> known · <span>r</span> review · <span>s</span> shuffle
+      </div>
+      <button id="reset">reset all progress</button>
+    </div>
+  </main>
+</div>
+
+<script>
+const CARDS = [
+  // ===== SECTION A — Foundations: forms, kinship, theory, methods, class =====
+  {sec:"A",term:"Nuclear family",def:"Two parents and their dependent children living together as one household unit."},
+  {sec:"A",term:"Extended family",def:"A family of three or more generations, or one that includes relatives beyond the parent–child unit, living together or closely tied."},
+  {sec:"A",term:"Family of orientation",def:"The family you are born into and raised in."},
+  {sec:"A",term:"Family of procreation",def:"The family you create through marriage/partnership and having or raising children."},
+  {sec:"A",term:"Blended family / Stepfamily",def:"A family formed when one or both partners bring children from a prior relationship into a new marriage."},
+  {sec:"A",term:"Cohabitation",def:"Two unmarried partners in an intimate relationship living together in the same household."},
+  {sec:"A",term:"Fictive kin",def:"People treated as relatives despite no blood or marriage tie — e.g., a close friend the children call 'auntie'."},
+  {sec:"A",term:"Monogamy",def:"Marriage to one spouse at a time."},
+  {sec:"A",term:"Serial monogamy",def:"Marrying, divorcing, and remarrying — one spouse at a time, but several across a lifetime."},
+  {sec:"A",term:"Polygamy",def:"Marriage involving more than two spouses at once (the umbrella term)."},
+  {sec:"A",term:"Polygyny",def:"One husband married to two or more wives at the same time."},
+  {sec:"A",term:"Polyandry",def:"One wife married to two or more husbands at the same time."},
+  {sec:"A",term:"Endogamy",def:"The norm of marrying WITHIN one's own social group — same race, religion, class, or ethnicity."},
+  {sec:"A",term:"Exogamy",def:"The norm of marrying OUTSIDE one's own group (e.g., the incest taboo forces marriage outside the immediate family)."},
+  {sec:"A",term:"Patriarchy",def:"A family or social system in which men hold authority and power."},
+  {sec:"A",term:"Egalitarian family",def:"A family in which partners share power and decision-making roughly equally."},
+  {sec:"A",term:"Patrilineal / Matrilineal descent",def:"Tracing kinship and inheritance through the father's line (patrilineal) or the mother's line (matrilineal)."},
+  {sec:"A",term:"Structural-functionalism",def:"Views the family as a system whose parts perform functions that keep society stable — socializing children, regulating sex, providing emotional support. Key: roles exist because they help the system work.",who:"Parsons / Durkheim tradition"},
+  {sec:"A",term:"Instrumental vs. expressive roles",def:"Parsons' claim that families specialize: an instrumental role (breadwinner / task-leader) and an expressive role (nurturer / emotional caretaker).",who:"Talcott Parsons"},
+  {sec:"A",term:"Manifest vs. latent functions",def:"Manifest = intended, recognized functions; latent = unintended, hidden consequences.",who:"Robert Merton"},
+  {sec:"A",term:"Conflict theory",def:"Views the family through power, inequality, and competition for resources. Arrangements persist because they serve the powerful — NOT because they benefit everyone. It critiques hierarchy rather than endorsing it.",who:"Marx / Engels tradition"},
+  {sec:"A",term:"Feminist perspective",def:"Examines how gender inequality is created and reproduced in families — especially women's unequal share of power and unpaid labor."},
+  {sec:"A",term:"Symbolic interactionism",def:"Focuses on the shared meanings, symbols, and definitions people build through everyday interaction, and how these shape roles and the self.",who:"Mead / Blumer tradition"},
+  {sec:"A",term:"Social construction of reality",def:"The idea that people actively create shared meanings — including what counts as 'family' — through interaction.",who:"Berger & Luckmann"},
+  {sec:"A",term:"Social exchange theory",def:"People weigh rewards against costs; they stay in a relationship when benefits exceed costs and the alternatives look worse."},
+  {sec:"A",term:"Family systems theory",def:"Treats the family as an interconnected system — a change in one member affects all the others (boundaries, subsystems, feedback loops)."},
+  {sec:"A",term:"Family development / Life course theory",def:"Analyzes the predictable stages families pass through over time: marriage, childbearing, launching children, the empty nest."},
+  {sec:"A",term:"Ecological theory",def:"Examines families within nested environments — microsystem, mesosystem, exosystem, and macrosystem.",who:"Urie Bronfenbrenner"},
+  {sec:"A",term:"Postmodern perspective",def:"Emphasizes family diversity and rejects the idea of one 'normal' or correct family form."},
+  {sec:"A",term:"Empirical / scientific method",def:"Building knowledge from systematic, verifiable observation and evidence rather than opinion or tradition."},
+  {sec:"A",term:"Survey",def:"A research method that gathers data from many respondents using questionnaires or interviews."},
+  {sec:"A",term:"Representative sample",def:"A sample that mirrors the larger population, so findings can be generalized to it."},
+  {sec:"A",term:"Random sample",def:"A sample in which every member of the population has an equal chance of being selected."},
+  {sec:"A",term:"Generalizability",def:"The extent to which findings from a sample can be applied to the whole population."},
+  {sec:"A",term:"Reliability vs. validity",def:"Reliability = consistent, repeatable results; validity = actually measuring what you intend to measure."},
+  {sec:"A",term:"Independent vs. dependent variable",def:"The independent variable is manipulated (the presumed cause); the dependent variable is the measured effect."},
+  {sec:"A",term:"Correlation vs. causation",def:"Correlation = two things vary together; causation = one actually produces the other. Correlation alone never proves cause."},
+  {sec:"A",term:"Experiment",def:"A controlled study that manipulates an independent variable to test its effect, usually using experimental and control groups."},
+  {sec:"A",term:"Naturalistic observation",def:"Watching and recording behavior in its natural setting without manipulating any conditions."},
+  {sec:"A",term:"Ethnography / Participant observation",def:"In-depth research in which the investigator immerses in and observes a group, sometimes taking part in it."},
+  {sec:"A",term:"Informed consent",def:"Participants must be told a study's purpose, risks, and procedures and must voluntarily agree before taking part."},
+  {sec:"A",term:"Confidentiality vs. anonymity",def:"Confidentiality = the researcher knows identities but won't reveal them; anonymity = even the researcher can't link responses to a person."},
+  {sec:"A",term:"Expertise vs. experience",def:"Expertise rests on systematic evidence and method; personal experience is real but may not generalize to others."},
+  {sec:"A",term:"Socioeconomic status (SES)",def:"A person's or family's position based on income, education, and occupation."},
+  {sec:"A",term:"Feminization of poverty",def:"The trend in which women — especially single mothers — make up a growing share of those living in poverty."},
+
+  // ===== SECTION B — Gender, Love, Sexuality =====
+  {sec:"B",term:"Sex vs. gender",def:"Sex = biological / physical traits; gender = the social meanings, roles, and expectations attached to being male or female."},
+  {sec:"B",term:"Gender role",def:"The set of behaviors and attitudes a society considers appropriate for each sex."},
+  {sec:"B",term:"Gender identity",def:"A person's internal sense of being male, female, both, or neither."},
+  {sec:"B",term:"Gender socialization",def:"The lifelong process of learning the gender expectations of one's culture, via family, media, peers, and school."},
+  {sec:"B",term:"Gender stereotype",def:"An oversimplified, fixed belief about the traits or abilities of men or women."},
+  {sec:"B",term:"Sexual orientation",def:"A person's enduring romantic / sexual attraction — heterosexual, homosexual, bisexual, and so on."},
+  {sec:"B",term:"Cisgender vs. transgender",def:"Cisgender = gender identity matches birth sex; transgender = gender identity differs from birth sex."},
+  {sec:"B",term:"Attachment theory",def:"Early bonds with caregivers shape how people connect in later relationships, producing secure, anxious, or avoidant patterns.",who:"Bowlby & Ainsworth"},
+  {sec:"B",term:"Secure attachment",def:"Comfort with both intimacy and independence; trusts others and isn't overly anxious about the relationship."},
+  {sec:"B",term:"Anxious / ambivalent attachment",def:"Craves closeness but fears abandonment; clingy and easily distressed in relationships."},
+  {sec:"B",term:"Avoidant attachment",def:"Uncomfortable with closeness; values independence and keeps emotional distance."},
+  {sec:"B",term:"Triangular theory of love",def:"Love is built from three components: intimacy, passion, and commitment.",who:"Robert Sternberg"},
+  {sec:"B",term:"Intimacy / Passion / Commitment",def:"Sternberg's three building blocks: emotional closeness, physical/romantic drive, and the decision to maintain the relationship.",who:"Robert Sternberg"},
+  {sec:"B",term:"Consummate love",def:"Sternberg's 'complete' love — intimacy + passion + commitment all present at once.",who:"Robert Sternberg"},
+  {sec:"B",term:"Companionate love",def:"Intimacy + commitment without passion; the deep affection of long-married couples whose passion has faded.",who:"Robert Sternberg"},
+  {sec:"B",term:"Fatuous love",def:"Passion + commitment without intimacy; a whirlwind courtship that rushes to engagement before partners really know each other.",who:"Robert Sternberg"},
+  {sec:"B",term:"Romantic love",def:"Intimacy + passion without commitment.",who:"Robert Sternberg"},
+  {sec:"B",term:"Infatuation",def:"Passion alone — without intimacy or commitment; the 'love at first sight' obsession.",who:"Robert Sternberg"},
+  {sec:"B",term:"Empty love",def:"Commitment alone — without intimacy or passion.",who:"Robert Sternberg"},
+  {sec:"B",term:"Styles (colors) of love",def:"Six love styles: eros (passionate), ludus (game-playing), storge (friendship), pragma (practical), mania (possessive), agape (selfless).",who:"John Alan Lee"},
+  {sec:"B",term:"Halo effect",def:"Assuming physically attractive people also have other desirable traits — smart, kind, successful."},
+  {sec:"B",term:"Matching hypothesis",def:"People tend to pair with partners of roughly similar physical attractiveness."},
+  {sec:"B",term:"Sexual script",def:"Culturally learned guidelines for how, when, and with whom sexual behavior is expected to occur."},
+  {sec:"B",term:"Traditional sexual script",def:"Casts men as the sexual initiators and women as the limit-setters ('gatekeepers'); often paired with a sexual double standard."},
+  {sec:"B",term:"Coming out",def:"The process of recognizing, accepting, and disclosing a gay, lesbian, bisexual, or transgender identity."},
+  {sec:"B",term:"Sexual double standard",def:"Judging the same sexual behavior more harshly for women than for men."},
+
+  // ===== SECTION C — Communication & Conflict =====
+  {sec:"C",term:"Nonverbal communication",def:"Conveying meaning without words: facial expression, tone of voice, posture, gesture, eye contact."},
+  {sec:"C",term:"Self-disclosure",def:"Revealing personal information about oneself to a partner; a key way intimacy is built."},
+  {sec:"C",term:"Positive vs. negative affect",def:"Positive affect = warmth, interest, affection, humor; negative affect = hostility, criticism, contempt."},
+  {sec:"C",term:"The Four Horsemen",def:"Gottman's four communication patterns that predict divorce: criticism, contempt, defensiveness, and stonewalling.",who:"John Gottman"},
+  {sec:"C",term:"Stonewalling",def:"Withdrawing from interaction, shutting down, and refusing to respond during a conflict.",who:"John Gottman"},
+  {sec:"C",term:"Contempt",def:"Treating a partner with disrespect, mockery, or scorn — Gottman's single strongest predictor of divorce.",who:"John Gottman"},
+  {sec:"C",term:"Demand–withdraw pattern",def:"One partner pushes to discuss or change something while the other retreats or stonewalls; a destructive cycle."},
+  {sec:"C",term:"Principle of least interest",def:"The partner who cares least about continuing the relationship holds the most power in it.",who:"Willard Waller"},
+
+  // ===== SECTION D — Marriage, Singlehood, Parenting, Work =====
+  {sec:"D",term:"Homogamy",def:"Marrying someone with SIMILAR social traits — race, age, religion, education, class."},
+  {sec:"D",term:"Heterogamy",def:"Marrying someone with DISSIMILAR social characteristics."},
+  {sec:"D",term:"Hypergamy vs. hypogamy",def:"Marrying 'up' in social status (hypergamy) or 'down' in social status (hypogamy)."},
+  {sec:"D",term:"Mating gradient (marriage gradient)",def:"Women tend to marry men of higher status/age while men marry 'down' — leaving high-status women and low-status men least likely to marry."},
+  {sec:"D",term:"Marriage squeeze",def:"A shortage of marriageable partners for one sex, caused by an imbalance in the sex ratio."},
+  {sec:"D",term:"Marriage market",def:"The metaphor that people 'shop' for partners, trading on assets like looks, income, and status."},
+  {sec:"D",term:"Propinquity",def:"Geographic nearness — people are more likely to meet and marry those who are close by."},
+  {sec:"D",term:"Stimulus-value-role theory",def:"Mate selection moves through three stages: stimulus (initial attraction), value (shared attitudes), role (fit of role expectations).",who:"Bernard Murstein"},
+  {sec:"D",term:"Pronatalism",def:"A cultural attitude that everyone should have children and that childbearing is a natural, expected part of adult life."},
+  {sec:"D",term:"Child-free vs. childless",def:"Child-free = chooses NOT to have children; childless = wants children but cannot have them."},
+  {sec:"D",term:"Singlehood",def:"Living as an unmarried adult; can be voluntary or involuntary, temporary or stable."},
+  {sec:"D",term:"Widowhood",def:"The status of having lost a spouse to death — more common for older women, who tend to outlive men."},
+  {sec:"D",term:"Authoritative parenting",def:"High warmth + high control with reasoning: sets firm limits while staying responsive. Linked to the best child outcomes. (The deciding factor vs. permissive is that limits ARE set.)",who:"Diana Baumrind"},
+  {sec:"D",term:"Authoritarian parenting",def:"High control, low warmth: demands obedience and uses punishment with little explanation.",who:"Diana Baumrind"},
+  {sec:"D",term:"Permissive parenting",def:"Warm and accepting but few rules or demands; children largely regulate themselves.",who:"Diana Baumrind"},
+  {sec:"D",term:"Uninvolved (neglectful) parenting",def:"Low warmth and low control; emotionally detached and minimally engaged with the child.",who:"Maccoby & Martin (extending Baumrind)"},
+  {sec:"D",term:"Socialization",def:"The process by which people learn the norms, values, and skills of their culture."},
+  {sec:"D",term:"Culture vs. conduct of fatherhood",def:"The cultural IDEAL of what a good father is, versus what fathers ACTUALLY do day to day.",who:"Ralph LaRossa"},
+  {sec:"D",term:"Intensive mothering",def:"A cultural belief that mothering should be child-centered, expert-guided, emotionally absorbing, and labor-intensive.",who:"Sharon Hays"},
+  {sec:"D",term:"Concerted cultivation vs. natural growth",def:"Middle-class parenting that actively cultivates kids through scheduled activities and reasoning, vs. working-class 'accomplishment of natural growth'.",who:"Annette Lareau"},
+  {sec:"D",term:"The second shift",def:"The unpaid housework and child care that employed women perform AFTER their paid workday.",who:"Arlie Hochschild"},
+  {sec:"D",term:"Role conflict",def:"When the demands of one role (e.g., parent) clash with the demands of another (e.g., employee)."},
+  {sec:"D",term:"Role strain",def:"Tension that comes from conflicting demands WITHIN a single role."},
+  {sec:"D",term:"Role overload",def:"Having too many role demands and too little time or energy to meet them all."},
+  {sec:"D",term:"Peer marriage",def:"A marriage in which partners share housework, child care, and decision-making relatively equally.",who:"Pepper Schwartz"},
+  {sec:"D",term:"Sandwich generation",def:"Adults who are simultaneously caring for their own children and their aging parents."},
+  {sec:"D",term:"Sexual harassment",def:"Unwelcome sexual advances or conduct that creates a hostile or coercive environment, often at work."},
+
+  // ===== SECTION E — Violence, Divorce, New Beginnings =====
+  {sec:"E",term:"Intimate partner violence (IPV)",def:"Physical, sexual, or psychological harm inflicted by a current or former partner."},
+  {sec:"E",term:"Intergenerational transmission of violence",def:"Children who witness or experience family violence are more likely to use or tolerate it as adults (a social-learning explanation)."},
+  {sec:"E",term:"Resource theory (of violence)",def:"Those who lack other resources — income, status, communication skills — may resort to force to get their way.",who:"William Goode"},
+  {sec:"E",term:"Exchange / social control theory (of violence)",def:"Abuse occurs when its rewards outweigh its costs and the abuser expects few negative consequences.",who:"Richard Gelles"},
+  {sec:"E",term:"Cycle of violence",def:"A repeating pattern of tension-building, an acute battering incident, and a calm, loving 'honeymoon' reconciliation phase.",who:"Lenore Walker"},
+  {sec:"E",term:"Sibling violence",def:"Aggression between brothers and sisters — the most common but least reported form of family violence."},
+  {sec:"E",term:"Elder abuse",def:"Physical, emotional, or financial mistreatment, or neglect, of an older adult — often by a caregiver."},
+  {sec:"E",term:"Neglect",def:"Failure to provide a dependent with adequate food, shelter, supervision, medical care, or emotional support."},
+  {sec:"E",term:"Emotional / psychological abuse",def:"Repeated insults, threats, humiliation, or isolation of a family member — without physical contact."},
+  {sec:"E",term:"Acquaintance (date) rape",def:"Sexual assault committed by someone the victim knows, such as a date or partner."},
+  {sec:"E",term:"Marital rape",def:"Forced, nonconsensual sex by a spouse; now a crime in all U.S. states."},
+  {sec:"E",term:"No-fault divorce",def:"Divorce granted without proving wrongdoing by either spouse; spread across the U.S. after 1969–70."},
+  {sec:"E",term:"Six stations of divorce",def:"Bohannan's six dimensions of divorce: emotional, legal, economic, coparental, community, and psychic.",who:"Paul Bohannan"},
+  {sec:"E",term:"Crude vs. refined divorce rate",def:"Crude = divorces per 1,000 people; refined = divorces per 1,000 married women (a more accurate measure)."},
+  {sec:"E",term:"Joint vs. sole custody",def:"Joint = both parents share legal/physical responsibility; sole = one parent has primary responsibility."},
+  {sec:"E",term:"Single-parent family",def:"A household with one parent living with one or more children."},
+  {sec:"E",term:"Binuclear family",def:"A post-divorce family that spans two households — the mother's and the father's — for the children.",who:"Constance Ahrons"},
+  {sec:"E",term:"Remarriage",def:"Marrying again after a divorce or the death of a spouse."},
+  {sec:"E",term:"Stepfamily (blended family)",def:"A family created when a remarriage brings children from a previous relationship."},
+  {sec:"E",term:"Incomplete institution",def:"Cherlin's idea that remarried and stepfamilies lack clear cultural norms and roles to guide them.",who:"Andrew Cherlin"},
+];
+
+const SECNAME = {A:"Foundations", B:"Gender & Love", C:"Communication", D:"Marriage & Work", E:"Violence & Divorce"};
+const SECLONG = {A:"A · Foundations", B:"B · Gender & Love", C:"C · Communication", D:"D · Marriage & Work", E:"E · Violence & Divorce"};
+
+const FILTERDEFS = [
+  {key:"all", label:"All"},
+  {key:"A", label:"A · Foundations"},
+  {key:"B", label:"B · Gender & Love"},
+  {key:"C", label:"C · Communication"},
+  {key:"D", label:"D · Marriage & Work"},
+  {key:"E", label:"E · Violence & Divorce"},
+  {key:"theorists", label:"★ Theorists"},
+  {key:"review", label:"↻ Review"},
+];
+
+const state = {filter:"all", order:[], pos:0, flipped:false, known:new Set(), review:new Set()};
+
+const $ = id => document.getElementById(id);
+
+function inFilter(i){
+  const c = CARDS[i];
+  if(state.filter === "all") return !state.known.has(i);
+  if(state.filter === "theorists") return !!c.who && !state.known.has(i);
+  if(state.filter === "review") return state.review.has(i) && !state.known.has(i);
+  return c.sec === state.filter && !state.known.has(i);
+}
+function buildDeck(shuffle){
+  const deck = CARDS.map((_,i)=>i).filter(inFilter);
+  if(shuffle){
+    for(let j=deck.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[deck[j],deck[k]]=[deck[k],deck[j]];}
+  }
+  state.order = deck;
+  if(state.pos >= deck.length) state.pos = Math.max(0, deck.length-1);
+  state.flipped = false;
+  render();
+}
+function curIdx(){return state.order.length ? state.order[state.pos] : -1;}
+
+function buildFilters(){
+  const wrap = $("filters"); wrap.innerHTML="";
+  FILTERDEFS.forEach(f=>{
+    const b=document.createElement("button");
+    b.textContent=f.label; b.dataset.key=f.key;
+    if(f.key===state.filter) b.classList.add("on");
+    if(f.key==="review" && state.review.size===0) b.disabled=true;
+    b.onclick=()=>{ if(b.disabled) return; state.filter=f.key; state.pos=0; buildDeck(false); buildFilters(); };
+    wrap.appendChild(b);
+  });
+}
+
+function render(){
+  const card=$("card"), empty=$("empty"), idx=curIdx();
+  const knownN=state.known.size, revN=state.review.size;
+  $("progress").innerHTML = `<b>${knownN}</b> known · <i>${revN}</i> flagged`;
+
+  if(idx === -1){
+    card.style.display="none";
+    empty.style.display="flex";
+    if(state.filter==="review"){
+      $("emptyBig").textContent="No cards flagged";
+      $("emptyMsg").textContent="Flag tricky cards with the ★ button (or press r) and they'll collect here for focused drilling.";
+    }else{
+      $("emptyBig").textContent="Deck cleared 🎉";
+      $("emptyMsg").textContent="You've marked every card in this filter as known. Hit reset, switch filters, or flag some for another pass.";
+    }
+    $("counter").textContent="0 cards";
+    return;
+  }
+  card.style.display="block"; empty.style.display="none";
+  const c=CARDS[idx];
+  $("counter").textContent=`Card ${state.pos+1} of ${state.order.length}`;
+  $("term").textContent=c.term;
+  $("def").textContent=c.def;
+
+  const tabTxt = c.who ? "Theorist concept" : SECLONG[c.sec];
+  $("tabF").textContent=tabTxt; $("tabB").textContent=SECLONG[c.sec];
+  $("tabF").className = "tab" + (c.who ? " theorist" : "");
+  $("tabB").className = "tab";
+
+  $("meta").innerHTML = c.who
+    ? `▸ Linked to <b>${c.who}</b> &nbsp;·&nbsp; ${SECNAME[c.sec]}`
+    : `▸ ${SECLONG[c.sec]}`;
+
+  card.classList.toggle("flipped", state.flipped);
+  const flagBtn=$("markReview");
+  flagBtn.classList.toggle("activeflag", state.review.has(idx));
+  flagBtn.textContent = state.review.has(idx) ? "★ Flagged (unflag)" : "★ Flag for review";
+}
+
+function flip(){ state.flipped=!state.flipped; render(); }
+function move(d){
+  if(!state.order.length) return;
+  state.pos=(state.pos+d+state.order.length)%state.order.length;
+  state.flipped=false; render();
+}
+function markKnown(){
+  const idx=curIdx(); if(idx===-1) return;
+  state.known.add(idx); state.review.delete(idx);
+  buildDeck(false); buildFilters();
+}
+function markReview(){
+  const idx=curIdx(); if(idx===-1) return;
+  if(state.review.has(idx)) state.review.delete(idx); else state.review.add(idx);
+  if(state.filter==="review"){ buildDeck(false); } else { render(); }
+  buildFilters();
+}
+function resetAll(){
+  state.known.clear(); state.review.clear();
+  state.filter="all"; state.pos=0; buildDeck(false); buildFilters();
+}
+
+$("flip").onclick=flip;
+$("card").onclick=flip;
+$("prev").onclick=()=>move(-1);
+$("next").onclick=()=>move(1);
+$("shuffle").onclick=()=>{state.pos=0; buildDeck(true);};
+$("markKnown").onclick=markKnown;
+$("markReview").onclick=markReview;
+$("reset").onclick=resetAll;
+
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="BUTTON" && e.key==="Enter") return;
+  switch(e.key){
+    case " ": case "Enter": e.preventDefault(); flip(); break;
+    case "ArrowLeft": e.preventDefault(); move(-1); break;
+    case "ArrowRight": e.preventDefault(); move(1); break;
+    case "k": case "K": markKnown(); break;
+    case "r": case "R": markReview(); break;
+    case "s": case "S": state.pos=0; buildDeck(true); break;
+  }
+});
+
+buildFilters();
+buildDeck(false);
+</script>
+</body>
+</html>

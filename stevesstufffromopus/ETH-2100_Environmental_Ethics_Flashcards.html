@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETH-2100 Flashcards — Environmental Ethics</title>
+<style>
+  :root{
+    --bg:#16221c; --bg2:#1d2b22; --panel:#22332a;
+    --card:#FBF6EC; --card-edge:#ece1cb;
+    --ink:#1b2620; --ink-soft:#566054; --rule:#e1d8c2;
+    --accent:#5b8c52; --accent-ink:#1d2c18; --accent-soft:rgba(91,140,82,.16);
+    --known:#6f9b6e; --review:#c0744a;
+    --ui:#cdd9cf; --ui-dim:#7e8f81; --ui-line:#2f4338;
+    /* per-section dot colors */
+    --ov:#c8912b; --ap:#5b8c52; --hi:#4a7ba6; --ej:#c0744a; --law:#8a7bb0;
+    --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+    --sans:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"SF Mono",ui-monospace,"Cascadia Code",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:radial-gradient(125% 95% at 50% -12%, #20322a 0%, var(--bg) 62%);
+    color:var(--ui); font-family:var(--sans);
+    min-height:100vh; padding:26px 16px 64px;
+    display:flex; flex-direction:column; align-items:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{width:100%; max-width:680px}
+
+  /* ---- header ---- */
+  header{margin-bottom:18px}
+  header h1{
+    font-family:var(--serif); font-weight:600; letter-spacing:.2px;
+    font-size:clamp(1.4rem,4.6vw,1.95rem); margin:0 0 5px; color:#f1ede1; line-height:1.1;
+  }
+  header .sub{
+    font-family:var(--mono); text-transform:uppercase; letter-spacing:.16em;
+    font-size:.64rem; color:var(--ui-dim); margin:0;
+  }
+
+  /* ---- filters ---- */
+  .filters{display:flex; flex-wrap:wrap; gap:7px; margin:18px 0 10px}
+  .filters button{
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.07em; text-transform:uppercase;
+    color:var(--ui-dim); background:var(--panel); border:1px solid var(--ui-line);
+    padding:7px 11px; border-radius:999px; cursor:pointer; transition:.15s;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .filters button:hover{color:var(--ui); border-color:#3c5346}
+  .filters button.on{
+    color:#f4efe2; background:var(--accent); border-color:var(--accent);
+  }
+  .filters button .dot{width:7px; height:7px; border-radius:50%; background:currentColor; opacity:.85}
+  .dot.ov{background:var(--ov)} .dot.ap{background:var(--ap)} .dot.hi{background:var(--hi)}
+  .dot.ej{background:var(--ej)} .dot.law{background:var(--law)}
+
+  .utils{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px}
+  .utils button{
+    font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ui-dim); background:transparent; border:1px solid var(--ui-line);
+    padding:6px 10px; border-radius:6px; cursor:pointer; transition:.15s;
+  }
+  .utils button:hover{color:var(--ui); border-color:#3c5346}
+  .utils button.on{color:#f4efe2; border-color:var(--review); background:rgba(192,116,74,.16)}
+
+  /* ---- progress ---- */
+  .meta{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.06em; color:var(--ui-dim);
+    margin-bottom:9px;
+  }
+  .meta .counts b{color:var(--known); font-weight:600}
+  .meta .counts i{color:var(--review); font-style:normal; font-weight:600}
+  .bar{height:3px; background:var(--ui-line); border-radius:2px; overflow:hidden; margin-bottom:18px}
+  .bar > span{display:block; height:100%; width:0; background:var(--known); transition:width .3s}
+
+  /* ---- card ---- */
+  .stage{perspective:1600px; margin-bottom:16px}
+  .card{
+    position:relative; width:100%; min-height:300px;
+    transform-style:preserve-3d; transition:transform .5s cubic-bezier(.2,.7,.2,1);
+    cursor:pointer;
+  }
+  .card.flip{transform:rotateY(180deg)}
+  .face{
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    background:linear-gradient(177deg,var(--card),var(--card-edge));
+    border:1px solid var(--card-edge); border-radius:13px;
+    box-shadow:0 18px 40px -22px rgba(0,0,0,.7), 0 1px 0 rgba(255,255,255,.5) inset;
+    padding:26px 26px 56px; display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+  .face::before{ /* card-catalog punch hole */
+    content:""; position:absolute; left:50%; bottom:13px; transform:translateX(-50%);
+    width:13px; height:13px; border-radius:50%;
+    background:radial-gradient(circle at 40% 35%, #fff, var(--rule));
+    box-shadow:inset 0 1px 2px rgba(0,0,0,.28);
+  }
+  .back{transform:rotateY(180deg)}
+
+  .tab{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    border-bottom:1px solid var(--rule); padding-bottom:9px; margin-bottom:14px;
+  }
+  .tab .sec{
+    font-family:var(--mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink-soft); display:inline-flex; align-items:center; gap:7px;
+  }
+  .tab .pio{
+    font-family:var(--mono); font-size:.55rem; letter-spacing:.1em; text-transform:uppercase;
+    color:#fff; background:var(--ink-soft); padding:3px 7px; border-radius:4px;
+  }
+  .term{
+    font-family:var(--serif); color:var(--ink); line-height:1.18;
+    font-size:clamp(1.35rem,5.2vw,1.7rem); font-weight:600;
+    display:flex; align-items:center; flex:1;
+  }
+  .def{
+    font-family:var(--sans); color:var(--ink); font-size:1.02rem; line-height:1.5;
+    display:flex; align-items:flex-start; flex:1;
+  }
+  .def .inner{align-self:center}
+  .def b{color:var(--accent-ink); font-weight:700}
+  .hint{
+    position:absolute; right:24px; bottom:15px;
+    font-family:var(--mono); font-size:.55rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-soft); opacity:.6;
+  }
+  /* state ribbons */
+  .face[data-known="1"]{box-shadow:0 18px 40px -22px rgba(0,0,0,.7), 0 0 0 2px var(--known) inset}
+  .face[data-flag="1"]{box-shadow:0 18px 40px -22px rgba(0,0,0,.7), 0 0 0 2px var(--review) inset}
+
+  /* ---- controls ---- */
+  .controls{display:flex; gap:9px; align-items:stretch}
+  .controls button{
+    flex:1; font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ui); background:var(--panel); border:1px solid var(--ui-line);
+    padding:13px 8px; border-radius:9px; cursor:pointer; transition:.15s;
+  }
+  .controls button:hover{border-color:#3c5346; background:var(--bg2)}
+  .controls .flip-btn{flex:1.5; background:var(--accent); border-color:var(--accent); color:#f4efe2; font-weight:600}
+  .controls .flip-btn:hover{filter:brightness(1.07)}
+  .mark{display:flex; gap:9px; margin-top:9px}
+  .mark button{
+    flex:1; font-family:var(--mono); font-size:.64rem; letter-spacing:.07em; text-transform:uppercase;
+    background:transparent; border:1px solid var(--ui-line); color:var(--ui-dim);
+    padding:11px 8px; border-radius:9px; cursor:pointer; transition:.15s;
+  }
+  .mark button.known.on{color:#eaf3ea; border-color:var(--known); background:rgba(111,155,110,.18)}
+  .mark button.flag.on{color:#f6e6dc; border-color:var(--review); background:rgba(192,116,74,.18)}
+  .mark button:hover{color:var(--ui); border-color:#3c5346}
+
+  /* ---- legend ---- */
+  .legend{
+    margin-top:22px; font-family:var(--mono); font-size:.58rem; letter-spacing:.06em;
+    color:var(--ui-dim); line-height:1.9; text-align:center;
+  }
+  .legend kbd{
+    background:var(--panel); border:1px solid var(--ui-line); border-radius:4px;
+    padding:1px 6px; color:var(--ui); margin:0 1px;
+  }
+  .empty{
+    text-align:center; font-family:var(--serif); color:var(--ui-dim);
+    padding:60px 20px; font-size:1.05rem;
+  }
+  @media (max-width:430px){
+    .face{padding:22px 20px 52px}
+    .controls button{padding:12px 5px; font-size:.6rem}
+    .filters button{font-size:.6rem; padding:6px 9px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Environmental Ethics</h1>
+    <p class="sub">ETH-2100-TE · TECEP Study Deck · Thomas Edison State University</p>
+  </header>
+
+  <nav class="filters" id="filters" aria-label="Filter by section">
+    <button data-f="all" class="on">All</button>
+    <button data-f="ov"><span class="dot ov"></span>Overview</button>
+    <button data-f="ap"><span class="dot ap"></span>Approaches</button>
+    <button data-f="hi"><span class="dot hi"></span>History</button>
+    <button data-f="ej"><span class="dot ej"></span>Justice</button>
+    <button data-f="law"><span class="dot law"></span>Law</button>
+    <button data-f="pio">★ Pioneers</button>
+  </nav>
+
+  <div class="utils">
+    <button id="shuffleBtn">⤮ Shuffle</button>
+    <button id="hideKnownBtn">Hide known</button>
+    <button id="flagOnlyBtn">Flagged only</button>
+    <button id="resetBtn">Reset marks</button>
+  </div>
+
+  <div class="meta">
+    <span id="position">Card 1 / 1</span>
+    <span class="counts"><b id="kCount">0</b> known · <i id="fCount">0</i> flagged</span>
+  </div>
+  <div class="bar"><span id="barFill"></span></div>
+
+  <div class="stage">
+    <div class="card" id="card" role="button" tabindex="0" aria-label="Flashcard, click to flip">
+      <div class="face front" id="front" data-known="0" data-flag="0">
+        <div class="tab">
+          <span class="sec" id="fSec"></span>
+          <span class="pio" id="fPio" style="display:none">★ Pioneer</span>
+        </div>
+        <div class="term" id="fTerm"></div>
+        <span class="hint">tap to flip</span>
+      </div>
+      <div class="face back" id="back" data-known="0" data-flag="0">
+        <div class="tab">
+          <span class="sec" id="bSec"></span>
+          <span class="pio" id="bPio" style="display:none">★ Pioneer</span>
+        </div>
+        <div class="def"><span class="inner" id="bDef"></span></div>
+        <span class="hint">tap to flip back</span>
+      </div>
+    </div>
+    <div class="empty" id="emptyState" style="display:none">
+      No cards match this filter.<br>
+      <span style="font-size:.85rem">Try “All”, turn off “Flagged only”, or reset your marks.</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="prevBtn">‹ Prev</button>
+    <button class="flip-btn" id="flipBtn">Flip</button>
+    <button id="nextBtn">Next ›</button>
+  </div>
+  <div class="mark">
+    <button class="known" id="knownBtn">✓ Mark known</button>
+    <button class="flag" id="flagBtn">⚑ Flag for review</button>
+  </div>
+
+  <div class="legend">
+    <kbd>Space</kbd>/<kbd>↵</kbd> flip&nbsp;·&nbsp;<kbd>←</kbd><kbd>→</kbd> navigate&nbsp;·&nbsp;<kbd>K</kbd> known&nbsp;·&nbsp;<kbd>F</kbd> flag&nbsp;·&nbsp;<kbd>S</kbd> shuffle<br>
+    Weights — Overview 20-25% · Approaches 20-25% · History 20-25% · Justice 20-25% · Law 5%
+  </div>
+</div>
+
+<script>
+/* ===== Card data =====
+   s: section (ov/ap/hi/ej/law) · p: pioneer flag · t: term · d: definition  */
+const SECTIONS = {
+  ov:"Overview · Core Concepts",
+  ap:"Approaches & World Views",
+  hi:"History, Pioneers & Events",
+  ej:"Environmental Justice",
+  law:"Environmental Law"
+};
+
+const CARDS = [
+/* ---------- 1. OVERVIEW / CORE CONCEPTS ---------- */
+{s:"ov",t:"Environmental ethics",d:"The branch of philosophy that extends moral consideration beyond humans to the non-human world — animals, plants, ecosystems, the biosphere. It studies the moral relationship between humanity and nature."},
+{s:"ov",t:"Ethics",d:"The systematic study of right and wrong, good and bad — the moral principles that guide conduct. Environmental ethics asks how those principles apply to the natural world."},
+{s:"ov",t:"Anthropocentrism",d:"<b>\"Human-centered.\"</b> The view that only humans have intrinsic moral worth; nature matters only as a resource for human benefit. The dominant Western worldview."},
+{s:"ov",t:"Biocentrism",d:"<b>\"Life-centered.\"</b> The view that all living things have inherent worth and deserve moral consideration, not just humans. Linked to Paul Taylor and Albert Schweitzer."},
+{s:"ov",t:"Ecocentrism",d:"<b>\"Ecosystem-centered.\"</b> The view that whole ecological wholes — species, ecosystems, the biosphere — have intrinsic value, not just individual organisms. Rooted in Leopold's land ethic."},
+{s:"ov",t:"Deep ecology",d:"A holistic, ecocentric movement (coined by Arne Naess, 1973) holding that nature has intrinsic value independent of human use, requiring a radical rethinking of the human–nature relationship and the self."},
+{s:"ov",t:"Shallow ecology",d:"Naess's term for mainstream environmentalism that fights pollution and resource depletion mainly to protect human health and prosperity — i.e., it stays anthropocentric. Contrast: deep ecology."},
+{s:"ov",t:"Biocentric egalitarianism",d:"The deep-ecology principle that all living things have <b>equal</b> intrinsic value and an equal right to live and flourish."},
+{s:"ov",t:"Gaia hypothesis",d:"James Lovelock's theory that Earth functions as a single self-regulating living system, in which life and its physical environment interact to keep conditions suitable for life."},
+{s:"ov",t:"Speciesism",d:"Discrimination against other species based on assumed human superiority — treating one's own species' interests as more important simply because of species membership. Popularized by Peter Singer (term coined by Richard Ryder)."},
+{s:"ov",t:"Ethical egoism",d:"The theory that one ought to act in one's own self-interest. Applied to the environment, it justifies protecting nature only when doing so benefits oneself."},
+{s:"ov",t:"Utilitarianism",d:"The right act produces the <b>greatest good for the greatest number</b>. Because animals feel pleasure and pain, utilitarianism can extend moral consideration to them. (Bentham, Mill, Singer.)"},
+{s:"ov",t:"Moral standing (considerability)",d:"The status of being an entity whose interests matter morally and must be taken into account. Environmental ethics debates which entities — animals, plants, ecosystems — have it."},
+{s:"ov",t:"Sentientism",d:"The view that the capacity to feel pain and pleasure (sentience) is the criterion for moral consideration: a being deserves concern if it can suffer."},
+{s:"ov",t:"Holism (moral)",d:"The view that moral value belongs to whole systems — ecosystems, species, the biotic community — rather than only to individuals. Characteristic of ecocentrism and the land ethic."},
+{s:"ov",t:"Individualism (moral)",d:"The view that only individual organisms — not collectives like species or ecosystems — can bear moral value. Characteristic of animal-rights and biocentric individualism."},
+{s:"ov",t:"Intrinsic vs. instrumental value",d:"<b>Intrinsic:</b> worth in and of itself. <b>Instrumental (extrinsic):</b> worth only as a means/useful to others. The core axis of the field — does nature have value beyond its use to humans?"},
+
+/* ---------- 2. APPROACHES, BELIEFS & WORLD VIEWS ---------- */
+{s:"ap",t:"Intrinsic value",d:"Value something has in itself, for its own sake, independent of usefulness to anyone. Non-anthropocentric ethics holds that nature possesses it."},
+{s:"ap",t:"Instrumental (extrinsic) value",d:"Value something has as a means to an end — its usefulness to others. Anthropocentrism treats nature as having only instrumental value to humans."},
+{s:"ap",t:"Conservation",d:"The <b>wise, sustainable use</b> of natural resources for long-term human benefit (utilitarian). Gifford Pinchot: \"the greatest good for the greatest number for the longest time.\""},
+{s:"ap",t:"Preservation",d:"Protecting nature in its <b>pristine, untouched</b> state for its own sake and for spiritual/aesthetic value. Championed by John Muir."},
+{s:"ap",t:"Conservation vs. preservation",d:"The founding debate: Pinchot's <b>utilitarian conservation</b> (use resources wisely for people) vs. Muir's <b>biocentric preservation</b> (protect wild nature for its intrinsic worth)."},
+{s:"ap",t:"Non-anthropocentrism",d:"Any approach granting moral consideration to non-humans — biocentrism, ecocentrism, deep ecology. The opposite of anthropocentrism."},
+{s:"ap",t:"Sustainability",d:"Meeting present needs without degrading the environment or depleting resources, so ecological and human systems can endure indefinitely."},
+{s:"ap",t:"Sustainable development",d:"<b>\"Development that meets the needs of the present without compromising the ability of future generations to meet their own needs.\"</b> — Brundtland Report, <i>Our Common Future</i> (1987)."},
+{s:"ap",t:"Three pillars of sustainability",d:"The integration of <b>environment, economy, and social equity</b> — sometimes \"planet, profit, people\" or the triple bottom line."},
+{s:"ap",t:"Traditional Ecological Knowledge (TEK)",d:"Knowledge, practices, and beliefs about living things and their environment, built up by Indigenous and local peoples over generations and passed down culturally."},
+{s:"ap",t:"Lynn White thesis",d:"In \"The Historical Roots of Our Ecologic Crisis\" (1967), Lynn White Jr. argued that Judeo-Christian belief in human <b>dominion</b> over nature is a root cause of the Western environmental crisis. He named St. Francis the patron saint of ecology."},
+{s:"ap",t:"Dominion (Judeo-Christian)",d:"The biblical idea (Genesis 1:28) that God gave humans dominion over Earth and its creatures. Criticized as license for exploitation — but reinterpreted by others as a duty of care."},
+{s:"ap",t:"Stewardship",d:"The view that humans are caretakers/trustees of creation, responsible for protecting it rather than exploiting it — a reinterpretation of \"dominion.\""},
+{s:"ap",t:"Eastern religious views",d:"Buddhism, Hinduism, Jainism, and Taoism emphasize interconnectedness, non-harm, and harmony with nature rather than human domination over it."},
+{s:"ap",t:"Ahimsa",d:"The principle of non-violence and non-harm to all living beings — central to Jainism, Buddhism, and Hinduism; grounds respect for all life."},
+{s:"ap",t:"Khalifa (Islamic stewardship)",d:"In Islam, the idea that humans are God's trustees (khalifa) of the Earth, accountable for its care."},
+{s:"ap",t:"Ecofeminism",d:"Links the domination of nature to the domination of women, arguing both stem from patriarchal hierarchies. Associated with Karen Warren and Val Plumwood."},
+{s:"ap",t:"Cornucopian view",d:"The optimistic belief that human ingenuity and technology will overcome resource limits — resources are effectively unlimited. Associated with Julian Simon."},
+{s:"ap",t:"Neo-Malthusianism",d:"The view (after Malthus) that unchecked population growth outstrips resources and ends in catastrophe; supports population control. Associated with Paul Ehrlich, <i>The Population Bomb</i> (1968)."},
+{s:"ap",t:"Animal liberation",d:"Peter Singer's <b>utilitarian</b> position (<i>Animal Liberation</i>, 1975): because animals suffer, their interests must be weighed equally; ignoring this is speciesism."},
+{s:"ap",t:"Animal rights",d:"Tom Regan's <b>deontological</b> position (<i>The Case for Animal Rights</i>, 1983): animals are \"subjects-of-a-life\" with inherent value and rights that may not be violated, whatever the consequences."},
+{s:"ap",t:"Subjects-of-a-life",d:"Tom Regan's criterion: beings with beliefs, desires, perception, memory, and a sense of their own future have inherent value — and therefore rights."},
+{s:"ap",t:"The Land Ethic",d:"Aldo Leopold's principle (1949): humans are plain members of the biotic community, not its conquerors. <b>\"A thing is right when it tends to preserve the integrity, stability, and beauty of the biotic community.\"</b>"},
+{s:"ap",t:"Reverence for life",d:"Albert Schweitzer's ethic that all life is sacred and deserves respect — an early biocentric idea."},
+{s:"ap",t:"Respect for Nature",d:"Paul Taylor's biocentric theory (1986): every organism is a <b>\"teleological center of life\"</b> pursuing its own good, so each has inherent worth and deserves moral respect."},
+{s:"ap",t:"Transcendentalist view of nature",d:"The 19th-century idea (Emerson, Thoreau) that nature is a source of spiritual truth, beauty, and moral renewal — value beyond material use."},
+
+/* ---------- 3. HISTORY, PIONEERS & KEY EVENTS ---------- */
+{s:"hi",p:1,t:"John Muir",d:"(1838–1914) \"Father of the National Parks.\" Founded the <b>Sierra Club</b> (1892); champion of <b>preservationism</b>; fought (and lost) the Hetch Hetchy damming; saw wilderness as sacred."},
+{s:"hi",p:1,t:"Gifford Pinchot",d:"(1865–1946) First Chief of the <b>U.S. Forest Service</b> (1905); founder of American <b>conservationism</b> / \"wise use.\" Rival of Muir over Hetch Hetchy."},
+{s:"hi",p:1,t:"Aldo Leopold",d:"(1887–1948) Wrote <i>A Sand County Almanac</i> (1949); originated the <b>Land Ethic</b> and \"thinking like a mountain\"; founder of wildlife ecology."},
+{s:"hi",p:1,t:"Garrett Hardin",d:"(1915–2003) Ecologist who wrote <b>\"The Tragedy of the Commons\"</b> (1968) and \"lifeboat ethics\" — shared resources get overexploited by self-interested individuals."},
+{s:"hi",p:1,t:"Rachel Carson",d:"(1907–1964) Marine biologist whose <b><i>Silent Spring</i></b> (1962) exposed the dangers of pesticides (DDT); launched the modern environmental movement and led to DDT's ban."},
+{s:"hi",p:1,t:"Arne Naess",d:"(1912–2009) Norwegian philosopher who coined <b>\"deep ecology\"</b> (1973), distinguished it from \"shallow\" environmentalism, and argued for biocentric egalitarianism."},
+{s:"hi",p:1,t:"James Lovelock",d:"(1919–2022) British scientist who proposed the <b>Gaia hypothesis</b> — Earth as a single self-regulating living system."},
+{s:"hi",p:1,t:"Henry David Thoreau",d:"(1817–1862) Transcendentalist author of <i>Walden</i> (1854); celebrated simple living in nature and is a forerunner of environmental thought."},
+{s:"hi",p:1,t:"Ralph Waldo Emerson",d:"(1803–1882) Transcendentalist; his essay <i>Nature</i> (1836) framed the natural world as a source of spiritual insight and unity."},
+{s:"hi",p:1,t:"Lynn White Jr.",d:"(1907–1987) Historian whose 1967 essay blamed <b>Judeo-Christian anthropocentrism</b> for environmental degradation."},
+{s:"hi",p:1,t:"Peter Singer",d:"(b. 1946) Utilitarian philosopher; <i>Animal Liberation</i> (1975) argued that ignoring animal suffering is <b>speciesism</b>."},
+{s:"hi",p:1,t:"Tom Regan",d:"(1938–2017) Philosopher; <i>The Case for Animal Rights</i> (1983) argued animals are <b>\"subjects-of-a-life\"</b> with inherent value and rights."},
+{s:"hi",p:1,t:"Holmes Rolston III",d:"(b. 1932) Called the \"father of environmental ethics\" as a discipline; argued nature has <b>objective intrinsic value</b> humans must respect."},
+{s:"hi",p:1,t:"Christopher Stone",d:"(1937–2021) Legal scholar; <b>\"Should Trees Have Standing?\"</b> (1972) argued natural objects deserve legal rights and standing to sue."},
+{s:"hi",p:1,t:"Paul Taylor",d:"(1923–2015) Philosopher; <i>Respect for Nature</i> (1986) developed <b>biocentric egalitarianism</b> — each organism a \"teleological center of life.\""},
+{s:"hi",p:1,t:"John Evelyn",d:"(1620–1706) English writer whose treatise <b><i>Fumifugium</i></b> (1661) condemned London's coal-smoke <b>air pollution</b> — an early warning about industrialization."},
+{s:"hi",p:1,t:"Theodore Roosevelt",d:"(1858–1919) U.S. President who vastly expanded national parks, forests, and wildlife refuges; allied with Pinchot on conservation."},
+{s:"hi",p:1,t:"Paul Ehrlich",d:"(b. 1932) Biologist; <i>The Population Bomb</i> (1968) warned of mass starvation from overpopulation (neo-Malthusian)."},
+{s:"hi",p:1,t:"Albert Schweitzer",d:"(1875–1965) Theologian-physician who articulated <b>\"reverence for life\"</b> — an early biocentric ethic."},
+{s:"hi",t:"Silent Spring (1962)",d:"Rachel Carson's landmark book documenting the ecological damage of pesticides like DDT. Ignited the modern environmental movement; opposed chiefly by <b>chemical companies</b>."},
+{s:"hi",t:"The Tragedy of the Commons (1968)",d:"Garrett Hardin's essay: individuals exploiting a shared resource for personal gain deplete it, harming all. Argues for regulation or shared restraint."},
+{s:"hi",t:"A Sand County Almanac (1949)",d:"Aldo Leopold's book introducing the <b>Land Ethic</b> — one of the most influential works in environmental philosophy. Promotes the idea of a \"land ethic.\""},
+{s:"hi",t:"Earth Day (April 22, 1970)",d:"The first nationwide U.S. environmental demonstration; marked the birth of modern environmental consciousness and helped spur landmark legislation."},
+{s:"hi",t:"Hetch Hetchy controversy",d:"The 1908–1913 fight over damming Yosemite's Hetch Hetchy Valley to supply San Francisco's water. Pitted Muir (preservation) vs. Pinchot (conservation); the valley was <b>flooded</b> — a defining moment for both movements."},
+{s:"hi",t:"Cuyahoga River fire (1969)",d:"Cleveland's Cuyahoga River caught fire from industrial pollution — a powerful symbol that prompted the <b>clean-water</b> initiatives of the 1970s."},
+{s:"hi",t:"Sierra Club (1892)",d:"One of the first and most influential environmental organizations, founded by John Muir to protect wilderness — especially the Sierra Nevada."},
+{s:"hi",t:"U.S. Forest Service (1905)",d:"Federal agency created to manage national forests for sustainable use; first led by Gifford Pinchot."},
+{s:"hi",t:"Love Canal (1978)",d:"A Niagara Falls, NY neighborhood built on a buried toxic-waste dump; residents' health crisis led directly to the creation of <b>CERCLA / Superfund</b> (1980)."},
+{s:"hi",t:"Bhopal disaster (1984)",d:"A toxic gas leak at a Union Carbide pesticide plant in Bhopal, India killed thousands — the worst industrial disaster in history and a landmark environmental-justice case."},
+{s:"hi",t:"Exxon Valdez (1989)",d:"A tanker spilled millions of gallons of crude oil into Prince William Sound, Alaska; led to the <b>Oil Pollution Act of 1990</b>."},
+{s:"hi",t:"Dust Bowl (1930s)",d:"Drought plus poor farming caused massive dust storms across the U.S. Great Plains; spurred national soil-conservation efforts."},
+
+/* ---------- 4. ENVIRONMENTAL JUSTICE ---------- */
+{s:"ej",t:"Environmental justice",d:"The fair treatment and meaningful involvement of all people — regardless of race or income — in environmental policy, so no group bears a disproportionate share of environmental harms."},
+{s:"ej",t:"Environmental racism",d:"The disproportionate siting of pollution and toxic waste in communities of color, plus their exclusion from environmental decisions. Term coined by <b>Benjamin Chavis</b> (1982)."},
+{s:"ej",t:"Environmental injustice",d:"The unfair loading of environmental burdens — pollution, hazards — onto poor, marginalized, or minority communities that often lack power to resist."},
+{s:"ej",t:"Warren County, NC (1982)",d:"Protest against a PCB-contaminated soil landfill placed in a majority-Black county; 500+ arrested. Widely regarded as the <b>birthplace of the environmental justice movement</b>."},
+{s:"ej",p:1,t:"Benjamin Chavis",d:"Civil-rights leader who coined <b>\"environmental racism\"</b> from a jail cell during the 1982 Warren County protests; later directed the UCC Commission for Racial Justice."},
+{s:"ej",p:1,t:"Robert Bullard",d:"Sociologist known as the <b>\"Father of Environmental Justice\"</b>; author of <i>Dumping in Dixie</i> (1990), the first major study documenting environmental racism."},
+{s:"ej",t:"Toxic Wastes and Race (1987)",d:"The landmark UCC Commission for Racial Justice report that statistically documented the nationwide correlation between toxic-waste sites and minority communities."},
+{s:"ej",t:"Executive Order 12898 (1994)",d:"Signed by President Clinton; directed federal agencies to identify and address disproportionately high environmental and health effects on minority and low-income populations."},
+{s:"ej",t:"Principles of Environmental Justice (1991)",d:"The 17 founding principles adopted at the First National People of Color Environmental Leadership Summit, defining the movement's goals."},
+{s:"ej",t:"Toxic tort",d:"A legal claim for harm caused by exposure to a toxic substance (e.g., a chemical above \"maximum contaminant levels\" in drinking water). The mechanism behind much environmental-rights litigation."},
+{s:"ej",t:"NIMBY (\"Not In My Back Yard\")",d:"Residents opposing undesirable facilities — landfills, incinerators, plants — near their homes. Such facilities are often pushed instead onto poorer communities, creating injustice."},
+{s:"ej",t:"Intergenerational justice",d:"The principle that environmental justice is <b>intergenerational</b> — each generation has a duty to preserve the environment and resources for future generations."},
+{s:"ej",t:"Distributive justice",d:"Fairness in how environmental benefits and burdens (pollution, clean-resource access) are distributed across society."},
+{s:"ej",t:"Procedural justice",d:"Fairness in the decision-making process — ensuring affected communities have a meaningful voice in environmental decisions."},
+{s:"ej",t:"Climate justice",d:"The view that climate change disproportionately harms the poor and developing nations (who contributed least), and that responses must address this inequity."},
+{s:"ej",t:"Flint water crisis (2014)",d:"Lead contamination of drinking water in majority-Black, low-income Flint, Michigan — a prominent recent case of environmental injustice."},
+{s:"ej",t:"Cancer Alley",d:"An 85-mile stretch of the Mississippi in Louisiana lined with petrochemical plants, where predominantly Black communities suffer elevated cancer rates. A symbol of environmental racism."},
+{s:"ej",t:"Human rights & environmental justice",d:"The movement frames a clean, healthy environment as a basic <b>human right</b> and draws directly on the strategies and moral framework of the <b>civil-rights movement</b>."},
+{s:"ej",t:"Industrial / corporate interests",d:"Polluting industries tend to place hazardous facilities where land is cheap and political resistance weakest — disproportionately poor and minority areas — putting profit over community health."},
+{s:"ej",t:"Environmental effects on health",d:"EJ centers on health: communities near pollution sources show higher rates of asthma, cancer, and other illnesses — the human cost that drives the movement's <b>community focus</b>."},
+
+/* ---------- 5. ENVIRONMENTAL LAW ---------- */
+{s:"law",t:"NEPA (1969/1970)",d:"<b>National Environmental Policy Act</b> — the foundational U.S. environmental law. Requires federal agencies to file an <b>Environmental Impact Statement (EIS)</b> and to weigh environmental consequences. Promotes informed federal decision-making."},
+{s:"law",t:"Environmental Impact Statement (EIS)",d:"A detailed report required by NEPA analyzing a proposed federal action's environmental effects and alternatives — the most visible NEPA requirement."},
+{s:"law",t:"EPA (1970)",d:"<b>Environmental Protection Agency</b> — created by President Nixon to consolidate federal environmental regulation, research, and enforcement of pollution-control laws."},
+{s:"law",t:"Clean Air Act (1970)",d:"The major U.S. air-pollution law; lets EPA set <b>National Ambient Air Quality Standards (NAAQS)</b>. Strengthened by 1977 and 1990 amendments."},
+{s:"law",t:"Clean Water Act (1972)",d:"Originally the Federal Water Pollution Control Act Amendments. Regulates pollutant discharge into navigable waters, sets water-quality standards, and protects wetlands."},
+{s:"law",t:"Safe Drinking Water Act (1974)",d:"Sets national standards for contaminants (\"maximum contaminant levels\") in public drinking water and protects underground drinking-water sources."},
+{s:"law",t:"Endangered Species Act (1973)",d:"Protects threatened and endangered species and the ecosystems they depend on; bars actions that would jeopardize listed species."},
+{s:"law",t:"RCRA (1976)",d:"<b>Resource Conservation and Recovery Act</b> — governs the <b>\"cradle-to-grave\"</b> management and disposal of solid and hazardous waste."},
+{s:"law",t:"CERCLA / Superfund (1980)",d:"<b>Comprehensive Environmental Response, Compensation, and Liability Act</b> — funds and compels cleanup of abandoned hazardous-waste sites and holds polluters liable. Prompted by Love Canal."},
+{s:"law",t:"Wilderness Act (1964)",d:"Created the National Wilderness Preservation System, protecting designated federal lands in their natural state from development."},
+{s:"law",t:"TSCA (1976)",d:"<b>Toxic Substances Control Act</b> — lets the EPA regulate and require safety testing of chemical substances."},
+{s:"law",t:"Lucas v. South Carolina (1992)",d:"Landmark Supreme Court case: a regulation depriving an owner of <b>ALL</b> economically beneficial use of land is a <b>regulatory taking</b> requiring just compensation. (David Lucas's beachfront lots.)"},
+{s:"law",t:"Regulatory taking",d:"When a regulation restricts use of private property so severely it amounts to a \"taking\" under the Fifth Amendment — requiring the government to pay just compensation."},
+{s:"law",t:"Fifth Amendment Takings Clause",d:"Private property shall not \"be taken for public use, without just compensation.\" The constitutional basis for regulatory-taking claims."},
+{s:"law",t:"NEPA's purpose (exam point)",d:"To promote <b>informed decision-making by federal agencies</b> by requiring detailed information on the environmental impacts of proposed actions — not to set \"less stringent\" or state-modifiable policies."},
+{s:"law",t:"Stockholm Conference (1972)",d:"The UN Conference on the Human Environment — the first major international environmental meeting. Produced the Stockholm Declaration and led to the creation of UNEP."},
+{s:"law",t:"Brundtland Report (1987)",d:"<i>Our Common Future</i>, by the UN World Commission on Environment and Development — defined and popularized <b>sustainable development</b>."},
+{s:"law",t:"Montreal Protocol (1987)",d:"International treaty that phased out <b>ozone-depleting substances (CFCs)</b>. Widely considered the most successful environmental agreement in history."},
+{s:"law",t:"Kyoto Protocol (1997)",d:"First <b>binding</b> treaty committing developed (Annex I) nations to cut greenhouse-gas emissions. The U.S. signed but never ratified it; first commitment period ended 2012."},
+{s:"law",t:"Copenhagen Accord (2009)",d:"Non-binding <b>political declaration</b> from COP-15. Recognized the goal of keeping warming below <b>2°C</b> and pledged $100 billion/yr in climate finance — but set no binding targets. Used \"common but differentiated responsibilities.\""},
+{s:"law",t:"Paris Agreement (2015)",d:"Climate accord committing nations to hold warming \"well below 2°C\" (aiming for 1.5°C) through voluntary <b>Nationally Determined Contributions (NDCs)</b>."},
+{s:"law",t:"CITES (1973)",d:"Convention on International Trade in Endangered Species — regulates and restricts international trade in threatened plants and animals."},
+{s:"law",t:"Basel Convention (1989)",d:"International treaty controlling the cross-border movement of hazardous wastes — aimed at stopping dumping from developed onto developing countries."},
+{s:"law",t:"UNFCCC (1992)",d:"UN Framework Convention on Climate Change, adopted at the Rio Earth Summit — the parent treaty under which Kyoto, Copenhagen, and Paris were negotiated."},
+{s:"law",t:"Rio Earth Summit (1992)",d:"UN Conference on Environment and Development in Rio — produced the UNFCCC, the Convention on Biological Diversity, and Agenda 21."},
+{s:"law",t:"Common but differentiated responsibilities",d:"The principle (UNFCCC, Kyoto, Copenhagen) that all nations share responsibility for climate change, but developed countries — having caused most historical emissions — bear a greater obligation."},
+{s:"law",t:"Precautionary principle",d:"If an action risks serious or irreversible environmental harm, lack of full scientific certainty should not delay protective measures."},
+{s:"law",t:"Polluter pays principle",d:"Those who produce pollution should bear the costs of managing it and remediating the damage."},
+{s:"law",t:"Greenpeace",d:"A prominent international non-governmental advocacy organization known for direct-action campaigns against whaling, nuclear testing, and pollution."},
+{s:"law",t:"World Wildlife Fund (WWF)",d:"A major international NGO focused on wilderness preservation and reducing human impact on biodiversity."}
+];
+
+/* ===== State ===== */
+let filter = "all";
+let hideKnown = false;
+let flagOnly = false;
+let order = CARDS.map((_,i)=>i);
+let pos = 0;
+let flipped = false;
+const known = new Set();
+const flagged = new Set();
+
+/* ===== Elements ===== */
+const card=document.getElementById("card");
+const front=document.getElementById("front"), back=document.getElementById("back");
+const fSec=document.getElementById("fSec"), bSec=document.getElementById("bSec");
+const fPio=document.getElementById("fPio"), bPio=document.getElementById("bPio");
+const fTerm=document.getElementById("fTerm"), bDef=document.getElementById("bDef");
+const positionEl=document.getElementById("position");
+const kCount=document.getElementById("kCount"), fCount=document.getElementById("fCount");
+const barFill=document.getElementById("barFill");
+const stage=document.querySelector(".stage");
+const knownBtn=document.getElementById("knownBtn");
+const flagBtn=document.getElementById("flagBtn");
+
+const emptyState=document.getElementById("emptyState");
+const controlsRow=document.querySelector(".controls");
+const markRow=document.querySelector(".mark");
+
+/* ===== Deck building ===== */
+function deck(){
+  return order.filter(i=>{
+    const c=CARDS[i];
+    if(filter==="pio" && !c.p) return false;
+    if(filter!=="all" && filter!=="pio" && c.s!==filter) return false;
+    if(hideKnown && known.has(i)) return false;
+    if(flagOnly && !flagged.has(i)) return false;
+    return true;
+  });
+}
+
+function render(){
+  const d=deck();
+  const total=d.length;
+  // counts always reflect the whole set
+  kCount.textContent=known.size;
+  fCount.textContent=flagged.size;
+  barFill.style.width=(CARDS.length? (known.size/CARDS.length*100):0)+"%";
+
+  // empty state — toggle visibility, never destroy the card
+  const isEmpty = total===0;
+  emptyState.style.display = isEmpty ? "block" : "none";
+  card.style.display       = isEmpty ? "none"  : "flex";
+  controlsRow.style.opacity = isEmpty ? ".4" : "1";
+  markRow.style.opacity     = isEmpty ? ".4" : "1";
+  controlsRow.style.pointerEvents = isEmpty ? "none" : "auto";
+  markRow.style.pointerEvents     = isEmpty ? "none" : "auto";
+  if(isEmpty){ positionEl.textContent="Card 0 / 0"; return; }
+
+  if(pos>=total) pos=0;
+  if(pos<0) pos=total-1;
+  const idx=d[pos];
+  const c=CARDS[idx];
+
+  flipped=false; card.classList.remove("flip");
+  const dotSpan=`<span class="dot ${c.s}" style="width:7px;height:7px;border-radius:50%;display:inline-block"></span>`;
+  fSec.innerHTML=dotSpan+SECTIONS[c.s];
+  bSec.innerHTML=dotSpan+SECTIONS[c.s];
+  fPio.style.display=c.p?"inline-block":"none";
+  bPio.style.display=c.p?"inline-block":"none";
+  fTerm.innerHTML=c.t;
+  bDef.innerHTML=c.d;
+
+  front.dataset.known=back.dataset.known=known.has(idx)?"1":"0";
+  front.dataset.flag=back.dataset.flag=flagged.has(idx)?"1":"0";
+  knownBtn.classList.toggle("on",known.has(idx));
+  flagBtn.classList.toggle("on",flagged.has(idx));
+
+  positionEl.textContent=`Card ${pos+1} / ${total}`;
+}
+
+function flip(){ if(card.style.display==="none")return; flipped=!flipped; card.classList.toggle("flip",flipped); }
+function next(){ pos++; render(); }
+function prev(){ pos--; render(); }
+
+function curIdx(){ const d=deck(); return d.length? d[Math.min(pos,d.length-1)] : null; }
+function toggleKnown(){ const i=curIdx(); if(i==null)return; known.has(i)?known.delete(i):known.add(i); render(); }
+function toggleFlag(){ const i=curIdx(); if(i==null)return; flagged.has(i)?flagged.delete(i):flagged.add(i); render(); }
+
+function shuffle(){
+  for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+  pos=0; render();
+}
+
+/* ===== Filters ===== */
+document.getElementById("filters").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  filter=b.dataset.f;
+  [...e.currentTarget.children].forEach(x=>x.classList.toggle("on",x===b));
+  pos=0; render();
+});
+document.getElementById("shuffleBtn").addEventListener("click",shuffle);
+document.getElementById("hideKnownBtn").addEventListener("click",function(){ hideKnown=!hideKnown; this.classList.toggle("on",hideKnown); pos=0; render(); });
+document.getElementById("flagOnlyBtn").addEventListener("click",function(){ flagOnly=!flagOnly; this.classList.toggle("on",flagOnly); pos=0; render(); });
+document.getElementById("resetBtn").addEventListener("click",function(){ known.clear(); flagged.clear(); render(); });
+
+document.getElementById("prevBtn").addEventListener("click",prev);
+document.getElementById("nextBtn").addEventListener("click",next);
+document.getElementById("flipBtn").addEventListener("click",flip);
+knownBtn.addEventListener("click",toggleKnown);
+flagBtn.addEventListener("click",toggleFlag);
+card.addEventListener("click",flip);
+
+/* ===== Keyboard ===== */
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="INPUT")return;
+  const k=e.key.toLowerCase();
+  if(e.key===" "||e.key==="Enter"){e.preventDefault();flip();}
+  else if(e.key==="ArrowRight"){next();}
+  else if(e.key==="ArrowLeft"){prev();}
+  else if(k==="k"){toggleKnown();}
+  else if(k==="f"){toggleFlag();}
+  else if(k==="s"){shuffle();}
+});
+
+/* ===== Init ===== */
+render();
+</script>
+</body>
+</html>

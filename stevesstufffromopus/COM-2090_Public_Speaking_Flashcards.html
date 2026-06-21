@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COM-2090 Flashcards — Public Speaking</title>
+<style>
+  :root{
+    --bg:#151829; --bg2:#1c2136; --panel:#212840;
+    --card:#FBF6EC; --card-edge:#ece1cb;
+    --ink:#1b2030; --ink-soft:#565d75; --rule:#e1d8c2;
+    --accent:#4f63c4; --accent-ink:#27316e; --accent-soft:rgba(79,99,196,.16);
+    --known:#5f9e7a; --review:#c0744a;
+    --ui:#ced3e6; --ui-dim:#838ba8; --ui-line:#2e3550;
+    /* per-section dot colors */
+    --aud:#4a7ba6; --eth:#c8912b; --log:#8a6fb0; --org:#4f9d8a;
+    --pur:#c0744a; --sup:#6377c4; --del:#c0658c;
+    --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+    --sans:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"SF Mono",ui-monospace,"Cascadia Code",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:radial-gradient(125% 95% at 50% -12%, #1f2540 0%, var(--bg) 62%);
+    color:var(--ui); font-family:var(--sans);
+    min-height:100vh; padding:26px 16px 64px;
+    display:flex; flex-direction:column; align-items:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{width:100%; max-width:680px}
+
+  header{margin-bottom:18px}
+  header h1{
+    font-family:var(--serif); font-weight:600; letter-spacing:.2px;
+    font-size:clamp(1.4rem,4.6vw,1.95rem); margin:0 0 5px; color:#f1ede1; line-height:1.1;
+  }
+  header .sub{
+    font-family:var(--mono); text-transform:uppercase; letter-spacing:.16em;
+    font-size:.64rem; color:var(--ui-dim); margin:0;
+  }
+
+  .filters{display:flex; flex-wrap:wrap; gap:7px; margin:18px 0 10px}
+  .filters button{
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ui-dim); background:var(--panel); border:1px solid var(--ui-line);
+    padding:7px 11px; border-radius:999px; cursor:pointer; transition:.15s;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .filters button:hover{color:var(--ui); border-color:#3a4264}
+  .filters button.on{color:#f4efe2; background:var(--accent); border-color:var(--accent)}
+  .filters button.fal.on{background:var(--review); border-color:var(--review)}
+  .filters button .dot{width:7px; height:7px; border-radius:50%; background:currentColor; opacity:.85}
+  .dot.aud{background:var(--aud)} .dot.eth{background:var(--eth)} .dot.log{background:var(--log)}
+  .dot.org{background:var(--org)} .dot.pur{background:var(--pur)} .dot.sup{background:var(--sup)} .dot.del{background:var(--del)}
+
+  .utils{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px}
+  .utils button{
+    font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ui-dim); background:transparent; border:1px solid var(--ui-line);
+    padding:6px 10px; border-radius:6px; cursor:pointer; transition:.15s;
+  }
+  .utils button:hover{color:var(--ui); border-color:#3a4264}
+  .utils button.on{color:#f4efe2; border-color:var(--review); background:rgba(192,116,74,.16)}
+
+  .meta{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.06em; color:var(--ui-dim);
+    margin-bottom:9px;
+  }
+  .meta .counts b{color:var(--known); font-weight:600}
+  .meta .counts i{color:var(--review); font-style:normal; font-weight:600}
+  .bar{height:3px; background:var(--ui-line); border-radius:2px; overflow:hidden; margin-bottom:18px}
+  .bar > span{display:block; height:100%; width:0; background:var(--known); transition:width .3s}
+
+  .stage{perspective:1600px; margin-bottom:16px}
+  .card{
+    position:relative; width:100%; min-height:300px;
+    transform-style:preserve-3d; transition:transform .5s cubic-bezier(.2,.7,.2,1);
+    cursor:pointer;
+  }
+  .card.flip{transform:rotateY(180deg)}
+  .face{
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    background:linear-gradient(177deg,var(--card),var(--card-edge));
+    border:1px solid var(--card-edge); border-radius:13px;
+    box-shadow:0 18px 40px -22px rgba(0,0,0,.75), 0 1px 0 rgba(255,255,255,.5) inset;
+    padding:26px 26px 56px; display:flex; flex-direction:column; overflow:hidden;
+  }
+  .face::before{
+    content:""; position:absolute; left:50%; bottom:13px; transform:translateX(-50%);
+    width:13px; height:13px; border-radius:50%;
+    background:radial-gradient(circle at 40% 35%, #fff, var(--rule));
+    box-shadow:inset 0 1px 2px rgba(0,0,0,.28);
+  }
+  .back{transform:rotateY(180deg)}
+
+  .tab{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    border-bottom:1px solid var(--rule); padding-bottom:9px; margin-bottom:14px;
+  }
+  .tab .sec{
+    font-family:var(--mono); font-size:.6rem; letter-spacing:.13em; text-transform:uppercase;
+    color:var(--ink-soft); display:inline-flex; align-items:center; gap:7px;
+  }
+  .tab .badge{
+    font-family:var(--mono); font-size:.55rem; letter-spacing:.1em; text-transform:uppercase;
+    color:#fff; background:var(--review); padding:3px 7px; border-radius:4px; white-space:nowrap;
+  }
+  .term{
+    font-family:var(--serif); color:var(--ink); line-height:1.18;
+    font-size:clamp(1.3rem,5vw,1.65rem); font-weight:600; display:flex; align-items:center; flex:1;
+  }
+  .def{font-family:var(--sans); color:var(--ink); font-size:1.02rem; line-height:1.5; display:flex; align-items:flex-start; flex:1}
+  .def .inner{align-self:center}
+  .def b{color:var(--accent-ink); font-weight:700}
+  .hint{
+    position:absolute; right:24px; bottom:15px;
+    font-family:var(--mono); font-size:.55rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-soft); opacity:.6;
+  }
+  .face[data-known="1"]{box-shadow:0 18px 40px -22px rgba(0,0,0,.75), 0 0 0 2px var(--known) inset}
+  .face[data-flag="1"]{box-shadow:0 18px 40px -22px rgba(0,0,0,.75), 0 0 0 2px var(--review) inset}
+
+  .controls{display:flex; gap:9px; align-items:stretch}
+  .controls button{
+    flex:1; font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ui); background:var(--panel); border:1px solid var(--ui-line);
+    padding:13px 8px; border-radius:9px; cursor:pointer; transition:.15s;
+  }
+  .controls button:hover{border-color:#3a4264; background:var(--bg2)}
+  .controls .flip-btn{flex:1.5; background:var(--accent); border-color:var(--accent); color:#f4efe2; font-weight:600}
+  .controls .flip-btn:hover{filter:brightness(1.08)}
+  .mark{display:flex; gap:9px; margin-top:9px}
+  .mark button{
+    flex:1; font-family:var(--mono); font-size:.64rem; letter-spacing:.07em; text-transform:uppercase;
+    background:transparent; border:1px solid var(--ui-line); color:var(--ui-dim);
+    padding:11px 8px; border-radius:9px; cursor:pointer; transition:.15s;
+  }
+  .mark button.known.on{color:#eaf3ea; border-color:var(--known); background:rgba(95,158,122,.18)}
+  .mark button.flag.on{color:#f6e6dc; border-color:var(--review); background:rgba(192,116,74,.18)}
+  .mark button:hover{color:var(--ui); border-color:#3a4264}
+
+  .legend{
+    margin-top:22px; font-family:var(--mono); font-size:.58rem; letter-spacing:.05em;
+    color:var(--ui-dim); line-height:1.9; text-align:center;
+  }
+  .legend kbd{background:var(--panel); border:1px solid var(--ui-line); border-radius:4px; padding:1px 6px; color:var(--ui); margin:0 1px}
+  .empty{text-align:center; font-family:var(--serif); color:var(--ui-dim); padding:60px 20px; font-size:1.05rem}
+  @media (max-width:430px){
+    .face{padding:22px 20px 52px}
+    .controls button{padding:12px 5px; font-size:.6rem}
+    .filters button{font-size:.6rem; padding:6px 9px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Public Speaking</h1>
+    <p class="sub">COM-2090-TE · TECEP Study Deck · Thomas Edison State University</p>
+  </header>
+
+  <nav class="filters" id="filters" aria-label="Filter by section">
+    <button data-f="all" class="on">All</button>
+    <button data-f="aud"><span class="dot aud"></span>Audience</button>
+    <button data-f="eth"><span class="dot eth"></span>Ethics</button>
+    <button data-f="log"><span class="dot log"></span>Logic</button>
+    <button data-f="org"><span class="dot org"></span>Organization</button>
+    <button data-f="pur"><span class="dot pur"></span>Purpose</button>
+    <button data-f="sup"><span class="dot sup"></span>Support</button>
+    <button data-f="del"><span class="dot del"></span>Delivery</button>
+    <button data-f="fal" class="fal">⚠ Fallacies</button>
+  </nav>
+
+  <div class="utils">
+    <button id="shuffleBtn">⤮ Shuffle</button>
+    <button id="hideKnownBtn">Hide known</button>
+    <button id="flagOnlyBtn">Flagged only</button>
+    <button id="resetBtn">Reset marks</button>
+  </div>
+
+  <div class="meta">
+    <span id="position">Card 1 / 1</span>
+    <span class="counts"><b id="kCount">0</b> known · <i id="fCount">0</i> flagged</span>
+  </div>
+  <div class="bar"><span id="barFill"></span></div>
+
+  <div class="stage">
+    <div class="card" id="card" role="button" tabindex="0" aria-label="Flashcard, click to flip">
+      <div class="face front" id="front" data-known="0" data-flag="0">
+        <div class="tab"><span class="sec" id="fSec"></span><span class="badge" id="fBadge" style="display:none">⚠ Fallacy</span></div>
+        <div class="term" id="fTerm"></div>
+        <span class="hint">tap to flip</span>
+      </div>
+      <div class="face back" id="back" data-known="0" data-flag="0">
+        <div class="tab"><span class="sec" id="bSec"></span><span class="badge" id="bBadge" style="display:none">⚠ Fallacy</span></div>
+        <div class="def"><span class="inner" id="bDef"></span></div>
+        <span class="hint">tap to flip back</span>
+      </div>
+    </div>
+    <div class="empty" id="emptyState" style="display:none">
+      No cards match this filter.<br>
+      <span style="font-size:.85rem">Try “All”, turn off “Flagged only”, or reset your marks.</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="prevBtn">‹ Prev</button>
+    <button class="flip-btn" id="flipBtn">Flip</button>
+    <button id="nextBtn">Next ›</button>
+  </div>
+  <div class="mark">
+    <button class="known" id="knownBtn">✓ Mark known</button>
+    <button class="flag" id="flagBtn">⚑ Flag for review</button>
+  </div>
+
+  <div class="legend">
+    <kbd>Space</kbd>/<kbd>↵</kbd> flip&nbsp;·&nbsp;<kbd>←</kbd><kbd>→</kbd> navigate&nbsp;·&nbsp;<kbd>K</kbd> known&nbsp;·&nbsp;<kbd>F</kbd> flag&nbsp;·&nbsp;<kbd>S</kbd> shuffle<br>
+    Written exam = 40% (20 MC + 4 short answer) · 2 recorded speeches = 60%
+  </div>
+</div>
+
+<script>
+const SECTIONS = {
+  aud:"Audience Analysis",
+  eth:"Ethics & Public Speaking",
+  log:"Logic & Critical Thinking",
+  org:"Organization of Speeches",
+  pur:"Purpose of Speeches",
+  sup:"Supporting Ideas",
+  del:"Delivery & Presentation"
+};
+
+/* s: section · fal: fallacy flag · t: term · d: definition */
+const CARDS = [
+/* ---------- AUDIENCE ANALYSIS (10%) ---------- */
+{s:"aud",t:"Audience analysis",d:"Gathering and analyzing information about your listeners — their demographics, attitudes, and situation — so you can adapt the speech to their knowledge, interests, and needs. The cornerstone of effective speaking."},
+{s:"aud",t:"Audience-centeredness",d:"Keeping the audience foremost in mind at every stage. The speaker's goal is to gain a desired response <b>from listeners</b>, not to show off — adapt the message to them."},
+{s:"aud",t:"Demographic analysis",d:"Audience analysis based on <b>group memberships</b> — age, gender, race/ethnicity, religion, education, socioeconomic status, group affiliations. The most straightforward and verifiable of the three types."},
+{s:"aud",t:"Psychographic analysis",d:"Audience analysis based on <b>attitudes, beliefs, and values</b> (and opinions). Less verifiable than demographics but essential for persuasion. Values form the foundation that shapes beliefs and attitudes."},
+{s:"aud",t:"Situational analysis",d:"Audience analysis of the <b>occasion and setting</b> — audience size, physical environment, time, and the reason the audience has gathered."},
+{s:"aud",t:"Three types of audience analysis",d:"In <i>Stand Up, Speak Out</i>: <b>demographic, psychographic, and situational</b>. Together they tell you who your listeners are, what they think, and the context you'll speak in."},
+{s:"aud",t:"Value",d:"A deeply held judgment about what is right/wrong, good/bad, desirable/undesirable (e.g., honesty, freedom, fairness). The <b>foundation</b> of psychographic analysis."},
+{s:"aud",t:"Belief",d:"What a person holds to be true or false. Beliefs rest on values and in turn shape attitudes."},
+{s:"aud",t:"Attitude",d:"A predisposition to respond favorably or unfavorably toward a person, object, or idea. Knowing whether the audience is favorable, neutral, or hostile shapes your strategy."},
+{s:"aud",t:"Egocentrism",d:"The tendency of listeners to be concerned above all with their <b>own</b> values, beliefs, and well-being. Speakers must show why the topic matters to them. (Exam term.)"},
+{s:"aud",t:"Ethnocentrism",d:"The belief that one's own group or culture is superior to all others. Speakers must avoid it and adapt respectfully to diverse audiences."},
+{s:"aud",t:"Identification",d:"Creating common ground with the audience by stressing shared values, experiences, and goals — making listeners feel \"this speaker is like me.\""},
+{s:"aud",t:"Audience adaptation",d:"Adjusting topic, language, examples, and delivery to fit the specific audience — both while preparing and in real time, by reading audience feedback as you speak."},
+{s:"aud",t:"Audience disposition (key factor)",d:"What you most need to gauge varies by audience: an audience's <b>existing knowledge of the topic</b> often matters most when informing (e.g., a talk to expectant parents). Match depth and vocabulary to it. (Exam scenario.)"},
+
+/* ---------- ETHICS & PUBLIC SPEAKING (20%) ---------- */
+{s:"eth",t:"Ethics (in speaking)",d:"The standards of right and wrong that guide a speaker's conduct. Because speech can influence others, public speaking always carries ethical responsibility."},
+{s:"eth",t:"Speech as power",d:"Because speechmaking is a form of <b>power</b>, it carries heavy <b>ethical</b> responsibilities. The ability to move audiences must be used honestly and responsibly. (Exam fact.)"},
+{s:"eth",t:"Guidelines for ethical speaking",d:"Make sure your goals are ethically sound; be fully prepared; be honest in what you say; avoid name-calling and abusive language; put ethical principles into practice."},
+{s:"eth",t:"Plagiarism",d:"Presenting another person's language or ideas as your own. A serious ethical violation. The three types: global, patchwork, and incremental."},
+{s:"eth",t:"Global plagiarism",d:"Stealing an <b>entire</b> speech from a single source and passing it off as your own. The most blatant and unethical form."},
+{s:"eth",t:"Patchwork plagiarism",d:"Stitching a speech together by copying from <b>two or three</b> sources without crediting them."},
+{s:"eth",t:"Incremental plagiarism",d:"Failing to credit <b>specific</b> quotations, paraphrases, or ideas borrowed from others — even when the speech as a whole is your own work. (Exam answer.)"},
+{s:"eth",t:"Paraphrasing",d:"Restating someone's idea in your own words. You <b>must still cite</b> the source when paraphrasing — otherwise it becomes incremental plagiarism."},
+{s:"eth",t:"Oral source citation",d:"Verbally crediting the origin of facts, quotations, and statistics during the speech (\"According to...\"). Maintains credibility and prevents plagiarism."},
+{s:"eth",t:"Name-calling / abusive language",d:"Language that degrades or dehumanizes people or groups. Unethical because it can silence opposing views and inflame prejudice."},
+{s:"eth",t:"Ethical listening",d:"Listening courteously and attentively, avoiding prejudging the speaker, and supporting the free and open expression of ideas."},
+{s:"eth",t:"NCA Credo for Ethical Communication",d:"The National Communication Association's statement affirming that ethical, truthful communication is fundamental to responsible decision-making and to a healthy democracy."},
+
+/* ---------- LOGIC & CRITICAL THINKING (10%) ---------- */
+{s:"log",t:"Modes of persuasion",d:"Aristotle's three persuasive appeals: <b>ethos</b> (credibility), <b>pathos</b> (emotion), and <b>logos</b> (logic). Effective persuasion balances all three."},
+{s:"log",t:"Ethos",d:"The appeal based on the <b>speaker's credibility</b> — character, competence, and trustworthiness. Built through expertise, honesty, and goodwill toward the audience."},
+{s:"log",t:"Pathos",d:"The appeal to the <b>audience's emotions</b> — fear, pity, hope, anger, pride. Powerful, but must be used ethically and balanced with sound reasoning."},
+{s:"log",t:"Logos",d:"The appeal based on <b>logic and evidence</b> — facts, statistics, and sound reasoning that support the claim."},
+{s:"log",t:"Credibility",d:"The audience's perception of a speaker as competent and trustworthy. Initial (before), derived (during), and terminal (after) credibility. Closely tied to ethos."},
+{s:"log",t:"Reasoning",d:"Drawing a conclusion based on evidence — the backbone of logos. Main types: inductive, deductive, causal, analogical, and sign reasoning."},
+{s:"log",t:"Inductive reasoning",d:"Reasoning from <b>specific instances to a general conclusion</b> (several examples → a generalization). Conclusions are probable, not certain."},
+{s:"log",t:"Deductive reasoning",d:"Reasoning from a <b>general principle to a specific conclusion</b>. Often expressed as a syllogism."},
+{s:"log",t:"Syllogism",d:"A three-part deductive argument: <b>major premise, minor premise, conclusion</b>. (All humans are mortal; Socrates is human; therefore Socrates is mortal.)"},
+{s:"log",t:"Causal reasoning",d:"Reasoning that establishes a <b>cause-and-effect</b> relationship between two events."},
+{s:"log",t:"Analogical reasoning",d:"Reasoning by <b>comparison</b>: because two cases are alike in known respects, they are probably alike in a further respect."},
+{s:"log",t:"Reasoning from sign",d:"Inferring that something is true from observable indicators (signs) usually associated with it."},
+{s:"log",fal:1,t:"Logical fallacy",d:"An <b>error in reasoning</b> that weakens or invalidates an argument. Spotting and avoiding fallacies is central to critical thinking and ethical persuasion."},
+{s:"log",fal:1,t:"Hasty generalization",d:"Drawing a broad conclusion from <b>insufficient or unrepresentative</b> evidence — too few examples to justify the claim."},
+{s:"log",fal:1,t:"False cause (post hoc)",d:"Assuming that because one event followed another, the first <b>caused</b> the second. Latin: <i>post hoc, ergo propter hoc</i> — \"after this, therefore because of this.\""},
+{s:"log",fal:1,t:"Ad hominem",d:"Attacking the <b>person</b> making an argument rather than the argument itself (\"against the man\")."},
+{s:"log",fal:1,t:"Bandwagon (appeal to popularity)",d:"Assuming something is true or good because <b>many people</b> believe or do it — \"everyone's doing it.\""},
+{s:"log",fal:1,t:"Either-or (false dilemma)",d:"Framing a situation as having only <b>two</b> options when more exist (\"You're either with us or against us\")."},
+{s:"log",fal:1,t:"Slippery slope",d:"Claiming one action will <b>inevitably</b> trigger a chain of extreme consequences, without proving each link in the chain."},
+{s:"log",fal:1,t:"Red herring",d:"Introducing an <b>irrelevant</b> issue to divert attention from the real subject under discussion."},
+{s:"log",fal:1,t:"Straw man",d:"<b>Misrepresenting or exaggerating</b> an opponent's position so it is easier to attack and refute."},
+{s:"log",fal:1,t:"Appeal to tradition",d:"Arguing something should continue simply because \"we've <b>always</b> done it that way.\""},
+{s:"log",fal:1,t:"False analogy",d:"Comparing two things that are <b>not alike</b> in the relevant respects, so the comparison doesn't actually support the claim."},
+{s:"log",fal:1,t:"Non sequitur",d:"\"It does not follow.\" A conclusion that has <b>no logical connection</b> to the evidence or premises offered."},
+{s:"log",fal:1,t:"Appeal to pity (ad misericordiam)",d:"Trying to win support by exploiting the audience's <b>pity or guilt</b> instead of offering sound reasons."},
+{s:"log",fal:1,t:"Begging the question",d:"<b>Circular reasoning</b> — assuming the truth of the conclusion within one of the premises, so the argument proves nothing."},
+
+/* ---------- ORGANIZATION (20%) ---------- */
+{s:"org",t:"Introduction (functions)",d:"The opening of a speech. Its jobs: <b>get attention, reveal the topic, establish credibility</b> and goodwill, show relevance to the audience, and <b>preview</b> the main points."},
+{s:"org",t:"Attention-getter",d:"The opening device that captures interest: a startling statement, rhetorical question, quotation, story, vivid statistic, or humor."},
+{s:"org",t:"Preview statement",d:"A sentence at the end of the introduction that <b>names the main points</b> the speech will cover — a roadmap for listeners."},
+{s:"org",t:"Body",d:"The largest part of the speech, containing the <b>main points</b> and supporting material, arranged in a clear organizational pattern."},
+{s:"org",t:"Main points",d:"The central claims or key ideas of the speech (usually <b>2–5</b>), each developed with supporting material."},
+{s:"org",t:"Conclusion (functions)",d:"The closing of a speech. Its jobs: <b>signal the end, summarize</b> the main points, and end <b>memorably</b> with a clincher."},
+{s:"org",t:"Clincher",d:"A strong, memorable closing line that reinforces the central idea and gives the speech a sense of closure."},
+{s:"org",t:"Chronological (time) order",d:"Main points arranged in a <b>time sequence</b> or the steps of a process. Best for historical topics and how-to/demonstration speeches. (Exam: a how-to on making a piñata → time order.)"},
+{s:"org",t:"Spatial order",d:"Main points arranged by <b>physical location or direction</b> — top to bottom, left to right, east to west."},
+{s:"org",t:"Topical order",d:"Dividing the subject into <b>logical subtopics or categories</b>. The most common and flexible pattern."},
+{s:"org",t:"Causal order",d:"Main points arranged to show a <b>cause-and-effect</b> relationship (causes → effects, or effects → causes)."},
+{s:"org",t:"Problem-solution order",d:"First describe a <b>problem</b>, then propose a <b>solution</b>. A staple of persuasive speeches."},
+{s:"org",t:"Problem-cause-solution order",d:"A persuasive pattern: identify the problem, analyze its <b>causes</b>, then present a solution."},
+{s:"org",t:"Comparative advantages order",d:"A persuasive pattern that <b>compares options</b> and argues that your proposal is superior to the alternatives."},
+{s:"org",t:"Monroe's Motivated Sequence",d:"A five-step persuasive pattern designed to spur action: <b>Attention → Need → Satisfaction → Visualization → Action</b>."},
+{s:"org",t:"Connectives",d:"Words/phrases that link ideas and keep a speech flowing. Four kinds: <b>transitions, internal previews, internal summaries, and signposts</b>."},
+{s:"org",t:"Transition",d:"A word or phrase that signals movement from one idea to the next (\"Now that we've seen X, let's turn to Y\")."},
+{s:"org",t:"Internal preview",d:"A statement within the body telling the audience what the speaker will cover <b>next</b> within a point."},
+{s:"org",t:"Internal summary",d:"A statement within the body reminding the audience what was <b>just covered</b> before moving on."},
+{s:"org",t:"Signpost",d:"A brief cue showing <b>where you are</b> in the speech or stressing importance (\"First...\", \"Most importantly...\", \"Finally...\")."},
+
+/* ---------- PURPOSE (20%) ---------- */
+{s:"pur",t:"General purpose",d:"The broad goal of a speech: <b>to inform, to persuade, or to entertain</b>."},
+{s:"pur",t:"Specific purpose",d:"A single, precise statement of what you want the audience to know, believe, or do — written as an infinitive phrase: \"To inform my audience about...\""},
+{s:"pur",t:"Central idea (thesis)",d:"A concise one-sentence statement that captures the essence of the speech and previews its main points."},
+{s:"pur",t:"Informative speech",d:"A speech that conveys <b>knowledge and understanding</b> — explaining, describing, or demonstrating — without advocating a position."},
+{s:"pur",t:"Persuasive speech",d:"A speech that aims to <b>influence</b> the audience's beliefs, attitudes, values, or actions."},
+{s:"pur",t:"Narrative speech",d:"A speech built around a <b>story</b>, used to entertain, illustrate, or make a point through narrative."},
+{s:"pur",t:"Speech to entertain",d:"A speech whose primary goal is to <b>amuse or delight</b> (e.g., an after-dinner speech), often using humor and storytelling."},
+{s:"pur",t:"Flaws in purpose statements",d:"Common errors: too <b>broad</b>, contains <b>two unrelated ideas</b>, is figurative, merely expresses opinion, or isn't audience-centered. (Exam: \"ban smoking AND increase education spending\" = two unrelated ideas.)"},
+{s:"pur",t:"Topic selection",d:"Choosing a subject that is appropriate, suitably narrow, and matched to audience and occasion. \"Music\" is too broad — decide your <b>purpose first</b>, then narrow the focus. (Exam short-answer.)"},
+{s:"pur",t:"Narrowing the topic",d:"Focusing a broad subject down to a specific, manageable angle that fits the time limit and the audience."},
+{s:"pur",t:"Questions of fact / value / policy",d:"Persuasive speeches argue whether something is <b>true</b> (fact), <b>good or right</b> (value), or <b>what should be done</b> (policy)."},
+
+/* ---------- SUPPORTING IDEAS (20%) ---------- */
+{s:"sup",t:"Supporting material",d:"The evidence used to develop and prove main points: <b>examples, statistics, testimony</b>, facts, and definitions."},
+{s:"sup",t:"Examples",d:"Specific instances used to <b>illustrate or clarify</b> an idea. They make abstract points concrete and vivid."},
+{s:"sup",t:"Brief example",d:"A short, specific instance mentioned to illustrate a point; often several are stacked in a row."},
+{s:"sup",t:"Extended example",d:"A longer, more detailed story or anecdote (a narrative) developed to drive a point home."},
+{s:"sup",t:"Hypothetical example",d:"An <b>invented but plausible</b> example (\"Imagine that...\") used to illustrate a situation. Must be identified as hypothetical."},
+{s:"sup",t:"Statistics",d:"Numerical data showing magnitude, trends, or relationships. Use sparingly, <b>round off</b>, cite the source, and don't read hard-to-remember numbers from memory."},
+{s:"sup",t:"Testimony",d:"Quotations or paraphrases used to support a point by citing <b>what others have said</b>."},
+{s:"sup",t:"Expert (authoritative) testimony",d:"Testimony from recognized <b>authorities</b> on the subject. (Exam: quoting a Yale physicist = expert testimony.)"},
+{s:"sup",t:"Peer (lay) testimony",d:"Testimony from <b>ordinary people</b> with firsthand experience — adds a relatable, human dimension."},
+{s:"sup",t:"Direct quotation",d:"Citing someone's <b>exact words</b>. Must be reproduced accurately and credited to the source."},
+{s:"sup",t:"Facts",d:"Verifiable statements that can be proven true — the bedrock of credible support."},
+{s:"sup",t:"Definitions",d:"Explanations of a term's meaning; useful when introducing unfamiliar or technical vocabulary to the audience."},
+{s:"sup",t:"Credentials",d:"A speaker's qualifications and experience that establish <b>authority</b> to speak on a topic (and build ethos). (Exam: citing veterinary-tech experience = credentials.)"},
+{s:"sup",t:"Evaluating evidence",d:"Strong support is <b>accurate, relevant, current, unbiased, and from a reliable source</b>. Test your evidence before you use it."},
+{s:"sup",t:"Citing sources in support",d:"Whenever you use a statistic, quotation, or borrowed idea, cite it <b>orally</b> — this builds credibility and avoids incremental plagiarism."},
+
+/* ---------- DELIVERY & PRESENTATION ---------- */
+{s:"del",t:"Delivery",d:"The presentation of a speech through <b>voice and body</b>. Good delivery conveys ideas clearly and engagingly without distracting the audience."},
+{s:"del",t:"Impromptu delivery",d:"Speaking with <b>little or no preparation</b> — you organize and think on your feet."},
+{s:"del",t:"Manuscript delivery",d:"Reading a speech <b>word-for-word</b> from a full text. Ensures accuracy but risks sounding flat and losing eye contact."},
+{s:"del",t:"Memorized delivery",d:"Delivering a speech <b>from memory</b>, word-for-word. Risks sounding mechanical and the danger of forgetting passages."},
+{s:"del",t:"Extemporaneous delivery",d:"Speaking from a <b>brief keyword outline</b> after thorough preparation and practice. The most versatile, natural, recommended method — allows real audience contact. (Exam topic.)"},
+{s:"del",t:"Speaking notes (keyword outline)",d:"Brief notes with key words, <b>delivery cues</b>, and hard-to-remember details (statistics, exact quotations) — not full sentences. Used in extemporaneous speaking."},
+{s:"del",t:"Vocal delivery (paralanguage)",d:"How you use your voice: <b>rate, pitch, volume, pauses, vocal variety, articulation, and pronunciation</b>."},
+{s:"del",t:"Rate",d:"The <b>speed</b> at which you speak. Vary it for emphasis and avoid rushing."},
+{s:"del",t:"Pitch",d:"The highness or lowness of the voice. Varying pitch (inflection) prevents a monotone."},
+{s:"del",t:"Volume",d:"The <b>loudness</b> of the voice — loud enough for everyone to hear, and varied for emphasis."},
+{s:"del",t:"Pause",d:"A brief, purposeful silence for emphasis or to let an idea land. Avoid <b>vocalized pauses</b> (\"um,\" \"uh,\" \"like\")."},
+{s:"del",t:"Articulation",d:"Producing speech sounds <b>clearly and distinctly</b> — avoiding mumbling or slurring."},
+{s:"del",t:"Pronunciation",d:"Saying words <b>correctly</b>, with the accepted sounds and stress."},
+{s:"del",t:"Nonverbal delivery",d:"Communication through the body: eye contact, facial expressions, gestures, posture, movement, and appearance."},
+{s:"del",t:"Eye contact",d:"Looking directly at audience members. The <b>most important</b> nonverbal behavior — builds connection, conveys confidence, and lets you read audience feedback."},
+{s:"del",t:"Gestures",d:"Purposeful hand and arm movements that reinforce ideas. Keep them natural, not distracting."},
+{s:"del",t:"Posture",d:"How you hold your body. Stand upright and balanced to project confidence and authority."},
+{s:"del",t:"Nonverbal feedback (from audience)",d:"Listener cues signaling engagement or boredom: slouching, head-tilting, looking away, fiddling with phones, or turning the body away. Respond by making eye contact, raising energy, and re-engaging. (Exam short-answer.)"},
+{s:"del",t:"Presentation (visual) aids",d:"Supplementary visual/audio material — slides, objects, charts, graphs, images, video — that clarifies ideas and boosts retention."},
+{s:"del",t:"Types of visual aids",d:"Objects/models, photographs, diagrams, <b>charts and graphs</b> (line, bar, pie), maps, video, and the speaker themselves. Pick the type that best clarifies the idea."},
+{s:"del",t:"Guidelines for visual aids",d:"Keep them <b>simple and large</b>; display only while discussing them; don't read slides verbatim; practice with them; keep eye contact with the audience, not the screen."},
+{s:"del",t:"Slide design (recorded speeches)",d:"Minimal text, readable fonts, high contrast, consistent layout, visuals over walls of words. Slides <b>support</b> you — they're not your script. (Graded by the speech rubric.)"},
+{s:"del",t:"Communication apprehension",d:"Anxiety about speaking before an audience (\"stage fright\"). Managed — not eliminated — through preparation, practice, positive visualization, and controlled breathing."}
+];
+
+/* ===== State ===== */
+let filter="all", hideKnown=false, flagOnly=false;
+let order=CARDS.map((_,i)=>i);
+let pos=0, flipped=false;
+const known=new Set(), flagged=new Set();
+
+/* ===== Elements ===== */
+const card=document.getElementById("card");
+const front=document.getElementById("front"), back=document.getElementById("back");
+const fSec=document.getElementById("fSec"), bSec=document.getElementById("bSec");
+const fBadge=document.getElementById("fBadge"), bBadge=document.getElementById("bBadge");
+const fTerm=document.getElementById("fTerm"), bDef=document.getElementById("bDef");
+const positionEl=document.getElementById("position");
+const kCount=document.getElementById("kCount"), fCount=document.getElementById("fCount");
+const barFill=document.getElementById("barFill");
+const emptyState=document.getElementById("emptyState");
+const controlsRow=document.querySelector(".controls");
+const markRow=document.querySelector(".mark");
+const knownBtn=document.getElementById("knownBtn");
+const flagBtn=document.getElementById("flagBtn");
+
+/* ===== Deck ===== */
+function deck(){
+  return order.filter(i=>{
+    const c=CARDS[i];
+    if(filter==="fal" && !c.fal) return false;
+    if(filter!=="all" && filter!=="fal" && c.s!==filter) return false;
+    if(hideKnown && known.has(i)) return false;
+    if(flagOnly && !flagged.has(i)) return false;
+    return true;
+  });
+}
+
+function render(){
+  const d=deck();
+  const total=d.length;
+  kCount.textContent=known.size;
+  fCount.textContent=flagged.size;
+  barFill.style.width=(CARDS.length? (known.size/CARDS.length*100):0)+"%";
+
+  const isEmpty=total===0;
+  emptyState.style.display=isEmpty?"block":"none";
+  card.style.display=isEmpty?"none":"flex";
+  controlsRow.style.opacity=isEmpty?".4":"1";
+  markRow.style.opacity=isEmpty?".4":"1";
+  controlsRow.style.pointerEvents=isEmpty?"none":"auto";
+  markRow.style.pointerEvents=isEmpty?"none":"auto";
+  if(isEmpty){ positionEl.textContent="Card 0 / 0"; return; }
+
+  if(pos>=total) pos=0;
+  if(pos<0) pos=total-1;
+  const idx=d[pos], c=CARDS[idx];
+
+  flipped=false; card.classList.remove("flip");
+  const dotSpan=`<span class="dot ${c.s}" style="width:7px;height:7px;border-radius:50%;display:inline-block"></span>`;
+  fSec.innerHTML=dotSpan+SECTIONS[c.s];
+  bSec.innerHTML=dotSpan+SECTIONS[c.s];
+  fBadge.style.display=c.fal?"inline-block":"none";
+  bBadge.style.display=c.fal?"inline-block":"none";
+  fTerm.innerHTML=c.t;
+  bDef.innerHTML=c.d;
+
+  front.dataset.known=back.dataset.known=known.has(idx)?"1":"0";
+  front.dataset.flag=back.dataset.flag=flagged.has(idx)?"1":"0";
+  knownBtn.classList.toggle("on",known.has(idx));
+  flagBtn.classList.toggle("on",flagged.has(idx));
+  positionEl.textContent=`Card ${pos+1} / ${total}`;
+}
+
+function flip(){ if(card.style.display==="none")return; flipped=!flipped; card.classList.toggle("flip",flipped); }
+function next(){ pos++; render(); }
+function prev(){ pos--; render(); }
+function curIdx(){ const d=deck(); return d.length? d[Math.min(pos,d.length-1)] : null; }
+function toggleKnown(){ const i=curIdx(); if(i==null)return; known.has(i)?known.delete(i):known.add(i); render(); }
+function toggleFlag(){ const i=curIdx(); if(i==null)return; flagged.has(i)?flagged.delete(i):flagged.add(i); render(); }
+function shuffle(){
+  for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
+  pos=0; render();
+}
+
+/* ===== Wiring ===== */
+document.getElementById("filters").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  filter=b.dataset.f;
+  [...e.currentTarget.children].forEach(x=>x.classList.toggle("on",x===b));
+  pos=0; render();
+});
+document.getElementById("shuffleBtn").addEventListener("click",shuffle);
+document.getElementById("hideKnownBtn").addEventListener("click",function(){ hideKnown=!hideKnown; this.classList.toggle("on",hideKnown); pos=0; render(); });
+document.getElementById("flagOnlyBtn").addEventListener("click",function(){ flagOnly=!flagOnly; this.classList.toggle("on",flagOnly); pos=0; render(); });
+document.getElementById("resetBtn").addEventListener("click",function(){ known.clear(); flagged.clear(); render(); });
+document.getElementById("prevBtn").addEventListener("click",prev);
+document.getElementById("nextBtn").addEventListener("click",next);
+document.getElementById("flipBtn").addEventListener("click",flip);
+knownBtn.addEventListener("click",toggleKnown);
+flagBtn.addEventListener("click",toggleFlag);
+card.addEventListener("click",flip);
+
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="INPUT")return;
+  const k=e.key.toLowerCase();
+  if(e.key===" "||e.key==="Enter"){e.preventDefault();flip();}
+  else if(e.key==="ArrowRight"){next();}
+  else if(e.key==="ArrowLeft"){prev();}
+  else if(k==="k"){toggleKnown();}
+  else if(k==="f"){toggleFlag();}
+  else if(k==="s"){shuffle();}
+});
+
+render();
+</script>
+</body>
+</html>
