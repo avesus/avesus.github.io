@@ -1,4 +1,4 @@
 User-agent: *
-Allow: /
+Disallow: /linkedin-archive/manifest.json
 
 Sitemap: https://greenforest.io/sitemap.xml
