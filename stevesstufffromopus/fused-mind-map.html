@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fused Study Mind Map</title>
+  <meta name="description" content="A fused pannable D3 mind map for Steve's Environmental Ethics, Marriage and Family, and Public Speaking flashcards.">
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --panel: #ffffff;
+      --ink: #18211c;
+      --muted: #5e6b63;
+      --line: #d7ded6;
+      --soft: #eef2ec;
+      --accent: #2f6b45;
+      --accent-2: #4f63c4;
+      --warn: #b96935;
+      --shadow: 0 16px 40px rgba(20, 35, 25, 0.12);
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --mono: "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: minmax(320px, 390px) minmax(0, 1fr);
+      width: 100vw;
+      height: 100vh;
+    }
+
+    aside {
+      z-index: 2;
+      overflow: auto;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 22px;
+      color: var(--accent);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.85rem, 7vw, 2.9rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .count {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .count b {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .lens {
+      margin: 0 0 20px;
+      padding: 14px 14px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .lens h2,
+    .detail h2 {
+      margin: 0 0 8px;
+      font-size: 0.8rem;
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .lens p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .lens ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .lens li + li {
+      margin-top: 5px;
+    }
+
+    label {
+      display: block;
+      margin: 0 0 7px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      min-height: 42px;
+      margin: 0 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    input[type="search"]:focus {
+      outline: 2px solid rgba(47, 107, 69, 0.26);
+      border-color: var(--accent);
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .filters label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 34px;
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: #fff;
+      font-family: var(--sans);
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+      cursor: pointer;
+    }
+
+    .filters input {
+      width: 15px;
+      height: 15px;
+      margin: 0;
+      accent-color: var(--accent);
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: 700 0.84rem var(--sans);
+      cursor: pointer;
+    }
+
+    button:hover,
+    button:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .detail {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    .detail h3 {
+      margin: 0 0 7px;
+      font-size: 1.08rem;
+      line-height: 1.25;
+    }
+
+    .meta {
+      margin: 0 0 9px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .definition,
+    .specific,
+    .examples {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.48;
+    }
+
+    .specific {
+      color: #334b3c;
+      font-weight: 700;
+    }
+
+    .map-shell {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(24, 33, 28, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24, 33, 28, 0.035) 1px, transparent 1px),
+        var(--bg);
+      background-size: 32px 32px;
+    }
+
+    #map {
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    #map:active {
+      cursor: grabbing;
+    }
+
+    .status {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      max-width: min(480px, calc(100% - 36px));
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--muted);
+      font-size: 0.82rem;
+      box-shadow: 0 8px 26px rgba(20, 35, 25, 0.12);
+      pointer-events: none;
+    }
+
+    .link {
+      fill: none;
+      stroke: #b8c4ba;
+      stroke-width: 1.35px;
+    }
+
+    .link.dim {
+      opacity: 0.12;
+    }
+
+    .node circle {
+      stroke: #fff;
+      stroke-width: 2px;
+      cursor: pointer;
+    }
+
+    .node text {
+      fill: var(--ink);
+      paint-order: stroke;
+      stroke: rgba(245, 247, 242, 0.96);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      font-size: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .node .sub {
+      fill: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .node.dim {
+      opacity: 0.16;
+    }
+
+    .node.hit text {
+      fill: #0f3b25;
+      font-weight: 800;
+    }
+
+    .node.hit circle {
+      stroke: var(--warn);
+      stroke-width: 3px;
+    }
+
+    .node.selected circle {
+      stroke: #1b1f2f;
+      stroke-width: 4px;
+    }
+
+    @media (max-width: 820px) {
+      html,
+      body {
+        overflow: auto;
+      }
+
+      .app {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100vh;
+      }
+
+      aside {
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .map-shell {
+        height: 78vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <a class="back" href="index.html">Back to decks</a>
+      <h1>Fused Study Mind Map</h1>
+      <p class="lead">A single map for Environmental Ethics, Marriage and Family, and Public Speaking. It groups terms by the exact job each phrase performs, because the hardest terms use ordinary words in very specific ways.</p>
+      <div class="count" id="counts">Loading decks...</div>
+
+      <section class="lens" aria-labelledby="lens-title">
+        <h2 id="lens-title">Semantic Lens First</h2>
+        <p>For each multiword term, ignore the vague everyday meaning first. Ask what kind of exam object it is.</p>
+        <ul>
+          <li><b>Scope:</b> who counts, what matters, which boundary is drawn.</li>
+          <li><b>Lens:</b> what a theory makes you look for first.</li>
+          <li><b>Procedure:</b> how a speaker, researcher, court, or family sorts the case.</li>
+          <li><b>Sequence:</b> what order, stage, cycle, or chain the term locks in.</li>
+          <li><b>Power:</b> who gets benefits, burdens, voice, control, or harm.</li>
+        </ul>
+      </section>
+
+      <label for="search">Search</label>
+      <input id="search" type="search" autocomplete="off" placeholder="Try justice, order, role, value, analysis">
+
+      <div class="filters" aria-label="Course filters">
+        <label><input type="checkbox" value="ETH" checked> ETH</label>
+        <label><input type="checkbox" value="SOC" checked> SOC</label>
+        <label><input type="checkbox" value="COM" checked> COM</label>
+      </div>
+
+      <div class="buttons">
+        <button id="overview" type="button">Overview</button>
+        <button id="allTerms" type="button">All Terms</button>
+        <button id="fit" type="button">Fit</button>
+        <button id="reset" type="button">Reset</button>
+      </div>
+
+      <section class="detail" id="detail" aria-live="polite">
+        <h2>Selected Node</h2>
+        <h3>Fused memorization map</h3>
+        <p class="meta">371 terms when all decks are enabled</p>
+        <p class="definition">Select any node to see the exact definition, its semantic job, and the phrase pattern that makes it specific.</p>
+      </section>
+    </aside>
+
+    <main class="map-shell">
+      <svg id="map" aria-label="Pannable fused flashcard mind map"></svg>
+      <div class="status" id="status">Loading the flashcard decks...</div>
+    </main>
+  </div>
+
+  <script src="d3.v7.min.js"></script>
+  <script>
+    const DECKS = [
+      {
+        course: "ETH",
+        title: "Environmental Ethics",
+        file: "ETH-2100_Environmental_Ethics_Flashcards.html",
+        sections: {
+          ov: "Overview and Core Concepts",
+          ap: "Approaches and World Views",
+          hi: "History, Pioneers, and Events",
+          ej: "Environmental Justice",
+          law: "Environmental Law"
+        }
+      },
+      {
+        course: "SOC",
+        title: "Marriage and Family",
+        file: "SOC-2100_Flashcards.html",
+        sections: {
+          A: "Foundations, Forms, Kinship, Theory, Methods, Class",
+          B: "Gender, Love, and Sexuality",
+          C: "Communication and Conflict",
+          D: "Marriage, Singlehood, Parenting, Work",
+          E: "Violence, Divorce, and New Beginnings"
+        }
+      },
+      {
+        course: "COM",
+        title: "Public Speaking",
+        file: "COM-2090_Public_Speaking_Flashcards.html",
+        sections: {
+          aud: "Audience Analysis",
+          eth: "Ethics and Public Speaking",
+          log: "Logic and Critical Thinking",
+          org: "Organization of Speeches",
+          pur: "Purpose of Speeches",
+          sup: "Supporting Ideas",
+          del: "Delivery and Presentation"
+        }
+      }
+    ];
+
+    const GROUPS = [
+      {
+        id: "scope",
+        name: "Moral Scope: who or what counts",
+        short: "Moral Scope",
+        color: "#3f7f5b",
+        gist: "Terms that decide whose interests, life, suffering, rights, value, or moral standing must be counted."
+      },
+      {
+        id: "forms",
+        name: "Social Forms: who belongs to whom",
+        short: "Social Forms",
+        color: "#6f5f9e",
+        gist: "Terms that name family membership, marriage patterns, kinship boundaries, identity, love, and partner choice."
+      },
+      {
+        id: "systems",
+        name: "Systems and Lenses: what to look for first",
+        short: "Systems and Lenses",
+        color: "#467aa0",
+        gist: "Theories, perspectives, and system terms. The word sounds broad, but each one tells you the first thing to inspect."
+      },
+      {
+        id: "communication",
+        name: "Communication and Influence: moving minds",
+        short: "Communication",
+        color: "#4f63c4",
+        gist: "Audience adaptation, credibility, persuasion, purpose, fallacies, listening, and message design."
+      },
+      {
+        id: "evidence",
+        name: "Evidence and Method: how claims get checked",
+        short: "Evidence and Method",
+        color: "#8a6fb0",
+        gist: "Research methods, variables, samples, consent, statistics, testimony, sources, and support."
+      },
+      {
+        id: "sequence",
+        name: "Order and Sequence: where things go",
+        short: "Order and Sequence",
+        color: "#bd7a33",
+        gist: "Terms that lock ideas into time, space, cause, problem-solution, life-course, cycle, or presentation order."
+      },
+      {
+        id: "delivery",
+        name: "Delivery and Performance: how it reaches bodies",
+        short: "Delivery",
+        color: "#b45782",
+        gist: "Speaking modes, voice, body, visual aids, and presentation behavior."
+      },
+      {
+        id: "power",
+        name: "Power, Justice, and Harm: who carries the cost",
+        short: "Power and Justice",
+        color: "#b24f3b",
+        gist: "Inequality, conflict, violence, abuse, environmental burden, legal voice, divorce, and repair after harm."
+      },
+      {
+        id: "resources",
+        name: "Resources, Work, and Sustainability: limits and tradeoffs",
+        short: "Resources",
+        color: "#6f8e3d",
+        gist: "Resource use, poverty, work-family load, conservation, development, population, and sustainability."
+      },
+      {
+        id: "institutions",
+        name: "Law, Institutions, Events, and People: names tied to rules",
+        short: "Institutions",
+        color: "#66717c",
+        gist: "Specific acts, agencies, treaties, court cases, landmark events, organizations, and named pioneers."
+      }
+    ];
+
+    const DECODER = [
+      {
+        name: "analysis",
+        specific: "A named checklist for what to inspect.",
+        examples: "Audience analysis splits into demographic, psychographic, and situational checks."
+      },
+      {
+        name: "theory / perspective / view",
+        specific: "A lens with a first suspicion: function, power, meaning, exchange, system, or life course.",
+        examples: "Conflict theory looks for inequality; symbolic interactionism looks for shared meanings."
+      },
+      {
+        name: "value / standing / rights",
+        specific: "A boundary around what deserves moral weight.",
+        examples: "Intrinsic value, moral standing, animal rights, and speciesism all ask what counts."
+      },
+      {
+        name: "order / sequence / cycle",
+        specific: "A rule for arranging ideas or events.",
+        examples: "Chronological order follows time; Monroe's sequence follows persuasion pressure."
+      },
+      {
+        name: "role / script / identity",
+        specific: "A named expectation for behavior or self-position.",
+        examples: "Gender role, sexual script, instrumental role, and expressive role are not generic jobs."
+      },
+      {
+        name: "justice",
+        specific: "A fairness target: distribution, procedure, generation, climate, race, or income.",
+        examples: "Environmental justice is not politeness; it is burden and voice in environmental decisions."
+      },
+      {
+        name: "support / evidence / testimony",
+        specific: "The object that makes a claim acceptable.",
+        examples: "Statistics, examples, expert testimony, validity, and source citation all protect credibility."
+      },
+      {
+        name: "delivery",
+        specific: "The channel through voice, body, notes, slides, and audience contact.",
+        examples: "Extemporaneous delivery means prepared ideas from brief notes, not improvising blindly."
+      },
+      {
+        name: "act / protocol / order / convention",
+        specific: "A formal rule or institution-bound event with a date and jurisdiction.",
+        examples: "NEPA, CERCLA, Montreal Protocol, Executive Order 12898, and CITES are not loose ideas."
+      },
+      {
+        name: "family / marriage / custody",
+        specific: "A rule for membership, obligation, descent, care, or household structure.",
+        examples: "Family of orientation and family of procreation differ by where you come from versus what you create."
+      }
+    ];
+
+    const TRAPS = [
+      ["analysis", "Analysis means a named inspection checklist, not just thinking."],
+      ["theory", "Theory means a formal lens: it tells you what cause or pattern to look for first."],
+      ["perspective", "Perspective means a repeatable explanatory angle, not a personal opinion."],
+      ["view", "View usually marks the moral or social starting assumption."],
+      ["approach", "Approach means the method or worldview used to solve the ethical problem."],
+      ["value", "Value means the specific thing given moral weight or priority."],
+      ["standing", "Standing means being counted as morally or legally considerable."],
+      ["rights", "Rights means protected claims that cannot be ignored merely for convenience."],
+      ["justice", "Justice means the fairness target: burdens, benefits, voice, generation, or climate."],
+      ["order", "Order means a precise arrangement rule."],
+      ["sequence", "Sequence means ordered stages that should not be scrambled."],
+      ["cycle", "Cycle means a repeating pattern with named phases."],
+      ["role", "Role means expected behavior tied to a position."],
+      ["script", "Script means culturally learned expectations for behavior."],
+      ["identity", "Identity means a self-category, not just a label from outside."],
+      ["family", "Family means a specific membership or responsibility structure."],
+      ["marriage", "Marriage terms usually specify number, similarity, status direction, or partner market."],
+      ["support", "Support means evidence used to carry a claim."],
+      ["evidence", "Evidence means the reason a claim can be trusted."],
+      ["testimony", "Testimony means borrowed authority or experience used as proof."],
+      ["delivery", "Delivery means the speech channel: voice, body, notes, and visual aids."],
+      ["law", "Law terms are institution-made rules with dates, scope, and enforcement."],
+      ["act", "Act usually means a named statute, not just an action."],
+      ["protocol", "Protocol means a treaty-like rule system."],
+      ["purpose", "Purpose means the exact audience outcome the speech aims for."],
+      ["function", "Function means the social job served by a structure or behavior."]
+    ];
+
+    const state = {
+      cards: [],
+      query: "",
+      courses: new Set(["ETH", "SOC", "COM"]),
+      mode: "all",
+      selectedId: null,
+      zoom: null,
+      layer: null,
+      root: null
+    };
+
+    const mapColors = new Map(GROUPS.map(group => [group.id, group.color]));
+    const groupMeta = new Map(GROUPS.map(group => [group.id, group]));
+
+    function stripHtml(value) {
+      const div = document.createElement("div");
+      div.innerHTML = String(value || "");
+      return div.textContent.replace(/\s+/g, " ").trim();
+    }
+
+    function extractCards(html) {
+      const marker = "const CARDS = [";
+      const start = html.indexOf(marker);
+      if (start < 0) throw new Error("Could not find card array.");
+      const arrStart = html.indexOf("[", start);
+      let depth = 0;
+      let inString = false;
+      let quote = "";
+      let escaped = false;
+      for (let i = arrStart; i < html.length; i++) {
+        const ch = html[i];
+        if (inString) {
+          if (escaped) escaped = false;
+          else if (ch === "\\") escaped = true;
+          else if (ch === quote) inString = false;
+        } else if (ch === "\"" || ch === "'" || ch === "`") {
+          inString = true;
+          quote = ch;
+        } else if (ch === "[") {
+          depth++;
+        } else if (ch === "]") {
+          depth--;
+          if (depth === 0) {
+            return Function("return " + html.slice(arrStart, i + 1))();
+          }
+        }
+      }
+      throw new Error("Card array ended unexpectedly.");
+    }
+
+    function normalize(card, deck, index) {
+      const sectionCode = card.sec || card.s || "";
+      const term = stripHtml(card.term || card.t);
+      const definition = stripHtml(card.def || card.d);
+      const normalized = {
+        id: deck.course + "-" + index,
+        type: "term",
+        term,
+        name: term,
+        definition,
+        course: deck.course,
+        deckTitle: deck.title,
+        sourceFile: deck.file,
+        sectionCode,
+        section: deck.sections[sectionCode] || sectionCode,
+        tags: [],
+        who: card.who ? stripHtml(card.who) : "",
+        flag: card.p ? "Pioneer" : card.fal ? "Fallacy" : ""
+      };
+      normalized.group = classify(normalized);
+      normalized.specific = makeSpecificHint(normalized);
+      normalized.traps = findTraps(normalized.term);
+      normalized.searchText = [
+        normalized.term,
+        normalized.definition,
+        normalized.course,
+        normalized.section,
+        normalized.group,
+        normalized.specific,
+        normalized.who,
+        normalized.flag
+      ].join(" ").toLowerCase();
+      return normalized;
+    }
+
+    function has(text, words) {
+      return words.some(word => text.includes(word));
+    }
+
+    function classify(card) {
+      const t = card.term.toLowerCase();
+      const d = card.definition.toLowerCase();
+      const all = t + " " + d;
+
+      if (card.course === "ETH" && (card.sectionCode === "law" || card.sectionCode === "hi")) return "institutions";
+      if (card.course === "ETH" && card.sectionCode === "ej") return "power";
+
+      if (has(t, ["abuse", "violence", "rape", "neglect", "harassment", "divorce", "custody", "widowhood", "remarriage"])) return "power";
+      if (has(all, ["poverty", "status", "work", "resource", "second shift", "role overload", "sandwich generation", "population", "conservation", "preservation", "sustainable", "sustainability", "cornucopian", "malthusian"])) return "resources";
+      if (card.course === "COM" && card.sectionCode === "del") return "delivery";
+      if (card.course === "COM" && card.sectionCode === "org") return "sequence";
+      if (has(t, ["order", "sequence", "cycle", "stations", "stage", "life course", "development"])) return "sequence";
+
+      if (card.course === "SOC" && card.sectionCode === "A" && has(all, ["sample", "survey", "method", "variable", "validity", "reliability", "experiment", "observation", "ethnography", "consent", "confidentiality", "anonymity", "empirical", "correlation", "causation"])) return "evidence";
+      if (card.course === "COM" && card.sectionCode === "sup") return "evidence";
+      if (has(all, ["evidence", "testimony", "statistic", "source", "citation", "facts", "definition", "credentials", "generalizability", "representative sample"])) return "evidence";
+
+      if (card.course === "COM") return "communication";
+      if (has(t, ["communication", "self-disclosure", "affect", "horsemen", "stonewalling", "contempt", "demand"])) return "communication";
+
+      if (has(all, ["justice", "racism", "inequality", "patriarchy", "feminist", "power", "conflict", "least interest", "discrimination", "toxic", "burden", "minority", "low-income"])) return "power";
+
+      if (has(t, ["theory", "perspective", "systems", "ecological", "interactionism", "construction", "exchange", "functionalism", "hypothesis", "holism", "individualism", "ecology", "gaia"])) return "systems";
+
+      if (card.course === "ETH" || has(all, ["ethic", "moral", "value", "rights", "standing", "sentience", "sentient", "speciesism", "anthropocentrism", "biocentrism", "ecocentrism", "utilitarian", "egoism", "stewardship", "intrinsic", "instrumental"])) return "scope";
+
+      if (card.course === "SOC") return "forms";
+      return "communication";
+    }
+
+    function findTraps(term) {
+      const lower = term.toLowerCase();
+      return TRAPS.filter(([word]) => lower.includes(word)).map(([, hint]) => hint);
+    }
+
+    function makeSpecificHint(card) {
+      const lower = card.term.toLowerCase();
+      if (lower.includes("analysis")) return "Decode as inspection: what exact audience facts are being sorted?";
+      if (lower.includes("theory") || lower.includes("perspective")) return "Decode as a lens: what does this framework make you look for first?";
+      if (lower.includes("value") || lower.includes("standing") || lower.includes("rights")) return "Decode as moral counting: who or what receives weight?";
+      if (lower.includes("justice")) return "Decode as fairness mechanics: who bears burdens, receives benefits, and gets voice?";
+      if (lower.includes("order") || lower.includes("sequence") || lower.includes("cycle")) return "Decode as arrangement: which step comes before which, and why?";
+      if (lower.includes("role") || lower.includes("script")) return "Decode as expected behavior inside a social setting.";
+      if (lower.includes("family") || lower.includes("marriage") || lower.includes("custody")) return "Decode as a rule about membership, obligation, or household structure.";
+      if (lower.includes("support") || lower.includes("evidence") || lower.includes("testimony")) return "Decode as proof: what makes the claim credible?";
+      if (lower.includes("delivery")) return "Decode as channel: how the message reaches listeners through voice, body, and tools.";
+      if (lower.includes("act") || lower.includes("protocol") || lower.includes("convention")) return "Decode as formal rule: date, institution, scope, and enforcement.";
+      return groupMeta.get(card.group).gist;
+    }
+
+    function buildTree() {
+      const enabled = state.cards.filter(card => state.courses.has(card.course));
+      const root = {
+        name: "All decks fused by meaning",
+        short: "Fused Map",
+        type: "root",
+        definition: "One memory map built from Steve's three flashcard decks.",
+        children: []
+      };
+
+      root.children.push({
+        name: "General-word decoder",
+        short: "Decoder",
+        type: "decoderRoot",
+        definition: "The ordinary words that cause trouble become precise when you treat each as an exam job.",
+        children: DECODER.map(item => ({
+          name: item.name,
+          short: item.name,
+          type: "decoder",
+          definition: item.specific,
+          examples: item.examples,
+          searchText: [item.name, item.specific, item.examples].join(" ").toLowerCase()
+        }))
+      });
+
+      for (const group of GROUPS) {
+        const groupCards = enabled.filter(card => card.group === group.id);
+        if (!groupCards.length && state.mode === "all") continue;
+        const groupNode = {
+          name: group.name,
+          short: group.short,
+          type: "group",
+          group: group.id,
+          definition: group.gist,
+          count: groupCards.length,
+          searchText: [group.name, group.short, group.gist].join(" ").toLowerCase(),
+          children: []
+        };
+
+        if (state.mode === "all") {
+          const buckets = d3.group(groupCards, card => card.course + " - " + card.section);
+          Array.from(buckets, ([bucket, cards]) => ({
+            bucket,
+            cards: cards.sort((a, b) => a.term.localeCompare(b.term))
+          }))
+            .sort((a, b) => a.bucket.localeCompare(b.bucket))
+            .forEach(({ bucket, cards }) => {
+              groupNode.children.push({
+                name: bucket,
+                short: bucket,
+                type: "section",
+                group: group.id,
+                definition: cards.length + " terms",
+                count: cards.length,
+                searchText: bucket.toLowerCase(),
+                children: cards
+              });
+            });
+        }
+
+        root.children.push(groupNode);
+      }
+
+      return root;
+    }
+
+    function nodeColor(d) {
+      if (d.data.type === "root") return "#17211b";
+      if (d.data.type === "decoderRoot" || d.data.type === "decoder") return "#1f6f79";
+      return mapColors.get(d.data.group) || "#66717c";
+    }
+
+    function nodeRadius(d) {
+      if (d.data.type === "root") return 9;
+      if (d.data.type === "group") return 8;
+      if (d.data.type === "section" || d.data.type === "decoderRoot") return 6;
+      return 4.8;
+    }
+
+    function labelFor(d) {
+      if (d.data.type === "term") return d.data.term;
+      return d.data.short || d.data.name;
+    }
+
+    function metaFor(d) {
+      if (d.data.type === "term") return d.data.course + " - " + d.data.sectionCode;
+      if (d.data.count != null) return d.data.count + " terms";
+      return "";
+    }
+
+    function matches(d) {
+      if (!state.query) return false;
+      const text = (d.data.searchText || [
+        d.data.name,
+        d.data.definition,
+        d.data.examples
+      ].join(" ")).toLowerCase();
+      return text.includes(state.query);
+    }
+
+    function render() {
+      const svg = d3.select("#map");
+      const width = svg.node().clientWidth || 900;
+      const height = svg.node().clientHeight || 700;
+      svg.attr("viewBox", [0, 0, width, height]);
+      svg.selectAll("*").remove();
+
+      const rootData = buildTree();
+      const root = d3.hierarchy(rootData);
+      root.each(d => {
+        d.data.searchText = d.data.searchText || [
+          d.data.name,
+          d.data.definition,
+          d.data.course,
+          d.data.section,
+          d.data.group,
+          d.data.specific
+        ].join(" ").toLowerCase();
+      });
+      root.eachAfter(d => {
+        d.selfHit = matches(d);
+        d.hasHit = d.selfHit || (d.children || []).some(child => child.hasHit);
+      });
+
+      const tree = d3.tree().nodeSize([30, 280]).separation((a, b) => {
+        if (a.parent === b.parent) return 1;
+        return 1.25;
+      });
+      tree(root);
+
+      const xExtent = d3.extent(root.descendants(), d => d.x);
+      const yExtent = d3.extent(root.descendants(), d => d.y);
+      const margin = { top: 80, right: 360, bottom: 80, left: 80 };
+      root.each(d => {
+        d.x = d.x - xExtent[0] + margin.top;
+        d.y = d.y - yExtent[0] + margin.left;
+      });
+
+      const layer = svg.append("g");
+      state.layer = layer;
+
+      const link = layer.append("g")
+        .selectAll("path")
+        .data(root.links())
+        .join("path")
+        .attr("class", d => "link" + (state.query && !d.target.hasHit ? " dim" : ""))
+        .attr("d", d3.linkHorizontal().x(d => d.y).y(d => d.x));
+
+      const node = layer.append("g")
+        .selectAll("g")
+        .data(root.descendants())
+        .join("g")
+        .attr("class", d => {
+          const classes = ["node"];
+          if (state.query && !d.hasHit && !d.selfHit) classes.push("dim");
+          if (d.selfHit) classes.push("hit");
+          if (state.selectedId && d.data.id === state.selectedId) classes.push("selected");
+          return classes.join(" ");
+        })
+        .attr("transform", d => "translate(" + d.y + "," + d.x + ")")
+        .on("click", (event, d) => {
+          event.stopPropagation();
+          state.selectedId = d.data.id || d.data.name;
+          showDetail(d.data);
+          d3.selectAll(".node").classed("selected", nodeData => (nodeData.data.id || nodeData.data.name) === state.selectedId);
+        });
+
+      node.append("circle")
+        .attr("r", nodeRadius)
+        .attr("fill", nodeColor);
+
+      const labels = node.append("text")
+        .attr("dy", d => d.data.type === "term" ? "-0.15em" : "0.32em")
+        .attr("x", d => d.children ? -12 : 12)
+        .attr("text-anchor", d => d.children ? "end" : "start")
+        .text(d => labelFor(d));
+
+      node.filter(d => metaFor(d))
+        .append("text")
+        .attr("class", "sub")
+        .attr("dy", "1.15em")
+        .attr("x", d => d.children ? -12 : 12)
+        .attr("text-anchor", d => d.children ? "end" : "start")
+        .text(d => metaFor(d));
+
+      const zoom = d3.zoom()
+        .scaleExtent([0.08, 2.4])
+        .on("zoom", event => layer.attr("transform", event.transform));
+      svg.call(zoom).on("dblclick.zoom", null);
+      svg.on("click", () => {
+        state.selectedId = null;
+        showDetail(rootData);
+        d3.selectAll(".node").classed("selected", false);
+      });
+      state.zoom = zoom;
+      state.root = root;
+
+      requestAnimationFrame(() => focusRoot(false));
+      const termCount = state.cards.filter(card => state.courses.has(card.course)).length;
+      const shown = state.mode === "all" ? root.leaves().filter(d => d.data.type === "term").length : 0;
+      document.getElementById("status").textContent = state.mode === "all"
+        ? "Showing " + shown + " terms across active decks."
+        : "Overview mode: semantic groups only.";
+      document.getElementById("counts").innerHTML = "<b>" + termCount + "</b> active terms - ETH <b>" + countCourse("ETH") + "</b> - SOC <b>" + countCourse("SOC") + "</b> - COM <b>" + countCourse("COM") + "</b>";
+    }
+
+    function countCourse(course) {
+      return state.cards.filter(card => card.course === course && state.courses.has(course)).length;
+    }
+
+    function fitMap(animate) {
+      if (!state.layer || !state.zoom) return;
+      const svg = d3.select("#map");
+      const node = state.layer.node();
+      if (!node) return;
+      const bounds = node.getBBox();
+      const fullWidth = svg.node().clientWidth;
+      const fullHeight = svg.node().clientHeight;
+      if (!bounds.width || !bounds.height || !fullWidth || !fullHeight) return;
+      const scale = Math.max(0.08, Math.min(1.1, 0.9 / Math.max(bounds.width / fullWidth, bounds.height / fullHeight)));
+      const translate = [
+        (fullWidth - scale * (bounds.x + bounds.width / 2)) / 2,
+        (fullHeight - scale * (bounds.y + bounds.height / 2)) / 2
+      ];
+      const selection = animate ? svg.transition().duration(260) : svg;
+      selection.call(state.zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
+    }
+
+    function focusRoot(animate) {
+      if (!state.root || !state.zoom) return;
+      const svg = d3.select("#map");
+      const fullHeight = svg.node().clientHeight;
+      const scale = state.mode === "all" ? 0.86 : 0.96;
+      const translate = [
+        58 - state.root.y * scale,
+        fullHeight * 0.5 - state.root.x * scale
+      ];
+      const selection = animate ? svg.transition().duration(220) : svg;
+      selection.call(state.zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
+    }
+
+    function resetMap() {
+      focusRoot(true);
+    }
+
+    function escapeHtml(value) {
+      return String(value || "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function showDetail(data) {
+      const detail = document.getElementById("detail");
+      if (data.type === "term") {
+        const traps = data.traps.length
+          ? "<p class=\"specific\">" + escapeHtml(data.traps[0]) + "</p>"
+          : "";
+        const who = data.who ? " - " + escapeHtml(data.who) : "";
+        const flag = data.flag ? " - " + escapeHtml(data.flag) : "";
+        detail.innerHTML = [
+          "<h2>Selected Term</h2>",
+          "<h3>" + escapeHtml(data.term) + "</h3>",
+          "<p class=\"meta\">" + escapeHtml(data.deckTitle) + " - " + escapeHtml(data.section) + who + flag + "</p>",
+          "<p class=\"definition\">" + escapeHtml(data.definition) + "</p>",
+          traps,
+          "<p class=\"specific\">" + escapeHtml(data.specific) + "</p>"
+        ].join("");
+        return;
+      }
+
+      if (data.type === "decoder") {
+        detail.innerHTML = [
+          "<h2>Decoder Pattern</h2>",
+          "<h3>" + escapeHtml(data.name) + "</h3>",
+          "<p class=\"definition\">" + escapeHtml(data.definition) + "</p>",
+          "<p class=\"examples\">" + escapeHtml(data.examples) + "</p>"
+        ].join("");
+        return;
+      }
+
+      const count = data.count != null ? data.count + " terms" : "";
+      detail.innerHTML = [
+        "<h2>Selected Node</h2>",
+        "<h3>" + escapeHtml(data.name || "Fused memorization map") + "</h3>",
+        "<p class=\"meta\">" + escapeHtml(count) + "</p>",
+        "<p class=\"definition\">" + escapeHtml(data.definition || "A semantic branch in the fused map.") + "</p>"
+      ].join("");
+    }
+
+    async function loadDecks() {
+      if (!window.d3) throw new Error("D3 did not load.");
+      const results = await Promise.all(DECKS.map(async deck => {
+        const response = await fetch(deck.file, { cache: "no-cache" });
+        if (!response.ok) throw new Error("Could not load " + deck.file);
+        const html = await response.text();
+        return extractCards(html).map((card, index) => normalize(card, deck, index));
+      }));
+      state.cards = results.flat();
+      showDetail(buildTree());
+      render();
+    }
+
+    document.getElementById("search").addEventListener("input", event => {
+      state.query = event.target.value.trim().toLowerCase();
+      render();
+    });
+
+    document.querySelectorAll(".filters input").forEach(input => {
+      input.addEventListener("change", () => {
+        state.courses = new Set(Array.from(document.querySelectorAll(".filters input:checked")).map(box => box.value));
+        render();
+      });
+    });
+
+    document.getElementById("overview").addEventListener("click", () => {
+      state.mode = "overview";
+      render();
+    });
+
+    document.getElementById("allTerms").addEventListener("click", () => {
+      state.mode = "all";
+      render();
+    });
+
+    document.getElementById("fit").addEventListener("click", () => fitMap(true));
+    document.getElementById("reset").addEventListener("click", resetMap);
+    window.addEventListener("resize", () => render());
+
+    loadDecks().catch(error => {
+      document.getElementById("status").textContent = error.message;
+      document.getElementById("counts").textContent = "Could not load decks.";
+      document.getElementById("detail").innerHTML = "<h2>Load Error</h2><p class=\"definition\">" + escapeHtml(error.message) + "</p>";
+    });
+  </script>
+</body>
+</html>
