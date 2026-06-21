@@ -79,6 +79,19 @@
       color: var(--muted);
       font-size: 0.95rem;
     }
+
+    .backdrop {
+      margin: 28px 0 0;
+    }
+
+    .backdrop img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
   </style>
 </head>
 <body>
@@ -116,6 +129,10 @@
         <span>COM-2090 flashcards</span>
       </a>
     </nav>
+
+    <figure class="backdrop" aria-label="Study backdrop">
+      <img src="steve-backdrop.jpg" alt="Cafe patio with string lights, evergreen trees, and outdoor tables.">
+    </figure>
   </main>
 </body>
 </html>
