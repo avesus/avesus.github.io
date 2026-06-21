@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combined Meaning Graph</title>
+  <meta name="description" content="A traversable D3 graph combining all terms from Steve's three study decks.">
+  <style>
+    :root {
+      --bg: #f5f7f2;
+      --panel: #ffffff;
+      --ink: #18211c;
+      --muted: #5e6b63;
+      --line: #d7ded6;
+      --soft: #eef2ec;
+      --accent: #2f6b45;
+      --warn: #b96935;
+      --shadow: 0 16px 40px rgba(20, 35, 25, 0.12);
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --mono: "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: minmax(330px, 410px) minmax(0, 1fr);
+      width: 100vw;
+      height: 100vh;
+    }
+
+    aside {
+      z-index: 2;
+      overflow: auto;
+      border-right: 1px solid var(--line);
+      background: var(--panel);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--accent);
+      font-size: 0.88rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    h1 {
+      margin: 0 0 9px;
+      font-size: clamp(1.9rem, 7vw, 3rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.52;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .stats b {
+      color: var(--ink);
+    }
+
+    .panel {
+      margin-bottom: 14px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .panel h2,
+    .detail h2 {
+      margin: 0 0 8px;
+      font: 800 0.76rem var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .panel p,
+    .detail p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    label {
+      display: block;
+      margin: 0 0 7px;
+      color: var(--muted);
+      font: 800 0.72rem var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      min-height: 42px;
+      margin: 0 0 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    input[type="search"]:focus {
+      border-color: var(--accent);
+      outline: 2px solid rgba(47, 107, 69, 0.2);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: 800 0.84rem var(--sans);
+      cursor: pointer;
+    }
+
+    button:hover,
+    button:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .detail {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    .detail h3 {
+      margin: 0 0 6px;
+      font-size: 1.12rem;
+      line-height: 1.25;
+    }
+
+    .meta {
+      margin: 0 0 9px;
+      color: var(--muted);
+      font: 800 0.68rem var(--mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .neighbors {
+      display: grid;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .neighbors button {
+      min-height: 0;
+      padding: 7px 9px;
+      text-align: left;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .graph-shell {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(24, 33, 28, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24, 33, 28, 0.035) 1px, transparent 1px),
+        var(--bg);
+      background-size: 34px 34px;
+    }
+
+    #graph {
+      display: block;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+      cursor: grab;
+    }
+
+    #graph:active {
+      cursor: grabbing;
+    }
+
+    .status {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      max-width: min(520px, calc(100% - 36px));
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--muted);
+      font-size: 0.82rem;
+      box-shadow: 0 8px 26px rgba(20, 35, 25, 0.12);
+      pointer-events: none;
+    }
+
+    .link {
+      stroke: #aebbb0;
+      stroke-width: 1px;
+      stroke-opacity: 0.28;
+    }
+
+    .link.active {
+      stroke: var(--warn);
+      stroke-width: 1.7px;
+      stroke-opacity: 0.86;
+    }
+
+    .link.dim {
+      stroke-opacity: 0.05;
+    }
+
+    .node circle {
+      stroke: rgba(255, 255, 255, 0.92);
+      stroke-width: 1.8px;
+      cursor: pointer;
+    }
+
+    .node text {
+      fill: var(--ink);
+      paint-order: stroke;
+      stroke: rgba(245, 247, 242, 0.96);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      font-size: 11px;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .node.dim {
+      opacity: 0.12;
+    }
+
+    .node.active circle {
+      stroke: #111711;
+      stroke-width: 3px;
+    }
+
+    .node.hit circle {
+      stroke: var(--warn);
+      stroke-width: 3px;
+    }
+
+    @media (max-width: 840px) {
+      html,
+      body {
+        overflow: auto;
+      }
+
+      .app {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .graph-shell {
+        height: 78vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <a class="back" href="index.html">Back to decks</a>
+      <h1>Combined Meaning Graph</h1>
+      <p class="lead">All three courses in one traversable graph. Terms connect through source deck, section, semantic role, phrase pattern, and nearby definitions.</p>
+      <div class="stats" id="stats">Loading graph...</div>
+
+      <section class="panel">
+        <h2>How To Drive It</h2>
+        <p>Drag empty space to rotate the meaning cloud. Wheel to zoom. Drag a node to pull it into a better local position. Click nodes and then traverse their neighbors from the panel.</p>
+      </section>
+
+      <label for="search">Search</label>
+      <input id="search" type="search" autocomplete="off" placeholder="Try justice, theory, evidence, family, delivery">
+
+      <div class="controls">
+        <button id="rebalance" type="button">Rebalance</button>
+        <button id="orbit" type="button">Auto Orbit</button>
+        <button id="reset" type="button">Reset View</button>
+        <button id="clear" type="button">Clear Focus</button>
+      </div>
+
+      <section class="detail" id="detail" aria-live="polite">
+        <h2>Selected Node</h2>
+        <h3>Meaning graph</h3>
+        <p class="meta">All decks combined</p>
+        <p>Click any node to see its exact meaning and connected concepts.</p>
+      </section>
+    </aside>
+
+    <main class="graph-shell">
+      <svg id="graph" aria-label="Traversable combined meaning graph"></svg>
+      <div class="status" id="status">Loading...</div>
+    </main>
+  </div>
+
+  <script src="d3.v7.min.js"></script>
+  <script>
+    const svg = d3.select("#graph");
+    const statusEl = document.getElementById("status");
+    const statsEl = document.getElementById("stats");
+    const detailEl = document.getElementById("detail");
+    const searchEl = document.getElementById("search");
+    const layer = svg.append("g");
+    const linkLayer = layer.append("g");
+    const nodeLayer = layer.append("g");
+
+    let data = null;
+    let nodes = [];
+    let links = [];
+    let nodeById = new Map();
+    let adjacency = new Map();
+    let selectedId = null;
+    let query = "";
+    let transform = d3.zoomIdentity;
+    let yaw = -0.55;
+    let pitch = 0.32;
+    let yawVelocity = 0.002;
+    let pitchVelocity = 0;
+    let autoOrbit = false;
+    let rotating = false;
+    let lastPointer = null;
+    let simulation = null;
+    let linkSelection = null;
+    let nodeSelection = null;
+
+    function escapeHtml(value) {
+      return String(value || "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function resize() {
+      const rect = svg.node().getBoundingClientRect();
+      svg.attr("viewBox", [0, 0, rect.width, rect.height]);
+      render();
+    }
+
+    function project(node) {
+      const cy = Math.cos(yaw);
+      const sy = Math.sin(yaw);
+      const cp = Math.cos(pitch);
+      const sp = Math.sin(pitch);
+      const x1 = node.x * cy - node.z * sy;
+      const z1 = node.x * sy + node.z * cy;
+      const y1 = node.y * cp - z1 * sp;
+      const z2 = node.y * sp + z1 * cp;
+      const perspective = 900 / (900 + z2);
+      return {
+        x: transform.applyX(x1 * perspective),
+        y: transform.applyY(y1 * perspective),
+        z: z2,
+        k: perspective * transform.k
+      };
+    }
+
+    function isActive(id) {
+      return selectedId && (id === selectedId || (adjacency.get(selectedId) || new Set()).has(id));
+    }
+
+    function isSearchHit(node) {
+      if (!query) return false;
+      return node.searchText.includes(query);
+    }
+
+    function visibleClass(node) {
+      const classes = ["node"];
+      if (selectedId && !isActive(node.id)) classes.push("dim");
+      if (node.id === selectedId) classes.push("active");
+      if (isSearchHit(node)) classes.push("hit");
+      return classes.join(" ");
+    }
+
+    function linkClass(link) {
+      const sourceId = link.source.id || link.source;
+      const targetId = link.target.id || link.target;
+      const active = selectedId && (sourceId === selectedId || targetId === selectedId);
+      const dim = selectedId && !active;
+      return "link" + (active ? " active" : "") + (dim ? " dim" : "");
+    }
+
+    function render() {
+      if (!nodeSelection || !linkSelection) return;
+      nodes.forEach(node => { node.p = project(node); });
+      nodes.sort((a, b) => a.p.z - b.p.z);
+
+      linkSelection
+        .attr("class", linkClass)
+        .attr("x1", d => d.source.p.x)
+        .attr("y1", d => d.source.p.y)
+        .attr("x2", d => d.target.p.x)
+        .attr("y2", d => d.target.p.y)
+        .attr("stroke-width", d => Math.max(0.45, (d.weight || 1) * 0.78 * Math.min(d.source.p.k, d.target.p.k)));
+
+      nodeSelection
+        .sort((a, b) => a.p.z - b.p.z)
+        .attr("class", visibleClass)
+        .attr("transform", d => "translate(" + d.p.x + "," + d.p.y + ")");
+
+      nodeSelection.select("circle")
+        .attr("r", d => Math.max(2.2, d.size * d.p.k))
+        .attr("fill", d => shade(d.color, d.p.z));
+
+      nodeSelection.select("text")
+        .attr("x", d => 9 * d.p.k + 5)
+        .style("display", d => labelVisible(d) ? null : "none")
+        .style("font-size", d => Math.max(8, 10.5 * d.p.k) + "px");
+    }
+
+    function shade(color, z) {
+      const c = d3.color(color || "#66717c");
+      const boost = Math.max(-0.16, Math.min(0.22, -z / 1200));
+      if (boost >= 0) return d3.interpolateRgb(c, "#ffffff")(boost);
+      return d3.interpolateRgb(c, "#111711")(-boost);
+    }
+
+    function labelVisible(node) {
+      if (node.type === "root" || node.type === "course" || node.type === "hub" || node.type === "pattern") return true;
+      if (node.id === selectedId || isActive(node.id) || isSearchHit(node)) return true;
+      return transform.k > 0.86 && node.degree > 8;
+    }
+
+    function ticked() {
+      for (const node of nodes) {
+        node.z += (node.targetZ - node.z) * 0.012;
+      }
+      render();
+    }
+
+    function buildGraph() {
+      adjacency = new Map(nodes.map(node => [node.id, new Set()]));
+      for (const link of links) {
+        link.source = nodeById.get(link.source);
+        link.target = nodeById.get(link.target);
+        adjacency.get(link.source.id).add(link.target.id);
+        adjacency.get(link.target.id).add(link.source.id);
+      }
+
+      linkSelection = linkLayer.selectAll("line")
+        .data(links)
+        .join("line")
+        .attr("class", "link");
+
+      nodeSelection = nodeLayer.selectAll("g")
+        .data(nodes, d => d.id)
+        .join(enter => {
+          const g = enter.append("g").attr("class", "node");
+          g.append("circle");
+          g.append("text").text(d => d.label);
+          return g;
+        })
+        .on("click", (event, node) => {
+          event.stopPropagation();
+          selectNode(node.id);
+        })
+        .call(d3.drag()
+          .on("start", event => {
+            event.sourceEvent.stopPropagation();
+            if (!event.active) simulation.alphaTarget(0.18).restart();
+            event.subject.fx = event.subject.x;
+            event.subject.fy = event.subject.y;
+          })
+          .on("drag", event => {
+            event.subject.fx += event.dx / transform.k;
+            event.subject.fy += event.dy / transform.k;
+            event.subject.x = event.subject.fx;
+            event.subject.y = event.subject.fy;
+            render();
+          })
+          .on("end", event => {
+            if (!event.active) simulation.alphaTarget(0);
+          }));
+
+      simulation = d3.forceSimulation(nodes)
+        .force("link", d3.forceLink(links).id(d => d.id).distance(d => d.kind === "term similarity" ? 82 : d.kind === "source section" ? 118 : 150).strength(d => Math.min(0.08, 0.018 + (d.weight || 1) * 0.012)))
+        .force("charge", d3.forceManyBody().strength(d => d.type === "term" ? -24 : -90))
+        .force("center", d3.forceCenter(0, 0).strength(0.025))
+        .force("collide", d3.forceCollide().radius(d => d.size + 3).strength(0.35))
+        .on("tick", ticked);
+    }
+
+    function selectNode(id) {
+      selectedId = id;
+      const node = nodeById.get(id);
+      showDetail(node);
+      render();
+    }
+
+    function showDetail(node) {
+      if (!node) {
+        detailEl.innerHTML = "<h2>Selected Node</h2><h3>Meaning graph</h3><p class=\"meta\">All decks combined</p><p>Click any node to see its exact meaning and connected concepts.</p>";
+        return;
+      }
+      const neighborIds = Array.from(adjacency.get(node.id) || []);
+      const neighbors = neighborIds
+        .map(id => nodeById.get(id))
+        .filter(Boolean)
+        .sort((a, b) => rankNeighbor(a) - rankNeighbor(b) || a.label.localeCompare(b.label))
+        .slice(0, 18);
+      detailEl.innerHTML = [
+        "<h2>Selected Node</h2>",
+        "<h3>" + escapeHtml(node.label) + "</h3>",
+        "<p class=\"meta\">" + escapeHtml([node.type, node.course, node.section].filter(Boolean).join(" - ")) + "</p>",
+        "<p>" + escapeHtml(node.definition || node.description || "Connected concept node.") + "</p>",
+        neighbors.length ? "<h2>Traverse</h2><div class=\"neighbors\">" + neighbors.map(n => "<button type=\"button\" data-node=\"" + escapeHtml(n.id) + "\">" + escapeHtml(n.label) + "</button>").join("") + "</div>" : ""
+      ].join("");
+      detailEl.querySelectorAll("[data-node]").forEach(button => {
+        button.addEventListener("click", () => selectNode(button.dataset.node));
+      });
+    }
+
+    function rankNeighbor(node) {
+      if (node.type === "term") return 1;
+      if (node.type === "pattern") return 2;
+      if (node.type === "hub") return 3;
+      return 4;
+    }
+
+    function updateSearch() {
+      query = searchEl.value.trim().toLowerCase();
+      if (query) {
+        const hit = nodes.find(node => node.searchText.includes(query));
+        if (hit) selectedId = hit.id;
+        showDetail(hit || null);
+      }
+      render();
+    }
+
+    function rebalance() {
+      nodes.forEach(node => {
+        node.fx = null;
+        node.fy = null;
+      });
+      simulation.alpha(0.95).restart();
+      statusEl.textContent = "Rebalancing graph...";
+    }
+
+    function resetView() {
+      transform = d3.zoomIdentity.translate(svg.node().clientWidth / 2, svg.node().clientHeight / 2).scale(0.62);
+      yaw = -0.55;
+      pitch = 0.32;
+      yawVelocity = 0.002;
+      pitchVelocity = 0;
+      render();
+    }
+
+    function clearFocus() {
+      selectedId = null;
+      query = "";
+      searchEl.value = "";
+      showDetail(null);
+      render();
+    }
+
+    function animate() {
+      if (autoOrbit) yawVelocity += 0.00006;
+      if (!rotating) {
+        yaw += yawVelocity;
+        pitch += pitchVelocity;
+        yawVelocity *= 0.94;
+        pitchVelocity *= 0.9;
+        pitch = Math.max(-1.16, Math.min(1.16, pitch));
+      }
+      render();
+      requestAnimationFrame(animate);
+    }
+
+    svg.on("pointerdown", event => {
+      if (event.target.tagName !== "svg") return;
+      rotating = true;
+      lastPointer = [event.clientX, event.clientY];
+      svg.node().setPointerCapture(event.pointerId);
+    });
+
+    svg.on("pointermove", event => {
+      if (!rotating || !lastPointer) return;
+      const dx = event.clientX - lastPointer[0];
+      const dy = event.clientY - lastPointer[1];
+      yaw += dx * 0.006;
+      pitch += dy * 0.004;
+      pitch = Math.max(-1.16, Math.min(1.16, pitch));
+      yawVelocity = dx * 0.00045;
+      pitchVelocity = dy * 0.00028;
+      lastPointer = [event.clientX, event.clientY];
+      render();
+    });
+
+    svg.on("pointerup pointercancel", event => {
+      rotating = false;
+      lastPointer = null;
+      try { svg.node().releasePointerCapture(event.pointerId); } catch (error) {}
+    });
+
+    svg.on("wheel", event => {
+      event.preventDefault();
+      const factor = event.deltaY > 0 ? 0.9 : 1.1;
+      const point = d3.pointer(event, svg.node());
+      const before = transform.invert(point);
+      transform = transform.scale(factor);
+      const after = transform.apply(before);
+      transform = transform.translate((point[0] - after[0]) / transform.k, (point[1] - after[1]) / transform.k);
+      render();
+    }, { passive: false });
+
+    document.getElementById("rebalance").addEventListener("click", rebalance);
+    document.getElementById("orbit").addEventListener("click", () => {
+      autoOrbit = !autoOrbit;
+      document.getElementById("orbit").textContent = autoOrbit ? "Stop Orbit" : "Auto Orbit";
+    });
+    document.getElementById("reset").addEventListener("click", resetView);
+    document.getElementById("clear").addEventListener("click", clearFocus);
+    searchEl.addEventListener("input", updateSearch);
+    window.addEventListener("resize", resize);
+
+    fetch("meaning-graph-data.json", { cache: "no-cache" })
+      .then(response => {
+        if (!response.ok) throw new Error("Could not load graph data.");
+        return response.json();
+      })
+      .then(json => {
+        data = json;
+        nodes = data.nodes.map(node => ({
+          ...node,
+          targetZ: node.z || 0,
+          searchText: [node.label, node.definition, node.description, node.course, node.section, node.type].join(" ").toLowerCase()
+        }));
+        links = data.links.map(link => ({ ...link }));
+        nodeById = new Map(nodes.map(node => [node.id, node]));
+        buildGraph();
+        statsEl.innerHTML = "<b>" + data.summary.terms + "</b> terms - <b>" + data.summary.nodes + "</b> nodes - <b>" + data.summary.links + "</b> links";
+        statusEl.textContent = "Graph ready: " + data.summary.terms + " terms, " + data.summary.links + " links. Drag empty space to rotate.";
+        resize();
+        showDetail(null);
+        animate();
+      })
+      .catch(error => {
+        statusEl.textContent = error.message;
+        detailEl.innerHTML = "<h2>Error</h2><p>" + escapeHtml(error.message) + "</p>";
+      });
+  </script>
+</body>
+</html>
