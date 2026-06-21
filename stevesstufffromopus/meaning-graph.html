@@ -186,6 +186,10 @@
       display: grid;
       gap: 6px;
       margin-top: 12px;
+      max-height: min(330px, 36vh);
+      overflow: auto;
+      padding-right: 4px;
+      overscroll-behavior: contain;
     }
 
     .neighbors button {
@@ -249,6 +253,13 @@
       stroke-opacity: 0.05;
     }
 
+    .link-hit {
+      cursor: pointer;
+      pointer-events: stroke;
+      stroke: transparent;
+      stroke-width: 18px;
+    }
+
     .node circle {
       stroke: rgba(255, 255, 255, 0.92);
       stroke-width: 1.8px;
@@ -299,6 +310,14 @@
       .graph-shell {
         height: 78vh;
       }
+
+      .neighbors {
+        max-height: 28vh;
+      }
+
+      .link-hit {
+        stroke-width: 28px;
+      }
     }
   </style>
 </head>
@@ -312,7 +331,7 @@
 
       <section class="panel">
         <h2>How To Drive It</h2>
-        <p>Drag empty space to rotate the meaning cloud. Wheel to zoom. Drag a node to pull it into a better local position. Click nodes and then traverse their neighbors from the panel.</p>
+        <p>Drag empty space to rotate the meaning cloud. Wheel to zoom. Drag a node to pull it into a better local position. Tap an edge to travel to its adjacent node, or click nodes and traverse their neighbors from the panel.</p>
       </section>
 
       <label for="search">Search</label>
@@ -348,6 +367,7 @@
     const searchEl = document.getElementById("search");
     const layer = svg.append("g");
     const linkLayer = layer.append("g");
+    const linkHitLayer = layer.append("g");
     const nodeLayer = layer.append("g");
 
     let data = null;
@@ -367,6 +387,7 @@
     let lastPointer = null;
     let simulation = null;
     let linkSelection = null;
+    let linkHitSelection = null;
     let nodeSelection = null;
 
     function escapeHtml(value) {
@@ -385,7 +406,7 @@
       render();
     }
 
-    function project(node) {
+    function projectRaw(node) {
       const cy = Math.cos(yaw);
       const sy = Math.sin(yaw);
       const cp = Math.cos(pitch);
@@ -395,11 +416,16 @@
       const y1 = node.y * cp - z1 * sp;
       const z2 = node.y * sp + z1 * cp;
       const perspective = 900 / (900 + z2);
+      return { x: x1 * perspective, y: y1 * perspective, z: z2, k: perspective };
+    }
+
+    function project(node) {
+      const raw = projectRaw(node);
       return {
-        x: transform.applyX(x1 * perspective),
-        y: transform.applyY(y1 * perspective),
-        z: z2,
-        k: perspective * transform.k
+        x: transform.applyX(raw.x),
+        y: transform.applyY(raw.y),
+        z: raw.z,
+        k: raw.k * transform.k
       };
     }
 
@@ -440,6 +466,12 @@
         .attr("x2", d => d.target.p.x)
         .attr("y2", d => d.target.p.y)
         .attr("stroke-width", d => Math.max(0.45, (d.weight || 1) * 0.78 * Math.min(d.source.p.k, d.target.p.k)));
+
+      linkHitSelection
+        .attr("x1", d => d.source.p.x)
+        .attr("y1", d => d.source.p.y)
+        .attr("x2", d => d.target.p.x)
+        .attr("y2", d => d.target.p.y);
 
       nodeSelection
         .sort((a, b) => a.p.z - b.p.z)
@@ -490,6 +522,16 @@
         .join("line")
         .attr("class", "link");
 
+      linkHitSelection = linkHitLayer.selectAll("line")
+        .data(links)
+        .join("line")
+        .attr("class", "link-hit")
+        .on("click", (event, link) => {
+          event.stopPropagation();
+          const next = chooseAdjacentNode(link, event);
+          if (next) selectNode(next.id, { center: true });
+        });
+
       nodeSelection = nodeLayer.selectAll("g")
         .data(nodes, d => d.id)
         .join(enter => {
@@ -528,10 +570,48 @@
         .on("tick", ticked);
     }
 
-    function selectNode(id) {
+    function chooseAdjacentNode(link, event) {
+      const source = link.source;
+      const target = link.target;
+      if (selectedId === source.id) return target;
+      if (selectedId === target.id) return source;
+      const point = d3.pointer(event, svg.node());
+      const sourceDistance = Math.hypot(point[0] - source.p.x, point[1] - source.p.y);
+      const targetDistance = Math.hypot(point[0] - target.p.x, point[1] - target.p.y);
+      return sourceDistance <= targetDistance ? source : target;
+    }
+
+    function animateTransform(targetTransform, duration) {
+      const start = transform;
+      d3.select({}).transition()
+        .duration(duration)
+        .ease(d3.easeCubicOut)
+        .tween("center-view", () => t => {
+          transform = d3.zoomIdentity
+            .translate(
+              start.x + (targetTransform.x - start.x) * t,
+              start.y + (targetTransform.y - start.y) * t
+            )
+            .scale(start.k + (targetTransform.k - start.k) * t);
+          render();
+        });
+    }
+
+    function centerNode(node, duration = 620) {
+      const rect = svg.node().getBoundingClientRect();
+      const raw = projectRaw(node);
+      const scale = Math.max(0.68, Math.min(1.35, transform.k));
+      const target = d3.zoomIdentity
+        .translate(rect.width / 2 - raw.x * scale, rect.height / 2 - raw.y * scale)
+        .scale(scale);
+      animateTransform(target, duration);
+    }
+
+    function selectNode(id, options = {}) {
       selectedId = id;
       const node = nodeById.get(id);
       showDetail(node);
+      if (node && options.center) centerNode(node);
       render();
     }
 
@@ -554,7 +634,7 @@
         neighbors.length ? "<h2>Traverse</h2><div class=\"neighbors\">" + neighbors.map(n => "<button type=\"button\" data-node=\"" + escapeHtml(n.id) + "\">" + escapeHtml(n.label) + "</button>").join("") + "</div>" : ""
       ].join("");
       detailEl.querySelectorAll("[data-node]").forEach(button => {
-        button.addEventListener("click", () => selectNode(button.dataset.node));
+        button.addEventListener("click", () => selectNode(button.dataset.node, { center: true }));
       });
     }
 
@@ -571,6 +651,7 @@
         const hit = nodes.find(node => node.searchText.includes(query));
         if (hit) selectedId = hit.id;
         showDetail(hit || null);
+        if (hit) centerNode(hit, 420);
       }
       render();
     }
