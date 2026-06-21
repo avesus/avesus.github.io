@@ -1,0 +1,2878 @@
+{
+  "version": 1,
+  "course": "COM",
+  "title": "Public Speaking Adaptive Exam",
+  "sourceDeck": "COM-2090_Public_Speaking_Flashcards.html",
+  "description": "100 single-choice Public Speaking questions. A normal round serves 25; the final exam serves all 100. Every distractor is a real course term or definition, so choose the best exact match.",
+  "passThreshold": 0.98,
+  "roundSize": 25,
+  "finalSize": 100,
+  "questions": [
+    {
+      "id": "COM-001",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Three types of audience analysis",
+      "prompt": "Which answer is the most precise exam meaning of \"Three types of audience analysis\"?",
+      "options": [
+        {
+          "text": "Audience analysis of the occasion and setting — audience size, physical environment, time, and the reason the audience has gathered."
+        },
+        {
+          "text": "Keeping the audience foremost in mind at every stage. The speaker's goal is to gain a desired response from listeners, not to show off — adapt the message to them."
+        },
+        {
+          "text": "In Stand Up, Speak Out: demographic, psychographic, and situational. Together they tell you who your listeners are, what they think, and the context you'll speak in."
+        },
+        {
+          "text": "Audience analysis based on attitudes, beliefs, and values (and opinions). Less verifiable than demographics but essential for persuasion. Values form the foundation that shapes beliefs and attitudes."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Three types of audience analysis - In Stand Up, Speak Out: demographic, psychographic, and situational. Together they tell you who your listeners are, what they think, and the context you'll speak in. The other choices are real Public Speaking terms or definitions (Situational analysis, Audience-centeredness, Psychographic analysis), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): analysis = analysis means a named inspection checklist, not just thinking.",
+      "memoryFocus": [
+        "analysis means a named inspection checklist, not just thinking"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-002",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Demographic analysis",
+      "prompt": "Which term best names this exact meaning? \"Audience analysis based on group memberships — age, gender, race/ethnicity, religion, education, socioeconomic status, group affiliations. The most straightforward and verifiable of the three types.\"",
+      "options": [
+        {
+          "text": "Demographic analysis"
+        },
+        {
+          "text": "Psychographic analysis"
+        },
+        {
+          "text": "Identification"
+        },
+        {
+          "text": "Audience adaptation"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Demographic analysis - Audience analysis based on group memberships — age, gender, race/ethnicity, religion, education, socioeconomic status, group affiliations. The most straightforward and verifiable of the three types. The other choices are real Public Speaking terms or definitions (Psychographic analysis, Identification, Audience adaptation), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): analysis = analysis means a named inspection checklist, not just thinking.",
+      "memoryFocus": [
+        "analysis means a named inspection checklist, not just thinking"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-003",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Audience disposition (key factor)",
+      "prompt": "Which answer is the most precise exam meaning of \"Audience disposition (key factor)\"?",
+      "options": [
+        {
+          "text": "Adjusting topic, language, examples, and delivery to fit the specific audience — both while preparing and in real time, by reading audience feedback as you speak."
+        },
+        {
+          "text": "Gathering and analyzing information about your listeners — their demographics, attitudes, and situation — so you can adapt the speech to their knowledge, interests, and needs. The cornerstone of effective speaking."
+        },
+        {
+          "text": "What you most need to gauge varies by audience: an audience's existing knowledge of the topic often matters most when informing (e.g., a talk to expectant parents). Match depth and vocabulary to it. (Exam scenario.)"
+        },
+        {
+          "text": "Creating common ground with the audience by stressing shared values, experiences, and goals — making listeners feel \"this speaker is like me.\""
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Audience disposition (key factor) - What you most need to gauge varies by audience: an audience's existing knowledge of the topic often matters most when informing (e.g., a talk to expectant parents). Match depth and vocabulary to it. (Exam scenario.) The other choices are real Public Speaking terms or definitions (Audience adaptation, Audience analysis, Identification), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-004",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Audience analysis",
+      "prompt": "Which term best names this exact meaning? \"Gathering and analyzing information about your listeners — their demographics, attitudes, and situation — so you can adapt the speech to their knowledge, interests, and needs. The cornerstone of effective speaking.\"",
+      "options": [
+        {
+          "text": "Ethnocentrism"
+        },
+        {
+          "text": "Audience analysis"
+        },
+        {
+          "text": "Three types of audience analysis"
+        },
+        {
+          "text": "Identification"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Audience analysis - Gathering and analyzing information about your listeners — their demographics, attitudes, and situation — so you can adapt the speech to their knowledge, interests, and needs. The cornerstone of effective speaking. The other choices are real Public Speaking terms or definitions (Ethnocentrism, Three types of audience analysis, Identification), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): analysis = analysis means a named inspection checklist, not just thinking.",
+      "memoryFocus": [
+        "analysis means a named inspection checklist, not just thinking"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-005",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Psychographic analysis",
+      "prompt": "Which answer is the most precise exam meaning of \"Psychographic analysis\"?",
+      "options": [
+        {
+          "text": "Audience analysis based on attitudes, beliefs, and values (and opinions). Less verifiable than demographics but essential for persuasion. Values form the foundation that shapes beliefs and attitudes."
+        },
+        {
+          "text": "The belief that one's own group or culture is superior to all others. Speakers must avoid it and adapt respectfully to diverse audiences."
+        },
+        {
+          "text": "Creating common ground with the audience by stressing shared values, experiences, and goals — making listeners feel \"this speaker is like me.\""
+        },
+        {
+          "text": "In Stand Up, Speak Out: demographic, psychographic, and situational. Together they tell you who your listeners are, what they think, and the context you'll speak in."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Psychographic analysis - Audience analysis based on attitudes, beliefs, and values (and opinions). Less verifiable than demographics but essential for persuasion. Values form the foundation that shapes beliefs and attitudes. The other choices are real Public Speaking terms or definitions (Ethnocentrism, Identification, Three types of audience analysis), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): analysis = analysis means a named inspection checklist, not just thinking.",
+      "memoryFocus": [
+        "analysis means a named inspection checklist, not just thinking"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-006",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Situational analysis",
+      "prompt": "Which term best names this exact meaning? \"Audience analysis of the occasion and setting — audience size, physical environment, time, and the reason the audience has gathered.\"",
+      "options": [
+        {
+          "text": "Demographic analysis"
+        },
+        {
+          "text": "Situational analysis"
+        },
+        {
+          "text": "Three types of audience analysis"
+        },
+        {
+          "text": "Audience-centeredness"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Situational analysis - Audience analysis of the occasion and setting — audience size, physical environment, time, and the reason the audience has gathered. The other choices are real Public Speaking terms or definitions (Demographic analysis, Three types of audience analysis, Audience-centeredness), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): analysis = analysis means a named inspection checklist, not just thinking.",
+      "memoryFocus": [
+        "analysis means a named inspection checklist, not just thinking"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-007",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Value",
+      "prompt": "Which answer is the most precise exam meaning of \"Value\"?",
+      "options": [
+        {
+          "text": "Audience analysis based on group memberships — age, gender, race/ethnicity, religion, education, socioeconomic status, group affiliations. The most straightforward and verifiable of the three types."
+        },
+        {
+          "text": "Creating common ground with the audience by stressing shared values, experiences, and goals — making listeners feel \"this speaker is like me.\""
+        },
+        {
+          "text": "A deeply held judgment about what is right/wrong, good/bad, desirable/undesirable (e.g., honesty, freedom, fairness). The foundation of psychographic analysis."
+        },
+        {
+          "text": "A predisposition to respond favorably or unfavorably toward a person, object, or idea. Knowing whether the audience is favorable, neutral, or hostile shapes your strategy."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Value - A deeply held judgment about what is right/wrong, good/bad, desirable/undesirable (e.g., honesty, freedom, fairness). The foundation of psychographic analysis. The other choices are real Public Speaking terms or definitions (Demographic analysis, Identification, Attitude), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): value = value means the thing receiving moral or social weight.",
+      "memoryFocus": [
+        "value means the thing receiving moral or social weight"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-008",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Audience adaptation",
+      "prompt": "Which term best names this exact meaning? \"Adjusting topic, language, examples, and delivery to fit the specific audience — both while preparing and in real time, by reading audience feedback as you speak.\"",
+      "options": [
+        {
+          "text": "Three types of audience analysis"
+        },
+        {
+          "text": "Psychographic analysis"
+        },
+        {
+          "text": "Audience adaptation"
+        },
+        {
+          "text": "Identification"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Audience adaptation - Adjusting topic, language, examples, and delivery to fit the specific audience — both while preparing and in real time, by reading audience feedback as you speak. The other choices are real Public Speaking terms or definitions (Three types of audience analysis, Psychographic analysis, Identification), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-009",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Audience-centeredness",
+      "prompt": "Which answer is the most precise exam meaning of \"Audience-centeredness\"?",
+      "options": [
+        {
+          "text": "What you most need to gauge varies by audience: an audience's existing knowledge of the topic often matters most when informing (e.g., a talk to expectant parents). Match depth and vocabulary to it. (Exam scenario.)"
+        },
+        {
+          "text": "A deeply held judgment about what is right/wrong, good/bad, desirable/undesirable (e.g., honesty, freedom, fairness). The foundation of psychographic analysis."
+        },
+        {
+          "text": "Creating common ground with the audience by stressing shared values, experiences, and goals — making listeners feel \"this speaker is like me.\""
+        },
+        {
+          "text": "Keeping the audience foremost in mind at every stage. The speaker's goal is to gain a desired response from listeners, not to show off — adapt the message to them."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Audience-centeredness - Keeping the audience foremost in mind at every stage. The speaker's goal is to gain a desired response from listeners, not to show off — adapt the message to them. The other choices are real Public Speaking terms or definitions (Audience disposition (key factor), Value, Identification), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-010",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Egocentrism",
+      "prompt": "Which term best names this exact meaning? \"The tendency of listeners to be concerned above all with their own values, beliefs, and well-being. Speakers must show why the topic matters to them. (Exam term.)\"",
+      "options": [
+        {
+          "text": "Ethnocentrism"
+        },
+        {
+          "text": "Egocentrism"
+        },
+        {
+          "text": "Situational analysis"
+        },
+        {
+          "text": "Audience analysis"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Egocentrism - The tendency of listeners to be concerned above all with their own values, beliefs, and well-being. Speakers must show why the topic matters to them. (Exam term.) The other choices are real Public Speaking terms or definitions (Ethnocentrism, Situational analysis, Audience analysis), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-011",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Ethnocentrism",
+      "prompt": "Which answer is the most precise exam meaning of \"Ethnocentrism\"?",
+      "options": [
+        {
+          "text": "Adjusting topic, language, examples, and delivery to fit the specific audience — both while preparing and in real time, by reading audience feedback as you speak."
+        },
+        {
+          "text": "The belief that one's own group or culture is superior to all others. Speakers must avoid it and adapt respectfully to diverse audiences."
+        },
+        {
+          "text": "Gathering and analyzing information about your listeners — their demographics, attitudes, and situation — so you can adapt the speech to their knowledge, interests, and needs. The cornerstone of effective speaking."
+        },
+        {
+          "text": "Keeping the audience foremost in mind at every stage. The speaker's goal is to gain a desired response from listeners, not to show off — adapt the message to them."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Ethnocentrism - The belief that one's own group or culture is superior to all others. Speakers must avoid it and adapt respectfully to diverse audiences. The other choices are real Public Speaking terms or definitions (Audience adaptation, Audience analysis, Audience-centeredness), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-012",
+      "course": "COM",
+      "section": "Audience Analysis",
+      "sectionCode": "aud",
+      "focusTerm": "Belief",
+      "prompt": "Which term best names this exact meaning? \"What a person holds to be true or false. Beliefs rest on values and in turn shape attitudes.\"",
+      "options": [
+        {
+          "text": "Ethnocentrism"
+        },
+        {
+          "text": "Egocentrism"
+        },
+        {
+          "text": "Three types of audience analysis"
+        },
+        {
+          "text": "Belief"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Belief - What a person holds to be true or false. Beliefs rest on values and in turn shape attitudes. The other choices are real Public Speaking terms or definitions (Ethnocentrism, Egocentrism, Three types of audience analysis), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-013",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Extemporaneous delivery",
+      "prompt": "Which answer is the most precise exam meaning of \"Extemporaneous delivery\"?",
+      "options": [
+        {
+          "text": "Delivering a speech from memory, word-for-word. Risks sounding mechanical and the danger of forgetting passages."
+        },
+        {
+          "text": "Speaking from a brief keyword outline after thorough preparation and practice. The most versatile, natural, recommended method — allows real audience contact. (Exam topic.)"
+        },
+        {
+          "text": "Communication through the body: eye contact, facial expressions, gestures, posture, movement, and appearance."
+        },
+        {
+          "text": "Objects/models, photographs, diagrams, charts and graphs (line, bar, pie), maps, video, and the speaker themselves. Pick the type that best clarifies the idea."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Extemporaneous delivery - Speaking from a brief keyword outline after thorough preparation and practice. The most versatile, natural, recommended method — allows real audience contact. (Exam topic.) The other choices are real Public Speaking terms or definitions (Memorized delivery, Nonverbal delivery, Types of visual aids), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): delivery = delivery means the speech channel: voice, body, notes, and visual aids.",
+      "memoryFocus": [
+        "delivery means the speech channel: voice, body, notes, and visual aids"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-014",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Vocal delivery (paralanguage)",
+      "prompt": "Which term best names this exact meaning? \"How you use your voice: rate, pitch, volume, pauses, vocal variety, articulation, and pronunciation.\"",
+      "options": [
+        {
+          "text": "Posture"
+        },
+        {
+          "text": "Impromptu delivery"
+        },
+        {
+          "text": "Rate"
+        },
+        {
+          "text": "Vocal delivery (paralanguage)"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Vocal delivery (paralanguage) - How you use your voice: rate, pitch, volume, pauses, vocal variety, articulation, and pronunciation. The other choices are real Public Speaking terms or definitions (Posture, Impromptu delivery, Rate), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): delivery = delivery means the speech channel: voice, body, notes, and visual aids.",
+      "memoryFocus": [
+        "delivery means the speech channel: voice, body, notes, and visual aids"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-015",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Impromptu delivery",
+      "prompt": "Which answer is the most precise exam meaning of \"Impromptu delivery\"?",
+      "options": [
+        {
+          "text": "Anxiety about speaking before an audience (\"stage fright\"). Managed — not eliminated — through preparation, practice, positive visualization, and controlled breathing."
+        },
+        {
+          "text": "How you hold your body. Stand upright and balanced to project confidence and authority."
+        },
+        {
+          "text": "Speaking with little or no preparation — you organize and think on your feet."
+        },
+        {
+          "text": "Delivering a speech from memory, word-for-word. Risks sounding mechanical and the danger of forgetting passages."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Impromptu delivery - Speaking with little or no preparation — you organize and think on your feet. The other choices are real Public Speaking terms or definitions (Communication apprehension, Posture, Memorized delivery), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): delivery = delivery means the speech channel: voice, body, notes, and visual aids.",
+      "memoryFocus": [
+        "delivery means the speech channel: voice, body, notes, and visual aids"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-016",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Manuscript delivery",
+      "prompt": "Which term best names this exact meaning? \"Reading a speech word-for-word from a full text. Ensures accuracy but risks sounding flat and losing eye contact.\"",
+      "options": [
+        {
+          "text": "Extemporaneous delivery"
+        },
+        {
+          "text": "Vocal delivery (paralanguage)"
+        },
+        {
+          "text": "Nonverbal delivery"
+        },
+        {
+          "text": "Manuscript delivery"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Manuscript delivery - Reading a speech word-for-word from a full text. Ensures accuracy but risks sounding flat and losing eye contact. The other choices are real Public Speaking terms or definitions (Extemporaneous delivery, Vocal delivery (paralanguage), Nonverbal delivery), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): delivery = delivery means the speech channel: voice, body, notes, and visual aids.",
+      "memoryFocus": [
+        "delivery means the speech channel: voice, body, notes, and visual aids"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-017",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Memorized delivery",
+      "prompt": "Which answer is the most precise exam meaning of \"Memorized delivery\"?",
+      "options": [
+        {
+          "text": "Looking directly at audience members. The most important nonverbal behavior — builds connection, conveys confidence, and lets you read audience feedback."
+        },
+        {
+          "text": "The loudness of the voice — loud enough for everyone to hear, and varied for emphasis."
+        },
+        {
+          "text": "Delivering a speech from memory, word-for-word. Risks sounding mechanical and the danger of forgetting passages."
+        },
+        {
+          "text": "The presentation of a speech through voice and body. Good delivery conveys ideas clearly and engagingly without distracting the audience."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Memorized delivery - Delivering a speech from memory, word-for-word. Risks sounding mechanical and the danger of forgetting passages. The other choices are real Public Speaking terms or definitions (Eye contact, Volume, Delivery), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): delivery = delivery means the speech channel: voice, body, notes, and visual aids.",
+      "memoryFocus": [
+        "delivery means the speech channel: voice, body, notes, and visual aids"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-018",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Nonverbal delivery",
+      "prompt": "Which term best names this exact meaning? \"Communication through the body: eye contact, facial expressions, gestures, posture, movement, and appearance.\"",
+      "options": [
+        {
+          "text": "Nonverbal delivery"
+        },
+        {
+          "text": "Impromptu delivery"
+        },
+        {
+          "text": "Vocal delivery (paralanguage)"
+        },
+        {
+          "text": "Speaking notes (keyword outline)"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Nonverbal delivery - Communication through the body: eye contact, facial expressions, gestures, posture, movement, and appearance. The other choices are real Public Speaking terms or definitions (Impromptu delivery, Vocal delivery (paralanguage), Speaking notes (keyword outline)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): delivery = delivery means the speech channel: voice, body, notes, and visual aids.",
+      "memoryFocus": [
+        "delivery means the speech channel: voice, body, notes, and visual aids"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-019",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Eye contact",
+      "prompt": "Which answer is the most precise exam meaning of \"Eye contact\"?",
+      "options": [
+        {
+          "text": "The presentation of a speech through voice and body. Good delivery conveys ideas clearly and engagingly without distracting the audience."
+        },
+        {
+          "text": "Speaking from a brief keyword outline after thorough preparation and practice. The most versatile, natural, recommended method — allows real audience contact. (Exam topic.)"
+        },
+        {
+          "text": "Keep them simple and large; display only while discussing them; don't read slides verbatim; practice with them; keep eye contact with the audience, not the screen."
+        },
+        {
+          "text": "Looking directly at audience members. The most important nonverbal behavior — builds connection, conveys confidence, and lets you read audience feedback."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Eye contact - Looking directly at audience members. The most important nonverbal behavior — builds connection, conveys confidence, and lets you read audience feedback. The other choices are real Public Speaking terms or definitions (Delivery, Extemporaneous delivery, Guidelines for visual aids), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-020",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Delivery",
+      "prompt": "Which term best names this exact meaning? \"The presentation of a speech through voice and body. Good delivery conveys ideas clearly and engagingly without distracting the audience.\"",
+      "options": [
+        {
+          "text": "Delivery"
+        },
+        {
+          "text": "Types of visual aids"
+        },
+        {
+          "text": "Manuscript delivery"
+        },
+        {
+          "text": "Pitch"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Delivery - The presentation of a speech through voice and body. Good delivery conveys ideas clearly and engagingly without distracting the audience. The other choices are real Public Speaking terms or definitions (Types of visual aids, Manuscript delivery, Pitch), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): delivery = delivery means the speech channel: voice, body, notes, and visual aids.",
+      "memoryFocus": [
+        "delivery means the speech channel: voice, body, notes, and visual aids"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-021",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Speaking notes (keyword outline)",
+      "prompt": "Which answer is the most precise exam meaning of \"Speaking notes (keyword outline)\"?",
+      "options": [
+        {
+          "text": "Anxiety about speaking before an audience (\"stage fright\"). Managed — not eliminated — through preparation, practice, positive visualization, and controlled breathing."
+        },
+        {
+          "text": "Reading a speech word-for-word from a full text. Ensures accuracy but risks sounding flat and losing eye contact."
+        },
+        {
+          "text": "The presentation of a speech through voice and body. Good delivery conveys ideas clearly and engagingly without distracting the audience."
+        },
+        {
+          "text": "Brief notes with key words, delivery cues, and hard-to-remember details (statistics, exact quotations) — not full sentences. Used in extemporaneous speaking."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Speaking notes (keyword outline) - Brief notes with key words, delivery cues, and hard-to-remember details (statistics, exact quotations) — not full sentences. Used in extemporaneous speaking. The other choices are real Public Speaking terms or definitions (Communication apprehension, Manuscript delivery, Delivery), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-022",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Nonverbal feedback (from audience)",
+      "prompt": "Which term best names this exact meaning? \"Listener cues signaling engagement or boredom: slouching, head-tilting, looking away, fiddling with phones, or turning the body away. Respond by making eye contact, raising energy, and re-engaging. (Exam short-answer.)\"",
+      "options": [
+        {
+          "text": "Nonverbal delivery"
+        },
+        {
+          "text": "Impromptu delivery"
+        },
+        {
+          "text": "Pronunciation"
+        },
+        {
+          "text": "Nonverbal feedback (from audience)"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Nonverbal feedback (from audience) - Listener cues signaling engagement or boredom: slouching, head-tilting, looking away, fiddling with phones, or turning the body away. Respond by making eye contact, raising energy, and re-engaging. (Exam short-answer.) The other choices are real Public Speaking terms or definitions (Nonverbal delivery, Impromptu delivery, Pronunciation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-023",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Types of visual aids",
+      "prompt": "Which answer is the most precise exam meaning of \"Types of visual aids\"?",
+      "options": [
+        {
+          "text": "The highness or lowness of the voice. Varying pitch (inflection) prevents a monotone."
+        },
+        {
+          "text": "Supplementary visual/audio material — slides, objects, charts, graphs, images, video — that clarifies ideas and boosts retention."
+        },
+        {
+          "text": "Delivering a speech from memory, word-for-word. Risks sounding mechanical and the danger of forgetting passages."
+        },
+        {
+          "text": "Objects/models, photographs, diagrams, charts and graphs (line, bar, pie), maps, video, and the speaker themselves. Pick the type that best clarifies the idea."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Types of visual aids - Objects/models, photographs, diagrams, charts and graphs (line, bar, pie), maps, video, and the speaker themselves. Pick the type that best clarifies the idea. The other choices are real Public Speaking terms or definitions (Pitch, Presentation (visual) aids, Memorized delivery), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-024",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Guidelines for visual aids",
+      "prompt": "Which term best names this exact meaning? \"Keep them simple and large; display only while discussing them; don't read slides verbatim; practice with them; keep eye contact with the audience, not the screen.\"",
+      "options": [
+        {
+          "text": "Nonverbal delivery"
+        },
+        {
+          "text": "Slide design (recorded speeches)"
+        },
+        {
+          "text": "Communication apprehension"
+        },
+        {
+          "text": "Guidelines for visual aids"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Guidelines for visual aids - Keep them simple and large; display only while discussing them; don't read slides verbatim; practice with them; keep eye contact with the audience, not the screen. The other choices are real Public Speaking terms or definitions (Nonverbal delivery, Slide design (recorded speeches), Communication apprehension), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-025",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Slide design (recorded speeches)",
+      "prompt": "Which answer is the most precise exam meaning of \"Slide design (recorded speeches)\"?",
+      "options": [
+        {
+          "text": "The highness or lowness of the voice. Varying pitch (inflection) prevents a monotone."
+        },
+        {
+          "text": "Minimal text, readable fonts, high contrast, consistent layout, visuals over walls of words. Slides support you — they're not your script. (Graded by the speech rubric.)"
+        },
+        {
+          "text": "How you use your voice: rate, pitch, volume, pauses, vocal variety, articulation, and pronunciation."
+        },
+        {
+          "text": "Looking directly at audience members. The most important nonverbal behavior — builds connection, conveys confidence, and lets you read audience feedback."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Slide design (recorded speeches) - Minimal text, readable fonts, high contrast, consistent layout, visuals over walls of words. Slides support you — they're not your script. (Graded by the speech rubric.) The other choices are real Public Speaking terms or definitions (Pitch, Vocal delivery (paralanguage), Eye contact), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-026",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Presentation (visual) aids",
+      "prompt": "Which term best names this exact meaning? \"Supplementary visual/audio material — slides, objects, charts, graphs, images, video — that clarifies ideas and boosts retention.\"",
+      "options": [
+        {
+          "text": "Presentation (visual) aids"
+        },
+        {
+          "text": "Memorized delivery"
+        },
+        {
+          "text": "Nonverbal delivery"
+        },
+        {
+          "text": "Vocal delivery (paralanguage)"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Presentation (visual) aids - Supplementary visual/audio material — slides, objects, charts, graphs, images, video — that clarifies ideas and boosts retention. The other choices are real Public Speaking terms or definitions (Memorized delivery, Nonverbal delivery, Vocal delivery (paralanguage)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-027",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Communication apprehension",
+      "prompt": "Which answer is the most precise exam meaning of \"Communication apprehension\"?",
+      "options": [
+        {
+          "text": "The presentation of a speech through voice and body. Good delivery conveys ideas clearly and engagingly without distracting the audience."
+        },
+        {
+          "text": "Anxiety about speaking before an audience (\"stage fright\"). Managed — not eliminated — through preparation, practice, positive visualization, and controlled breathing."
+        },
+        {
+          "text": "Looking directly at audience members. The most important nonverbal behavior — builds connection, conveys confidence, and lets you read audience feedback."
+        },
+        {
+          "text": "Reading a speech word-for-word from a full text. Ensures accuracy but risks sounding flat and losing eye contact."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Communication apprehension - Anxiety about speaking before an audience (\"stage fright\"). Managed — not eliminated — through preparation, practice, positive visualization, and controlled breathing. The other choices are real Public Speaking terms or definitions (Delivery, Eye contact, Manuscript delivery), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-028",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Rate",
+      "prompt": "Which term best names this exact meaning? \"The speed at which you speak. Vary it for emphasis and avoid rushing.\"",
+      "options": [
+        {
+          "text": "Pause"
+        },
+        {
+          "text": "Rate"
+        },
+        {
+          "text": "Memorized delivery"
+        },
+        {
+          "text": "Volume"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Rate - The speed at which you speak. Vary it for emphasis and avoid rushing. The other choices are real Public Speaking terms or definitions (Pause, Memorized delivery, Volume), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-029",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Pitch",
+      "prompt": "Which answer is the most precise exam meaning of \"Pitch\"?",
+      "options": [
+        {
+          "text": "Communication through the body: eye contact, facial expressions, gestures, posture, movement, and appearance."
+        },
+        {
+          "text": "Listener cues signaling engagement or boredom: slouching, head-tilting, looking away, fiddling with phones, or turning the body away. Respond by making eye contact, raising energy, and re-engaging. (Exam short-answer.)"
+        },
+        {
+          "text": "The highness or lowness of the voice. Varying pitch (inflection) prevents a monotone."
+        },
+        {
+          "text": "Speaking with little or no preparation — you organize and think on your feet."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Pitch - The highness or lowness of the voice. Varying pitch (inflection) prevents a monotone. The other choices are real Public Speaking terms or definitions (Nonverbal delivery, Nonverbal feedback (from audience), Impromptu delivery), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-030",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Volume",
+      "prompt": "Which term best names this exact meaning? \"The loudness of the voice — loud enough for everyone to hear, and varied for emphasis.\"",
+      "options": [
+        {
+          "text": "Volume"
+        },
+        {
+          "text": "Guidelines for visual aids"
+        },
+        {
+          "text": "Types of visual aids"
+        },
+        {
+          "text": "Nonverbal feedback (from audience)"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Volume - The loudness of the voice — loud enough for everyone to hear, and varied for emphasis. The other choices are real Public Speaking terms or definitions (Guidelines for visual aids, Types of visual aids, Nonverbal feedback (from audience)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-031",
+      "course": "COM",
+      "section": "Delivery and Presentation",
+      "sectionCode": "del",
+      "focusTerm": "Pause",
+      "prompt": "Which answer is the most precise exam meaning of \"Pause\"?",
+      "options": [
+        {
+          "text": "The presentation of a speech through voice and body. Good delivery conveys ideas clearly and engagingly without distracting the audience."
+        },
+        {
+          "text": "Speaking with little or no preparation — you organize and think on your feet."
+        },
+        {
+          "text": "A brief, purposeful silence for emphasis or to let an idea land. Avoid vocalized pauses (\"um,\" \"uh,\" \"like\")."
+        },
+        {
+          "text": "The loudness of the voice — loud enough for everyone to hear, and varied for emphasis."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Pause - A brief, purposeful silence for emphasis or to let an idea land. Avoid vocalized pauses (\"um,\" \"uh,\" \"like\"). The other choices are real Public Speaking terms or definitions (Delivery, Impromptu delivery, Volume), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-032",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "NCA Credo for Ethical Communication",
+      "prompt": "Which term best names this exact meaning? \"The National Communication Association's statement affirming that ethical, truthful communication is fundamental to responsible decision-making and to a healthy democracy.\"",
+      "options": [
+        {
+          "text": "Ethical listening"
+        },
+        {
+          "text": "Guidelines for ethical speaking"
+        },
+        {
+          "text": "Global plagiarism"
+        },
+        {
+          "text": "NCA Credo for Ethical Communication"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: NCA Credo for Ethical Communication - The National Communication Association's statement affirming that ethical, truthful communication is fundamental to responsible decision-making and to a healthy democracy. The other choices are real Public Speaking terms or definitions (Ethical listening, Guidelines for ethical speaking, Global plagiarism), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): ethical = ethical means a standard for right action in a specific context.",
+      "memoryFocus": [
+        "ethical means a standard for right action in a specific context"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-033",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "Guidelines for ethical speaking",
+      "prompt": "Which answer is the most precise exam meaning of \"Guidelines for ethical speaking\"?",
+      "options": [
+        {
+          "text": "Language that degrades or dehumanizes people or groups. Unethical because it can silence opposing views and inflame prejudice."
+        },
+        {
+          "text": "Make sure your goals are ethically sound; be fully prepared; be honest in what you say; avoid name-calling and abusive language; put ethical principles into practice."
+        },
+        {
+          "text": "Stitching a speech together by copying from two or three sources without crediting them."
+        },
+        {
+          "text": "Verbally crediting the origin of facts, quotations, and statistics during the speech (\"According to...\"). Maintains credibility and prevents plagiarism."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Guidelines for ethical speaking - Make sure your goals are ethically sound; be fully prepared; be honest in what you say; avoid name-calling and abusive language; put ethical principles into practice. The other choices are real Public Speaking terms or definitions (Name-calling / abusive language, Patchwork plagiarism, Oral source citation), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): ethical = ethical means a standard for right action in a specific context.",
+      "memoryFocus": [
+        "ethical means a standard for right action in a specific context"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-034",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "Ethical listening",
+      "prompt": "Which term best names this exact meaning? \"Listening courteously and attentively, avoiding prejudging the speaker, and supporting the free and open expression of ideas.\"",
+      "options": [
+        {
+          "text": "NCA Credo for Ethical Communication"
+        },
+        {
+          "text": "Ethical listening"
+        },
+        {
+          "text": "Oral source citation"
+        },
+        {
+          "text": "Guidelines for ethical speaking"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Ethical listening - Listening courteously and attentively, avoiding prejudging the speaker, and supporting the free and open expression of ideas. The other choices are real Public Speaking terms or definitions (NCA Credo for Ethical Communication, Oral source citation, Guidelines for ethical speaking), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): ethical = ethical means a standard for right action in a specific context.",
+      "memoryFocus": [
+        "ethical means a standard for right action in a specific context"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-035",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "Global plagiarism",
+      "prompt": "Which answer is the most precise exam meaning of \"Global plagiarism\"?",
+      "options": [
+        {
+          "text": "Listening courteously and attentively, avoiding prejudging the speaker, and supporting the free and open expression of ideas."
+        },
+        {
+          "text": "Stealing an entire speech from a single source and passing it off as your own. The most blatant and unethical form."
+        },
+        {
+          "text": "Stitching a speech together by copying from two or three sources without crediting them."
+        },
+        {
+          "text": "The National Communication Association's statement affirming that ethical, truthful communication is fundamental to responsible decision-making and to a healthy democracy."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Global plagiarism - Stealing an entire speech from a single source and passing it off as your own. The most blatant and unethical form. The other choices are real Public Speaking terms or definitions (Ethical listening, Patchwork plagiarism, NCA Credo for Ethical Communication), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-036",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "Patchwork plagiarism",
+      "prompt": "Which term best names this exact meaning? \"Stitching a speech together by copying from two or three sources without crediting them.\"",
+      "options": [
+        {
+          "text": "Patchwork plagiarism"
+        },
+        {
+          "text": "Paraphrasing"
+        },
+        {
+          "text": "Ethical listening"
+        },
+        {
+          "text": "Guidelines for ethical speaking"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Patchwork plagiarism - Stitching a speech together by copying from two or three sources without crediting them. The other choices are real Public Speaking terms or definitions (Paraphrasing, Ethical listening, Guidelines for ethical speaking), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-037",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "Incremental plagiarism",
+      "prompt": "Which answer is the most precise exam meaning of \"Incremental plagiarism\"?",
+      "options": [
+        {
+          "text": "Language that degrades or dehumanizes people or groups. Unethical because it can silence opposing views and inflame prejudice."
+        },
+        {
+          "text": "Failing to credit specific quotations, paraphrases, or ideas borrowed from others — even when the speech as a whole is your own work. (Exam answer.)"
+        },
+        {
+          "text": "Listening courteously and attentively, avoiding prejudging the speaker, and supporting the free and open expression of ideas."
+        },
+        {
+          "text": "A single, precise statement of what you want the audience to know, believe, or do — written as an infinitive phrase: \"To inform my audience about...\""
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Incremental plagiarism - Failing to credit specific quotations, paraphrases, or ideas borrowed from others — even when the speech as a whole is your own work. (Exam answer.) The other choices are real Public Speaking terms or definitions (Name-calling / abusive language, Ethical listening, Specific purpose), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-038",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "Ethics (in speaking)",
+      "prompt": "Which term best names this exact meaning? \"The standards of right and wrong that guide a speaker's conduct. Because speech can influence others, public speaking always carries ethical responsibility.\"",
+      "options": [
+        {
+          "text": "Guidelines for ethical speaking"
+        },
+        {
+          "text": "Ethics (in speaking)"
+        },
+        {
+          "text": "Speech as power"
+        },
+        {
+          "text": "Audience analysis"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Ethics (in speaking) - The standards of right and wrong that guide a speaker's conduct. Because speech can influence others, public speaking always carries ethical responsibility. The other choices are real Public Speaking terms or definitions (Guidelines for ethical speaking, Speech as power, Audience analysis), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-039",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "Plagiarism",
+      "prompt": "Which answer is the most precise exam meaning of \"Plagiarism\"?",
+      "options": [
+        {
+          "text": "Verbally crediting the origin of facts, quotations, and statistics during the speech (\"According to...\"). Maintains credibility and prevents plagiarism."
+        },
+        {
+          "text": "Because speechmaking is a form of power, it carries heavy ethical responsibilities. The ability to move audiences must be used honestly and responsibly. (Exam fact.)"
+        },
+        {
+          "text": "In Stand Up, Speak Out: demographic, psychographic, and situational. Together they tell you who your listeners are, what they think, and the context you'll speak in."
+        },
+        {
+          "text": "Presenting another person's language or ideas as your own. A serious ethical violation. The three types: global, patchwork, and incremental."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Plagiarism - Presenting another person's language or ideas as your own. A serious ethical violation. The three types: global, patchwork, and incremental. The other choices are real Public Speaking terms or definitions (Oral source citation, Speech as power, Three types of audience analysis), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-040",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "Name-calling / abusive language",
+      "prompt": "Which term best names this exact meaning? \"Language that degrades or dehumanizes people or groups. Unethical because it can silence opposing views and inflame prejudice.\"",
+      "options": [
+        {
+          "text": "Patchwork plagiarism"
+        },
+        {
+          "text": "Paraphrasing"
+        },
+        {
+          "text": "Name-calling / abusive language"
+        },
+        {
+          "text": "Oral source citation"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Name-calling / abusive language - Language that degrades or dehumanizes people or groups. Unethical because it can silence opposing views and inflame prejudice. The other choices are real Public Speaking terms or definitions (Patchwork plagiarism, Paraphrasing, Oral source citation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-041",
+      "course": "COM",
+      "section": "Ethics and Public Speaking",
+      "sectionCode": "eth",
+      "focusTerm": "Speech as power",
+      "prompt": "Which answer is the most precise exam meaning of \"Speech as power\"?",
+      "options": [
+        {
+          "text": "Stitching a speech together by copying from two or three sources without crediting them."
+        },
+        {
+          "text": "Because speechmaking is a form of power, it carries heavy ethical responsibilities. The ability to move audiences must be used honestly and responsibly. (Exam fact.)"
+        },
+        {
+          "text": "Language that degrades or dehumanizes people or groups. Unethical because it can silence opposing views and inflame prejudice."
+        },
+        {
+          "text": "Stealing an entire speech from a single source and passing it off as your own. The most blatant and unethical form."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Speech as power - Because speechmaking is a form of power, it carries heavy ethical responsibilities. The ability to move audiences must be used honestly and responsibly. (Exam fact.) The other choices are real Public Speaking terms or definitions (Patchwork plagiarism, Name-calling / abusive language, Global plagiarism), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-042",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Logical fallacy",
+      "prompt": "Which term best names this exact meaning? \"An error in reasoning that weakens or invalidates an argument. Spotting and avoiding fallacies is central to critical thinking and ethical persuasion.\"",
+      "options": [
+        {
+          "text": "Reasoning from sign"
+        },
+        {
+          "text": "Modes of persuasion"
+        },
+        {
+          "text": "Logical fallacy"
+        },
+        {
+          "text": "Logos"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Logical fallacy - An error in reasoning that weakens or invalidates an argument. Spotting and avoiding fallacies is central to critical thinking and ethical persuasion. The other choices are real Public Speaking terms or definitions (Reasoning from sign, Modes of persuasion, Logos), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-043",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Appeal to pity (ad misericordiam)",
+      "prompt": "Which answer is the most precise exam meaning of \"Appeal to pity (ad misericordiam)\"?",
+      "options": [
+        {
+          "text": "Circular reasoning — assuming the truth of the conclusion within one of the premises, so the argument proves nothing."
+        },
+        {
+          "text": "Drawing a broad conclusion from insufficient or unrepresentative evidence — too few examples to justify the claim."
+        },
+        {
+          "text": "\"It does not follow.\" A conclusion that has no logical connection to the evidence or premises offered."
+        },
+        {
+          "text": "Trying to win support by exploiting the audience's pity or guilt instead of offering sound reasons."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Appeal to pity (ad misericordiam) - Trying to win support by exploiting the audience's pity or guilt instead of offering sound reasons. The other choices are real Public Speaking terms or definitions (Begging the question, Hasty generalization, Non sequitur), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-044",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Hasty generalization",
+      "prompt": "Which term best names this exact meaning? \"Drawing a broad conclusion from insufficient or unrepresentative evidence — too few examples to justify the claim.\"",
+      "options": [
+        {
+          "text": "Credibility"
+        },
+        {
+          "text": "Logical fallacy"
+        },
+        {
+          "text": "Deductive reasoning"
+        },
+        {
+          "text": "Hasty generalization"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Hasty generalization - Drawing a broad conclusion from insufficient or unrepresentative evidence — too few examples to justify the claim. The other choices are real Public Speaking terms or definitions (Credibility, Logical fallacy, Deductive reasoning), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-045",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "False cause (post hoc)",
+      "prompt": "Which answer is the most precise exam meaning of \"False cause (post hoc)\"?",
+      "options": [
+        {
+          "text": "Assuming that because one event followed another, the first caused the second. Latin: post hoc, ergo propter hoc — \"after this, therefore because of this.\""
+        },
+        {
+          "text": "Comparing two things that are not alike in the relevant respects, so the comparison doesn't actually support the claim."
+        },
+        {
+          "text": "Drawing a broad conclusion from insufficient or unrepresentative evidence — too few examples to justify the claim."
+        },
+        {
+          "text": "The audience's perception of a speaker as competent and trustworthy. Initial (before), derived (during), and terminal (after) credibility. Closely tied to ethos."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: False cause (post hoc) - Assuming that because one event followed another, the first caused the second. Latin: post hoc, ergo propter hoc — \"after this, therefore because of this.\" The other choices are real Public Speaking terms or definitions (False analogy, Hasty generalization, Credibility), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-046",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Bandwagon (appeal to popularity)",
+      "prompt": "Which term best names this exact meaning? \"Assuming something is true or good because many people believe or do it — \"everyone's doing it.\"\"",
+      "options": [
+        {
+          "text": "Reasoning from sign"
+        },
+        {
+          "text": "Bandwagon (appeal to popularity)"
+        },
+        {
+          "text": "Pathos"
+        },
+        {
+          "text": "Appeal to pity (ad misericordiam)"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Bandwagon (appeal to popularity) - Assuming something is true or good because many people believe or do it — \"everyone's doing it.\" The other choices are real Public Speaking terms or definitions (Reasoning from sign, Pathos, Appeal to pity (ad misericordiam)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-047",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Either-or (false dilemma)",
+      "prompt": "Which answer is the most precise exam meaning of \"Either-or (false dilemma)\"?",
+      "options": [
+        {
+          "text": "Trying to win support by exploiting the audience's pity or guilt instead of offering sound reasons."
+        },
+        {
+          "text": "Framing a situation as having only two options when more exist (\"You're either with us or against us\")."
+        },
+        {
+          "text": "Reasoning from a general principle to a specific conclusion. Often expressed as a syllogism."
+        },
+        {
+          "text": "Reasoning by comparison: because two cases are alike in known respects, they are probably alike in a further respect."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Either-or (false dilemma) - Framing a situation as having only two options when more exist (\"You're either with us or against us\"). The other choices are real Public Speaking terms or definitions (Appeal to pity (ad misericordiam), Deductive reasoning, Analogical reasoning), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-048",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Appeal to tradition",
+      "prompt": "Which term best names this exact meaning? \"Arguing something should continue simply because \"we've always done it that way.\"\"",
+      "options": [
+        {
+          "text": "Hasty generalization"
+        },
+        {
+          "text": "Reasoning from sign"
+        },
+        {
+          "text": "Pathos"
+        },
+        {
+          "text": "Appeal to tradition"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Appeal to tradition - Arguing something should continue simply because \"we've always done it that way.\" The other choices are real Public Speaking terms or definitions (Hasty generalization, Reasoning from sign, Pathos), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-049",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Begging the question",
+      "prompt": "Which answer is the most precise exam meaning of \"Begging the question\"?",
+      "options": [
+        {
+          "text": "Assuming that because one event followed another, the first caused the second. Latin: post hoc, ergo propter hoc — \"after this, therefore because of this.\""
+        },
+        {
+          "text": "Trying to win support by exploiting the audience's pity or guilt instead of offering sound reasons."
+        },
+        {
+          "text": "Circular reasoning — assuming the truth of the conclusion within one of the premises, so the argument proves nothing."
+        },
+        {
+          "text": "Claiming one action will inevitably trigger a chain of extreme consequences, without proving each link in the chain."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Begging the question - Circular reasoning — assuming the truth of the conclusion within one of the premises, so the argument proves nothing. The other choices are real Public Speaking terms or definitions (False cause (post hoc), Appeal to pity (ad misericordiam), Slippery slope), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-050",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Modes of persuasion",
+      "prompt": "Which term best names this exact meaning? \"Aristotle's three persuasive appeals: ethos (credibility), pathos (emotion), and logos (logic). Effective persuasion balances all three.\"",
+      "options": [
+        {
+          "text": "Modes of persuasion"
+        },
+        {
+          "text": "Reasoning"
+        },
+        {
+          "text": "Logical fallacy"
+        },
+        {
+          "text": "Logos"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Modes of persuasion - Aristotle's three persuasive appeals: ethos (credibility), pathos (emotion), and logos (logic). Effective persuasion balances all three. The other choices are real Public Speaking terms or definitions (Reasoning, Logical fallacy, Logos), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-051",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Ad hominem",
+      "prompt": "Which answer is the most precise exam meaning of \"Ad hominem\"?",
+      "options": [
+        {
+          "text": "Misrepresenting or exaggerating an opponent's position so it is easier to attack and refute."
+        },
+        {
+          "text": "An error in reasoning that weakens or invalidates an argument. Spotting and avoiding fallacies is central to critical thinking and ethical persuasion."
+        },
+        {
+          "text": "Attacking the person making an argument rather than the argument itself (\"against the man\")."
+        },
+        {
+          "text": "Claiming one action will inevitably trigger a chain of extreme consequences, without proving each link in the chain."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Ad hominem - Attacking the person making an argument rather than the argument itself (\"against the man\"). The other choices are real Public Speaking terms or definitions (Straw man, Logical fallacy, Slippery slope), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-052",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Slippery slope",
+      "prompt": "Which term best names this exact meaning? \"Claiming one action will inevitably trigger a chain of extreme consequences, without proving each link in the chain.\"",
+      "options": [
+        {
+          "text": "Hasty generalization"
+        },
+        {
+          "text": "Slippery slope"
+        },
+        {
+          "text": "False cause (post hoc)"
+        },
+        {
+          "text": "False analogy"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Slippery slope - Claiming one action will inevitably trigger a chain of extreme consequences, without proving each link in the chain. The other choices are real Public Speaking terms or definitions (Hasty generalization, False cause (post hoc), False analogy), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-053",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Red herring",
+      "prompt": "Which answer is the most precise exam meaning of \"Red herring\"?",
+      "options": [
+        {
+          "text": "Assuming something is true or good because many people believe or do it — \"everyone's doing it.\""
+        },
+        {
+          "text": "The appeal to the audience's emotions — fear, pity, hope, anger, pride. Powerful, but must be used ethically and balanced with sound reasoning."
+        },
+        {
+          "text": "Introducing an irrelevant issue to divert attention from the real subject under discussion."
+        },
+        {
+          "text": "The audience's perception of a speaker as competent and trustworthy. Initial (before), derived (during), and terminal (after) credibility. Closely tied to ethos."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Red herring - Introducing an irrelevant issue to divert attention from the real subject under discussion. The other choices are real Public Speaking terms or definitions (Bandwagon (appeal to popularity), Pathos, Credibility), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-054",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Straw man",
+      "prompt": "Which term best names this exact meaning? \"Misrepresenting or exaggerating an opponent's position so it is easier to attack and refute.\"",
+      "options": [
+        {
+          "text": "Appeal to pity (ad misericordiam)"
+        },
+        {
+          "text": "Straw man"
+        },
+        {
+          "text": "Bandwagon (appeal to popularity)"
+        },
+        {
+          "text": "Logical fallacy"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Straw man - Misrepresenting or exaggerating an opponent's position so it is easier to attack and refute. The other choices are real Public Speaking terms or definitions (Appeal to pity (ad misericordiam), Bandwagon (appeal to popularity), Logical fallacy), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-055",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "False analogy",
+      "prompt": "Which answer is the most precise exam meaning of \"False analogy\"?",
+      "options": [
+        {
+          "text": "An error in reasoning that weakens or invalidates an argument. Spotting and avoiding fallacies is central to critical thinking and ethical persuasion."
+        },
+        {
+          "text": "Comparing two things that are not alike in the relevant respects, so the comparison doesn't actually support the claim."
+        },
+        {
+          "text": "Reasoning from specific instances to a general conclusion (several examples → a generalization). Conclusions are probable, not certain."
+        },
+        {
+          "text": "The appeal based on logic and evidence — facts, statistics, and sound reasoning that support the claim."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: False analogy - Comparing two things that are not alike in the relevant respects, so the comparison doesn't actually support the claim. The other choices are real Public Speaking terms or definitions (Logical fallacy, Inductive reasoning, Logos), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-056",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Non sequitur",
+      "prompt": "Which term best names this exact meaning? \"\"It does not follow.\" A conclusion that has no logical connection to the evidence or premises offered.\"",
+      "options": [
+        {
+          "text": "Appeal to pity (ad misericordiam)"
+        },
+        {
+          "text": "Non sequitur"
+        },
+        {
+          "text": "Credibility"
+        },
+        {
+          "text": "Inductive reasoning"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Non sequitur - \"It does not follow.\" A conclusion that has no logical connection to the evidence or premises offered. The other choices are real Public Speaking terms or definitions (Appeal to pity (ad misericordiam), Credibility, Inductive reasoning), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-057",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Inductive reasoning",
+      "prompt": "Which answer is the most precise exam meaning of \"Inductive reasoning\"?",
+      "options": [
+        {
+          "text": "Inferring that something is true from observable indicators (signs) usually associated with it."
+        },
+        {
+          "text": "A three-part deductive argument: major premise, minor premise, conclusion. (All humans are mortal; Socrates is human; therefore Socrates is mortal.)"
+        },
+        {
+          "text": "The appeal to the audience's emotions — fear, pity, hope, anger, pride. Powerful, but must be used ethically and balanced with sound reasoning."
+        },
+        {
+          "text": "Reasoning from specific instances to a general conclusion (several examples → a generalization). Conclusions are probable, not certain."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Inductive reasoning - Reasoning from specific instances to a general conclusion (several examples → a generalization). Conclusions are probable, not certain. The other choices are real Public Speaking terms or definitions (Reasoning from sign, Syllogism, Pathos), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-058",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Deductive reasoning",
+      "prompt": "Which term best names this exact meaning? \"Reasoning from a general principle to a specific conclusion. Often expressed as a syllogism.\"",
+      "options": [
+        {
+          "text": "Logical fallacy"
+        },
+        {
+          "text": "Deductive reasoning"
+        },
+        {
+          "text": "Begging the question"
+        },
+        {
+          "text": "Credibility"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Deductive reasoning - Reasoning from a general principle to a specific conclusion. Often expressed as a syllogism. The other choices are real Public Speaking terms or definitions (Logical fallacy, Begging the question, Credibility), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-059",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Pathos",
+      "prompt": "Which answer is the most precise exam meaning of \"Pathos\"?",
+      "options": [
+        {
+          "text": "The appeal based on logic and evidence — facts, statistics, and sound reasoning that support the claim."
+        },
+        {
+          "text": "The appeal based on the speaker's credibility — character, competence, and trustworthiness. Built through expertise, honesty, and goodwill toward the audience."
+        },
+        {
+          "text": "Trying to win support by exploiting the audience's pity or guilt instead of offering sound reasons."
+        },
+        {
+          "text": "The appeal to the audience's emotions — fear, pity, hope, anger, pride. Powerful, but must be used ethically and balanced with sound reasoning."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Pathos - The appeal to the audience's emotions — fear, pity, hope, anger, pride. Powerful, but must be used ethically and balanced with sound reasoning. The other choices are real Public Speaking terms or definitions (Logos, Ethos, Appeal to pity (ad misericordiam)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-060",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Syllogism",
+      "prompt": "Which term best names this exact meaning? \"A three-part deductive argument: major premise, minor premise, conclusion. (All humans are mortal; Socrates is human; therefore Socrates is mortal.)\"",
+      "options": [
+        {
+          "text": "Reasoning"
+        },
+        {
+          "text": "Syllogism"
+        },
+        {
+          "text": "Deductive reasoning"
+        },
+        {
+          "text": "Either-or (false dilemma)"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Syllogism - A three-part deductive argument: major premise, minor premise, conclusion. (All humans are mortal; Socrates is human; therefore Socrates is mortal.) The other choices are real Public Speaking terms or definitions (Reasoning, Deductive reasoning, Either-or (false dilemma)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-061",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Reasoning from sign",
+      "prompt": "Which answer is the most precise exam meaning of \"Reasoning from sign\"?",
+      "options": [
+        {
+          "text": "The appeal to the audience's emotions — fear, pity, hope, anger, pride. Powerful, but must be used ethically and balanced with sound reasoning."
+        },
+        {
+          "text": "Reasoning from a general principle to a specific conclusion. Often expressed as a syllogism."
+        },
+        {
+          "text": "Assuming that because one event followed another, the first caused the second. Latin: post hoc, ergo propter hoc — \"after this, therefore because of this.\""
+        },
+        {
+          "text": "Inferring that something is true from observable indicators (signs) usually associated with it."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Reasoning from sign - Inferring that something is true from observable indicators (signs) usually associated with it. The other choices are real Public Speaking terms or definitions (Pathos, Deductive reasoning, False cause (post hoc)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-062",
+      "course": "COM",
+      "section": "Logic and Critical Thinking",
+      "sectionCode": "log",
+      "focusTerm": "Causal reasoning",
+      "prompt": "Which term best names this exact meaning? \"Reasoning that establishes a cause-and-effect relationship between two events.\"",
+      "options": [
+        {
+          "text": "Analogical reasoning"
+        },
+        {
+          "text": "Logos"
+        },
+        {
+          "text": "Hasty generalization"
+        },
+        {
+          "text": "Causal reasoning"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Causal reasoning - Reasoning that establishes a cause-and-effect relationship between two events. The other choices are real Public Speaking terms or definitions (Analogical reasoning, Logos, Hasty generalization), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-063",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Chronological (time) order",
+      "prompt": "Which answer is the most precise exam meaning of \"Chronological (time) order\"?",
+      "options": [
+        {
+          "text": "A persuasive pattern: identify the problem, analyze its causes, then present a solution."
+        },
+        {
+          "text": "The closing of a speech. Its jobs: signal the end, summarize the main points, and end memorably with a clincher."
+        },
+        {
+          "text": "Main points arranged in a time sequence or the steps of a process. Best for historical topics and how-to/demonstration speeches. (Exam: a how-to on making a piñata → time order.)"
+        },
+        {
+          "text": "The opening of a speech. Its jobs: get attention, reveal the topic, establish credibility and goodwill, show relevance to the audience, and preview the main points."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Chronological (time) order - Main points arranged in a time sequence or the steps of a process. Best for historical topics and how-to/demonstration speeches. (Exam: a how-to on making a piñata → time order.) The other choices are real Public Speaking terms or definitions (Problem-cause-solution order, Conclusion (functions), Introduction (functions)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): order = order means a precise arrangement rule.",
+      "memoryFocus": [
+        "order means a precise arrangement rule"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-064",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Topical order",
+      "prompt": "Which term best names this exact meaning? \"Dividing the subject into logical subtopics or categories. The most common and flexible pattern.\"",
+      "options": [
+        {
+          "text": "Attention-getter"
+        },
+        {
+          "text": "Topical order"
+        },
+        {
+          "text": "Chronological (time) order"
+        },
+        {
+          "text": "Problem-solution order"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Topical order - Dividing the subject into logical subtopics or categories. The most common and flexible pattern. The other choices are real Public Speaking terms or definitions (Attention-getter, Chronological (time) order, Problem-solution order), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): order = order means a precise arrangement rule.",
+      "memoryFocus": [
+        "order means a precise arrangement rule"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-065",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Comparative advantages order",
+      "prompt": "Which answer is the most precise exam meaning of \"Comparative advantages order\"?",
+      "options": [
+        {
+          "text": "Main points arranged in a time sequence or the steps of a process. Best for historical topics and how-to/demonstration speeches. (Exam: a how-to on making a piñata → time order.)"
+        },
+        {
+          "text": "Main points arranged to show a cause-and-effect relationship (causes → effects, or effects → causes)."
+        },
+        {
+          "text": "First describe a problem, then propose a solution. A staple of persuasive speeches."
+        },
+        {
+          "text": "A persuasive pattern that compares options and argues that your proposal is superior to the alternatives."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Comparative advantages order - A persuasive pattern that compares options and argues that your proposal is superior to the alternatives. The other choices are real Public Speaking terms or definitions (Chronological (time) order, Causal order, Problem-solution order), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): order = order means a precise arrangement rule.",
+      "memoryFocus": [
+        "order means a precise arrangement rule"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-066",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Monroe's Motivated Sequence",
+      "prompt": "Which term best names this exact meaning? \"A five-step persuasive pattern designed to spur action: Attention → Need → Satisfaction → Visualization → Action.\"",
+      "options": [
+        {
+          "text": "Monroe's Motivated Sequence"
+        },
+        {
+          "text": "Problem-solution order"
+        },
+        {
+          "text": "Comparative advantages order"
+        },
+        {
+          "text": "Signpost"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Monroe's Motivated Sequence - A five-step persuasive pattern designed to spur action: Attention → Need → Satisfaction → Visualization → Action. The other choices are real Public Speaking terms or definitions (Problem-solution order, Comparative advantages order, Signpost), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): sequence = sequence means named stages that should not be scrambled.",
+      "memoryFocus": [
+        "sequence means named stages that should not be scrambled"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-067",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Spatial order",
+      "prompt": "Which answer is the most precise exam meaning of \"Spatial order\"?",
+      "options": [
+        {
+          "text": "A sentence at the end of the introduction that names the main points the speech will cover — a roadmap for listeners."
+        },
+        {
+          "text": "Main points arranged in a time sequence or the steps of a process. Best for historical topics and how-to/demonstration speeches. (Exam: a how-to on making a piñata → time order.)"
+        },
+        {
+          "text": "A persuasive pattern that compares options and argues that your proposal is superior to the alternatives."
+        },
+        {
+          "text": "Main points arranged by physical location or direction — top to bottom, left to right, east to west."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Spatial order - Main points arranged by physical location or direction — top to bottom, left to right, east to west. The other choices are real Public Speaking terms or definitions (Preview statement, Chronological (time) order, Comparative advantages order), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): order = order means a precise arrangement rule.",
+      "memoryFocus": [
+        "order means a precise arrangement rule"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-068",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Causal order",
+      "prompt": "Which term best names this exact meaning? \"Main points arranged to show a cause-and-effect relationship (causes → effects, or effects → causes).\"",
+      "options": [
+        {
+          "text": "Causal order"
+        },
+        {
+          "text": "Main points"
+        },
+        {
+          "text": "Problem-solution order"
+        },
+        {
+          "text": "Comparative advantages order"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Causal order - Main points arranged to show a cause-and-effect relationship (causes → effects, or effects → causes). The other choices are real Public Speaking terms or definitions (Main points, Problem-solution order, Comparative advantages order), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): order = order means a precise arrangement rule.",
+      "memoryFocus": [
+        "order means a precise arrangement rule"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-069",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Problem-solution order",
+      "prompt": "Which answer is the most precise exam meaning of \"Problem-solution order\"?",
+      "options": [
+        {
+          "text": "A brief cue showing where you are in the speech or stressing importance (\"First...\", \"Most importantly...\", \"Finally...\")."
+        },
+        {
+          "text": "Main points arranged in a time sequence or the steps of a process. Best for historical topics and how-to/demonstration speeches. (Exam: a how-to on making a piñata → time order.)"
+        },
+        {
+          "text": "The largest part of the speech, containing the main points and supporting material, arranged in a clear organizational pattern."
+        },
+        {
+          "text": "First describe a problem, then propose a solution. A staple of persuasive speeches."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Problem-solution order - First describe a problem, then propose a solution. A staple of persuasive speeches. The other choices are real Public Speaking terms or definitions (Signpost, Chronological (time) order, Body), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): order = order means a precise arrangement rule.",
+      "memoryFocus": [
+        "order means a precise arrangement rule"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-070",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Problem-cause-solution order",
+      "prompt": "Which term best names this exact meaning? \"A persuasive pattern: identify the problem, analyze its causes, then present a solution.\"",
+      "options": [
+        {
+          "text": "Conclusion (functions)"
+        },
+        {
+          "text": "Causal order"
+        },
+        {
+          "text": "Monroe's Motivated Sequence"
+        },
+        {
+          "text": "Problem-cause-solution order"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Problem-cause-solution order - A persuasive pattern: identify the problem, analyze its causes, then present a solution. The other choices are real Public Speaking terms or definitions (Conclusion (functions), Causal order, Monroe's Motivated Sequence), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): order = order means a precise arrangement rule.",
+      "memoryFocus": [
+        "order means a precise arrangement rule"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-071",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Main points",
+      "prompt": "Which answer is the most precise exam meaning of \"Main points\"?",
+      "options": [
+        {
+          "text": "The central claims or key ideas of the speech (usually 2–5), each developed with supporting material."
+        },
+        {
+          "text": "A sentence at the end of the introduction that names the main points the speech will cover — a roadmap for listeners."
+        },
+        {
+          "text": "The largest part of the speech, containing the main points and supporting material, arranged in a clear organizational pattern."
+        },
+        {
+          "text": "Main points arranged by physical location or direction — top to bottom, left to right, east to west."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Main points - The central claims or key ideas of the speech (usually 2–5), each developed with supporting material. The other choices are real Public Speaking terms or definitions (Preview statement, Body, Spatial order), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-072",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Connectives",
+      "prompt": "Which term best names this exact meaning? \"Words/phrases that link ideas and keep a speech flowing. Four kinds: transitions, internal previews, internal summaries, and signposts.\"",
+      "options": [
+        {
+          "text": "Clincher"
+        },
+        {
+          "text": "Introduction (functions)"
+        },
+        {
+          "text": "Comparative advantages order"
+        },
+        {
+          "text": "Connectives"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Connectives - Words/phrases that link ideas and keep a speech flowing. Four kinds: transitions, internal previews, internal summaries, and signposts. The other choices are real Public Speaking terms or definitions (Clincher, Introduction (functions), Comparative advantages order), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-073",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Signpost",
+      "prompt": "Which answer is the most precise exam meaning of \"Signpost\"?",
+      "options": [
+        {
+          "text": "The opening device that captures interest: a startling statement, rhetorical question, quotation, story, vivid statistic, or humor."
+        },
+        {
+          "text": "The central claims or key ideas of the speech (usually 2–5), each developed with supporting material."
+        },
+        {
+          "text": "A brief cue showing where you are in the speech or stressing importance (\"First...\", \"Most importantly...\", \"Finally...\")."
+        },
+        {
+          "text": "The largest part of the speech, containing the main points and supporting material, arranged in a clear organizational pattern."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Signpost - A brief cue showing where you are in the speech or stressing importance (\"First...\", \"Most importantly...\", \"Finally...\"). The other choices are real Public Speaking terms or definitions (Attention-getter, Main points, Body), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-074",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Introduction (functions)",
+      "prompt": "Which term best names this exact meaning? \"The opening of a speech. Its jobs: get attention, reveal the topic, establish credibility and goodwill, show relevance to the audience, and preview the main points.\"",
+      "options": [
+        {
+          "text": "Causal order"
+        },
+        {
+          "text": "Preview statement"
+        },
+        {
+          "text": "Introduction (functions)"
+        },
+        {
+          "text": "Clincher"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Introduction (functions) - The opening of a speech. Its jobs: get attention, reveal the topic, establish credibility and goodwill, show relevance to the audience, and preview the main points. The other choices are real Public Speaking terms or definitions (Causal order, Preview statement, Clincher), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-075",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Preview statement",
+      "prompt": "Which answer is the most precise exam meaning of \"Preview statement\"?",
+      "options": [
+        {
+          "text": "The closing of a speech. Its jobs: signal the end, summarize the main points, and end memorably with a clincher."
+        },
+        {
+          "text": "A sentence at the end of the introduction that names the main points the speech will cover — a roadmap for listeners."
+        },
+        {
+          "text": "A strong, memorable closing line that reinforces the central idea and gives the speech a sense of closure."
+        },
+        {
+          "text": "Words/phrases that link ideas and keep a speech flowing. Four kinds: transitions, internal previews, internal summaries, and signposts."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Preview statement - A sentence at the end of the introduction that names the main points the speech will cover — a roadmap for listeners. The other choices are real Public Speaking terms or definitions (Conclusion (functions), Clincher, Connectives), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-076",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Conclusion (functions)",
+      "prompt": "Which term best names this exact meaning? \"The closing of a speech. Its jobs: signal the end, summarize the main points, and end memorably with a clincher.\"",
+      "options": [
+        {
+          "text": "Topical order"
+        },
+        {
+          "text": "Comparative advantages order"
+        },
+        {
+          "text": "Main points"
+        },
+        {
+          "text": "Conclusion (functions)"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Conclusion (functions) - The closing of a speech. Its jobs: signal the end, summarize the main points, and end memorably with a clincher. The other choices are real Public Speaking terms or definitions (Topical order, Comparative advantages order, Main points), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-077",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Internal preview",
+      "prompt": "Which answer is the most precise exam meaning of \"Internal preview\"?",
+      "options": [
+        {
+          "text": "A statement within the body telling the audience what the speaker will cover next within a point."
+        },
+        {
+          "text": "The opening device that captures interest: a startling statement, rhetorical question, quotation, story, vivid statistic, or humor."
+        },
+        {
+          "text": "A brief cue showing where you are in the speech or stressing importance (\"First...\", \"Most importantly...\", \"Finally...\")."
+        },
+        {
+          "text": "The largest part of the speech, containing the main points and supporting material, arranged in a clear organizational pattern."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Internal preview - A statement within the body telling the audience what the speaker will cover next within a point. The other choices are real Public Speaking terms or definitions (Attention-getter, Signpost, Body), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-078",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Internal summary",
+      "prompt": "Which term best names this exact meaning? \"A statement within the body reminding the audience what was just covered before moving on.\"",
+      "options": [
+        {
+          "text": "Internal summary"
+        },
+        {
+          "text": "Internal preview"
+        },
+        {
+          "text": "Clincher"
+        },
+        {
+          "text": "Signpost"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Internal summary - A statement within the body reminding the audience what was just covered before moving on. The other choices are real Public Speaking terms or definitions (Internal preview, Clincher, Signpost), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-079",
+      "course": "COM",
+      "section": "Organization of Speeches",
+      "sectionCode": "org",
+      "focusTerm": "Attention-getter",
+      "prompt": "Which answer is the most precise exam meaning of \"Attention-getter\"?",
+      "options": [
+        {
+          "text": "The opening device that captures interest: a startling statement, rhetorical question, quotation, story, vivid statistic, or humor."
+        },
+        {
+          "text": "A statement within the body reminding the audience what was just covered before moving on."
+        },
+        {
+          "text": "A persuasive pattern: identify the problem, analyze its causes, then present a solution."
+        },
+        {
+          "text": "A brief cue showing where you are in the speech or stressing importance (\"First...\", \"Most importantly...\", \"Finally...\")."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Attention-getter - The opening device that captures interest: a startling statement, rhetorical question, quotation, story, vivid statistic, or humor. The other choices are real Public Speaking terms or definitions (Internal summary, Problem-cause-solution order, Signpost), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-080",
+      "course": "COM",
+      "section": "Purpose of Speeches",
+      "sectionCode": "pur",
+      "focusTerm": "Questions of fact / value / policy",
+      "prompt": "Which term best names this exact meaning? \"Persuasive speeches argue whether something is true (fact), good or right (value), or what should be done (policy).\"",
+      "options": [
+        {
+          "text": "Informative speech"
+        },
+        {
+          "text": "Bandwagon (appeal to popularity)"
+        },
+        {
+          "text": "Specific purpose"
+        },
+        {
+          "text": "Questions of fact / value / policy"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Questions of fact / value / policy - Persuasive speeches argue whether something is true (fact), good or right (value), or what should be done (policy). The other choices are real Public Speaking terms or definitions (Informative speech, Bandwagon (appeal to popularity), Specific purpose), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): value = value means the thing receiving moral or social weight.",
+      "memoryFocus": [
+        "value means the thing receiving moral or social weight"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-081",
+      "course": "COM",
+      "section": "Purpose of Speeches",
+      "sectionCode": "pur",
+      "focusTerm": "Flaws in purpose statements",
+      "prompt": "Which answer is the most precise exam meaning of \"Flaws in purpose statements\"?",
+      "options": [
+        {
+          "text": "Common errors: too broad, contains two unrelated ideas, is figurative, merely expresses opinion, or isn't audience-centered. (Exam: \"ban smoking AND increase education spending\" = two unrelated ideas.)"
+        },
+        {
+          "text": "Choosing a subject that is appropriate, suitably narrow, and matched to audience and occasion. \"Music\" is too broad — decide your purpose first, then narrow the focus. (Exam short-answer.)"
+        },
+        {
+          "text": "A speech whose primary goal is to amuse or delight (e.g., an after-dinner speech), often using humor and storytelling."
+        },
+        {
+          "text": "A concise one-sentence statement that captures the essence of the speech and previews its main points."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Flaws in purpose statements - Common errors: too broad, contains two unrelated ideas, is figurative, merely expresses opinion, or isn't audience-centered. (Exam: \"ban smoking AND increase education spending\" = two unrelated ideas.) The other choices are real Public Speaking terms or definitions (Topic selection, Speech to entertain, Central idea (thesis)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): purpose = purpose means the exact audience outcome the speech aims for.",
+      "memoryFocus": [
+        "purpose means the exact audience outcome the speech aims for"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-082",
+      "course": "COM",
+      "section": "Purpose of Speeches",
+      "sectionCode": "pur",
+      "focusTerm": "Specific purpose",
+      "prompt": "Which term best names this exact meaning? \"A single, precise statement of what you want the audience to know, believe, or do — written as an infinitive phrase: \"To inform my audience about...\"\"",
+      "options": [
+        {
+          "text": "Speech to entertain"
+        },
+        {
+          "text": "Flaws in purpose statements"
+        },
+        {
+          "text": "Narrative speech"
+        },
+        {
+          "text": "Specific purpose"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Specific purpose - A single, precise statement of what you want the audience to know, believe, or do — written as an infinitive phrase: \"To inform my audience about...\" The other choices are real Public Speaking terms or definitions (Speech to entertain, Flaws in purpose statements, Narrative speech), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): purpose = purpose means the exact audience outcome the speech aims for.",
+      "memoryFocus": [
+        "purpose means the exact audience outcome the speech aims for"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-083",
+      "course": "COM",
+      "section": "Purpose of Speeches",
+      "sectionCode": "pur",
+      "focusTerm": "Narrowing the topic",
+      "prompt": "Which answer is the most precise exam meaning of \"Narrowing the topic\"?",
+      "options": [
+        {
+          "text": "Common errors: too broad, contains two unrelated ideas, is figurative, merely expresses opinion, or isn't audience-centered. (Exam: \"ban smoking AND increase education spending\" = two unrelated ideas.)"
+        },
+        {
+          "text": "Persuasive speeches argue whether something is true (fact), good or right (value), or what should be done (policy)."
+        },
+        {
+          "text": "A speech that conveys knowledge and understanding — explaining, describing, or demonstrating — without advocating a position."
+        },
+        {
+          "text": "Focusing a broad subject down to a specific, manageable angle that fits the time limit and the audience."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Narrowing the topic - Focusing a broad subject down to a specific, manageable angle that fits the time limit and the audience. The other choices are real Public Speaking terms or definitions (Flaws in purpose statements, Questions of fact / value / policy, Informative speech), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-084",
+      "course": "COM",
+      "section": "Purpose of Speeches",
+      "sectionCode": "pur",
+      "focusTerm": "General purpose",
+      "prompt": "Which term best names this exact meaning? \"The broad goal of a speech: to inform, to persuade, or to entertain.\"",
+      "options": [
+        {
+          "text": "Incremental plagiarism"
+        },
+        {
+          "text": "Narrowing the topic"
+        },
+        {
+          "text": "General purpose"
+        },
+        {
+          "text": "Flaws in purpose statements"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: General purpose - The broad goal of a speech: to inform, to persuade, or to entertain. The other choices are real Public Speaking terms or definitions (Incremental plagiarism, Narrowing the topic, Flaws in purpose statements), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): purpose = purpose means the exact audience outcome the speech aims for.",
+      "memoryFocus": [
+        "purpose means the exact audience outcome the speech aims for"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-085",
+      "course": "COM",
+      "section": "Purpose of Speeches",
+      "sectionCode": "pur",
+      "focusTerm": "Topic selection",
+      "prompt": "Which answer is the most precise exam meaning of \"Topic selection\"?",
+      "options": [
+        {
+          "text": "Choosing a subject that is appropriate, suitably narrow, and matched to audience and occasion. \"Music\" is too broad — decide your purpose first, then narrow the focus. (Exam short-answer.)"
+        },
+        {
+          "text": "A speech that conveys knowledge and understanding — explaining, describing, or demonstrating — without advocating a position."
+        },
+        {
+          "text": "The broad goal of a speech: to inform, to persuade, or to entertain."
+        },
+        {
+          "text": "Common errors: too broad, contains two unrelated ideas, is figurative, merely expresses opinion, or isn't audience-centered. (Exam: \"ban smoking AND increase education spending\" = two unrelated ideas.)"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Topic selection - Choosing a subject that is appropriate, suitably narrow, and matched to audience and occasion. \"Music\" is too broad — decide your purpose first, then narrow the focus. (Exam short-answer.) The other choices are real Public Speaking terms or definitions (Informative speech, General purpose, Flaws in purpose statements), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-086",
+      "course": "COM",
+      "section": "Purpose of Speeches",
+      "sectionCode": "pur",
+      "focusTerm": "Central idea (thesis)",
+      "prompt": "Which term best names this exact meaning? \"A concise one-sentence statement that captures the essence of the speech and previews its main points.\"",
+      "options": [
+        {
+          "text": "Central idea (thesis)"
+        },
+        {
+          "text": "Topic selection"
+        },
+        {
+          "text": "General purpose"
+        },
+        {
+          "text": "Specific purpose"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Central idea (thesis) - A concise one-sentence statement that captures the essence of the speech and previews its main points. The other choices are real Public Speaking terms or definitions (Topic selection, General purpose, Specific purpose), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-087",
+      "course": "COM",
+      "section": "Purpose of Speeches",
+      "sectionCode": "pur",
+      "focusTerm": "Speech to entertain",
+      "prompt": "Which answer is the most precise exam meaning of \"Speech to entertain\"?",
+      "options": [
+        {
+          "text": "What you most need to gauge varies by audience: an audience's existing knowledge of the topic often matters most when informing (e.g., a talk to expectant parents). Match depth and vocabulary to it. (Exam scenario.)"
+        },
+        {
+          "text": "A speech whose primary goal is to amuse or delight (e.g., an after-dinner speech), often using humor and storytelling."
+        },
+        {
+          "text": "A speech built around a story, used to entertain, illustrate, or make a point through narrative."
+        },
+        {
+          "text": "A speech that aims to influence the audience's beliefs, attitudes, values, or actions."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Speech to entertain - A speech whose primary goal is to amuse or delight (e.g., an after-dinner speech), often using humor and storytelling. The other choices are real Public Speaking terms or definitions (Audience disposition (key factor), Narrative speech, Persuasive speech), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-088",
+      "course": "COM",
+      "section": "Purpose of Speeches",
+      "sectionCode": "pur",
+      "focusTerm": "Informative speech",
+      "prompt": "Which term best names this exact meaning? \"A speech that conveys knowledge and understanding — explaining, describing, or demonstrating — without advocating a position.\"",
+      "options": [
+        {
+          "text": "Specific purpose"
+        },
+        {
+          "text": "Topic selection"
+        },
+        {
+          "text": "Informative speech"
+        },
+        {
+          "text": "Questions of fact / value / policy"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Informative speech - A speech that conveys knowledge and understanding — explaining, describing, or demonstrating — without advocating a position. The other choices are real Public Speaking terms or definitions (Specific purpose, Topic selection, Questions of fact / value / policy), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-089",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Expert (authoritative) testimony",
+      "prompt": "Which answer is the most precise exam meaning of \"Expert (authoritative) testimony\"?",
+      "options": [
+        {
+          "text": "Testimony from ordinary people with firsthand experience — adds a relatable, human dimension."
+        },
+        {
+          "text": "Whenever you use a statistic, quotation, or borrowed idea, cite it orally — this builds credibility and avoids incremental plagiarism."
+        },
+        {
+          "text": "Explanations of a term's meaning; useful when introducing unfamiliar or technical vocabulary to the audience."
+        },
+        {
+          "text": "Testimony from recognized authorities on the subject. (Exam: quoting a Yale physicist = expert testimony.)"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Expert (authoritative) testimony - Testimony from recognized authorities on the subject. (Exam: quoting a Yale physicist = expert testimony.) The other choices are real Public Speaking terms or definitions (Peer (lay) testimony, Citing sources in support, Definitions), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): testimony = testimony means borrowed authority or experience used as proof.",
+      "memoryFocus": [
+        "testimony means borrowed authority or experience used as proof"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-090",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Citing sources in support",
+      "prompt": "Which term best names this exact meaning? \"Whenever you use a statistic, quotation, or borrowed idea, cite it orally — this builds credibility and avoids incremental plagiarism.\"",
+      "options": [
+        {
+          "text": "Citing sources in support"
+        },
+        {
+          "text": "Peer (lay) testimony"
+        },
+        {
+          "text": "Evaluating evidence"
+        },
+        {
+          "text": "Statistics"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Citing sources in support - Whenever you use a statistic, quotation, or borrowed idea, cite it orally — this builds credibility and avoids incremental plagiarism. The other choices are real Public Speaking terms or definitions (Peer (lay) testimony, Evaluating evidence, Statistics), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): support = support means evidence used to carry a claim.",
+      "memoryFocus": [
+        "support means evidence used to carry a claim"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-091",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Peer (lay) testimony",
+      "prompt": "Which answer is the most precise exam meaning of \"Peer (lay) testimony\"?",
+      "options": [
+        {
+          "text": "A short, specific instance mentioned to illustrate a point; often several are stacked in a row."
+        },
+        {
+          "text": "Testimony from ordinary people with firsthand experience — adds a relatable, human dimension."
+        },
+        {
+          "text": "A longer, more detailed story or anecdote (a narrative) developed to drive a point home."
+        },
+        {
+          "text": "Verifiable statements that can be proven true — the bedrock of credible support."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Peer (lay) testimony - Testimony from ordinary people with firsthand experience — adds a relatable, human dimension. The other choices are real Public Speaking terms or definitions (Brief example, Extended example, Facts), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): testimony = testimony means borrowed authority or experience used as proof.",
+      "memoryFocus": [
+        "testimony means borrowed authority or experience used as proof"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-092",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Evaluating evidence",
+      "prompt": "Which term best names this exact meaning? \"Strong support is accurate, relevant, current, unbiased, and from a reliable source. Test your evidence before you use it.\"",
+      "options": [
+        {
+          "text": "Direct quotation"
+        },
+        {
+          "text": "Facts"
+        },
+        {
+          "text": "Examples"
+        },
+        {
+          "text": "Evaluating evidence"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Evaluating evidence - Strong support is accurate, relevant, current, unbiased, and from a reliable source. Test your evidence before you use it. The other choices are real Public Speaking terms or definitions (Direct quotation, Facts, Examples), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): evidence = evidence means the reason a claim can be trusted.",
+      "memoryFocus": [
+        "evidence means the reason a claim can be trusted"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-093",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Facts",
+      "prompt": "Which answer is the most precise exam meaning of \"Facts\"?",
+      "options": [
+        {
+          "text": "Verifiable statements that can be proven true — the bedrock of credible support."
+        },
+        {
+          "text": "The evidence used to develop and prove main points: examples, statistics, testimony, facts, and definitions."
+        },
+        {
+          "text": "A short, specific instance mentioned to illustrate a point; often several are stacked in a row."
+        },
+        {
+          "text": "Explanations of a term's meaning; useful when introducing unfamiliar or technical vocabulary to the audience."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Facts - Verifiable statements that can be proven true — the bedrock of credible support. The other choices are real Public Speaking terms or definitions (Supporting material, Brief example, Definitions), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-094",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Supporting material",
+      "prompt": "Which term best names this exact meaning? \"The evidence used to develop and prove main points: examples, statistics, testimony, facts, and definitions.\"",
+      "options": [
+        {
+          "text": "Supporting material"
+        },
+        {
+          "text": "Facts"
+        },
+        {
+          "text": "Credentials"
+        },
+        {
+          "text": "Peer (lay) testimony"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Supporting material - The evidence used to develop and prove main points: examples, statistics, testimony, facts, and definitions. The other choices are real Public Speaking terms or definitions (Facts, Credentials, Peer (lay) testimony), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-095",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Brief example",
+      "prompt": "Which answer is the most precise exam meaning of \"Brief example\"?",
+      "options": [
+        {
+          "text": "A short, specific instance mentioned to illustrate a point; often several are stacked in a row."
+        },
+        {
+          "text": "Explanations of a term's meaning; useful when introducing unfamiliar or technical vocabulary to the audience."
+        },
+        {
+          "text": "Specific instances used to illustrate or clarify an idea. They make abstract points concrete and vivid."
+        },
+        {
+          "text": "Quotations or paraphrases used to support a point by citing what others have said."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Brief example - A short, specific instance mentioned to illustrate a point; often several are stacked in a row. The other choices are real Public Speaking terms or definitions (Definitions, Examples, Testimony), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-096",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Hypothetical example",
+      "prompt": "Which term best names this exact meaning? \"An invented but plausible example (\"Imagine that...\") used to illustrate a situation. Must be identified as hypothetical.\"",
+      "options": [
+        {
+          "text": "Citing sources in support"
+        },
+        {
+          "text": "Hypothetical example"
+        },
+        {
+          "text": "Testimony"
+        },
+        {
+          "text": "Direct quotation"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Hypothetical example - An invented but plausible example (\"Imagine that...\") used to illustrate a situation. Must be identified as hypothetical. The other choices are real Public Speaking terms or definitions (Citing sources in support, Testimony, Direct quotation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-097",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Direct quotation",
+      "prompt": "Which answer is the most precise exam meaning of \"Direct quotation\"?",
+      "options": [
+        {
+          "text": "Specific instances used to illustrate or clarify an idea. They make abstract points concrete and vivid."
+        },
+        {
+          "text": "An invented but plausible example (\"Imagine that...\") used to illustrate a situation. Must be identified as hypothetical."
+        },
+        {
+          "text": "Strong support is accurate, relevant, current, unbiased, and from a reliable source. Test your evidence before you use it."
+        },
+        {
+          "text": "Citing someone's exact words. Must be reproduced accurately and credited to the source."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Direct quotation - Citing someone's exact words. Must be reproduced accurately and credited to the source. The other choices are real Public Speaking terms or definitions (Examples, Hypothetical example, Evaluating evidence), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-098",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Testimony",
+      "prompt": "Which term best names this exact meaning? \"Quotations or paraphrases used to support a point by citing what others have said.\"",
+      "options": [
+        {
+          "text": "Direct quotation"
+        },
+        {
+          "text": "Credentials"
+        },
+        {
+          "text": "Examples"
+        },
+        {
+          "text": "Testimony"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Testimony - Quotations or paraphrases used to support a point by citing what others have said. The other choices are real Public Speaking terms or definitions (Direct quotation, Credentials, Examples), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): testimony = testimony means borrowed authority or experience used as proof.",
+      "memoryFocus": [
+        "testimony means borrowed authority or experience used as proof"
+      ],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-099",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Examples",
+      "prompt": "Which answer is the most precise exam meaning of \"Examples\"?",
+      "options": [
+        {
+          "text": "Specific instances used to illustrate or clarify an idea. They make abstract points concrete and vivid."
+        },
+        {
+          "text": "An invented but plausible example (\"Imagine that...\") used to illustrate a situation. Must be identified as hypothetical."
+        },
+        {
+          "text": "Testimony from recognized authorities on the subject. (Exam: quoting a Yale physicist = expert testimony.)"
+        },
+        {
+          "text": "Citing someone's exact words. Must be reproduced accurately and credited to the source."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Examples - Specific instances used to illustrate or clarify an idea. They make abstract points concrete and vivid. The other choices are real Public Speaking terms or definitions (Hypothetical example, Expert (authoritative) testimony, Direct quotation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    },
+    {
+      "id": "COM-100",
+      "course": "COM",
+      "section": "Supporting Ideas",
+      "sectionCode": "sup",
+      "focusTerm": "Credentials",
+      "prompt": "Which term best names this exact meaning? \"A speaker's qualifications and experience that establish authority to speak on a topic (and build ethos). (Exam: citing veterinary-tech experience = credentials.)\"",
+      "options": [
+        {
+          "text": "Citing sources in support"
+        },
+        {
+          "text": "Brief example"
+        },
+        {
+          "text": "Supporting material"
+        },
+        {
+          "text": "Credentials"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Credentials - A speaker's qualifications and experience that establish authority to speak on a topic (and build ethos). (Exam: citing veterinary-tech experience = credentials.) The other choices are real Public Speaking terms or definitions (Citing sources in support, Brief example, Supporting material), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "COM-2090_Public_Speaking_Flashcards.html"
+    }
+  ]
+}

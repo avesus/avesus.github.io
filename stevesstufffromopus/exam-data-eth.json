@@ -1,0 +1,2865 @@
+{
+  "version": 1,
+  "course": "ETH",
+  "title": "Environmental Ethics Adaptive Exam",
+  "sourceDeck": "ETH-2100_Environmental_Ethics_Flashcards.html",
+  "description": "100 single-choice Environmental Ethics questions. A normal round serves 25; the final exam serves all 100. Every distractor is a real course term or definition, so choose the best exact match.",
+  "passThreshold": 0.98,
+  "roundSize": 25,
+  "finalSize": 100,
+  "questions": [
+    {
+      "id": "ETH-001",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Instrumental (extrinsic) value",
+      "prompt": "Which answer is the most precise exam meaning of \"Instrumental (extrinsic) value\"?",
+      "options": [
+        {
+          "text": "The founding debate: Pinchot's utilitarian conservation (use resources wisely for people) vs. Muir's biocentric preservation (protect wild nature for its intrinsic worth)."
+        },
+        {
+          "text": "In Islam, the idea that humans are God's trustees (khalifa) of the Earth, accountable for its care."
+        },
+        {
+          "text": "Intrinsic: worth in and of itself. Instrumental (extrinsic): worth only as a means/useful to others. The core axis of the field — does nature have value beyond its use to humans?"
+        },
+        {
+          "text": "Value something has as a means to an end — its usefulness to others. Anthropocentrism treats nature as having only instrumental value to humans."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Instrumental (extrinsic) value - Value something has as a means to an end — its usefulness to others. Anthropocentrism treats nature as having only instrumental value to humans. The other choices are real Environmental Ethics terms or definitions (Conservation vs. preservation, Khalifa (Islamic stewardship), Intrinsic vs. instrumental value), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): value = value means the thing receiving moral or social weight.",
+      "memoryFocus": [
+        "value means the thing receiving moral or social weight"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-002",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Intrinsic value",
+      "prompt": "Which term best names this exact meaning? \"Value something has in itself, for its own sake, independent of usefulness to anyone. Non-anthropocentric ethics holds that nature possesses it.\"",
+      "options": [
+        {
+          "text": "Conservation vs. preservation"
+        },
+        {
+          "text": "Respect for Nature"
+        },
+        {
+          "text": "Khalifa (Islamic stewardship)"
+        },
+        {
+          "text": "Intrinsic value"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Intrinsic value - Value something has in itself, for its own sake, independent of usefulness to anyone. Non-anthropocentric ethics holds that nature possesses it. The other choices are real Environmental Ethics terms or definitions (Conservation vs. preservation, Respect for Nature, Khalifa (Islamic stewardship)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): value = value means the thing receiving moral or social weight.",
+      "memoryFocus": [
+        "value means the thing receiving moral or social weight"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-003",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Animal rights",
+      "prompt": "Which answer is the most precise exam meaning of \"Animal rights\"?",
+      "options": [
+        {
+          "text": "Peter Singer's utilitarian position (Animal Liberation, 1975): because animals suffer, their interests must be weighed equally; ignoring this is speciesism."
+        },
+        {
+          "text": "Tom Regan's deontological position (The Case for Animal Rights, 1983): animals are \"subjects-of-a-life\" with inherent value and rights that may not be violated, whatever the consequences."
+        },
+        {
+          "text": "Tom Regan's criterion: beings with beliefs, desires, perception, memory, and a sense of their own future have inherent value — and therefore rights."
+        },
+        {
+          "text": "Value something has in itself, for its own sake, independent of usefulness to anyone. Non-anthropocentric ethics holds that nature possesses it."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Animal rights - Tom Regan's deontological position (The Case for Animal Rights, 1983): animals are \"subjects-of-a-life\" with inherent value and rights that may not be violated, whatever the consequences. The other choices are real Environmental Ethics terms or definitions (Animal liberation, Subjects-of-a-life, Intrinsic value), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): rights = rights means protected claims, not preferences.",
+      "memoryFocus": [
+        "rights means protected claims, not preferences"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-004",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Transcendentalist view of nature",
+      "prompt": "Which term best names this exact meaning? \"The 19th-century idea (Emerson, Thoreau) that nature is a source of spiritual truth, beauty, and moral renewal — value beyond material use.\"",
+      "options": [
+        {
+          "text": "Stewardship"
+        },
+        {
+          "text": "Transcendentalist view of nature"
+        },
+        {
+          "text": "Neo-Malthusianism"
+        },
+        {
+          "text": "Respect for Nature"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Transcendentalist view of nature - The 19th-century idea (Emerson, Thoreau) that nature is a source of spiritual truth, beauty, and moral renewal — value beyond material use. The other choices are real Environmental Ethics terms or definitions (Stewardship, Neo-Malthusianism, Respect for Nature), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): view = view marks the starting assumption.",
+      "memoryFocus": [
+        "view marks the starting assumption"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-005",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "The Land Ethic",
+      "prompt": "Which answer is the most precise exam meaning of \"The Land Ethic\"?",
+      "options": [
+        {
+          "text": "Value something has as a means to an end — its usefulness to others. Anthropocentrism treats nature as having only instrumental value to humans."
+        },
+        {
+          "text": "The view that humans are caretakers/trustees of creation, responsible for protecting it rather than exploiting it — a reinterpretation of \"dominion.\""
+        },
+        {
+          "text": "Aldo Leopold's principle (1949): humans are plain members of the biotic community, not its conquerors. \"A thing is right when it tends to preserve the integrity, stability, and beauty of the biotic community.\""
+        },
+        {
+          "text": "Paul Taylor's biocentric theory (1986): every organism is a \"teleological center of life\" pursuing its own good, so each has inherent worth and deserves moral respect."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: The Land Ethic - Aldo Leopold's principle (1949): humans are plain members of the biotic community, not its conquerors. \"A thing is right when it tends to preserve the integrity, stability, and beauty of the biotic community.\" The other choices are real Environmental Ethics terms or definitions (Instrumental (extrinsic) value, Stewardship, Respect for Nature), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-006",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Conservation vs. preservation",
+      "prompt": "Which term best names this exact meaning? \"The founding debate: Pinchot's utilitarian conservation (use resources wisely for people) vs. Muir's biocentric preservation (protect wild nature for its intrinsic worth).\"",
+      "options": [
+        {
+          "text": "Conservation"
+        },
+        {
+          "text": "Reverence for life"
+        },
+        {
+          "text": "Conservation vs. preservation"
+        },
+        {
+          "text": "Animal rights"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Conservation vs. preservation - The founding debate: Pinchot's utilitarian conservation (use resources wisely for people) vs. Muir's biocentric preservation (protect wild nature for its intrinsic worth). The other choices are real Environmental Ethics terms or definitions (Conservation, Reverence for life, Animal rights), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-007",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Cornucopian view",
+      "prompt": "Which answer is the most precise exam meaning of \"Cornucopian view\"?",
+      "options": [
+        {
+          "text": "Tom Regan's deontological position (The Case for Animal Rights, 1983): animals are \"subjects-of-a-life\" with inherent value and rights that may not be violated, whatever the consequences."
+        },
+        {
+          "text": "In \"The Historical Roots of Our Ecologic Crisis\" (1967), Lynn White Jr. argued that Judeo-Christian belief in human dominion over nature is a root cause of the Western environmental crisis. He named St. Francis the patron saint of ecology."
+        },
+        {
+          "text": "The optimistic belief that human ingenuity and technology will overcome resource limits — resources are effectively unlimited. Associated with Julian Simon."
+        },
+        {
+          "text": "The wise, sustainable use of natural resources for long-term human benefit (utilitarian). Gifford Pinchot: \"the greatest good for the greatest number for the longest time.\""
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Cornucopian view - The optimistic belief that human ingenuity and technology will overcome resource limits — resources are effectively unlimited. Associated with Julian Simon. The other choices are real Environmental Ethics terms or definitions (Animal rights, Lynn White thesis, Conservation), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): view = view marks the starting assumption.",
+      "memoryFocus": [
+        "view marks the starting assumption"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-008",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Three pillars of sustainability",
+      "prompt": "Which term best names this exact meaning? \"The integration of environment, economy, and social equity — sometimes \"planet, profit, people\" or the triple bottom line.\"",
+      "options": [
+        {
+          "text": "Ecofeminism"
+        },
+        {
+          "text": "Traditional Ecological Knowledge (TEK)"
+        },
+        {
+          "text": "Three pillars of sustainability"
+        },
+        {
+          "text": "The Land Ethic"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Three pillars of sustainability - The integration of environment, economy, and social equity — sometimes \"planet, profit, people\" or the triple bottom line. The other choices are real Environmental Ethics terms or definitions (Ecofeminism, Traditional Ecological Knowledge (TEK), The Land Ethic), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-009",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Traditional Ecological Knowledge (TEK)",
+      "prompt": "Which answer is the most precise exam meaning of \"Traditional Ecological Knowledge (TEK)\"?",
+      "options": [
+        {
+          "text": "Buddhism, Hinduism, Jainism, and Taoism emphasize interconnectedness, non-harm, and harmony with nature rather than human domination over it."
+        },
+        {
+          "text": "\"Development that meets the needs of the present without compromising the ability of future generations to meet their own needs.\" — Brundtland Report, Our Common Future (1987)."
+        },
+        {
+          "text": "Protecting nature in its pristine, untouched state for its own sake and for spiritual/aesthetic value. Championed by John Muir."
+        },
+        {
+          "text": "Knowledge, practices, and beliefs about living things and their environment, built up by Indigenous and local peoples over generations and passed down culturally."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Traditional Ecological Knowledge (TEK) - Knowledge, practices, and beliefs about living things and their environment, built up by Indigenous and local peoples over generations and passed down culturally. The other choices are real Environmental Ethics terms or definitions (Eastern religious views, Sustainable development, Preservation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-010",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Animal liberation",
+      "prompt": "Which term best names this exact meaning? \"Peter Singer's utilitarian position (Animal Liberation, 1975): because animals suffer, their interests must be weighed equally; ignoring this is speciesism.\"",
+      "options": [
+        {
+          "text": "Khalifa (Islamic stewardship)"
+        },
+        {
+          "text": "Subjects-of-a-life"
+        },
+        {
+          "text": "Animal liberation"
+        },
+        {
+          "text": "Conservation vs. preservation"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Animal liberation - Peter Singer's utilitarian position (Animal Liberation, 1975): because animals suffer, their interests must be weighed equally; ignoring this is speciesism. The other choices are real Environmental Ethics terms or definitions (Khalifa (Islamic stewardship), Subjects-of-a-life, Conservation vs. preservation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-011",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Lynn White thesis",
+      "prompt": "Which answer is the most precise exam meaning of \"Lynn White thesis\"?",
+      "options": [
+        {
+          "text": "In \"The Historical Roots of Our Ecologic Crisis\" (1967), Lynn White Jr. argued that Judeo-Christian belief in human dominion over nature is a root cause of the Western environmental crisis. He named St. Francis the patron saint of ecology."
+        },
+        {
+          "text": "Links the domination of nature to the domination of women, arguing both stem from patriarchal hierarchies. Associated with Karen Warren and Val Plumwood."
+        },
+        {
+          "text": "The optimistic belief that human ingenuity and technology will overcome resource limits — resources are effectively unlimited. Associated with Julian Simon."
+        },
+        {
+          "text": "The biblical idea (Genesis 1:28) that God gave humans dominion over Earth and its creatures. Criticized as license for exploitation — but reinterpreted by others as a duty of care."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Lynn White thesis - In \"The Historical Roots of Our Ecologic Crisis\" (1967), Lynn White Jr. argued that Judeo-Christian belief in human dominion over nature is a root cause of the Western environmental crisis. He named St. Francis the patron saint of ecology. The other choices are real Environmental Ethics terms or definitions (Ecofeminism, Cornucopian view, Dominion (Judeo-Christian)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-012",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Eastern religious views",
+      "prompt": "Which term best names this exact meaning? \"Buddhism, Hinduism, Jainism, and Taoism emphasize interconnectedness, non-harm, and harmony with nature rather than human domination over it.\"",
+      "options": [
+        {
+          "text": "Ahimsa"
+        },
+        {
+          "text": "Eastern religious views"
+        },
+        {
+          "text": "Respect for Nature"
+        },
+        {
+          "text": "Traditional Ecological Knowledge (TEK)"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Eastern religious views - Buddhism, Hinduism, Jainism, and Taoism emphasize interconnectedness, non-harm, and harmony with nature rather than human domination over it. The other choices are real Environmental Ethics terms or definitions (Ahimsa, Respect for Nature, Traditional Ecological Knowledge (TEK)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-013",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Khalifa (Islamic stewardship)",
+      "prompt": "Which answer is the most precise exam meaning of \"Khalifa (Islamic stewardship)\"?",
+      "options": [
+        {
+          "text": "In Islam, the idea that humans are God's trustees (khalifa) of the Earth, accountable for its care."
+        },
+        {
+          "text": "The view that humans are caretakers/trustees of creation, responsible for protecting it rather than exploiting it — a reinterpretation of \"dominion.\""
+        },
+        {
+          "text": "Paul Taylor's biocentric theory (1986): every organism is a \"teleological center of life\" pursuing its own good, so each has inherent worth and deserves moral respect."
+        },
+        {
+          "text": "The 19th-century idea (Emerson, Thoreau) that nature is a source of spiritual truth, beauty, and moral renewal — value beyond material use."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Khalifa (Islamic stewardship) - In Islam, the idea that humans are God's trustees (khalifa) of the Earth, accountable for its care. The other choices are real Environmental Ethics terms or definitions (Stewardship, Respect for Nature, Transcendentalist view of nature), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-014",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Reverence for life",
+      "prompt": "Which term best names this exact meaning? \"Albert Schweitzer's ethic that all life is sacred and deserves respect — an early biocentric idea.\"",
+      "options": [
+        {
+          "text": "Lynn White thesis"
+        },
+        {
+          "text": "The Land Ethic"
+        },
+        {
+          "text": "Ahimsa"
+        },
+        {
+          "text": "Reverence for life"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Reverence for life - Albert Schweitzer's ethic that all life is sacred and deserves respect — an early biocentric idea. The other choices are real Environmental Ethics terms or definitions (Lynn White thesis, The Land Ethic, Ahimsa), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-015",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Respect for Nature",
+      "prompt": "Which answer is the most precise exam meaning of \"Respect for Nature\"?",
+      "options": [
+        {
+          "text": "Paul Taylor's biocentric theory (1986): every organism is a \"teleological center of life\" pursuing its own good, so each has inherent worth and deserves moral respect."
+        },
+        {
+          "text": "The 19th-century idea (Emerson, Thoreau) that nature is a source of spiritual truth, beauty, and moral renewal — value beyond material use."
+        },
+        {
+          "text": "Value something has in itself, for its own sake, independent of usefulness to anyone. Non-anthropocentric ethics holds that nature possesses it."
+        },
+        {
+          "text": "Value something has as a means to an end — its usefulness to others. Anthropocentrism treats nature as having only instrumental value to humans."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Respect for Nature - Paul Taylor's biocentric theory (1986): every organism is a \"teleological center of life\" pursuing its own good, so each has inherent worth and deserves moral respect. The other choices are real Environmental Ethics terms or definitions (Transcendentalist view of nature, Intrinsic value, Instrumental (extrinsic) value), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-016",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Sustainable development",
+      "prompt": "Which term best names this exact meaning? \"\"Development that meets the needs of the present without compromising the ability of future generations to meet their own needs.\" — Brundtland Report, Our Common Future (1987).\"",
+      "options": [
+        {
+          "text": "Lynn White thesis"
+        },
+        {
+          "text": "Conservation"
+        },
+        {
+          "text": "The Land Ethic"
+        },
+        {
+          "text": "Sustainable development"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Sustainable development - \"Development that meets the needs of the present without compromising the ability of future generations to meet their own needs.\" — Brundtland Report, Our Common Future (1987). The other choices are real Environmental Ethics terms or definitions (Lynn White thesis, Conservation, The Land Ethic), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-017",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Dominion (Judeo-Christian)",
+      "prompt": "Which answer is the most precise exam meaning of \"Dominion (Judeo-Christian)\"?",
+      "options": [
+        {
+          "text": "The view that humans are caretakers/trustees of creation, responsible for protecting it rather than exploiting it — a reinterpretation of \"dominion.\""
+        },
+        {
+          "text": "The biblical idea (Genesis 1:28) that God gave humans dominion over Earth and its creatures. Criticized as license for exploitation — but reinterpreted by others as a duty of care."
+        },
+        {
+          "text": "In \"The Historical Roots of Our Ecologic Crisis\" (1967), Lynn White Jr. argued that Judeo-Christian belief in human dominion over nature is a root cause of the Western environmental crisis. He named St. Francis the patron saint of ecology."
+        },
+        {
+          "text": "The 19th-century idea (Emerson, Thoreau) that nature is a source of spiritual truth, beauty, and moral renewal — value beyond material use."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Dominion (Judeo-Christian) - The biblical idea (Genesis 1:28) that God gave humans dominion over Earth and its creatures. Criticized as license for exploitation — but reinterpreted by others as a duty of care. The other choices are real Environmental Ethics terms or definitions (Stewardship, Lynn White thesis, Transcendentalist view of nature), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-018",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Conservation",
+      "prompt": "Which term best names this exact meaning? \"The wise, sustainable use of natural resources for long-term human benefit (utilitarian). Gifford Pinchot: \"the greatest good for the greatest number for the longest time.\"\"",
+      "options": [
+        {
+          "text": "Conservation vs. preservation"
+        },
+        {
+          "text": "Conservation"
+        },
+        {
+          "text": "Ahimsa"
+        },
+        {
+          "text": "Cornucopian view"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Conservation - The wise, sustainable use of natural resources for long-term human benefit (utilitarian). Gifford Pinchot: \"the greatest good for the greatest number for the longest time.\" The other choices are real Environmental Ethics terms or definitions (Conservation vs. preservation, Ahimsa, Cornucopian view), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-019",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Preservation",
+      "prompt": "Which answer is the most precise exam meaning of \"Preservation\"?",
+      "options": [
+        {
+          "text": "The founding debate: Pinchot's utilitarian conservation (use resources wisely for people) vs. Muir's biocentric preservation (protect wild nature for its intrinsic worth)."
+        },
+        {
+          "text": "Buddhism, Hinduism, Jainism, and Taoism emphasize interconnectedness, non-harm, and harmony with nature rather than human domination over it."
+        },
+        {
+          "text": "Protecting nature in its pristine, untouched state for its own sake and for spiritual/aesthetic value. Championed by John Muir."
+        },
+        {
+          "text": "The 19th-century idea (Emerson, Thoreau) that nature is a source of spiritual truth, beauty, and moral renewal — value beyond material use."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Preservation - Protecting nature in its pristine, untouched state for its own sake and for spiritual/aesthetic value. Championed by John Muir. The other choices are real Environmental Ethics terms or definitions (Conservation vs. preservation, Eastern religious views, Transcendentalist view of nature), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-020",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Non-anthropocentrism",
+      "prompt": "Which term best names this exact meaning? \"Any approach granting moral consideration to non-humans — biocentrism, ecocentrism, deep ecology. The opposite of anthropocentrism.\"",
+      "options": [
+        {
+          "text": "Sustainable development"
+        },
+        {
+          "text": "Intrinsic value"
+        },
+        {
+          "text": "Three pillars of sustainability"
+        },
+        {
+          "text": "Non-anthropocentrism"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Non-anthropocentrism - Any approach granting moral consideration to non-humans — biocentrism, ecocentrism, deep ecology. The opposite of anthropocentrism. The other choices are real Environmental Ethics terms or definitions (Sustainable development, Intrinsic value, Three pillars of sustainability), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-021",
+      "course": "ETH",
+      "section": "Approaches and World Views",
+      "sectionCode": "ap",
+      "focusTerm": "Sustainability",
+      "prompt": "Which answer is the most precise exam meaning of \"Sustainability\"?",
+      "options": [
+        {
+          "text": "Knowledge, practices, and beliefs about living things and their environment, built up by Indigenous and local peoples over generations and passed down culturally."
+        },
+        {
+          "text": "Tom Regan's deontological position (The Case for Animal Rights, 1983): animals are \"subjects-of-a-life\" with inherent value and rights that may not be violated, whatever the consequences."
+        },
+        {
+          "text": "The optimistic belief that human ingenuity and technology will overcome resource limits — resources are effectively unlimited. Associated with Julian Simon."
+        },
+        {
+          "text": "Meeting present needs without degrading the environment or depleting resources, so ecological and human systems can endure indefinitely."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Sustainability - Meeting present needs without degrading the environment or depleting resources, so ecological and human systems can endure indefinitely. The other choices are real Environmental Ethics terms or definitions (Traditional Ecological Knowledge (TEK), Animal rights, Cornucopian view), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-022",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Human rights & environmental justice",
+      "prompt": "Which term best names this exact meaning? \"The movement frames a clean, healthy environment as a basic human right and draws directly on the strategies and moral framework of the civil-rights movement.\"",
+      "options": [
+        {
+          "text": "Environmental effects on health"
+        },
+        {
+          "text": "Warren County, NC (1982)"
+        },
+        {
+          "text": "Human rights & environmental justice"
+        },
+        {
+          "text": "Robert Bullard"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Human rights & environmental justice - The movement frames a clean, healthy environment as a basic human right and draws directly on the strategies and moral framework of the civil-rights movement. The other choices are real Environmental Ethics terms or definitions (Environmental effects on health, Warren County, NC (1982), Robert Bullard), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): rights = rights means protected claims, not preferences; justice = justice means the fairness target: burdens, benefits, voice, or generation.",
+      "memoryFocus": [
+        "rights means protected claims, not preferences",
+        "justice means the fairness target: burdens, benefits, voice, or generation"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-023",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Principles of Environmental Justice (1991)",
+      "prompt": "Which answer is the most precise exam meaning of \"Principles of Environmental Justice (1991)\"?",
+      "options": [
+        {
+          "text": "The disproportionate siting of pollution and toxic waste in communities of color, plus their exclusion from environmental decisions. Term coined by Benjamin Chavis (1982)."
+        },
+        {
+          "text": "The 17 founding principles adopted at the First National People of Color Environmental Leadership Summit, defining the movement's goals."
+        },
+        {
+          "text": "Civil-rights leader who coined \"environmental racism\" from a jail cell during the 1982 Warren County protests; later directed the UCC Commission for Racial Justice."
+        },
+        {
+          "text": "EJ centers on health: communities near pollution sources show higher rates of asthma, cancer, and other illnesses — the human cost that drives the movement's community focus."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Principles of Environmental Justice (1991) - The 17 founding principles adopted at the First National People of Color Environmental Leadership Summit, defining the movement's goals. The other choices are real Environmental Ethics terms or definitions (Environmental racism, Benjamin Chavis, Environmental effects on health), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): justice = justice means the fairness target: burdens, benefits, voice, or generation.",
+      "memoryFocus": [
+        "justice means the fairness target: burdens, benefits, voice, or generation"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-024",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Executive Order 12898 (1994)",
+      "prompt": "Which term best names this exact meaning? \"Signed by President Clinton; directed federal agencies to identify and address disproportionately high environmental and health effects on minority and low-income populations.\"",
+      "options": [
+        {
+          "text": "Environmental injustice"
+        },
+        {
+          "text": "Industrial / corporate interests"
+        },
+        {
+          "text": "Executive Order 12898 (1994)"
+        },
+        {
+          "text": "Toxic Wastes and Race (1987)"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Executive Order 12898 (1994) - Signed by President Clinton; directed federal agencies to identify and address disproportionately high environmental and health effects on minority and low-income populations. The other choices are real Environmental Ethics terms or definitions (Environmental injustice, Industrial / corporate interests, Toxic Wastes and Race (1987)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): order = order means a precise arrangement rule.",
+      "memoryFocus": [
+        "order means a precise arrangement rule"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-025",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Climate justice",
+      "prompt": "Which answer is the most precise exam meaning of \"Climate justice\"?",
+      "options": [
+        {
+          "text": "The view that climate change disproportionately harms the poor and developing nations (who contributed least), and that responses must address this inequity."
+        },
+        {
+          "text": "Civil-rights leader who coined \"environmental racism\" from a jail cell during the 1982 Warren County protests; later directed the UCC Commission for Racial Justice."
+        },
+        {
+          "text": "The landmark UCC Commission for Racial Justice report that statistically documented the nationwide correlation between toxic-waste sites and minority communities."
+        },
+        {
+          "text": "Fairness in the decision-making process — ensuring affected communities have a meaningful voice in environmental decisions."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Climate justice - The view that climate change disproportionately harms the poor and developing nations (who contributed least), and that responses must address this inequity. The other choices are real Environmental Ethics terms or definitions (Benjamin Chavis, Toxic Wastes and Race (1987), Procedural justice), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): justice = justice means the fairness target: burdens, benefits, voice, or generation.",
+      "memoryFocus": [
+        "justice means the fairness target: burdens, benefits, voice, or generation"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-026",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Environmental justice",
+      "prompt": "Which term best names this exact meaning? \"The fair treatment and meaningful involvement of all people — regardless of race or income — in environmental policy, so no group bears a disproportionate share of environmental harms.\"",
+      "options": [
+        {
+          "text": "Intergenerational justice"
+        },
+        {
+          "text": "Procedural justice"
+        },
+        {
+          "text": "Climate justice"
+        },
+        {
+          "text": "Environmental justice"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Environmental justice - The fair treatment and meaningful involvement of all people — regardless of race or income — in environmental policy, so no group bears a disproportionate share of environmental harms. The other choices are real Environmental Ethics terms or definitions (Intergenerational justice, Procedural justice, Climate justice), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): justice = justice means the fairness target: burdens, benefits, voice, or generation.",
+      "memoryFocus": [
+        "justice means the fairness target: burdens, benefits, voice, or generation"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-027",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Intergenerational justice",
+      "prompt": "Which answer is the most precise exam meaning of \"Intergenerational justice\"?",
+      "options": [
+        {
+          "text": "Protest against a PCB-contaminated soil landfill placed in a majority-Black county; 500+ arrested. Widely regarded as the birthplace of the environmental justice movement."
+        },
+        {
+          "text": "The principle that environmental justice is intergenerational — each generation has a duty to preserve the environment and resources for future generations."
+        },
+        {
+          "text": "EJ centers on health: communities near pollution sources show higher rates of asthma, cancer, and other illnesses — the human cost that drives the movement's community focus."
+        },
+        {
+          "text": "Civil-rights leader who coined \"environmental racism\" from a jail cell during the 1982 Warren County protests; later directed the UCC Commission for Racial Justice."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Intergenerational justice - The principle that environmental justice is intergenerational — each generation has a duty to preserve the environment and resources for future generations. The other choices are real Environmental Ethics terms or definitions (Warren County, NC (1982), Environmental effects on health, Benjamin Chavis), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): justice = justice means the fairness target: burdens, benefits, voice, or generation.",
+      "memoryFocus": [
+        "justice means the fairness target: burdens, benefits, voice, or generation"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-028",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Distributive justice",
+      "prompt": "Which term best names this exact meaning? \"Fairness in how environmental benefits and burdens (pollution, clean-resource access) are distributed across society.\"",
+      "options": [
+        {
+          "text": "Warren County, NC (1982)"
+        },
+        {
+          "text": "Robert Bullard"
+        },
+        {
+          "text": "Procedural justice"
+        },
+        {
+          "text": "Distributive justice"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Distributive justice - Fairness in how environmental benefits and burdens (pollution, clean-resource access) are distributed across society. The other choices are real Environmental Ethics terms or definitions (Warren County, NC (1982), Robert Bullard, Procedural justice), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): justice = justice means the fairness target: burdens, benefits, voice, or generation.",
+      "memoryFocus": [
+        "justice means the fairness target: burdens, benefits, voice, or generation"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-029",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Procedural justice",
+      "prompt": "Which answer is the most precise exam meaning of \"Procedural justice\"?",
+      "options": [
+        {
+          "text": "Sociologist known as the \"Father of Environmental Justice\"; author of Dumping in Dixie (1990), the first major study documenting environmental racism."
+        },
+        {
+          "text": "The unfair loading of environmental burdens — pollution, hazards — onto poor, marginalized, or minority communities that often lack power to resist."
+        },
+        {
+          "text": "Fairness in the decision-making process — ensuring affected communities have a meaningful voice in environmental decisions."
+        },
+        {
+          "text": "The disproportionate siting of pollution and toxic waste in communities of color, plus their exclusion from environmental decisions. Term coined by Benjamin Chavis (1982)."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Procedural justice - Fairness in the decision-making process — ensuring affected communities have a meaningful voice in environmental decisions. The other choices are real Environmental Ethics terms or definitions (Robert Bullard, Environmental injustice, Environmental racism), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): justice = justice means the fairness target: burdens, benefits, voice, or generation.",
+      "memoryFocus": [
+        "justice means the fairness target: burdens, benefits, voice, or generation"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-030",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "NIMBY (\"Not In My Back Yard\")",
+      "prompt": "Which term best names this exact meaning? \"Residents opposing undesirable facilities — landfills, incinerators, plants — near their homes. Such facilities are often pushed instead onto poorer communities, creating injustice.\"",
+      "options": [
+        {
+          "text": "Warren County, NC (1982)"
+        },
+        {
+          "text": "Distributive justice"
+        },
+        {
+          "text": "NIMBY (\"Not In My Back Yard\")"
+        },
+        {
+          "text": "Environmental injustice"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: NIMBY (\"Not In My Back Yard\") - Residents opposing undesirable facilities — landfills, incinerators, plants — near their homes. Such facilities are often pushed instead onto poorer communities, creating injustice. The other choices are real Environmental Ethics terms or definitions (Warren County, NC (1982), Distributive justice, Environmental injustice), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-031",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Industrial / corporate interests",
+      "prompt": "Which answer is the most precise exam meaning of \"Industrial / corporate interests\"?",
+      "options": [
+        {
+          "text": "The movement frames a clean, healthy environment as a basic human right and draws directly on the strategies and moral framework of the civil-rights movement."
+        },
+        {
+          "text": "The disproportionate siting of pollution and toxic waste in communities of color, plus their exclusion from environmental decisions. Term coined by Benjamin Chavis (1982)."
+        },
+        {
+          "text": "Polluting industries tend to place hazardous facilities where land is cheap and political resistance weakest — disproportionately poor and minority areas — putting profit over community health."
+        },
+        {
+          "text": "EJ centers on health: communities near pollution sources show higher rates of asthma, cancer, and other illnesses — the human cost that drives the movement's community focus."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Industrial / corporate interests - Polluting industries tend to place hazardous facilities where land is cheap and political resistance weakest — disproportionately poor and minority areas — putting profit over community health. The other choices are real Environmental Ethics terms or definitions (Human rights & environmental justice, Environmental racism, Environmental effects on health), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-032",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Environmental injustice",
+      "prompt": "Which term best names this exact meaning? \"The unfair loading of environmental burdens — pollution, hazards — onto poor, marginalized, or minority communities that often lack power to resist.\"",
+      "options": [
+        {
+          "text": "Climate justice"
+        },
+        {
+          "text": "Distributive justice"
+        },
+        {
+          "text": "Executive Order 12898 (1994)"
+        },
+        {
+          "text": "Environmental injustice"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Environmental injustice - The unfair loading of environmental burdens — pollution, hazards — onto poor, marginalized, or minority communities that often lack power to resist. The other choices are real Environmental Ethics terms or definitions (Climate justice, Distributive justice, Executive Order 12898 (1994)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-033",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Toxic Wastes and Race (1987)",
+      "prompt": "Which answer is the most precise exam meaning of \"Toxic Wastes and Race (1987)\"?",
+      "options": [
+        {
+          "text": "EJ centers on health: communities near pollution sources show higher rates of asthma, cancer, and other illnesses — the human cost that drives the movement's community focus."
+        },
+        {
+          "text": "The movement frames a clean, healthy environment as a basic human right and draws directly on the strategies and moral framework of the civil-rights movement."
+        },
+        {
+          "text": "Civil-rights leader who coined \"environmental racism\" from a jail cell during the 1982 Warren County protests; later directed the UCC Commission for Racial Justice."
+        },
+        {
+          "text": "The landmark UCC Commission for Racial Justice report that statistically documented the nationwide correlation between toxic-waste sites and minority communities."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Toxic Wastes and Race (1987) - The landmark UCC Commission for Racial Justice report that statistically documented the nationwide correlation between toxic-waste sites and minority communities. The other choices are real Environmental Ethics terms or definitions (Environmental effects on health, Human rights & environmental justice, Benjamin Chavis), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-034",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Benjamin Chavis",
+      "prompt": "Which term best names this exact meaning? \"Civil-rights leader who coined \"environmental racism\" from a jail cell during the 1982 Warren County protests; later directed the UCC Commission for Racial Justice.\"",
+      "options": [
+        {
+          "text": "Benjamin Chavis"
+        },
+        {
+          "text": "Robert Bullard"
+        },
+        {
+          "text": "Human rights & environmental justice"
+        },
+        {
+          "text": "Procedural justice"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Benjamin Chavis - Civil-rights leader who coined \"environmental racism\" from a jail cell during the 1982 Warren County protests; later directed the UCC Commission for Racial Justice. The other choices are real Environmental Ethics terms or definitions (Robert Bullard, Human rights & environmental justice, Procedural justice), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-035",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Robert Bullard",
+      "prompt": "Which answer is the most precise exam meaning of \"Robert Bullard\"?",
+      "options": [
+        {
+          "text": "Sociologist known as the \"Father of Environmental Justice\"; author of Dumping in Dixie (1990), the first major study documenting environmental racism."
+        },
+        {
+          "text": "The disproportionate siting of pollution and toxic waste in communities of color, plus their exclusion from environmental decisions. Term coined by Benjamin Chavis (1982)."
+        },
+        {
+          "text": "EJ centers on health: communities near pollution sources show higher rates of asthma, cancer, and other illnesses — the human cost that drives the movement's community focus."
+        },
+        {
+          "text": "The principle that environmental justice is intergenerational — each generation has a duty to preserve the environment and resources for future generations."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Robert Bullard - Sociologist known as the \"Father of Environmental Justice\"; author of Dumping in Dixie (1990), the first major study documenting environmental racism. The other choices are real Environmental Ethics terms or definitions (Environmental racism, Environmental effects on health, Intergenerational justice), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-036",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Warren County, NC (1982)",
+      "prompt": "Which term best names this exact meaning? \"Protest against a PCB-contaminated soil landfill placed in a majority-Black county; 500+ arrested. Widely regarded as the birthplace of the environmental justice movement.\"",
+      "options": [
+        {
+          "text": "Environmental racism"
+        },
+        {
+          "text": "Warren County, NC (1982)"
+        },
+        {
+          "text": "Cancer Alley"
+        },
+        {
+          "text": "Principles of Environmental Justice (1991)"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Warren County, NC (1982) - Protest against a PCB-contaminated soil landfill placed in a majority-Black county; 500+ arrested. Widely regarded as the birthplace of the environmental justice movement. The other choices are real Environmental Ethics terms or definitions (Environmental racism, Cancer Alley, Principles of Environmental Justice (1991)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-037",
+      "course": "ETH",
+      "section": "Environmental Justice",
+      "sectionCode": "ej",
+      "focusTerm": "Flint water crisis (2014)",
+      "prompt": "Which answer is the most precise exam meaning of \"Flint water crisis (2014)\"?",
+      "options": [
+        {
+          "text": "The movement frames a clean, healthy environment as a basic human right and draws directly on the strategies and moral framework of the civil-rights movement."
+        },
+        {
+          "text": "Signed by President Clinton; directed federal agencies to identify and address disproportionately high environmental and health effects on minority and low-income populations."
+        },
+        {
+          "text": "Lead contamination of drinking water in majority-Black, low-income Flint, Michigan — a prominent recent case of environmental injustice."
+        },
+        {
+          "text": "Fairness in how environmental benefits and burdens (pollution, clean-resource access) are distributed across society."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Flint water crisis (2014) - Lead contamination of drinking water in majority-Black, low-income Flint, Michigan — a prominent recent case of environmental injustice. The other choices are real Environmental Ethics terms or definitions (Human rights & environmental justice, Executive Order 12898 (1994), Distributive justice), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-038",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Holmes Rolston III",
+      "prompt": "Which term best names this exact meaning? \"(b. 1932) Called the \"father of environmental ethics\" as a discipline; argued nature has objective intrinsic value humans must respect.\"",
+      "options": [
+        {
+          "text": "Aldo Leopold"
+        },
+        {
+          "text": "Earth Day (April 22, 1970)"
+        },
+        {
+          "text": "John Muir"
+        },
+        {
+          "text": "Holmes Rolston III"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Holmes Rolston III - (b. 1932) Called the \"father of environmental ethics\" as a discipline; argued nature has objective intrinsic value humans must respect. The other choices are real Environmental Ethics terms or definitions (Aldo Leopold, Earth Day (April 22, 1970), John Muir), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-039",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "A Sand County Almanac (1949)",
+      "prompt": "Which answer is the most precise exam meaning of \"A Sand County Almanac (1949)\"?",
+      "options": [
+        {
+          "text": "A toxic gas leak at a Union Carbide pesticide plant in Bhopal, India killed thousands — the worst industrial disaster in history and a landmark environmental-justice case."
+        },
+        {
+          "text": "Garrett Hardin's essay: individuals exploiting a shared resource for personal gain deplete it, harming all. Argues for regulation or shared restraint."
+        },
+        {
+          "text": "(1817–1862) Transcendentalist author of Walden (1854); celebrated simple living in nature and is a forerunner of environmental thought."
+        },
+        {
+          "text": "Aldo Leopold's book introducing the Land Ethic — one of the most influential works in environmental philosophy. Promotes the idea of a \"land ethic.\""
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: A Sand County Almanac (1949) - Aldo Leopold's book introducing the Land Ethic — one of the most influential works in environmental philosophy. Promotes the idea of a \"land ethic.\" The other choices are real Environmental Ethics terms or definitions (Bhopal disaster (1984), The Tragedy of the Commons (1968), Henry David Thoreau), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-040",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "James Lovelock",
+      "prompt": "Which term best names this exact meaning? \"(1919–2022) British scientist who proposed the Gaia hypothesis — Earth as a single self-regulating living system.\"",
+      "options": [
+        {
+          "text": "Garrett Hardin"
+        },
+        {
+          "text": "James Lovelock"
+        },
+        {
+          "text": "John Muir"
+        },
+        {
+          "text": "Ralph Waldo Emerson"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: James Lovelock - (1919–2022) British scientist who proposed the Gaia hypothesis — Earth as a single self-regulating living system. The other choices are real Environmental Ethics terms or definitions (Garrett Hardin, John Muir, Ralph Waldo Emerson), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-041",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "The Tragedy of the Commons (1968)",
+      "prompt": "Which answer is the most precise exam meaning of \"The Tragedy of the Commons (1968)\"?",
+      "options": [
+        {
+          "text": "Cleveland's Cuyahoga River caught fire from industrial pollution — a powerful symbol that prompted the clean-water initiatives of the 1970s."
+        },
+        {
+          "text": "(1887–1948) Wrote A Sand County Almanac (1949); originated the Land Ethic and \"thinking like a mountain\"; founder of wildlife ecology."
+        },
+        {
+          "text": "(1923–2015) Philosopher; Respect for Nature (1986) developed biocentric egalitarianism — each organism a \"teleological center of life.\""
+        },
+        {
+          "text": "Garrett Hardin's essay: individuals exploiting a shared resource for personal gain deplete it, harming all. Argues for regulation or shared restraint."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: The Tragedy of the Commons (1968) - Garrett Hardin's essay: individuals exploiting a shared resource for personal gain deplete it, harming all. Argues for regulation or shared restraint. The other choices are real Environmental Ethics terms or definitions (Cuyahoga River fire (1969), Aldo Leopold, Paul Taylor), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-042",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Henry David Thoreau",
+      "prompt": "Which term best names this exact meaning? \"(1817–1862) Transcendentalist author of Walden (1854); celebrated simple living in nature and is a forerunner of environmental thought.\"",
+      "options": [
+        {
+          "text": "Henry David Thoreau"
+        },
+        {
+          "text": "Holmes Rolston III"
+        },
+        {
+          "text": "Sierra Club (1892)"
+        },
+        {
+          "text": "James Lovelock"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Henry David Thoreau - (1817–1862) Transcendentalist author of Walden (1854); celebrated simple living in nature and is a forerunner of environmental thought. The other choices are real Environmental Ethics terms or definitions (Holmes Rolston III, Sierra Club (1892), James Lovelock), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-043",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Ralph Waldo Emerson",
+      "prompt": "Which answer is the most precise exam meaning of \"Ralph Waldo Emerson\"?",
+      "options": [
+        {
+          "text": "(1803–1882) Transcendentalist; his essay Nature (1836) framed the natural world as a source of spiritual insight and unity."
+        },
+        {
+          "text": "One of the first and most influential environmental organizations, founded by John Muir to protect wilderness — especially the Sierra Nevada."
+        },
+        {
+          "text": "(b. 1932) Called the \"father of environmental ethics\" as a discipline; argued nature has objective intrinsic value humans must respect."
+        },
+        {
+          "text": "(1919–2022) British scientist who proposed the Gaia hypothesis — Earth as a single self-regulating living system."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Ralph Waldo Emerson - (1803–1882) Transcendentalist; his essay Nature (1836) framed the natural world as a source of spiritual insight and unity. The other choices are real Environmental Ethics terms or definitions (Sierra Club (1892), Holmes Rolston III, James Lovelock), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-044",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Lynn White Jr.",
+      "prompt": "Which term best names this exact meaning? \"(1907–1987) Historian whose 1967 essay blamed Judeo-Christian anthropocentrism for environmental degradation.\"",
+      "options": [
+        {
+          "text": "A Sand County Almanac (1949)"
+        },
+        {
+          "text": "Lynn White Jr."
+        },
+        {
+          "text": "Rachel Carson"
+        },
+        {
+          "text": "Earth Day (April 22, 1970)"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Lynn White Jr. - (1907–1987) Historian whose 1967 essay blamed Judeo-Christian anthropocentrism for environmental degradation. The other choices are real Environmental Ethics terms or definitions (A Sand County Almanac (1949), Rachel Carson, Earth Day (April 22, 1970)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-045",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Earth Day (April 22, 1970)",
+      "prompt": "Which answer is the most precise exam meaning of \"Earth Day (April 22, 1970)\"?",
+      "options": [
+        {
+          "text": "(1865–1946) First Chief of the U.S. Forest Service (1905); founder of American conservationism / \"wise use.\" Rival of Muir over Hetch Hetchy."
+        },
+        {
+          "text": "One of the first and most influential environmental organizations, founded by John Muir to protect wilderness — especially the Sierra Nevada."
+        },
+        {
+          "text": "(1803–1882) Transcendentalist; his essay Nature (1836) framed the natural world as a source of spiritual insight and unity."
+        },
+        {
+          "text": "The first nationwide U.S. environmental demonstration; marked the birth of modern environmental consciousness and helped spur landmark legislation."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Earth Day (April 22, 1970) - The first nationwide U.S. environmental demonstration; marked the birth of modern environmental consciousness and helped spur landmark legislation. The other choices are real Environmental Ethics terms or definitions (Gifford Pinchot, Sierra Club (1892), Ralph Waldo Emerson), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-046",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Sierra Club (1892)",
+      "prompt": "Which term best names this exact meaning? \"One of the first and most influential environmental organizations, founded by John Muir to protect wilderness — especially the Sierra Nevada.\"",
+      "options": [
+        {
+          "text": "Sierra Club (1892)"
+        },
+        {
+          "text": "Garrett Hardin"
+        },
+        {
+          "text": "Silent Spring (1962)"
+        },
+        {
+          "text": "Holmes Rolston III"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Sierra Club (1892) - One of the first and most influential environmental organizations, founded by John Muir to protect wilderness — especially the Sierra Nevada. The other choices are real Environmental Ethics terms or definitions (Garrett Hardin, Silent Spring (1962), Holmes Rolston III), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-047",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "U.S. Forest Service (1905)",
+      "prompt": "Which answer is the most precise exam meaning of \"U.S. Forest Service (1905)\"?",
+      "options": [
+        {
+          "text": "Federal agency created to manage national forests for sustainable use; first led by Gifford Pinchot."
+        },
+        {
+          "text": "(1907–1964) Marine biologist whose Silent Spring (1962) exposed the dangers of pesticides (DDT); launched the modern environmental movement and led to DDT's ban."
+        },
+        {
+          "text": "Garrett Hardin's essay: individuals exploiting a shared resource for personal gain deplete it, harming all. Argues for regulation or shared restraint."
+        },
+        {
+          "text": "The first nationwide U.S. environmental demonstration; marked the birth of modern environmental consciousness and helped spur landmark legislation."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: U.S. Forest Service (1905) - Federal agency created to manage national forests for sustainable use; first led by Gifford Pinchot. The other choices are real Environmental Ethics terms or definitions (Rachel Carson, The Tragedy of the Commons (1968), Earth Day (April 22, 1970)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-048",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "John Muir",
+      "prompt": "Which term best names this exact meaning? \"(1838–1914) \"Father of the National Parks.\" Founded the Sierra Club (1892); champion of preservationism; fought (and lost) the Hetch Hetchy damming; saw wilderness as sacred.\"",
+      "options": [
+        {
+          "text": "Hetch Hetchy controversy"
+        },
+        {
+          "text": "John Muir"
+        },
+        {
+          "text": "Theodore Roosevelt"
+        },
+        {
+          "text": "Rachel Carson"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: John Muir - (1838–1914) \"Father of the National Parks.\" Founded the Sierra Club (1892); champion of preservationism; fought (and lost) the Hetch Hetchy damming; saw wilderness as sacred. The other choices are real Environmental Ethics terms or definitions (Hetch Hetchy controversy, Theodore Roosevelt, Rachel Carson), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-049",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Gifford Pinchot",
+      "prompt": "Which answer is the most precise exam meaning of \"Gifford Pinchot\"?",
+      "options": [
+        {
+          "text": "(1858–1919) U.S. President who vastly expanded national parks, forests, and wildlife refuges; allied with Pinchot on conservation."
+        },
+        {
+          "text": "The first nationwide U.S. environmental demonstration; marked the birth of modern environmental consciousness and helped spur landmark legislation."
+        },
+        {
+          "text": "Cleveland's Cuyahoga River caught fire from industrial pollution — a powerful symbol that prompted the clean-water initiatives of the 1970s."
+        },
+        {
+          "text": "(1865–1946) First Chief of the U.S. Forest Service (1905); founder of American conservationism / \"wise use.\" Rival of Muir over Hetch Hetchy."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Gifford Pinchot - (1865–1946) First Chief of the U.S. Forest Service (1905); founder of American conservationism / \"wise use.\" Rival of Muir over Hetch Hetchy. The other choices are real Environmental Ethics terms or definitions (Theodore Roosevelt, Earth Day (April 22, 1970), Cuyahoga River fire (1969)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-050",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Aldo Leopold",
+      "prompt": "Which term best names this exact meaning? \"(1887–1948) Wrote A Sand County Almanac (1949); originated the Land Ethic and \"thinking like a mountain\"; founder of wildlife ecology.\"",
+      "options": [
+        {
+          "text": "Garrett Hardin"
+        },
+        {
+          "text": "Holmes Rolston III"
+        },
+        {
+          "text": "Aldo Leopold"
+        },
+        {
+          "text": "John Muir"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Aldo Leopold - (1887–1948) Wrote A Sand County Almanac (1949); originated the Land Ethic and \"thinking like a mountain\"; founder of wildlife ecology. The other choices are real Environmental Ethics terms or definitions (Garrett Hardin, Holmes Rolston III, John Muir), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-051",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Garrett Hardin",
+      "prompt": "Which answer is the most precise exam meaning of \"Garrett Hardin\"?",
+      "options": [
+        {
+          "text": "(1915–2003) Ecologist who wrote \"The Tragedy of the Commons\" (1968) and \"lifeboat ethics\" — shared resources get overexploited by self-interested individuals."
+        },
+        {
+          "text": "(1838–1914) \"Father of the National Parks.\" Founded the Sierra Club (1892); champion of preservationism; fought (and lost) the Hetch Hetchy damming; saw wilderness as sacred."
+        },
+        {
+          "text": "(1803–1882) Transcendentalist; his essay Nature (1836) framed the natural world as a source of spiritual insight and unity."
+        },
+        {
+          "text": "(1887–1948) Wrote A Sand County Almanac (1949); originated the Land Ethic and \"thinking like a mountain\"; founder of wildlife ecology."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Garrett Hardin - (1915–2003) Ecologist who wrote \"The Tragedy of the Commons\" (1968) and \"lifeboat ethics\" — shared resources get overexploited by self-interested individuals. The other choices are real Environmental Ethics terms or definitions (John Muir, Ralph Waldo Emerson, Aldo Leopold), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-052",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Rachel Carson",
+      "prompt": "Which term best names this exact meaning? \"(1907–1964) Marine biologist whose Silent Spring (1962) exposed the dangers of pesticides (DDT); launched the modern environmental movement and led to DDT's ban.\"",
+      "options": [
+        {
+          "text": "Silent Spring (1962)"
+        },
+        {
+          "text": "Rachel Carson"
+        },
+        {
+          "text": "Exxon Valdez (1989)"
+        },
+        {
+          "text": "Henry David Thoreau"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Rachel Carson - (1907–1964) Marine biologist whose Silent Spring (1962) exposed the dangers of pesticides (DDT); launched the modern environmental movement and led to DDT's ban. The other choices are real Environmental Ethics terms or definitions (Silent Spring (1962), Exxon Valdez (1989), Henry David Thoreau), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-053",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Arne Naess",
+      "prompt": "Which answer is the most precise exam meaning of \"Arne Naess\"?",
+      "options": [
+        {
+          "text": "(1938–2017) Philosopher; The Case for Animal Rights (1983) argued animals are \"subjects-of-a-life\" with inherent value and rights."
+        },
+        {
+          "text": "(1912–2009) Norwegian philosopher who coined \"deep ecology\" (1973), distinguished it from \"shallow\" environmentalism, and argued for biocentric egalitarianism."
+        },
+        {
+          "text": "(1887–1948) Wrote A Sand County Almanac (1949); originated the Land Ethic and \"thinking like a mountain\"; founder of wildlife ecology."
+        },
+        {
+          "text": "(1858–1919) U.S. President who vastly expanded national parks, forests, and wildlife refuges; allied with Pinchot on conservation."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Arne Naess - (1912–2009) Norwegian philosopher who coined \"deep ecology\" (1973), distinguished it from \"shallow\" environmentalism, and argued for biocentric egalitarianism. The other choices are real Environmental Ethics terms or definitions (Tom Regan, Aldo Leopold, Theodore Roosevelt), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-054",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Peter Singer",
+      "prompt": "Which term best names this exact meaning? \"(b. 1946) Utilitarian philosopher; Animal Liberation (1975) argued that ignoring animal suffering is speciesism.\"",
+      "options": [
+        {
+          "text": "The Tragedy of the Commons (1968)"
+        },
+        {
+          "text": "Peter Singer"
+        },
+        {
+          "text": "Arne Naess"
+        },
+        {
+          "text": "Tom Regan"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Peter Singer - (b. 1946) Utilitarian philosopher; Animal Liberation (1975) argued that ignoring animal suffering is speciesism. The other choices are real Environmental Ethics terms or definitions (The Tragedy of the Commons (1968), Arne Naess, Tom Regan), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-055",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Tom Regan",
+      "prompt": "Which answer is the most precise exam meaning of \"Tom Regan\"?",
+      "options": [
+        {
+          "text": "(1938–2017) Philosopher; The Case for Animal Rights (1983) argued animals are \"subjects-of-a-life\" with inherent value and rights."
+        },
+        {
+          "text": "(1803–1882) Transcendentalist; his essay Nature (1836) framed the natural world as a source of spiritual insight and unity."
+        },
+        {
+          "text": "(1912–2009) Norwegian philosopher who coined \"deep ecology\" (1973), distinguished it from \"shallow\" environmentalism, and argued for biocentric egalitarianism."
+        },
+        {
+          "text": "(1887–1948) Wrote A Sand County Almanac (1949); originated the Land Ethic and \"thinking like a mountain\"; founder of wildlife ecology."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Tom Regan - (1938–2017) Philosopher; The Case for Animal Rights (1983) argued animals are \"subjects-of-a-life\" with inherent value and rights. The other choices are real Environmental Ethics terms or definitions (Ralph Waldo Emerson, Arne Naess, Aldo Leopold), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-056",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Christopher Stone",
+      "prompt": "Which term best names this exact meaning? \"(1937–2021) Legal scholar; \"Should Trees Have Standing?\" (1972) argued natural objects deserve legal rights and standing to sue.\"",
+      "options": [
+        {
+          "text": "Sierra Club (1892)"
+        },
+        {
+          "text": "Christopher Stone"
+        },
+        {
+          "text": "Arne Naess"
+        },
+        {
+          "text": "Tom Regan"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Christopher Stone - (1937–2021) Legal scholar; \"Should Trees Have Standing?\" (1972) argued natural objects deserve legal rights and standing to sue. The other choices are real Environmental Ethics terms or definitions (Sierra Club (1892), Arne Naess, Tom Regan), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-057",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Paul Taylor",
+      "prompt": "Which answer is the most precise exam meaning of \"Paul Taylor\"?",
+      "options": [
+        {
+          "text": "(1938–2017) Philosopher; The Case for Animal Rights (1983) argued animals are \"subjects-of-a-life\" with inherent value and rights."
+        },
+        {
+          "text": "(b. 1932) Biologist; The Population Bomb (1968) warned of mass starvation from overpopulation (neo-Malthusian)."
+        },
+        {
+          "text": "(1923–2015) Philosopher; Respect for Nature (1986) developed biocentric egalitarianism — each organism a \"teleological center of life.\""
+        },
+        {
+          "text": "Garrett Hardin's essay: individuals exploiting a shared resource for personal gain deplete it, harming all. Argues for regulation or shared restraint."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Paul Taylor - (1923–2015) Philosopher; Respect for Nature (1986) developed biocentric egalitarianism — each organism a \"teleological center of life.\" The other choices are real Environmental Ethics terms or definitions (Tom Regan, Paul Ehrlich, The Tragedy of the Commons (1968)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-058",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "John Evelyn",
+      "prompt": "Which term best names this exact meaning? \"(1620–1706) English writer whose treatise Fumifugium (1661) condemned London's coal-smoke air pollution — an early warning about industrialization.\"",
+      "options": [
+        {
+          "text": "John Evelyn"
+        },
+        {
+          "text": "Sierra Club (1892)"
+        },
+        {
+          "text": "U.S. Forest Service (1905)"
+        },
+        {
+          "text": "Theodore Roosevelt"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: John Evelyn - (1620–1706) English writer whose treatise Fumifugium (1661) condemned London's coal-smoke air pollution — an early warning about industrialization. The other choices are real Environmental Ethics terms or definitions (Sierra Club (1892), U.S. Forest Service (1905), Theodore Roosevelt), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-059",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Theodore Roosevelt",
+      "prompt": "Which answer is the most precise exam meaning of \"Theodore Roosevelt\"?",
+      "options": [
+        {
+          "text": "(1858–1919) U.S. President who vastly expanded national parks, forests, and wildlife refuges; allied with Pinchot on conservation."
+        },
+        {
+          "text": "The first nationwide U.S. environmental demonstration; marked the birth of modern environmental consciousness and helped spur landmark legislation."
+        },
+        {
+          "text": "(1838–1914) \"Father of the National Parks.\" Founded the Sierra Club (1892); champion of preservationism; fought (and lost) the Hetch Hetchy damming; saw wilderness as sacred."
+        },
+        {
+          "text": "(1865–1946) First Chief of the U.S. Forest Service (1905); founder of American conservationism / \"wise use.\" Rival of Muir over Hetch Hetchy."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Theodore Roosevelt - (1858–1919) U.S. President who vastly expanded national parks, forests, and wildlife refuges; allied with Pinchot on conservation. The other choices are real Environmental Ethics terms or definitions (Earth Day (April 22, 1970), John Muir, Gifford Pinchot), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-060",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Paul Ehrlich",
+      "prompt": "Which term best names this exact meaning? \"(b. 1932) Biologist; The Population Bomb (1968) warned of mass starvation from overpopulation (neo-Malthusian).\"",
+      "options": [
+        {
+          "text": "A Sand County Almanac (1949)"
+        },
+        {
+          "text": "Gifford Pinchot"
+        },
+        {
+          "text": "The Tragedy of the Commons (1968)"
+        },
+        {
+          "text": "Paul Ehrlich"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Paul Ehrlich - (b. 1932) Biologist; The Population Bomb (1968) warned of mass starvation from overpopulation (neo-Malthusian). The other choices are real Environmental Ethics terms or definitions (A Sand County Almanac (1949), Gifford Pinchot, The Tragedy of the Commons (1968)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-061",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Albert Schweitzer",
+      "prompt": "Which answer is the most precise exam meaning of \"Albert Schweitzer\"?",
+      "options": [
+        {
+          "text": "(1620–1706) English writer whose treatise Fumifugium (1661) condemned London's coal-smoke air pollution — an early warning about industrialization."
+        },
+        {
+          "text": "Aldo Leopold's book introducing the Land Ethic — one of the most influential works in environmental philosophy. Promotes the idea of a \"land ethic.\""
+        },
+        {
+          "text": "(1875–1965) Theologian-physician who articulated \"reverence for life\" — an early biocentric ethic."
+        },
+        {
+          "text": "(1907–1987) Historian whose 1967 essay blamed Judeo-Christian anthropocentrism for environmental degradation."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Albert Schweitzer - (1875–1965) Theologian-physician who articulated \"reverence for life\" — an early biocentric ethic. The other choices are real Environmental Ethics terms or definitions (John Evelyn, A Sand County Almanac (1949), Lynn White Jr.), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-062",
+      "course": "ETH",
+      "section": "History, Pioneers, and Events",
+      "sectionCode": "hi",
+      "focusTerm": "Cuyahoga River fire (1969)",
+      "prompt": "Which term best names this exact meaning? \"Cleveland's Cuyahoga River caught fire from industrial pollution — a powerful symbol that prompted the clean-water initiatives of the 1970s.\"",
+      "options": [
+        {
+          "text": "The Tragedy of the Commons (1968)"
+        },
+        {
+          "text": "Cuyahoga River fire (1969)"
+        },
+        {
+          "text": "A Sand County Almanac (1949)"
+        },
+        {
+          "text": "Gifford Pinchot"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Cuyahoga River fire (1969) - Cleveland's Cuyahoga River caught fire from industrial pollution — a powerful symbol that prompted the clean-water initiatives of the 1970s. The other choices are real Environmental Ethics terms or definitions (The Tragedy of the Commons (1968), A Sand County Almanac (1949), Gifford Pinchot), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-063",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Safe Drinking Water Act (1974)",
+      "prompt": "Which answer is the most precise exam meaning of \"Safe Drinking Water Act (1974)\"?",
+      "options": [
+        {
+          "text": "Comprehensive Environmental Response, Compensation, and Liability Act — funds and compels cleanup of abandoned hazardous-waste sites and holds polluters liable. Prompted by Love Canal."
+        },
+        {
+          "text": "UN Conference on Environment and Development in Rio — produced the UNFCCC, the Convention on Biological Diversity, and Agenda 21."
+        },
+        {
+          "text": "Sets national standards for contaminants (\"maximum contaminant levels\") in public drinking water and protects underground drinking-water sources."
+        },
+        {
+          "text": "Originally the Federal Water Pollution Control Act Amendments. Regulates pollutant discharge into navigable waters, sets water-quality standards, and protects wetlands."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Safe Drinking Water Act (1974) - Sets national standards for contaminants (\"maximum contaminant levels\") in public drinking water and protects underground drinking-water sources. The other choices are real Environmental Ethics terms or definitions (CERCLA / Superfund (1980), Rio Earth Summit (1992), Clean Water Act (1972)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): act = act often means a named statute, not just an action.",
+      "memoryFocus": [
+        "act often means a named statute, not just an action"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-064",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Montreal Protocol (1987)",
+      "prompt": "Which term best names this exact meaning? \"International treaty that phased out ozone-depleting substances (CFCs). Widely considered the most successful environmental agreement in history.\"",
+      "options": [
+        {
+          "text": "Brundtland Report (1987)"
+        },
+        {
+          "text": "Common but differentiated responsibilities"
+        },
+        {
+          "text": "Montreal Protocol (1987)"
+        },
+        {
+          "text": "Stockholm Conference (1972)"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Montreal Protocol (1987) - International treaty that phased out ozone-depleting substances (CFCs). Widely considered the most successful environmental agreement in history. The other choices are real Environmental Ethics terms or definitions (Brundtland Report (1987), Common but differentiated responsibilities, Stockholm Conference (1972)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): protocol = protocol means a treaty-like rule system.",
+      "memoryFocus": [
+        "protocol means a treaty-like rule system"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-065",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Clean Air Act (1970)",
+      "prompt": "Which answer is the most precise exam meaning of \"Clean Air Act (1970)\"?",
+      "options": [
+        {
+          "text": "First binding treaty committing developed (Annex I) nations to cut greenhouse-gas emissions. The U.S. signed but never ratified it; first commitment period ended 2012."
+        },
+        {
+          "text": "Comprehensive Environmental Response, Compensation, and Liability Act — funds and compels cleanup of abandoned hazardous-waste sites and holds polluters liable. Prompted by Love Canal."
+        },
+        {
+          "text": "National Environmental Policy Act — the foundational U.S. environmental law. Requires federal agencies to file an Environmental Impact Statement (EIS) and to weigh environmental consequences. Promotes informed federal decision-making."
+        },
+        {
+          "text": "The major U.S. air-pollution law; lets EPA set National Ambient Air Quality Standards (NAAQS). Strengthened by 1977 and 1990 amendments."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Clean Air Act (1970) - The major U.S. air-pollution law; lets EPA set National Ambient Air Quality Standards (NAAQS). Strengthened by 1977 and 1990 amendments. The other choices are real Environmental Ethics terms or definitions (Kyoto Protocol (1997), CERCLA / Superfund (1980), NEPA (1969/1970)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): act = act often means a named statute, not just an action.",
+      "memoryFocus": [
+        "act often means a named statute, not just an action"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-066",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Clean Water Act (1972)",
+      "prompt": "Which term best names this exact meaning? \"Originally the Federal Water Pollution Control Act Amendments. Regulates pollutant discharge into navigable waters, sets water-quality standards, and protects wetlands.\"",
+      "options": [
+        {
+          "text": "Clean Water Act (1972)"
+        },
+        {
+          "text": "Clean Air Act (1970)"
+        },
+        {
+          "text": "Safe Drinking Water Act (1974)"
+        },
+        {
+          "text": "CERCLA / Superfund (1980)"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Clean Water Act (1972) - Originally the Federal Water Pollution Control Act Amendments. Regulates pollutant discharge into navigable waters, sets water-quality standards, and protects wetlands. The other choices are real Environmental Ethics terms or definitions (Clean Air Act (1970), Safe Drinking Water Act (1974), CERCLA / Superfund (1980)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): act = act often means a named statute, not just an action.",
+      "memoryFocus": [
+        "act often means a named statute, not just an action"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-067",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Endangered Species Act (1973)",
+      "prompt": "Which answer is the most precise exam meaning of \"Endangered Species Act (1973)\"?",
+      "options": [
+        {
+          "text": "Sets national standards for contaminants (\"maximum contaminant levels\") in public drinking water and protects underground drinking-water sources."
+        },
+        {
+          "text": "Our Common Future, by the UN World Commission on Environment and Development — defined and popularized sustainable development."
+        },
+        {
+          "text": "Protects threatened and endangered species and the ecosystems they depend on; bars actions that would jeopardize listed species."
+        },
+        {
+          "text": "Convention on International Trade in Endangered Species — regulates and restricts international trade in threatened plants and animals."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Endangered Species Act (1973) - Protects threatened and endangered species and the ecosystems they depend on; bars actions that would jeopardize listed species. The other choices are real Environmental Ethics terms or definitions (Safe Drinking Water Act (1974), Brundtland Report (1987), CITES (1973)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): act = act often means a named statute, not just an action.",
+      "memoryFocus": [
+        "act often means a named statute, not just an action"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-068",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Environmental Impact Statement (EIS)",
+      "prompt": "Which term best names this exact meaning? \"A detailed report required by NEPA analyzing a proposed federal action's environmental effects and alternatives — the most visible NEPA requirement.\"",
+      "options": [
+        {
+          "text": "Endangered Species Act (1973)"
+        },
+        {
+          "text": "Environmental Impact Statement (EIS)"
+        },
+        {
+          "text": "EPA (1970)"
+        },
+        {
+          "text": "Brundtland Report (1987)"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Environmental Impact Statement (EIS) - A detailed report required by NEPA analyzing a proposed federal action's environmental effects and alternatives — the most visible NEPA requirement. The other choices are real Environmental Ethics terms or definitions (Endangered Species Act (1973), EPA (1970), Brundtland Report (1987)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-069",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Wilderness Act (1964)",
+      "prompt": "Which answer is the most precise exam meaning of \"Wilderness Act (1964)\"?",
+      "options": [
+        {
+          "text": "Protects threatened and endangered species and the ecosystems they depend on; bars actions that would jeopardize listed species."
+        },
+        {
+          "text": "International treaty controlling the cross-border movement of hazardous wastes — aimed at stopping dumping from developed onto developing countries."
+        },
+        {
+          "text": "Non-binding political declaration from COP-15. Recognized the goal of keeping warming below 2°C and pledged $100 billion/yr in climate finance — but set no binding targets. Used \"common but differentiated responsibilities.\""
+        },
+        {
+          "text": "Created the National Wilderness Preservation System, protecting designated federal lands in their natural state from development."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Wilderness Act (1964) - Created the National Wilderness Preservation System, protecting designated federal lands in their natural state from development. The other choices are real Environmental Ethics terms or definitions (Endangered Species Act (1973), Basel Convention (1989), Copenhagen Accord (2009)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): act = act often means a named statute, not just an action.",
+      "memoryFocus": [
+        "act often means a named statute, not just an action"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-070",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Kyoto Protocol (1997)",
+      "prompt": "Which term best names this exact meaning? \"First binding treaty committing developed (Annex I) nations to cut greenhouse-gas emissions. The U.S. signed but never ratified it; first commitment period ended 2012.\"",
+      "options": [
+        {
+          "text": "Stockholm Conference (1972)"
+        },
+        {
+          "text": "Regulatory taking"
+        },
+        {
+          "text": "Copenhagen Accord (2009)"
+        },
+        {
+          "text": "Kyoto Protocol (1997)"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Kyoto Protocol (1997) - First binding treaty committing developed (Annex I) nations to cut greenhouse-gas emissions. The U.S. signed but never ratified it; first commitment period ended 2012. The other choices are real Environmental Ethics terms or definitions (Stockholm Conference (1972), Regulatory taking, Copenhagen Accord (2009)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): protocol = protocol means a treaty-like rule system.",
+      "memoryFocus": [
+        "protocol means a treaty-like rule system"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-071",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "NEPA's purpose (exam point)",
+      "prompt": "Which answer is the most precise exam meaning of \"NEPA's purpose (exam point)\"?",
+      "options": [
+        {
+          "text": "Environmental Protection Agency — created by President Nixon to consolidate federal environmental regulation, research, and enforcement of pollution-control laws."
+        },
+        {
+          "text": "Landmark Supreme Court case: a regulation depriving an owner of ALL economically beneficial use of land is a regulatory taking requiring just compensation. (David Lucas's beachfront lots.)"
+        },
+        {
+          "text": "To promote informed decision-making by federal agencies by requiring detailed information on the environmental impacts of proposed actions — not to set \"less stringent\" or state-modifiable policies."
+        },
+        {
+          "text": "If an action risks serious or irreversible environmental harm, lack of full scientific certainty should not delay protective measures."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: NEPA's purpose (exam point) - To promote informed decision-making by federal agencies by requiring detailed information on the environmental impacts of proposed actions — not to set \"less stringent\" or state-modifiable policies. The other choices are real Environmental Ethics terms or definitions (EPA (1970), Lucas v. South Carolina (1992), Precautionary principle), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): purpose = purpose means the exact audience outcome the speech aims for.",
+      "memoryFocus": [
+        "purpose means the exact audience outcome the speech aims for"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-072",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Common but differentiated responsibilities",
+      "prompt": "Which term best names this exact meaning? \"The principle (UNFCCC, Kyoto, Copenhagen) that all nations share responsibility for climate change, but developed countries — having caused most historical emissions — bear a greater obligation.\"",
+      "options": [
+        {
+          "text": "Common but differentiated responsibilities"
+        },
+        {
+          "text": "Rio Earth Summit (1992)"
+        },
+        {
+          "text": "Montreal Protocol (1987)"
+        },
+        {
+          "text": "UNFCCC (1992)"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Common but differentiated responsibilities - The principle (UNFCCC, Kyoto, Copenhagen) that all nations share responsibility for climate change, but developed countries — having caused most historical emissions — bear a greater obligation. The other choices are real Environmental Ethics terms or definitions (Rio Earth Summit (1992), Montreal Protocol (1987), UNFCCC (1992)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-073",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "NEPA (1969/1970)",
+      "prompt": "Which answer is the most precise exam meaning of \"NEPA (1969/1970)\"?",
+      "options": [
+        {
+          "text": "Originally the Federal Water Pollution Control Act Amendments. Regulates pollutant discharge into navigable waters, sets water-quality standards, and protects wetlands."
+        },
+        {
+          "text": "Sets national standards for contaminants (\"maximum contaminant levels\") in public drinking water and protects underground drinking-water sources."
+        },
+        {
+          "text": "National Environmental Policy Act — the foundational U.S. environmental law. Requires federal agencies to file an Environmental Impact Statement (EIS) and to weigh environmental consequences. Promotes informed federal decision-making."
+        },
+        {
+          "text": "Protects threatened and endangered species and the ecosystems they depend on; bars actions that would jeopardize listed species."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: NEPA (1969/1970) - National Environmental Policy Act — the foundational U.S. environmental law. Requires federal agencies to file an Environmental Impact Statement (EIS) and to weigh environmental consequences. Promotes informed federal decision-making. The other choices are real Environmental Ethics terms or definitions (Clean Water Act (1972), Safe Drinking Water Act (1974), Endangered Species Act (1973)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-074",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "CERCLA / Superfund (1980)",
+      "prompt": "Which term best names this exact meaning? \"Comprehensive Environmental Response, Compensation, and Liability Act — funds and compels cleanup of abandoned hazardous-waste sites and holds polluters liable. Prompted by Love Canal.\"",
+      "options": [
+        {
+          "text": "Endangered Species Act (1973)"
+        },
+        {
+          "text": "Clean Air Act (1970)"
+        },
+        {
+          "text": "NEPA (1969/1970)"
+        },
+        {
+          "text": "CERCLA / Superfund (1980)"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: CERCLA / Superfund (1980) - Comprehensive Environmental Response, Compensation, and Liability Act — funds and compels cleanup of abandoned hazardous-waste sites and holds polluters liable. Prompted by Love Canal. The other choices are real Environmental Ethics terms or definitions (Endangered Species Act (1973), Clean Air Act (1970), NEPA (1969/1970)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-075",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Lucas v. South Carolina (1992)",
+      "prompt": "Which answer is the most precise exam meaning of \"Lucas v. South Carolina (1992)\"?",
+      "options": [
+        {
+          "text": "National Environmental Policy Act — the foundational U.S. environmental law. Requires federal agencies to file an Environmental Impact Statement (EIS) and to weigh environmental consequences. Promotes informed federal decision-making."
+        },
+        {
+          "text": "Environmental Protection Agency — created by President Nixon to consolidate federal environmental regulation, research, and enforcement of pollution-control laws."
+        },
+        {
+          "text": "To promote informed decision-making by federal agencies by requiring detailed information on the environmental impacts of proposed actions — not to set \"less stringent\" or state-modifiable policies."
+        },
+        {
+          "text": "Landmark Supreme Court case: a regulation depriving an owner of ALL economically beneficial use of land is a regulatory taking requiring just compensation. (David Lucas's beachfront lots.)"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Lucas v. South Carolina (1992) - Landmark Supreme Court case: a regulation depriving an owner of ALL economically beneficial use of land is a regulatory taking requiring just compensation. (David Lucas's beachfront lots.) The other choices are real Environmental Ethics terms or definitions (NEPA (1969/1970), EPA (1970), NEPA's purpose (exam point)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-076",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Fifth Amendment Takings Clause",
+      "prompt": "Which term best names this exact meaning? \"Private property shall not \"be taken for public use, without just compensation.\" The constitutional basis for regulatory-taking claims.\"",
+      "options": [
+        {
+          "text": "Clean Air Act (1970)"
+        },
+        {
+          "text": "Clean Water Act (1972)"
+        },
+        {
+          "text": "Lucas v. South Carolina (1992)"
+        },
+        {
+          "text": "Fifth Amendment Takings Clause"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Fifth Amendment Takings Clause - Private property shall not \"be taken for public use, without just compensation.\" The constitutional basis for regulatory-taking claims. The other choices are real Environmental Ethics terms or definitions (Clean Air Act (1970), Clean Water Act (1972), Lucas v. South Carolina (1992)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-077",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Rio Earth Summit (1992)",
+      "prompt": "Which answer is the most precise exam meaning of \"Rio Earth Summit (1992)\"?",
+      "options": [
+        {
+          "text": "Convention on International Trade in Endangered Species — regulates and restricts international trade in threatened plants and animals."
+        },
+        {
+          "text": "UN Conference on Environment and Development in Rio — produced the UNFCCC, the Convention on Biological Diversity, and Agenda 21."
+        },
+        {
+          "text": "The UN Conference on the Human Environment — the first major international environmental meeting. Produced the Stockholm Declaration and led to the creation of UNEP."
+        },
+        {
+          "text": "Created the National Wilderness Preservation System, protecting designated federal lands in their natural state from development."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Rio Earth Summit (1992) - UN Conference on Environment and Development in Rio — produced the UNFCCC, the Convention on Biological Diversity, and Agenda 21. The other choices are real Environmental Ethics terms or definitions (CITES (1973), Stockholm Conference (1972), Wilderness Act (1964)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-078",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "World Wildlife Fund (WWF)",
+      "prompt": "Which term best names this exact meaning? \"A major international NGO focused on wilderness preservation and reducing human impact on biodiversity.\"",
+      "options": [
+        {
+          "text": "UNFCCC (1992)"
+        },
+        {
+          "text": "Montreal Protocol (1987)"
+        },
+        {
+          "text": "Brundtland Report (1987)"
+        },
+        {
+          "text": "World Wildlife Fund (WWF)"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: World Wildlife Fund (WWF) - A major international NGO focused on wilderness preservation and reducing human impact on biodiversity. The other choices are real Environmental Ethics terms or definitions (UNFCCC (1992), Montreal Protocol (1987), Brundtland Report (1987)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-079",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Stockholm Conference (1972)",
+      "prompt": "Which answer is the most precise exam meaning of \"Stockholm Conference (1972)\"?",
+      "options": [
+        {
+          "text": "Non-binding political declaration from COP-15. Recognized the goal of keeping warming below 2°C and pledged $100 billion/yr in climate finance — but set no binding targets. Used \"common but differentiated responsibilities.\""
+        },
+        {
+          "text": "The UN Conference on the Human Environment — the first major international environmental meeting. Produced the Stockholm Declaration and led to the creation of UNEP."
+        },
+        {
+          "text": "To promote informed decision-making by federal agencies by requiring detailed information on the environmental impacts of proposed actions — not to set \"less stringent\" or state-modifiable policies."
+        },
+        {
+          "text": "Our Common Future, by the UN World Commission on Environment and Development — defined and popularized sustainable development."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Stockholm Conference (1972) - The UN Conference on the Human Environment — the first major international environmental meeting. Produced the Stockholm Declaration and led to the creation of UNEP. The other choices are real Environmental Ethics terms or definitions (Copenhagen Accord (2009), NEPA's purpose (exam point), Brundtland Report (1987)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-080",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Brundtland Report (1987)",
+      "prompt": "Which term best names this exact meaning? \"Our Common Future, by the UN World Commission on Environment and Development — defined and popularized sustainable development.\"",
+      "options": [
+        {
+          "text": "Clean Water Act (1972)"
+        },
+        {
+          "text": "Brundtland Report (1987)"
+        },
+        {
+          "text": "Copenhagen Accord (2009)"
+        },
+        {
+          "text": "Wilderness Act (1964)"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Brundtland Report (1987) - Our Common Future, by the UN World Commission on Environment and Development — defined and popularized sustainable development. The other choices are real Environmental Ethics terms or definitions (Clean Water Act (1972), Copenhagen Accord (2009), Wilderness Act (1964)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-081",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Copenhagen Accord (2009)",
+      "prompt": "Which answer is the most precise exam meaning of \"Copenhagen Accord (2009)\"?",
+      "options": [
+        {
+          "text": "The principle (UNFCCC, Kyoto, Copenhagen) that all nations share responsibility for climate change, but developed countries — having caused most historical emissions — bear a greater obligation."
+        },
+        {
+          "text": "Climate accord committing nations to hold warming \"well below 2°C\" (aiming for 1.5°C) through voluntary Nationally Determined Contributions (NDCs)."
+        },
+        {
+          "text": "Non-binding political declaration from COP-15. Recognized the goal of keeping warming below 2°C and pledged $100 billion/yr in climate finance — but set no binding targets. Used \"common but differentiated responsibilities.\""
+        },
+        {
+          "text": "UN Conference on Environment and Development in Rio — produced the UNFCCC, the Convention on Biological Diversity, and Agenda 21."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Copenhagen Accord (2009) - Non-binding political declaration from COP-15. Recognized the goal of keeping warming below 2°C and pledged $100 billion/yr in climate finance — but set no binding targets. Used \"common but differentiated responsibilities.\" The other choices are real Environmental Ethics terms or definitions (Common but differentiated responsibilities, Paris Agreement (2015), Rio Earth Summit (1992)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-082",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Paris Agreement (2015)",
+      "prompt": "Which term best names this exact meaning? \"Climate accord committing nations to hold warming \"well below 2°C\" (aiming for 1.5°C) through voluntary Nationally Determined Contributions (NDCs).\"",
+      "options": [
+        {
+          "text": "Paris Agreement (2015)"
+        },
+        {
+          "text": "Montreal Protocol (1987)"
+        },
+        {
+          "text": "Fifth Amendment Takings Clause"
+        },
+        {
+          "text": "UNFCCC (1992)"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Paris Agreement (2015) - Climate accord committing nations to hold warming \"well below 2°C\" (aiming for 1.5°C) through voluntary Nationally Determined Contributions (NDCs). The other choices are real Environmental Ethics terms or definitions (Montreal Protocol (1987), Fifth Amendment Takings Clause, UNFCCC (1992)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-083",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Basel Convention (1989)",
+      "prompt": "Which answer is the most precise exam meaning of \"Basel Convention (1989)\"?",
+      "options": [
+        {
+          "text": "International treaty controlling the cross-border movement of hazardous wastes — aimed at stopping dumping from developed onto developing countries."
+        },
+        {
+          "text": "Resource Conservation and Recovery Act — governs the \"cradle-to-grave\" management and disposal of solid and hazardous waste."
+        },
+        {
+          "text": "The principle (UNFCCC, Kyoto, Copenhagen) that all nations share responsibility for climate change, but developed countries — having caused most historical emissions — bear a greater obligation."
+        },
+        {
+          "text": "First binding treaty committing developed (Annex I) nations to cut greenhouse-gas emissions. The U.S. signed but never ratified it; first commitment period ended 2012."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Basel Convention (1989) - International treaty controlling the cross-border movement of hazardous wastes — aimed at stopping dumping from developed onto developing countries. The other choices are real Environmental Ethics terms or definitions (RCRA (1976), Common but differentiated responsibilities, Kyoto Protocol (1997)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-084",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "Polluter pays principle",
+      "prompt": "Which term best names this exact meaning? \"Those who produce pollution should bear the costs of managing it and remediating the damage.\"",
+      "options": [
+        {
+          "text": "Kyoto Protocol (1997)"
+        },
+        {
+          "text": "Precautionary principle"
+        },
+        {
+          "text": "Polluter pays principle"
+        },
+        {
+          "text": "Copenhagen Accord (2009)"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Polluter pays principle - Those who produce pollution should bear the costs of managing it and remediating the damage. The other choices are real Environmental Ethics terms or definitions (Kyoto Protocol (1997), Precautionary principle, Copenhagen Accord (2009)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-085",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "EPA (1970)",
+      "prompt": "Which answer is the most precise exam meaning of \"EPA (1970)\"?",
+      "options": [
+        {
+          "text": "Our Common Future, by the UN World Commission on Environment and Development — defined and popularized sustainable development."
+        },
+        {
+          "text": "Environmental Protection Agency — created by President Nixon to consolidate federal environmental regulation, research, and enforcement of pollution-control laws."
+        },
+        {
+          "text": "Landmark Supreme Court case: a regulation depriving an owner of ALL economically beneficial use of land is a regulatory taking requiring just compensation. (David Lucas's beachfront lots.)"
+        },
+        {
+          "text": "When a regulation restricts use of private property so severely it amounts to a \"taking\" under the Fifth Amendment — requiring the government to pay just compensation."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: EPA (1970) - Environmental Protection Agency — created by President Nixon to consolidate federal environmental regulation, research, and enforcement of pollution-control laws. The other choices are real Environmental Ethics terms or definitions (Brundtland Report (1987), Lucas v. South Carolina (1992), Regulatory taking), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-086",
+      "course": "ETH",
+      "section": "Environmental Law",
+      "sectionCode": "law",
+      "focusTerm": "RCRA (1976)",
+      "prompt": "Which term best names this exact meaning? \"Resource Conservation and Recovery Act — governs the \"cradle-to-grave\" management and disposal of solid and hazardous waste.\"",
+      "options": [
+        {
+          "text": "Safe Drinking Water Act (1974)"
+        },
+        {
+          "text": "Basel Convention (1989)"
+        },
+        {
+          "text": "RCRA (1976)"
+        },
+        {
+          "text": "NEPA (1969/1970)"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: RCRA (1976) - Resource Conservation and Recovery Act — governs the \"cradle-to-grave\" management and disposal of solid and hazardous waste. The other choices are real Environmental Ethics terms or definitions (Safe Drinking Water Act (1974), Basel Convention (1989), NEPA (1969/1970)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-087",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Intrinsic vs. instrumental value",
+      "prompt": "Which answer is the most precise exam meaning of \"Intrinsic vs. instrumental value\"?",
+      "options": [
+        {
+          "text": "Intrinsic: worth in and of itself. Instrumental (extrinsic): worth only as a means/useful to others. The core axis of the field — does nature have value beyond its use to humans?"
+        },
+        {
+          "text": "\"Human-centered.\" The view that only humans have intrinsic moral worth; nature matters only as a resource for human benefit. The dominant Western worldview."
+        },
+        {
+          "text": "A holistic, ecocentric movement (coined by Arne Naess, 1973) holding that nature has intrinsic value independent of human use, requiring a radical rethinking of the human–nature relationship and the self."
+        },
+        {
+          "text": "The view that only individual organisms — not collectives like species or ecosystems — can bear moral value. Characteristic of animal-rights and biocentric individualism."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Intrinsic vs. instrumental value - Intrinsic: worth in and of itself. Instrumental (extrinsic): worth only as a means/useful to others. The core axis of the field — does nature have value beyond its use to humans? The other choices are real Environmental Ethics terms or definitions (Anthropocentrism, Deep ecology, Individualism (moral)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): value = value means the thing receiving moral or social weight.",
+      "memoryFocus": [
+        "value means the thing receiving moral or social weight"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-088",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Moral standing (considerability)",
+      "prompt": "Which term best names this exact meaning? \"The status of being an entity whose interests matter morally and must be taken into account. Environmental ethics debates which entities — animals, plants, ecosystems — have it.\"",
+      "options": [
+        {
+          "text": "Anthropocentrism"
+        },
+        {
+          "text": "Moral standing (considerability)"
+        },
+        {
+          "text": "Individualism (moral)"
+        },
+        {
+          "text": "Ethics"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Moral standing (considerability) - The status of being an entity whose interests matter morally and must be taken into account. Environmental ethics debates which entities — animals, plants, ecosystems — have it. The other choices are real Environmental Ethics terms or definitions (Anthropocentrism, Individualism (moral), Ethics), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): standing = standing means being counted as morally or legally considerable.",
+      "memoryFocus": [
+        "standing means being counted as morally or legally considerable"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-089",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Ethical egoism",
+      "prompt": "Which answer is the most precise exam meaning of \"Ethical egoism\"?",
+      "options": [
+        {
+          "text": "Naess's term for mainstream environmentalism that fights pollution and resource depletion mainly to protect human health and prosperity — i.e., it stays anthropocentric. Contrast: deep ecology."
+        },
+        {
+          "text": "The deep-ecology principle that all living things have equal intrinsic value and an equal right to live and flourish."
+        },
+        {
+          "text": "The theory that one ought to act in one's own self-interest. Applied to the environment, it justifies protecting nature only when doing so benefits oneself."
+        },
+        {
+          "text": "A holistic, ecocentric movement (coined by Arne Naess, 1973) holding that nature has intrinsic value independent of human use, requiring a radical rethinking of the human–nature relationship and the self."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Ethical egoism - The theory that one ought to act in one's own self-interest. Applied to the environment, it justifies protecting nature only when doing so benefits oneself. The other choices are real Environmental Ethics terms or definitions (Shallow ecology, Biocentric egalitarianism, Deep ecology), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): ethical = ethical means a standard for right action in a specific context.",
+      "memoryFocus": [
+        "ethical means a standard for right action in a specific context"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-090",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Environmental ethics",
+      "prompt": "Which term best names this exact meaning? \"The branch of philosophy that extends moral consideration beyond humans to the non-human world — animals, plants, ecosystems, the biosphere. It studies the moral relationship between humanity and nature.\"",
+      "options": [
+        {
+          "text": "Moral standing (considerability)"
+        },
+        {
+          "text": "Sentientism"
+        },
+        {
+          "text": "Holism (moral)"
+        },
+        {
+          "text": "Environmental ethics"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Environmental ethics - The branch of philosophy that extends moral consideration beyond humans to the non-human world — animals, plants, ecosystems, the biosphere. It studies the moral relationship between humanity and nature. The other choices are real Environmental Ethics terms or definitions (Moral standing (considerability), Sentientism, Holism (moral)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-091",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Deep ecology",
+      "prompt": "Which answer is the most precise exam meaning of \"Deep ecology\"?",
+      "options": [
+        {
+          "text": "\"Human-centered.\" The view that only humans have intrinsic moral worth; nature matters only as a resource for human benefit. The dominant Western worldview."
+        },
+        {
+          "text": "A holistic, ecocentric movement (coined by Arne Naess, 1973) holding that nature has intrinsic value independent of human use, requiring a radical rethinking of the human–nature relationship and the self."
+        },
+        {
+          "text": "\"Ecosystem-centered.\" The view that whole ecological wholes — species, ecosystems, the biosphere — have intrinsic value, not just individual organisms. Rooted in Leopold's land ethic."
+        },
+        {
+          "text": "The view that only individual organisms — not collectives like species or ecosystems — can bear moral value. Characteristic of animal-rights and biocentric individualism."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Deep ecology - A holistic, ecocentric movement (coined by Arne Naess, 1973) holding that nature has intrinsic value independent of human use, requiring a radical rethinking of the human–nature relationship and the self. The other choices are real Environmental Ethics terms or definitions (Anthropocentrism, Ecocentrism, Individualism (moral)), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): ecology = ecology terms specify the level of nature being centered.",
+      "memoryFocus": [
+        "ecology terms specify the level of nature being centered"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-092",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Shallow ecology",
+      "prompt": "Which term best names this exact meaning? \"Naess's term for mainstream environmentalism that fights pollution and resource depletion mainly to protect human health and prosperity — i.e., it stays anthropocentric. Contrast: deep ecology.\"",
+      "options": [
+        {
+          "text": "Ethical egoism"
+        },
+        {
+          "text": "Shallow ecology"
+        },
+        {
+          "text": "Biocentric egalitarianism"
+        },
+        {
+          "text": "Intrinsic vs. instrumental value"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Shallow ecology - Naess's term for mainstream environmentalism that fights pollution and resource depletion mainly to protect human health and prosperity — i.e., it stays anthropocentric. Contrast: deep ecology. The other choices are real Environmental Ethics terms or definitions (Ethical egoism, Biocentric egalitarianism, Intrinsic vs. instrumental value), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): ecology = ecology terms specify the level of nature being centered.",
+      "memoryFocus": [
+        "ecology terms specify the level of nature being centered"
+      ],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-093",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Ethics",
+      "prompt": "Which answer is the most precise exam meaning of \"Ethics\"?",
+      "options": [
+        {
+          "text": "The systematic study of right and wrong, good and bad — the moral principles that guide conduct. Environmental ethics asks how those principles apply to the natural world."
+        },
+        {
+          "text": "Naess's term for mainstream environmentalism that fights pollution and resource depletion mainly to protect human health and prosperity — i.e., it stays anthropocentric. Contrast: deep ecology."
+        },
+        {
+          "text": "\"Life-centered.\" The view that all living things have inherent worth and deserve moral consideration, not just humans. Linked to Paul Taylor and Albert Schweitzer."
+        },
+        {
+          "text": "The view that moral value belongs to whole systems — ecosystems, species, the biotic community — rather than only to individuals. Characteristic of ecocentrism and the land ethic."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Ethics - The systematic study of right and wrong, good and bad — the moral principles that guide conduct. Environmental ethics asks how those principles apply to the natural world. The other choices are real Environmental Ethics terms or definitions (Shallow ecology, Biocentrism, Holism (moral)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-094",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Gaia hypothesis",
+      "prompt": "Which term best names this exact meaning? \"James Lovelock's theory that Earth functions as a single self-regulating living system, in which life and its physical environment interact to keep conditions suitable for life.\"",
+      "options": [
+        {
+          "text": "Anthropocentrism"
+        },
+        {
+          "text": "Gaia hypothesis"
+        },
+        {
+          "text": "Deep ecology"
+        },
+        {
+          "text": "Biocentrism"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Gaia hypothesis - James Lovelock's theory that Earth functions as a single self-regulating living system, in which life and its physical environment interact to keep conditions suitable for life. The other choices are real Environmental Ethics terms or definitions (Anthropocentrism, Deep ecology, Biocentrism), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-095",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Biocentric egalitarianism",
+      "prompt": "Which answer is the most precise exam meaning of \"Biocentric egalitarianism\"?",
+      "options": [
+        {
+          "text": "The view that the capacity to feel pain and pleasure (sentience) is the criterion for moral consideration: a being deserves concern if it can suffer."
+        },
+        {
+          "text": "The view that only individual organisms — not collectives like species or ecosystems — can bear moral value. Characteristic of animal-rights and biocentric individualism."
+        },
+        {
+          "text": "The view that moral value belongs to whole systems — ecosystems, species, the biotic community — rather than only to individuals. Characteristic of ecocentrism and the land ethic."
+        },
+        {
+          "text": "The deep-ecology principle that all living things have equal intrinsic value and an equal right to live and flourish."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Biocentric egalitarianism - The deep-ecology principle that all living things have equal intrinsic value and an equal right to live and flourish. The other choices are real Environmental Ethics terms or definitions (Sentientism, Individualism (moral), Holism (moral)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-096",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Holism (moral)",
+      "prompt": "Which term best names this exact meaning? \"The view that moral value belongs to whole systems — ecosystems, species, the biotic community — rather than only to individuals. Characteristic of ecocentrism and the land ethic.\"",
+      "options": [
+        {
+          "text": "Biocentrism"
+        },
+        {
+          "text": "Environmental ethics"
+        },
+        {
+          "text": "Anthropocentrism"
+        },
+        {
+          "text": "Holism (moral)"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Holism (moral) - The view that moral value belongs to whole systems — ecosystems, species, the biotic community — rather than only to individuals. Characteristic of ecocentrism and the land ethic. The other choices are real Environmental Ethics terms or definitions (Biocentrism, Environmental ethics, Anthropocentrism), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-097",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Individualism (moral)",
+      "prompt": "Which answer is the most precise exam meaning of \"Individualism (moral)\"?",
+      "options": [
+        {
+          "text": "The view that only individual organisms — not collectives like species or ecosystems — can bear moral value. Characteristic of animal-rights and biocentric individualism."
+        },
+        {
+          "text": "The deep-ecology principle that all living things have equal intrinsic value and an equal right to live and flourish."
+        },
+        {
+          "text": "\"Human-centered.\" The view that only humans have intrinsic moral worth; nature matters only as a resource for human benefit. The dominant Western worldview."
+        },
+        {
+          "text": "The view that the capacity to feel pain and pleasure (sentience) is the criterion for moral consideration: a being deserves concern if it can suffer."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Individualism (moral) - The view that only individual organisms — not collectives like species or ecosystems — can bear moral value. Characteristic of animal-rights and biocentric individualism. The other choices are real Environmental Ethics terms or definitions (Biocentric egalitarianism, Anthropocentrism, Sentientism), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-098",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Anthropocentrism",
+      "prompt": "Which term best names this exact meaning? \"\"Human-centered.\" The view that only humans have intrinsic moral worth; nature matters only as a resource for human benefit. The dominant Western worldview.\"",
+      "options": [
+        {
+          "text": "Ethical egoism"
+        },
+        {
+          "text": "Anthropocentrism"
+        },
+        {
+          "text": "Intrinsic vs. instrumental value"
+        },
+        {
+          "text": "Individualism (moral)"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Anthropocentrism - \"Human-centered.\" The view that only humans have intrinsic moral worth; nature matters only as a resource for human benefit. The dominant Western worldview. The other choices are real Environmental Ethics terms or definitions (Ethical egoism, Intrinsic vs. instrumental value, Individualism (moral)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-099",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Biocentrism",
+      "prompt": "Which answer is the most precise exam meaning of \"Biocentrism\"?",
+      "options": [
+        {
+          "text": "\"Life-centered.\" The view that all living things have inherent worth and deserve moral consideration, not just humans. Linked to Paul Taylor and Albert Schweitzer."
+        },
+        {
+          "text": "The view that moral value belongs to whole systems — ecosystems, species, the biotic community — rather than only to individuals. Characteristic of ecocentrism and the land ethic."
+        },
+        {
+          "text": "The branch of philosophy that extends moral consideration beyond humans to the non-human world — animals, plants, ecosystems, the biosphere. It studies the moral relationship between humanity and nature."
+        },
+        {
+          "text": "The status of being an entity whose interests matter morally and must be taken into account. Environmental ethics debates which entities — animals, plants, ecosystems — have it."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Biocentrism - \"Life-centered.\" The view that all living things have inherent worth and deserve moral consideration, not just humans. Linked to Paul Taylor and Albert Schweitzer. The other choices are real Environmental Ethics terms or definitions (Holism (moral), Environmental ethics, Moral standing (considerability)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    },
+    {
+      "id": "ETH-100",
+      "course": "ETH",
+      "section": "Overview and Core Concepts",
+      "sectionCode": "ov",
+      "focusTerm": "Ecocentrism",
+      "prompt": "Which term best names this exact meaning? \"\"Ecosystem-centered.\" The view that whole ecological wholes — species, ecosystems, the biosphere — have intrinsic value, not just individual organisms. Rooted in Leopold's land ethic.\"",
+      "options": [
+        {
+          "text": "Moral standing (considerability)"
+        },
+        {
+          "text": "Gaia hypothesis"
+        },
+        {
+          "text": "Ecocentrism"
+        },
+        {
+          "text": "Ethical egoism"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Ecocentrism - \"Ecosystem-centered.\" The view that whole ecological wholes — species, ecosystems, the biosphere — have intrinsic value, not just individual organisms. Rooted in Leopold's land ethic. The other choices are real Environmental Ethics terms or definitions (Moral standing (considerability), Gaia hypothesis, Ethical egoism), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "ETH-2100_Environmental_Ethics_Flashcards.html"
+    }
+  ]
+}

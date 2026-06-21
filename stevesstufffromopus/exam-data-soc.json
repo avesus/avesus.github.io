@@ -1,0 +1,2884 @@
+{
+  "version": 1,
+  "course": "SOC",
+  "title": "Marriage and Family Adaptive Exam",
+  "sourceDeck": "SOC-2100_Flashcards.html",
+  "description": "100 single-choice Marriage and Family questions. A normal round serves 25; the final exam serves all 100. Every distractor is a real course term or definition, so choose the best exact match.",
+  "passThreshold": 0.98,
+  "roundSize": 25,
+  "finalSize": 100,
+  "questions": [
+    {
+      "id": "SOC-001",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Family development / Life course theory",
+      "prompt": "Which answer is the most precise exam meaning of \"Family development / Life course theory\"?",
+      "options": [
+        {
+          "text": "Analyzes the predictable stages families pass through over time: marriage, childbearing, launching children, the empty nest."
+        },
+        {
+          "text": "A family formed when one or both partners bring children from a prior relationship into a new marriage."
+        },
+        {
+          "text": "A family in which partners share power and decision-making roughly equally."
+        },
+        {
+          "text": "Views the family through power, inequality, and competition for resources. Arrangements persist because they serve the powerful — NOT because they benefit everyone. It critiques hierarchy rather than endorsing it."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Family development / Life course theory - Analyzes the predictable stages families pass through over time: marriage, childbearing, launching children, the empty nest. The other choices are real Marriage and Family terms or definitions (Blended family / Stepfamily, Egalitarian family, Conflict theory), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first; family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first",
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-002",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Conflict theory",
+      "prompt": "Which term best names this exact meaning? \"Views the family through power, inequality, and competition for resources. Arrangements persist because they serve the powerful — NOT because they benefit everyone. It critiques hierarchy rather than endorsing it.\"",
+      "options": [
+        {
+          "text": "Ecological theory"
+        },
+        {
+          "text": "Conflict theory"
+        },
+        {
+          "text": "Structural-functionalism"
+        },
+        {
+          "text": "Family systems theory"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Conflict theory - Views the family through power, inequality, and competition for resources. Arrangements persist because they serve the powerful — NOT because they benefit everyone. It critiques hierarchy rather than endorsing it. The other choices are real Marriage and Family terms or definitions (Ecological theory, Structural-functionalism, Family systems theory), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first; conflict = conflict means power and scarce resources, not just disagreement.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first",
+        "conflict means power and scarce resources, not just disagreement"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-003",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Instrumental vs. expressive roles",
+      "prompt": "Which answer is the most precise exam meaning of \"Instrumental vs. expressive roles\"?",
+      "options": [
+        {
+          "text": "Views the family as a system whose parts perform functions that keep society stable — socializing children, regulating sex, providing emotional support. Key: roles exist because they help the system work."
+        },
+        {
+          "text": "Examines how gender inequality is created and reproduced in families — especially women's unequal share of power and unpaid labor."
+        },
+        {
+          "text": "Parsons' claim that families specialize: an instrumental role (breadwinner / task-leader) and an expressive role (nurturer / emotional caretaker)."
+        },
+        {
+          "text": "Focuses on the shared meanings, symbols, and definitions people build through everyday interaction, and how these shape roles and the self."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Instrumental vs. expressive roles - Parsons' claim that families specialize: an instrumental role (breadwinner / task-leader) and an expressive role (nurturer / emotional caretaker). The other choices are real Marriage and Family terms or definitions (Structural-functionalism, Feminist perspective, Symbolic interactionism), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-004",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Ecological theory",
+      "prompt": "Which term best names this exact meaning? \"Examines families within nested environments — microsystem, mesosystem, exosystem, and macrosystem.\"",
+      "options": [
+        {
+          "text": "Family of orientation"
+        },
+        {
+          "text": "Ecological theory"
+        },
+        {
+          "text": "Symbolic interactionism"
+        },
+        {
+          "text": "Nuclear family"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Ecological theory - Examines families within nested environments — microsystem, mesosystem, exosystem, and macrosystem. The other choices are real Marriage and Family terms or definitions (Family of orientation, Symbolic interactionism, Nuclear family), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-005",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Blended family / Stepfamily",
+      "prompt": "Which answer is the most precise exam meaning of \"Blended family / Stepfamily\"?",
+      "options": [
+        {
+          "text": "People treated as relatives despite no blood or marriage tie — e.g., a close friend the children call 'auntie'."
+        },
+        {
+          "text": "Analyzes the predictable stages families pass through over time: marriage, childbearing, launching children, the empty nest."
+        },
+        {
+          "text": "A family formed when one or both partners bring children from a prior relationship into a new marriage."
+        },
+        {
+          "text": "Two parents and their dependent children living together as one household unit."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Blended family / Stepfamily - A family formed when one or both partners bring children from a prior relationship into a new marriage. The other choices are real Marriage and Family terms or definitions (Fictive kin, Family development / Life course theory, Nuclear family), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-006",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Family systems theory",
+      "prompt": "Which term best names this exact meaning? \"Treats the family as an interconnected system — a change in one member affects all the others (boundaries, subsystems, feedback loops).\"",
+      "options": [
+        {
+          "text": "Family systems theory"
+        },
+        {
+          "text": "Nuclear family"
+        },
+        {
+          "text": "Family of orientation"
+        },
+        {
+          "text": "Random sample"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Family systems theory - Treats the family as an interconnected system — a change in one member affects all the others (boundaries, subsystems, feedback loops). The other choices are real Marriage and Family terms or definitions (Nuclear family, Family of orientation, Random sample), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first; family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first",
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-007",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Extended family",
+      "prompt": "Which answer is the most precise exam meaning of \"Extended family\"?",
+      "options": [
+        {
+          "text": "A family formed when one or both partners bring children from a prior relationship into a new marriage."
+        },
+        {
+          "text": "A family of three or more generations, or one that includes relatives beyond the parent–child unit, living together or closely tied."
+        },
+        {
+          "text": "The idea that people actively create shared meanings — including what counts as 'family' — through interaction."
+        },
+        {
+          "text": "Analyzes the predictable stages families pass through over time: marriage, childbearing, launching children, the empty nest."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Extended family - A family of three or more generations, or one that includes relatives beyond the parent–child unit, living together or closely tied. The other choices are real Marriage and Family terms or definitions (Blended family / Stepfamily, Social construction of reality, Family development / Life course theory), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-008",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Manifest vs. latent functions",
+      "prompt": "Which term best names this exact meaning? \"Manifest = intended, recognized functions; latent = unintended, hidden consequences.\"",
+      "options": [
+        {
+          "text": "Manifest vs. latent functions"
+        },
+        {
+          "text": "Ecological theory"
+        },
+        {
+          "text": "Family systems theory"
+        },
+        {
+          "text": "Blended family / Stepfamily"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Manifest vs. latent functions - Manifest = intended, recognized functions; latent = unintended, hidden consequences. The other choices are real Marriage and Family terms or definitions (Ecological theory, Family systems theory, Blended family / Stepfamily), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-009",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Family of orientation",
+      "prompt": "Which answer is the most precise exam meaning of \"Family of orientation\"?",
+      "options": [
+        {
+          "text": "The family you are born into and raised in."
+        },
+        {
+          "text": "People weigh rewards against costs; they stay in a relationship when benefits exceed costs and the alternatives look worse."
+        },
+        {
+          "text": "Examines how gender inequality is created and reproduced in families — especially women's unequal share of power and unpaid labor."
+        },
+        {
+          "text": "Treats the family as an interconnected system — a change in one member affects all the others (boundaries, subsystems, feedback loops)."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Family of orientation - The family you are born into and raised in. The other choices are real Marriage and Family terms or definitions (Social exchange theory, Feminist perspective, Family systems theory), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-010",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Family of procreation",
+      "prompt": "Which term best names this exact meaning? \"The family you create through marriage/partnership and having or raising children.\"",
+      "options": [
+        {
+          "text": "Blended family / Stepfamily"
+        },
+        {
+          "text": "Egalitarian family"
+        },
+        {
+          "text": "Postmodern perspective"
+        },
+        {
+          "text": "Family of procreation"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Family of procreation - The family you create through marriage/partnership and having or raising children. The other choices are real Marriage and Family terms or definitions (Blended family / Stepfamily, Egalitarian family, Postmodern perspective), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-011",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Social exchange theory",
+      "prompt": "Which answer is the most precise exam meaning of \"Social exchange theory\"?",
+      "options": [
+        {
+          "text": "People weigh rewards against costs; they stay in a relationship when benefits exceed costs and the alternatives look worse."
+        },
+        {
+          "text": "Examines families within nested environments — microsystem, mesosystem, exosystem, and macrosystem."
+        },
+        {
+          "text": "Views the family through power, inequality, and competition for resources. Arrangements persist because they serve the powerful — NOT because they benefit everyone. It critiques hierarchy rather than endorsing it."
+        },
+        {
+          "text": "In-depth research in which the investigator immerses in and observes a group, sometimes taking part in it."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Social exchange theory - People weigh rewards against costs; they stay in a relationship when benefits exceed costs and the alternatives look worse. The other choices are real Marriage and Family terms or definitions (Ecological theory, Conflict theory, Ethnography / Participant observation), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-012",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Nuclear family",
+      "prompt": "Which term best names this exact meaning? \"Two parents and their dependent children living together as one household unit.\"",
+      "options": [
+        {
+          "text": "Extended family"
+        },
+        {
+          "text": "Correlation vs. causation"
+        },
+        {
+          "text": "Postmodern perspective"
+        },
+        {
+          "text": "Nuclear family"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Nuclear family - Two parents and their dependent children living together as one household unit. The other choices are real Marriage and Family terms or definitions (Extended family, Correlation vs. causation, Postmodern perspective), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-013",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Egalitarian family",
+      "prompt": "Which answer is the most precise exam meaning of \"Egalitarian family\"?",
+      "options": [
+        {
+          "text": "A family formed when one or both partners bring children from a prior relationship into a new marriage."
+        },
+        {
+          "text": "A family in which partners share power and decision-making roughly equally."
+        },
+        {
+          "text": "Two parents and their dependent children living together as one household unit."
+        },
+        {
+          "text": "The trend in which women — especially single mothers — make up a growing share of those living in poverty."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Egalitarian family - A family in which partners share power and decision-making roughly equally. The other choices are real Marriage and Family terms or definitions (Blended family / Stepfamily, Nuclear family, Feminization of poverty), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-014",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Symbolic interactionism",
+      "prompt": "Which term best names this exact meaning? \"Focuses on the shared meanings, symbols, and definitions people build through everyday interaction, and how these shape roles and the self.\"",
+      "options": [
+        {
+          "text": "Family of orientation"
+        },
+        {
+          "text": "Expertise vs. experience"
+        },
+        {
+          "text": "Social exchange theory"
+        },
+        {
+          "text": "Symbolic interactionism"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Symbolic interactionism - Focuses on the shared meanings, symbols, and definitions people build through everyday interaction, and how these shape roles and the self. The other choices are real Marriage and Family terms or definitions (Family of orientation, Expertise vs. experience, Social exchange theory), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-015",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Feminist perspective",
+      "prompt": "Which answer is the most precise exam meaning of \"Feminist perspective\"?",
+      "options": [
+        {
+          "text": "Views the family through power, inequality, and competition for resources. Arrangements persist because they serve the powerful — NOT because they benefit everyone. It critiques hierarchy rather than endorsing it."
+        },
+        {
+          "text": "Focuses on the shared meanings, symbols, and definitions people build through everyday interaction, and how these shape roles and the self."
+        },
+        {
+          "text": "Parsons' claim that families specialize: an instrumental role (breadwinner / task-leader) and an expressive role (nurturer / emotional caretaker)."
+        },
+        {
+          "text": "Examines how gender inequality is created and reproduced in families — especially women's unequal share of power and unpaid labor."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Feminist perspective - Examines how gender inequality is created and reproduced in families — especially women's unequal share of power and unpaid labor. The other choices are real Marriage and Family terms or definitions (Conflict theory, Symbolic interactionism, Instrumental vs. expressive roles), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): perspective = perspective means a repeatable explanatory angle, not a personal opinion.",
+      "memoryFocus": [
+        "perspective means a repeatable explanatory angle, not a personal opinion"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-016",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Social construction of reality",
+      "prompt": "Which term best names this exact meaning? \"The idea that people actively create shared meanings — including what counts as 'family' — through interaction.\"",
+      "options": [
+        {
+          "text": "Structural-functionalism"
+        },
+        {
+          "text": "Social construction of reality"
+        },
+        {
+          "text": "Family development / Life course theory"
+        },
+        {
+          "text": "Family systems theory"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Social construction of reality - The idea that people actively create shared meanings — including what counts as 'family' — through interaction. The other choices are real Marriage and Family terms or definitions (Structural-functionalism, Family development / Life course theory, Family systems theory), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-017",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Independent vs. dependent variable",
+      "prompt": "Which answer is the most precise exam meaning of \"Independent vs. dependent variable\"?",
+      "options": [
+        {
+          "text": "The independent variable is manipulated (the presumed cause); the dependent variable is the measured effect."
+        },
+        {
+          "text": "Parsons' claim that families specialize: an instrumental role (breadwinner / task-leader) and an expressive role (nurturer / emotional caretaker)."
+        },
+        {
+          "text": "Confidentiality = the researcher knows identities but won't reveal them; anonymity = even the researcher can't link responses to a person."
+        },
+        {
+          "text": "Correlation = two things vary together; causation = one actually produces the other. Correlation alone never proves cause."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Independent vs. dependent variable - The independent variable is manipulated (the presumed cause); the dependent variable is the measured effect. The other choices are real Marriage and Family terms or definitions (Instrumental vs. expressive roles, Confidentiality vs. anonymity, Correlation vs. causation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-018",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Patrilineal / Matrilineal descent",
+      "prompt": "Which term best names this exact meaning? \"Tracing kinship and inheritance through the father's line (patrilineal) or the mother's line (matrilineal).\"",
+      "options": [
+        {
+          "text": "Conflict theory"
+        },
+        {
+          "text": "Family of procreation"
+        },
+        {
+          "text": "Patrilineal / Matrilineal descent"
+        },
+        {
+          "text": "Family of orientation"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Patrilineal / Matrilineal descent - Tracing kinship and inheritance through the father's line (patrilineal) or the mother's line (matrilineal). The other choices are real Marriage and Family terms or definitions (Conflict theory, Family of procreation, Family of orientation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-019",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Structural-functionalism",
+      "prompt": "Which answer is the most precise exam meaning of \"Structural-functionalism\"?",
+      "options": [
+        {
+          "text": "Views the family as a system whose parts perform functions that keep society stable — socializing children, regulating sex, providing emotional support. Key: roles exist because they help the system work."
+        },
+        {
+          "text": "Two parents and their dependent children living together as one household unit."
+        },
+        {
+          "text": "People weigh rewards against costs; they stay in a relationship when benefits exceed costs and the alternatives look worse."
+        },
+        {
+          "text": "The idea that people actively create shared meanings — including what counts as 'family' — through interaction."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Structural-functionalism - Views the family as a system whose parts perform functions that keep society stable — socializing children, regulating sex, providing emotional support. Key: roles exist because they help the system work. The other choices are real Marriage and Family terms or definitions (Nuclear family, Social exchange theory, Social construction of reality), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-020",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Empirical / scientific method",
+      "prompt": "Which term best names this exact meaning? \"Building knowledge from systematic, verifiable observation and evidence rather than opinion or tradition.\"",
+      "options": [
+        {
+          "text": "Empirical / scientific method"
+        },
+        {
+          "text": "Instrumental vs. expressive roles"
+        },
+        {
+          "text": "Conflict theory"
+        },
+        {
+          "text": "Socioeconomic status (SES)"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Empirical / scientific method - Building knowledge from systematic, verifiable observation and evidence rather than opinion or tradition. The other choices are real Marriage and Family terms or definitions (Instrumental vs. expressive roles, Conflict theory, Socioeconomic status (SES)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-021",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Reliability vs. validity",
+      "prompt": "Which answer is the most precise exam meaning of \"Reliability vs. validity\"?",
+      "options": [
+        {
+          "text": "The idea that people actively create shared meanings — including what counts as 'family' — through interaction."
+        },
+        {
+          "text": "Manifest = intended, recognized functions; latent = unintended, hidden consequences."
+        },
+        {
+          "text": "Confidentiality = the researcher knows identities but won't reveal them; anonymity = even the researcher can't link responses to a person."
+        },
+        {
+          "text": "Reliability = consistent, repeatable results; validity = actually measuring what you intend to measure."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Reliability vs. validity - Reliability = consistent, repeatable results; validity = actually measuring what you intend to measure. The other choices are real Marriage and Family terms or definitions (Social construction of reality, Manifest vs. latent functions, Confidentiality vs. anonymity), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-022",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Correlation vs. causation",
+      "prompt": "Which term best names this exact meaning? \"Correlation = two things vary together; causation = one actually produces the other. Correlation alone never proves cause.\"",
+      "options": [
+        {
+          "text": "Family systems theory"
+        },
+        {
+          "text": "Polyandry"
+        },
+        {
+          "text": "Correlation vs. causation"
+        },
+        {
+          "text": "Confidentiality vs. anonymity"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Correlation vs. causation - Correlation = two things vary together; causation = one actually produces the other. Correlation alone never proves cause. The other choices are real Marriage and Family terms or definitions (Family systems theory, Polyandry, Confidentiality vs. anonymity), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-023",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Ethnography / Participant observation",
+      "prompt": "Which answer is the most precise exam meaning of \"Ethnography / Participant observation\"?",
+      "options": [
+        {
+          "text": "The family you are born into and raised in."
+        },
+        {
+          "text": "The trend in which women — especially single mothers — make up a growing share of those living in poverty."
+        },
+        {
+          "text": "A family in which partners share power and decision-making roughly equally."
+        },
+        {
+          "text": "In-depth research in which the investigator immerses in and observes a group, sometimes taking part in it."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Ethnography / Participant observation - In-depth research in which the investigator immerses in and observes a group, sometimes taking part in it. The other choices are real Marriage and Family terms or definitions (Family of orientation, Feminization of poverty, Egalitarian family), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-024",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Confidentiality vs. anonymity",
+      "prompt": "Which term best names this exact meaning? \"Confidentiality = the researcher knows identities but won't reveal them; anonymity = even the researcher can't link responses to a person.\"",
+      "options": [
+        {
+          "text": "Representative sample"
+        },
+        {
+          "text": "Confidentiality vs. anonymity"
+        },
+        {
+          "text": "Family development / Life course theory"
+        },
+        {
+          "text": "Ethnography / Participant observation"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Confidentiality vs. anonymity - Confidentiality = the researcher knows identities but won't reveal them; anonymity = even the researcher can't link responses to a person. The other choices are real Marriage and Family terms or definitions (Representative sample, Family development / Life course theory, Ethnography / Participant observation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-025",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Expertise vs. experience",
+      "prompt": "Which answer is the most precise exam meaning of \"Expertise vs. experience\"?",
+      "options": [
+        {
+          "text": "Examines how gender inequality is created and reproduced in families — especially women's unequal share of power and unpaid labor."
+        },
+        {
+          "text": "A person's or family's position based on income, education, and occupation."
+        },
+        {
+          "text": "Parsons' claim that families specialize: an instrumental role (breadwinner / task-leader) and an expressive role (nurturer / emotional caretaker)."
+        },
+        {
+          "text": "Expertise rests on systematic evidence and method; personal experience is real but may not generalize to others."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Expertise vs. experience - Expertise rests on systematic evidence and method; personal experience is real but may not generalize to others. The other choices are real Marriage and Family terms or definitions (Feminist perspective, Socioeconomic status (SES), Instrumental vs. expressive roles), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-026",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Feminization of poverty",
+      "prompt": "Which term best names this exact meaning? \"The trend in which women — especially single mothers — make up a growing share of those living in poverty.\"",
+      "options": [
+        {
+          "text": "Family of procreation"
+        },
+        {
+          "text": "Feminization of poverty"
+        },
+        {
+          "text": "Social exchange theory"
+        },
+        {
+          "text": "Family of orientation"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Feminization of poverty - The trend in which women — especially single mothers — make up a growing share of those living in poverty. The other choices are real Marriage and Family terms or definitions (Family of procreation, Social exchange theory, Family of orientation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-027",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Postmodern perspective",
+      "prompt": "Which answer is the most precise exam meaning of \"Postmodern perspective\"?",
+      "options": [
+        {
+          "text": "A family formed when one or both partners bring children from a prior relationship into a new marriage."
+        },
+        {
+          "text": "Two parents and their dependent children living together as one household unit."
+        },
+        {
+          "text": "Analyzes the predictable stages families pass through over time: marriage, childbearing, launching children, the empty nest."
+        },
+        {
+          "text": "Emphasizes family diversity and rejects the idea of one 'normal' or correct family form."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Postmodern perspective - Emphasizes family diversity and rejects the idea of one 'normal' or correct family form. The other choices are real Marriage and Family terms or definitions (Blended family / Stepfamily, Nuclear family, Family development / Life course theory), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): perspective = perspective means a repeatable explanatory angle, not a personal opinion.",
+      "memoryFocus": [
+        "perspective means a repeatable explanatory angle, not a personal opinion"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-028",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Informed consent",
+      "prompt": "Which term best names this exact meaning? \"Participants must be told a study's purpose, risks, and procedures and must voluntarily agree before taking part.\"",
+      "options": [
+        {
+          "text": "Informed consent"
+        },
+        {
+          "text": "Feminist perspective"
+        },
+        {
+          "text": "Patrilineal / Matrilineal descent"
+        },
+        {
+          "text": "Instrumental vs. expressive roles"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Informed consent - Participants must be told a study's purpose, risks, and procedures and must voluntarily agree before taking part. The other choices are real Marriage and Family terms or definitions (Feminist perspective, Patrilineal / Matrilineal descent, Instrumental vs. expressive roles), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-029",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Socioeconomic status (SES)",
+      "prompt": "Which answer is the most precise exam meaning of \"Socioeconomic status (SES)\"?",
+      "options": [
+        {
+          "text": "A person's or family's position based on income, education, and occupation."
+        },
+        {
+          "text": "The family you create through marriage/partnership and having or raising children."
+        },
+        {
+          "text": "Emphasizes family diversity and rejects the idea of one 'normal' or correct family form."
+        },
+        {
+          "text": "Tracing kinship and inheritance through the father's line (patrilineal) or the mother's line (matrilineal)."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Socioeconomic status (SES) - A person's or family's position based on income, education, and occupation. The other choices are real Marriage and Family terms or definitions (Family of procreation, Postmodern perspective, Patrilineal / Matrilineal descent), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-030",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Fictive kin",
+      "prompt": "Which term best names this exact meaning? \"People treated as relatives despite no blood or marriage tie — e.g., a close friend the children call 'auntie'.\"",
+      "options": [
+        {
+          "text": "Family systems theory"
+        },
+        {
+          "text": "Extended family"
+        },
+        {
+          "text": "Fictive kin"
+        },
+        {
+          "text": "Social exchange theory"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Fictive kin - People treated as relatives despite no blood or marriage tie — e.g., a close friend the children call 'auntie'. The other choices are real Marriage and Family terms or definitions (Family systems theory, Extended family, Social exchange theory), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-031",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Serial monogamy",
+      "prompt": "Which answer is the most precise exam meaning of \"Serial monogamy\"?",
+      "options": [
+        {
+          "text": "Marrying, divorcing, and remarrying — one spouse at a time, but several across a lifetime."
+        },
+        {
+          "text": "One wife married to two or more husbands at the same time."
+        },
+        {
+          "text": "People weigh rewards against costs; they stay in a relationship when benefits exceed costs and the alternatives look worse."
+        },
+        {
+          "text": "A family formed when one or both partners bring children from a prior relationship into a new marriage."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Serial monogamy - Marrying, divorcing, and remarrying — one spouse at a time, but several across a lifetime. The other choices are real Marriage and Family terms or definitions (Polyandry, Social exchange theory, Blended family / Stepfamily), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-032",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Representative sample",
+      "prompt": "Which term best names this exact meaning? \"A sample that mirrors the larger population, so findings can be generalized to it.\"",
+      "options": [
+        {
+          "text": "Confidentiality vs. anonymity"
+        },
+        {
+          "text": "Representative sample"
+        },
+        {
+          "text": "Random sample"
+        },
+        {
+          "text": "Structural-functionalism"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Representative sample - A sample that mirrors the larger population, so findings can be generalized to it. The other choices are real Marriage and Family terms or definitions (Confidentiality vs. anonymity, Random sample, Structural-functionalism), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-033",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Random sample",
+      "prompt": "Which answer is the most precise exam meaning of \"Random sample\"?",
+      "options": [
+        {
+          "text": "A sample in which every member of the population has an equal chance of being selected."
+        },
+        {
+          "text": "A family of three or more generations, or one that includes relatives beyond the parent–child unit, living together or closely tied."
+        },
+        {
+          "text": "The trend in which women — especially single mothers — make up a growing share of those living in poverty."
+        },
+        {
+          "text": "The family you are born into and raised in."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Random sample - A sample in which every member of the population has an equal chance of being selected. The other choices are real Marriage and Family terms or definitions (Extended family, Feminization of poverty, Family of orientation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-034",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Naturalistic observation",
+      "prompt": "Which term best names this exact meaning? \"Watching and recording behavior in its natural setting without manipulating any conditions.\"",
+      "options": [
+        {
+          "text": "Naturalistic observation"
+        },
+        {
+          "text": "Ethnography / Participant observation"
+        },
+        {
+          "text": "Social exchange theory"
+        },
+        {
+          "text": "Family systems theory"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Naturalistic observation - Watching and recording behavior in its natural setting without manipulating any conditions. The other choices are real Marriage and Family terms or definitions (Ethnography / Participant observation, Social exchange theory, Family systems theory), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-035",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Cohabitation",
+      "prompt": "Which answer is the most precise exam meaning of \"Cohabitation\"?",
+      "options": [
+        {
+          "text": "A family in which partners share power and decision-making roughly equally."
+        },
+        {
+          "text": "One husband married to two or more wives at the same time."
+        },
+        {
+          "text": "The trend in which women — especially single mothers — make up a growing share of those living in poverty."
+        },
+        {
+          "text": "Two unmarried partners in an intimate relationship living together in the same household."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Cohabitation - Two unmarried partners in an intimate relationship living together in the same household. The other choices are real Marriage and Family terms or definitions (Egalitarian family, Polygyny, Feminization of poverty), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-036",
+      "course": "SOC",
+      "section": "Foundations, Forms, Kinship, Theory, Methods, Class",
+      "sectionCode": "A",
+      "focusTerm": "Monogamy",
+      "prompt": "Which term best names this exact meaning? \"Marriage to one spouse at a time.\"",
+      "options": [
+        {
+          "text": "Experiment"
+        },
+        {
+          "text": "Extended family"
+        },
+        {
+          "text": "Family development / Life course theory"
+        },
+        {
+          "text": "Monogamy"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Monogamy - Marriage to one spouse at a time. The other choices are real Marriage and Family terms or definitions (Experiment, Extended family, Family development / Life course theory), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-037",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Triangular theory of love",
+      "prompt": "Which answer is the most precise exam meaning of \"Triangular theory of love\"?",
+      "options": [
+        {
+          "text": "Passion + commitment without intimacy; a whirlwind courtship that rushes to engagement before partners really know each other."
+        },
+        {
+          "text": "Intimacy + passion without commitment."
+        },
+        {
+          "text": "Love is built from three components: intimacy, passion, and commitment."
+        },
+        {
+          "text": "The set of behaviors and attitudes a society considers appropriate for each sex."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Triangular theory of love - Love is built from three components: intimacy, passion, and commitment. The other choices are real Marriage and Family terms or definitions (Fatuous love, Romantic love, Gender role), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-038",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Attachment theory",
+      "prompt": "Which term best names this exact meaning? \"Early bonds with caregivers shape how people connect in later relationships, producing secure, anxious, or avoidant patterns.\"",
+      "options": [
+        {
+          "text": "Empty love"
+        },
+        {
+          "text": "Attachment theory"
+        },
+        {
+          "text": "Anxious / ambivalent attachment"
+        },
+        {
+          "text": "Secure attachment"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Attachment theory - Early bonds with caregivers shape how people connect in later relationships, producing secure, anxious, or avoidant patterns. The other choices are real Marriage and Family terms or definitions (Empty love, Anxious / ambivalent attachment, Secure attachment), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-039",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Intimacy / Passion / Commitment",
+      "prompt": "Which answer is the most precise exam meaning of \"Intimacy / Passion / Commitment\"?",
+      "options": [
+        {
+          "text": "Comfort with both intimacy and independence; trusts others and isn't overly anxious about the relationship."
+        },
+        {
+          "text": "Sex = biological / physical traits; gender = the social meanings, roles, and expectations attached to being male or female."
+        },
+        {
+          "text": "A person's enduring romantic / sexual attraction — heterosexual, homosexual, bisexual, and so on."
+        },
+        {
+          "text": "Sternberg's three building blocks: emotional closeness, physical/romantic drive, and the decision to maintain the relationship."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Intimacy / Passion / Commitment - Sternberg's three building blocks: emotional closeness, physical/romantic drive, and the decision to maintain the relationship. The other choices are real Marriage and Family terms or definitions (Secure attachment, Sex vs. gender, Sexual orientation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-040",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Styles (colors) of love",
+      "prompt": "Which term best names this exact meaning? \"Six love styles: eros (passionate), ludus (game-playing), storge (friendship), pragma (practical), mania (possessive), agape (selfless).\"",
+      "options": [
+        {
+          "text": "Romantic love"
+        },
+        {
+          "text": "Empty love"
+        },
+        {
+          "text": "Styles (colors) of love"
+        },
+        {
+          "text": "Triangular theory of love"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Styles (colors) of love - Six love styles: eros (passionate), ludus (game-playing), storge (friendship), pragma (practical), mania (possessive), agape (selfless). The other choices are real Marriage and Family terms or definitions (Romantic love, Empty love, Triangular theory of love), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-041",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Gender role",
+      "prompt": "Which answer is the most precise exam meaning of \"Gender role\"?",
+      "options": [
+        {
+          "text": "The set of behaviors and attitudes a society considers appropriate for each sex."
+        },
+        {
+          "text": "Intimacy + commitment without passion; the deep affection of long-married couples whose passion has faded."
+        },
+        {
+          "text": "The process of recognizing, accepting, and disclosing a gay, lesbian, bisexual, or transgender identity."
+        },
+        {
+          "text": "The lifelong process of learning the gender expectations of one's culture, via family, media, peers, and school."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Gender role - The set of behaviors and attitudes a society considers appropriate for each sex. The other choices are real Marriage and Family terms or definitions (Companionate love, Coming out, Gender socialization), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): role = role means expected behavior tied to a position.",
+      "memoryFocus": [
+        "role means expected behavior tied to a position"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-042",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Sex vs. gender",
+      "prompt": "Which term best names this exact meaning? \"Sex = biological / physical traits; gender = the social meanings, roles, and expectations attached to being male or female.\"",
+      "options": [
+        {
+          "text": "Gender stereotype"
+        },
+        {
+          "text": "Gender socialization"
+        },
+        {
+          "text": "Matching hypothesis"
+        },
+        {
+          "text": "Sex vs. gender"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Sex vs. gender - Sex = biological / physical traits; gender = the social meanings, roles, and expectations attached to being male or female. The other choices are real Marriage and Family terms or definitions (Gender stereotype, Gender socialization, Matching hypothesis), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-043",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Cisgender vs. transgender",
+      "prompt": "Which answer is the most precise exam meaning of \"Cisgender vs. transgender\"?",
+      "options": [
+        {
+          "text": "An oversimplified, fixed belief about the traits or abilities of men or women."
+        },
+        {
+          "text": "Love is built from three components: intimacy, passion, and commitment."
+        },
+        {
+          "text": "Cisgender = gender identity matches birth sex; transgender = gender identity differs from birth sex."
+        },
+        {
+          "text": "Early bonds with caregivers shape how people connect in later relationships, producing secure, anxious, or avoidant patterns."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Cisgender vs. transgender - Cisgender = gender identity matches birth sex; transgender = gender identity differs from birth sex. The other choices are real Marriage and Family terms or definitions (Gender stereotype, Triangular theory of love, Attachment theory), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-044",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Anxious / ambivalent attachment",
+      "prompt": "Which term best names this exact meaning? \"Craves closeness but fears abandonment; clingy and easily distressed in relationships.\"",
+      "options": [
+        {
+          "text": "Anxious / ambivalent attachment"
+        },
+        {
+          "text": "Traditional sexual script"
+        },
+        {
+          "text": "Triangular theory of love"
+        },
+        {
+          "text": "Sexual orientation"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Anxious / ambivalent attachment - Craves closeness but fears abandonment; clingy and easily distressed in relationships. The other choices are real Marriage and Family terms or definitions (Traditional sexual script, Triangular theory of love, Sexual orientation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-045",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Traditional sexual script",
+      "prompt": "Which answer is the most precise exam meaning of \"Traditional sexual script\"?",
+      "options": [
+        {
+          "text": "Culturally learned guidelines for how, when, and with whom sexual behavior is expected to occur."
+        },
+        {
+          "text": "Sternberg's three building blocks: emotional closeness, physical/romantic drive, and the decision to maintain the relationship."
+        },
+        {
+          "text": "Sex = biological / physical traits; gender = the social meanings, roles, and expectations attached to being male or female."
+        },
+        {
+          "text": "Casts men as the sexual initiators and women as the limit-setters ('gatekeepers'); often paired with a sexual double standard."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Traditional sexual script - Casts men as the sexual initiators and women as the limit-setters ('gatekeepers'); often paired with a sexual double standard. The other choices are real Marriage and Family terms or definitions (Sexual script, Intimacy / Passion / Commitment, Sex vs. gender), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): script = script means culturally learned expectations.",
+      "memoryFocus": [
+        "script means culturally learned expectations"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-046",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Gender identity",
+      "prompt": "Which term best names this exact meaning? \"A person's internal sense of being male, female, both, or neither.\"",
+      "options": [
+        {
+          "text": "Gender identity"
+        },
+        {
+          "text": "Intimacy / Passion / Commitment"
+        },
+        {
+          "text": "Gender socialization"
+        },
+        {
+          "text": "Sex vs. gender"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Gender identity - A person's internal sense of being male, female, both, or neither. The other choices are real Marriage and Family terms or definitions (Intimacy / Passion / Commitment, Gender socialization, Sex vs. gender), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): identity = identity means a self-category, not just an outside label.",
+      "memoryFocus": [
+        "identity means a self-category, not just an outside label"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-047",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Consummate love",
+      "prompt": "Which answer is the most precise exam meaning of \"Consummate love\"?",
+      "options": [
+        {
+          "text": "Sternberg's three building blocks: emotional closeness, physical/romantic drive, and the decision to maintain the relationship."
+        },
+        {
+          "text": "Sternberg's 'complete' love — intimacy + passion + commitment all present at once."
+        },
+        {
+          "text": "A person's internal sense of being male, female, both, or neither."
+        },
+        {
+          "text": "Commitment alone — without intimacy or passion."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Consummate love - Sternberg's 'complete' love — intimacy + passion + commitment all present at once. The other choices are real Marriage and Family terms or definitions (Intimacy / Passion / Commitment, Gender identity, Empty love), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-048",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Companionate love",
+      "prompt": "Which term best names this exact meaning? \"Intimacy + commitment without passion; the deep affection of long-married couples whose passion has faded.\"",
+      "options": [
+        {
+          "text": "Fatuous love"
+        },
+        {
+          "text": "Gender role"
+        },
+        {
+          "text": "Styles (colors) of love"
+        },
+        {
+          "text": "Companionate love"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Companionate love - Intimacy + commitment without passion; the deep affection of long-married couples whose passion has faded. The other choices are real Marriage and Family terms or definitions (Fatuous love, Gender role, Styles (colors) of love), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-049",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Fatuous love",
+      "prompt": "Which answer is the most precise exam meaning of \"Fatuous love\"?",
+      "options": [
+        {
+          "text": "Passion + commitment without intimacy; a whirlwind courtship that rushes to engagement before partners really know each other."
+        },
+        {
+          "text": "Casts men as the sexual initiators and women as the limit-setters ('gatekeepers'); often paired with a sexual double standard."
+        },
+        {
+          "text": "Love is built from three components: intimacy, passion, and commitment."
+        },
+        {
+          "text": "Sternberg's three building blocks: emotional closeness, physical/romantic drive, and the decision to maintain the relationship."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Fatuous love - Passion + commitment without intimacy; a whirlwind courtship that rushes to engagement before partners really know each other. The other choices are real Marriage and Family terms or definitions (Traditional sexual script, Triangular theory of love, Intimacy / Passion / Commitment), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-050",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Romantic love",
+      "prompt": "Which term best names this exact meaning? \"Intimacy + passion without commitment.\"",
+      "options": [
+        {
+          "text": "Companionate love"
+        },
+        {
+          "text": "Intimacy / Passion / Commitment"
+        },
+        {
+          "text": "Attachment theory"
+        },
+        {
+          "text": "Romantic love"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Romantic love - Intimacy + passion without commitment. The other choices are real Marriage and Family terms or definitions (Companionate love, Intimacy / Passion / Commitment, Attachment theory), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-051",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Empty love",
+      "prompt": "Which answer is the most precise exam meaning of \"Empty love\"?",
+      "options": [
+        {
+          "text": "The process of recognizing, accepting, and disclosing a gay, lesbian, bisexual, or transgender identity."
+        },
+        {
+          "text": "A person's internal sense of being male, female, both, or neither."
+        },
+        {
+          "text": "Commitment alone — without intimacy or passion."
+        },
+        {
+          "text": "Passion alone — without intimacy or commitment; the 'love at first sight' obsession."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Empty love - Commitment alone — without intimacy or passion. The other choices are real Marriage and Family terms or definitions (Coming out, Gender identity, Infatuation), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-052",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Sexual script",
+      "prompt": "Which term best names this exact meaning? \"Culturally learned guidelines for how, when, and with whom sexual behavior is expected to occur.\"",
+      "options": [
+        {
+          "text": "Intimacy / Passion / Commitment"
+        },
+        {
+          "text": "Sexual double standard"
+        },
+        {
+          "text": "Triangular theory of love"
+        },
+        {
+          "text": "Sexual script"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Sexual script - Culturally learned guidelines for how, when, and with whom sexual behavior is expected to occur. The other choices are real Marriage and Family terms or definitions (Intimacy / Passion / Commitment, Sexual double standard, Triangular theory of love), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): script = script means culturally learned expectations.",
+      "memoryFocus": [
+        "script means culturally learned expectations"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-053",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Infatuation",
+      "prompt": "Which answer is the most precise exam meaning of \"Infatuation\"?",
+      "options": [
+        {
+          "text": "Love is built from three components: intimacy, passion, and commitment."
+        },
+        {
+          "text": "Sex = biological / physical traits; gender = the social meanings, roles, and expectations attached to being male or female."
+        },
+        {
+          "text": "The process of recognizing, accepting, and disclosing a gay, lesbian, bisexual, or transgender identity."
+        },
+        {
+          "text": "Passion alone — without intimacy or commitment; the 'love at first sight' obsession."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Infatuation - Passion alone — without intimacy or commitment; the 'love at first sight' obsession. The other choices are real Marriage and Family terms or definitions (Triangular theory of love, Sex vs. gender, Coming out), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-054",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Sexual double standard",
+      "prompt": "Which term best names this exact meaning? \"Judging the same sexual behavior more harshly for women than for men.\"",
+      "options": [
+        {
+          "text": "Sexual script"
+        },
+        {
+          "text": "Coming out"
+        },
+        {
+          "text": "Intimacy / Passion / Commitment"
+        },
+        {
+          "text": "Sexual double standard"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Sexual double standard - Judging the same sexual behavior more harshly for women than for men. The other choices are real Marriage and Family terms or definitions (Sexual script, Coming out, Intimacy / Passion / Commitment), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-055",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Gender socialization",
+      "prompt": "Which answer is the most precise exam meaning of \"Gender socialization\"?",
+      "options": [
+        {
+          "text": "Comfort with both intimacy and independence; trusts others and isn't overly anxious about the relationship."
+        },
+        {
+          "text": "The lifelong process of learning the gender expectations of one's culture, via family, media, peers, and school."
+        },
+        {
+          "text": "The process of recognizing, accepting, and disclosing a gay, lesbian, bisexual, or transgender identity."
+        },
+        {
+          "text": "An oversimplified, fixed belief about the traits or abilities of men or women."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Gender socialization - The lifelong process of learning the gender expectations of one's culture, via family, media, peers, and school. The other choices are real Marriage and Family terms or definitions (Secure attachment, Coming out, Gender stereotype), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-056",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Gender stereotype",
+      "prompt": "Which term best names this exact meaning? \"An oversimplified, fixed belief about the traits or abilities of men or women.\"",
+      "options": [
+        {
+          "text": "Gender stereotype"
+        },
+        {
+          "text": "Gender socialization"
+        },
+        {
+          "text": "Sexual double standard"
+        },
+        {
+          "text": "Gender identity"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Gender stereotype - An oversimplified, fixed belief about the traits or abilities of men or women. The other choices are real Marriage and Family terms or definitions (Gender socialization, Sexual double standard, Gender identity), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-057",
+      "course": "SOC",
+      "section": "Gender, Love, and Sexuality",
+      "sectionCode": "B",
+      "focusTerm": "Sexual orientation",
+      "prompt": "Which answer is the most precise exam meaning of \"Sexual orientation\"?",
+      "options": [
+        {
+          "text": "Sex = biological / physical traits; gender = the social meanings, roles, and expectations attached to being male or female."
+        },
+        {
+          "text": "Sternberg's three building blocks: emotional closeness, physical/romantic drive, and the decision to maintain the relationship."
+        },
+        {
+          "text": "A person's enduring romantic / sexual attraction — heterosexual, homosexual, bisexual, and so on."
+        },
+        {
+          "text": "The process of recognizing, accepting, and disclosing a gay, lesbian, bisexual, or transgender identity."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Sexual orientation - A person's enduring romantic / sexual attraction — heterosexual, homosexual, bisexual, and so on. The other choices are real Marriage and Family terms or definitions (Sex vs. gender, Intimacy / Passion / Commitment, Coming out), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-058",
+      "course": "SOC",
+      "section": "Communication and Conflict",
+      "sectionCode": "C",
+      "focusTerm": "Principle of least interest",
+      "prompt": "Which term best names this exact meaning? \"The partner who cares least about continuing the relationship holds the most power in it.\"",
+      "options": [
+        {
+          "text": "Principle of least interest"
+        },
+        {
+          "text": "The Four Horsemen"
+        },
+        {
+          "text": "Positive vs. negative affect"
+        },
+        {
+          "text": "Stonewalling"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Principle of least interest - The partner who cares least about continuing the relationship holds the most power in it. The other choices are real Marriage and Family terms or definitions (The Four Horsemen, Positive vs. negative affect, Stonewalling), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-059",
+      "course": "SOC",
+      "section": "Communication and Conflict",
+      "sectionCode": "C",
+      "focusTerm": "The Four Horsemen",
+      "prompt": "Which answer is the most precise exam meaning of \"The Four Horsemen\"?",
+      "options": [
+        {
+          "text": "Treating a partner with disrespect, mockery, or scorn — Gottman's single strongest predictor of divorce."
+        },
+        {
+          "text": "Gottman's four communication patterns that predict divorce: criticism, contempt, defensiveness, and stonewalling."
+        },
+        {
+          "text": "Abuse occurs when its rewards outweigh its costs and the abuser expects few negative consequences."
+        },
+        {
+          "text": "The partner who cares least about continuing the relationship holds the most power in it."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: The Four Horsemen - Gottman's four communication patterns that predict divorce: criticism, contempt, defensiveness, and stonewalling. The other choices are real Marriage and Family terms or definitions (Contempt, Exchange / social control theory (of violence), Principle of least interest), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-060",
+      "course": "SOC",
+      "section": "Communication and Conflict",
+      "sectionCode": "C",
+      "focusTerm": "Positive vs. negative affect",
+      "prompt": "Which term best names this exact meaning? \"Positive affect = warmth, interest, affection, humor; negative affect = hostility, criticism, contempt.\"",
+      "options": [
+        {
+          "text": "Positive vs. negative affect"
+        },
+        {
+          "text": "Instrumental vs. expressive roles"
+        },
+        {
+          "text": "Exchange / social control theory (of violence)"
+        },
+        {
+          "text": "Self-disclosure"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Positive vs. negative affect - Positive affect = warmth, interest, affection, humor; negative affect = hostility, criticism, contempt. The other choices are real Marriage and Family terms or definitions (Instrumental vs. expressive roles, Exchange / social control theory (of violence), Self-disclosure), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-061",
+      "course": "SOC",
+      "section": "Communication and Conflict",
+      "sectionCode": "C",
+      "focusTerm": "Contempt",
+      "prompt": "Which answer is the most precise exam meaning of \"Contempt\"?",
+      "options": [
+        {
+          "text": "A person's internal sense of being male, female, both, or neither."
+        },
+        {
+          "text": "A household with one parent living with one or more children."
+        },
+        {
+          "text": "Revealing personal information about oneself to a partner; a key way intimacy is built."
+        },
+        {
+          "text": "Treating a partner with disrespect, mockery, or scorn — Gottman's single strongest predictor of divorce."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Contempt - Treating a partner with disrespect, mockery, or scorn — Gottman's single strongest predictor of divorce. The other choices are real Marriage and Family terms or definitions (Gender identity, Single-parent family, Self-disclosure), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-062",
+      "course": "SOC",
+      "section": "Communication and Conflict",
+      "sectionCode": "C",
+      "focusTerm": "Stonewalling",
+      "prompt": "Which term best names this exact meaning? \"Withdrawing from interaction, shutting down, and refusing to respond during a conflict.\"",
+      "options": [
+        {
+          "text": "Blended family / Stepfamily"
+        },
+        {
+          "text": "The Four Horsemen"
+        },
+        {
+          "text": "Principle of least interest"
+        },
+        {
+          "text": "Stonewalling"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Stonewalling - Withdrawing from interaction, shutting down, and refusing to respond during a conflict. The other choices are real Marriage and Family terms or definitions (Blended family / Stepfamily, The Four Horsemen, Principle of least interest), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-063",
+      "course": "SOC",
+      "section": "Communication and Conflict",
+      "sectionCode": "C",
+      "focusTerm": "Self-disclosure",
+      "prompt": "Which answer is the most precise exam meaning of \"Self-disclosure\"?",
+      "options": [
+        {
+          "text": "Passion + commitment without intimacy; a whirlwind courtship that rushes to engagement before partners really know each other."
+        },
+        {
+          "text": "Revealing personal information about oneself to a partner; a key way intimacy is built."
+        },
+        {
+          "text": "One partner pushes to discuss or change something while the other retreats or stonewalls; a destructive cycle."
+        },
+        {
+          "text": "The cultural IDEAL of what a good father is, versus what fathers ACTUALLY do day to day."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Self-disclosure - Revealing personal information about oneself to a partner; a key way intimacy is built. The other choices are real Marriage and Family terms or definitions (Fatuous love, Demand–withdraw pattern, Culture vs. conduct of fatherhood), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-064",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Stimulus-value-role theory",
+      "prompt": "Which term best names this exact meaning? \"Mate selection moves through three stages: stimulus (initial attraction), value (shared attitudes), role (fit of role expectations).\"",
+      "options": [
+        {
+          "text": "Stimulus-value-role theory"
+        },
+        {
+          "text": "Role strain"
+        },
+        {
+          "text": "Role conflict"
+        },
+        {
+          "text": "Peer marriage"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Stimulus-value-role theory - Mate selection moves through three stages: stimulus (initial attraction), value (shared attitudes), role (fit of role expectations). The other choices are real Marriage and Family terms or definitions (Role strain, Role conflict, Peer marriage), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first; value = value means the thing receiving moral or social weight; role = role means expected behavior tied to a position.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first",
+        "value means the thing receiving moral or social weight",
+        "role means expected behavior tied to a position"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-065",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Role conflict",
+      "prompt": "Which answer is the most precise exam meaning of \"Role conflict\"?",
+      "options": [
+        {
+          "text": "High control, low warmth: demands obedience and uses punishment with little explanation."
+        },
+        {
+          "text": "When the demands of one role (e.g., parent) clash with the demands of another (e.g., employee)."
+        },
+        {
+          "text": "Mate selection moves through three stages: stimulus (initial attraction), value (shared attitudes), role (fit of role expectations)."
+        },
+        {
+          "text": "A shortage of marriageable partners for one sex, caused by an imbalance in the sex ratio."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Role conflict - When the demands of one role (e.g., parent) clash with the demands of another (e.g., employee). The other choices are real Marriage and Family terms or definitions (Authoritarian parenting, Stimulus-value-role theory, Marriage squeeze), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): role = role means expected behavior tied to a position; conflict = conflict means power and scarce resources, not just disagreement.",
+      "memoryFocus": [
+        "role means expected behavior tied to a position",
+        "conflict means power and scarce resources, not just disagreement"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-066",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Culture vs. conduct of fatherhood",
+      "prompt": "Which term best names this exact meaning? \"The cultural IDEAL of what a good father is, versus what fathers ACTUALLY do day to day.\"",
+      "options": [
+        {
+          "text": "Socialization"
+        },
+        {
+          "text": "Mating gradient (marriage gradient)"
+        },
+        {
+          "text": "Concerted cultivation vs. natural growth"
+        },
+        {
+          "text": "Culture vs. conduct of fatherhood"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Culture vs. conduct of fatherhood - The cultural IDEAL of what a good father is, versus what fathers ACTUALLY do day to day. The other choices are real Marriage and Family terms or definitions (Socialization, Mating gradient (marriage gradient), Concerted cultivation vs. natural growth), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-067",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Concerted cultivation vs. natural growth",
+      "prompt": "Which answer is the most precise exam meaning of \"Concerted cultivation vs. natural growth\"?",
+      "options": [
+        {
+          "text": "The cultural IDEAL of what a good father is, versus what fathers ACTUALLY do day to day."
+        },
+        {
+          "text": "Warm and accepting but few rules or demands; children largely regulate themselves."
+        },
+        {
+          "text": "A cultural attitude that everyone should have children and that childbearing is a natural, expected part of adult life."
+        },
+        {
+          "text": "Middle-class parenting that actively cultivates kids through scheduled activities and reasoning, vs. working-class 'accomplishment of natural growth'."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Concerted cultivation vs. natural growth - Middle-class parenting that actively cultivates kids through scheduled activities and reasoning, vs. working-class 'accomplishment of natural growth'. The other choices are real Marriage and Family terms or definitions (Culture vs. conduct of fatherhood, Permissive parenting, Pronatalism), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-068",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Role strain",
+      "prompt": "Which term best names this exact meaning? \"Tension that comes from conflicting demands WITHIN a single role.\"",
+      "options": [
+        {
+          "text": "Sexual harassment"
+        },
+        {
+          "text": "Authoritative parenting"
+        },
+        {
+          "text": "Culture vs. conduct of fatherhood"
+        },
+        {
+          "text": "Role strain"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Role strain - Tension that comes from conflicting demands WITHIN a single role. The other choices are real Marriage and Family terms or definitions (Sexual harassment, Authoritative parenting, Culture vs. conduct of fatherhood), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): role = role means expected behavior tied to a position.",
+      "memoryFocus": [
+        "role means expected behavior tied to a position"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-069",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Role overload",
+      "prompt": "Which answer is the most precise exam meaning of \"Role overload\"?",
+      "options": [
+        {
+          "text": "Tension that comes from conflicting demands WITHIN a single role."
+        },
+        {
+          "text": "A marriage in which partners share housework, child care, and decision-making relatively equally."
+        },
+        {
+          "text": "Child-free = chooses NOT to have children; childless = wants children but cannot have them."
+        },
+        {
+          "text": "Having too many role demands and too little time or energy to meet them all."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Role overload - Having too many role demands and too little time or energy to meet them all. The other choices are real Marriage and Family terms or definitions (Role strain, Peer marriage, Child-free vs. childless), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): role = role means expected behavior tied to a position.",
+      "memoryFocus": [
+        "role means expected behavior tied to a position"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-070",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Peer marriage",
+      "prompt": "Which term best names this exact meaning? \"A marriage in which partners share housework, child care, and decision-making relatively equally.\"",
+      "options": [
+        {
+          "text": "Peer marriage"
+        },
+        {
+          "text": "Role overload"
+        },
+        {
+          "text": "Socialization"
+        },
+        {
+          "text": "Marriage market"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Peer marriage - A marriage in which partners share housework, child care, and decision-making relatively equally. The other choices are real Marriage and Family terms or definitions (Role overload, Socialization, Marriage market), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): marriage = marriage terms usually specify number, similarity, status direction, or partner market.",
+      "memoryFocus": [
+        "marriage terms usually specify number, similarity, status direction, or partner market"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-071",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Mating gradient (marriage gradient)",
+      "prompt": "Which answer is the most precise exam meaning of \"Mating gradient (marriage gradient)\"?",
+      "options": [
+        {
+          "text": "The cultural IDEAL of what a good father is, versus what fathers ACTUALLY do day to day."
+        },
+        {
+          "text": "Women tend to marry men of higher status/age while men marry 'down' — leaving high-status women and low-status men least likely to marry."
+        },
+        {
+          "text": "A marriage in which partners share housework, child care, and decision-making relatively equally."
+        },
+        {
+          "text": "A shortage of marriageable partners for one sex, caused by an imbalance in the sex ratio."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Mating gradient (marriage gradient) - Women tend to marry men of higher status/age while men marry 'down' — leaving high-status women and low-status men least likely to marry. The other choices are real Marriage and Family terms or definitions (Culture vs. conduct of fatherhood, Peer marriage, Marriage squeeze), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): marriage = marriage terms usually specify number, similarity, status direction, or partner market.",
+      "memoryFocus": [
+        "marriage terms usually specify number, similarity, status direction, or partner market"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-072",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Authoritative parenting",
+      "prompt": "Which term best names this exact meaning? \"High warmth + high control with reasoning: sets firm limits while staying responsive. Linked to the best child outcomes. (The deciding factor vs. permissive is that limits ARE set.)\"",
+      "options": [
+        {
+          "text": "Pronatalism"
+        },
+        {
+          "text": "Concerted cultivation vs. natural growth"
+        },
+        {
+          "text": "Role conflict"
+        },
+        {
+          "text": "Authoritative parenting"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Authoritative parenting - High warmth + high control with reasoning: sets firm limits while staying responsive. Linked to the best child outcomes. (The deciding factor vs. permissive is that limits ARE set.) The other choices are real Marriage and Family terms or definitions (Pronatalism, Concerted cultivation vs. natural growth, Role conflict), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-073",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Hypergamy vs. hypogamy",
+      "prompt": "Which answer is the most precise exam meaning of \"Hypergamy vs. hypogamy\"?",
+      "options": [
+        {
+          "text": "Middle-class parenting that actively cultivates kids through scheduled activities and reasoning, vs. working-class 'accomplishment of natural growth'."
+        },
+        {
+          "text": "Marrying 'up' in social status (hypergamy) or 'down' in social status (hypogamy)."
+        },
+        {
+          "text": "Child-free = chooses NOT to have children; childless = wants children but cannot have them."
+        },
+        {
+          "text": "The cultural IDEAL of what a good father is, versus what fathers ACTUALLY do day to day."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Hypergamy vs. hypogamy - Marrying 'up' in social status (hypergamy) or 'down' in social status (hypogamy). The other choices are real Marriage and Family terms or definitions (Concerted cultivation vs. natural growth, Child-free vs. childless, Culture vs. conduct of fatherhood), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-074",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Child-free vs. childless",
+      "prompt": "Which term best names this exact meaning? \"Child-free = chooses NOT to have children; childless = wants children but cannot have them.\"",
+      "options": [
+        {
+          "text": "Hypergamy vs. hypogamy"
+        },
+        {
+          "text": "Child-free vs. childless"
+        },
+        {
+          "text": "Role overload"
+        },
+        {
+          "text": "Mating gradient (marriage gradient)"
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Child-free vs. childless - Child-free = chooses NOT to have children; childless = wants children but cannot have them. The other choices are real Marriage and Family terms or definitions (Hypergamy vs. hypogamy, Role overload, Mating gradient (marriage gradient)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-075",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Uninvolved (neglectful) parenting",
+      "prompt": "Which answer is the most precise exam meaning of \"Uninvolved (neglectful) parenting\"?",
+      "options": [
+        {
+          "text": "Low warmth and low control; emotionally detached and minimally engaged with the child."
+        },
+        {
+          "text": "The cultural IDEAL of what a good father is, versus what fathers ACTUALLY do day to day."
+        },
+        {
+          "text": "A cultural belief that mothering should be child-centered, expert-guided, emotionally absorbing, and labor-intensive."
+        },
+        {
+          "text": "The unpaid housework and child care that employed women perform AFTER their paid workday."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Uninvolved (neglectful) parenting - Low warmth and low control; emotionally detached and minimally engaged with the child. The other choices are real Marriage and Family terms or definitions (Culture vs. conduct of fatherhood, Intensive mothering, The second shift), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-076",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "The second shift",
+      "prompt": "Which term best names this exact meaning? \"The unpaid housework and child care that employed women perform AFTER their paid workday.\"",
+      "options": [
+        {
+          "text": "Role conflict"
+        },
+        {
+          "text": "Intensive mothering"
+        },
+        {
+          "text": "The second shift"
+        },
+        {
+          "text": "Marriage market"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: The second shift - The unpaid housework and child care that employed women perform AFTER their paid workday. The other choices are real Marriage and Family terms or definitions (Role conflict, Intensive mothering, Marriage market), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-077",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Marriage squeeze",
+      "prompt": "Which answer is the most precise exam meaning of \"Marriage squeeze\"?",
+      "options": [
+        {
+          "text": "The process by which people learn the norms, values, and skills of their culture."
+        },
+        {
+          "text": "High warmth + high control with reasoning: sets firm limits while staying responsive. Linked to the best child outcomes. (The deciding factor vs. permissive is that limits ARE set.)"
+        },
+        {
+          "text": "A shortage of marriageable partners for one sex, caused by an imbalance in the sex ratio."
+        },
+        {
+          "text": "A marriage in which partners share housework, child care, and decision-making relatively equally."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Marriage squeeze - A shortage of marriageable partners for one sex, caused by an imbalance in the sex ratio. The other choices are real Marriage and Family terms or definitions (Socialization, Authoritative parenting, Peer marriage), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): marriage = marriage terms usually specify number, similarity, status direction, or partner market.",
+      "memoryFocus": [
+        "marriage terms usually specify number, similarity, status direction, or partner market"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-078",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Marriage market",
+      "prompt": "Which term best names this exact meaning? \"The metaphor that people 'shop' for partners, trading on assets like looks, income, and status.\"",
+      "options": [
+        {
+          "text": "Marriage market"
+        },
+        {
+          "text": "Mating gradient (marriage gradient)"
+        },
+        {
+          "text": "Authoritative parenting"
+        },
+        {
+          "text": "Peer marriage"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Marriage market - The metaphor that people 'shop' for partners, trading on assets like looks, income, and status. The other choices are real Marriage and Family terms or definitions (Mating gradient (marriage gradient), Authoritative parenting, Peer marriage), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): marriage = marriage terms usually specify number, similarity, status direction, or partner market.",
+      "memoryFocus": [
+        "marriage terms usually specify number, similarity, status direction, or partner market"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-079",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Authoritarian parenting",
+      "prompt": "Which answer is the most precise exam meaning of \"Authoritarian parenting\"?",
+      "options": [
+        {
+          "text": "Middle-class parenting that actively cultivates kids through scheduled activities and reasoning, vs. working-class 'accomplishment of natural growth'."
+        },
+        {
+          "text": "The unpaid housework and child care that employed women perform AFTER their paid workday."
+        },
+        {
+          "text": "High control, low warmth: demands obedience and uses punishment with little explanation."
+        },
+        {
+          "text": "Having too many role demands and too little time or energy to meet them all."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Authoritarian parenting - High control, low warmth: demands obedience and uses punishment with little explanation. The other choices are real Marriage and Family terms or definitions (Concerted cultivation vs. natural growth, The second shift, Role overload), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-080",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Permissive parenting",
+      "prompt": "Which term best names this exact meaning? \"Warm and accepting but few rules or demands; children largely regulate themselves.\"",
+      "options": [
+        {
+          "text": "Sandwich generation"
+        },
+        {
+          "text": "Authoritative parenting"
+        },
+        {
+          "text": "Permissive parenting"
+        },
+        {
+          "text": "Role conflict"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Permissive parenting - Warm and accepting but few rules or demands; children largely regulate themselves. The other choices are real Marriage and Family terms or definitions (Sandwich generation, Authoritative parenting, Role conflict), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-081",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Intensive mothering",
+      "prompt": "Which answer is the most precise exam meaning of \"Intensive mothering\"?",
+      "options": [
+        {
+          "text": "Middle-class parenting that actively cultivates kids through scheduled activities and reasoning, vs. working-class 'accomplishment of natural growth'."
+        },
+        {
+          "text": "A cultural belief that mothering should be child-centered, expert-guided, emotionally absorbing, and labor-intensive."
+        },
+        {
+          "text": "High warmth + high control with reasoning: sets firm limits while staying responsive. Linked to the best child outcomes. (The deciding factor vs. permissive is that limits ARE set.)"
+        },
+        {
+          "text": "A marriage in which partners share housework, child care, and decision-making relatively equally."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Intensive mothering - A cultural belief that mothering should be child-centered, expert-guided, emotionally absorbing, and labor-intensive. The other choices are real Marriage and Family terms or definitions (Concerted cultivation vs. natural growth, Authoritative parenting, Peer marriage), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-082",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Sandwich generation",
+      "prompt": "Which term best names this exact meaning? \"Adults who are simultaneously caring for their own children and their aging parents.\"",
+      "options": [
+        {
+          "text": "Socialization"
+        },
+        {
+          "text": "Authoritative parenting"
+        },
+        {
+          "text": "Permissive parenting"
+        },
+        {
+          "text": "Sandwich generation"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Sandwich generation - Adults who are simultaneously caring for their own children and their aging parents. The other choices are real Marriage and Family terms or definitions (Socialization, Authoritative parenting, Permissive parenting), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-083",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Sexual harassment",
+      "prompt": "Which answer is the most precise exam meaning of \"Sexual harassment\"?",
+      "options": [
+        {
+          "text": "High warmth + high control with reasoning: sets firm limits while staying responsive. Linked to the best child outcomes. (The deciding factor vs. permissive is that limits ARE set.)"
+        },
+        {
+          "text": "The unpaid housework and child care that employed women perform AFTER their paid workday."
+        },
+        {
+          "text": "Unwelcome sexual advances or conduct that creates a hostile or coercive environment, often at work."
+        },
+        {
+          "text": "A cultural belief that mothering should be child-centered, expert-guided, emotionally absorbing, and labor-intensive."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Sexual harassment - Unwelcome sexual advances or conduct that creates a hostile or coercive environment, often at work. The other choices are real Marriage and Family terms or definitions (Authoritative parenting, The second shift, Intensive mothering), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-084",
+      "course": "SOC",
+      "section": "Marriage, Singlehood, Parenting, Work",
+      "sectionCode": "D",
+      "focusTerm": "Homogamy",
+      "prompt": "Which term best names this exact meaning? \"Marrying someone with SIMILAR social traits — race, age, religion, education, class.\"",
+      "options": [
+        {
+          "text": "Culture vs. conduct of fatherhood"
+        },
+        {
+          "text": "Role conflict"
+        },
+        {
+          "text": "Authoritative parenting"
+        },
+        {
+          "text": "Homogamy"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Homogamy - Marrying someone with SIMILAR social traits — race, age, religion, education, class. The other choices are real Marriage and Family terms or definitions (Culture vs. conduct of fatherhood, Role conflict, Authoritative parenting), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-085",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Exchange / social control theory (of violence)",
+      "prompt": "Which answer is the most precise exam meaning of \"Exchange / social control theory (of violence)\"?",
+      "options": [
+        {
+          "text": "Abuse occurs when its rewards outweigh its costs and the abuser expects few negative consequences."
+        },
+        {
+          "text": "Physical, sexual, or psychological harm inflicted by a current or former partner."
+        },
+        {
+          "text": "A post-divorce family that spans two households — the mother's and the father's — for the children."
+        },
+        {
+          "text": "Marrying again after a divorce or the death of a spouse."
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Exchange / social control theory (of violence) - Abuse occurs when its rewards outweigh its costs and the abuser expects few negative consequences. The other choices are real Marriage and Family terms or definitions (Intimate partner violence (IPV), Binuclear family, Remarriage), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-086",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Resource theory (of violence)",
+      "prompt": "Which term best names this exact meaning? \"Those who lack other resources — income, status, communication skills — may resort to force to get their way.\"",
+      "options": [
+        {
+          "text": "Neglect"
+        },
+        {
+          "text": "Cycle of violence"
+        },
+        {
+          "text": "Resource theory (of violence)"
+        },
+        {
+          "text": "Binuclear family"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Resource theory (of violence) - Those who lack other resources — income, status, communication skills — may resort to force to get their way. The other choices are real Marriage and Family terms or definitions (Neglect, Cycle of violence, Binuclear family), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): theory = theory means a formal lens for what to look for first.",
+      "memoryFocus": [
+        "theory means a formal lens for what to look for first"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-087",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Cycle of violence",
+      "prompt": "Which answer is the most precise exam meaning of \"Cycle of violence\"?",
+      "options": [
+        {
+          "text": "Aggression between brothers and sisters — the most common but least reported form of family violence."
+        },
+        {
+          "text": "Physical, sexual, or psychological harm inflicted by a current or former partner."
+        },
+        {
+          "text": "A household with one parent living with one or more children."
+        },
+        {
+          "text": "A repeating pattern of tension-building, an acute battering incident, and a calm, loving 'honeymoon' reconciliation phase."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Cycle of violence - A repeating pattern of tension-building, an acute battering incident, and a calm, loving 'honeymoon' reconciliation phase. The other choices are real Marriage and Family terms or definitions (Sibling violence, Intimate partner violence (IPV), Single-parent family), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): cycle = cycle means a repeating pattern with named phases.",
+      "memoryFocus": [
+        "cycle means a repeating pattern with named phases"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-088",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Binuclear family",
+      "prompt": "Which term best names this exact meaning? \"A post-divorce family that spans two households — the mother's and the father's — for the children.\"",
+      "options": [
+        {
+          "text": "Acquaintance (date) rape"
+        },
+        {
+          "text": "Stepfamily (blended family)"
+        },
+        {
+          "text": "Binuclear family"
+        },
+        {
+          "text": "Single-parent family"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Binuclear family - A post-divorce family that spans two households — the mother's and the father's — for the children. The other choices are real Marriage and Family terms or definitions (Acquaintance (date) rape, Stepfamily (blended family), Single-parent family), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-089",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Stepfamily (blended family)",
+      "prompt": "Which answer is the most precise exam meaning of \"Stepfamily (blended family)\"?",
+      "options": [
+        {
+          "text": "Crude = divorces per 1,000 people; refined = divorces per 1,000 married women (a more accurate measure)."
+        },
+        {
+          "text": "A family created when a remarriage brings children from a previous relationship."
+        },
+        {
+          "text": "Repeated insults, threats, humiliation, or isolation of a family member — without physical contact."
+        },
+        {
+          "text": "A post-divorce family that spans two households — the mother's and the father's — for the children."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Stepfamily (blended family) - A family created when a remarriage brings children from a previous relationship. The other choices are real Marriage and Family terms or definitions (Crude vs. refined divorce rate, Emotional / psychological abuse, Binuclear family), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-090",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Six stations of divorce",
+      "prompt": "Which term best names this exact meaning? \"Bohannan's six dimensions of divorce: emotional, legal, economic, coparental, community, and psychic.\"",
+      "options": [
+        {
+          "text": "Six stations of divorce"
+        },
+        {
+          "text": "No-fault divorce"
+        },
+        {
+          "text": "Elder abuse"
+        },
+        {
+          "text": "Intergenerational transmission of violence"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Six stations of divorce - Bohannan's six dimensions of divorce: emotional, legal, economic, coparental, community, and psychic. The other choices are real Marriage and Family terms or definitions (No-fault divorce, Elder abuse, Intergenerational transmission of violence), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-091",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Single-parent family",
+      "prompt": "Which answer is the most precise exam meaning of \"Single-parent family\"?",
+      "options": [
+        {
+          "text": "Physical, sexual, or psychological harm inflicted by a current or former partner."
+        },
+        {
+          "text": "Repeated insults, threats, humiliation, or isolation of a family member — without physical contact."
+        },
+        {
+          "text": "A household with one parent living with one or more children."
+        },
+        {
+          "text": "A post-divorce family that spans two households — the mother's and the father's — for the children."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Single-parent family - A household with one parent living with one or more children. The other choices are real Marriage and Family terms or definitions (Intimate partner violence (IPV), Emotional / psychological abuse, Binuclear family), but they answer a neighboring concept rather than this exact prompt. Watch the general word(s): family = family means a specific membership or responsibility structure.",
+      "memoryFocus": [
+        "family means a specific membership or responsibility structure"
+      ],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-092",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Crude vs. refined divorce rate",
+      "prompt": "Which term best names this exact meaning? \"Crude = divorces per 1,000 people; refined = divorces per 1,000 married women (a more accurate measure).\"",
+      "options": [
+        {
+          "text": "Crude vs. refined divorce rate"
+        },
+        {
+          "text": "Stepfamily (blended family)"
+        },
+        {
+          "text": "Joint vs. sole custody"
+        },
+        {
+          "text": "Acquaintance (date) rape"
+        }
+      ],
+      "answers": [
+        0
+      ],
+      "explanation": "Best match: Crude vs. refined divorce rate - Crude = divorces per 1,000 people; refined = divorces per 1,000 married women (a more accurate measure). The other choices are real Marriage and Family terms or definitions (Stepfamily (blended family), Joint vs. sole custody, Acquaintance (date) rape), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-093",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Intimate partner violence (IPV)",
+      "prompt": "Which answer is the most precise exam meaning of \"Intimate partner violence (IPV)\"?",
+      "options": [
+        {
+          "text": "Children who witness or experience family violence are more likely to use or tolerate it as adults (a social-learning explanation)."
+        },
+        {
+          "text": "Abuse occurs when its rewards outweigh its costs and the abuser expects few negative consequences."
+        },
+        {
+          "text": "Physical, sexual, or psychological harm inflicted by a current or former partner."
+        },
+        {
+          "text": "Marrying again after a divorce or the death of a spouse."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Intimate partner violence (IPV) - Physical, sexual, or psychological harm inflicted by a current or former partner. The other choices are real Marriage and Family terms or definitions (Intergenerational transmission of violence, Exchange / social control theory (of violence), Remarriage), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-094",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Intergenerational transmission of violence",
+      "prompt": "Which term best names this exact meaning? \"Children who witness or experience family violence are more likely to use or tolerate it as adults (a social-learning explanation).\"",
+      "options": [
+        {
+          "text": "Binuclear family"
+        },
+        {
+          "text": "Stepfamily (blended family)"
+        },
+        {
+          "text": "Exchange / social control theory (of violence)"
+        },
+        {
+          "text": "Intergenerational transmission of violence"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Intergenerational transmission of violence - Children who witness or experience family violence are more likely to use or tolerate it as adults (a social-learning explanation). The other choices are real Marriage and Family terms or definitions (Binuclear family, Stepfamily (blended family), Exchange / social control theory (of violence)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-095",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Sibling violence",
+      "prompt": "Which answer is the most precise exam meaning of \"Sibling violence\"?",
+      "options": [
+        {
+          "text": "Marrying again after a divorce or the death of a spouse."
+        },
+        {
+          "text": "A repeating pattern of tension-building, an acute battering incident, and a calm, loving 'honeymoon' reconciliation phase."
+        },
+        {
+          "text": "Abuse occurs when its rewards outweigh its costs and the abuser expects few negative consequences."
+        },
+        {
+          "text": "Aggression between brothers and sisters — the most common but least reported form of family violence."
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Sibling violence - Aggression between brothers and sisters — the most common but least reported form of family violence. The other choices are real Marriage and Family terms or definitions (Remarriage, Cycle of violence, Exchange / social control theory (of violence)), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-096",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Joint vs. sole custody",
+      "prompt": "Which term best names this exact meaning? \"Joint = both parents share legal/physical responsibility; sole = one parent has primary responsibility.\"",
+      "options": [
+        {
+          "text": "Intergenerational transmission of violence"
+        },
+        {
+          "text": "Exchange / social control theory (of violence)"
+        },
+        {
+          "text": "Joint vs. sole custody"
+        },
+        {
+          "text": "Six stations of divorce"
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Joint vs. sole custody - Joint = both parents share legal/physical responsibility; sole = one parent has primary responsibility. The other choices are real Marriage and Family terms or definitions (Intergenerational transmission of violence, Exchange / social control theory (of violence), Six stations of divorce), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-097",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Emotional / psychological abuse",
+      "prompt": "Which answer is the most precise exam meaning of \"Emotional / psychological abuse\"?",
+      "options": [
+        {
+          "text": "Bohannan's six dimensions of divorce: emotional, legal, economic, coparental, community, and psychic."
+        },
+        {
+          "text": "Repeated insults, threats, humiliation, or isolation of a family member — without physical contact."
+        },
+        {
+          "text": "A household with one parent living with one or more children."
+        },
+        {
+          "text": "A repeating pattern of tension-building, an acute battering incident, and a calm, loving 'honeymoon' reconciliation phase."
+        }
+      ],
+      "answers": [
+        1
+      ],
+      "explanation": "Best match: Emotional / psychological abuse - Repeated insults, threats, humiliation, or isolation of a family member — without physical contact. The other choices are real Marriage and Family terms or definitions (Six stations of divorce, Single-parent family, Cycle of violence), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-098",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Incomplete institution",
+      "prompt": "Which term best names this exact meaning? \"Cherlin's idea that remarried and stepfamilies lack clear cultural norms and roles to guide them.\"",
+      "options": [
+        {
+          "text": "No-fault divorce"
+        },
+        {
+          "text": "Stepfamily (blended family)"
+        },
+        {
+          "text": "Sibling violence"
+        },
+        {
+          "text": "Incomplete institution"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Incomplete institution - Cherlin's idea that remarried and stepfamilies lack clear cultural norms and roles to guide them. The other choices are real Marriage and Family terms or definitions (No-fault divorce, Stepfamily (blended family), Sibling violence), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-099",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Acquaintance (date) rape",
+      "prompt": "Which answer is the most precise exam meaning of \"Acquaintance (date) rape\"?",
+      "options": [
+        {
+          "text": "Abuse occurs when its rewards outweigh its costs and the abuser expects few negative consequences."
+        },
+        {
+          "text": "A household with one parent living with one or more children."
+        },
+        {
+          "text": "Sexual assault committed by someone the victim knows, such as a date or partner."
+        },
+        {
+          "text": "Repeated insults, threats, humiliation, or isolation of a family member — without physical contact."
+        }
+      ],
+      "answers": [
+        2
+      ],
+      "explanation": "Best match: Acquaintance (date) rape - Sexual assault committed by someone the victim knows, such as a date or partner. The other choices are real Marriage and Family terms or definitions (Exchange / social control theory (of violence), Single-parent family, Emotional / psychological abuse), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    },
+    {
+      "id": "SOC-100",
+      "course": "SOC",
+      "section": "Violence, Divorce, and New Beginnings",
+      "sectionCode": "E",
+      "focusTerm": "Elder abuse",
+      "prompt": "Which term best names this exact meaning? \"Physical, emotional, or financial mistreatment, or neglect, of an older adult — often by a caregiver.\"",
+      "options": [
+        {
+          "text": "Emotional / psychological abuse"
+        },
+        {
+          "text": "Remarriage"
+        },
+        {
+          "text": "Six stations of divorce"
+        },
+        {
+          "text": "Elder abuse"
+        }
+      ],
+      "answers": [
+        3
+      ],
+      "explanation": "Best match: Elder abuse - Physical, emotional, or financial mistreatment, or neglect, of an older adult — often by a caregiver. The other choices are real Marriage and Family terms or definitions (Emotional / psychological abuse, Remarriage, Six stations of divorce), but they answer a neighboring concept rather than this exact prompt.",
+      "memoryFocus": [],
+      "source": "SOC-2100_Flashcards.html"
+    }
+  ]
+}
