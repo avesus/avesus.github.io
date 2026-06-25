@@ -1,0 +1,46 @@
+{
+    "generated_at":  "2026-06-25T12:07:50.2877154-07:00",
+    "canonical_video":  "reconfigurable-ripple-2to3to2-preserveguard-d64-exact-525568.webm",
+    "compressed_video":  "reconfigurable-ripple-2to3to2-preserveguard-d64-exact-525568-compressed.mp4",
+    "expected_fabric_updates":  525568,
+    "expected_recorded_frames":  525569,
+    "frame_rule":  "one initial frame before computation plus one frame after each committed fabric update",
+    "qfg_frames":  7956,
+    "qfg_expectations":  704,
+    "qfg_expectation_result":  "all passed",
+    "canonical_video_bytes":  221326894,
+    "compressed_video_bytes":  25964632,
+    "ffprobe_webm":  {
+                         "programs":  [
+
+                                      ],
+                         "streams":  [
+                                         {
+                                             "codec_name":  "vp9",
+                                             "width":  256,
+                                             "height":  256,
+                                             "r_frame_rate":  "1000/1",
+                                             "avg_frame_rate":  "0/0",
+                                             "nb_read_frames":  "525569"
+                                         }
+                                     ]
+                     },
+    "ffprobe_mp4":  {
+                        "programs":  [
+
+                                     ],
+                        "streams":  [
+                                        {
+                                            "codec_name":  "h264",
+                                            "width":  256,
+                                            "height":  256,
+                                            "r_frame_rate":  "1000/1",
+                                            "avg_frame_rate":  "262784500/4072679",
+                                            "nb_frames":  "525569",
+                                            "nb_read_frames":  "525569"
+                                        }
+                                    ]
+                    },
+    "stdout_log":  "codex55-full-exact-stdout.log",
+    "stderr_log":  "codex55-full-exact-stderr.log"
+}

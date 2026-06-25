@@ -1,0 +1,59 @@
+
+> cartilage-runtime-prototype@0.1.0 cartilage-screenshot
+> node scripts/cartilage-lockstep-screenshot.mjs
+
+[host] cartilage http  http://127.0.0.1:8790/
+[host] cartilage edge ws://127.0.0.1:8791/
+edge protocol: reset | t | t4 LM LB TM TB RM RB BM BB | rt4 LEFT TOP RIGHT BOTTOM | r | rm | dc X,Y... | ec SIDE OFFSET BITS32 | em SIDE METAL MASK BITS | tm SIDE METAL MASK BITS | s N | e SIDE MASK BITS | e4 LM LB TM TB RM RB BM BB | c
+[host] fabric connected {"textureSide":64,"edge":{"left":"0000000000000000000000000000000000000000000000000000000000000000","top":"0000000000000000000000000000000000000000000000000000000000000000","right":"0000000000000000000000000000000000000000000000000000000000000000","bottom":"0000000000000000000000000000000000000000000000000000000000000000"}}
+[host] recording start C:\Users\apoll\greenforest.io\avesus.github.io\cartilage\codex5.5\reconfigurable-ripple-2to3to2-preserveguard-d64-exact-525568.webm video/webm;codecs=vp9
+[capture] 1/20 cycle 0 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-000000.png
+[capture] 2/20 cycle 27661 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-027661.png
+[capture] 3/20 cycle 55323 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-055323.png
+[capture] 4/20 cycle 82984 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-082984.png
+[capture] 5/20 cycle 110646 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-110646.png
+[capture] 6/20 cycle 138307 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-138307.png
+[capture] 7/20 cycle 165969 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-165969.png
+[capture] 8/20 cycle 193630 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-193630.png
+[capture] 9/20 cycle 221292 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-221292.png
+[capture] 10/20 cycle 248953 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-248953.png
+[capture] 11/20 cycle 276615 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-276615.png
+[capture] 12/20 cycle 304276 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-304276.png
+[capture] 13/20 cycle 331938 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-331938.png
+[capture] 14/20 cycle 359599 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-359599.png
+[capture] 15/20 cycle 387261 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-387261.png
+[capture] 16/20 cycle 414922 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-414922.png
+[capture] 17/20 cycle 442584 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-442584.png
+[capture] 18/20 cycle 470245 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-470245.png
+[capture] 19/20 cycle 497907 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-497907.png
+[capture] 20/20 cycle 525568 C:\Users\apoll\2026_class_AI\cartilage-runtime\logs\codex55-reconfigurable-ripple-exact-cycle-525568.png
+[host] recording end C:\Users\apoll\greenforest.io\avesus.github.io\cartilage\codex5.5\reconfigurable-ripple-2to3to2-preserveguard-d64-exact-525568.webm bytes=221326894 frames=525569
+{
+  "cycles": 525568,
+  "driveMode": "qfg:logs/tmp-reconfigurable-ripple-2to3to2-preserveguard-d64.qfg",
+  "initialLayout": "qfg-seed",
+  "observedChanges": 525568,
+  "inputSummary": "Streamed 7956 parsed QFG frame declarations from tmp-reconfigurable-ripple-2to3to2-preserveguard-d64.qfg through sparse boundary-metal transport. The selected host layout supplies 4096 explicit seed cell declaration before the stream begins.",
+  "firstSummary": "All observed boundary outputs were inactive.",
+  "lastSummary": "Observed active boundary output at right edge position 16, right edge position 34.",
+  "surfaceAssertion": "",
+  "proofScope": "704 browser expectations checked at QFG frame boundaries; all passed.",
+  "recordingPath": "C:\\Users\\apoll\\greenforest.io\\avesus.github.io\\cartilage\\codex5.5\\reconfigurable-ripple-2to3to2-preserveguard-d64-exact-525568.webm",
+  "recordingStart": {
+    "ok": true,
+    "mimeType": "video/webm;codecs=vp9",
+    "width": 256,
+    "height": 256
+  },
+  "recordingStop": {
+    "ok": true,
+    "frames": 525569,
+    "mimeType": "video/webm;codecs=vp9",
+    "chunks": 8090
+  },
+  "screenshotPath": "C:\\Users\\apoll\\2026_class_AI\\cartilage-runtime\\logs\\cartilage-fabric-codex55-full-exact-qfg-tmp-reconfigurable-ripple-2to3to2-preserveguard-d64-reconfigurable-ripple-2to3to2-preserveguard-d64-callouts-callouts-525568.png",
+  "reportPath": "C:\\Users\\apoll\\2026_class_AI\\cartilage-runtime\\logs\\cartilage-fabric-codex55-full-exact-qfg-tmp-reconfigurable-ripple-2to3to2-preserveguard-d64-reconfigurable-ripple-2to3to2-preserveguard-d64-callouts-callouts-525568.md",
+  "firstEdge": "o L=0000000000000000000000000000000000000000000000000000000000000000 T=0000000000000000000000000000000000000000000000000000000000000000 R=0000000000000000000000000000000000000000000000000000000000000000 B=0000000000000000000000000000000000000000000000000000000000000000",
+  "lastEdge": "o L=0000000000000000000000000000000000000000000000000000000000000000 T=0000000000000000000000000000000000000000000000000000000000000000 R=0000000000000000100000000000000000100000000000000000000000000000 B=0000000000000000000000000000000000000000000000000000000000000000"
+}
+[host] fabric disconnected

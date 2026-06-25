@@ -1,0 +1,17 @@
+grid 64 64
+
+# Native streamed reconfiguration entry path.
+mark 25 28 RECONF ROOT
+mark 25 29 FIRST CHILD
+
+# Streamed delta component used to grow 2-bit -> 3-bit, then return 3-bit -> 2-bit.
+mark 32 34 187 CELL DELTA REGION
+
+# Stable probe and application lanes used by the proof.
+mark 5 8 LEFT INPUT LANE
+mark 15 12 SUM LANE 0
+mark 15 26 SUM LANE 1
+
+# Final observed active output ports after the full run.
+mark 63 16 RESULT OUT 0=1
+mark 63 34 RESULT OUT 1=1

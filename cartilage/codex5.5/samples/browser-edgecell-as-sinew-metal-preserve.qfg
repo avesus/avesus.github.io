@@ -1,0 +1,12 @@
+# Regression: legacy edgecell pwr/gnd fixture lines are ordinary boundary I/O.
+#
+# The line below must drive only the inward-facing Sinew value on the left edge.
+# It must not rewrite the boundary cell body, parent pointer, or config state.
+
+grid 16 16
+
+frame 1
+edgecell left 4 pwr parent right
+
+expect frame 1 cell 0 4 fields orientation=2 mode=0 parent=0 right=1 conf=1 full=0 wp=0
+expect frame 1 edge left sr 4 1
