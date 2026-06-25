@@ -1,0 +1,16 @@
+grid 64 64
+
+# Operand input boundary regions for a = 6 (110b) and b = 5 (101b).
+mark 0 23 INPUT_A=6
+mark 0 3 INPUT_B=5
+
+# Core adder regions.
+mark 15 12 BIT1_SUM_STAGE
+mark 25 30 BIT2_SUM_STAGE
+mark 25 44 CARRY_OUT
+
+# External result ports.
+mark 0 8 s0=1
+mark 63 16 s1=1
+mark 63 34 s2=0
+mark 63 48 s3=1

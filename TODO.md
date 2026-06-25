@@ -31,6 +31,7 @@ Do not publish a fake thumbnail for it. Local HTTP requests, direct media URL at
 ### Cartilage
 
 - The 525,568-cycle QuadFlow timeline article now publishes the video, GIF preview, contact sheet, and source note for a successful checked browser-fabric run.
+- The 6 + 5 full-frame computation article now publishes the seeded 3-bit adder QFG source, callout/plain videos, final states, manifests, run reports, and both 257-frame PNG sequences.
 - Write a more complete article on local ports, parent/daughter regions, serial configuration streams, and bounded replacement.
 - Add deeper QFG stream, driver, and expectation-check notes only from the actual source/log artifacts.
 - Preserve `cellular-automata-2019/cartilage3.html` as the canonical live artifact rather than editing it for site chrome.
