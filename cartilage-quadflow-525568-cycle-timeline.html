@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cartilage QuadFlow 525,568-Cycle Timeline</title>
+    <meta name="description" content="A 20-frame timeline from a successful 525,568-cycle Cartilage/QuadFlow browser-fabric run: 64x64 GLSL fabric, lockstep edge I/O, 7,956 parsed QFG frame declarations, and 704 browser-side expectations passing.">
+    <link rel="canonical" href="https://greenforest.io/cartilage-quadflow-525568-cycle-timeline.html">
+    <meta property="og:title" content="Cartilage QuadFlow 525,568-Cycle Timeline">
+    <meta property="og:description" content="A visual timeline and artifact note for a successful Cartilage/QuadFlow lockstep reconfiguration proof run.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage-quadflow-525568-cycle-timeline.html">
+    <meta property="og:image" content="https://greenforest.io/cartilage/codex5.5/quadflow-cartilage-525568-timeline-contact.png">
+    <link rel="icon" href="data:,">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Cartilage QuadFlow 525,568-Cycle Timeline",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            },
+            "datePublished": "2026-06-25",
+            "dateModified": "2026-06-25",
+            "image": "https://greenforest.io/cartilage/codex5.5/quadflow-cartilage-525568-timeline-contact.png",
+            "description": "A 20-frame timeline from a successful 525,568-cycle Cartilage/QuadFlow browser-fabric run: 64x64 GLSL fabric, lockstep edge I/O, 7,956 parsed QFG frame declarations, and 704 browser-side expectations passing.",
+            "mainEntityOfPage": "https://greenforest.io/cartilage-quadflow-525568-cycle-timeline.html",
+            "publisher": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        .artifact-list {
+            font-family: 'Inconsolata', monospace;
+            font-size: 18px;
+            line-height: 1.45;
+        }
+
+        .timeline-media video,
+        .timeline-media img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .timeline-preview {
+            image-rendering: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <header>Cartilage QuadFlow 525,568-Cycle Timeline</header>
+    <address>June 25, 2026</address>
+
+    <section class="abstract">
+        <p>This artifact records a successful lockstep browser-fabric run of the reconfigurable ripple-adder QFG proof. A 64x64 Cartilage GLSL fabric was driven through 525,568 cycles by external edge I/O, streamed 7,956 parsed QFG frame declarations, and finished with 704 browser-side expectations passing.</p>
+        <p>The visible timeline is deliberately small: 20 committed renderer states sampled from cycle 0 through cycle 525,568. It is a verification artifact, not a cinematic demo of every configuration bit moving through the fabric.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The Artifact Bundle</h1>
+            <p>The media and source note are preserved together under <code>cartilage/codex5.5/</code>. The short video is the easiest way to inspect the sampled run; the contact sheet makes the exact sampled cycle labels visible on one page.</p>
+            <ul class="artifact-list">
+                <li><a href="/cartilage/codex5.5/quadflow-cartilage-525568-timeline.mp4">quadflow-cartilage-525568-timeline.mp4</a> - 10-second H.264 video, 20 sampled states at 2 states per second.</li>
+                <li><a href="/cartilage/codex5.5/quadflow-cartilage-525568-timeline.gif">quadflow-cartilage-525568-timeline.gif</a> - small looping web preview from the same frames.</li>
+                <li><a href="/cartilage/codex5.5/quadflow-cartilage-525568-timeline-contact.png">quadflow-cartilage-525568-timeline-contact.png</a> - all 20 sampled states on one sheet.</li>
+                <li><a href="/cartilage/codex5.5/quadflow-cartilage-525568-timeline.md">quadflow-cartilage-525568-timeline.md</a> - the short local note that states what the run shows and what it does not show.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Video Timeline</h1>
+            <figure class="timeline-media">
+                <video controls preload="metadata" poster="/cartilage/codex5.5/quadflow-cartilage-525568-timeline-contact.png">
+                    <source src="/cartilage/codex5.5/quadflow-cartilage-525568-timeline.mp4" type="video/mp4">
+                    <a href="/cartilage/codex5.5/quadflow-cartilage-525568-timeline.mp4">Open the MP4 timeline</a>
+                </video>
+                <figcaption>Twenty committed visual states sampled evenly from a 525,568-cycle lockstep Cartilage/QuadFlow run.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h1>Contact Sheet</h1>
+            <figure class="timeline-media timeline-preview">
+                <a href="/cartilage/codex5.5/quadflow-cartilage-525568-timeline-contact.png">
+                    <img src="/cartilage/codex5.5/quadflow-cartilage-525568-timeline-contact.png" alt="Twenty sampled committed Cartilage fabric states labeled from cycle 0 through cycle 525,568">
+                </a>
+                <figcaption>The contact sheet is 20 labeled frames from cycle 0, then roughly every 27,661 to 27,662 cycles, through cycle 525,568.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h1>What Ran</h1>
+            <p>The run used a 64x64 Cartilage GLSL fabric with external lockstep edge I/O. In this context, the important claim is not that the picture changes dramatically. The important claim is that the browser-side fabric was stepped through a long, externally driven reconfiguration run and reached the expected final state.</p>
+            <p>The run streamed 7,956 parsed QFG frame declarations. It ended with 704 browser-side expectations passing. The final visible state is the committed result after the 2-bit to 3-bit to 2-bit reversible ripple-adder reconfiguration proof.</p>
+        </section>
+
+        <section>
+            <h1>What The Frames Hide</h1>
+            <p>The renderer exposes committed cell/body state. It does not expose every hidden in-flight configuration shift-register bit. That matters because most of the timeline can look nearly still while the lockstep driver continues advancing the fabric, shifting configuration, and checking boundary behavior.</p>
+            <p>Read the timeline as evidence of a completed run and a way to audit the sampled committed states. Do not read it as a frame-by-frame visualization of all internal configuration traffic.</p>
+        </section>
+
+        <section>
+            <h1>Why This Belongs With Cartilage</h1>
+            <p>The existing <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation article</a> explains the model: local ports, bounded daughter regions, serial configuration streams, tile roles, composability, and no global magic controller.</p>
+            <p>This timeline is a narrower evidence page. It shows that the same family of ideas can be driven as a long, checked browser-fabric run rather than only as a static explanation or a manually inspected demo.</p>
+        </section>
+
+        <section>
+            <h1>Tradeoff</h1>
+            <p>A compact renderer is useful for making committed fabric state visible, but it is not a logic analyzer. The next useful publication layer would expose more of the driver, QFG frame stream, boundary checks, and internal configuration path so the run can be reproduced and audited at a deeper level.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Read next:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
+        <p>The local-port and bounded-region model that makes the timeline meaningful.</p>
+        <p>More:</p>
+        <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
+        <p>The formal Boolean substrate argument behind the Cartilage fabric direction.</p>
+        <a href="/">Go back</a>
+    </nav>
+</body>
+
+</html>
