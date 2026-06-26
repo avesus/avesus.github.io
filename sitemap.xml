@@ -2,7 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://greenforest.io/</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-06-26</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage-visual-language.html</loc>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/the-missing-maker-fab.html</loc>
@@ -18,7 +22,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/boolean-algebra-is-all-that-is-required.html</loc>
-    <lastmod>2026-06-20</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/serial_multiplier/</loc>
@@ -30,19 +34,19 @@
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-nested-instantiation-demo.html</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-exact-frame-reconfiguration-run.html</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-quadflow-525568-cycle-timeline.html</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-quadflow-6-plus-5-full-frame-computation.html</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/blog/</loc>
@@ -78,7 +82,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/cellular-automata-2019/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cellular-automata-2019/cartilage.html</loc>
@@ -339,15 +343,15 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2023-03-26-transformers-as-mathematical-optimization.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2023-03-25-explaining-cartilage-by-comparison-with-hadoop.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2023-03-22-fpgas-claytronics-and-reactive-programming.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2023-03-20-public-work-should-be-open.html</loc>
@@ -403,15 +407,15 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-11-when-one-fpga-is-not-enough.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-05-cartilage-transputers-and-cellmatrix.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-05-fpgas-as-reactive-parallel-beauty.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-01-a-shader-for-nano-fpga-fabric.html</loc>
@@ -423,19 +427,19 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-27-elementary-computation-is-a-switching-operation.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-27-what-cartilage-is-and-is-not.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-27-reactive-programming-implies-distributed-systems.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-26-migrating-from-dsl-languages-to-erlang-like-parallelism.html</loc>
@@ -443,7 +447,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-26-adopting-a-new-massively-parallel-language.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-21-legacy-cloud-infrastructure-and-reprogrammable-fpgas.html</loc>
@@ -455,7 +459,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-18-verilog-as-a-programming-language.html</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-26</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-18-hilbert-13-and-neural-networks.html</loc>

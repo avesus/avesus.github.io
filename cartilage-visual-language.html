@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cartilage Visual Language</title>
+    <meta name="description" content="A visual decoder for the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.">
+    <link rel="canonical" href="https://greenforest.io/cartilage-visual-language.html">
+    <meta property="og:title" content="Cartilage Visual Language">
+    <meta property="og:description" content="The visual vocabulary used by Cartilage fabric renders: 32 cell-role codes built from mode and orientation bits.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage-visual-language.html">
+    <meta property="og:image" content="https://greenforest.io/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png">
+    <link rel="icon" href="data:,">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Cartilage Visual Language",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            },
+            "datePublished": "2026-06-26",
+            "dateModified": "2026-06-26",
+            "image": "https://greenforest.io/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png",
+            "description": "A visual decoder for the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.",
+            "mainEntityOfPage": "https://greenforest.io/cartilage-visual-language.html",
+            "publisher": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <header>Cartilage Visual Language</header>
+    <address>June 26, 2026</address>
+
+    <section class="abstract">
+        <p>Cartilage renders are circuit diagrams drawn from a small cell-role alphabet. The visible marks are not arbitrary icons: they come from the body role stored in each cell, the cell orientation, and the local wires crossing the four sides of the tile.</p>
+        <p>The compact decoder is 32 roles: four special roles, four wire orientations, and six MUX modes in four orientations each.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The Render Key</h1>
+            <figure>
+                <a href="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png">
+                    <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" alt="Cartilage fabric visual-language key showing port, cross, constants, wires, and MUX body types">
+                </a>
+                <figcaption>A 13x13 Cartilage fabric render showing the body-role vocabulary: port, cross, constants, wire orientations, and MUX roles.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h1>How The 32 Codes Are Packed</h1>
+            <p>The renderer stores the visible role as two fields: <code>orientation</code> is two bits, and <code>mode</code> is three bits. The natural body-type code is <code>orientation + 4 * mode</code>, giving codes <code>0</code> through <code>31</code>.</p>
+            <p>Mode <code>0</code> is special: its four orientations mean port, cross, constant zero, and constant one. Mode <code>1</code> is a wire. Modes <code>2</code> through <code>7</code> are the six MUX behaviors, each rotated into four render orientations.</p>
+            <p>The suffixes <code>L</code>, <code>T</code>, <code>B</code>, and <code>R</code> name the rendered orientation. Read them as local tile orientation labels, not as a global coordinate system.</p>
+        </section>
+
+        <section>
+            <h1>Cell Role Codes</h1>
+            <div class="cartilage-code-table">
+                <div class="cartilage-code-row cartilage-code-head">
+                    <div>Code</div>
+                    <div>Role</div>
+                    <div>Purpose</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>00</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Port</span></div>
+                    <div class="cartilage-code-purpose">Local reconfiguration port. It is the tile role through which a parent-owned stream can enter a bounded child region and replace that region's body roles.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>01</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Cross</span></div>
+                    <div class="cartilage-code-purpose">Intersection role. It lets routes cross in the drawn fabric and keeps directional state for crossing paths without turning the tile into a MUX.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>02</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Const 0</span></div>
+                    <div class="cartilage-code-purpose">Fixed zero source. This is the ground role used when a local circuit needs a constant low value.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>03</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Const 1</span></div>
+                    <div class="cartilage-code-purpose">Fixed one source. This is the power role used when a local circuit needs a constant high value.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>04</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Wire L</span></div>
+                    <div class="cartilage-code-purpose">One-input pass-through in left orientation. Wire roles move one local signal through the cell without adding selection logic.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>05</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Wire T</span></div>
+                    <div class="cartilage-code-purpose">One-input pass-through in top orientation. Same wire behavior as <code>Wire L</code>, rotated in the rendered tile.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>06</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Wire B</span></div>
+                    <div class="cartilage-code-purpose">One-input pass-through in bottom orientation. It is used for a routed signal segment through the local fabric.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>07</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Wire R</span></div>
+                    <div class="cartilage-code-purpose">One-input pass-through in right orientation. Same wire role, rotated to the right-facing drawing.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>08</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 2 L</span></div>
+                    <div class="cartilage-code-purpose">Mode 2 MUX in left orientation. Canonical local rule: selector chooses <code>B</code> when high, otherwise <code>R</code>.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>09</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 2 T</span></div>
+                    <div class="cartilage-code-purpose">Mode 2 MUX in top orientation. Same <code>B/R</code> selection behavior, rotated in the tile drawing.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>10</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 2 B</span></div>
+                    <div class="cartilage-code-purpose">Mode 2 MUX in bottom orientation. The mode defines the two data choices; the suffix defines the rendered rotation.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>11</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 2 R</span></div>
+                    <div class="cartilage-code-purpose">Mode 2 MUX in right orientation. This is the right-rotated form of the same selector/data pattern.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>12</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 3 L</span></div>
+                    <div class="cartilage-code-purpose">Mode 3 MUX in left orientation. Canonical local rule: selector chooses <code>R</code> when high, otherwise <code>B</code>.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>13</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 3 T</span></div>
+                    <div class="cartilage-code-purpose">Mode 3 MUX in top orientation. Same <code>R/B</code> selection behavior, rotated in the tile drawing.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>14</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 3 B</span></div>
+                    <div class="cartilage-code-purpose">Mode 3 MUX in bottom orientation. The render shows which rotated form is installed in that cell.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>15</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 3 R</span></div>
+                    <div class="cartilage-code-purpose">Mode 3 MUX in right orientation. Same logic role as mode 3, rotated to the right-facing drawing.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>16</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 4 L</span></div>
+                    <div class="cartilage-code-purpose">Mode 4 MUX in left orientation. Canonical local rule: selector chooses <code>T</code> when high, otherwise <code>R</code>.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>17</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 4 T</span></div>
+                    <div class="cartilage-code-purpose">Mode 4 MUX in top orientation. Same <code>T/R</code> selection behavior, rotated in the tile drawing.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>18</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 4 B</span></div>
+                    <div class="cartilage-code-purpose">Mode 4 MUX in bottom orientation. It is another rotated installation of mode 4 selection logic.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>19</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 4 R</span></div>
+                    <div class="cartilage-code-purpose">Mode 4 MUX in right orientation. Same MUX function, right-oriented in the render.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>20</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 5 L</span></div>
+                    <div class="cartilage-code-purpose">Mode 5 MUX in left orientation. Canonical local rule: selector chooses <code>R</code> when high, otherwise <code>T</code>.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>21</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 5 T</span></div>
+                    <div class="cartilage-code-purpose">Mode 5 MUX in top orientation. Same <code>R/T</code> selection behavior, rotated in the tile drawing.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>22</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 5 B</span></div>
+                    <div class="cartilage-code-purpose">Mode 5 MUX in bottom orientation. The role is mode 5; the suffix is the visual rotation.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>23</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 5 R</span></div>
+                    <div class="cartilage-code-purpose">Mode 5 MUX in right orientation. Same selection role, right-rotated in the fabric drawing.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>24</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 6 L</span></div>
+                    <div class="cartilage-code-purpose">Mode 6 MUX in left orientation. Canonical local rule: selector chooses <code>T</code> when high, otherwise <code>B</code>.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>25</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 6 T</span></div>
+                    <div class="cartilage-code-purpose">Mode 6 MUX in top orientation. Same <code>T/B</code> selection behavior, rotated in the tile drawing.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>26</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 6 B</span></div>
+                    <div class="cartilage-code-purpose">Mode 6 MUX in bottom orientation. This is the bottom-oriented installation of mode 6.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>27</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 6 R</span></div>
+                    <div class="cartilage-code-purpose">Mode 6 MUX in right orientation. Same selector/data role, right-rotated in the render.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>28</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 7 L</span></div>
+                    <div class="cartilage-code-purpose">Mode 7 MUX in left orientation. Canonical local rule: selector chooses <code>B</code> when high, otherwise <code>T</code>.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>29</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 7 T</span></div>
+                    <div class="cartilage-code-purpose">Mode 7 MUX in top orientation. Same <code>B/T</code> selection behavior, rotated in the tile drawing.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>30</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 7 B</span></div>
+                    <div class="cartilage-code-purpose">Mode 7 MUX in bottom orientation. The rendered body is the bottom-oriented form of mode 7.</div>
+                </div>
+                <div class="cartilage-code-row">
+                    <div class="cartilage-code-code"><code>31</code></div>
+                    <div class="cartilage-code-role"><span class="cartilage-role-name">Mux 7 R</span></div>
+                    <div class="cartilage-code-purpose">Mode 7 MUX in right orientation. This is the right-rotated form of the final MUX mode.</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1>How To Read The Drawing</h1>
+            <p>Black marks are asserted local state or output values in the render. White rings are cell/port positions. Tan overlays mark MUX-like structure and visible value flow. Purple marks the reconfiguration-port role. The labels in the image are explanatory labels drawn over the fabric; the fabric itself is still the 32-code cell-role alphabet above.</p>
+            <p>This is the low-level visual vocabulary behind the larger Cartilage articles. A reconfiguration run is easier to inspect once the reader knows which marks mean constants, wires, crosses, MUXes, and ports.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Read next:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
+        <p>The local-port and bounded-region model that uses these cell roles.</p>
+        <p>More:</p>
+        <a href="/cartilage-exact-frame-reconfiguration-run.html">Cartilage Exact-Frame Reconfiguration Run</a>
+        <p>A checked 525,568-update browser-fabric run using this visual language.</p>
+        <a href="/">Go back</a>
+    </nav>
+</body>
+
+</html>

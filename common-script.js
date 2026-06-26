@@ -184,6 +184,46 @@ figcaption {
 	font-style: italic;
 }
 
+.cartilage-visual-link {
+	border-left: 3px solid #888;
+	padding-left: 14px;
+}
+
+.cartilage-code-table {
+	display: grid;
+	gap: 1px;
+	margin: 2rem 0;
+	border: 1px solid #ccc;
+	background: #ccc;
+	text-align: left;
+	-webkit-hyphens: none;
+	hyphens: none;
+}
+
+.cartilage-code-row {
+	display: grid;
+	grid-template-columns: minmax(74px, 0.45fr) minmax(130px, 0.85fr) minmax(220px, 2fr);
+	background: #fff;
+}
+
+.cartilage-code-row > div {
+	padding: 0.55rem 0.7rem;
+}
+
+.cartilage-code-head {
+	font-family: 'Inconsolata', monospace;
+	font-weight: bold;
+	background: #f3f0e7;
+}
+
+.cartilage-role-name {
+	font-weight: bold;
+}
+
+.cartilage-code-purpose {
+	text-align: left;
+}
+
 .key-line {
 	font-size: 24px;
 	line-height: 1.3;
@@ -697,6 +737,44 @@ dt {
 
 	.gf-homepage .artifact-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.cartilage-code-table {
+		display: block;
+		border: none;
+		background: transparent;
+	}
+
+	.cartilage-code-row {
+		display: block;
+		margin: 0 0 14px;
+		border: 1px solid #ccc;
+	}
+
+	.cartilage-code-head {
+		display: none;
+	}
+
+	.cartilage-code-row > div {
+		padding: 0.45rem 0.7rem;
+	}
+
+	.cartilage-code-code::before {
+		content: "Code: ";
+		font-family: 'Inconsolata', monospace;
+		font-weight: bold;
+	}
+
+	.cartilage-code-role::before {
+		content: "Role: ";
+		font-family: 'Inconsolata', monospace;
+		font-weight: bold;
+	}
+
+	.cartilage-code-purpose::before {
+		content: "Purpose: ";
+		font-family: 'Inconsolata', monospace;
+		font-weight: bold;
 	}
 
 	header {
