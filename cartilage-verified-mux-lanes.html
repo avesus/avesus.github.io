@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cartilage Verified Mux Lanes</title>
+    <meta name="description" content="A verified Cartilage fabric render of three independent 2:1 mux lanes driven through edge-surface inputs and checked at right-edge outputs.">
+    <link rel="canonical" href="https://greenforest.io/cartilage-verified-mux-lanes.html">
+    <meta property="og:title" content="Cartilage Verified Mux Lanes">
+    <meta property="og:description" content="A small checked Cartilage fabric example: three edge-driven 2:1 mux lanes with manifest inputs, expected outputs, and a passing edge-surface assertion.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage-verified-mux-lanes.html">
+    <meta property="og:image" content="https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png">
+    <link rel="icon" href="data:,">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Cartilage Verified Mux Lanes",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            },
+            "datePublished": "2026-06-26",
+            "dateModified": "2026-06-26",
+            "image": "https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png",
+            "description": "A verified Cartilage fabric render of three independent 2:1 mux lanes driven through edge-surface inputs and checked at right-edge outputs.",
+            "mainEntityOfPage": "https://greenforest.io/cartilage-verified-mux-lanes.html",
+            "publisher": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <header>Cartilage Verified Mux Lanes</header>
+    <address>June 26, 2026</address>
+
+    <section class="abstract">
+        <p>This is a verified small Cartilage fabric example: three independent 2:1 mux lanes. Each lane selects between a false input from the top edge and a true input from the bottom edge, using a selector from the left edge. The selected value is checked on the right edge.</p>
+        <p>The important part is the edge-surface proof. The example is not only a readable render; the manifest drove boundary values, advanced the fabric, and asserted the expected right-edge outputs.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The Rendered Artifact</h1>
+            <figure class="inspectable-image">
+                <a href="/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png">
+                    <img src="/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png" alt="Verified Cartilage fabric render with three labeled mux lanes, selector inputs on the left, false inputs from the top, true inputs from the bottom, and outputs on the right">
+                </a>
+                <figcaption>A 16x16 Cartilage fabric render of three verified mux lanes. The full-resolution image is linked for inspection.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h1>The Circuit</h1>
+            <p>Each lane is a plain 2:1 mux. The lane reads one selector, one false-side value, and one true-side value:</p>
+            <pre><code>OUT0 = SEL0 ? T0 : F0
+OUT1 = SEL1 ? T1 : F1
+OUT2 = SEL2 ? T2 : F2</code></pre>
+            <p>The three lanes are independent. The value of the example is not arithmetic depth; it is that the inputs and outputs cross the fabric boundary through the external transaction path and are checked against the manifest.</p>
+        </section>
+
+        <section>
+            <h1>Driven Inputs</h1>
+            <p>The manifest drove nine boundary values:</p>
+            <pre><code>SEL0@left4=1   F0@top5=0   T0@bottom5=1
+SEL1@left8=0   F1@top9=1   T1@bottom9=1
+SEL2@left12=1  F2@top13=1  T2@bottom13=0</code></pre>
+            <p>With those values, the expected outputs are:</p>
+            <pre><code>OUT0@right4=1
+OUT1@right8=1
+OUT2@right12=0</code></pre>
+        </section>
+
+        <section>
+            <h1>Verification Result</h1>
+            <p>The generated surface assertion passed:</p>
+            <pre><code>expected OUT0@right4=1, OUT1@right8=1, OUT2@right12=0
+observed OUT0=1, OUT1=1, OUT2=0</code></pre>
+            <p>The run used 160 fabric cycles in manifest drive mode. The first edge readback already showed active left-edge selector positions, and the final readback showed the asserted right-edge outputs.</p>
+        </section>
+
+        <section>
+            <h1>Why This Replaces The Sketches</h1>
+            <p>The earlier full-adder and PC-stepper renders are useful visual placement sketches, but they should not be presented as checked working fabric examples until they have the same kind of edge-surface proof.</p>
+            <p>This mux-lanes render is intentionally smaller. Its claim is narrower and stronger: driven inputs enter through fabric surfaces, local mux islands select values, and the observed outputs match the manifest.</p>
+        </section>
+
+        <section>
+            <h1>Render Notes</h1>
+            <p>The rendered lattice is <code>16x16</code> cells. The PNG is <code>2048x2048</code> pixels. The source manifest is <code>cartilage-grid-rs/examples/external-mux-lanes.surface.qfg</code>.</p>
+            <p>The labels and translucent regions are human reading aids. The underlying cell-role alphabet is decoded in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Read next:</p>
+        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
+        <p>The 32-code cell-role alphabet used by this render.</p>
+        <p>More:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
+        <p>The local-port and bounded-region model behind larger Cartilage fabric examples.</p>
+        <a href="/">Go back</a>
+    </nav>
+</body>
+
+</html>

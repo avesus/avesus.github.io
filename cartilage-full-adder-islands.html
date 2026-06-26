@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cartilage Full-Adder Islands</title>
-    <meta name="description" content="A GLSL-rendered Cartilage fabric showing a full-adder function mapped into mux-based local logic islands with ordinary wire inputs and outputs.">
+    <meta name="description" content="A withdrawn Cartilage visual placement sketch for a full-adder function, preserved as an inspectable render but not presented as a verified fabric proof.">
     <link rel="canonical" href="https://greenforest.io/cartilage-full-adder-islands.html">
     <meta property="og:title" content="Cartilage Full-Adder Islands">
-    <meta property="og:description" content="A rendered Cartilage fabric screenshot: B, A, and carry-in enter as ordinary wires, while SUM and CARRY leave as ordinary routed outputs.">
+    <meta property="og:description" content="A withdrawn visual placement sketch for a Cartilage full-adder mapping. The page now distinguishes the sketch from verified edge-surface examples.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-full-adder-islands.html">
     <meta property="og:image" content="https://greenforest.io/cartilage-full-adder-islands/cartilage-full-adder-islands.png">
@@ -25,7 +25,7 @@
             "datePublished": "2026-06-26",
             "dateModified": "2026-06-26",
             "image": "https://greenforest.io/cartilage-full-adder-islands/cartilage-full-adder-islands.png",
-            "description": "A GLSL-rendered Cartilage fabric showing a full-adder function mapped into mux-based local logic islands with ordinary wire inputs and outputs.",
+            "description": "A withdrawn Cartilage visual placement sketch for a full-adder function, preserved as an inspectable render but not presented as a verified fabric proof.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-full-adder-islands.html",
             "publisher": {
                 "@type": "Person",
@@ -41,8 +41,8 @@
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This is an initialized-cell schematic of a full adder rendered as a Cartilage fabric. The inputs <code>B</code>, <code>A</code>, and <code>Cin</code> enter from the top edge as ordinary routed data wires. The outputs <code>SUM</code> and <code>CARRY</code> leave to the right edge as ordinary routed output wires.</p>
-        <p>The point of the render is the mapping: a familiar one-bit arithmetic block is decomposed into local wire, constant, intersection, and MUX roles inside the same 32-code Cartilage visual language.</p>
+        <p>This page is preserved as a visual placement sketch, not as a verified working Cartilage circuit. The intended full-adder mapping uses <code>B</code>, <code>A</code>, and <code>Cin</code> as top-edge data inputs, with <code>SUM</code> and <code>CARRY</code> routed to the right edge.</p>
+        <p>The useful part is still the mapping vocabulary: a familiar one-bit arithmetic block decomposed into local wire, constant, intersection, and MUX roles inside the same 32-code Cartilage visual language.</p>
     </section>
 
     <main>
@@ -52,13 +52,19 @@
                 <a href="/cartilage-full-adder-islands/cartilage-full-adder-islands.png">
                     <img src="/cartilage-full-adder-islands/cartilage-full-adder-islands.png" alt="Cartilage fabric render of a full adder with B, A, and Cin entering from the top and SUM and CARRY leaving to the right">
                 </a>
-                <figcaption>A 37x37 Cartilage fabric render of an island-style full-adder instantiation.</figcaption>
+                <figcaption>A 37x37 Cartilage visual placement sketch of an island-style full-adder instantiation.</figcaption>
             </figure>
         </section>
 
         <section>
+            <h1>Status</h1>
+            <p>This render is withdrawn as a functional proof. It has not been driven through an edge-surface verification run that asserts its inputs and outputs.</p>
+            <p>For a small checked Cartilage fabric example, use <a href="/cartilage-verified-mux-lanes.html">Cartilage Verified Mux Lanes</a>. That article has manifest-driven inputs and a passing output assertion.</p>
+        </section>
+
+        <section>
             <h1>The Boolean Function</h1>
-            <p>The placed circuit is the extracted full-adder function, expressed as mux-friendly local equations:</p>
+            <p>The intended placed circuit is the extracted full-adder function, expressed as mux-friendly local equations:</p>
             <pre><code>notB  = B ? 0 : 1
 P     = A ? notB : B
 notP  = P ? 0 : 1
@@ -69,8 +75,8 @@ CARRY = P ? Cin : A</code></pre>
 
         <section>
             <h1>Data I/O Is Not Reconfiguration I/O</h1>
-            <p>The top-edge inputs and right-edge outputs are ordinary data routes through neighboring fabric cells. They are not reconfiguration-port cells.</p>
-            <p>That distinction matters in Cartilage. Reconfiguration ports are for changing fabric state. This drawing is showing a configured arithmetic circuit: data enters over wire cells, flows through local MUX islands, and exits over wire cells.</p>
+            <p>In the sketch, the top-edge inputs and right-edge outputs are ordinary data routes through neighboring fabric cells. They are not reconfiguration-port cells.</p>
+            <p>That distinction matters in Cartilage. Reconfiguration ports are for changing fabric state. This drawing is meant to show a configured arithmetic circuit: data entering over wire cells, flowing through local MUX islands, and exiting over wire cells.</p>
         </section>
 
         <section>
@@ -81,7 +87,7 @@ CARRY = P ? Cin : A</code></pre>
 
         <section>
             <h1>Relation To The Hand Sketch</h1>
-            <p>The render is based on the hand-drawn full-adder sheet where <code>B</code>, <code>A</code>, and carry-in enter from the top and <code>SUM</code> plus carry-out leave to the right. It is not an OCR transcription of that photograph.</p>
+            <p>The sketch is based on the hand-drawn full-adder sheet where <code>B</code>, <code>A</code>, and carry-in enter from the top and <code>SUM</code> plus carry-out leave to the right. It is not an OCR transcription of that photograph.</p>
             <p>The published image is the extracted function mapped into available Cartilage cell roles: constants, wires, intersections, and MUX behavior.</p>
         </section>
 
@@ -94,8 +100,8 @@ CARRY = P ? Cin : A</code></pre>
 
     <nav class="article-links">
         <p>Read next:</p>
-        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
-        <p>The 32-code cell-role alphabet used by this render.</p>
+        <a href="/cartilage-verified-mux-lanes.html">Cartilage Verified Mux Lanes</a>
+        <p>A smaller checked fabric example with manifest-driven inputs and asserted outputs.</p>
         <p>More:</p>
         <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
         <p>The local-port and bounded-region model behind larger Cartilage fabric examples.</p>
