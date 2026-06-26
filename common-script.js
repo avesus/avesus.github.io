@@ -9,14 +9,6 @@ var greenforestBoot = window.greenforestBoot || (function() {
 
 	const append_to_head = element => (document.head || root).appendChild(element);
 
-	const boot_style = document.createElement('style');
-	boot_style.textContent = `
-html.gf-loading body {
-	visibility: hidden;
-}
-`;
-	append_to_head(boot_style);
-
 	const font_stylesheet = document.createElement('link');
 	font_stylesheet.rel = 'stylesheet';
 	font_stylesheet.href = '/fonts/greenforest-fonts.css';
@@ -69,6 +61,11 @@ html.gf-loading body {
 		document.body.dataset.greenforestBackdrops = 'installed';
 
 		const create_backdrop = position => {
+			const link = document.createElement('a');
+			link.className = `gf-backdrop-link gf-backdrop-link-${ position }`;
+			link.href = '/';
+			link.setAttribute('aria-label', 'Greenforest I/O homepage');
+
 			const image = document.createElement('img');
 			image.className = `gf-backdrop gf-backdrop-${ position }`;
 			image.src = backdrop_src;
@@ -78,7 +75,8 @@ html.gf-loading body {
 			image.decoding = 'sync';
 			image.loading = 'eager';
 			image.setAttribute('aria-hidden', 'true');
-			return image;
+			link.appendChild(image);
+			return link;
 		};
 
 		document.body.insertAdjacentElement('afterbegin', create_backdrop('top'));
@@ -143,25 +141,38 @@ section {
 	text-justify: auto;
 }
 
-.gf-backdrop {
+.gf-backdrop-link {
 	display: block;
 	width: 100vw;
+	max-width: none;
+	color: inherit;
+	text-decoration: none;
+}
+
+.gf-backdrop-link-top {
+	margin: -40px calc(50% - 50vw) 32px;
+}
+
+.gf-backdrop-link-bottom {
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	margin: 0;
+	transform: translateX(-50%);
+}
+
+.gf-backdrop {
+	display: block;
+	width: 100%;
 	max-width: none;
 	height: var(--gf-backdrop-height);
 	object-fit: cover;
 	object-position: center;
 }
 
-.gf-backdrop-top {
-	margin: -40px calc(50% - 50vw) 32px;
-}
-
-.gf-backdrop-bottom {
-	position: absolute;
-	left: 50%;
-	bottom: 0;
-	margin: 0;
-	transform: translateX(-50%);
+.gf-backdrop-link:focus-visible {
+	outline: 2px solid #520;
+	outline-offset: 2px;
 }
 
 img {
@@ -740,7 +751,7 @@ dt {
 		text-align: left;
 	}
 
-	.gf-backdrop-top {
+	.gf-backdrop-link-top {
 		margin-top: -40px;
 	}
 
