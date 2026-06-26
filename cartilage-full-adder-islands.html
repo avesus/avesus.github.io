@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cartilage Full-Adder Islands</title>
+    <meta name="description" content="A GLSL-rendered Cartilage fabric showing a full-adder function mapped into mux-based local logic islands with ordinary wire inputs and outputs.">
+    <link rel="canonical" href="https://greenforest.io/cartilage-full-adder-islands.html">
+    <meta property="og:title" content="Cartilage Full-Adder Islands">
+    <meta property="og:description" content="A rendered Cartilage fabric screenshot: B, A, and carry-in enter as ordinary wires, while SUM and CARRY leave as ordinary routed outputs.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage-full-adder-islands.html">
+    <meta property="og:image" content="https://greenforest.io/cartilage-full-adder-islands/cartilage-full-adder-islands.png">
+    <link rel="icon" href="data:,">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Cartilage Full-Adder Islands",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            },
+            "datePublished": "2026-06-26",
+            "dateModified": "2026-06-26",
+            "image": "https://greenforest.io/cartilage-full-adder-islands/cartilage-full-adder-islands.png",
+            "description": "A GLSL-rendered Cartilage fabric showing a full-adder function mapped into mux-based local logic islands with ordinary wire inputs and outputs.",
+            "mainEntityOfPage": "https://greenforest.io/cartilage-full-adder-islands.html",
+            "publisher": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <header>Cartilage Full-Adder Islands</header>
+    <address>June 26, 2026</address>
+
+    <section class="abstract">
+        <p>This is an initialized-cell schematic of a full adder rendered as a Cartilage fabric. The inputs <code>B</code>, <code>A</code>, and <code>Cin</code> enter from the top edge as ordinary routed data wires. The outputs <code>SUM</code> and <code>CARRY</code> leave to the right edge as ordinary routed output wires.</p>
+        <p>The point of the render is the mapping: a familiar one-bit arithmetic block is decomposed into local wire, constant, intersection, and MUX roles inside the same 32-code Cartilage visual language.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The Rendered Artifact</h1>
+            <figure>
+                <a href="/cartilage-full-adder-islands/cartilage-full-adder-islands.png">
+                    <img src="/cartilage-full-adder-islands/cartilage-full-adder-islands.png" alt="Cartilage fabric render of a full adder with B, A, and Cin entering from the top and SUM and CARRY leaving to the right">
+                </a>
+                <figcaption>A 37x37 Cartilage fabric render of an island-style full-adder instantiation.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h1>The Boolean Function</h1>
+            <p>The placed circuit is the extracted full-adder function, expressed as mux-friendly local equations:</p>
+            <pre><code>notB  = B ? 0 : 1
+P     = A ? notB : B
+notP  = P ? 0 : 1
+SUM   = Cin ? notP : P
+CARRY = P ? Cin : A</code></pre>
+            <p>Equivalently, <code>P</code> is <code>A xor B</code>, <code>SUM</code> is <code>Cin xor P</code>, and <code>CARRY</code> is <code>(A and B) or (Cin and (A xor B))</code>.</p>
+        </section>
+
+        <section>
+            <h1>Data I/O Is Not Reconfiguration I/O</h1>
+            <p>The top-edge inputs and right-edge outputs are ordinary data routes through neighboring fabric cells. They are not reconfiguration-port cells.</p>
+            <p>That distinction matters in Cartilage. Reconfiguration ports are for changing fabric state. This drawing is showing a configured arithmetic circuit: data enters over wire cells, flows through local MUX islands, and exits over wire cells.</p>
+        </section>
+
+        <section>
+            <h1>Why The Islands Are Spread Out</h1>
+            <p>The fabric is intentionally over-provisioned. Most cells remain in the constant-zero sea so the labels have readable space and each logic island can be inspected without the picture turning into a dense routing block.</p>
+            <p>The sea is interrupted by the wire cells and intersection cells needed to carry <code>B</code>, <code>A</code>, <code>Cin</code>, <code>P</code>, <code>SUM</code>, and <code>CARRY</code> between islands and to the fabric edge.</p>
+        </section>
+
+        <section>
+            <h1>Relation To The Hand Sketch</h1>
+            <p>The render is based on the hand-drawn full-adder sheet where <code>B</code>, <code>A</code>, and carry-in enter from the top and <code>SUM</code> plus carry-out leave to the right. It is not an OCR transcription of that photograph.</p>
+            <p>The published image is the extracted function mapped into available Cartilage cell roles: constants, wires, intersections, and MUX behavior.</p>
+        </section>
+
+        <section>
+            <h1>Render Notes</h1>
+            <p>The rendered lattice is <code>37x37</code> cells. The PNG is <code>2960x2960</code> pixels. It is a cycle-zero initialized-cell schematic with ten semantic labels.</p>
+            <p>Read the white label boxes as human callouts. The underlying fabric vocabulary is still the same Cartilage cell-role alphabet explained in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Read next:</p>
+        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
+        <p>The 32-code cell-role alphabet used by this render.</p>
+        <p>More:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
+        <p>The local-port and bounded-region model behind larger Cartilage fabric examples.</p>
+        <a href="/">Go back</a>
+    </nav>
+</body>
+
+</html>

@@ -5,6 +5,7 @@ _site/
 screenshots/
 *.swp
 one-pin-RF/**/build/
+cartilage-full-adder-islands/PUBLISHER.md
 
 # Exact-frame Cartilage captures can exceed GitHub's 100 MB file limit.
 cartilage/codex5.5/*-exact-*.webm
