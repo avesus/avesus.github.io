@@ -85,6 +85,8 @@ For a new article, prioritize:
 - A sitemap entry.
 - A bottom navigation block that does not become a generic related-links dump.
 
+Large technical images need a deliberate mobile presentation. Do not publish a huge schematic, fabric render, scope shot, board photo, or code screenshot only as a single squeezed column image. The reader must be able to inspect it. At minimum, wrap the image in a link to the full-resolution asset. For dense artifacts, use the shared inspectable-image treatment so mobile readers can pan horizontally, open the original image, and pinch-zoom in the browser. When the full image is too dense to be useful inline, embed a cropped fragment or small overview and link clearly to the full-resolution artifact. Choose the presentation per article; do not hard-code inline CSS into article HTML.
+
 "Artifact link" means a reader-facing link/card to something usable or inspectable: runnable demo, PDF paper, image, video, source repository, circuit file, Verilog file, ShaderToy, local static HTML demo, or downloadable asset. The site does not yet have a thumbnail/card system for these. Build one before publishing many artifact-heavy articles.
 
 Use `backdrop_rf.jpeg` as a likely visual asset for an SDR/radio article or RF work preview, not as generic decoration.

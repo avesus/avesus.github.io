@@ -9,6 +9,13 @@ var greenforestBoot = window.greenforestBoot || (function() {
 
 	const append_to_head = element => (document.head || root).appendChild(element);
 
+	const backdrop_src = '/linkedin-forest-backdrop.jpeg';
+	const backdrop_preload = document.createElement('link');
+	backdrop_preload.rel = 'preload';
+	backdrop_preload.as = 'image';
+	backdrop_preload.href = backdrop_src;
+	append_to_head(backdrop_preload);
+
 	const font_stylesheet = document.createElement('link');
 	font_stylesheet.rel = 'stylesheet';
 	font_stylesheet.href = '/fonts/greenforest-fonts.css';
@@ -38,7 +45,6 @@ var greenforestBoot = window.greenforestBoot || (function() {
 		]).then(() => document.fonts.ready);
 	});
 
-	const backdrop_src = '/linkedin-forest-backdrop.jpeg';
 	const backdrop_ready = new Promise(resolve => {
 		const image = new Image();
 		image.decoding = 'sync';
@@ -65,17 +71,6 @@ var greenforestBoot = window.greenforestBoot || (function() {
 			link.className = `gf-backdrop-link gf-backdrop-link-${ position }`;
 			link.href = '/';
 			link.setAttribute('aria-label', 'Greenforest I/O homepage');
-
-			const image = document.createElement('img');
-			image.className = `gf-backdrop gf-backdrop-${ position }`;
-			image.src = backdrop_src;
-			image.width = 1400;
-			image.height = 350;
-			image.alt = '';
-			image.decoding = 'sync';
-			image.loading = 'eager';
-			image.setAttribute('aria-hidden', 'true');
-			link.appendChild(image);
 			return link;
 		};
 
@@ -84,6 +79,7 @@ var greenforestBoot = window.greenforestBoot || (function() {
 	};
 
 	let ready_started = false;
+	dom_ready.then(install_backdrops);
 
 	return window.greenforestBoot = {
 		ready: function() {
@@ -119,7 +115,7 @@ var greenforestBoot = window.greenforestBoot || (function() {
 if (!document.querySelector('meta[name="viewport"]')) {
 	const meta_viewport = document.createElement('meta');
 	meta_viewport.name = 'viewport';
-	meta_viewport.content = 'initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover';
+	meta_viewport.content = 'width=device-width, initial-scale=1, viewport-fit=cover';
 	document.head.appendChild(meta_viewport);
 }
 
@@ -143,31 +139,23 @@ section {
 
 .gf-backdrop-link {
 	display: block;
+	position: absolute;
+	left: 50%;
 	width: 100vw;
 	max-width: none;
+	height: var(--gf-backdrop-height);
 	color: inherit;
 	text-decoration: none;
+	transform: translateX(-50%);
+	z-index: 2;
 }
 
 .gf-backdrop-link-top {
-	margin: -40px calc(50% - 50vw) 32px;
+	top: 0;
 }
 
 .gf-backdrop-link-bottom {
-	position: absolute;
-	left: 50%;
 	bottom: 0;
-	margin: 0;
-	transform: translateX(-50%);
-}
-
-.gf-backdrop {
-	display: block;
-	width: 100%;
-	max-width: none;
-	height: var(--gf-backdrop-height);
-	object-fit: cover;
-	object-position: center;
 }
 
 .gf-backdrop-link:focus-visible {
@@ -187,6 +175,16 @@ figure img {
 	display: block;
 	width: 100%;
 	height: auto;
+}
+
+figure.inspectable-image {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	overscroll-behavior-x: contain;
+}
+
+figure.inspectable-image a {
+	display: block;
 }
 
 figcaption {
@@ -656,7 +654,7 @@ dt {
 		width: 900px;
 		position: relative;
 		min-height: 100vh;
-		padding-top: 40px;
+		padding-top: calc(var(--gf-backdrop-height) + 32px);
 		padding-left: 150px;
 		padding-right: 150px;
 		padding-bottom: calc(var(--gf-bottom-backdrop-gap) + var(--gf-backdrop-height));
@@ -666,6 +664,35 @@ dt {
 		margin-left: auto;
 		margin-right: auto;
 		font-family: 'EB Garamond', serif;
+	}
+
+	body::before,
+	body::after {
+		content: "";
+		position: absolute;
+		left: 50%;
+		width: 100vw;
+		height: var(--gf-backdrop-height);
+		background-image: url('/linkedin-forest-backdrop.jpeg');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		pointer-events: none;
+		transform: translateX(-50%);
+		z-index: 0;
+	}
+
+	body::before {
+		top: 0;
+	}
+
+	body::after {
+		bottom: 0;
+	}
+
+	body > :not(.gf-backdrop-link) {
+		position: relative;
+		z-index: 1;
 	}
 
 	header {
@@ -751,10 +778,6 @@ dt {
 		text-align: left;
 	}
 
-	.gf-backdrop-link-top {
-		margin-top: -40px;
-	}
-
 	.gf-homepage .lead {
 		font-size: 22px;
 	}
@@ -803,6 +826,11 @@ dt {
 		content: "Purpose: ";
 		font-family: 'Inconsolata', monospace;
 		font-weight: bold;
+	}
+
+	figure.inspectable-image img {
+		width: 900px;
+		max-width: none;
 	}
 
 	header {
