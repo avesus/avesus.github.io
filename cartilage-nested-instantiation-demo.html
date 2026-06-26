@@ -32,53 +32,6 @@
         }
     </script>
     <script src="/common-script.js" type="text/javascript"></script>
-    <style>
-        .artifact-link {
-            font-size: 24px;
-        }
-
-        .role-list {
-            font-family: 'Inconsolata', monospace;
-            font-size: 18px;
-            line-height: 1.4;
-        }
-
-        .role-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 24px;
-            margin: 28px 0;
-        }
-
-        .role-card {
-            margin: 0;
-        }
-
-        .role-card img {
-            display: block;
-            width: 100%;
-            height: auto;
-            border: 1px solid #d4d4d4;
-            background: #fff;
-        }
-
-        .role-card figcaption {
-            margin-top: 8px;
-            font-size: 16px;
-            line-height: 1.35;
-            font-style: normal;
-            text-align: left;
-        }
-
-        .role-card strong {
-            font-family: 'Inconsolata', monospace;
-            font-style: normal;
-        }
-
-        .render-note {
-            font-size: 17px;
-        }
-    </style>
 </head>
 
 <body>
@@ -112,35 +65,18 @@
         </section>
 
         <section>
-            <h1>Reading The Tile Render</h1>
-            <p>The visible fabric is a grid of small cells. A white ring is a cell body or port position. Dark stubs and dark centers are rendered state/output values on that cell's local wires. The tan/yellow marks are not decoration; they make active MUX-style structure and value flow easier to see in a still frame.</p>
-            <div class="role-grid">
-                <figure class="role-card">
-                    <img src="/cartilage/role-illustrations/wire-strip.png" alt="Cartilage render crop showing a strip of wire cells">
-                    <figcaption><strong>Wire, mode 1.</strong> A wire tile is a one-input pass-through. The orientation selects which neighbor is being sampled, and the rendered line/stub shows the local route through the fabric.</figcaption>
-                </figure>
-                <figure class="role-card">
-                    <img src="/cartilage/role-illustrations/mux-tile.png" alt="Cartilage render crop showing a MUX tile">
-                    <figcaption><strong>MUX, modes 2 through 7.</strong> A MUX tile consumes three inputs: one selector and two candidate data inputs. The highlighted diagonal shows the currently selected data side in that orientation.</figcaption>
-                </figure>
-                <figure class="role-card">
-                    <img src="/cartilage/role-illustrations/crossbar-intersection.png" alt="Cartilage render crop showing a crossbar intersection tile">
-                    <figcaption><strong>Cross/intersection, special orientation 1.</strong> This special tile is the place where horizontal and vertical routes can cross in the rendered fabric. The small directional bubbles belong to the local crossing state, not to a separate hidden controller.</figcaption>
-                </figure>
-                <figure class="role-card">
-                    <img src="/cartilage/role-illustrations/reconfiguration-port.png" alt="Cartilage render crop showing a purple reconfiguration port tile">
-                    <figcaption><strong>Reconfiguration port, special orientation 0.</strong> Purple marks the local port used to feed configuration into a bounded child region. It is still a tile role inside the same fabric.</figcaption>
-                </figure>
-                <figure class="role-card">
-                    <img src="/cartilage/role-illustrations/constant-gnd-cell.png" alt="Cartilage render crop showing a band of constant zero cells">
-                    <figcaption><strong>GND, special orientation 2.</strong> Ground is the fixed-zero special tile. In a still render it often looks quiet because the value being driven is zero; the important point is that the tile role supplies a constant input to neighboring logic.</figcaption>
-                </figure>
-                <figure class="role-card">
-                    <img src="/cartilage/role-illustrations/constant-pwr-cell.png" alt="Cartilage render crop showing a band of constant one cells">
-                    <figcaption><strong>PWR, special orientation 3.</strong> Power is the fixed-one special tile. In the render it appears as asserted local state/output where that constant participates in the nearby route.</figcaption>
-                </figure>
-            </div>
-            <p class="render-note">Boundary labels such as SEL, MUX, OUT, and bit-stage callouts are explanatory overlays on top of the fabric render. They are not extra tile roles. The tile roles are the configured cell behaviors above; the overlays are there to make the instantiated circuit readable at article scale.</p>
+            <h1>Reading The Fabric Render</h1>
+            <p>The render is not a screenshot collage. It is a compact circuit notation. Each visible cell has a body-role code made from two orientation bits and three mode bits: <code>orientation + 4 * mode</code>. That gives 32 renderable cell roles.</p>
+            <figure>
+                <a href="/cartilage-visual-language.html">
+                    <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" alt="Cartilage fabric visual-language key showing the 32 body-role codes">
+                </a>
+                <figcaption>The 32-code Cartilage role alphabet. Open the visual-language article for the full decoder.</figcaption>
+            </figure>
+            <p>Mode <code>0</code> is special: orientation <code>0</code> is the local reconfiguration port, orientation <code>1</code> is the cross/intersection role, orientation <code>2</code> is constant zero, and orientation <code>3</code> is constant one. Mode <code>1</code> is a wire in four orientations. Modes <code>2</code> through <code>7</code> are the six MUX behaviors, again in four orientations each.</p>
+            <p>The point of this alphabet is that the same fabric can be rewritten locally. A configuration stream entering a reconfiguration port does not paint an annotation onto the picture; it replaces the child region's actual body roles: ports, crosses, constants, wires, and MUXes.</p>
+            <p>Read the purple port as local configuration ingress, not as a global controller. Read the cross as a route-intersection primitive with directional state. Read constants as local fixed sources. Read wires as one-input pass-through routes. Read MUX tiles as the switching primitive that lets the fabric build logic from local selections.</p>
+            <p>Black and white discs/stubs show rendered signal state and output values on top of those roles. They are runtime state marks, not additional cell types. Labels drawn over publication images are callouts for the human reader; the underlying machine vocabulary is the 32-code body-role alphabet.</p>
         </section>
 
         <section>

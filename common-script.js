@@ -718,9 +718,26 @@ dt {
 }
 
 @media screen and (max-width: 640px) {
+	html {
+		overflow-x: hidden;
+	}
+
 	body {
-		padding-left: 40px;
-		padding-right: 40px;
+		max-width: 100vw;
+		overflow-x: hidden;
+		padding-left: 24px;
+		padding-right: 24px;
+	}
+
+	header {
+		font-size: 36px;
+		margin-left: 0;
+		margin-right: 0;
+		overflow-wrap: break-word;
+	}
+
+	section {
+		text-align: left;
 	}
 
 	.gf-backdrop-top {
