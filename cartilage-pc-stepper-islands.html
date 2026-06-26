@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cartilage PC Stepper Islands</title>
+    <meta name="description" content="A GLSL-rendered Cartilage fabric showing a 4-bit conditional incrementer mapped into repeated local MUX islands with ordinary edge I/O and visible carry propagation.">
+    <link rel="canonical" href="https://greenforest.io/cartilage-pc-stepper-islands.html">
+    <meta property="og:title" content="Cartilage PC Stepper Islands">
+    <meta property="og:description" content="A rendered Cartilage fabric screenshot of OUT = ENABLE ? (IN + 1) : IN: repeated bit slices, local toggle/carry islands, and ordinary metal-adjacent I/O.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage-pc-stepper-islands.html">
+    <meta property="og:image" content="https://greenforest.io/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png">
+    <link rel="icon" href="data:,">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Cartilage PC Stepper Islands",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            },
+            "datePublished": "2026-06-26",
+            "dateModified": "2026-06-26",
+            "image": "https://greenforest.io/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png",
+            "description": "A GLSL-rendered Cartilage fabric showing a 4-bit conditional incrementer mapped into repeated local MUX islands with ordinary edge I/O and visible carry propagation.",
+            "mainEntityOfPage": "https://greenforest.io/cartilage-pc-stepper-islands.html",
+            "publisher": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <header>Cartilage PC Stepper Islands</header>
+    <address>June 26, 2026</address>
+
+    <section class="abstract">
+        <p>This is a placed-and-routed 4-bit conditional incrementer rendered as a Cartilage fabric. The circuit computes <code>OUT = ENABLE ? (IN + 1) : IN</code>.</p>
+        <p>That is the small control block behind a program-counter step, sequencer advance, DMA address bump, or state machine register that either holds its value or moves to the next value.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The Rendered Artifact</h1>
+            <figure class="inspectable-image">
+                <a href="/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png">
+                    <img src="/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png" alt="Cartilage fabric render of a 4-bit conditional incrementer with IN lanes from the left, ENABLE from the top, OUT lanes to the right, and final carry C4">
+                </a>
+                <figcaption>A 55x55 Cartilage fabric render of a 4-bit program-counter stepper. The full-resolution image is linked for inspection.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h1>The Stepper Function</h1>
+            <p>Each bit slice receives one input bit and one carry bit. The carry seed is <code>C[0] = ENABLE</code>, so the circuit increments only when enable is asserted.</p>
+            <pre><code>OUT[i]    = IN[i] xor C[i]
+C[i + 1] = IN[i] and C[i]
+C[0]     = ENABLE</code></pre>
+            <p>When <code>ENABLE</code> is zero, the first carry is zero and every output bit copies its input. When <code>ENABLE</code> is one, the carry ripple performs the ordinary increment-by-one operation.</p>
+        </section>
+
+        <section>
+            <h1>MUX Island Decomposition</h1>
+            <p>The Cartilage placement uses mux-friendly local logic islands. Each bit slice is decomposed into a local inversion island, an output toggle island, and a carry island:</p>
+            <pre><code>notIN[i] = IN[i] ? 0 : 1
+OUT[i]   = C[i] ? notIN[i] : IN[i]
+C[i + 1] = IN[i] ? C[i] : 0</code></pre>
+            <p>The repeated structure is the point of the render. It is easier to inspect than a single adder because the four slices show the same local rule repeated with a visible carry chain.</p>
+        </section>
+
+        <section>
+            <h1>How To Read The Routes</h1>
+            <p><code>ENABLE</code> enters from the top edge and seeds <code>C0</code>. <code>IN0</code> through <code>IN3</code> enter from the left edge. <code>OUT0</code> through <code>OUT3</code> leave to the right edge, and the final overflow carry <code>C4</code> is also routed to the right edge.</p>
+            <p>The sea around the active logic is mostly constant-zero cells. It is intentionally spacious so the repeated slice structure, local toggle islands, carry islands, intersections, and edge routes stay readable.</p>
+        </section>
+
+        <section>
+            <h1>Data I/O Is Ordinary Fabric Routing</h1>
+            <p>The data inputs and outputs are ordinary metal adjacency through neighboring fabric cells. Reconfiguration-port cells are not used for these data paths.</p>
+            <p>That distinction is part of the Cartilage model: reconfiguration ports change fabric state, while this screenshot shows a configured control/arithmetic datapath carrying runtime data through local wires, intersections, constants, and MUX behavior.</p>
+        </section>
+
+        <section>
+            <h1>Render Notes</h1>
+            <p>The rendered lattice is <code>55x55</code> cells. The PNG is <code>3080x3080</code> pixels. It is a cycle-zero initialized-cell schematic with 19 semantic labels.</p>
+            <p>The labels are callouts for the human reader, not extra tile roles. The cell vocabulary is the same Cartilage render alphabet decoded in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Read next:</p>
+        <a href="/cartilage-full-adder-islands.html">Cartilage Full-Adder Islands</a>
+        <p>A smaller one-bit arithmetic example rendered with the same island-style fabric vocabulary.</p>
+        <p>More:</p>
+        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
+        <p>The 32-code cell-role alphabet used by this render.</p>
+        <a href="/">Go back</a>
+    </nav>
+</body>
+
+</html>
