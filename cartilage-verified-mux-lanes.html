@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cartilage Verified Mux Lanes</title>
-    <meta name="description" content="A verified Cartilage fabric render of three independent 2:1 mux lanes driven through edge-surface inputs and checked at right-edge outputs.">
+    <title>Cartilage Mux Lanes Debug Fixture</title>
+    <meta name="description" content="A withdrawn Cartilage mux-lanes debug fixture, preserved for audit context but no longer presented as the public website deliverable.">
     <link rel="canonical" href="https://greenforest.io/cartilage-verified-mux-lanes.html">
-    <meta property="og:title" content="Cartilage Verified Mux Lanes">
-    <meta property="og:description" content="A small checked Cartilage fabric example: three edge-driven 2:1 mux lanes with manifest inputs, expected outputs, and a passing edge-surface assertion.">
+    <meta property="og:title" content="Cartilage Mux Lanes Debug Fixture">
+    <meta property="og:description" content="A withdrawn Cartilage mux-lanes proof/debug fixture. The current visitor-facing replacement is the verified ripple2 adder.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-verified-mux-lanes.html">
     <meta property="og:image" content="https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png">
@@ -17,7 +17,7 @@
         {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Cartilage Verified Mux Lanes",
+            "headline": "Cartilage Mux Lanes Debug Fixture",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest"
@@ -25,7 +25,7 @@
             "datePublished": "2026-06-26",
             "dateModified": "2026-06-26",
             "image": "https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png",
-            "description": "A verified Cartilage fabric render of three independent 2:1 mux lanes driven through edge-surface inputs and checked at right-edge outputs.",
+            "description": "A withdrawn Cartilage mux-lanes debug fixture, preserved for audit context but no longer presented as the public website deliverable.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-verified-mux-lanes.html",
             "publisher": {
                 "@type": "Person",
@@ -37,12 +37,12 @@
 </head>
 
 <body>
-    <header>Cartilage Verified Mux Lanes</header>
+    <header>Cartilage Mux Lanes Debug Fixture</header>
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This is a verified small Cartilage fabric example: three independent 2:1 mux lanes. Each lane selects between a false input from the top edge and a true input from the bottom edge, using a selector from the left edge. The selected value is checked on the right edge.</p>
-        <p>The important part is the edge-surface proof. The example is not only a readable render; the manifest drove boundary values, advanced the fabric, and asserted the expected right-edge outputs.</p>
+        <p>This artifact is withdrawn as a website deliverable. It remains a useful proof/debug fixture, but its annotation overlay comes from the older manifest <code>marks</code> path and should not be treated as the clean public schematic.</p>
+        <p>The current visitor-facing replacement is <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>.</p>
     </section>
 
     <main>
@@ -54,6 +54,12 @@
                 </a>
                 <figcaption>A 16x16 Cartilage fabric render of three verified mux lanes. The full-resolution image is linked for inspection.</figcaption>
             </figure>
+        </section>
+
+        <section>
+            <h1>Status</h1>
+            <p>The mux-lanes run still demonstrates a real edge-surface check: boundary inputs are driven, local mux islands compute selections, and checked values reach the right edge.</p>
+            <p>It is not the final public visual because the screenshot is a debug fixture. The page is preserved so old links explain the withdrawal instead of silently presenting the image as polished evidence.</p>
         </section>
 
         <section>
@@ -86,12 +92,6 @@ observed OUT0=1, OUT1=1, OUT2=0</code></pre>
         </section>
 
         <section>
-            <h1>Why This Replaces The Sketches</h1>
-            <p>The earlier full-adder and PC-stepper renders are useful visual placement sketches, but they should not be presented as checked working fabric examples until they have the same kind of edge-surface proof.</p>
-            <p>This mux-lanes render is intentionally smaller. Its claim is narrower and stronger: driven inputs enter through fabric surfaces, local mux islands select values, and the observed outputs match the manifest.</p>
-        </section>
-
-        <section>
             <h1>Render Notes</h1>
             <p>The rendered lattice is <code>16x16</code> cells. The PNG is <code>2048x2048</code> pixels. The source manifest is <code>cartilage-grid-rs/examples/external-mux-lanes.surface.qfg</code>.</p>
             <p>The labels and translucent regions are human reading aids. The underlying cell-role alphabet is decoded in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
@@ -100,8 +100,8 @@ observed OUT0=1, OUT1=1, OUT2=0</code></pre>
 
     <nav class="article-links">
         <p>Read next:</p>
-        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
-        <p>The 32-code cell-role alphabet used by this render.</p>
+        <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>
+        <p>The current checked public replacement with generated QFG source and 96 browser expectations passing.</p>
         <p>More:</p>
         <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
         <p>The local-port and bounded-region model behind larger Cartilage fabric examples.</p>
