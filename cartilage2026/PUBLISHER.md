@@ -93,7 +93,7 @@ Existing site anchors that may be relevant:
 - `/cellular-automata-2019/cartilage3.html`
 - `/cartilage-visual-language.html`
 - `/cartilage-nested-instantiation-demo.html`
-- `/cartilage-exact-frame-reconfiguration-run.html`
+- `/cellular-automata-2019/`
 
 Use links only where the article text explains why they matter. Do not dump a generic related-links list.
 
