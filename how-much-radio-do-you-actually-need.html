@@ -25,7 +25,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-04-22",
-            "dateModified": "2026-06-21",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/backdrop_rf.jpeg",
             "description": "A one-pin FPGA FM receiver that thresholds RF into transitions, samples in four phases, uses Weaver-style XOR mixing, CIC filtering, cross-product FM demodulation, and sigma-delta audio output.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
@@ -51,6 +51,11 @@
         <p>So I forced the design into a corner:</p>
         <p class="key-line"><strong>one input pin, one FPGA, real FM in, real sound out.</strong></p>
         <p>That is not a slogan. It is a way to make the argument answerable to hardware.</p>
+        <div class="status-box">
+            <p><span class="status-label">Verified artifact</span>This page is an artifact-backed radio reduction, not a claim that all radio should be built this way.</p>
+            <p><strong>What is preserved here:</strong> the FPGA input threshold, RF transition stream, four-phase sampling, Weaver-style XOR mixing, CIC filtering, cross-product FM discriminator, sigma-delta audio output, one-pin resonant-tank transmitter direction, videos, and Verilog source follow-up.</p>
+            <p><strong>What this does not prove:</strong> receiver robustness under every RF environment, calibrated performance against conventional SDR front ends, or independence from the FPGA input hardware that makes the trick possible.</p>
+        </div>
     </section>
 
     <figure>
@@ -181,7 +186,7 @@
 
         <section>
             <h1>The Verilog Follow-Up</h1>
-            <p>The added source snapshot is now in <a href="one-pin-RF/">one-pin-RF/</a>. The selected receiver file for this article is <a href="one-pin-RF/fm_radio_demo_2026/fm_radio_nov15.sv">fm_radio_demo_2026/fm_radio_nov15.sv</a>, because <a href="one-pin-RF/fm_radio_demo_2026/build.sh">build.sh</a> is wired to synthesize that file for an iCE40 UP5K build. The nearby <code>fm_radio_2026_pin_4_3.sv</code> file is a near-identical retuned variant, not the build target.</p>
+            <p>The added source snapshot is now in <a href="one-pin-RF/README.md">one-pin-RF/README.md</a>. The selected receiver file for this article is <a href="one-pin-RF/fm_radio_demo_2026/fm_radio_nov15.sv">fm_radio_demo_2026/fm_radio_nov15.sv</a>, because <a href="one-pin-RF/fm_radio_demo_2026/build.sh">build.sh</a> is wired to synthesize that file for an iCE40 UP5K build. The nearby <code>fm_radio_2026_pin_4_3.sv</code> file is a near-identical retuned variant, not the build target.</p>
             <p>The build path is explicit: Yosys reads the SystemVerilog, nextpnr targets UP5K SG48 with the pin constraints, IceStorm packs the bitstream, and <code>dfu-util</code> downloads it.</p>
             <pre><code>read_verilog -sv ./fm_radio_nov15.sv
 synth_ice40 -top top -json ./build/fm_radio.json
@@ -271,9 +276,18 @@ assign PIN2 = ~dac_out;</code></pre>
             <p>Less than the inherited stack tells you.</p>
             <p>And that is exactly why I built it.</p>
         </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If you know RF front ends, FPGA I/O behavior, or SDR receiver testing, I would value the harshest failure case you would measure first: which simplification breaks earliest, and what instrument would make that visible?</p>
+        </section>
     </main>
 
     <nav class="article-links">
+        <p>Next:</p>
+        <a href="the-missing-maker-fab.html">The Missing Maker Fab</a>
+        <p>The broader ownership boundary behind the one-pin hardware experiment.</p>
+        <p>More:</p>
         <a href="boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
         <a href="/">Back to greenforest.io</a>
     </nav>

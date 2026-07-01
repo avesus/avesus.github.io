@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2024-06-22",
-            "dateModified": "2026-06-20",
+            "dateModified": "2026-07-01",
             "description": "A public tiny Transformer training artifact: 4 layers, 16 heads, 128-d embeddings, 128-token context, 361-token vocabulary, and about 835k logged parameters.",
             "mainEntityOfPage": "https://greenforest.io/four-layer-tiny-transformer-training-run.html",
             "publisher": {
@@ -57,8 +57,14 @@
     <address>June 22, 2024</address>
 
     <section class="abstract">
+        <p>A tiny model is valuable here because it can be inspected, not because it competes with large models.</p>
         <p>This is a tiny generative Transformer training artifact: 4 layers, 16 attention heads, 128-dimensional embeddings, 128-token context, a 361-token custom vocabulary, and about 835k logged parameters, trained on CPU past 50,000 iterations until it produced recognizable small-story text.</p>
         <p>The point is not that this is a benchmark model. The point is that the model is small enough to inspect.</p>
+        <div class="status-box">
+            <p><span class="status-label">Training artifact</span>This is a small public training run, not a benchmark claim.</p>
+            <p><strong>What is preserved here:</strong> <code>4</code> layers, <code>16</code> attention heads, <code>128</code>-dimensional embeddings, <code>128</code>-token context, <code>361</code>-token vocabulary, about <code>835k</code> logged parameters, CPU training past <code>50,000</code> iterations, loss logs, command, PR, and generated samples.</p>
+            <p><strong>What this does not prove:</strong> competitive model quality, general training theory, or production usefulness.</p>
+        </div>
     </section>
 
     <main>
@@ -107,6 +113,11 @@
             <h1>Tradeoff</h1>
             <p>A run this small is not a replacement for a useful production language model. Its value is visibility. The architecture, tokenizer size, context length, parameter tensors, training command, loss log, and sample behavior all fit into one inspectable record.</p>
         </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If you work on small-model training, I would value the first missing measurement or artifact that would make this run easier to reproduce and judge honestly.</p>
+        </section>
     </main>
 
     <nav class="article-links">
@@ -121,4 +132,3 @@
 </body>
 
 </html>
-

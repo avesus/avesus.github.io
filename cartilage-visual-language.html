@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-06-26",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png",
             "description": "A visual decoder for the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-visual-language.html",
@@ -41,8 +41,14 @@
     <address>June 26, 2026</address>
 
     <section class="abstract">
+        <p>Before asking a stranger to believe a fabric, I need to teach them how to read its marks.</p>
         <p>Cartilage renders are circuit diagrams drawn from a small cell-role alphabet. The visible marks are not arbitrary icons: they come from the body role stored in each cell, the cell orientation, and the local wires crossing the four sides of the tile.</p>
         <p>The compact decoder is 32 roles: four special roles, four wire orientations, and six MUX modes in four orientations each.</p>
+        <div class="status-box">
+            <p><span class="status-label">Visual language</span>This is a decoder page, not a proof run.</p>
+            <p><strong>What is preserved here:</strong> the 32-code role alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations.</p>
+            <p><strong>What this does not prove:</strong> that any particular circuit on the site has passed verification. It tells you how to inspect those pages.</p>
+        </div>
     </section>
 
     <main>
@@ -238,6 +244,11 @@
             <h1>How To Read The Drawing</h1>
             <p>Black marks are asserted local state or output values in the render. White rings are cell/port positions. Tan overlays mark MUX-like structure and visible value flow. Purple marks the reconfiguration-port role. The labels in the image are explanatory labels drawn over the fabric; the fabric itself is still the 32-code cell-role alphabet above.</p>
             <p>This is the low-level visual vocabulary behind the larger Cartilage articles. A reconfiguration run is easier to inspect once the reader knows which marks mean constants, wires, crosses, MUXes, and ports.</p>
+        </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If one of these marks is visually ambiguous, I would value a specific note about which role you misread first and what cue would have prevented it.</p>
         </section>
     </main>
 

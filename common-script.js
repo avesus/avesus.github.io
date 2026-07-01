@@ -240,6 +240,28 @@ figcaption {
 	margin: 1.5rem 0;
 }
 
+.status-box,
+.reader-note {
+	margin: 1.4rem 0;
+	padding: 0.9rem 1rem;
+	border-left: 3px solid #520;
+	background: #faf8f2;
+	text-align: left;
+}
+
+.status-box p,
+.reader-note p {
+	margin: 0.35rem 0;
+}
+
+.status-label {
+	display: inline-block;
+	margin-right: 0.45em;
+	font-family: 'Inconsolata', monospace;
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
 .chain,
 .formula {
 	font-family: 'Inconsolata', monospace;

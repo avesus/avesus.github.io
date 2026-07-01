@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-25",
-            "dateModified": "2026-06-26",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/cartilage/codex5.5/quadflow-cartilage-525568-timeline-contact.png",
             "description": "A 20-frame timeline from a successful 525,568-cycle Cartilage/QuadFlow browser-fabric run: 64x64 GLSL fabric, lockstep edge I/O, 7,956 parsed QFG frame declarations, and 704 browser-side expectations passing.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-quadflow-525568-cycle-timeline.html",
@@ -59,8 +59,14 @@
     <address>June 25, 2026</address>
 
     <section class="abstract">
+        <p>Long runs need human-readable glimpses without pretending the glimpses are the proof.</p>
         <p>This artifact records a successful lockstep browser-fabric run of the reconfigurable ripple-adder QFG proof. A 64x64 Cartilage GLSL fabric was driven through 525,568 cycles by external edge I/O, streamed 7,956 parsed QFG frame declarations, and finished with 704 browser-side expectations passing.</p>
         <p>The visible timeline is deliberately small: 20 committed renderer states sampled from cycle 0 through cycle 525,568. It is a verification artifact, not a cinematic demo of every configuration bit moving through the fabric.</p>
+        <div class="status-box">
+            <p><span class="status-label">Visual companion</span>This timeline is sampled from a successful checked run; it is not the complete proof package.</p>
+            <p><strong>What is preserved here:</strong> <code>20</code> sampled states from a <code>525,568</code>-cycle run, the <code>64x64</code> fabric context, <code>7,956</code> QFG frame declarations, and <code>704</code> browser-side expectations passing.</p>
+            <p><strong>What this does not prove:</strong> every internal configuration bit movement. Use the exact-frame reconfiguration page for the full verification package.</p>
+        </div>
     </section>
 
     <main>
@@ -121,6 +127,11 @@
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
+        </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If the timeline makes a proof claim seem stronger than the exact-frame package supports, I would value the exact sentence or frame label that misleads you.</p>
         </section>
     </main>
 

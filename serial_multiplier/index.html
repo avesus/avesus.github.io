@@ -25,7 +25,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2025-07-26",
-            "dateModified": "2026-06-20",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/serial_multiplier/mul.png",
             "description": "A Logisim bit-serial multiplier architecture whose pipeline stays full: after fixed latency, input and output bits continue every clock with no drain gap between operand words.",
             "mainEntityOfPage": "https://greenforest.io/serial_multiplier/",
@@ -71,8 +71,14 @@
     <address>July 26, 2025</address>
 
     <section class="abstract">
+        <p>Serial is not automatically inferior when the schedule remains full.</p>
         <p>A positive-number bit-serial multiplier whose pipeline stays full: after startup alignment, each clock accepts the next input bits and emits the next product bit, with no drain cycles between operand words.</p>
         <p>The public artifact is a Logisim circuit. The rendered version is 8x8 bits with an 8-bit result stream, but the width is not the point. The point is the schedule.</p>
+        <div class="status-box">
+            <p><span class="status-label">Circuit artifact</span>This is a positive-number Logisim circuit artifact, not a finished FPGA timing comparison.</p>
+            <p><strong>What is preserved here:</strong> the bubbles-free streaming schedule, LSB-first streams, 8x8 rendered circuit, 3-clock fixed latency in the rendered example, serial adders, Logisim file, and circuit images.</p>
+            <p><strong>What this does not prove:</strong> signed arithmetic, Verilog timing, LUT count, Fmax, or superiority over hard DSP blocks on a target FPGA.</p>
+        </div>
     </section>
 
     <figure>
@@ -132,6 +138,11 @@
             </div>
             <p>The next engineering step is a Verilog port, followed by LUT count, achievable Fmax, timing reports, waveform captures, and comparison against inferred <code>*</code> and DSP-backed multipliers on the same target.</p>
         </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If you have FPGA arithmetic experience, I would value the first target and comparison you would require before believing the schedule is useful outside Logisim.</p>
+        </section>
     </main>
 
     <nav class="article-links">
@@ -146,4 +157,3 @@
 </body>
 
 </html>
-

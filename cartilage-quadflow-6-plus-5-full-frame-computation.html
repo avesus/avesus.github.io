@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-25",
-            "dateModified": "2026-06-26",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/cartilage/codex5.5/use-static3-a6-b5-callouts-final-state.png",
             "description": "A full-frame Cartilage/QuadFlow browser-fabric computation of 6 + 5 through a seeded 3-bit ripple-carry adder body: 256 update cycles, 257 captured committed states, QFG source, manifests, and run reports.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-quadflow-6-plus-5-full-frame-computation.html",
@@ -55,8 +55,14 @@
     <address>June 25, 2026</address>
 
     <section class="abstract">
+        <p>The answer is less important than the fact that the computation passes through an inspectable body.</p>
         <p>This package documents a real browser-fabric computation: a 64x64 Cartilage GLSL fabric seeded with a generated 3-bit ripple-carry adder body, driven by one external input frame for <code>a = 6</code> and <code>b = 5</code>, then advanced for 256 committed update cycles.</p>
         <p>The output ports read <code>s0 = 1</code>, <code>s1 = 1</code>, <code>s2 = 0</code>, and <code>s3 = 1</code>. In the adder's little-endian output order that is <code>1101</code>; in ordinary most-significant-bit display order it is <code>1011</code>, decimal <code>11</code>.</p>
+        <div class="status-box">
+            <p><span class="status-label">Verified artifact</span>This is a full-frame compute-through-body artifact, not a hidden host-side arithmetic calculation.</p>
+            <p><strong>What is preserved here:</strong> <code>6 + 5 = 11</code>, a <code>64x64</code> fabric, <code>256</code> update cycles, <code>257</code> captured committed states, QFG source, manifests, videos, run reports, and boundary I/O decode.</p>
+            <p><strong>What this does not prove:</strong> the long native reconfiguration proof. The adder body is pre-generated before this measured compute run begins.</p>
+        </div>
     </section>
 
     <main>
@@ -171,12 +177,17 @@ mark 63 48 s3=1</code></pre>
             <h1>Cartilage Visual Language</h1>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
         </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If you audit the run, I would value the first place where the boundary writes, callout labels, output readout, or manifest hashes fail to line up with the stated <code>6 + 5 = 11</code> result.</p>
+        </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
-        <a href="/cartilage-quadflow-525568-cycle-timeline.html">Cartilage QuadFlow 525,568-Cycle Timeline</a>
-        <p>The longer lockstep reconfiguration proof timeline, where the focus is streamed reconfiguration rather than one seeded compute body.</p>
+        <a href="/cartilage-exact-frame-reconfiguration-run.html">Cartilage Exact-Frame Reconfiguration Run</a>
+        <p>The longer checked reconfiguration package, where the fabric body changes 2-bit to 3-bit and back.</p>
         <p>More:</p>
         <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
         <p>The local-port and bounded-region model behind these browser-fabric artifacts.</p>

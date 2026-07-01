@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-06-26",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png",
             "description": "A withdrawn Cartilage visual placement sketch for a 4-bit conditional incrementer, preserved as an inspectable render but not presented as a verified fabric proof.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-pc-stepper-islands.html",
@@ -41,8 +41,14 @@
     <address>June 26, 2026</address>
 
     <section class="abstract">
+        <p>This is a preserved sketch, not a proof.</p>
         <p>This page is preserved as a visual placement sketch, not as a verified working Cartilage circuit. The intended circuit is a 4-bit conditional incrementer: <code>OUT = ENABLE ? (IN + 1) : IN</code>.</p>
         <p>That is the small control block behind a program-counter step, sequencer advance, DMA address bump, or state machine register that either holds its value or moves to the next value.</p>
+        <div class="status-box">
+            <p><span class="status-label">Withdrawn sketch</span>This page is withdrawn as functional proof.</p>
+            <p><strong>What is preserved here:</strong> a <code>55x55</code> visual placement sketch, a <code>3080x3080</code> PNG, the intended <code>OUT = ENABLE ? (IN + 1) : IN</code> function, and the local island decomposition.</p>
+            <p><strong>What this does not prove:</strong> edge-visible behavior, passing expectations, or a verified program-counter stepper. Use the Ripple2 page for checked behavior.</p>
+        </div>
     </section>
 
     <main>
@@ -96,6 +102,11 @@ C[i + 1] = IN[i] ? C[i] : 0</code></pre>
             <h1>Render Notes</h1>
             <p>The rendered lattice is <code>55x55</code> cells. The PNG is <code>3080x3080</code> pixels. It is a cycle-zero initialized-cell schematic with 19 semantic labels.</p>
             <p>The labels are callouts for the human reader, not extra tile roles. The cell vocabulary is the same Cartilage render alphabet decoded in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
+        </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If this sketch is useful, I would value criticism of the placement vocabulary only; for behavior, please judge the verified Ripple2 artifact instead.</p>
         </section>
     </main>
 

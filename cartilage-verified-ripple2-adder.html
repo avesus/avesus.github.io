@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-06-26",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png",
             "description": "A verified browser/GLSL Cartilage render of a 2-bit ripple-carry adder generated from QFG source, run for 3072 lockstep updates, and checked with 96 browser expectations.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-verified-ripple2-adder.html",
@@ -41,8 +41,14 @@
     <address>June 26, 2026</address>
 
     <section class="abstract">
+        <p>This page is a checked run, not a concept sketch.</p>
         <p>This is the corrected public Cartilage arithmetic artifact: a generated 2-bit ripple-carry adder rendered in the browser/GLSL fabric and checked by the QFG proof run.</p>
         <p>The circuit computes <code>{C2, S1, S0} = A[1:0] + B[1:0]</code>. The source is not a hand-drawn route sketch; it is a generated QFG primitive-cell netlist with concrete cells for wires, muxes, constants, and crossbars.</p>
+        <div class="status-box">
+            <p><span class="status-label">Verified artifact</span>This is the Cartilage page to trust first for checked behavior.</p>
+            <p><strong>What is preserved here:</strong> <code>207</code> explicit seed cells, <code>16</code> parsed QFG frame declarations, <code>3072</code> lockstep fabric updates, and <code>96/96</code> browser expectations passed.</p>
+            <p><strong>What this does not prove:</strong> a general compiler, arbitrary circuit scale, or the withdrawn sketch pages. It proves this generated 2-bit adder run.</p>
+        </div>
     </section>
 
     <main>
@@ -94,15 +100,20 @@ C2 exits on the right edge at row 28</code></pre>
             <p>The previous full-adder islands, PC-stepper islands, and mux-lanes pages are now treated as withdrawn artifacts. The first two are visual placement sketches without edge-surface proof. The mux-lanes page is a useful proof/debug fixture, but not the requested clean visitor-facing schematic.</p>
             <p>This ripple2 adder is the current public replacement: generated source, inspectable render, edge-visible result lanes, and a passing browser expectation run.</p>
         </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If you try to reproduce or audit this page, I would value the first mismatch you find between the QFG source, the verification report, the rendered routes, and the edge-visible result lanes.</p>
+        </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
+        <a href="/cartilage-quadflow-6-plus-5-full-frame-computation.html">Cartilage QuadFlow 6 + 5 Full-Frame Computation</a>
+        <p>A small compute-through-body artifact using the same insistence on inspectable boundary behavior.</p>
+        <p>More:</p>
         <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
         <p>The 32-code cell-role alphabet used by this render.</p>
-        <p>More:</p>
-        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>The local-port and bounded-region model behind larger Cartilage fabric examples.</p>
         <a href="/">Go back</a>
     </nav>
 </body>

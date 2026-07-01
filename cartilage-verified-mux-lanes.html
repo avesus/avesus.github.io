@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-06-26",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png",
             "description": "A withdrawn Cartilage mux-lanes debug fixture, preserved for audit context but no longer presented as the public website deliverable.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-verified-mux-lanes.html",
@@ -43,6 +43,11 @@
     <section class="abstract">
         <p>This artifact is withdrawn as a website deliverable. It remains a useful proof/debug fixture, but its annotation overlay comes from the older manifest <code>marks</code> path and should not be treated as the clean public schematic.</p>
         <p>The current visitor-facing replacement is <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>.</p>
+        <div class="status-box">
+            <p><span class="status-label">Withdrawn debug fixture</span>This page is preserved for audit context, not as the main public Cartilage proof.</p>
+            <p><strong>What is preserved here:</strong> a <code>16x16</code> mux-lanes run, <code>2048x2048</code> PNG, nine driven boundary values, <code>160</code> fabric cycles, and passing edge-surface output checks.</p>
+            <p><strong>What this does not prove:</strong> the clean visitor-facing arithmetic artifact. Use the verified Ripple2 page for that.</p>
+        </div>
     </section>
 
     <main>
@@ -95,6 +100,11 @@ observed OUT0=1, OUT1=1, OUT2=0</code></pre>
             <h1>Render Notes</h1>
             <p>The rendered lattice is <code>16x16</code> cells. The PNG is <code>2048x2048</code> pixels. The source manifest is <code>cartilage-grid-rs/examples/external-mux-lanes.surface.qfg</code>.</p>
             <p>The labels and translucent regions are human reading aids. The underlying cell-role alphabet is decoded in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
+        </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If you follow an old link here, treat this as a debug trail. I would value any place where it still appears to be presented as the main public proof.</p>
         </section>
     </main>
 

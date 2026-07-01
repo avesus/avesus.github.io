@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-30",
-            "dateModified": "2026-06-30",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif",
             "description": "A Cartilage 2026 WebGL/GPGPU fabric milestone: child-owned reconfiguration port roots, restored 6x6 ownership blocks, active port initialization, and a 450-frame captured render.",
             "mainEntityOfPage": "https://greenforest.io/cartilage2026.html",
@@ -41,8 +41,14 @@
     <address>June 30, 2026</address>
 
     <section class="abstract">
+        <p>Ownership became visible enough here to show square child regions and active port roots inside a running fabric.</p>
         <p>This is a current Cartilage WebGL/GPGPU fabric milestone: a self-contained renderer where reconfiguration-port roots belong to the child subtree, while the initialized ownership tree remains a square <code>6x6</code> block.</p>
         <p>The artifact is not a hand-drawn diagram. The GIF is captured from the running GLSL fabric, and the runnable demo is copied as a standalone web page.</p>
+        <div class="status-box">
+            <p><span class="status-label">Live milestone</span>This is a checked boot/preallocation and render-capture milestone, not a finished full reconfiguration system.</p>
+            <p><strong>What is preserved here:</strong> child-owned reconfiguration port roots, square <code>6x6</code> ownership blocks, active port-root initialization, the 252-bit transaction calculation, and the 450-frame capture.</p>
+            <p><strong>What this does not prove:</strong> readout, a finished <code>4x4</code> coarse reconfiguration model, or exhaustive verification of every future dynamic stream.</p>
+        </div>
     </section>
 
     <main>
@@ -97,12 +103,17 @@
             <p>Use the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article for the 32-code body-role alphabet: reconfiguration port, cross, constants, wire orientations, and MUX modes.</p>
             <p>Use the earlier <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation demo</a> article for the broader parent/daughter-region model. This 2026 artifact is a more recent boot-shape and reconfiguration-port-root milestone in that same line of work.</p>
         </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If you inspect the ownership model, I would value the first place where the distinction between role column, parent pointer, and active configuration signal is unclear or under-justified.</p>
+        </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
-        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>The prior public wrapper for local ports, bounded daughter regions, and serial configuration streams.</p>
+        <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>
+        <p>The current clean checked circuit artifact to read after the ownership milestone.</p>
         <p>More:</p>
         <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
         <p>The rendered cell-role alphabet used by the Cartilage family of artifacts.</p>

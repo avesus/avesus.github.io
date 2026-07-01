@@ -22,7 +22,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2021",
-            "dateModified": "2026-06-26",
+            "dateModified": "2026-07-01",
             "description": "A browser/GPU demo of hierarchical reconfiguration: local ports, bounded daughter regions, serial configuration streams, and tiled Boolean roles.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-nested-instantiation-demo.html",
             "publisher": {
@@ -39,8 +39,14 @@
     <address>Summer 2021</address>
 
     <section class="abstract">
+        <p>Reconfiguration should not arrive as global magic. A bounded region should be able to receive new structure through a visible local port.</p>
         <p>Cartilage is a browser/GPU demo of hierarchical reconfiguration: a tiled Boolean fabric can allocate a bounded daughter region, stream configuration bits through a local reconfiguration port, and replace that region's tile roles without a global magic controller.</p>
         <p>The demo is not just a visual cellular automaton. It is a model of circuit-like regions with local ports, local ownership, local configuration streams, and tile roles that can be rewritten.</p>
+        <div class="status-box">
+            <p><span class="status-label">Live demo</span>This page explains a browser/GPU artifact; it is not an edge-verified arithmetic proof.</p>
+            <p><strong>What is preserved here:</strong> the canonical Cartilage 3 live demo, local reconfiguration ports, bounded daughter regions, serial configuration streams, and the tile-role vocabulary.</p>
+            <p><strong>What this does not prove:</strong> general compiler support, full reproduction packaging, or the later 2026 checked run results.</p>
+        </div>
     </section>
 
     <main>
@@ -105,12 +111,17 @@
             <h1>Cartilage Visual Language</h1>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
         </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If you work on FPGAs, cellular hardware, or reconfigurable substrates, I would value criticism of the hidden assumption: where does a global controller sneak back into this model?</p>
+        </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
-        <a href="/cartilage-quadflow-525568-cycle-timeline.html">Cartilage QuadFlow 525,568-Cycle Timeline</a>
-        <p>A checked 525,568-cycle browser-fabric run with the visible timeline, contact sheet, and artifact notes.</p>
+        <a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
+        <p>A newer milestone where child-owned port roots and square ownership blocks are visible in the running fabric.</p>
         <p>More:</p>
         <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
         <p>The formal Boolean substrate argument behind the live Cartilage demo.</p>

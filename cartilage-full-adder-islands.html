@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-06-26",
+            "dateModified": "2026-07-01",
             "image": "https://greenforest.io/cartilage-full-adder-islands/cartilage-full-adder-islands.png",
             "description": "A withdrawn Cartilage visual placement sketch for a full-adder function, preserved as an inspectable render but not presented as a verified fabric proof.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-full-adder-islands.html",
@@ -41,8 +41,14 @@
     <address>June 26, 2026</address>
 
     <section class="abstract">
+        <p>This is a preserved sketch, not a proof.</p>
         <p>This page is preserved as a visual placement sketch, not as a verified working Cartilage circuit. The intended full-adder mapping uses <code>B</code>, <code>A</code>, and <code>Cin</code> as top-edge data inputs, with <code>SUM</code> and <code>CARRY</code> routed to the right edge.</p>
         <p>The useful part is still the mapping vocabulary: a familiar one-bit arithmetic block decomposed into local wire, constant, intersection, and MUX roles inside the same 32-code Cartilage visual language.</p>
+        <div class="status-box">
+            <p><span class="status-label">Withdrawn sketch</span>This page is withdrawn as functional proof.</p>
+            <p><strong>What is preserved here:</strong> a <code>37x37</code> visual placement sketch, a <code>2960x2960</code> PNG, the intended full-adder equations, and the local MUX-island mapping vocabulary.</p>
+            <p><strong>What this does not prove:</strong> edge-visible behavior, passing expectations, or a verified full adder. Use the Ripple2 page for checked behavior.</p>
+        </div>
     </section>
 
     <main>
@@ -95,6 +101,11 @@ CARRY = P ? Cin : A</code></pre>
             <h1>Render Notes</h1>
             <p>The rendered lattice is <code>37x37</code> cells. The PNG is <code>2960x2960</code> pixels. It is a cycle-zero initialized-cell schematic with ten semantic labels.</p>
             <p>Read the white label boxes as human callouts. The underlying fabric vocabulary is still the same Cartilage cell-role alphabet explained in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
+        </section>
+
+        <section class="reader-note">
+            <h1>What I Would Value From A Reader</h1>
+            <p>If this sketch is useful, I would value criticism of the local island notation only; for behavior, please judge the verified Ripple2 artifact instead.</p>
         </section>
     </main>
 
