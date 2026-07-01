@@ -9,6 +9,25 @@ var greenforestBoot = window.greenforestBoot || (function() {
 
 	const append_to_head = element => (document.head || root).appendChild(element);
 
+	const ensure_favicon = () => {
+		const favicon_href = '/favicon.ico';
+		const icon_links = Array.from(document.querySelectorAll('link[rel~="icon"]'));
+		let icon_link = icon_links[0];
+
+		if (!icon_link) {
+			icon_link = document.createElement('link');
+			icon_link.rel = 'icon';
+			append_to_head(icon_link);
+		}
+
+		icon_link.href = favicon_href;
+		icon_link.type = 'image/x-icon';
+
+		icon_links.slice(1).forEach(link => link.remove());
+	};
+
+	ensure_favicon();
+
 	const backdrop_src = '/linkedin-forest-backdrop.jpeg';
 	const backdrop_preload = document.createElement('link');
 	backdrop_preload.rel = 'preload';
