@@ -187,6 +187,22 @@ figure.inspectable-image a {
 	display: block;
 }
 
+.source-embed {
+	text-align: left;
+}
+
+.source-embed object {
+	display: block;
+	width: 100%;
+	min-height: min(78vh, 720px);
+	border: 1px solid #ccc;
+	background: #f8f8f8;
+}
+
+.source-download {
+	font-weight: bold;
+}
+
 figcaption {
 	margin-top: 0.5rem;
 	font-size: 16px;
@@ -783,16 +799,34 @@ dt {
 	}
 
 	body {
+		width: auto;
 		max-width: 100vw;
 		overflow-x: hidden;
 		padding-left: 24px;
 		padding-right: 24px;
 	}
 
+	body > :not(.gf-backdrop-link),
+	main,
+	section,
+	nav,
+	footer {
+		box-sizing: border-box;
+		max-width: 100%;
+	}
+
 	header {
 		font-size: 36px;
 		margin-left: 0;
 		margin-right: 0;
+		overflow-wrap: break-word;
+	}
+
+	p,
+	li,
+	figcaption,
+	.status-box,
+	.reader-note {
 		overflow-wrap: break-word;
 	}
 
@@ -853,6 +887,10 @@ dt {
 	figure.inspectable-image img {
 		width: 900px;
 		max-width: none;
+	}
+
+	.source-embed object {
+		min-height: 60vh;
 	}
 
 	header {
