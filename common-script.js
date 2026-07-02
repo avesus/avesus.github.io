@@ -508,7 +508,7 @@ code {
 	margin-top: 60px;
 }
 
-.gf-homepage .math-entities {
+.math-entities {
 	word-break: normal;
 }
 
