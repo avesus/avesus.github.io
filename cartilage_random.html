@@ -4,18 +4,8 @@
 <html hidden lang="en">
 <head>
   <link rel="icon" href="data:,">
-  <title>Cartilage Random Child Ports</title>
+  <title>Cartilage 3</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="description" content="A randomized Cartilage WebGL/GPGPU artifact showing child-side reconfiguration ports across the fabric.">
-  <link rel="canonical" href="https://greenforest.io/cartilage_random.html">
-  <meta property="og:site_name" content="Greenforest I/O">
-  <meta property="og:title" content="Cartilage Random Child Ports">
-  <meta property="og:description" content="A randomized Cartilage WebGL/GPGPU artifact showing child-side reconfiguration ports across the fabric.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://greenforest.io/cartilage_random.html">
-  <meta property="og:image" content="https://greenforest.io/cellular-automata-2019/thumbs/cartilage-random.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://greenforest.io/cellular-automata-2019/thumbs/cartilage-random.png">
   <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="transparent">
   <meta name="format-detection" content="telephone=no">
@@ -68,7 +58,7 @@ const socket = app.ws;
   const lut = Array(256).fill().map((_, i) => (i < 16 ? '0' : '') + (i).toString(16));
 
   const _ = app.uuid = {
-    random128: () => {
+    random128: () => { 
       const dvals = new Uint32Array(4);
       crypto.getRandomValues(dvals);
       return dvals;
@@ -157,7 +147,7 @@ socket.onerror = preserveWsEvent;
 socket.onmessage = preserveWsEvent;
 socket.onopen = preserveWsEvent;
 */
-
+  
 }
 
 
@@ -236,7 +226,7 @@ setTimeout(() => {
 
 // window.document.activeElement equals body starting from here
 console.log('document.activeElement:', window.document.activeElement, window.document.hasFocus());
-
+ 
 
 // Enabling drag and drop support
 window.document.getElementById('0').addEventListener('dragover', e => {
@@ -359,7 +349,7 @@ window.addEventListener('touchmove', e => {
 
     const events = [...e.touches];//e.getCoalescedEvents();
     events.forEach(ee => {
-
+      
         const new_point = getPoint(ee);
         if (point) {
 
@@ -392,36 +382,36 @@ window.addEventListener('touchmove', e => {
       const e = events[nn];
     //events.forEach((e) => {
       const new_point = getPoint(e);
-
+                 
       const buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
       let start_x = (point.x / width) * 2 - 1;
       let start_y = (point.y / height) * 2 - 1;
       let end_x = (new_point.x / width) * 2 - 1;;
       let end_y = (new_point.y / height) * 2 - 1;;
-
+      
       //const dist = Math.sqrt((start_x - end_x) * (start_x - end_x) +
       //      (start_y - end_y) * (start_y - end_y));
-
+      
       const dx = end_x - start_x;
       const dy = end_y - start_y;
       end_x += dx * 8;
       end_y += dy * 8;
       start_x += dx * 5;
       start_y += dy * 5;
-
+     
       const vertices = [
           start_x,  start_y, 0.0,
           start_x + .01, start_y + .01,  0.0,
           end_x,  end_y,  0.0,
           end_x + .01,  end_y + .01,  0.0,
       ];
-
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices) , gl.DYNAMIC_DRAW);
+      
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices) , gl.DYNAMIC_DRAW); 
       //const pos_attr = gl.getAttribLocation(shader, "a_Position");
       //gl.enableVertexAttribArray(pos_attr);
       gl.vertexAttribPointer(window.g_app.pos_attr, 3, gl.FLOAT, false, 0, 0);
-
+      
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       gl.deleteBuffer(buffer);
       // gl.flush();
@@ -644,11 +634,11 @@ const glExtSrgb = (function f7 () { return gl.getExtension('EXT_sRGB'); // 71% d
 
 
 /*
-// Mining mode - only with
+// Mining mode - only with 
 const glExtFloatOut = gl.getExtension('WEBGL_color_buffer_float'); //
 const glExtDrawBuffers = gl.getExtension('WEBGL_draw_buffers'); // 86% Desktop & 100% Console, 2% phones
 // Must be at least 8 for super-performant mode. (on popular WebGL2 systems, it can be 4).
-// Might support the 8K or 16K texture and render buffer size. But mostly 4K. Sometimes the texture size is bigger than the rendersize (4K textures with 8K or 16K renderbuffer)
+// Might support the 8K or 16K texture and render buffer size. But mostly 4K. Sometimes the texture size is bigger than the rendersize (4K textures with 8K or 16K renderbuffer) 
 // Can have 32 texture image units instead of just 8 (or just 16 on WebGL2 with 4K texture sizes and 8K renderbuffer)
 // Can have 4K uniform vectors
 // Can have 32 varyings instead of 8
@@ -847,10 +837,10 @@ Bitset4Bits unpack_4_numbers (vec4 numbers) {
 
     vec4 bits0to2 = numbers - 8.0 * result.bit3;
     result.bit2 = when_gt(bits0to2, vec4(3.5));
-
+    
     vec4 bits0to1 = numbers - 4.0 * result.bit2;
     result.bit1 = when_gt(bits0to1, vec4(1.5));
-
+    
     result.bit0 = when_gt(bits0to1 - 2.0 * result.bit1, vec4(0.5));
 
     return result;
@@ -858,27 +848,27 @@ Bitset4Bits unpack_4_numbers (vec4 numbers) {
 
 Bitset8Bits unpack_4_bytes (vec4 byte) {
     Bitset8Bits result;
-
+    
     result.bit7 = when_gt(byte, vec4(127.5));
-
+    
     vec4 bits0to6 = byte - 128.0 * result.bit7;
     result.bit6 = when_gt(bits0to6, vec4(63.5));
-
+    
     vec4 bits0to5 = bits0to6 - 64.0 * result.bit6;
     result.bit5 = when_gt(bits0to5, vec4(31.5));
-
+    
     vec4 bits0to4 = bits0to5 - 32.0 * result.bit5;
     result.bit4 = when_gt(bits0to4, vec4(15.5));
-
+    
     vec4 bits0to3 = bits0to4 - 16.0 * result.bit4;
     result.bit3 = when_gt(bits0to3, vec4(7.5));
-
+    
     vec4 bits0to2 = bits0to3 - 8.0 * result.bit3;
     result.bit2 = when_gt(bits0to2, vec4(3.5));
-
+    
     vec4 bits0to1 = bits0to2 - 4.0 * result.bit2;
     result.bit1 = when_gt(bits0to1, vec4(1.5));
-
+    
     result.bit0 = when_gt(bits0to1 - 2.0 * result.bit1, vec4(0.5));
 
     return result;
@@ -890,7 +880,7 @@ struct Array32Bits {
 
 void unpack_32_bits (vec4 byte, Array32Bits a) {
     Bitset8Bits bits = unpack_4_bytes(byte);
-
+    
     a.bit[0] = bits.bit0.r;
     a.bit[1] = bits.bit1.r;
     a.bit[2] = bits.bit2.r;
@@ -899,7 +889,7 @@ void unpack_32_bits (vec4 byte, Array32Bits a) {
     a.bit[5] = bits.bit5.r;
     a.bit[6] = bits.bit6.r;
     a.bit[7] = bits.bit7.r;
-
+    
     a.bit[8] = bits.bit0.g;
     a.bit[9] = bits.bit1.g;
     a.bit[10] = bits.bit2.g;
@@ -909,7 +899,7 @@ void unpack_32_bits (vec4 byte, Array32Bits a) {
     a.bit[14] = bits.bit6.g;
     a.bit[15] = bits.bit7.g;
 
-
+    
     a.bit[16] = bits.bit0.b;
     a.bit[17] = bits.bit1.b;
     a.bit[18] = bits.bit2.b;
@@ -918,7 +908,7 @@ void unpack_32_bits (vec4 byte, Array32Bits a) {
     a.bit[21] = bits.bit5.b;
     a.bit[22] = bits.bit6.b;
     a.bit[23] = bits.bit7.b;
-
+    
     a.bit[24] = bits.bit0.a;
     a.bit[25] = bits.bit1.a;
     a.bit[26] = bits.bit2.a;
@@ -934,7 +924,7 @@ struct Element {
     // ==== First block - [8 bits] of core config determining cell's function
 
     // --- 5 bits of wiring and control configuration ---
-
+    
     // 4 orientations 0..3 for MUX or wire. For special mode diff. meaning:
     // 0: reconf. port; 1: cross; 2: GND; 3: PWR.
     // [2 bits]
@@ -945,18 +935,18 @@ struct Element {
     float mode;
 
     // --- 2 bits Cartilage tree engine ---
-
+    
     // Pointer to the owner element
     // [2 bits]
     float parent; // 0..3
-
+    
     // Main state bit to store the output value
     // In silicon, it represents electric charge.
     // There is no inherent clock or D flip-flops. This bit is ephemeral
     // (but initialized from config to support prototype inheritance).
-
+    
     lowp float right;  // 0..1
-
+    
     // ==== Ephemeral [8 bits] of Intersin clock and data wires
     // (the wires neighbor cells interface with
     // in the reconfiguration trees overlay network) representing charges
@@ -969,9 +959,9 @@ struct Element {
     lowp float RDO;
     lowp float BCO;
     lowp float BDO;
-
+    
     // [13 bits] of non-copy-able "hidden" state (real DFFs)
-
+    
     // ====== Third block [8 bits] shift register of configuration data.
     // Applied to the main bits (orientation/mode/parent/state bit)
     // when one subtree is completely filled with config bits.
@@ -989,7 +979,7 @@ struct Element {
     lowp float WE_ARE_FULL_DFF;
 
     // ^^^ 29 bits consumed! ^^^
-
+    
 
     // The three state bits used only to store outputs for crosses,
     // In silicon, these represent charges. There is no inherent clock
@@ -998,7 +988,7 @@ struct Element {
     lowp float left;  // 0..1
     lowp float top;  // 0..1
     lowp float bottom;  // 0..1
-
+    
     // Spanning tree integrity. A technical signal preventing
     // hidden ownership loops. In FPGA chains, implemented as a hops counter.
     // We gave up on it because exhausted all 32 bits to encode electrical signals
@@ -1010,7 +1000,7 @@ struct Element {
     // If another signal is coming from the root, it means we got a cycle.
     // Not implemented.
     //lowp float conf_signal_leaf_to_root;
-
+    
     // We have to sample the previous value of CLK to detect raising and falling edges.
     lowp float PREV_CLK;
 };
@@ -1025,8 +1015,8 @@ void elementFromTexels (in vec4 texel, in vec4 auxTexel, inout Element elt) {
 
     Bitset8Bits bits = unpack_4_bytes(texel * 255.0);
     Bitset8Bits auxBits = unpack_4_bytes(auxTexel * 255.0);
-
-
+    
+  
     elt.orientation = float(bits.bit0.r + 2.0 * bits.bit1.r);
     elt.mode = float(bits.bit2.r + 2.0 * bits.bit3.r + 4.0 * bits.bit4.r);
     elt.parent = float(bits.bit5.r + 2.0 * bits.bit6.r);
@@ -1062,7 +1052,7 @@ void elementFromTexels (in vec4 texel, in vec4 auxTexel, inout Element elt) {
         2.0 * bits.bit1.a +
         4.0 * bits.bit2.a);/* +
         8.0 * bits.bit3.a);*/
-
+        
     // D flip-flop marking the completion of collection of new config bits
     // in the new_cfg[7..0] shift register.
     // Clocked on FALLING EDGE of CLK
@@ -1075,7 +1065,7 @@ void elementFromTexels (in vec4 texel, in vec4 auxTexel, inout Element elt) {
     elt.left = auxBits.bit1.r;
     elt.top = auxBits.bit2.r;
     elt.bottom = auxBits.bit3.r;
-
+    
     elt.PREV_CLK = bits.bit7.b;
     elt.conf_signal = bits.bit3.a;
 }
@@ -1124,15 +1114,15 @@ float is_config_param_block(vec2 fragCoord) {
 vec4 texelFromElement (in Element elt) {
 
     Bitset8Bits bits;
-
+    
     Bitset4Bits parameters = unpack_4_numbers(
         vec4(elt.orientation, elt.mode, elt.parent,
              elt.write_pointer_counter));
-
+    
     // elt.orientation:
     bits.bit0.r = parameters.bit0.r;
     bits.bit1.r = parameters.bit1.r;
-
+    
     // elt.mode:
     bits.bit2.r = parameters.bit0.g;
     bits.bit3.r = parameters.bit1.g;
@@ -1162,21 +1152,21 @@ vec4 texelFromElement (in Element elt) {
     bits.bit5.b = elt.new_cfg[5];
     bits.bit6.b = elt.new_cfg[6];
     //bits.bit7.b = elt.new_cfg[7];
-
+    
     // elt.write_pointer_counter:
     bits.bit0.a = parameters.bit0.a;
     bits.bit1.a = parameters.bit1.a;
     bits.bit2.a = parameters.bit2.a;
     //bits.bit3.a = parameters.bit3.a;
-
-
+    
+    
     bits.bit4.a = elt.WE_ARE_FULL_DFF;
 
     // Crossbar state bits moved to the auxiliary texel.
     bits.bit5.a = 0.0;
     bits.bit6.a = 0.0;
     bits.bit7.a = 0.0;
-
+    
     bits.bit7.b = elt.PREV_CLK;
     bits.bit3.a = elt.conf_signal;
 
@@ -1212,7 +1202,7 @@ float mux_action(float mode_code, lowp float l, lowp float r, lowp float b, lowp
     } else if (mode > 4.5 && mode < 5.5) {
         result = l > 0.5 ? b : r;
     }
-
+    
     return result;
 }
 
@@ -1220,7 +1210,7 @@ float mux_action(float mode_code, lowp float l, lowp float r, lowp float b, lowp
 float is_left(float ptr) {
     return (ptr < 0.5) ? 1.0 : 0.0;
 }
-
+    
 float is_top(float ptr) {
     return (ptr > 0.5 && ptr < 1.5) ? 1.0 : 0.0;
 }
@@ -1241,11 +1231,11 @@ float is_reconf_port(Element elt) {
 vec2 cell_from_visual(vec2 visual, float zoom_factor) {
 
     float scale = 1.0 / zoom_factor;
-
+   
     vec2 cell_coord = floor((visual - 0.5) * scale + vec2(0.5, 0.5) * scale);
-
+    
     vec2 gpgpu_coord = (0.5 + cell_coord + vec2(0.0, 0.0));
-
+    
     return gpgpu_coord;
 }
 
@@ -1334,9 +1324,9 @@ vec2 rotate(vec2 uv, float th) {
 float udSegment (vec2 p, float zoom, float th, vec2 a, vec2 b) {
     vec2 ba = zoom * (b - a);
     vec2 pa = p - zoom * a;
-
+    
     float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
-
+    
     vec2 sqrd = pa - h * ba;
     vec2 sqrd2 = sqrd * sqrd;
     return sqrd2.x + sqrd2.y - th;
@@ -1427,7 +1417,7 @@ float disc(vec2 pos, float diameter, vec2 xy) {
 // DO NOT CHANGE THE ORDER of your calls to compose()
 vec3 compose(float shape, vec3 shape_color, vec3 color) {//, float anti_alias) {
     //return mix(color, shape_color, step(shape, 0.0));
-
+    
     //return mix(color, shape_color, smoothstep(5.0, -5.0, shape));
     // return mix(color, shape_color, smoothstep(anti_alias, -anti_alias, shape));
     return mix(color, shape_color, smoothstep(0.2, -0.3, 0.042 * zoom_factor * shape));
@@ -1460,7 +1450,7 @@ vec4 transparent_compose(float shape, vec4 shape_color, vec4 color) {
 
 
 float consumes_from_the_left(Element cell) {
-
+    
     // crossbar
     return (cell.mode < 0.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
     // wire
@@ -1478,7 +1468,7 @@ float consumes_from_the_left(Element cell) {
 }
 
 float consumes_from_the_right(Element cell) {
-
+    
     // crossbar
     return (cell.mode < 0.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
     // wire
@@ -1495,7 +1485,7 @@ float consumes_from_the_right(Element cell) {
 }
 
 float consumes_from_the_top(Element cell) {
-
+    
     // crossbar
     return (cell.mode < 0.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
     // wire
@@ -1512,7 +1502,7 @@ float consumes_from_the_top(Element cell) {
 }
 
 float consumes_from_the_bottom(Element cell) {
-
+    
     // crossbar
     return (cell.mode < 0.5 && cell.orientation < 1.5 && cell.orientation > 0.5) ||
     // wire
@@ -1537,10 +1527,10 @@ vec4 draw_crossbar_signal(vec2 center, float current, float next, vec4 visual, v
 
     float outer_disc = disc(center, 3.8 * WIRE_THICK, p); // TODO: replace the diameter with spacing param
     visual = vec4(compose_antialias(outer_disc, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
-
+    
     float middle_disc = disc(center, 2.5 * WIRE_THICK, p); // TODO: replace the diameter with spacing param
     visual = vec4(compose_antialias(middle_disc, curr_color, visual.rgb), 1.0);
-
+    
     //float inner_disc = disc(center, 2.0 * WIRE_THICK, p); // TODO: replace the diameter with spacing param
     //visual = vec4(compose(inner_disc, next_color, visual.rgb), 1.0);
 
@@ -1551,7 +1541,7 @@ vec4 cfg_dbg(float val, float x, float y, vec2 p, vec4 visual, vec3 color) {
     // float s = disc(vec2(x, y), 1.1 * WIRE_THICK, p);
     float s = disc(vec2(x, y), 1.6 * WIRE_THICK, p);
     visual = vec4(compose_antialias(5.0 * s, 8.0 * color * val, visual.rgb), 1.0);
-
+    
     return visual;
 }
 
@@ -1569,12 +1559,12 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
 */
 
     /*
-
+    
         We combine the DFF ring with all output wires because they reflect the same physical entity.
-
+    
         We draw an output if the adjacent cell has one of its inputs pointing to this cell.
         Outputs are canonical: all cells no matter their type have 4 outputs.
-
+        
         We ALWAYS draw all input wires. In advanced vis, the wires might contain signal color inside.
             GND and PWR: 0 inputs
             MUX: 3 inputs
@@ -1584,7 +1574,7 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
         We draw diagonal lines for the active MUX input and a short one looking like --/
         showing the selector input.
     */
-
+    
     // Without these, muxes aren't identifiable:
     float show_in_left = consumes_from_the_left(cell);
     float show_in_right = consumes_from_the_right(cell);
@@ -1614,7 +1604,7 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
 
     float show_in_bottom = consumes_from_the_bottom(cell);
     float show_out_top = consumes_from_the_bottom(top);
-  */
+  */  
     float no_connections = show_in_left+show_out_right+show_in_right
       +show_out_left+show_in_top+show_out_bottom+show_in_bottom+show_out_top;
 
@@ -1652,9 +1642,9 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
     // ---------------------------------------
     // Crossbar D flip-flop state bubbles
     if (cell.mode < 0.5 && cell.orientation > 0.5 && cell.orientation < 1.5) {
-
+    
         vec2 signal_bubble_center = vec2(1.9, 3.5);
-
+    
         if (show_in_left * show_out_right > 0.5) {
             visual = draw_crossbar_signal(signal_bubble_center, cell.right, left.right, visual, p);
         }
@@ -1679,30 +1669,30 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
             1.56, CENTER - HALF_SPACING + HALF_WIRE_THICK), p);
         visual = vec4(compose(in_left, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
     }
-
+    
     if (show_in_right > 0.5) {
         float in_right = solid_rect(vec4(
             7.35, CENTER + HALF_SPACING - HALF_WIRE_THICK,
             8.0, CENTER + HALF_SPACING + HALF_WIRE_THICK), p);
         visual = vec4(compose(in_right, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
     }
-
+    
     if (show_in_top > 0.5) {
         float in_top = solid_rect(vec4(
             CENTER + HALF_SPACING - HALF_WIRE_THICK, 0.0,
             CENTER + HALF_SPACING + HALF_WIRE_THICK, 1.56), p);
         visual = vec4(compose(in_top, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
     }
-
+    
     if (show_in_bottom > 0.5) {
         float in_bottom = solid_rect(vec4(
             CENTER - HALF_SPACING - HALF_WIRE_THICK, 7.35,
             CENTER - HALF_SPACING + HALF_WIRE_THICK, 8.0), p);
         visual = vec4(compose(in_bottom, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
     }
-
+    
     if (cell.mode > 0.5 || cell.orientation > 1.5 || is_reconf_port(cell) > 0.5) {
-
+    
         float next_value = 0.0;
         float l = 0.0;
         if (cell.mode > 1.5) {
@@ -1738,10 +1728,10 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
                 next_value = 0.0;
             } else if (is_reconf_port(cell) > 0.5) {
                 //l = cell.parent;
-
+                
                 if (cell.parent > 2.5) {
                     l = left.right;
-                } else if (cell.parent < 2.5 && cell.parent > 1.5) {
+                } else if (cell.parent < 2.5 && cell.parent > 1.5) { 
                     l = bottom.top;
                 } else if (cell.parent < 1.5 && cell.parent > 0.5) {
                     l = right.left;
@@ -1750,7 +1740,7 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
                 }
             }
         }
-
+    
         // Not a crossbar or reconf port
 
         // MUX, GND, PWR, WIRE D flip-flop state (current and next)
@@ -1759,9 +1749,9 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
         float bigger_inner_disc = 0.0;
         float outer_disc = 0.0;
         float smaller_outer_disc = 0.0;
-
+        
         float outer_disc_diameter = 5.0;
-
+        
         if (cell.mode > 0.5 && cell.mode < 1.5) {
             // If it's wire, make shapes smaller please!
             inner_disc = 100.0; //disc(vec2(4.5, 4.5), 2.0 * WIRE_THICK, p);
@@ -1771,14 +1761,14 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
             inner_disc = disc(vec2(4.5, 4.5), 2.0 * WIRE_THICK, p);
             bigger_inner_disc = disc(vec2(4.5, 4.5), 5.0 * WIRE_THICK, p);
         }
-
+        
         outer_disc = disc(vec2(4.5, 4.5), outer_disc_diameter, p);
         smaller_outer_disc = disc(vec2(4.5, 4.5), outer_disc_diameter - 2.0 * WIRE_THICK, p);
-
+        
 
         visual = vec4(compose_antialias(outer_disc, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
-
-
+        
+        
         if (cell.mode > 0.5 || cell.mode < 0.5 && cell.orientation > 1.5 || is_reconf_port(cell) > 0.5) {
 
             if (cell.right < 0.5) {
@@ -1792,15 +1782,15 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
                 visual = vec4(compose_antialias(bigger_inner_disc, vec3(1.0, 1.0, 1.0), visual.rgb), 1.0);
             }
         }
-
-
+        
+      
         // MUX currently switched input (s ? a : b => s = 1 -> a : s = 0 -> b)
         float rotate_sel = (3.0 - cell.orientation) * -90.0;
         float rotate_curr = rotate_sel;
-
+        
         float rotate_alt = 0.0;
         float mux_mode = 7.0 - cell.mode;
-
+     
         // Switch over 6 modes
         if (mux_mode < 0.5) {
             // rotate_curr = l > 0.5 ? b : t;
@@ -1821,7 +1811,7 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
             //result = l > 0.5 ? b : r;
             rotate_curr += l > 0.5 ? 90.0 : 180.0;
         }
-
+        
         if (cell.mode > 0.5 && cell.mode < 1.5) {
             // WIRE
             if (cell.orientation > 2.5) {
@@ -1833,19 +1823,19 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
             } else if (cell.orientation < 0.5) {
                 rotate_curr = 0.0;
             }
-
+            
             // visual = transparent_compose(-1.0, vec4(1.0, 0.0, 0.0, 0.5), visual);
         } else if (is_reconf_port(cell) > 0.5) {
             rotate_curr = (4.0 - cell.parent) * 90.0;
         }
-
+        
         //---------------------------------------------
         // Currently selected input (A or B) for MUX or THE input for wires
         vec2 input_vertex = vec2(1.5, CENTER - HALF_SPACING);
         float mux_current_input_halo = solid_rect(vec4(
             input_vertex.x, input_vertex.y - 2.0 * WIRE_THICK,
             CENTER, CENTER - HALF_SPACING + 2.25 * WIRE_THICK),
-
+            
             rotate(
                 rotate(p,
                     sin(radians(rotate_curr)), cos(radians(rotate_curr)),
@@ -1860,7 +1850,7 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
         } else if (cell.mode > 0.5 || is_reconf_port(cell) > 0.5) {
             visual = vec4(compose(mux_current_input_halo, vec3(1.0, 1.0, 1.0), visual.rgb), 1.0);
         }
-
+        
         float mux_current_input = solid_rect(vec4(
             input_vertex.x - 0.1, input_vertex.y - HALF_WIRE_THICK,
             CENTER, CENTER - HALF_SPACING + HALF_WIRE_THICK),
@@ -1874,7 +1864,7 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
             )
         );
 
-
+        
         // If 1 -> 0, don't draw this
 
         /* if (cell.right < 0.5 && next_value < 0.5) {
@@ -1884,24 +1874,24 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
             // If 1->1 or 0->1
             visual = vec4(compose(inner_disc, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
         } */
-
+        
         if (cell.mode > 0.5 || is_reconf_port(cell) > 0.5) {
             visual = vec4(compose_antialias(inner_disc, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
             visual = vec4(compose(mux_current_input, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
         }
-
-
+        
+        
         // ------- MUX Selector Input --------------
-
+        
         vec2 selector_input_vertex = vec2(1.5, CENTER - HALF_SPACING);
-
+        
         if (cell.mode < 0.5) {
             // l = 0.0; // reconf port clock source
             rotate_sel = (3.0 - cell.parent) * 90.0;
         }
-
+        
         float engaged_selector_offset = l > 0.5 ? -0.05 : 0.55;
-
+        
         float mux_selector_input = solid_rect(vec4(
             selector_input_vertex.x,
             selector_input_vertex.y - 2.0,
@@ -1920,29 +1910,29 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
                 -1.0
             )
         );
-
+        
         if (cell.mode > 1.5 || is_reconf_port(cell) > 0.5) {
             visual = vec4(compose(mux_selector_input, vec3(0.0, 0.0, 0.0), visual.rgb), 1.0);
         }
-
+        
         if (cell.mode > 1.5) {
             visual = vec4(compose(-0.15 * (24.0 / zoom_factor), 1.0 * visual.rgb, 1.0 * vec3(1.0, 0.69, 0.1)), 1.0);
         }
     }
-
+    
     //if (cell.write_pointer_counter > 0.5) {
         visual = vec4(compose(0.0, vec3(1.0 - 2.0 * cell.write_pointer_counter * (1.0/14.0), 1.0, 1.0), visual.rgb), 1.0);
     //}
-
+    
     // Debug config signals:
     // --------------------------------------------------------------
-    /*
+    /* 
     vec3 dat_clr = vec3(1.0, 0.0, 0.0);
     visual = cfg_dbg(cell.LDO, 1.5, 2.5, p, visual, dat_clr);
     visual = cfg_dbg(cell.TDO, 6.5, 1.5, p, visual, dat_clr);
     visual = cfg_dbg(cell.RDO, 7.0, 6.5, p, visual, dat_clr);
     visual = cfg_dbg(cell.BDO, 2.5, 7.0, p, visual, dat_clr);
-
+    
     vec3 clk_clr = vec3(0.0, 0.0, 1.0);
     visual = cfg_dbg(cell.LCO, 1.5, 2.5 - 1.0, p, visual, clk_clr);
     visual = cfg_dbg(cell.TCO, 6.5 + 1.0, 1.5, p, visual, clk_clr);
@@ -1957,12 +1947,12 @@ vec4 draw_a_cell (Element cell, Element left, Element top, Element right, Elemen
     } else if (no_connections < 0.5 && cell.mode < 0.5 && cell.orientation > 1.5 && cell.orientation < 2.5) {
         // ==================================================================================
         // skip drawing the GND cells
-
+        
         // return vec4(1.0);
     }
 
 
-
+    
 
     return visual;
 }
@@ -1972,36 +1962,36 @@ vec4 render (in vec2 fragCoord) {
     // vec4 m = vec4(iMouse.x, screenSize.y - iMouse.y, iMouse.zw);
     vec4 m = vec4(iMouse.x, iMouse.y, iMouse.zw);
 
-
+    
     //Bitset8Bits cfg = cfgBlockFromTexel(texture2D(texture0, vec2(0.0)));
     //if (cfg.bit0.r > 0.5) {
     //    zoom_factor = 128.0;
     //}
-
+    
     vec2 mouse_cell = cell_from_visual(m.xy, zoom_factor);
-
+    
     float scale = 1.0 / zoom_factor;
     vec2 tex_coord_from_screen = 1.0 / screenSize.xy;
-
-
+    
+   
     vec2 cell_coord = floor((fragCoord - 0.5) * scale + vec2(0.5, 0.5) * scale);
-
+    
     vec2 gpgpu_coord = (0.5 + cell_coord + vec2(0.0, 0.0));
     if (gpgpu_coord.x > ${ gpgpuTextureWidth }.0 || gpgpu_coord.y > ${ gpgpuTextureHeight }.0
       || gpgpu_coord.x < -0.5 || gpgpu_coord.y < -0.5) {
       discard;
     }
-
+    
     if (is_config_param_block(gpgpu_coord) > 0.5) {
         return vec4(0.0);
     }
-
+    
     vec2 fetch_coord = storage_coord_from_cell(gpgpu_coord) / dataWidthAndHeight.xy;
-
+    
     vec4 gpgpu_data = texture2D(texture0, fetch_coord);
-
+    
     //return gpgpu_data;
-
+    
     // Fetch neighbor elements or IO surface bits
     Element left, right, top, bottom;
     elementFromCell(texture0, 0.5 + cell_coord - vec2(1.0, 0.0), left);
@@ -2013,50 +2003,50 @@ vec4 render (in vec2 fragCoord) {
     vec4 white_background = vec4(1.0, 1.0, 1.0, 1.0);
     // vec4 visual = green_background;
     vec4 visual = white_background;
-
+    
     // Position within a tile
     // vec2 p = mod(fragCoord, zoom_factor);
     vec2 p = 8.0 * mod(fragCoord * scale, 1.0);// + vec2(0.5);
-
+    
     // p = vec2(p.x, 8.0 - p.y);
     //p = vec2(8.0 - p.x, p.y);
 
 
     Element cell;
     elementFromCell(texture0, gpgpu_coord, cell);
-
+    
     // if (zoom_factor > 15.0) {
     if (zoom_factor > 3.0) {
-
+    
         vec4 cell_visual = draw_a_cell(cell, left, top, right, bottom, p, visual);
-
+    
         // Compose the cell over the background (can be transparent)
         visual = transparent_compose(-1.0, vec4(cell_visual.rgb, 2.0), visual);
     } else {
         visual = transparent_compose(-1.0, vec4(vec3(1.0 - cell.right), 1.0), visual);
     }
-
-
+    
+ 
     // Uncomment to only show the ownership spanning tree
     // vec3 col = vec3(1.0);
 
     vec3 col = visual.rgb;
-
+    
 
     vec2 center = vec2(0.55, 0.55);
     vec3 overlay_color = vec3(1.0);
-
+    
     vec3 parent_color = cell.PREV_CLK < 0.5 ? vec3(0.6, 0.4, 0.1) : vec3(0.8, 0.1, 0.1);
-
+    
     // vec3 parent_color = vec3(0.6, 0.0, 0.0);
     vec3 twig_color_clocked = vec3(0.0, 0.0, 0.0);
     vec3 twig_color = vec3(0.1, 0.5, 0.0);
-
+    
     float parent_thickness = zoom_factor * zoom_factor / 128.0 * 0.5;
     float twig_thickness = zoom_factor * zoom_factor / 128.0 * 0.15;
 
     // Children twigs
-
+    
     p = mod(fragCoord, zoom_factor);
 
     /*
@@ -2064,65 +2054,65 @@ vec4 render (in vec2 fragCoord) {
         vec3 twig_color = cell.LCO > 0.5 ? twig_color_clocked : twig_color;
         overlay_color = line(center, -0.5, 0.0, twig_color, twig_thickness, zoom_factor, p, overlay_color);
     }
-
+    
     if (is_bottom(top.parent) > 0.5) {
         vec3 twig_color = cell.TCO > 0.5 ? twig_color_clocked : twig_color;
         overlay_color = line(center, 0.0, -0.5, twig_color, twig_thickness, zoom_factor, p, overlay_color);
     }
-
+    
     if (is_left(right.parent) > 0.5) {
         vec3 twig_color = cell.RCO > 0.5 ? twig_color_clocked : twig_color;
         overlay_color = line(center, 0.5, 0.0, twig_color, twig_thickness, zoom_factor, p, overlay_color);
     }
-
+    
     if (is_top(bottom.parent) > 0.5) {
         vec3 twig_color = cell.BCO > 0.5 ? twig_color_clocked : twig_color;
         overlay_color = line(center, 0.0, 0.5, twig_color, twig_thickness, zoom_factor, p, overlay_color);
     }
     */
-
+    
     // Parent twig
     if (is_left(cell.parent) > 0.5) {
         overlay_color = line(center - vec2(0.25, 0.0), -0.3, 0.0, parent_color, parent_thickness, zoom_factor, p, overlay_color);
     }
-
+    
     if (is_top(cell.parent) > 0.5) {
         overlay_color = line(center - vec2(0.0, 0.25), 0.0, -0.3, parent_color, parent_thickness, zoom_factor, p, overlay_color);
     }
-
+    
     if (is_right(cell.parent) > 0.5) {
         overlay_color = line(center + vec2(0.25, 0.0), 0.3, 0.0, parent_color, parent_thickness, zoom_factor, p, overlay_color);
     }
-
+    
     if (is_bottom(cell.parent) > 0.5) {
         overlay_color = line(center + vec2(0.0, 0.25), 0.0, 0.3, parent_color, parent_thickness, zoom_factor, p, overlay_color);
     }
     // */
 
     col = compose(-0.09 * (24.0 / zoom_factor), visual.rgb, overlay_color);
-
+    
     //col = overlay_color;
-
-
+    
+    
     //col = 1.5 * transparent_compose(-1.0, vec4(0.5 * col, 0.95),
     //   vec4(5.0 * overlay_color, 0.0)).rgb;
     //col = 1.5 * transparent_compose(-1.0, vec4(0.5 * col, 0.95),
     //   vec4(5.0 * overlay_color, 0.0)).rgb;
     //col = 2.0 * compose(-0.15, 0.25 * visual.rgb, 2.0 * overlay_color);
     // col = transparent_compose(-1.0, vec4(overlay_color, 0.5), vec4(2.0 * col, 1.0)).rgb;
-
+    
     if (cell.conf_signal < 0.5) {
         col = transparent_compose(-1.0, vec4(1.0, 1.0, 1.0, 0.4), vec4(col, 1.0)).rgb;
     }
-
+    
 
     // m.z is button pressed
     // m.w is button state changed from "not pressed" to "pressed" (only one frame)
     if (m.z > 0.5 && abs(mouse_cell - gpgpu_coord).x < 0.5 && abs(mouse_cell - gpgpu_coord).y < 0.5) {
-
+    
         return transparent_compose(-1.0, vec4(1.0, 1.0, 0.0, 0.35), vec4(col, 1.0));
     }
-
+    
     return vec4(col, 1.0);
 }
 
@@ -2142,7 +2132,7 @@ void main() {
 
   // dFdx(genType)
   // dFdy(genType)
-  // fwidth(genType)
+  // fwidth(genType)    
 
   // For 4k
   // float zoom = 0.003;
@@ -2151,14 +2141,14 @@ void main() {
   // For 1k
   //float zoom = 0.012;
   // float zoom = 0.012 * 3.8;
-
+  
   // For 512
   //float zoom = 0.0243;
 
   // For 256
   // 0.0485 is perfect zoom!
   float zoom = 0.0485;
-
+  
   // For 128
   //float zoom = 0.097;
 
@@ -2182,7 +2172,7 @@ void main() {
   // This zoom is relative to the width of the screen
   float z = zoom * 1000.0 / screenWidth;
   float vertZ = zoom * 1000.0 / screenHeight;
-
+    
   vec2 u = screenPos / (screenWidth * z);
 
   // Scaling, translating, then converting it to a hexagonal grid cell coordinate and
@@ -2275,7 +2265,7 @@ const vertices = [
   1.0,  -1.0,
  -1.0,  -1.0,
 ];
-
+      
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
 
 
@@ -2342,7 +2332,7 @@ struct Element {
     // ==== First block - [8 bits] of core config determining cell's function
 
     // --- 5 bits of wiring and control configuration ---
-
+    
     // 4 orientations 0..3 for MUX or wire. For special mode diff. meaning:
     // 0: reconf. port; 1: cross; 2: GND; 3: PWR.
     // [2 bits]
@@ -2353,18 +2343,18 @@ struct Element {
     float mode;
 
     // --- 2 bits Cartilage tree engine ---
-
+    
     // Pointer to the owner element
     // [2 bits]
     float parent; // 0..3
-
+    
     // Main state bit to store the output value
     // In silicon, it represents electric charge.
     // There is no inherent clock or D flip-flops. This bit is ephemeral
     // (but initialized from config to support prototype inheritance).
-
+    
     lowp float right;  // 0..1
-
+   
 
     // ==== Second block: Ephemeral [8 bits] of Intersin clock and data wires
     // (the wires neighbor cells interface with
@@ -2378,10 +2368,10 @@ struct Element {
     lowp float RDO;
     lowp float BCO;
     lowp float BDO;
-
+    
 
     //  [13 bits] of non-copy-able "hidden" state (real DFFs)
-
+    
     // ====== Third block: [8 bits] shift register of configuration data.
     // Applied to the main bits (orientation/mode/parent/state bit)
     // when one subtree is completely filled with config bits.
@@ -2400,7 +2390,7 @@ struct Element {
     lowp float WE_ARE_FULL_DFF;
 
     // ^^^ 29 bits consumed! ^^^
-
+    
 
     // The three state bits used only to store outputs for crosses,
     // In silicon, these represent charges. There is no inherent clock
@@ -2409,7 +2399,7 @@ struct Element {
     lowp float left;  // 0..1
     lowp float top;  // 0..1
     lowp float bottom;  // 0..1
-
+    
     // Spanning tree integrity. A technical signal preventing
     // hidden ownership loops. In FPGA chains, implemented as a hops counter.
     // We gave up on it because exhausted all 32 bits to encode electrical signals
@@ -2421,7 +2411,7 @@ struct Element {
     // If another signal is coming from the root, it means we got a cycle.
     // Not implemented.
     //lowp float conf_signal_leaf_to_root;
-
+    
     // We have to sample the previous value of CLK to detect raising and falling edges.
     lowp float PREV_CLK;
 };
@@ -2465,6 +2455,12 @@ const nextEdgeBit = () => {
   return Math.floor(Math.random() * 2);
 };
 
+const EDGE_RECONF_CLOCK_PERIOD_FRAMES = 200;
+const EDGE_RECONF_HALF_PERIOD_FRAMES = EDGE_RECONF_CLOCK_PERIOD_FRAMES / 2;
+const edgeDataBits = new Uint8Array(gpgpuTextureWidth * gpgpuTextureHeight);
+let edgeReconfClockBit = 0;
+let edgeReconfFrame = 0;
+
 const outwardParentForEdgeCell = (x, y) => {
   if (x === 0) {
     return 0.0;
@@ -2486,8 +2482,53 @@ const parentForCell = (x, y) => {
   return edgeParent === null ? Math.floor(Math.random() * 4) : edgeParent;
 };
 
-const randomEdgeSourceNodeBytes = (x, y) => {
-  const orientation = nextEdgeBit() ? 3.0 : 2.0;
+const edgeBitIndex = (x, y) => y * gpgpuTextureWidth + x;
+
+const edgeLaneCoordinate = (x, y) => {
+  if (x === 0 || x === gpgpuTextureWidth - 1) {
+    return y;
+  }
+  return x;
+};
+
+const isEdgeClockLane = (x, y) => edgeLaneCoordinate(x, y) % 2 === 1;
+
+const randomizeEdgeDataBits = () => {
+  for (let p = 0; p < gpgpuTextureHeight; ++p) {
+    if (!isEdgeClockLane(gpgpuTextureWidth - 1, p)) {
+      edgeDataBits[edgeBitIndex(gpgpuTextureWidth - 1, p)] = nextEdgeBit();
+    }
+    if (!isEdgeClockLane(0, p)) {
+      edgeDataBits[edgeBitIndex(0, p)] = nextEdgeBit();
+    }
+  }
+
+  for (let x = 1; x < gpgpuTextureWidth - 1; ++x) {
+    if (!isEdgeClockLane(x, 0)) {
+      edgeDataBits[edgeBitIndex(x, 0)] = nextEdgeBit();
+    }
+    if (!isEdgeClockLane(x, gpgpuTextureHeight - 1)) {
+      edgeDataBits[edgeBitIndex(x, gpgpuTextureHeight - 1)] = nextEdgeBit();
+    }
+  }
+};
+
+const advanceEdgeReconfSource = () => {
+  edgeReconfFrame += 1;
+  if (edgeReconfFrame < EDGE_RECONF_HALF_PERIOD_FRAMES) {
+    return;
+  }
+
+  edgeReconfFrame = 0;
+  edgeReconfClockBit = edgeReconfClockBit ? 0 : 1;
+  if (!edgeReconfClockBit) {
+    randomizeEdgeDataBits();
+  }
+};
+
+const edgeSourceNodeBytes = (x, y) => {
+  const bit = isEdgeClockLane(x, y) ? edgeReconfClockBit : edgeDataBits[edgeBitIndex(x, y)];
+  const orientation = bit ? 3.0 : 2.0;
   return initNodeWithState(orientation, 0.0, parentForCell(x, y), 1.0);
 };
 
@@ -2513,7 +2554,7 @@ const randomInteriorNodeBytes = (x, y) => {
 
 const initialNodeBytes = (x, y) => {
   if (outwardParentForEdgeCell(x, y) !== null) {
-    return randomEdgeSourceNodeBytes(x, y);
+    return edgeSourceNodeBytes(x, y);
   }
   return randomInteriorNodeBytes(x, y);
 };
@@ -2529,31 +2570,33 @@ const writeNodeBytes = (x, y, nodeBytes) => {
 const generateRandomLattice = (onlyPerimeter = false) => {
 
   if (!onlyPerimeter) {
+    randomizeEdgeDataBits();
     for (let y = 0; y < gpgpuTextureHeight; ++y) {
       for (let x = 0; x < gpgpuTextureWidth; ++x) {
         writeNodeBytes(x, y, initialNodeBytes(x, y));
       }
     }
-
+    
   } else {
-
+    advanceEdgeReconfSource();
+  
     for (let p = 0; p < gpgpuTextureHeight; ++p) {
-      writeNodeBytes(gpgpuTextureWidth - 1, p, randomEdgeSourceNodeBytes(gpgpuTextureWidth - 1, p));
+      writeNodeBytes(gpgpuTextureWidth - 1, p, edgeSourceNodeBytes(gpgpuTextureWidth - 1, p));
     }
-
+    
     for (let p = 0; p < gpgpuTextureHeight; ++p) {
-      writeNodeBytes(0, p, randomEdgeSourceNodeBytes(0, p));
+      writeNodeBytes(0, p, edgeSourceNodeBytes(0, p));
+    }
+  
+    for (let x = 1; x < gpgpuTextureWidth - 1; ++x) {
+      writeNodeBytes(x, 0, edgeSourceNodeBytes(x, 0));
     }
 
     for (let x = 1; x < gpgpuTextureWidth - 1; ++x) {
-      writeNodeBytes(x, 0, randomEdgeSourceNodeBytes(x, 0));
-    }
-
-    for (let x = 1; x < gpgpuTextureWidth - 1; ++x) {
-      writeNodeBytes(x, gpgpuTextureHeight - 1, randomEdgeSourceNodeBytes(x, gpgpuTextureHeight - 1));
+      writeNodeBytes(x, gpgpuTextureHeight - 1, edgeSourceNodeBytes(x, gpgpuTextureHeight - 1));
     }
   }
-
+  
 };
 
 generateRandomLattice();
@@ -2649,7 +2692,7 @@ float whenGt (float l, float r) {
 }
 
 lowp vec2 ctrlOffset (float dir) {
-
+    
   return vec2(-1.0,  0.0) * whenGt(dir, 0.5) * whenGt(1.5, dir) +
          vec2( 0.0, -1.0) * whenGt(dir, 1.5) * whenGt(2.5, dir) +
          vec2( 0.0,  1.0) * whenGt(dir, 2.5) * whenGt(3.5, dir) +
@@ -2663,7 +2706,7 @@ float at(float x, float y, vec2 fragCoord) {
     ) {
         return 1.0;
     }
-
+    
     return 0.0;
 }
 
@@ -2686,7 +2729,7 @@ void mova(float mode, float orientation, float value, float x, float y, inout El
         }
         elt.orientation = orientation;
     }
-
+    
     elt.WE_ARE_FULL_DFF = 0.0;
     elt.write_pointer_counter = 0.0;
 }
@@ -2783,7 +2826,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
             mova(0., 1., 1., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
             return;
         } else if (texelFetch(iChannel1, ivec2(kL, 0), 0).x > 0.5) {
-            // Ownership subtree overlay entry (a reconfuguration port)
+            // Ownership subtree overlay entry (a reconfuguration port) 
             mova(0., 0., 0., fragCoord.x, fragCoord.y, elt, fragCoord + vec2(0.5));
             elt.conf_signal = 0.0;
             elt.parent = 0.0; // left
@@ -2791,7 +2834,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
             // Subtree readback value
             elt.left = elt.right = elt.top = elt.bottom = 0.0;
             return;
-
+            
         } else if (texelFetch(iChannel1, ivec2(kNumLeft, 0), 0).x > 0.5) {
             // Ownership parent supertree pointer (toward the tree spaning from the
             // reconfuguration port)
@@ -2818,17 +2861,17 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
     // On mouse release when this cell is being rendered
     //if (m.z < 0.5 && cfg.bit0.g > 0.5 && abs(mouse_cell - gpgpu_coord).x < 0.5 && abs(mouse_cell - gpgpu_coord).y < 0.5) {
     //}
-
+    
     // Fetch neighbor elements or IO surface bits
     Element left, right, top, bottom;
     elementFromCell(texture0, fragCoord - vec2(1.0, 0.0), left);
     elementFromCell(texture0, fragCoord + vec2(1.0, 0.0), right);
     elementFromCell(texture0, fragCoord - vec2(0.0, 1.0), top);
     elementFromCell(texture0, fragCoord + vec2(0.0, 1.0), bottom);
-
+    
     // Cell reconfiguration local clock
     lowp float CLK = 0.0;
-
+    
     if (is_config_param_block(fragCoord + vec2(0.0, -1.0)) > 0.5) {
         top.parent = 3.0; // bottom
         top.conf_signal = 0.0;
@@ -2840,7 +2883,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
         left.mode = 0.0;
         left.orientation = 2.0;
     }
-
+    
     if (fragCoord.x < 0.9) {
         left.parent = 2.0; // right
         left.conf_signal = 0.0;
@@ -2852,7 +2895,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
         right.mode = 0.0;
         right.orientation = 2.0;
     }
-
+    
     if (fragCoord.y < 0.9) {
         top.parent = 3.0; // bottom
         top.conf_signal = 0.0;
@@ -2864,14 +2907,14 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
         bottom.mode = 0.0;
         bottom.orientation = 2.0;
     }
-
+        
     // If element not configured, don't flow data
     // Disabled due to the new coarse-grained mini-FPGA model
     // Enabled again to try the fine grained cellular model. FPGAs are not necessary.
     if (elt.conf_signal > 0.5) {
-
+    
     lowp float is_crossbar = 0.0;
-
+    
     lowp float LDI = left.RDO;
     lowp float LCI = left.RCO;
     lowp float TDI = top.BDO;
@@ -2900,29 +2943,29 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
     lowp float TOP_IS_FULL = TDI > 0.5 && TCI > 0.5 && PARENT_IS_TOP < 0.5 ? 1.0 : 0.0;
     lowp float RIGHT_IS_FULL = RDI > 0.5 && RCI > 0.5 && PARENT_IS_RIGHT < 0.5 ? 1.0 : 0.0;
     lowp float BOTTOM_IS_FULL = BDI > 0.5 && BCI > 0.5 && PARENT_IS_BOTTOM < 0.5 ? 1.0 : 0.0;
-
+    
     // In the clockwise direction from the parent
     lowp float PRIORITY_CHILD_LEFT = 0.0;
     lowp float PRIORITY_CHILD_FRONT = 0.0;
     lowp float PRIORITY_CHILD_RIGHT = 0.0;
-
+    
     lowp float LEFT_IS_AN_EMPTY_CHILD = LEFT_IS_A_CHILD > 0.5 && LEFT_IS_FULL < 0.5 ? 1.0 : 0.0;
     lowp float TOP_IS_AN_EMPTY_CHILD = TOP_IS_A_CHILD > 0.5 && TOP_IS_FULL < 0.5 ? 1.0 : 0.0;
     lowp float RIGHT_IS_AN_EMPTY_CHILD = RIGHT_IS_A_CHILD > 0.5 && RIGHT_IS_FULL < 0.5 ? 1.0 : 0.0;
     lowp float BOTTOM_IS_AN_EMPTY_CHILD = BOTTOM_IS_A_CHILD > 0.5 && BOTTOM_IS_FULL < 0.5 ? 1.0 : 0.0;
-
+    
     lowp float CLK_LEFT = 0.0;
     lowp float CLK_TOP = 0.0;
     lowp float CLK_RIGHT = 0.0;
     lowp float CLK_BOTTOM = 0.0;
-
+    
     lowp float DATA_OUT_L = 0.0;
     lowp float DATA_OUT_T = 0.0;
     lowp float DATA_OUT_R = 0.0;
     lowp float DATA_OUT_B = 0.0;
-
+    
     lowp float DATA_IN = 0.0;
-
+    
     if (PARENT_IS_LEFT > 0.5) {
         CLK = IS_RECONF_PORT > 0.5 ? top.bottom : LCI;
         lowp float CLK_AND_WE_ARE_NOT_FULL_YET = CLK > 0.5 && elt.WE_ARE_FULL_DFF < 0.5 ? 1.0 : 0.0;
@@ -2930,7 +2973,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
         PRIORITY_CHILD_LEFT = TOP_IS_AN_EMPTY_CHILD;
         PRIORITY_CHILD_FRONT = RIGHT_IS_AN_EMPTY_CHILD;
         PRIORITY_CHILD_RIGHT = BOTTOM_IS_AN_EMPTY_CHILD;
-
+        
         if (PRIORITY_CHILD_RIGHT > 0.5) {
             CLK_BOTTOM = CLK_AND_WE_ARE_NOT_FULL_YET;
             DATA_OUT_B = DATA_IN;
@@ -2993,7 +3036,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
             DATA_OUT_L = DATA_IN;
         }
     }
-
+    
     // Ports now belong to the child subtree. They become full only after their
     // child side is full, exactly like other subtree roots.
     lowp float ALL_CHILDREN_ARE_FULL =
@@ -3004,7 +3047,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
         (RIGHT_IS_FULL > 0.5 || RIGHT_IS_A_CHILD < 0.5)
         &&
         (BOTTOM_IS_FULL > 0.5 || BOTTOM_IS_A_CHILD < 0.5)) ? 1.0 : 0.0;
-
+        
 
     elt.LCO = (PARENT_IS_LEFT > 0.5 && IS_NOT_RECONF_PORT > 0.5 && elt.WE_ARE_FULL_DFF > 0.5) ||
         (LEFT_IS_FULL > 0.5 && elt.WE_ARE_FULL_DFF > 0.5 && CLK > 0.5) ||
@@ -3029,7 +3072,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
         (CLK_BOTTOM > 0.5 && BOTTOM_IS_A_CHILD > 0.5
           && (ALL_CHILDREN_ARE_FULL < 0.5 || elt.WE_ARE_FULL_DFF > 0.5))
         ? 1.0 : 0.0;
-
+        
 
     elt.LDO = (PARENT_IS_LEFT > 0.5 && IS_NOT_RECONF_PORT > 0.5 || DATA_OUT_L > 0.5 && PARENT_IS_LEFT < 0.5) ? 1.0 : 0.0;
     elt.TDO = (PARENT_IS_TOP > 0.5 && IS_NOT_RECONF_PORT > 0.5 || DATA_OUT_T > 0.5 && PARENT_IS_TOP < 0.5) ? 1.0 : 0.0;
@@ -3043,7 +3086,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
         } else {
             next_write_ptr_ctr = 0.0;
         }
-
+        
         if (elt.WE_ARE_FULL_DFF > 0.5) {
             // Our cell config update happens here!
             // Note we USE the previous values!
@@ -3083,7 +3126,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
         } else if (elt.orientation < 0.5) {
             elt.right = mux_action(elt.mode, bottom.top, top.bottom, right.left, left.right);
         }
-
+        
     } else if (elt.mode > 0.5 && elt.mode < 1.5) {
         // Wire
         if (elt.orientation > 2.5) {
@@ -3124,10 +3167,10 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
             } else if (is_bottom(elt.parent) > 0.5) {
                 elt.right = top.BCO;
             }
-
+            
             // Sample the clk and dat,
             // execute operations on clk change.
-
+            
             /* if (elt.prev_clk < 0.5 && clk > 0.5) {
                 // If neither reading or writing, let's begin
                 // depending on the data. Emulate DFF behavior using the prev_dat.
@@ -3143,7 +3186,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
                         elt.right = 1.0;
                     }
                 }
-
+                
                 // Readout value
                 // elt.right = dat;//1.0 - elt.right;
             }*/
@@ -3154,15 +3197,15 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
             //elt.prev_dat = dat;
         }
     }
-
+    
     if (is_crossbar < 0.5) {
         elt.left = elt.right;
         elt.top = elt.right;
         elt.bottom = elt.right;
     }
-
+    
     } // if conf_signal
-
+    
     // Disabled due to the new coarse-grained mini-FPGA model
     // Enabled again
     // Spanning tree integrity
@@ -3194,7 +3237,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
             //elt.prev_clk = bottom.prev_clk;
         }
     }
-
+    
     // At first, ran out of internal bits in a 32-bit pixel
     // But then had to find one bit to sample clock.
     // Had to give up on prototype inheritance of MUX states (for this shader code),
@@ -3206,7 +3249,7 @@ void computeElement (inout Element elt, in vec2 fragCoord) {
         }
     } // TODO later make it work in another way. This feature is important,
     // it supports failed FPGAs and automatically unstucks accidental ownership tree cycles.
-
+    
     elt.PREV_CLK = CLK;
 }
 
@@ -3223,7 +3266,7 @@ void main() {
     vec4 gpgpu_data = IS_AUX > 0.5 ? aux_data : main_data;
 
     vec2 fragCoord = logical_coord_from_storage(mainStorageFragCoord);
-
+    
     if (fragCoord.x > COMPUTER_WIDTH || fragCoord.y > COMPUTER_HEIGHT) {
         // Skip processing of data not in computer core
         // or not being in IO
@@ -3241,11 +3284,11 @@ void main() {
 
         // vec4 m = vec4(iMouse.x, dataWidthAndHeight.y - iMouse.y, iMouse.zw);
         vec4 m = vec4(iMouse.x, iMouse.y, iMouse.zw);
-
+        
         if (m.z > 0.5) {
             cfg.bit0.g = 1.0;
         }
-
+        
         if (m.z < -0.5) {
             cfg.bit0.g = 0.0;
         }
@@ -3254,11 +3297,11 @@ void main() {
         const int KEY_UP    = 38;
         const int KEY_RIGHT = 39;
         const int KEY_DOWN  = 40;
-
+        
         if (texelFetch(iChannel1, ivec2(KEY_UP, 0), 0).x > 0.5) {
             cfg.bit0.r = 1.0;
         }
-
+        
         if (texelFetch(iChannel1, ivec2(KEY_DOWN, 0), 0).x > 0.5) {
             cfg.bit0.r = 0.0;
         }
@@ -3378,14 +3421,14 @@ window.g_app.doGpuCompute = () => {
   chainIdSrc = chainIdDst;
   chainIdDst = tmp;
 
-/*
+/*  
   currentRotationPhase += 1;
   if (currentRotationPhase > 6) {
     currentRotationPhase = 1;
   }
-
+  
   */
-
+  
   currentRotationPhase += 1;
   if (currentRotationPhase > 6) {
     currentRotationPhase = 1;
@@ -3394,7 +3437,7 @@ window.g_app.doGpuCompute = () => {
       currentRotationPhase2 = 1;
     }*/
   }
-
+  
   if (currentRotationPhase == 2) {
     currentRotationPhase2 += 1;
     if (currentRotationPhase2 > 6) {
@@ -3463,7 +3506,7 @@ window.g_app.render = () => {
     window.g_app.mouse.left ? window.g_app.mouse.leftX : -window.g_app.mouse.leftX,
     window.g_app.mouse.left ? window.g_app.mouse.leftY : -window.g_app.mouse.leftY);
   gl.uniform2f(uniformScreenSize, width, height);
-
+  
   gl.uniform1f(uniformPhase, currentRotationPhase2);
 
   gl.uniform2f(uniformPan, window.g_app.panX, window.g_app.panY);
@@ -3516,7 +3559,7 @@ window.g_app.render = () => {
 
   // console.log(minTook, took);
 
-
+  
   // UNCOMMENT TO RUN VISUALIZATION
   if (KEEP_COMPUTING) {
     if (DELAY_BETWEEN_FRAMES) {
