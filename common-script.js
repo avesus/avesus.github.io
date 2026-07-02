@@ -297,6 +297,44 @@ figcaption {
 	text-transform: uppercase;
 }
 
+.traction-panel {
+	text-align: left;
+}
+
+.cta-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 1rem 0 0;
+	text-align: left;
+}
+
+.cta-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	min-height: 44px;
+	padding: 0.45rem 0.7rem;
+	border: 1px solid #520;
+	border-radius: 4px;
+	color: #520;
+	font-family: 'Inconsolata', monospace;
+	font-size: 18px;
+	line-height: 1.2;
+	text-align: center;
+	text-decoration: none;
+	-webkit-hyphens: none;
+	hyphens: none;
+}
+
+.cta-link:focus-visible,
+.cta-link:hover {
+	background: #faf8f2;
+	text-decoration: underline;
+	text-underline-offset: 0.12em;
+}
+
 .chain,
 .formula {
 	font-family: 'Inconsolata', monospace;
