@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bit-Serial Bubbles-Free Multiplier</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="description" content="A positive-number Logisim bit-serial multiplier: the rendered artifact is 8x8 to 8 bits, LSB-first, with one output bit per clock after fill and no drain gap between operand words.">
@@ -53,9 +54,11 @@
         </div>
     </section>
 
-    <figure>
-        <img src="mul.png" alt="Logisim schematic of the bit-serial bubbles-free multiplier">
-        <figcaption>The multiplier datapath in Logisim. The repeated lanes and serial reducing adders are the circuit to read.</figcaption>
+    <figure class="inspectable-image">
+        <a href="mul.png">
+            <img src="mul.png" alt="Logisim schematic of the bit-serial bubbles-free multiplier">
+        </a>
+        <figcaption>The multiplier datapath in Logisim. Open the image to inspect the full schematic, repeated lanes, and serial reducing adders.</figcaption>
     </figure>
 
     <main>
