@@ -6,11 +6,11 @@
     <title>Nano-Core Logic at the kT Limit</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="🔥 Silicon had a good run—now let’s leap 10,000× beyond it. 🔥 Imagine logic elements whose cobalt nano-cores flip at the kT irreversibility limit—the...">
+    <meta name="description" content="A post-CMOS magnetic-logic proposal: cobalt, iron, or nickel nano-core elements near the kT switching limit, differential magnetic-amplifier fabric, cascadability, gain, and process requirements.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2025-06-05-nano-core-logic-at-the-kt-limit.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Nano-Core Logic at the kT Limit">
-    <meta property="og:description" content="🔥 Silicon had a good run—now let’s leap 10,000× beyond it. 🔥 Imagine logic elements whose cobalt nano-cores flip at the kT irreversibility limit—the...">
+    <meta property="og:description" content="A post-CMOS magnetic-logic proposal: cobalt, iron, or nickel nano-core elements near the kT switching limit, differential magnetic-amplifier fabric, cascadability, gain, and process requirements.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2025-06-05-nano-core-logic-at-the-kt-limit.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2025-06-05",
                                 "dateModified": "2026-07-09",
-                                "description": "🔥 Silicon had a good run—now let’s leap 10,000× beyond it. 🔥 Imagine logic elements whose cobalt nano-cores flip at the kT irreversibility limit—the...",
+                                "description": "A post-CMOS magnetic-logic proposal: cobalt, iron, or nickel nano-core elements near the kT switching limit, differential magnetic-amplifier fabric, cascadability, gain, and process requirements.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2025-06-05-nano-core-logic-at-the-kt-limit.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,14 +78,35 @@
     <address>June 5, 2025</address>
 
     <section class="abstract">
+        <p>This page is a post-CMOS magnetic-logic proposal: nanoscale magnetic core elements, differential magnetic-amplifier behavior, and an open fabric that would have to be cascadable to become useful computing hardware.</p>
+        <p>The performance numbers in the original post are research targets and scale arguments, not measured device results on this page.</p>
         <div class="status-box">
-            <p><span class="status-label">Publication note</span>Originally posted 2025-06-05.</p>
-            <p><strong>Included:</strong> original publication text, source link, and related project links.</p>
+            <p><span class="status-label">Device proposal</span>Originally posted 2025-06-05; expanded here around the actual magnetic-logic requirements.</p>
+            <p><strong>Included:</strong> nano-core material choices, kT-limit switching target, differential magnetic-amplifier fabric, cascadability, gain, thin-film process path, and the open-platform question.</p>
+            <p><strong>Boundary:</strong> this is not a measured nano-core device, process report, or demonstrated general-purpose logic fabric.</p>
             <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
         </div>
     </section>
 
     <main>
+        <section>
+            <h1>The Device Question</h1>
+            <p>The proposed primitive is a nanoscale magnetic core logic element, with cobalt named as the high-performance material and iron or nickel as cheaper alternatives. The important engineering question is whether those elements can become a cascadable logic family rather than isolated magnetic demonstrations.</p>
+            <p>A useful logic family needs gain, restoration, fanout, noise margin, repeatable switching, routing, clocking or pumping discipline, and a process that can make many matched elements.</p>
+        </section>
+
+        <section>
+            <h1>Fabric Requirement</h1>
+            <p>The original proposal names an open-source differential magnetic-amplifier fabric: FPGA-like flexibility, but with gapped-core nano magnetic amplifiers instead of CMOS gates.</p>
+            <p>That comparison only becomes real if the magnetic cells can drive each other, expose reliable state, and be placed into a regular fabric with testable behavior. Thin-film deposition is the suggested manufacturing direction, but the page does not claim a completed process.</p>
+        </section>
+
+        <section>
+            <h1>Performance Claim Boundary</h1>
+            <p>The original post talks about four-order power reduction and multi-THz switching. On this page, those are not reported measurements. They are the motivating target behind the proposal: approach the energy floor while keeping enough gain and cascadability for real logic.</p>
+            <p>The next useful result would be a material stack, geometry, drive method, switching energy, switching speed, gain, fanout, endurance, and a small cascaded circuit that another lab can reproduce.</p>
+        </section>
+
         <section>
             <h1>Original Post</h1>
             <p>🔥 Silicon had a good run—now let’s leap 10,000× beyond it. 🔥</p>
