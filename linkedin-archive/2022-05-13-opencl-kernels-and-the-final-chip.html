@@ -6,11 +6,11 @@
     <title>OpenCL Kernels and the Final Chip</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="We have a good set of ideas, how OpenCL kernels can be automatically allocated and managed in a coding and configuration-less distributed and secure manner...">
+    <meta name="description" content="An accelerator-placement note about OpenCL-style kernels, device allocation, configuration, security boundaries, and what changes when kernels approach final hardware.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-13-opencl-kernels-and-the-final-chip.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="OpenCL Kernels and the Final Chip">
-    <meta property="og:description" content="We have a good set of ideas, how OpenCL kernels can be automatically allocated and managed in a coding and configuration-less distributed and secure manner...">
+    <meta property="og:description" content="An accelerator-placement note about OpenCL-style kernels, device allocation, configuration, security boundaries, and what changes when kernels approach final hardware.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-13-opencl-kernels-and-the-final-chip.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-05-13",
                                 "dateModified": "2026-07-09",
-                                "description": "We have a good set of ideas, how OpenCL kernels can be automatically allocated and managed in a coding and configuration-less distributed and secure manner...",
+                                "description": "An accelerator-placement note about OpenCL-style kernels, device allocation, configuration, security boundaries, and what changes when kernels approach final hardware.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-13-opencl-kernels-and-the-final-chip.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,21 +79,40 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-05-13.</p>
-            <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
+            <p><span class="status-label">Kernel-placement note</span>Originally posted 2022-05-13; rewritten here around accelerator kernels and hardware placement.</p>
+            <p><strong>Included:</strong> OpenCL-style kernels, placement, allocation, configuration, security boundaries, chiplets, and the limits of automatic management.</p>
+            <p><strong>Article focus:</strong> what has to be explicit before kernels can move from source code into distributed accelerator or fabric resources.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>We have a good set of ideas, how OpenCL kernels can be automatically allocated and managed in a coding and configuration-less distributed and secure manner (in a new, not yet developed, programming language), with INFINITE chips cluster scalability.</p>
-            <p>Our chips could be EVERYWHERE, if we succeed with design and tape out. We wanted to call it &quot;Final Chip&quot; (after &quot;Final Fantasy&quot;), but realized there were multiple Fantasies...</p>
-            <p>Microsoft for Startups / Microsoft / Microsoft Leap / HoloLens Research Project / Microsoft Developers please give our startup a humble place at your research lab, or please fund us... There's no owner who will be happier. You knew what to do with FPGAs since Bing's regex parser, and what you're doing right now is amazing!</p>
-            <p>We'll be a great fit for your company.</p>
-            <p>We REALLY don't want Intel to get onto our IP by choice or an accident.</p>
-            <p>PLEASE SAVE US ASAP.</p>
-            <p>#scalability #startups #research #coding #microsoft #reactiveprogramming #distributedcomputing #hpc #fpga #chiplets #smartdust #claytronics #nanobots #curecancer</p>
+            <h1>The Kernel Placement Problem</h1>
+            <p>OpenCL-style kernels are a useful boundary because they make some work explicit: inputs, outputs, buffers, launch shape, memory movement, and the device that runs the kernel.</p>
+            <p>That is not enough by itself. If kernels are meant to spread across accelerator cards, FPGA regions, chiplets, or a larger fabric, the system needs placement and ownership rules that survive more than one device.</p>
+        </section>
+
+        <section>
+            <h1>What Has To Be Managed</h1>
+            <ul class="article-facts">
+                <li><strong>Placement:</strong> which device, region, chiplet, or fabric area owns the kernel instance.</li>
+                <li><strong>Memory:</strong> where buffers live, when data moves, and which copies are authoritative.</li>
+                <li><strong>Configuration:</strong> which bitstream, kernel variant, clock, memory layout, or protocol endpoint is active.</li>
+                <li><strong>Security:</strong> which tenant, process, or capability can invoke the work and access the data.</li>
+                <li><strong>Failure:</strong> what happens when a device stalls, a link drops, a kernel faults, or a configuration update fails.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>What Final Hardware Changes</h1>
+            <p>A kernel running on a GPU is still usually managed by a host runtime. A kernel lowered into FPGA fabric or chiplet-scale hardware has fewer layers between the operation and the physical execution path.</p>
+            <p>That can reduce overhead, but it also removes convenient runtime assumptions. Allocation, scheduling, isolation, observability, and updates have to be designed into the system instead of assumed from the host software stack.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>This note does not claim configuration-free or infinitely scalable kernel management. The useful target is smaller and harder: make kernel placement explicit enough that source code, data movement, device ownership, and security boundaries can still be understood when work is distributed across hardware.</p>
+            <p>The fabrication side of this question connects to <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a>: the missing layer is not just more boards, but active behavior that can be built, tested, and controlled closer to the builder.</p>
         </section>
 
     </main>
@@ -101,10 +120,10 @@
     <nav class="article-links">
         <p>Next:</p>
         <a href="2022-05-12-verilog-allocation-and-dynamic-languages.html">Verilog, Allocation, and Dynamic Languages</a>
-        <p>Another dated publication from May 12, 2022.</p>
+        <p>The allocation side of the same problem: hardware resources have to exist before runtime can use them.</p>
         <p>More:</p>
         <a href="2022-07-06-searching-for-a-tinkerer-replacement-for-silicon.html">Searching for a Tinkerer Replacement for Silicon</a>
-        <p>Another dated publication from July 6, 2022.</p>
+        <p>A related device-search note about useful active elements beyond conventional silicon access.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
