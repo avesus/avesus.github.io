@@ -4,7 +4,7 @@
     "title": "Merchant Values and Honest Exchange",
     "date": "2026-06-02",
     "slug": "2026-06-02-merchant-values-and-honest-exchange",
-    "description": "Sharing merchant values means sharing a respect for honest exchange. A good merchant does not merely sell; a good merchant learns what people need, offers...",
+    "description": "A practical note on exchange: the other person receives useful work, clear terms, reliable delivery, and enough care that trust survives the transaction.",
     "words": 114,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7467626598100430848/"
   },
@@ -40,7 +40,7 @@
     "title": "How Much Radio Do You Actually Need?",
     "date": "2026-04-24",
     "slug": "2026-04-24-how-much-radio-do-you-actually-need",
-    "description": "How Much Radio Do You Actually Need? I fed FM RF into a single FPGA input pin and let the pin's logic threshold become the receiver's front edge. A...",
+    "description": "Launch note for the one-pin FPGA FM receiver: RF enters a digital input threshold, becomes a transition stream, and is recovered as FM audio in the full article and Verilog follow-up.",
     "words": 96,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7453308053090897920/"
   },
@@ -49,7 +49,7 @@
     "title": "An FM Receiver With One FPGA Input Pin",
     "date": "2026-04-24",
     "slug": "2026-04-24-an-fm-receiver-with-one-fpga-input-pin",
-    "description": "I built an FM receiver with one FPGA input pin. Not “one-chip radio.” Not “a tiny SDR module.” One input pin receives the RF. The FPGA threshold turns it into...",
+    "description": "One digital input pin receives RF, the FPGA threshold produces transitions, and the receiver recovers FM audio through logic, CIC filtering, and sigma-delta output.",
     "words": 119,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7453252285146546176/"
   },
@@ -58,7 +58,7 @@
     "title": "Magnetic Paramp and Second-Harmonic Saturable-Core Downconverter",
     "date": "2026-04-15",
     "slug": "2026-04-15-magnetic-paramp-and-second-harmonic-saturable-core-downconverter",
-    "description": "Magnetic Paramp plus Second‑Harmonic Saturable‑Core Downconverter — Seeking Experts and Sources I’m building a focused research thread on a fully diode‑free...",
+    "description": "A diode-free magnetic front-end research thread: magnetic paramp or mag-amp input, two-core second-harmonic saturable-core downconverter, printable magnetics, windings, anneal schedules, and source requests.",
     "words": 233,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7450019838695047168/"
   },
@@ -67,7 +67,7 @@
     "title": "Correctness Emerges by Acting",
     "date": "2026-03-06",
     "slug": "2026-03-06-correctness-emerges-by-acting",
-    "description": "Do you want to be more correct or not? TL;DR: ACT MORE For all #builders, #engineers, #inventors, and all kind of problem solvers in life. Let go correctness...",
+    "description": "Correctness as a closed-loop engineering problem: scan, observe, choose, correct, and turn real behavior into tests, migrations, and safer paths.",
     "words": 88,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7435720226823897089/"
   },
