@@ -6,11 +6,11 @@
     <title>Attention, Dynamic Weights, and Mutual Information</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Of course, attention came from Gaussian mixture models and density networks, soft windows, that was realizing the concept of dynamic weights--historically--as...">
+    <meta name="description" content="A machine-learning note: attention as dynamic weighting, with historical links to soft windows, density networks, mixture models, and mutual-information questions.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-07-21-attention-dynamic-weights-and-mutual-information.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Attention, Dynamic Weights, and Mutual Information">
-    <meta property="og:description" content="Of course, attention came from Gaussian mixture models and density networks, soft windows, that was realizing the concept of dynamic weights--historically--as...">
+    <meta property="og:description" content="A machine-learning note: attention as dynamic weighting, with historical links to soft windows, density networks, mixture models, and mutual-information questions.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-07-21-attention-dynamic-weights-and-mutual-information.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-07-21",
                                 "dateModified": "2026-07-09",
-                                "description": "Of course, attention came from Gaussian mixture models and density networks, soft windows, that was realizing the concept of dynamic weights--historically--as...",
+                                "description": "A machine-learning note: attention as dynamic weighting, with historical links to soft windows, density networks, mixture models, and mutual-information questions.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-07-21-attention-dynamic-weights-and-mutual-information.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,16 +79,27 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-07-21.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+            <p><span class="status-label">Machine-learning note</span>Originally posted 2023-07-21; rewritten here around attention as dynamic weighting.</p>
+            <p><strong>Included:</strong> attention, soft windows, density networks, Gaussian mixtures, dynamic weights, mutual information, and a source link from the original post.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Of course, attention came from Gaussian mixture models and density networks, soft windows, that was realizing the concept of dynamic weights--historically--as evangelized by Hinton since the 1980s, and we just started to re-understand why we use Transformer at the first place? The concept of mutual information is the best upgrade for quantum mechanics that came from rather sloppy and surprising origin in computational linguistics (you'd expect Shannon at least, or rigorous mathematics?) :-)</p>
-            <p><a href="https://lnkd.in/g_auZKeZ" target="_blank" rel="noopener">https://lnkd.in/g_auZKeZ</a></p>
+            <h1>Attention as Dynamic Weighting</h1>
+            <p>Attention is useful to read as dynamic weighting: the model computes which parts of the current context should contribute to the next representation. That connects naturally to older ideas such as soft windows, density networks, mixture models, and adaptive routing of information.</p>
+            <p>The practical value is that the weights are input-dependent. A fixed set of parameters can still produce a changing computation path as context changes.</p>
+        </section>
+
+        <section>
+            <h1>Why Mutual Information Belongs Nearby</h1>
+            <p>Mutual information gives one way to ask what a representation preserves about another variable. In attention systems, that question matters because the mechanism is selecting and mixing context at every layer.</p>
+            <p>This note does not turn mutual information into a universal answer. It is a useful lens for asking what the attention path is carrying, discarding, or making easier for later layers to use.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>The original post linked <a href="https://arxiv.org/abs/2212.10559" target="_blank" rel="noopener">arXiv:2212.10559</a>. The durable point is narrower than the original wording: attention should be explained through mechanism, history, and information flow rather than treated as a black-box transformer ingredient.</p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>
@@ -102,11 +113,11 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2023-07-03-predictive-patterns-are-not-meaning.html">Predictive Patterns Are Not Meaning</a>
-        <p>Another dated publication from July 3, 2023.</p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>A small complete transformer run where model shape, vocabulary, command, loss, samples, and source path stay together.</p>
         <p>More:</p>
-        <a href="2023-07-24-a-draft-theory-of-discrete-photons.html">A Draft Theory of Discrete Photons</a>
-        <p>Another dated publication from July 24, 2023.</p>
+        <a href="2023-03-26-transformers-as-mathematical-optimization.html">Transformers as Mathematical Optimization</a>
+        <p>A related note on optimization framing and efficient model execution.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

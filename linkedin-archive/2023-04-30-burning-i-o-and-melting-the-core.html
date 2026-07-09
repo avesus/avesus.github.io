@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Burning I/O and Melting the Core</title>
+    <title>SerDes, Topology, and Compute Locality</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="I struggle to fight against this trend of burning I/O and melting down the core. Have anyone ever care to quantify the ineffieciency of SerDeses, waste of...">
+    <meta name="description" content="A compute-topology note: SerDes links, latency, energy, memory movement, and island-style accelerator layouts matter as much as raw core throughput.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-04-30-burning-i-o-and-melting-the-core.html">
     <meta property="og:site_name" content="Greenforest I/O">
-    <meta property="og:title" content="Burning I/O and Melting the Core">
-    <meta property="og:description" content="I struggle to fight against this trend of burning I/O and melting down the core. Have anyone ever care to quantify the ineffieciency of SerDeses, waste of...">
+    <meta property="og:title" content="SerDes, Topology, and Compute Locality">
+    <meta property="og:description" content="A compute-topology note: SerDes links, latency, energy, memory movement, and island-style accelerator layouts matter as much as raw core throughput.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-04-30-burning-i-o-and-melting-the-core.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -24,7 +24,7 @@
                         {
                                 "@type": "Article",
                                 "@id": "https://greenforest.io/linkedin-archive/2023-04-30-burning-i-o-and-melting-the-core.html#article",
-                                "headline": "Burning I/O and Melting the Core",
+                                "headline": "SerDes, Topology, and Compute Locality",
                                 "author": {
                                         "@type": "Person",
                                         "name": "Brian Greenforest",
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-04-30",
                                 "dateModified": "2026-07-09",
-                                "description": "I struggle to fight against this trend of burning I/O and melting down the core. Have anyone ever care to quantify the ineffieciency of SerDeses, waste of...",
+                                "description": "A compute-topology note: SerDes links, latency, energy, memory movement, and island-style accelerator layouts matter as much as raw core throughput.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-04-30-burning-i-o-and-melting-the-core.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -62,7 +62,7 @@
                                         {
                                                 "@type": "ListItem",
                                                 "position": 3,
-                                                "name": "Burning I/O and Melting the Core",
+                                                "name": "SerDes, Topology, and Compute Locality",
                                                 "item": "https://greenforest.io/linkedin-archive/2023-04-30-burning-i-o-and-melting-the-core.html"
                                         }
                                 ]
@@ -74,30 +74,43 @@
 </head>
 
 <body>
-    <header>Burning I/O and Melting the Core</header>
+    <header>SerDes, Topology, and Compute Locality</header>
     <address>April 30, 2023</address>
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-04-30.</p>
+            <p><span class="status-label">Compute-topology note</span>Originally posted 2023-04-30; rewritten here around data movement and accelerator topology.</p>
+            <p><strong>Included:</strong> SerDes links, latency, energy, meshes, accelerator islands, memory movement, and why scalable code depends on topology.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>I struggle to fight against this trend of burning I/O and melting down the core. Have anyone ever care to quantify the ineffieciency of SerDeses, waste of energy, and introduced latencies? The massive compute topology went from meshes and lattices into these odd lonely islands connected with data highways. Writing scalable code for such architecture is not only a mess, and doesn't scale, but a waste of time and resources. Driver? Nvidia, of course, commoditizing V100 like if these were barrels of oil. We all know the oil companies still resist green energy change. And so Nvidia.</p>
+            <h1>Data Movement Is Architecture</h1>
+            <p>Accelerator performance is not only core throughput. SerDes links, memory movement, packetization, lane count, latency, topology, and synchronization can dominate the useful shape of a system.</p>
+            <p>A design with powerful compute islands connected by expensive data highways asks the software to pay for distance. The programmer has to know where data lives, how often it crosses a link, and whether the work can remain local long enough to justify the transfer.</p>
+        </section>
+
+        <section>
+            <h1>Meshes, Islands, and Locality</h1>
+            <p>Mesh and lattice-style thinking keeps locality visible. Island-style accelerator systems can still work well, but the interconnect becomes part of the programming model. A kernel that looks efficient in isolation may be poor system design if every useful step moves data across a high-cost boundary.</p>
+            <p>The useful question is measurable: how much energy, latency, and engineering complexity are spent moving data compared with computing on it?</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>This note is not a vendor critique. It is a topology critique. Large-scale computation needs source code and hardware layout to preserve locality, causality, and failure boundaries instead of treating data movement as an invisible detail.</p>
         </section>
 
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2023-04-18-intrinsic-metrics-and-mutual-information.html">Intrinsic Metrics and Mutual Information</a>
-        <p>Another dated publication from April 18, 2023.</p>
+        <a href="2022-05-11-when-one-fpga-is-not-enough.html">When One FPGA Is Not Enough</a>
+        <p>The multi-device version of the same topology problem: partitioning, links, clocks, latency, placement, and routing.</p>
         <p>More:</p>
-        <a href="2023-06-21-reversible-computation-and-biological-efficiency.html">Reversible Computation and Biological Efficiency</a>
-        <p>Another dated publication from June 21, 2023.</p>
+        <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>
+        <p>The source-code version: preserving locality and causality when execution spreads across devices.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
