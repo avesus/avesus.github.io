@@ -66,7 +66,7 @@
         <div class="status-box">
             <p><span class="status-label">Recorded run timeline</span>This page is part of <a href="/ai-assisted-cartilage-draft-archive.html">Generated Cartilage Drafts</a>.</p>
             <p><strong>Included:</strong> <code>20</code> sampled states from a <code>525,568</code>-cycle run, the <code>64x64</code> fabric context, <code>7,956</code> QFG frame declarations, and <code>704</code> browser-side expectations passing.</p>
-            <p><strong>Boundary:</strong> the timeline samples committed renderer states; it does not show every internal configuration bit movement.</p>
+            <p><strong>Timeline focus:</strong> committed renderer states sampled across the 525,568-update run, with checkpoints that show the visible fabric state over time.</p>
         </div>
     </section>
 
@@ -122,7 +122,7 @@
         </section>
 
         <section>
-            <h1>Tradeoff</h1>
+            <h1>What The Timeline Shows</h1>
             <p>A compact renderer is useful for making committed fabric state visible, but it is not a logic analyzer. The next useful publication layer would expose more of the driver, QFG frame stream, boundary checks, and internal configuration path so the run can be reproduced and audited at a deeper level.</p>
         </section>
         <section class="cartilage-visual-link">
