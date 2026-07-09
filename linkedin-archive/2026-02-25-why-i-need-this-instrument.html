@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Why I Need This Instrument</title>
+    <title>Why This Instrument Exists</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Why I Need This Instrument I am building this because ordinary computers hide the parts I care about most. They hide structure. They hide ownership. They hide...">
+    <meta name="description" content="A Cartilage requirements article: a programmable fabric should keep structure, ownership, timing, runtime change, and continuity readable while it runs.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2026-02-25-why-i-need-this-instrument.html">
     <meta property="og:site_name" content="Greenforest I/O">
-    <meta property="og:title" content="Why I Need This Instrument">
-    <meta property="og:description" content="Why I Need This Instrument I am building this because ordinary computers hide the parts I care about most. They hide structure. They hide ownership. They hide...">
+    <meta property="og:title" content="Why This Instrument Exists">
+    <meta property="og:description" content="A Cartilage requirements article: a programmable fabric should keep structure, ownership, timing, runtime change, and continuity readable while it runs.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2026-02-25-why-i-need-this-instrument.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -24,7 +24,7 @@
                         {
                                 "@type": "Article",
                                 "@id": "https://greenforest.io/linkedin-archive/2026-02-25-why-i-need-this-instrument.html#article",
-                                "headline": "Why I Need This Instrument",
+                                "headline": "Why This Instrument Exists",
                                 "author": {
                                         "@type": "Person",
                                         "name": "Brian Greenforest",
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2026-02-25",
                                 "dateModified": "2026-07-09",
-                                "description": "Why I Need This Instrument I am building this because ordinary computers hide the parts I care about most. They hide structure. They hide ownership. They hide...",
+                                "description": "A Cartilage requirements article: a programmable fabric should keep structure, ownership, timing, runtime change, and continuity readable while it runs.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2026-02-25-why-i-need-this-instrument.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -62,7 +62,7 @@
                                         {
                                                 "@type": "ListItem",
                                                 "position": 3,
-                                                "name": "Why I Need This Instrument",
+                                                "name": "Why This Instrument Exists",
                                                 "item": "https://greenforest.io/linkedin-archive/2026-02-25-why-i-need-this-instrument.html"
                                         }
                                 ]
@@ -74,59 +74,54 @@
 </head>
 
 <body>
-    <header>Why I Need This Instrument</header>
+    <header>Why This Instrument Exists</header>
     <address>February 25, 2026</address>
 
     <section class="abstract">
+        <p>A reconfigurable fabric needs an instrument view, not only a program view. The important structure is not just the result on screen; it is the live topology, the ownership boundary, the timing path, and the exact place where one region can be replaced without turning the rest of the machine into mystery.</p>
+        <p>This article names the requirements behind the Cartilage work: structure, ownership, timing, runtime change, and continuity should remain readable while the fabric runs.</p>
         <div class="status-box">
-            <p><span class="status-label">Publication note</span>Originally posted 2026-02-25.</p>
-            <p><strong>Included:</strong> original publication text, source link, and related project links.</p>
-            <p><strong>Related:</strong> <a href="/">Greenforest I/O</a></p>
+            <p><span class="status-label">Architecture note</span>Originally posted 2026-02-25; expanded into a Cartilage requirements article on 2026-07-09.</p>
+            <p><strong>Included:</strong> the design requirements, the role of local reconfiguration ports, and links into the current Cartilage reading path.</p>
+            <p><strong>Boundary:</strong> this is not a benchmark, compiler claim, or finished product specification. The run-specific Cartilage pages carry their own artifacts and limits.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Why I Need This Instrument</p>
-            <p>I am building this because ordinary computers hide the parts I care about most.</p>
-            <p>They hide structure.<br>
-                They hide ownership.<br>
-                They hide the rules of change.</p>
-            <p>They are powerful, but they make me work through layers that flatten my thinking.</p>
-            <p>This instrument is different.</p>
-            <p>It lets me build worlds that stay visible while they run.<br>
-                It lets me change things while they are alive, without everything collapsing.<br>
-                It lets boundaries remain real.<br>
-                It lets objects keep their identity.<br>
-                It lets the system grow without turning into a mess.</p>
-            <p>I need that.</p>
-            <p>Not as a demo.<br>
-                Not as proof.<br>
-                Not to impress anyone.</p>
-            <p>I need a place where computation behaves like a material I can shape, inspect, and govern.</p>
-            <p>A place where I can work directly on:<br>
-                	•	structure<br>
-                	•	ownership<br>
-                	•	timing<br>
-                	•	mutation<br>
-                	•	continuity</p>
-            <p>This is not about “graphics” or “FPGAs” or a project category.</p>
-            <p>It is an instrument for coherent mutation.</p>
-            <p>It solves a personal problem:<br>
-                how to make real things without betraying the architecture in my head.</p>
-            <p>It gives me a way to think in public without flattening my thinking.</p>
-            <p>It gives my ideas a body.</p>
-            <p>And when it is mounted on the wall, always there, it stops being a prototype.</p>
-            <p>It becomes a room I can enter.</p>
-            <p>A world can appear.<br>
-                A world can pause.<br>
-                A world can be replaced coherently.<br>
-                The laws remain visible.</p>
-            <p>That is fun.</p>
-            <p>That is why I am building it.</p>
-            <p>Not because it is the fastest machine.<br>
-                Because it is the first one that lets me work on the variables I love most — directly, honestly, and alive.</p>
+            <h1>The Requirement</h1>
+            <p>Most software surfaces describe a machine from the outside: source files, logs, stack traces, object graphs, threads, processes, services, queues, dashboards, and UI state. Those views are useful, but a reconfigurable fabric has a harder problem. The structure that is running can also be the structure being rewritten.</p>
+            <p>If the rewrite path is hidden, the most important part of the machine is missing. Cartilage is shaped around the opposite requirement: the fabric should show the body role of each tile, the region that owns it, the port where configuration enters, and the neighboring routes that must keep their meaning when a child region changes.</p>
+        </section>
+
+        <section>
+            <h1>What The Instrument Has To Preserve</h1>
+            <ul class="article-facts">
+                <li><strong>Structure:</strong> cells, routes, regions, constants, crosses, wires, and MUX roles need to remain visible enough that the machine can be read as a machine, not only as a finished output.</li>
+                <li><strong>Ownership:</strong> a child region needs a real boundary. A stream may enter through a local port, but it should not become an invisible global edit with no accountable edge.</li>
+                <li><strong>Timing:</strong> streams, installed roles, and state updates need a readable order. A live fabric becomes hard to trust when the visual surface no longer tells which change happened where.</li>
+                <li><strong>Runtime change:</strong> a bounded region should be replaceable while adjacent routes and outside contracts keep their meaning.</li>
+                <li><strong>Continuity:</strong> replacing a region should not erase every relation around it. Ports and neighboring wires are the handles that let change happen without losing the surrounding structure.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Why The Cartilage Surface Matters</h1>
+            <p>The core Cartilage question is not whether the fabric resembles a familiar software runtime or a finished FPGA toolchain. The useful question is whether a running computational surface can keep its own structure legible while parts of it are rewritten through local boundaries.</p>
+            <p>That is why the renders emphasize tile roles instead of decorative animation. The marks stand for installed body roles: reconfiguration ports, crosses, constants, wires, and MUX modes. A configuration stream entering a port is not an annotation over the render. It is the mechanism that changes the body roles inside a bounded child region.</p>
+            <p>Once that distinction is visible, later Cartilage pages become easier to read. Child-owned reconfiguration ports, square ownership blocks, nested instantiation, and verified circuit islands are not separate visual tricks. They are different tests of the same requirement: change should enter through a boundary the fabric can still show.</p>
+        </section>
+
+        <section>
+            <h1>Reading Path</h1>
+            <p>Start with <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> for the 32 cell-role codes. Then read <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a> for the 2021 browser/GPU demo with bounded daughter regions and local configuration streams. The later <a href="/cartilage2026.html">Cartilage 2026</a> article shows child-owned reconfiguration port roots and the corrected square ownership shape in the current WebGL/GPGPU renderer.</p>
+            <p>The shorter version is this: Cartilage is useful when the fabric can be read while it changes. The visual surface is not cosmetic. It is part of the engineering claim.</p>
+        </section>
+
+        <section>
+            <h1>Scope</h1>
+            <p>This page explains why the instrument is worth building and what it must preserve. It does not claim a complete compiler, a general-purpose runtime, or a benchmarked hardware implementation. Those claims require separate artifacts.</p>
+            <p>The article is best read as the requirement that ties the Cartilage pages together: a live fabric should keep structure, ownership, timing, runtime change, and continuity visible enough for another builder to follow.</p>
         </section>
 
     </main>
