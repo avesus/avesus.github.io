@@ -6,11 +6,11 @@
     <title>CPUs Solve a Narrow Class of Problems</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="CPUs and software are capable to solve only a NARROW class of computational problems, not only in terms of efficiency, but also in the management of...">
+    <meta name="description" content="A compute-architecture note: sequential CPUs are general tools, but locality, concurrency, timing, and reconfigurable datapaths matter when software must scale.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-18-cpus-solve-a-narrow-class-of-problems.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="CPUs Solve a Narrow Class of Problems">
-    <meta property="og:description" content="CPUs and software are capable to solve only a NARROW class of computational problems, not only in terms of efficiency, but also in the management of...">
+    <meta property="og:description" content="A compute-architecture note: sequential CPUs are general tools, but locality, concurrency, timing, and reconfigurable datapaths matter when software must scale.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-18-cpus-solve-a-narrow-class-of-problems.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-06-18",
                                 "dateModified": "2026-07-09",
-                                "description": "CPUs and software are capable to solve only a NARROW class of computational problems, not only in terms of efficiency, but also in the management of...",
+                                "description": "A compute-architecture note: sequential CPUs are general tools, but locality, concurrency, timing, and reconfigurable datapaths matter when software must scale.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-18-cpus-solve-a-narrow-class-of-problems.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,31 +79,38 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-06-18.</p>
+            <p><span class="status-label">Compute-architecture note</span>Originally posted 2021-06-18; rewritten here around execution shape and reconfigurable datapaths.</p>
+            <p><strong>Included:</strong> sequential control, spatial datapaths, explicit timing, FPGA fabric, and where a CPU abstraction stops being the right shape.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>CPUs and software are capable to solve only a NARROW class of computational problems, not only in terms of efficiency, but also in the management of COMPLEXITY.</p>
-            <p>I honestly am puzzled, how did we allow Von Neumann and Co. (TM) to fool us for almost 100 years that software is somewhat more general and even more fun than hardware.</p>
-            <p>FPGAs are not just the future, they are the best liberation tool for engineers who are &quot;stuck&quot; in the sequential world of BLOCKING function calls.</p>
-            <p>FPGAs attached to other FPGAs inspire us, that we can have DYNAMIC class instances even inside otherwise &quot;rigid&quot; hardware logic.</p>
-            <p>I am thinking about licensing the FPGA fabric I've developed the last March. Should the IP be proprietary or open source?</p>
-            <p>Should I patent it first?</p>
-            <p>What should I do??? Feeling lost...</p>
+            <h1>Sequential Control Is a Shape</h1>
+            <p>A CPU is an enormously useful execution shape: instruction pointer, registers, memory, cache hierarchy, interrupts, operating system, toolchain. It is also a shape with consequences. Work is usually expressed as a sequence, even when the problem has local concurrency, fixed timing, bit-level dataflow, or many independent state updates.</p>
+            <p>That mismatch matters when the machine must scale without becoming opaque. More threads, workers, or queues can help, but they do not remove the underlying assumption that the main unit of expression is still software running on a sequential core.</p>
+        </section>
+
+        <section>
+            <h1>When the Shape Fights the Problem</h1>
+            <p>Some problems are clearer as placed behavior: a pipeline stage, a routing cell, a local accumulator, a clocked boundary, a bit-serial datapath, or a small reconfigurable region with explicit inputs and outputs. FPGAs are useful because they let the computation occupy space instead of only time.</p>
+            <p>The useful split is straightforward: CPUs handle broad control well, while some problems need a datapath, a fabric, or a local rule before adding another software layer makes sense.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>CPUs remain the right place for operating systems, orchestration, general control, files, networks, and large parts of application logic. Reconfigurable hardware earns its place when locality, timing, parallel state, and custom data movement are the real constraints.</p>
         </section>
 
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2021-06-18-mini-fpgas-inside-fpgas.html">Mini-FPGAs Inside FPGAs</a>
-        <p>Another dated publication from June 18, 2021.</p>
-        <p>More:</p>
         <a href="2021-06-18-the-isa-as-an-api-you-cannot-extend.html">The ISA as an API You Cannot Extend</a>
-        <p>Another dated publication from June 18, 2021.</p>
+        <p>The machine-interface version of the same argument.</p>
+        <p>More:</p>
+        <a href="2021-06-18-mini-fpgas-inside-fpgas.html">Mini-FPGAs Inside FPGAs</a>
+        <p>A local-reconfiguration version of the same execution-shape question.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

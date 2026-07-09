@@ -6,11 +6,11 @@
     <title>FPGAs, Claytronics, and Reactive Programming</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="scott hauck was using FPGAs in Seattle to teach students 20 years ago. These days nobody understands them anymore. While my data science student asked if he...">
+    <meta name="description" content="A parallel-computing note: FPGA teaching, reactive programming, and programmable matter meet at timing, locality, ownership, and many small resources running together.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-03-22-fpgas-claytronics-and-reactive-programming.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="FPGAs, Claytronics, and Reactive Programming">
-    <meta property="og:description" content="scott hauck was using FPGAs in Seattle to teach students 20 years ago. These days nobody understands them anymore. While my data science student asked if he...">
+    <meta property="og:description" content="A parallel-computing note: FPGA teaching, reactive programming, and programmable matter meet at timing, locality, ownership, and many small resources running together.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-03-22-fpgas-claytronics-and-reactive-programming.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-03-22",
                                 "dateModified": "2026-07-09",
-                                "description": "scott hauck was using FPGAs in Seattle to teach students 20 years ago. These days nobody understands them anymore. While my data science student asked if he...",
+                                "description": "A parallel-computing note: FPGA teaching, reactive programming, and programmable matter meet at timing, locality, ownership, and many small resources running together.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-03-22-fpgas-claytronics-and-reactive-programming.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,25 +79,29 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-03-22.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><span class="status-label">Parallel-computing note</span>Originally posted 2023-03-22; rewritten here around FPGA education and scalable reactive systems.</p>
+            <p><strong>Included:</strong> FPGA teaching, placed computation, programmable matter, timing, locality, and why many-resource systems need a different programming model.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>scott hauck was using FPGAs in Seattle to teach students 20 years ago. These days nobody understands them anymore. While my data science student asked if he needs to prepare for porting ML algorithms to them, I told him to get ready for Claytronics. I spent my whole life inventing these self-assembling machines, but students fail to realize the importance of the massively scalable parallel reactive programming (sweet to learn you and seth goldstein are connected!)</p>
-            <p>I plan to move back to Seattle to seek an increased interest. Perhaps it's... 20 years a bit late??? 😂😎👍❤️</p>
-            <p><a href="https://lnkd.in/gi5cS82x" target="_blank" rel="noopener">https://lnkd.in/gi5cS82x</a></p>
+            <h1>The Teaching Gap</h1>
+            <p>FPGAs teach an important lesson that ordinary software can hide: computation has placement, timing, routing, fanout, resource limits, and physical cost. That lesson matters far beyond one chip family.</p>
+            <p>Students who only see CPUs and high-level software may learn parallelism as a library or cloud deployment problem. Placed computation makes the harder parts visible earlier: where state lives, when a value is valid, how far a signal travels, and what owns a boundary.</p>
         </section>
+
         <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/gi5cS82x" target="_blank" rel="noopener">https://lnkd.in/gi5cS82x</a></li>
-                <li><a href="https://people.ece.uw.edu/hauck/publications/CompArchOnFPGA.PDF" target="_blank" rel="noopener">https://people.ece.uw.edu/hauck/publications/CompArchOnFPGA.PDF</a></li>
-            </ul>
+            <h1>Why Programmable Matter Raises the Same Question</h1>
+            <p>Claytronics and other programmable-matter ideas multiply the same issue. The system is many local resources acting together, not one abstract worker pool. The programming model has to preserve locality, ownership, timing, failure, and communication while the whole structure changes.</p>
+            <p>That is why reactive programming belongs in the discussion. The hard part is not only dispatching work. The hard part is keeping many state changes understandable while they happen in place.</p>
         </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>The practical point is narrower and more useful: parallel systems become easier to reason about when the machine is not hidden. The original post linked Scott Hauck's FPGA teaching material at <a href="https://people.ece.uw.edu/hauck/publications/CompArchOnFPGA.PDF" target="_blank" rel="noopener">people.ece.uw.edu/hauck/publications/CompArchOnFPGA.PDF</a>.</p>
+        </section>
+
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
@@ -107,11 +111,11 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2023-03-20-public-work-should-be-open.html">Public Work Should Be Open</a>
-        <p>Another dated publication from March 20, 2023.</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
+        <p>A concrete fabric demo for local boundaries and reconfiguration.</p>
         <p>More:</p>
-        <a href="2023-03-25-explaining-cartilage-by-comparison-with-hadoop.html">Explaining Cartilage by Comparison With Hadoop</a>
-        <p>Another dated publication from March 25, 2023.</p>
+        <a href="2019-07-09-distributed-reactive-programming-for-claytronics.html">Distributed Reactive Programming for Claytronics</a>
+        <p>The earlier resource-ownership argument behind this note.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

@@ -6,11 +6,11 @@
     <title>The ISA as an API You Cannot Extend</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Imagine that there is a capability to call a web service. Anytime, anywhere, with a perfect documentation. And you are trying to make a LARGE commercial...">
+    <meta name="description" content="A machine-interface note: an ISA is a fixed contract between software and hardware, useful for portability but limiting when a program needs a new datapath.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-18-the-isa-as-an-api-you-cannot-extend.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The ISA as an API You Cannot Extend">
-    <meta property="og:description" content="Imagine that there is a capability to call a web service. Anytime, anywhere, with a perfect documentation. And you are trying to make a LARGE commercial...">
+    <meta property="og:description" content="A machine-interface note: an ISA is a fixed contract between software and hardware, useful for portability but limiting when a program needs a new datapath.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-18-the-isa-as-an-api-you-cannot-extend.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-06-18",
                                 "dateModified": "2026-07-09",
-                                "description": "Imagine that there is a capability to call a web service. Anytime, anywhere, with a perfect documentation. And you are trying to make a LARGE commercial...",
+                                "description": "A machine-interface note: an ISA is a fixed contract between software and hardware, useful for portability but limiting when a program needs a new datapath.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-18-the-isa-as-an-api-you-cannot-extend.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,18 +79,27 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-06-18.</p>
+            <p><span class="status-label">Machine-interface note</span>Originally posted 2021-06-18; rewritten here around the ISA as a fixed hardware/software contract.</p>
+            <p><strong>Included:</strong> instruction sets, software portability, custom datapaths, timing, state placement, and why hardware literacy changes what a programmer can express.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Imagine that there is a capability to call a web service. Anytime, anywhere, with a perfect documentation. And you are trying to make a LARGE commercial project. But you are NOT ALLOWED to write ANY server-side source code.</p>
-            <p>That's what using existing ISA (machine instructions) feels like when you are only ALLOWED to write software.</p>
-            <p>As a software development engineer who writes programs for microprocessors and commercial CPUs and servers for almost three decades, I state that it's a quite of a &quot;mental trap&quot;...</p>
-            <p>Any smart talented software engineer at some day may realize she can't write software anymore and BADLY WANTS those PARALLEL REACTIVE RECONFIGURABLE circuits.</p>
-            <p>I strongly believe that EVERY PROGRAMMER in any language MUST learn and practice Verilog!</p>
+            <h1>An ISA Is a Contract</h1>
+            <p>An instruction set is the public contract a program receives from a processor. That contract is valuable because it gives portability, tooling, operating systems, debuggers, compilers, and decades of accumulated practice.</p>
+            <p>It is also a boundary. If the needed operation is a new datapath, a different state placement, a timing-critical circuit, or a small parallel machine, software cannot add that primitive by naming it. The program can only compose the instructions the machine already exposes.</p>
+        </section>
+
+        <section>
+            <h1>What Software Cannot Add by Itself</h1>
+            <p>Software can emulate missing behavior, but emulation keeps paying for the original execution shape. A custom hardware path can put storage, routing, comparison, accumulation, and control where the work actually happens.</p>
+            <p>That is why Verilog or another hardware-description path is useful for software engineers. It teaches timing, registers, fanout, resource sharing, and the cost of moving data. Those constraints are present whether or not the software layer admits them.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>The practical point is knowing when the ISA is the wrong level of expression. Some systems need a new instruction. Some need a coprocessor. Some need an FPGA region. Some need to stay ordinary software because the fixed contract is exactly what makes them maintainable.</p>
         </section>
 
     </main>
@@ -98,10 +107,10 @@
     <nav class="article-links">
         <p>Next:</p>
         <a href="2021-06-18-cpus-solve-a-narrow-class-of-problems.html">CPUs Solve a Narrow Class of Problems</a>
-        <p>Another dated publication from June 18, 2021.</p>
+        <p>The execution-shape version of this machine-interface argument.</p>
         <p>More:</p>
         <a href="2021-06-22-an-fpga-cloud-for-shared-designs.html">An FPGA Cloud for Shared Designs</a>
-        <p>Another dated publication from June 22, 2021.</p>
+        <p>A later note on shared access to reconfigurable hardware.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

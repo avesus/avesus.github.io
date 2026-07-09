@@ -6,11 +6,11 @@
     <title>Mini-FPGAs Inside FPGAs</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Have you ever thought that you can write a mini-FPGA code and instantiate it in the rest of your Verilog code, and feed it with your custom mini bitstream?...">
+    <meta name="description" content="A reconfigurable-fabric note: small programmable regions inside a larger FPGA can carry local configuration, control, and custom datapaths without CPU cores.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-18-mini-fpgas-inside-fpgas.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Mini-FPGAs Inside FPGAs">
-    <meta property="og:description" content="Have you ever thought that you can write a mini-FPGA code and instantiate it in the rest of your Verilog code, and feed it with your custom mini bitstream?...">
+    <meta property="og:description" content="A reconfigurable-fabric note: small programmable regions inside a larger FPGA can carry local configuration, control, and custom datapaths without CPU cores.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-18-mini-fpgas-inside-fpgas.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-06-18",
                                 "dateModified": "2026-07-09",
-                                "description": "Have you ever thought that you can write a mini-FPGA code and instantiate it in the rest of your Verilog code, and feed it with your custom mini bitstream?...",
+                                "description": "A reconfigurable-fabric note: small programmable regions inside a larger FPGA can carry local configuration, control, and custom datapaths without CPU cores.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-18-mini-fpgas-inside-fpgas.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,29 +79,38 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-06-18.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><span class="status-label">Reconfigurable-fabric note</span>Originally posted 2021-06-18; rewritten here around programmable regions instantiated inside a larger design.</p>
+            <p><strong>Included:</strong> nested fabric, local bitstreams, LUT cost, routing cost, and when a small configurable datapath is clearer than a small CPU.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Have you ever thought that you can write a mini-FPGA code and instantiate it in the rest of your Verilog code, and feed it with your custom mini bitstream? It's just a programming style! Nothing special, but very extraordinary in the end. You can run thousands of mini-FPGA instances inside of your bigger FPGA instead of thousands of RISC-V cores!</p>
-            <p>Stay in the Boolean logic land. Don't fall for instruction pointers, stacks, and registers earlier than you have to. Why abandon massively parallel reactive objected oriented perfect components style in favor of sprinkling with some C? I don't understand how we got here? Premature optimization for microprocessors and microcontrollers?</p>
-            <p>Not all problems require a Von Neumann CPU. Especially, NP-hard ones...</p>
-            <p>#asic #asicdesign #fpga #parallelprogramming #scripting #verilog</p>
+            <h1>Fabric Inside Fabric</h1>
+            <p>A larger FPGA design can instantiate a smaller programmable region and feed it a local configuration stream. At that point the region behaves less like a fixed module and more like a tiny fabric with explicit ports, local state, and a bounded routing problem.</p>
+            <p>The useful comparison is not novelty. It is resource shape. A tiny CPU brings an instruction pointer, registers, program memory, and software tooling. A tiny fabric brings local logic, routing, and configuration bits. Either can be right, but they are not the same machine.</p>
+        </section>
+
+        <section>
+            <h1>Why Not Just Use Cores?</h1>
+            <p>Thousands of small CPU cores make sense when the work is naturally instruction-driven. They are less natural when the work is a fixed local rule, a small datapath, a routing decision, or a pipeline stage that only needs to change its configuration.</p>
+            <p>Keeping the behavior as logic can preserve timing and locality. It also makes the cost visible: LUTs, flip-flops, routing, configuration storage, placement pressure, and debug tooling.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>Nested fabric spends FPGA resources to create a programmable substrate inside another programmable substrate. It earns that cost when local reconfiguration is simpler than rebuilding the whole design or embedding a processor where a small circuit would do.</p>
         </section>
 
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2021-06-18-boolean-logic-is-everything.html">Boolean Logic Is Everything</a>
-        <p>Another dated publication from June 18, 2021.</p>
-        <p>More:</p>
         <a href="2021-06-18-cpus-solve-a-narrow-class-of-problems.html">CPUs Solve a Narrow Class of Problems</a>
-        <p>Another dated publication from June 18, 2021.</p>
+        <p>The broader execution-shape argument behind this fabric note.</p>
+        <p>More:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
+        <p>A later browser/GPU fabric demo with bounded regions and local configuration paths.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

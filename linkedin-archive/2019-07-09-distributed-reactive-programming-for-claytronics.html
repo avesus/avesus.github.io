@@ -6,11 +6,11 @@
     <title>Distributed Reactive Programming for Claytronics</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Designing a distributed reactive programming language is the major stepstone on the long path to scalable Claytronics (programmable matter). Resource...">
+    <meta name="description" content="A distributed-programming note: scalable programmable matter needs explicit resource ownership, spatial allocation, and agreements over local regions.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2019-07-09-distributed-reactive-programming-for-claytronics.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Distributed Reactive Programming for Claytronics">
-    <meta property="og:description" content="Designing a distributed reactive programming language is the major stepstone on the long path to scalable Claytronics (programmable matter). Resource...">
+    <meta property="og:description" content="A distributed-programming note: scalable programmable matter needs explicit resource ownership, spatial allocation, and agreements over local regions.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2019-07-09-distributed-reactive-programming-for-claytronics.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2019-07-09",
                                 "dateModified": "2026-07-09",
-                                "description": "Designing a distributed reactive programming language is the major stepstone on the long path to scalable Claytronics (programmable matter). Resource...",
+                                "description": "A distributed-programming note: scalable programmable matter needs explicit resource ownership, spatial allocation, and agreements over local regions.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2019-07-09-distributed-reactive-programming-for-claytronics.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,22 +79,28 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2019-07-09.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><span class="status-label">Distributed-programming note</span>Originally posted 2019-07-09; rewritten here around explicit resource ownership in spatial computation.</p>
+            <p><strong>Included:</strong> reactive state, local regions, allocation by position, available or lost resources, and shared control over areas of influence.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Designing a distributed reactive programming language is the major stepstone on the long path to scalable Claytronics (programmable matter).</p>
-            <p>Resource allocation could (and should) be made explicit in a distributed programming language.</p>
-            <p>When programmer is aware about exact size and locations of available resources, efficient management of these resources becomes possible.</p>
-            <p>Imagine allocating chunks of memory in malloc() not only specifying size, but exact address, where the chunk should be allocated. Imagine calling fork() and specifying exact core (or even remote location).</p>
-            <p>In our computing model, code is data, and data is code, so the type of resource is homogeneous. Only geometrical physical location is left, and the fact that the resource is available / managed / or was lost etc.</p>
-            <p>A great work was done by Florian Myter on the underneath layer <a href="https://lnkd.in/gwSU_Q4" target="_blank" rel="noopener">https://lnkd.in/gwSU_Q4</a></p>
-            <p>We need to explore high-level design for the language where distributed management of resources can be agreed upon over shared access to areas of influence.</p>
-            <p>Imagine working on moving boxes with your friend. You can agree that your friend will be moving the left part, and you'll be moving the right part. Without the agreement, you experience a lot of &quot;resource contention&quot;...</p>
+            <h1>Resource Allocation in Space</h1>
+            <p>Programmable matter is not just distributed computation with more nodes. The resources have location, neighbors, physical limits, failures, and ownership boundaries. A useful language for that substrate has to expose more than values and messages.</p>
+            <p>Allocation becomes spatial. Instead of asking only for a block of memory or a worker, the program needs to ask for a region, a boundary, a local rule, and a way to know whether those resources are available, reserved, damaged, or already under another controller.</p>
+        </section>
+
+        <section>
+            <h1>Shared Regions Need Contracts</h1>
+            <p>The memory analogy is simple: imagine allocating not only a size, but an address range with physical meaning. The process analogy is similar: imagine starting work not only on any core, but at a specific location or inside a specific region.</p>
+            <p>Once multiple behaviors can act on nearby material, the program needs agreements over areas of influence. Without those boundaries, two useful local actions can become contention at the fabric level.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>This note frames reactive programming as a resource-management problem, not only an event-propagation style. The important parts are locality, ownership, availability, and how state changes without making the whole distributed system opaque.</p>
+            <p>The original post referenced Florian Myter's underlying-layer work at <a href="https://lnkd.in/gwSU_Q4" target="_blank" rel="noopener">https://lnkd.in/gwSU_Q4</a>.</p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>
@@ -107,11 +113,11 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2019-06-05-reversible-computing-and-copying-information.html">Reversible Computing and Copying Information</a>
-        <p>Another dated publication from June 5, 2019.</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
+        <p>A later local-boundary demo for owned reconfiguration regions.</p>
         <p>More:</p>
         <a href="2019-07-30-scale-invariance-and-software-semantics.html">Scale Invariance and Software Semantics</a>
-        <p>Another dated publication from July 30, 2019.</p>
+        <p>A related note on whether software semantics survive scale changes.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
