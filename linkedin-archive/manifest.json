@@ -202,7 +202,7 @@
     "title": "AI Arithmetic on Chips",
     "date": "2023-11-29",
     "slug": "2023-11-29-ai-arithmetic-on-chips",
-    "description": "To do AI arithmetic well on chips, all you need to master are CSA and PPA. Everything else is just Harel UML Statecharts, meaning you must already be an...",
+    "description": "A chip-arithmetic note about CSA, PPA, one-hot FSM control, H-trees, FIFO, CDC, IEEE 754 FMA, bfloat16, and pipelined backpropagation on large chips.",
     "words": 159,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7135418069195116545/"
   },

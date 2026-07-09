@@ -6,11 +6,11 @@
     <title>AI Arithmetic on Chips</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="To do AI arithmetic well on chips, all you need to master are CSA and PPA. Everything else is just Harel UML Statecharts, meaning you must already be an...">
+    <meta name="description" content="A chip-arithmetic note about CSA, PPA, one-hot FSM control, H-trees, FIFO, CDC, IEEE 754 FMA, bfloat16, and pipelined backpropagation on large chips.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-11-29-ai-arithmetic-on-chips.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="AI Arithmetic on Chips">
-    <meta property="og:description" content="To do AI arithmetic well on chips, all you need to master are CSA and PPA. Everything else is just Harel UML Statecharts, meaning you must already be an...">
+    <meta property="og:description" content="A chip-arithmetic note about CSA, PPA, one-hot FSM control, H-trees, FIFO, CDC, IEEE 754 FMA, bfloat16, and pipelined backpropagation on large chips.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-11-29-ai-arithmetic-on-chips.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-11-29",
                                 "dateModified": "2026-07-09",
-                                "description": "To do AI arithmetic well on chips, all you need to master are CSA and PPA. Everything else is just Harel UML Statecharts, meaning you must already be an...",
+                                "description": "A chip-arithmetic note about CSA, PPA, one-hot FSM control, H-trees, FIFO, CDC, IEEE 754 FMA, bfloat16, and pipelined backpropagation on large chips.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-11-29-ai-arithmetic-on-chips.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,16 +78,19 @@
     <address>November 29, 2023</address>
 
     <section class="abstract">
+        <p>Model arithmetic on chips reduces quickly to concrete datapath and control pieces.</p>
+        <p>The post names the layer that matters for chip implementations: carry-save adders, parallel-prefix adders, one-hot state machines, H-trees, FIFO, clock-domain crossing, IEEE 754 FMA, bfloat16, and pipelined backpropagation when enough chip area is available.</p>
         <div class="status-box">
             <p><span class="status-label">LinkedIn post</span>Posted 2023-11-29.</p>
-            <p><strong>Related:</strong> <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a></p>
+            <p><strong>Included:</strong> the original post and a compact framing around chip-level arithmetic and control structures.</p>
+            <p><strong>Related:</strong> <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a> and <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a>.</p>
         </div>
     </section>
 
     <main>
         <section>
             <h1>Original Post</h1>
-            <p>To do AI arithmetic well on chips, all you need to master are CSA and PPA. Everything else is just Harel UML Statecharts, meaning you must already be an expert in one-hot FSM (if you're doing HW at all!) Don't forget power planes, ground-decoupled crossovers, H-trees, FIFO, and CDC, but those are trivial technicalities not much patent-protected and there was less intentional deception in education has being committed (thanks Intel, AMD, Nvidia, especially UofA 😅).</p>
+            <p>To do AI arithmetic well on chips, all you need to master are CSA and PPA. Everything else is just Harel UML Statecharts, meaning you must already be an expert in one-hot FSM (if you're doing HW at all!) Don't forget power planes, ground-decoupled crossovers, H-trees, FIFO, and CDC, but those are trivial technicalities not much patent-protected and there was less intentional deception in education has being committed (thanks Intel, AMD, Nvidia, especially UofA).</p>
             <p>Keep in mind IEEE 754 was considered the most complex datapath by its creators, don't let the fused multiply-add struggle to put your AI chip ambition down. Google Brain's BFLOAT16 format makes things easier to wrap your head around, and training in it was proven to converge for Transformers.</p>
             <p>PM if you want to learn more. I can teach you online fully pipelined backpropagation, if you got a huge chip area like Cerebras Systems</p>
             <p>#aichips #asic #dsp #bfloat16 #fma #mac #fpga #ai #silicon #chips</p>
@@ -97,11 +100,11 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a>
-        <p>Another dated publication from November 9, 2023.</p>
+        <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>
+        <p>A small multiplier circuit artifact with source images and a readable streaming schedule.</p>
         <p>More:</p>
-        <a href="2023-12-08-remembering-carl-hewitt.html">Remembering Carl Hewitt</a>
-        <p>Another dated publication from December 8, 2023.</p>
+        <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a>
+        <p>The arithmetic-primitives note that leads into this chip implementation thread.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
