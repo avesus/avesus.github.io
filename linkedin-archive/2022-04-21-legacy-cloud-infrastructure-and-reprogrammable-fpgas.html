@@ -6,11 +6,11 @@
     <title>Legacy Cloud Infrastructure and Reprogrammable FPGAs</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="You can&#39;t port your legacy cloud infrastructure easily to any other platform, unless it&#39;s a generalized superscalable supercompute cluster of...">
+    <meta name="description" content="A migration note about moving legacy backend infrastructure toward reprogrammable fabric without losing names, data shape, state, ordering, configuration, and operational behavior.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-21-legacy-cloud-infrastructure-and-reprogrammable-fpgas.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Legacy Cloud Infrastructure and Reprogrammable FPGAs">
-    <meta property="og:description" content="You can&#39;t port your legacy cloud infrastructure easily to any other platform, unless it&#39;s a generalized superscalable supercompute cluster of...">
+    <meta property="og:description" content="A migration note about moving legacy backend infrastructure toward reprogrammable fabric without losing names, data shape, state, ordering, configuration, and operational behavior.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-21-legacy-cloud-infrastructure-and-reprogrammable-fpgas.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-04-21",
                                 "dateModified": "2026-07-09",
-                                "description": "You can't port your legacy cloud infrastructure easily to any other platform, unless it's a generalized superscalable supercompute cluster of...",
+                                "description": "A migration note about moving legacy backend infrastructure toward reprogrammable fabric without losing names, data shape, state, ordering, configuration, and operational behavior.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-21-legacy-cloud-infrastructure-and-reprogrammable-fpgas.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,17 +79,45 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-04-21.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><span class="status-label">Migration note</span>Originally posted 2022-04-21; rewritten here around the backend-to-fabric migration problem.</p>
+            <p><strong>Included:</strong> legacy names, database shape, state, ordering, configuration, API boundaries, reprogrammable fabric, and the limits of automatic porting.</p>
+            <p><strong>Article focus:</strong> what has to remain recognizable when ordinary backend infrastructure is pushed toward parallel hardware.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>You can't port your legacy cloud infrastructure easily to any other platform, unless it's a generalized superscalable supercompute cluster of self-reprogrammable FPGAs, because only that model allows to reason about ANY ARBITRARY programming language, database structure, and even the OS config, in a generic, mathematical way, doing automatic parallel and concurrent reorganization of your legacy ported code, while preserving old variable names, function names, class names, table names, etc.</p>
-            <p>The result is dynamic scalable reactive object-oriented, PERFECTLY SECURE, elastic to scale DIGITAL CIRCUITS that run your #database directly in #silicon in the cloud, in a versatile elastic pay-for-what-you-use way, while accessing unprecedented low-latency proprietary cloud APIs from major Fortune-500 companies!</p>
-            <p>SOA become real on a supercomputer chip. Instead of wasting energy on traversing the already busy internet, you can consume the APIs of major vendors directly on the same chip, your backend is running at!</p>
+            <h1>The Migration Problem</h1>
+            <p>Legacy backend infrastructure is not only source code. It is names, database shape, migrations, configuration, permissions, deployment assumptions, API contracts, operational habits, and old user data that still has to mean the same thing tomorrow.</p>
+            <p>Moving that work toward reprogrammable hardware is therefore not only a compilation problem. The hard part is preserving the meaning of the running system while making more of its work explicit enough to parallelize.</p>
+        </section>
+
+        <section>
+            <h1>What Must Survive</h1>
+            <ul class="article-facts">
+                <li><strong>Names:</strong> variables, functions, classes, tables, fields, events, and API boundaries still have to point to the same responsibilities.</li>
+                <li><strong>Data shape:</strong> schemas, migrations, old records, indexes, and derived views have to remain readable.</li>
+                <li><strong>State:</strong> sessions, queues, caches, retries, and preferences cannot be erased by the new execution model.</li>
+                <li><strong>Ordering:</strong> the fabric has to preserve the cases where request order, transaction order, or event order matters.</li>
+                <li><strong>Operations:</strong> deployment, monitoring, access control, rollback, and debugging have to survive the move.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Why Reprogrammable Fabric Appears</h1>
+            <p>FPGA-like fabric is attractive here because it can shape execution around pipelines, dataflow, local state, and explicit communication paths instead of forcing every workload through one general-purpose execution model.</p>
+            <p>That does not make migration automatic. Memory movement, I/O, clocks, placement, routing, toolchain limits, and observability all become part of the software problem. The fabric only helps if those boundaries are made visible enough to preserve the original system's behavior.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>This note does not claim arbitrary backend code can be perfectly and automatically ported into hardware. It names the real shape of the problem: a useful port has to keep the old system recognizable while moving selected work into more parallel, lower-latency structures.</p>
+            <p>The nearby Cartilage work explores a smaller visual version of that requirement: computation should be reconfigurable without losing local ownership and boundary readability. See <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a> for that line of work.</p>
+        </section>
+
+        <section>
+            <h1>Original Post Context</h1>
+            <p>The original post used more speculative language about cloud infrastructure running on reprogrammable hardware. The useful part is the migration constraint: any new execution substrate has to preserve the names, data, state, and operating behavior that made the old system valuable.</p>
         </section>
 
     </main>
@@ -97,10 +125,10 @@
     <nav class="article-links">
         <p>Next:</p>
         <a href="2022-04-21-compiling-backend-code-to-a-colder-chip.html">Compiling Backend Code to a Colder Chip</a>
-        <p>Another dated publication from April 21, 2022.</p>
+        <p>A companion note about moving backend code toward colder, more parallel execution hardware.</p>
         <p>More:</p>
         <a href="2022-04-26-adopting-a-new-massively-parallel-language.html">Adopting a New Massively Parallel Language</a>
-        <p>Another dated publication from April 26, 2022.</p>
+        <p>The adoption side of the same problem: a new parallel runtime needs runnable examples, debugging, syntax, and visible boundaries.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
