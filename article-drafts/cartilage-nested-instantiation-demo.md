@@ -47,7 +47,7 @@
 
 ### Opening Claim
 
-Cartilage is a browser/GPU demo of hierarchical reconfiguration: a tiled Boolean fabric can allocate a bounded daughter region, stream configuration bits through a local reconfiguration port, and replace that region's tile roles without a global magic controller.
+Cartilage is a browser/GPU demo of hierarchical reconfiguration: a tiled Boolean fabric can allocate a bounded daughter region, stream configuration bits through a local reconfiguration port, and replace that region's tile roles without an external global controller.
 
 ### Why It Exists
 
@@ -72,17 +72,21 @@ The mode/orientation combination gives the tile roles: wire, MUX, cross, GND, PW
 
 ### Why Local Ports Matter
 
-A global controller would make the demo less interesting. The point is that reconfiguration enters through local ports. The region being configured is bounded, and the parent/daughter relationship is explicit in the cell state. FPGA and EDA readers should read this as a routing and configuration discipline, not as a metaphor.
+The point is that reconfiguration enters through local ports. The region being configured is bounded, and the parent/daughter relationship is explicit in the cell state. FPGA and EDA readers should read this as a routing and configuration discipline.
 
 ### Relation To Boolean Algebra
 
 The Boolean paper explains why wires, constants, MUXes, feedback, configuration, and tiling are enough as a universal substrate. Cartilage is a live artifact in that direction: it shows tiles being assigned roles and reconfigured locally in a visible browser/GPU model.
 
-### Evidence To Show
+### Render Explanation To Preserve
 
 - Link to `cellular-automata-2019/cartilage3.html`.
 - Link to the ShaderToy artifact.
-- Use a screenshot of the demo once captured.
+- Use the 32-code visual-language key.
+- Separate installed body role, runtime signal state, and human publication callouts.
+- Explain purple ports as local configuration ingress, not global controllers.
+- Explain square ownership blocks and port roots as separate fields.
+- Include concrete fabric renders from the current visual vocabulary when they help readers decode the 2021 artifact.
 - Include a small labeled explanation of tile roles.
 - Include a short note on the 8-bit core config and 8-bit configuration shift register.
 
@@ -96,8 +100,6 @@ Candidate next read: `Boolean Algebra Is All That Is Required`, because it gives
 
 ## Open Verification
 
-- Capture a screenshot or short animation of `cartilage3.html`.
-- Ask Brian whether the article should describe the 6x6 block size as fixed in the demo or illustrative.
-- Ask for the cleanest explanation of parent pointers in reader-facing EDA language.
-- Ask whether the UI controls should be public instructions or kept as artifact notes.
-
+- Capture a screenshot or short animation of `cartilage3.html` if a future pass needs a direct 2021 still.
+- Confirm whether the 6x6 block size should be described as fixed in the old demo or illustrative.
+- Add a reader-facing parent-pointer diagram if a later visual pass creates one.

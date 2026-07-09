@@ -22,7 +22,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2021",
-            "dateModified": "2026-07-01",
+            "dateModified": "2026-07-09",
             "description": "A browser/GPU demo of hierarchical reconfiguration: local ports, bounded daughter regions, serial configuration streams, and tiled Boolean roles.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-nested-instantiation-demo.html",
             "publisher": {
@@ -71,8 +71,9 @@
 
         <section>
             <h1>Reading The Fabric Render</h1>
-            <p>The render is not a screenshot collage. It is a compact circuit notation. Each visible cell has a body-role code made from two orientation bits and three mode bits: <code>orientation + 4 * mode</code>. That gives 32 renderable cell roles.</p>
-            <figure>
+            <p>The render has three layers that should not be collapsed into one idea: the installed body role, the runtime signal state, and the human publication callouts.</p>
+            <p>The installed body role is the important one. Each visible cell has a body-role code made from two orientation bits and three mode bits: <code>orientation + 4 * mode</code>. That gives 32 renderable cell roles.</p>
+            <figure class="inspectable-image">
                 <a href="/cartilage-visual-language.html">
                     <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" alt="Cartilage fabric visual-language key showing the 32 body-role codes">
                 </a>
@@ -80,8 +81,36 @@
             </figure>
             <p>Mode <code>0</code> is special: orientation <code>0</code> is the local reconfiguration port, orientation <code>1</code> is the cross/intersection role, orientation <code>2</code> is constant zero, and orientation <code>3</code> is constant one. Mode <code>1</code> is a wire in four orientations. Modes <code>2</code> through <code>7</code> are the six MUX behaviors, again in four orientations each.</p>
             <p>The point of this alphabet is that the same fabric can be rewritten locally. A configuration stream entering a reconfiguration port does not paint an annotation onto the picture; it replaces the child region's actual body roles: ports, crosses, constants, wires, and MUXes.</p>
-            <p>Read the purple port as local configuration ingress, not as a global controller. Read the cross as a route-intersection primitive with directional state. Read constants as local fixed sources. Read wires as one-input pass-through routes. Read MUX tiles as the switching primitive that lets the fabric build logic from local selections.</p>
-            <p>Black and white discs/stubs show rendered signal state and output values on top of those roles. They are runtime state marks, not additional cell types. Labels drawn over publication images are callouts for the human reader; the underlying machine vocabulary is the 32-code body-role alphabet.</p>
+        </section>
+
+        <section>
+            <h1>What The Marks Mean</h1>
+            <ul class="article-facts">
+                <li>Purple port: local configuration ingress for a bounded child region.</li>
+                <li>Cross: route-intersection primitive, not a four-way MUX.</li>
+                <li>Const 0 / Const 1: local fixed low and high sources.</li>
+                <li>Wire: one-input pass-through route in one of four orientations.</li>
+                <li>MUX: local selector tile. The mode chooses the data-input pair; the orientation rotates the installed role in the drawing.</li>
+                <li>Black and white discs/stubs: rendered runtime state on top of the installed body role.</li>
+                <li>Text labels and colored callouts: publication overlays for the reader, not additional machine state.</li>
+            </ul>
+            <p>In the nested-instantiation demo, the left-edge reconfiguration area is not an external global controller. It is the visible place where configuration enters a region through a port side. Once the child region is filled, the installed roles inside that region are ordinary fabric roles again: wires, crosses, constants, MUXes, and possibly more reconfiguration ports.</p>
+        </section>
+
+        <section>
+            <h1>Concrete Render Examples</h1>
+            <p>These renders use the same visual vocabulary at different scales. The 2021 demo is the live artifact; the newer renders below are easier stills for reading ports, roles, and configured routes.</p>
+            <div class="article-artifact-grid">
+                <a href="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif">
+                    <img src="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" alt="Cartilage 2026 fabric render showing active child-owned reconfiguration port roots">
+                    Child-owned port roots
+                </a>
+                <a href="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png">
+                    <img src="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png" alt="Cartilage verified ripple2 adder render showing wires, MUX islands, constants, crosses, labels, and edge outputs">
+                    Configured circuit roles
+                </a>
+            </div>
+            <p>In the port-root render, the square ownership block and port root are separate facts: the port is a body role, while the parent pointers define the child region. In the ripple-adder render, the same vocabulary becomes a configured datapath: lanes, MUX islands, constants, crosses, and edge outputs can be read without inventing a second visual language.</p>
         </section>
 
         <section>
@@ -92,7 +121,7 @@
 
         <section>
             <h1>Why Local Ports Matter</h1>
-            <p>The point is that reconfiguration enters through local ports. The region being configured is bounded, and the parent/daughter relationship is explicit in the cell state. FPGA and EDA readers should read this as a routing and configuration discipline, not as a metaphor.</p>
+            <p>The point is that reconfiguration enters through local ports. The region being configured is bounded, and the parent/daughter relationship is explicit in the cell state. FPGA and EDA readers should read this as a routing and configuration discipline.</p>
             <p>The parent pointer creates an ownership tree. Reconfiguration ports are tile roles inside the same fabric, not outside holes in the model. That is the difference between a visual cellular automaton and a composable reconfigurable substrate.</p>
         </section>
 
@@ -113,7 +142,7 @@
 
         <section>
             <h1>Implementation Boundary</h1>
-            <p>The next implementation boundary is packaging the demo so another builder can reproduce the setup, identify the active render path, and follow the configuration stream without reading the whole shader history first.</p>
+            <p>The 2021 demo is preserved as a standalone browser/GPU artifact. The article explains how to read it and how it connects to the newer Cartilage render vocabulary; it does not claim that the old artifact has the later checked packaging, QFG driver, or exact-frame verification runs.</p>
         </section>
     </main>
 
