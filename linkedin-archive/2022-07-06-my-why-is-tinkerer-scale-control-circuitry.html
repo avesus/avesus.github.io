@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My Why Is Tinkerer-Scale Control Circuitry</title>
+    <title>Tinkerer-Scale Control Circuitry</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="My &quot;Why&quot; is to enable tinkerers with continuous iteration with ultra short turnaround times. My &quot;Why&quot; is to empower every local community with ability to...">
+    <meta name="description" content="Tinkerer-scale control circuitry means short local build/test loops for active machine behavior: sensing, switching, gain, restoration, timing, actuation, and test.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-07-06-my-why-is-tinkerer-scale-control-circuitry.html">
     <meta property="og:site_name" content="Greenforest I/O">
-    <meta property="og:title" content="My Why Is Tinkerer-Scale Control Circuitry">
-    <meta property="og:description" content="My &quot;Why&quot; is to enable tinkerers with continuous iteration with ultra short turnaround times. My &quot;Why&quot; is to empower every local community with ability to...">
+    <meta property="og:title" content="Tinkerer-Scale Control Circuitry">
+    <meta property="og:description" content="Tinkerer-scale control circuitry means short local build/test loops for active machine behavior: sensing, switching, gain, restoration, timing, actuation, and test.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-07-06-my-why-is-tinkerer-scale-control-circuitry.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -24,7 +24,7 @@
                         {
                                 "@type": "Article",
                                 "@id": "https://greenforest.io/linkedin-archive/2022-07-06-my-why-is-tinkerer-scale-control-circuitry.html#article",
-                                "headline": "My Why Is Tinkerer-Scale Control Circuitry",
+                                "headline": "Tinkerer-Scale Control Circuitry",
                                 "author": {
                                         "@type": "Person",
                                         "name": "Brian Greenforest",
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-07-06",
                                 "dateModified": "2026-07-09",
-                                "description": "My \"Why\" is to enable tinkerers with continuous iteration with ultra short turnaround times. My \"Why\" is to empower every local community with ability to...",
+                                "description": "Tinkerer-scale control circuitry means short local build/test loops for active machine behavior: sensing, switching, gain, restoration, timing, actuation, and test.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-07-06-my-why-is-tinkerer-scale-control-circuitry.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -62,7 +62,7 @@
                                         {
                                                 "@type": "ListItem",
                                                 "position": 3,
-                                                "name": "My Why Is Tinkerer-Scale Control Circuitry",
+                                                "name": "Tinkerer-Scale Control Circuitry",
                                                 "item": "https://greenforest.io/linkedin-archive/2022-07-06-my-why-is-tinkerer-scale-control-circuitry.html"
                                         }
                                 ]
@@ -74,28 +74,35 @@
 </head>
 
 <body>
-    <header>My Why Is Tinkerer-Scale Control Circuitry</header>
+    <header>Tinkerer-Scale Control Circuitry</header>
     <address>July 6, 2022</address>
 
     <section class="abstract">
-        <p>Tinkerer-scale control circuitry is about bringing active machine behavior closer to the people building, testing, and improving it.</p>
+        <p>Tinkerer-scale control circuitry is about shortening the loop between building a machine, changing its behavior, measuring what happened, and trying the next revision.</p>
+        <p>The article is about access to active behavior: sensing, switching, gain, restoration, timing, actuation, and test close enough to the builder that the work can iterate locally.</p>
         <div class="status-box">
-            <p><span class="status-label">Publication note</span>Originally posted 2022-07-06.</p>
-            <p><strong>Included:</strong> the original argument for local access to control circuitry and short build/test loops.</p>
-            <p><strong>Boundary:</strong> this is a public argument, not a delivered local active-device toolchain.</p>
+            <p><span class="status-label">Control-circuitry note</span>Originally posted 2022-07-06; expanded into a concise article on 2026-07-09.</p>
+            <p><strong>Included:</strong> the local build/test loop, the active-behavior layer, and the practical boundary between boards and locally reproducible control circuitry.</p>
+            <p><strong>Scope:</strong> this page states the target layer. Process recipes and delivered device classes belong in separate manufacturing articles.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>My &quot;Why&quot; is to enable tinkerers with continuous iteration with ultra short turnaround times. My &quot;Why&quot; is to empower every local community with ability to create control circuitry in any sophisticated way. Without depending on CPUs, GPUs, microprocessors, even FPGAs. I want give power to people. I want us to not even wait for PCBs or chips to arrive. Something VLSI but without classical fab model. Something scalable. Something massive.</p>
-            <p>Do you want to start a movement?</p>
+            <h1>The Target Layer</h1>
+            <p>Makers can already design boards, enclosures, firmware, harnesses, fixtures, and tests. The weak layer is active control behavior that has to be ordered from far away or hidden inside a finished component.</p>
+            <p>The goal of tinkerer-scale control circuitry is to make more of that behavior local: small enough to build near the person using it, repeatable enough to improve, and expressive enough to control real machines without waiting for a long external manufacturing loop.</p>
         </section>
 
         <section>
-            <h1>Control Boundary</h1>
-            <p>The practical question is which active behavior can be made local first: sensing, switching, gain, restoration, timing, actuation, or test. A useful toolchain starts where builders can measure and repeat the behavior themselves.</p>
+            <h1>The Control Boundary</h1>
+            <p>The practical question is which active behavior can be made local first. Sensing, switching, gain, restoration, timing, actuation, and test are the useful categories because they are the behaviors that make a machine respond instead of only sit there as a passive assembly.</p>
+            <p>A good local toolchain would not replace every CPU, GPU, microprocessor, FPGA, PCB, or chip. It would give builders a closer layer for the kinds of control experiments where waiting for the next board or packaged device slows the work more than the circuit itself.</p>
+        </section>
+
+        <section>
+            <h1>Useful Reading Path</h1>
+            <p>Read <a href="2022-07-06-searching-for-a-tinkerer-replacement-for-silicon.html">Searching for a Tinkerer Replacement for Silicon</a> for the nearby device-material question. Read <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a> for the later manufacturing argument about locally reproducible active devices.</p>
         </section>
     </main>
 
