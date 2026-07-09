@@ -6,11 +6,11 @@
     <title>Correctness Emerges by Acting</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Do you want to be more correct or not? TL;DR: ACT MORE For all #builders, #engineers, #inventors, and all kind of problem solvers in life. Let go correctness...">
+    <meta name="description" content="Correctness as a closed-loop engineering problem: scan, observe, choose, correct, and turn real behavior into tests, migrations, and safer paths.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2026-03-06-correctness-emerges-by-acting.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Correctness Emerges by Acting">
-    <meta property="og:description" content="Do you want to be more correct or not? TL;DR: ACT MORE For all #builders, #engineers, #inventors, and all kind of problem solvers in life. Let go correctness...">
+    <meta property="og:description" content="Correctness as a closed-loop engineering problem: scan, observe, choose, correct, and turn real behavior into tests, migrations, and safer paths.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2026-03-06-correctness-emerges-by-acting.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -31,8 +31,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2026-03-06",
-                                "dateModified": "2026-07-01",
-                                "description": "Do you want to be more correct or not? TL;DR: ACT MORE For all #builders, #engineers, #inventors, and all kind of problem solvers in life. Let go correctness...",
+                                "dateModified": "2026-07-09",
+                                "description": "Correctness as a closed-loop engineering problem: scan, observe, choose, correct, and turn real behavior into tests, migrations, and safer paths.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2026-03-06-correctness-emerges-by-acting.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,27 +78,38 @@
     <address>March 6, 2026</address>
 
     <section class="abstract">
-        <p>A short note about correctness as a feedback problem: action creates the path for correction.</p>
+        <p>Correctness becomes easier when the system gives the next action enough feedback.</p>
+        <p>The useful point is not motivational. It is an engineering loop: scan, observe, choose, act, and make the next correction cheaper than the last one.</p>
         <div class="status-box">
-            <p><span class="status-label">Selected LinkedIn publication</span>Originally posted 2026-03-06.</p>
-            <p><strong>Included:</strong> the original post and the Advanced IP Scanner example of a closed action loop.</p>
-            <p><strong>Boundary:</strong> this is a short publication, not a full case study of Advanced IP Scanner or a general theory of correctness.</p>
+            <p><span class="status-label">Engineering note</span>Originally posted 2026-03-06; expanded here as a short reading of the closed-loop software pattern.</p>
+            <p><strong>Included:</strong> the Advanced IP Scanner example, the closed-loop pattern, and the software analogue for production fixes, tests, and migrations.</p>
+            <p><strong>Boundary:</strong> this is a short pattern note, not a full case study of Advanced IP Scanner.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Do you want to be more correct or not?</p>
-            <p>TL;DR: ACT MORE</p>
-            <p>For all #builders, #engineers, #inventors, and all kind of problem solvers in life. Let go correctness seeking from your first actions. Let correctness to emerge by doing wrong things.</p>
-            <p>When I did Advanced IP Scanner, I thought it was instant gratification. Nope, it was a permission to act correctly from day one, because any idiot can choose correct actions when the entire loop is closed.</p>
-            <p>To become more correct, you must ACT MORE, not more correctly.</p>
+            <h1>The Closed Loop</h1>
+            <p>Advanced IP Scanner is a good example because the action loop is small. The user scans a network, sees hosts, chooses a target, checks the result, and can correct the next step immediately.</p>
+            <p>That shape changes the problem. The user does not need a perfect plan before the first click. The tool makes each next decision cheaper because the current state is visible enough to act on.</p>
         </section>
 
         <section>
-            <h1>Engineering Reading</h1>
-            <p>The useful part is the closed loop. Once a tool lets a user scan, see hosts, choose targets, and correct the next step, correctness moves from speculation into operation. The same pattern appears in production fixes that become tests, migrations that protect old records, and interfaces that let the next action become obvious from the current state.</p>
+            <h1>The Software Pattern</h1>
+            <p>The same pattern matters in production software. A bug report is weak if it stays as a story someone has to remember. It becomes useful when the observed behavior is turned into a failing test, a reproducible fixture, a migration check, or a safer boundary in the code path.</p>
+            <p>That is not abstract correctness. It is a new action surface. The next person who touches the system gets a clearer signal: this input, this old record, this version upgrade, this remote machine, or this UI state has to keep working.</p>
+        </section>
+
+        <section>
+            <h1>What Gets Better</h1>
+            <p>A closed loop makes correction local. The system shows what changed, where it changed, and what can be tried next. It protects the user from guessing through stale state or invisible assumptions.</p>
+            <p>Good examples are ordinary and valuable: a production failure becomes an end-to-end test; a migration protects records created by older versions; an upgrade keeps user preferences instead of silently resetting them; a remote-control path works through the real network shape instead of only in a clean lab.</p>
+        </section>
+
+        <section>
+            <h1>Original Post</h1>
+            <p>The original post made the point more bluntly: correctness improves when action is close enough to feedback that mistakes can be corrected quickly.</p>
+            <p>It used Advanced IP Scanner as the example: a tool can make correct action easier from the first step when the whole loop is visible to the user.</p>
         </section>
     </main>
 
