@@ -91,17 +91,17 @@ Use a compact table in the eventual article:
 
 The PR body says the embedding matrix uses a computed pseudo-inverse as the unembedding, and that the unembedding is backpropagated. The article should present this as an implementation note from the artifact, then explain why it matters only if Brian provides more detail.
 
-### Evidence To Show
+### Source Material To Show
 
 - Link the PR.
 - Link the raw training script/log.
 - Quote only short sample excerpts if needed.
-- Show the model args and training command as evidence.
+- Show the model args and training command as source material.
 - Summarize the generated text behavior without overclaiming quality.
 
 ### Tradeoff
 
-This run is not a benchmark model and should not be sold as one. Its value is that the full setup is small enough to inspect: architecture, vocabulary, context length, loss log, and sample behavior all fit into a concrete artifact.
+This run is not a benchmark model and should not be sold as one. Its value is that the full setup is small enough to keep together: architecture, vocabulary, context length, loss log, and sample behavior all fit into a concrete artifact.
 
 ### Next Article Link
 
@@ -114,4 +114,3 @@ Candidate next read: a future backprop/online-training article, because this run
 - Ask whether there are saved loss curves or checkpoint metadata.
 - Ask how much detail to include about the pseudo-inverse unembedding.
 - Decide whether to include a very short generated-text excerpt or only summarize the behavior.
-

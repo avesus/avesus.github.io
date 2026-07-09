@@ -229,6 +229,31 @@ figure.inspectable-image a {
 	text-align: left;
 }
 
+.article-fact-table {
+	display: grid;
+	gap: 1px;
+	margin: 1.5rem 0;
+	border: 1px solid #ccc;
+	background: #ccc;
+	font-family: 'Inconsolata', monospace;
+	font-size: 18px;
+	text-align: left;
+}
+
+.article-fact-row {
+	display: grid;
+	grid-template-columns: minmax(150px, 0.8fr) minmax(220px, 1.4fr);
+	background: #fff;
+}
+
+.article-fact-row > div {
+	padding: 0.4rem 0.55rem;
+}
+
+.article-fact-key {
+	font-weight: bold;
+}
+
 .source-embed {
 	text-align: left;
 }
@@ -928,6 +953,22 @@ dt {
 
 	.article-artifact-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.article-fact-table {
+		display: block;
+		border: none;
+		background: transparent;
+	}
+
+	.article-fact-row {
+		display: block;
+		margin: 0 0 0.85rem;
+		border: 1px solid #ccc;
+	}
+
+	.article-fact-row > div {
+		padding: 0.45rem 0.6rem;
 	}
 
 	.cartilage-code-table {

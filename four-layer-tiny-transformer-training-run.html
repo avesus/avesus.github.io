@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2024-06-22",
-            "dateModified": "2026-07-01",
+            "dateModified": "2026-07-09",
             "description": "A public tiny Transformer training artifact: 4 layers, 16 heads, 128-d embeddings, 128-token context, 361-token vocabulary, and about 835k logged parameters.",
             "mainEntityOfPage": "https://greenforest.io/four-layer-tiny-transformer-training-run.html",
             "publisher": {
@@ -33,23 +33,6 @@
         }
     </script>
     <script src="/common-script.js" type="text/javascript"></script>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            font-family: 'Inconsolata', monospace;
-            font-size: 18px;
-        }
-
-        th,
-        td {
-            border-bottom: 1px solid #ddd;
-            padding: 0.35rem 0.2rem;
-            text-align: left;
-            vertical-align: top;
-        }
-    </style>
 </head>
 
 <body>
@@ -59,11 +42,11 @@
     <section class="abstract">
         <p>A complete tiny Transformer training run kept together with the mechanism that produced it.</p>
         <p>This is a small generative Transformer run: 4 layers, 16 attention heads, 128-dimensional embeddings, 128-token context, a 361-token custom vocabulary, and about 835k logged parameters, trained on CPU past 50,000 iterations until it produced recognizable small-story text.</p>
-        <p>The useful part is not benchmark quality. The useful part is that the model shape, tokenizer size, context length, command, loss history, PR, and generated samples stay on the same page.</p>
+        <p>The useful part is not benchmark quality. The useful part is that the model shape, tokenizer size, context length, command, loss history, PR, and generated samples stay together.</p>
         <div class="status-box">
             <p><span class="status-label">Training run</span>This page delivers a small public training run, including the source path and sample output.</p>
             <p><strong>Included:</strong> <code>4</code> layers, <code>16</code> attention heads, <code>128</code>-dimensional embeddings, <code>128</code>-token context, <code>361</code>-token vocabulary, about <code>835k</code> logged parameters, CPU training past <code>50,000</code> iterations, loss logs, command, PR, and generated samples.</p>
-            <p><strong>Boundary:</strong> this is not a competitive model-quality claim, a general training-theory article, or a production language-model release.</p>
+            <p><strong>Boundary:</strong> this is not a competitive model result, a general training-theory article, or a production language-model release.</p>
         </div>
     </section>
 
@@ -77,26 +60,25 @@
 
         <section>
             <h1>Model Shape</h1>
-            <table>
-                <tbody>
-                    <tr><th>Layers</th><td>4</td></tr>
-                    <tr><th>Attention heads</th><td>16</td></tr>
-                    <tr><th>Key/value heads</th><td>16</td></tr>
-                    <tr><th>Embedding dimension</th><td>128</td></tr>
-                    <tr><th>Context length</th><td>128 tokens</td></tr>
-                    <tr><th>Vocabulary</th><td>361 tokens</td></tr>
-                    <tr><th>Dropout</th><td>0.15</td></tr>
-                    <tr><th>Logged parameters</th><td>834,644 total from 832,128 decayed and 2,516 non-decayed parameters</td></tr>
-                    <tr><th>Training device</th><td>CPU</td></tr>
-                    <tr><th>Tokens per iteration</th><td>8,192</td></tr>
-                </tbody>
-            </table>
+            <div class="article-fact-table">
+                <div class="article-fact-row"><div class="article-fact-key">Layers</div><div>4</div></div>
+                <div class="article-fact-row"><div class="article-fact-key">Attention heads</div><div>16</div></div>
+                <div class="article-fact-row"><div class="article-fact-key">Key/value heads</div><div>16</div></div>
+                <div class="article-fact-row"><div class="article-fact-key">Embedding dimension</div><div>128</div></div>
+                <div class="article-fact-row"><div class="article-fact-key">Context length</div><div>128 tokens</div></div>
+                <div class="article-fact-row"><div class="article-fact-key">Vocabulary</div><div>361 tokens</div></div>
+                <div class="article-fact-row"><div class="article-fact-key">Dropout</div><div>0.15</div></div>
+                <div class="article-fact-row"><div class="article-fact-key">Logged parameters</div><div>834,644 total from 832,128 decayed and 2,516 non-decayed parameters</div></div>
+                <div class="article-fact-row"><div class="article-fact-key">Training device</div><div>CPU</div></div>
+                <div class="article-fact-row"><div class="article-fact-key">Tokens per iteration</div><div>8,192</div></div>
+            </div>
         </section>
 
         <section>
             <h1>Training Run</h1>
             <p>The training command initializes a new model from scratch with a custom 361-token vocabulary, batch size 64, 128-token sequence length, learning rate <code>3e-4</code>, weight decay <code>0.1</code>, warmup over 2,500 iterations, and a target maximum of 100,000 iterations.</p>
             <p>The log starts at train loss 13.0864 and validation loss 13.0707. The artifact includes excerpts through step 53,130, where the logged loss is already in the rough 0.75 to 0.86 range.</p>
+            <p>The inference command in the artifact uses checkpoint <code>./outminimagic23/ckpt.pt</code>, tokenizer <code>./data/tok361.model</code>, <code>--max_new_tokens=10240</code>, <code>--top_k=200</code>, and <code>--temperature=0.8</code>.</p>
         </section>
 
         <section>
@@ -106,7 +88,7 @@
 
         <section>
             <h1>Generated Text</h1>
-            <p>The sample output is not clean prose. It repeats names, loses references, and breaks grammar. But it also has recognizable story structure: characters, actions, dialogue, simple causal turns, and moral-like endings. That is why this tiny run is worth preserving as a public artifact. It is small enough to inspect, yet large enough to show emergent generative behavior.</p>
+            <p>The sample output is not clean prose. It repeats names, loses references, and breaks grammar. But it also has recognizable story structure: characters, actions, dialogue, simple causal turns, and moral-like endings. That is why this tiny run is worth preserving as a public artifact. The setup is small enough to keep the mechanism and the result on the same page, yet large enough to show emergent generative behavior.</p>
         </section>
 
         <section>
