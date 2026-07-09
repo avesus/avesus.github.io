@@ -171,25 +171,52 @@
 # Dependencies: numpy, pillow
 
 def draw_plane_row_sdf(img, filled, y, invH, edges, material_fn, palette):
-    # Screen row -> plane UV -> procedural material.
-    # Writes only pixels not already claimed by closer primitives.
-    ...
-    u = ru * invrw
-    v = rv * invrw
+    fy = y + 0.5
+    inside = np.ones(W, dtype=bool)
+    for (A,B,C) in edges:
+        inside &amp;= (A*fx + B*fy + C) &gt;= 0.0
+    m = (~filled) &amp; inside
+    if not m.any(): return
+    a_u, b_u, c_u = invH[0,0], invH[0,1], invH[0,2]
+    a_v, b_v, c_v = invH[1,0], invH[1,1], invH[1,2]
+    a_w, b_w, c_w = invH[2,0], invH[2,1], invH[2,2]
+    ru = a_u*fx[m] + b_u*fy + c_u
+    rv = a_v*fx[m] + b_v*fy + c_v
+    rw = a_w*fx[m] + b_w*fy + c_w
+    invrw = inv_nr3(rw)
+    u = ru * invrw; v = rv * invrw
     col = material_fn(u, v, PALETTE)
+    idx = np.where(m)[0]
     img[y, idx, :] = col
     filled[m] = True
 
 def draw_sprite_row_deer(img, filled, y, invH, edges):
-    # Screen row -> billboard UV -> SDF silhouette test.
-    ...
+    fy = y + 0.5
+    inside = np.ones(W, dtype=bool)
+    for (A,B,C) in edges:
+        inside &amp;= (A*fx + B*fy + C) &gt;= 0.0
+    m = (~filled) &amp; inside
+    if not m.any(): return
+    a_u, b_u, c_u = invH[0,0], invH[0,1], invH[0,2]
+    a_v, b_v, c_v = invH[1,0], invH[1,1], invH[1,2]
+    a_w, b_w, c_w = invH[2,0], invH[2,1], invH[2,2]
+    ru = a_u*fx[m] + b_u*fy + c_u
+    rv = a_v*fx[m] + b_v*fy + c_v
+    rw = a_w*fx[m] + b_w*fy + c_w
+    invrw = inv_nr3(rw)
+    u = ru * invrw; v = rv * invrw
     d = deer_sdf(u, v)
-    inside_sprite = d <= 0.0
+    inside_sprite = d &lt;= 0.0
+    if not np.any(inside_sprite): return
+    idx_all = np.where(m)[0]
+    idx = idx_all[inside_sprite]
+    if idx.size == 0: return
     uu = u[inside_sprite]
     vv = v[inside_sprite]
     albedo = deer_albedo(uu, vv)
     shade = deer_shade(uu, vv)
-    img[y, idx, :] = np.clip(albedo * shade, 0.0, 1.0)
+    col = np.clip(albedo * shade, 0.0, 1.0)
+    img[y, idx, :] = col
     filled[idx] = True</code></pre>
         </section>
 
@@ -212,11 +239,11 @@ def draw_sprite_row_deer(img, filled, y, invH, edges):
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2025-06-29-floating-point-hardware-from-pixar-to-ai-chips.html">Floating-Point Hardware From Pixar to AI Chips</a>
-        <p>Another dated publication from June 29, 2025.</p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>Another compact generated-system artifact where the output stays connected to the source path, command, and run record.</p>
         <p>More:</p>
-        <a href="2025-10-30-ai-does-not-repeal-no-free-lunch.html">AI Does Not Repeal No Free Lunch</a>
-        <p>Another dated publication from October 30, 2025.</p>
+        <a href="2025-06-29-floating-point-hardware-from-pixar-to-ai-chips.html">Floating-Point Hardware From Pixar to AI Chips</a>
+        <p>The hardware lineage behind programmable graphics and FMA-heavy computation.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
