@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cartilage Mux Lanes Debug Fixture</title>
-    <meta name="description" content="A withdrawn Cartilage mux-lanes debug fixture, preserved for audit context but no longer presented as the public website deliverable.">
+    <meta name="description" content="A Cartilage mux-lanes debug fixture with boundary inputs, local mux behavior, 160 fabric cycles, and passing edge-surface output checks.">
     <link rel="canonical" href="https://greenforest.io/cartilage-verified-mux-lanes.html">
     <meta property="og:title" content="Cartilage Mux Lanes Debug Fixture">
-    <meta property="og:description" content="A Cartilage mux-lanes debug fixture. Current visitor-facing Cartilage pages are the 2026 milestone and the visual-language decoder.">
+    <meta property="og:description" content="A Cartilage mux-lanes debug fixture with boundary inputs, local mux behavior, 160 fabric cycles, and passing edge-surface output checks.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-verified-mux-lanes.html">
     <meta property="og:image" content="https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png">
@@ -23,9 +23,9 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-01",
+            "dateModified": "2026-07-09",
             "image": "https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png",
-            "description": "A withdrawn Cartilage mux-lanes debug fixture, preserved for audit context but no longer presented as the public website deliverable.",
+            "description": "A Cartilage mux-lanes debug fixture with boundary inputs, local mux behavior, 160 fabric cycles, and passing edge-surface output checks.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-verified-mux-lanes.html",
             "publisher": {
                 "@type": "Person",
@@ -41,12 +41,12 @@
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This artifact is no longer the clean website deliverable. It remains a useful debug fixture, but its annotation overlay comes from the older manifest <code>marks</code> path and should not be treated as the clean public schematic.</p>
-        <p>The current visitor-facing Cartilage entry points are <a href="/cartilage2026.html">Cartilage 2026</a> and the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> decoder.</p>
+        <p>This page is a mux-lanes debug fixture with passing edge-surface checks.</p>
+        <p>The annotation overlay comes from the older manifest <code>marks</code> path. The current Cartilage reading path starts with <a href="/cartilage2026.html">Cartilage 2026</a> and the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> decoder.</p>
         <div class="status-box">
-            <p><span class="status-label">Debug fixture</span>This page is preserved for run context, not as the main public Cartilage schematic.</p>
+            <p><span class="status-label">Mux-lanes fixture</span>This page records a small edge-driven mux example.</p>
             <p><strong>Included:</strong> a <code>16x16</code> mux-lanes run, <code>2048x2048</code> PNG, nine driven boundary values, <code>160</code> fabric cycles, and passing edge-surface output checks.</p>
-            <p><strong>Page role:</strong> an older mux-lane fixture kept for context, with the 2026 milestone and visual-language decoder carrying the current Cartilage entry path.</p>
+            <p><strong>Page role:</strong> a compact boundary-drive example for reading three independent 2:1 mux lanes.</p>
         </div>
     </section>
 
@@ -62,9 +62,9 @@
         </section>
 
         <section>
-            <h1>Status</h1>
+            <h1>What This Fixture Shows</h1>
             <p>The mux-lanes run still demonstrates a real edge-surface check: boundary inputs are driven, local mux islands compute selections, and checked values reach the right edge.</p>
-            <p>It is not the final public visual because the screenshot is a debug fixture. The page remains so old links resolve to the proper context.</p>
+            <p>The screenshot is a debug fixture, so the cleaner visual-language and 2026 milestone pages are better entry points for first-time readers.</p>
         </section>
 
         <section>
@@ -103,8 +103,8 @@ observed OUT0=1, OUT1=1, OUT2=0</code></pre>
         </section>
 
         <section>
-            <h1>Fixture Boundary</h1>
-            <p>This page should only be used as a mux-lane debug fixture. The main public Cartilage path is Cartilage 2026, the visual-language decoder, and the nested-instantiation demo.</p>
+            <h1>Where It Fits</h1>
+            <p>Use this page for the mux-lane boundary-drive example. The main public Cartilage path is Cartilage 2026, the visual-language decoder, and the nested-instantiation demo.</p>
         </section>
     </main>
 

@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, follow">
     <title>Cartilage PC Stepper Islands</title>
-    <meta name="description" content="A Cartilage visual placement sketch for a 4-bit conditional incrementer, preserved as a render but not presented as a verified fabric run.">
+    <meta name="description" content="A Cartilage visual placement sketch for a 4-bit conditional incrementer: OUT = ENABLE ? (IN + 1) : IN.">
     <link rel="canonical" href="https://greenforest.io/cartilage-pc-stepper-islands.html">
     <meta property="og:title" content="Cartilage PC Stepper Islands">
-    <meta property="og:description" content="A withdrawn visual placement sketch for OUT = ENABLE ? (IN + 1) : IN, now distinguished from verified edge-surface Cartilage examples.">
+    <meta property="og:description" content="A Cartilage program-counter stepper placement sketch showing the local island decomposition for OUT = ENABLE ? (IN + 1) : IN.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-pc-stepper-islands.html">
     <meta property="og:image" content="https://greenforest.io/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png">
@@ -26,7 +26,7 @@
             "datePublished": "2026-06-26",
             "dateModified": "2026-07-09",
             "image": "https://greenforest.io/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png",
-            "description": "A Cartilage visual placement sketch for a 4-bit conditional incrementer, preserved as a render but not presented as a verified fabric run.",
+            "description": "A Cartilage visual placement sketch for a 4-bit conditional incrementer: OUT = ENABLE ? (IN + 1) : IN.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-pc-stepper-islands.html",
             "publisher": {
                 "@type": "Person",
@@ -42,13 +42,13 @@
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This is a visual placement sketch.</p>
-        <p>This page is preserved as a visual placement sketch, not as a verified working Cartilage circuit. The intended circuit is a 4-bit conditional incrementer: <code>OUT = ENABLE ? (IN + 1) : IN</code>.</p>
+        <p>This is a visual placement sketch for a 4-bit conditional incrementer.</p>
+        <p>The intended circuit is <code>OUT = ENABLE ? (IN + 1) : IN</code>.</p>
         <p>That is the small control block behind a program-counter step, sequencer advance, DMA address bump, or state machine register that either holds its value or moves to the next value.</p>
         <div class="status-box">
-            <p><span class="status-label">Visual placement sketch</span>This page is part of <a href="/ai-assisted-cartilage-draft-archive.html">Generated Cartilage Drafts</a>.</p>
+            <p><span class="status-label">Visual placement sketch</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>.</p>
             <p><strong>Included:</strong> a <code>55x55</code> visual placement sketch, a <code>3080x3080</code> PNG, the intended <code>OUT = ENABLE ? (IN + 1) : IN</code> function, and the local island decomposition.</p>
-            <p><strong>Verification state:</strong> edge-visible behavior, passing expectations, and a verified program-counter stepper run are outside this page. Use the current Cartilage 2026 and visual-language pages for the driven examples.</p>
+            <p><strong>Sketch focus:</strong> repeated bit-slice structure, carry propagation, edge route intent, and the mapping from incrementer equations into Cartilage cell roles.</p>
         </div>
     </section>
 
@@ -64,9 +64,9 @@
         </section>
 
         <section>
-            <h1>Status</h1>
-            <p>This render is not a functional run. It has not been driven through an edge-surface verification run that asserts its inputs and outputs.</p>
-            <p>For the current public Cartilage path, use <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation demo</a>.</p>
+            <h1>What This Page Shows</h1>
+            <p>The render shows the intended placement vocabulary for a small control datapath: left-edge input routes, top-edge enable, repeated local bit slices, carry propagation, and right-edge output routes.</p>
+            <p>For checked arithmetic behavior, use the <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>. For the current Cartilage reading path, use <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation demo</a>.</p>
         </section>
 
         <section>
@@ -106,15 +106,15 @@ C[i + 1] = IN[i] ? C[i] : 0</code></pre>
         </section>
 
         <section>
-            <h1>Sketch Boundary</h1>
+            <h1>Where It Fits</h1>
             <p>The useful part is the placement vocabulary. The current project path is Cartilage 2026, the visual-language decoder, and the nested-instantiation demo.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
-        <a href="/ai-assisted-cartilage-draft-archive.html">Generated Cartilage Drafts</a>
-        <p>A guide to the generated Cartilage run, timeline, and sketch pages.</p>
+        <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>
+        <p>A guide to the Cartilage run, timeline, and sketch pages.</p>
         <p>More:</p>
         <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
         <p>The 32-code cell-role alphabet used by this render.</p>

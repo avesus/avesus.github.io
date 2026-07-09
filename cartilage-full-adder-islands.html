@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, follow">
     <title>Cartilage Full-Adder Islands</title>
-    <meta name="description" content="A Cartilage visual placement sketch for a full-adder function, preserved as a render but not presented as a verified fabric run.">
+    <meta name="description" content="A Cartilage visual placement sketch for a full-adder function, with B, A, and Cin routed into local MUX islands and SUM/CARRY routed to the edge.">
     <link rel="canonical" href="https://greenforest.io/cartilage-full-adder-islands.html">
     <meta property="og:title" content="Cartilage Full-Adder Islands">
-    <meta property="og:description" content="A withdrawn visual placement sketch for a Cartilage full-adder mapping. The page now distinguishes the sketch from verified edge-surface examples.">
+    <meta property="og:description" content="A Cartilage full-adder placement sketch showing the intended local MUX-island mapping for SUM and CARRY.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-full-adder-islands.html">
     <meta property="og:image" content="https://greenforest.io/cartilage-full-adder-islands/cartilage-full-adder-islands.png">
@@ -26,7 +26,7 @@
             "datePublished": "2026-06-26",
             "dateModified": "2026-07-09",
             "image": "https://greenforest.io/cartilage-full-adder-islands/cartilage-full-adder-islands.png",
-            "description": "A Cartilage visual placement sketch for a full-adder function, preserved as a render but not presented as a verified fabric run.",
+            "description": "A Cartilage visual placement sketch for a full-adder function, with B, A, and Cin routed into local MUX islands and SUM/CARRY routed to the edge.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-full-adder-islands.html",
             "publisher": {
                 "@type": "Person",
@@ -42,13 +42,13 @@
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This is a visual placement sketch.</p>
-        <p>This page is preserved as a visual placement sketch, not as a verified working Cartilage circuit. The intended full-adder mapping uses <code>B</code>, <code>A</code>, and <code>Cin</code> as top-edge data inputs, with <code>SUM</code> and <code>CARRY</code> routed to the right edge.</p>
+        <p>This is a visual placement sketch for a one-bit full adder.</p>
+        <p>The intended full-adder mapping uses <code>B</code>, <code>A</code>, and <code>Cin</code> as top-edge data inputs, with <code>SUM</code> and <code>CARRY</code> routed to the right edge.</p>
         <p>The useful part is still the mapping vocabulary: a familiar one-bit arithmetic block decomposed into local wire, constant, intersection, and MUX roles inside the same 32-code Cartilage visual language.</p>
         <div class="status-box">
-            <p><span class="status-label">Visual placement sketch</span>This page is part of <a href="/ai-assisted-cartilage-draft-archive.html">Generated Cartilage Drafts</a>.</p>
+            <p><span class="status-label">Visual placement sketch</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>.</p>
             <p><strong>Included:</strong> a <code>37x37</code> visual placement sketch, a <code>2960x2960</code> PNG, the intended full-adder equations, and the local MUX-island mapping vocabulary.</p>
-            <p><strong>Verification state:</strong> edge-visible behavior, passing expectations, and a verified full-adder run are outside this page. Use the current Cartilage 2026 and visual-language pages for the driven examples.</p>
+            <p><strong>Sketch focus:</strong> local island notation, edge route intent, and the mapping from full-adder equations into Cartilage cell roles.</p>
         </div>
     </section>
 
@@ -64,9 +64,9 @@
         </section>
 
         <section>
-            <h1>Status</h1>
-            <p>This render is not a functional run. It has not been driven through an edge-surface verification run that asserts its inputs and outputs.</p>
-            <p>For the current public Cartilage path, use <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation demo</a>.</p>
+            <h1>What This Page Shows</h1>
+            <p>The render shows the intended placement vocabulary for a full-adder island: top-edge input routes, local inversion and mux islands, and right-edge output routes.</p>
+            <p>For checked arithmetic behavior, use the <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>. For the current Cartilage reading path, use <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation demo</a>.</p>
         </section>
 
         <section>
@@ -105,15 +105,15 @@ CARRY = P ? Cin : A</code></pre>
         </section>
 
         <section>
-            <h1>Sketch Boundary</h1>
+            <h1>Where It Fits</h1>
             <p>The useful part is the local island notation. The current project path is Cartilage 2026, the visual-language decoder, and the nested-instantiation demo.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
-        <a href="/ai-assisted-cartilage-draft-archive.html">Generated Cartilage Drafts</a>
-        <p>A guide to the generated Cartilage run, timeline, and sketch pages.</p>
+        <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>
+        <p>A guide to the Cartilage run, timeline, and sketch pages.</p>
         <p>More:</p>
         <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
         <p>The local-port and bounded-region model behind larger Cartilage fabric examples.</p>
