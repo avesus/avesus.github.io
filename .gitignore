@@ -7,5 +7,10 @@ screenshots/
 one-pin-RF/**/build/
 cartilage-verified-mux-lanes/verification-report.md
 
+# Local business-formation/export files may contain address or phone details.
+SOLID_STATE_PROS_LLC.png
+SolidStatePros.pdf
+SolidStatePros_Formation.pdf
+
 # Exact-frame Cartilage captures can exceed GitHub's 100 MB file limit.
 cartilage/codex5.5/*-exact-*.webm
