@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>A Short-Term Cartilage Project Structure</title>
+    <title>Cartilage Project Structure, 2022</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="The following are projects (in the order of laser-sharp short term focus) we are working on (volunteer&#39;s help appreciated; early co-founder opportunities for...">
+    <meta name="description" content="A Cartilage project-structure note from 2022: fabric emulator, FPGA prototype path, Cartilage VM/runtime, Sinew control plane, and parallel-language surface.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html">
     <meta property="og:site_name" content="Greenforest I/O">
-    <meta property="og:title" content="A Short-Term Cartilage Project Structure">
-    <meta property="og:description" content="The following are projects (in the order of laser-sharp short term focus) we are working on (volunteer&#39;s help appreciated; early co-founder opportunities for...">
+    <meta property="og:title" content="Cartilage Project Structure, 2022">
+    <meta property="og:description" content="A Cartilage project-structure note from 2022: fabric emulator, FPGA prototype path, Cartilage VM/runtime, Sinew control plane, and parallel-language surface.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -24,7 +24,7 @@
                         {
                                 "@type": "Article",
                                 "@id": "https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html#article",
-                                "headline": "A Short-Term Cartilage Project Structure",
+                                "headline": "Cartilage Project Structure, 2022",
                                 "author": {
                                         "@type": "Person",
                                         "name": "Brian Greenforest",
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-04-27",
                                 "dateModified": "2026-07-09",
-                                "description": "The following are projects (in the order of laser-sharp short term focus) we are working on (volunteer's help appreciated; early co-founder opportunities for...",
+                                "description": "A Cartilage project-structure note from 2022: fabric emulator, FPGA prototype path, Cartilage VM/runtime, Sinew control plane, and parallel-language surface.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -62,7 +62,7 @@
                                         {
                                                 "@type": "ListItem",
                                                 "position": 3,
-                                                "name": "A Short-Term Cartilage Project Structure",
+                                                "name": "Cartilage Project Structure, 2022",
                                                 "item": "https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html"
                                         }
                                 ]
@@ -74,24 +74,45 @@
 </head>
 
 <body>
-    <header>A Short-Term Cartilage Project Structure</header>
+    <header>Cartilage Project Structure, 2022</header>
     <address>April 27, 2022</address>
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-04-27.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><span class="status-label">Project-structure note</span>Originally posted 2022-04-27; rewritten here around concrete Cartilage work packages.</p>
+            <p><strong>Included:</strong> fabric emulator, FPGA element sizing, LUT/MUX/DFF trade space, Sinew control plane, physical FPGA prototypes, Cartilage VM/runtime, and language syntax.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>The following are projects (in the order of laser-sharp short term focus) we are working on (volunteer's help appreciated; early co-founder opportunities for creation of an invention that will be called &quot;XXI century's Manhattan Project&quot;).</p>
-            <p>1. Emulation of arbitrary FPGA element size to pick the optimal number of D flip-flops, multiplexer networks, LUTs, and optimal SerDes bandwith for inter-node communication. An early prototype was written in GLSL and contained only 1 reconfigurable multiplexer as a unique hyper-fine-grained switching fabric. Turns out, we needed to control adjacent FPGA configurations in every node, and it need much more than one multiplexer, otherwise it's a waste of reconfiguration support circuits. No need to compute next state fast, because only physical chips can run the model fast and efficiently. The selection research is in works right now (I wish I had less ADHD), and it's a JavaScript Node.js app, emulating a small array of interconnected FPGAs controlled by special control plane overlay network we codename &quot;Sinew&quot;.</p>
-            <p>2. Manufacturing of physical prototypes using stock FPGAs. We ran out of available chips. Were using flex PCB design that allows to cut compute fabric with scissors (iCE40LP384-SG32). Another was a high-bandwidth FIFO-rich iCE40HX1K-TQ144 (a nice scalable modular PCB design has been made; but these chips had disappeared as well).</p>
-            <p>3. Zones-managing virtual machine we codename &quot;Cartilage&quot;. It runs on top of the emulator, or the stock FPGAs prototype, or the optimal element physical chip. It allows to implement reactive programming with automatic ports route management and contained objects instantiations, and dynamic types creation at run-time.</p>
-            <p>4. Distributed massively parallel programming language syntax. Didn't touch yet, but it seems in a close reach (perhaps this year, even!)</p>
+            <h1>Four Work Packages</h1>
+            <p>The 2022 Cartilage work split into four practical layers: a fabric emulator, physical FPGA prototypes, a Cartilage VM/runtime, and a massively parallel language surface.</p>
+            <p>That split still reads well because each layer answers a different engineering question. What is the right cell size? Can the structure run on available hardware? What owns regions and routes? How does another builder express work for the fabric?</p>
+        </section>
+
+        <section>
+            <h1>1. Fabric Emulator</h1>
+            <p>The emulator was meant to explore FPGA-element size and interconnect shape before committing to hardware. The variables included D flip-flops, multiplexer networks, LUTs, local routing, and SerDes bandwidth for inter-node communication.</p>
+            <p>An early GLSL prototype used a very small reconfigurable switching fabric. The next step was a JavaScript/Node.js emulator for a small array of interconnected FPGA-like nodes controlled by a special overlay control plane called Sinew.</p>
+        </section>
+
+        <section>
+            <h1>2. Physical FPGA Prototypes</h1>
+            <p>The physical path used stock FPGAs as a near-term substrate. The note mentions a flex-PCB direction using iCE40LP384-SG32 parts and a higher-bandwidth FIFO-rich iCE40HX1K-TQ144 modular PCB direction.</p>
+            <p>The point was not to pretend stock parts were the final element. They were a way to test packaging, communication, modularity, and the cost of building a fabric from available devices.</p>
+        </section>
+
+        <section>
+            <h1>3. Cartilage VM and Runtime</h1>
+            <p>The Cartilage runtime layer was the zone manager. It could sit on top of the emulator, stock-FPGA prototypes, or a later optimized physical element.</p>
+            <p>Its responsibility was to manage reactive structure: local regions, ports, route management, contained object instantiation, and runtime type creation without flattening the fabric into one global controller.</p>
+        </section>
+
+        <section>
+            <h1>4. Language Surface</h1>
+            <p>The language layer was the human-facing surface for distributed massively parallel programs. It had to express regions, messages, state, configuration, placement, and failure without hiding the runtime boundaries that make the system supportable.</p>
+            <p>That remains the adoption test for this kind of work. A fabric becomes useful when another builder can run examples, see ownership, and understand what changes when a region is instantiated or reconfigured.</p>
         </section>
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
@@ -103,10 +124,10 @@
     <nav class="article-links">
         <p>Next:</p>
         <a href="2022-04-27-what-cartilage-is-and-is-not.html">What Cartilage Is and Is Not</a>
-        <p>Another dated publication from April 27, 2022.</p>
+        <p>The boundary note for the same project: regions, ports, routing, configuration, and ordinary digital logic.</p>
         <p>More:</p>
-        <a href="2022-04-27-elementary-computation-is-a-switching-operation.html">Elementary Computation Is a Switching Operation</a>
-        <p>Another dated publication from April 27, 2022.</p>
+        <a href="2022-04-26-adopting-a-new-massively-parallel-language.html">Adopting a New Massively Parallel Language</a>
+        <p>The adoption side of the language/runtime work package.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
