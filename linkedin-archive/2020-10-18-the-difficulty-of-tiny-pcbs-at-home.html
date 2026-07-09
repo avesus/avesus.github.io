@@ -6,11 +6,11 @@
     <title>The Difficulty of Tiny PCBs at Home</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="I&#39;m so envious to those people who can make 6 mil printed circuit boards at home and solder 0.35mm BGAs to them in their freaking precise temperature oven....">
+    <meta name="description" content="A PCB-process note on why tiny at-home boards are hard: 6 mil traces, 0.35 mm BGAs, repeatability, alignment, etch spread, glue spread, and realistic feature size.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2020-10-18-the-difficulty-of-tiny-pcbs-at-home.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The Difficulty of Tiny PCBs at Home">
-    <meta property="og:description" content="I&#39;m so envious to those people who can make 6 mil printed circuit boards at home and solder 0.35mm BGAs to them in their freaking precise temperature oven....">
+    <meta property="og:description" content="A PCB-process note on why tiny at-home boards are hard: 6 mil traces, 0.35 mm BGAs, repeatability, alignment, etch spread, glue spread, and realistic feature size.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2020-10-18-the-difficulty-of-tiny-pcbs-at-home.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2020-10-18",
                                 "dateModified": "2026-07-09",
-                                "description": "I'm so envious to those people who can make 6 mil printed circuit boards at home and solder 0.35mm BGAs to them in their freaking precise temperature oven....",
+                                "description": "A PCB-process note on why tiny at-home boards are hard: 6 mil traces, 0.35 mm BGAs, repeatability, alignment, etch spread, glue spread, and realistic feature size.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2020-10-18-the-difficulty-of-tiny-pcbs-at-home.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,18 +78,26 @@
     <address>October 18, 2020</address>
 
     <section class="abstract">
+        <p>At-home PCB work becomes a different problem at tiny pitch. The obstacle is not only drawing a trace once; it is making the same trace, hole, pad, and layer alignment repeatably.</p>
+        <p>This note names the process boundary found at the time: around 0.5 mm for repeatable multilayer prototyping, with smaller features failing through non-conducting holes, bridged pads, glue spread, etch spread, or alignment error.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2020-10-18.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+            <p><span class="status-label">PCB process note</span>Originally posted 2020-10-18; expanded here around the repeatability limit.</p>
+            <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
+            <p><strong>Article focus:</strong> 6 mil traces, 0.35 mm BGAs, at-home multilayer process limits, and repeatable feature size.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>I'm so envious to those people who can make 6 mil printed circuit boards at home and solder 0.35mm BGAs to them in their freaking precise temperature oven. Now I genuinely appreciate how freaking cheap $2 per square inch is!</p>
-            <p>I tried laser cutter, laser printer, photoresist, ferric chloride, silver paste, vinyl layers, copper film, Avery stickies - nothing works at this tiny size! Seems that the biggest feature you can have at home is about 0.5mm on multi-layer _repeatable_ prototyping technology. Either glue, or etchant goes everywhere and either makes your holes non-conducting, or bridges neighbor pads.</p>
-            <p>#OccamProcess #AtHome #Prototyping #pcbmanufacturing #PCB</p>
+            <h1>The Boundary</h1>
+            <p>The target cases were small: 6 mil PCB features and 0.35 mm BGA soldering. At that scale, low-cost commercial PCB services begin to look inexpensive because they are selling repeatability, not just copper and substrate.</p>
+            <p>The at-home process experiments included laser cutter, laser printer, photoresist, ferric chloride, silver paste, vinyl layers, copper film, and Avery sticker masks. The observed practical boundary was around 0.5 mm for repeatable multilayer prototyping.</p>
+        </section>
+
+        <section>
+            <h1>Failure Modes</h1>
+            <p>Two failures dominated the note: holes that stopped conducting and neighboring pads that bridged. At small geometry, glue and etchant movement become electrical problems. Alignment and process control matter as much as the nominal feature size.</p>
+            <p>That is the engineering value of the note: home fabrication has to be judged by repeatable yield, not by whether one small feature can be made once.</p>
         </section>
 
     </main>

@@ -6,11 +6,11 @@
     <title>Elementary Computation Is a Switching Operation</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="People think that CPUs are clever machines, and in order to do computation, these clever machines are the fundamental level of reality. I love to teach...">
+    <meta name="description" content="A Boolean-logic note: elementary computation can be read as switching, selection, and if-then-else structure rather than starting from the CPU as the primitive.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-27-elementary-computation-is-a-switching-operation.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Elementary Computation Is a Switching Operation">
-    <meta property="og:description" content="People think that CPUs are clever machines, and in order to do computation, these clever machines are the fundamental level of reality. I love to teach...">
+    <meta property="og:description" content="A Boolean-logic note: elementary computation can be read as switching, selection, and if-then-else structure rather than starting from the CPU as the primitive.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-27-elementary-computation-is-a-switching-operation.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-04-27",
                                 "dateModified": "2026-07-09",
-                                "description": "People think that CPUs are clever machines, and in order to do computation, these clever machines are the fundamental level of reality. I love to teach...",
+                                "description": "A Boolean-logic note: elementary computation can be read as switching, selection, and if-then-else structure rather than starting from the CPU as the primitive.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-27-elementary-computation-is-a-switching-operation.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,18 +78,25 @@
     <address>April 27, 2022</address>
 
     <section class="abstract">
+        <p>Elementary computation can be read as switching: choosing one path or value from alternatives under a condition.</p>
+        <p>That makes the CPU a built machine, not the primitive. Verilog and FPGA work make the lower structure visible: selection, state, wiring, timing, and parallel datapaths.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-04-27.</p>
+            <p><span class="status-label">Boolean-logic note</span>Originally posted 2022-04-27; expanded here around switching and selection.</p>
+            <p><strong>Article focus:</strong> if-then-else, switching, Verilog, FPGA structure, and Boolean computation.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>People think that CPUs are clever machines, and in order to do computation, these clever machines are the fundamental level of reality.</p>
-            <p>I love to teach Verilog and FPGAs because they show how computations are very simple and basic elements of our very reality, where decision splits occur.</p>
-            <p>An elementary computation is a switching operation, a binary decision between two simple alternatives. Your infamous if-then-else!</p>
-            <p>#verilog #education #simplicity #computerscience #fpga</p>
+            <h1>The Primitive</h1>
+            <p>A CPU is a useful abstraction, but it is not where computation has to start. Underneath a processor are choices: select this value or that one, take this path or that path, update this state or preserve it.</p>
+            <p>The everyday programming form is if-then-else. The circuit form is switching and selection. A MUX is the physical version of that idea.</p>
+        </section>
+
+        <section>
+            <h1>Why Verilog Helps</h1>
+            <p>Verilog and FPGA work expose the structure that ordinary sequential code often hides. The builder has to think about registers, wires, fanout, clocks, routing, and parallel operations.</p>
+            <p>That does not make every problem simpler. It makes the machine shape visible enough to reason about timing and resources directly.</p>
         </section>
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>

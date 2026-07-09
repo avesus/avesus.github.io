@@ -6,11 +6,11 @@
     <title>DINOv2, SALAD, SuperGlue, and the Dustbin Question</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="DINOv2 SALAD is the SOTA single-stage VPR (Extractor-Retriever-Matcher for images). It uses Optimal Transport DUSTBIN, just as SuperGlue did in the late 2019....">
+    <meta name="description" content="A vision-model note comparing DINOv2/SALAD, SuperGlue, LightGlue, optimal transport, and the dustbin mechanism used for unmatched image features.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2024-01-17-dinov2-salad-superglue-and-the-dustbin-question.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="DINOv2, SALAD, SuperGlue, and the Dustbin Question">
-    <meta property="og:description" content="DINOv2 SALAD is the SOTA single-stage VPR (Extractor-Retriever-Matcher for images). It uses Optimal Transport DUSTBIN, just as SuperGlue did in the late 2019....">
+    <meta property="og:description" content="A vision-model note comparing DINOv2/SALAD, SuperGlue, LightGlue, optimal transport, and the dustbin mechanism used for unmatched image features.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2024-01-17-dinov2-salad-superglue-and-the-dustbin-question.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2024-01-17",
                                 "dateModified": "2026-07-09",
-                                "description": "DINOv2 SALAD is the SOTA single-stage VPR (Extractor-Retriever-Matcher for images). It uses Optimal Transport DUSTBIN, just as SuperGlue did in the late 2019....",
+                                "description": "A vision-model note comparing DINOv2/SALAD, SuperGlue, LightGlue, optimal transport, and the dustbin mechanism used for unmatched image features.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2024-01-17-dinov2-salad-superglue-and-the-dustbin-question.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,23 +78,28 @@
     <address>January 17, 2024</address>
 
     <section class="abstract">
+        <p>This note compares DINOv2/SALAD, SuperGlue, and LightGlue through one implementation question: what happens to unmatched features.</p>
+        <p>SuperGlue used an optimal-transport dustbin mechanism for unmatched keypoints. The note asks whether a related visual-place-recognition pipeline can remove or change that dustbin step in the way LightGlue did.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2024-01-17.</p>
+            <p><span class="status-label">Vision-model note</span>Originally posted 2024-01-17; expanded here around the dustbin mechanism.</p>
             <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+            <p><strong>Article focus:</strong> DINOv2/SALAD, SuperGlue, LightGlue, optimal transport, dustbin handling, and visual place recognition.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>DINOv2 SALAD is the SOTA single-stage VPR (Extractor-Retriever-Matcher for images). It uses Optimal Transport DUSTBIN, just as SuperGlue did in the late 2019.</p>
-            <p>What if we go away with DUSTBIN, just as it was done in LightGlue? Can the Transformer be improved even further? Philipp Lindenberger | Paul-Edouard Sarlin | Marc Pollefeys | Javier Civera | Tomasz Malisiewicz | Daniel DeTone | Andrew Rabinovich</p>
-            <p>🤔</p>
-            <p>Links:<br>
-                * DIVOv2 SALAD (the cover): <a href="https://lnkd.in/gvgwd4dz" target="_blank" rel="noopener">https://lnkd.in/gvgwd4dz</a><br>
-                * SuperGlue: <a href="https://lnkd.in/giTDQBtA" target="_blank" rel="noopener">https://lnkd.in/giTDQBtA</a><br>
-                * LightGlue: <a href="https://lnkd.in/gzsjuvyq" target="_blank" rel="noopener">https://lnkd.in/gzsjuvyq</a></p>
+            <h1>The Question</h1>
+            <p>Visual matching systems need a way to represent features that should not be matched. In SuperGlue, the dustbin gives the optimal-transport assignment a place to put unmatched keypoints.</p>
+            <p>The question raised here is whether DINOv2/SALAD-style visual place recognition needs the same mechanism, or whether the pipeline can be simplified in the direction shown by LightGlue.</p>
         </section>
+
+        <section>
+            <h1>Why It Matters</h1>
+            <p>Retriever/matcher systems are not only about the embedding backbone. The matching rule decides how ambiguity, missing features, repeated texture, and non-correspondence are represented.</p>
+            <p>Changing the dustbin is therefore an architectural question: it affects what the model can decline to match, what it is forced to explain, and how much matching machinery remains after the descriptor stage.</p>
+        </section>
+
         <section>
             <h1>Links From the Original Post</h1>
             <ul>
