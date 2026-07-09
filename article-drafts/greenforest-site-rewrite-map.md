@@ -32,6 +32,29 @@ Do not present Brian as RF, FPGA, silicon, GPT, Cartilage, source code, artifact
 
 Do not present old work as leftovers. If a page remains public, it should remain because it gives a reader something useful.
 
+## Checklist Resolution
+
+The latest checklist is accepted as a quality bar, with one important ordering correction:
+
+Article delivery overrides support-page redesign. Earlier ideas about replacing global navigation with `Home / About / Help / Writing / Archive / Contact`, renaming support pages, or reorganizing the whole site around a homepage are not active implementation work for this pass. Those items are parked as future support-surface considerations, and only after the article URLs themselves are strong.
+
+The plan passes the checklist only if it stays inside these boundaries:
+
+1. It repairs article pages first.
+2. It does not publish identity analysis, self-analysis, assistant interpretation, therapy-like language, or brand psychology.
+3. It does not treat old technical work as embarrassing, random, incomplete, or merely archival.
+4. It does not convert Brian into a copywriter, clarity coach, general complexity consultant, or person who chooses strange or messy projects.
+5. It does not lead with RF, FPGA, Cartilage, silicon, GPT, proof, artifacts, source code, or technical critique as identity.
+6. It does not make evidence, proof, honesty, records, limits, or tradeoffs the public value. Those may support a page only where they help the reader use the delivered work correctly.
+7. It keeps important technical problems concrete: live data, durable state, upgrades preserving user preferences, database migrations, end-to-end tests, production fixes becoming testable paths, remote control across NATs and real networks, and parallel computation at scale.
+8. It lets older domains remain valuable by the question they answer: receiver minimality, visible reconfiguration, local ownership, manufacturable active behavior, browser/GPU execution, small training runs, and procedural rendering.
+9. It treats the homepage, About page, Contact page, FAQ, footer, and any library page as quiet support surfaces, not the main work.
+10. It considers a batch complete only when the changed article page, its local links, its metadata, and its published URL path are coherent.
+
+If a checklist item conflicts with the article-first correction, use the article-first correction.
+
+If a checklist item asks for complete public copy, apply it only when the active task is final copywriting. This document is an internal plan and should stay instructional. Public pages must not inherit this document's private categories or checklist wording.
+
 ## Article Delivery Standard
 
 Every important article should give the reader a usable result, not merely describe why a result matters.
