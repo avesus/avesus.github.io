@@ -12,7 +12,6 @@ These are the author-supplied facts to preserve while drafting the article.
 - The design scales linearly in resource count with input width.
 - For each 2x increase in operand width, the balanced serial reducing-adder tree adds one clock of extra latency.
 - Inputs and outputs are positive-number bit streams in the current artifact.
-- Signed arithmetic can be added with a cheap parallel sign stream.
 - The streams are LSB-first.
 - The rendered 8-bit circuit has 3 clocks of latency.
 - Output is one bit per clock after the fixed latency.
@@ -20,10 +19,8 @@ These are the author-supplied facts to preserve while drafting the article.
 - There are no ready/valid stalls or sleep cycles. The surrounding system must keep the stream cadence.
 - "Bubbles-free" means there are no idle output-bit cycles after startup alignment and no drain/flush gap between operand words.
 - The output width should not be framed as a deficiency. In known-width arithmetic, the designer usually knows which product bits matter.
-- The design was motivated by FPGA timing closure problems with standard multiplication, lack of enough DSP blocks, and standard Verilog `*` producing clock semantics that were too slow for the intended use.
-- The architecture goal is not merely "fewer DSPs." The goal is graph-style arithmetic composition with one streaming rhythm, less routing pressure, and less cognitive pressure when reasoning about large compute graphs.
-- Narrow bit-serial links can map more directly onto FPGA fabric and potentially onto multi-chip-package arithmetic graphs without treating every edge as a wide bus or a dedicated SerDes link.
-- Relevant application areas to mention briefly: DSP, SDR, AI arithmetic graphs, and 3D graphics.
+- The design was motivated by FPGA timing closure problems with standard multiplication, lack of enough hard multiplier blocks, and standard Verilog `*` producing timing that was too slow for the intended use.
+- The architecture goal is not merely "fewer hard multipliers." The goal is graph-style arithmetic composition with one streaming rhythm and less routing pressure when reasoning about larger compute graphs.
 - Future work belongs in a small section: Verilog port, LUT count, Fmax, timing, FPGA characterization, and waveforms.
 
 ## Local Artifact Inventory
@@ -53,17 +50,17 @@ These facts come from reading the Logisim XML, not from interpreting the rendere
 
 ### Opening Claim
 
-A positive-number bit-serial multiplier whose pipeline stays full: after startup alignment, each clock accepts the next input bits and emits the next product bit, with no drain cycles between operand words.
+A positive-number bit-serial multiplier whose schedule stays full: after startup alignment, each clock advances the next input bits and emits the next product bit, with no drain cycles between operand words.
 
 ### Why It Exists
 
-The circuit exists because ordinary FPGA multiplication can become the wrong abstraction. A standard Verilog `*` may infer hardware with slow clock semantics, difficult timing closure, and pressure on scarce DSP blocks. For some compute graphs, the problem is not just multiplying once. The problem is composing many multipliers and adders at high clock rate without turning the design into wide buses, placement trouble, and memory traffic.
+The circuit was invented on July 26, 2025 because ordinary FPGA multiplication was becoming the wrong shape for the intended compute graph. A standard Verilog `*` was pushing timing closure too slowly, hard multiplier blocks were scarce, and the design needed a streamable arithmetic path instead of another wide immediate product.
 
-This multiplier takes the opposite route. It keeps the arithmetic in a narrow, regular, bit-serial stream. The result is a schedule that can be reasoned about as a graph: every edge carries one bit per clock, every word advances on the same cadence, and the pipeline does not need a bubble between consecutive operands.
+This multiplier keeps arithmetic in a narrow, regular, bit-serial stream. Every word advances on the same cadence, and the pipeline does not need a bubble between consecutive operands.
 
 ### What The Artifact Is
 
-The public artifact is a Logisim circuit. The rendered version is an 8x8-bit positive-number multiplier with an 8-bit output stream. The width is not the point. The point is the schedule.
+The public artifact is a Logisim circuit. The rendered version is an 8x8-bit positive-number multiplier with an 8-bit output stream. The width can be changed by building a wider version of the same pattern; the point of the article is the schedule.
 
 The input streams are LSB-first. The output stream is also LSB-first. In the rendered 8-bit circuit, the fixed pipeline latency is 3 clocks, matching the depth of the balanced serial reduction tree. Once that latency is accounted for, output bits continue one per clock.
 
@@ -83,17 +80,17 @@ Partial products are therefore not stored as a wide parallel matrix. They exist 
 
 The design scales linearly in resources with the number of input bits. Wider versions add more repeated lanes and reduction structure instead of a wide parallel multiplier block. The balanced serial reduction tree adds one clock of extra latency each time operand width doubles.
 
-The useful output width is an application decision. In fixed-width DSP, SDR, AI, and graphics arithmetic, the designer usually knows which product bits matter. Keeping only the useful stream width is part of the architecture, not a failure to compute a decorative full-width product.
+The rendered artifact is 8x8 to 8 bits: the result stream is intentionally cut to 8 bits. A different output width would be a deliberate variant of the same schedule, not a different claim in this article.
 
 ### Tradeoff
 
-The tradeoff is not simply "serial is slower." The architecture gives up wide immediate products in exchange for a uniform streaming schedule, narrow local links, and graph-style composition. That can reduce routing pressure and make large arithmetic graphs easier to reason about, place, and clock.
+The cost is not simply "serial is slower." The architecture gives up wide immediate products in exchange for a uniform streaming schedule, narrow local links, and graph-style composition. That is the tradeoff being tested.
 
-Hard DSP blocks and inferred `*` multipliers remain useful, but they also bring placement and clocking constraints. This design explores the opposite extreme: keep multiplication in the same bit-stream rhythm as the rest of the compute graph and aim for fabric-friendly Fmax.
+Hard multiplier blocks and inferred `*` multipliers remain useful. This circuit explores the opposite direction: keep multiplication in the same bit-stream rhythm as the surrounding arithmetic and make the schedule easy to compose.
 
 ### Future FPGA Work
 
-The next engineering step is a Verilog port. That should be followed by FPGA synthesis results: LUT count, achievable Fmax, timing reports, waveform captures, and comparison against inferred `*` and DSP-backed multipliers on the same target.
+The next engineering step is a Verilog port. That should be followed by FPGA synthesis results: LUT count, achievable Fmax, timing reports, waveform captures, and comparison against inferred `*` and hard-multiplier-backed implementations on the same target.
 
 ## Open Verification
 
@@ -101,5 +98,4 @@ The next engineering step is a Verilog port. That should be followed by FPGA syn
 - Add a waveform showing LSB-first inputs and delayed LSB-first output.
 - Confirm the exact Verilog module interface after the RTL port exists.
 - Measure LUT usage, Fmax, placement behavior, and timing closure on at least one FPGA target.
-- Compare against standard Verilog `*` and DSP-backed multiplication under the same constraints.
-- Add a short note showing how the parallel sign stream extends the current positive-number artifact.
+- Compare against standard Verilog `*` and hard-multiplier-backed multiplication under the same constraints.

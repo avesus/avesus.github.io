@@ -206,6 +206,29 @@ figure.inspectable-image a {
 	display: block;
 }
 
+.article-artifact-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+	margin: 2rem 0;
+	text-align: left;
+}
+
+.article-artifact-grid a {
+	display: block;
+}
+
+.article-artifact-grid img {
+	border: 1px solid #ccc;
+}
+
+.article-facts {
+	font-family: 'Inconsolata', monospace;
+	font-size: 18px;
+	line-height: 1.4;
+	text-align: left;
+}
+
 .source-embed {
 	text-align: left;
 }
@@ -900,6 +923,10 @@ dt {
 	}
 
 	.gf-homepage .artifact-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.article-artifact-grid {
 		grid-template-columns: 1fr;
 	}
 
