@@ -6,11 +6,11 @@
     <title>How Much Radio Do You Actually Need?</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="How Much Radio Do You Actually Need? I fed FM RF into a single FPGA input pin and let the pin&#39;s logic threshold become the receiver&#39;s front edge. A...">
+    <meta name="description" content="Launch note for the one-pin FPGA FM receiver: RF enters a digital input threshold, becomes a transition stream, and is recovered as FM audio in the full article and Verilog follow-up.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2026-04-24-how-much-radio-do-you-actually-need.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="How Much Radio Do You Actually Need?">
-    <meta property="og:description" content="How Much Radio Do You Actually Need? I fed FM RF into a single FPGA input pin and let the pin&#39;s logic threshold become the receiver&#39;s front edge. A...">
+    <meta property="og:description" content="Launch note for the one-pin FPGA FM receiver: RF enters a digital input threshold, becomes a transition stream, and is recovered as FM audio in the full article and Verilog follow-up.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2026-04-24-how-much-radio-do-you-actually-need.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -31,8 +31,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2026-04-24",
-                                "dateModified": "2026-07-01",
-                                "description": "How Much Radio Do You Actually Need? I fed FM RF into a single FPGA input pin and let the pin's logic threshold become the receiver's front edge. A...",
+                                "dateModified": "2026-07-09",
+                                "description": "Launch note for the one-pin FPGA FM receiver: RF enters a digital input threshold, becomes a transition stream, and is recovered as FM audio in the full article and Verilog follow-up.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2026-04-24-how-much-radio-do-you-actually-need.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,11 +78,11 @@
     <address>April 24, 2026</address>
 
     <section class="abstract">
-        <p>Archived from an original LinkedIn post by Brian Greenforest.</p>
+        <p>Launch note for the one-pin FPGA FM receiver article.</p>
         <div class="status-box">
-            <p><span class="status-label">Selected LinkedIn publication</span>Originally posted 2026-04-24.</p>
-            <p><strong>Included:</strong> the original publication text and source link, preserved as a standalone article page.</p>
-            <p><strong>Best read with:</strong> <a href="/how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a></p>
+            <p><span class="status-label">Receiver article link</span>Originally posted 2026-04-24. The full article follows the path from FPGA input threshold to sampled quadrature, digital mixing, filtering, demodulation, and audio output.</p>
+            <p><strong>Included:</strong> the short publication text, source link, video link, and link to the full writeup with Verilog follow-up.</p>
+            <p><strong>Full article:</strong> <a href="/how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a></p>
         </div>
     </section>
 
@@ -93,7 +93,7 @@
             <p>I fed FM RF into a single FPGA input pin and let the pin's logic threshold become the receiver's front edge.<br>
                 A conventional FM receiver usually begins with an analog front end, a local oscillator, a mixer, an ADC, and a digital recovery chain.<br>
                 I built around the transition stream from that pin instead of preserving RF amplitude through the usual mixer-plus-ADC path.<br>
-                Otherwise, the work stayed trapped in the familiar loop: oscillator leakage, analog containment, ADC drive requirements, and DSP burden before the real question was even answered.</p>
+                Otherwise, the work stayed trapped in the familiar loop: oscillator leakage, analog containment, ADC drive requirements, and digital processing burden before the real question was even answered.</p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>
