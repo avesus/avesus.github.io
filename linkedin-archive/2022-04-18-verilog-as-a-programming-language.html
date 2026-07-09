@@ -6,11 +6,11 @@
     <title>Verilog as a Programming Language</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="In 2019, I learned the model of computation of Verilog. For almost three decades, I was writing application software and soldering digital circuits. I mean, I...">
+    <meta name="description" content="A hardware-language note about Verilog as a programming model for structure, timing, allocation, registers, parallel data paths, and reconfigurable fabric.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-18-verilog-as-a-programming-language.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Verilog as a Programming Language">
-    <meta property="og:description" content="In 2019, I learned the model of computation of Verilog. For almost three decades, I was writing application software and soldering digital circuits. I mean, I...">
+    <meta property="og:description" content="A hardware-language note about Verilog as a programming model for structure, timing, allocation, registers, parallel data paths, and reconfigurable fabric.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-18-verilog-as-a-programming-language.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-04-18",
                                 "dateModified": "2026-07-09",
-                                "description": "In 2019, I learned the model of computation of Verilog. For almost three decades, I was writing application software and soldering digital circuits. I mean, I...",
+                                "description": "A hardware-language note about Verilog as a programming model for structure, timing, allocation, registers, parallel data paths, and reconfigurable fabric.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-18-verilog-as-a-programming-language.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,38 +79,61 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-04-18.</p>
-            <p><strong>Related:</strong> <a href="/cellular-automata-2019/">Experiments with Cellular Automata</a></p>
+            <p><span class="status-label">Hardware-language note</span>Originally posted 2022-04-18; rewritten here around Verilog as a programming model.</p>
+            <p><strong>Included:</strong> Boolean functions, registers, static allocation, timing, parallel data paths, and why partial reconfiguration becomes a software-facing problem.</p>
+            <p><strong>Article focus:</strong> Verilog as a language for describing hardware structure, not as a sequential application language with different syntax.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>In 2019, I learned the model of computation of Verilog.</p>
-            <p>For almost three decades, I was writing application software and soldering digital circuits. I mean, I KNEW it was Boolean functions combined with registers.</p>
-            <p>But what I didn't know that it was a PROGRAMMING language.</p>
-            <p>Most of my career, I was obsessed with multithreading, multiprocessing, streaming, low-latency, time series, pattern matching, and model updating. This #multicore thing was always with us, since Alan Turing and John von Neumann gave us the CPU core. It was obvious we CAN and SHOULD link them together.</p>
-            <p>What the giants (on shoulders of whom we all stand today!) didn't have time to think and to tell us is that the distributed program above all these CONNECTED CORES is ONE single program (of choice, indeed, multi-tenant architecture sharing the same supercomputer or data center is a STANDARD expectation).</p>
-            <p>What happened in 2019 is that I LOST ABILITY to write sequential applications FOR FUN.</p>
-            <p>I became obsessed with the NEED to PUSH updated piece of my Verilog code into a GIANT (scalable, remember, I'm a software developer--I love to write MILLIONS and use BILLIONS lines of code) #fpga with my web developer's expectation of HOW LONG it should take (under one second is the best, as YosysHQ has shown to be possible).</p>
-            <p>Then, it turns out, nobody on Earth manufactures FPGAs with partial reconfiguration targeting my needs.</p>
-            <p>I can't stop working on the Project Cartilage until it's done. I need my application developer's FUN back!</p>
+            <h1>The Programming Model</h1>
+            <p>Verilog is not ordinary software with unusual keywords. It is a language for describing structure: Boolean functions, registers, wires, clocks, memories, pipelines, and the places where state can change.</p>
+            <p>That makes it a programming language in a very practical sense. A Verilog design still has modules, names, interfaces, state, constraints, and behavior. The difference is that allocation and timing are part of the program instead of hidden under a runtime.</p>
         </section>
+
+        <section>
+            <h1>What Changes From Application Code</h1>
+            <ul class="article-facts">
+                <li><strong>Allocation:</strong> hardware resources are reserved by the design instead of created later by <code>malloc</code>, <code>new</code>, or a garbage collector.</li>
+                <li><strong>Timing:</strong> clock boundaries, combinational paths, setup, hold, and pipeline latency are part of correctness.</li>
+                <li><strong>Parallelism:</strong> independent always blocks, modules, and data paths can be active in the same cycle.</li>
+                <li><strong>Interfaces:</strong> FIFOs, buses, handshakes, SerDes links, and clock-domain crossings are not library details; they are program structure.</li>
+                <li><strong>State:</strong> registers and memories have explicit owners, update points, and reset or initialization behavior.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Why It Matters For Software People</h1>
+            <p>Streaming, low-latency paths, time-series processing, pattern matching, and model updates all expose the same question: where does the work live, when is data valid, and how does the next stage observe it?</p>
+            <p>Sequential application code can express those systems, but it often hides the schedule behind threads, queues, callbacks, locks, and runtime behavior. Verilog makes the schedule harder to avoid. That is uncomfortable, but it also makes some important boundaries readable.</p>
+        </section>
+
+        <section>
+            <h1>The Reconfiguration Gap</h1>
+            <p>The original post was also about wanting an application-style edit/run loop for hardware-shaped computation: change a piece of the design, install it quickly, and keep the larger machine alive.</p>
+            <p>Conventional FPGA workflows do not generally make that feel like editing a running application. Tool runtimes, placement, routing, static resource allocation, and partial-reconfiguration constraints all get in the way. That gap is one reason the Cartilage work explores visible local regions and reconfiguration ports.</p>
+        </section>
+
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
+        </section>
+
+        <section>
+            <h1>Related Experiment Path</h1>
+            <p>The <a href="/cellular-automata-2019/">cellular automata experiments</a> are a related way to read computation as local state and local rules. They are not Verilog, but they expose the same habit: look at what each cell, wire, region, or stage is allowed to do next.</p>
         </section>
 
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2022-04-18-hilbert-13-and-neural-networks.html">Hilbert 13 and Neural Networks</a>
-        <p>Another dated publication from April 18, 2022.</p>
+        <a href="2022-05-12-verilog-allocation-and-dynamic-languages.html">Verilog, Allocation, and Dynamic Languages</a>
+        <p>A follow-up on the static-allocation boundary: hardware resources must exist before the design can use them.</p>
         <p>More:</p>
         <a href="2022-04-21-compiling-backend-code-to-a-colder-chip.html">Compiling Backend Code to a Colder Chip</a>
-        <p>Another dated publication from April 21, 2022.</p>
+        <p>The backend version of the same question: which work can move toward hardware without losing state, configuration, and observability?</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
