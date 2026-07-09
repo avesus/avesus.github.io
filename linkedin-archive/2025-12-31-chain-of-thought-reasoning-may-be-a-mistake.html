@@ -6,11 +6,11 @@
     <title>Chain-of-Thought Reasoning May Be a Mistake</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Chain-of-thoughts reasoning model architecture is a mistake. It does improve results. It does put you on leaderboards, but have you ever asked yourself, &quot;Why...">
+    <meta name="description" content="A model-evaluation note about chain-of-thought prompting, hidden computation, single-shot answers, benchmark incentives, and why more text is not always better reasoning.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2025-12-31-chain-of-thought-reasoning-may-be-a-mistake.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Chain-of-Thought Reasoning May Be a Mistake">
-    <meta property="og:description" content="Chain-of-thoughts reasoning model architecture is a mistake. It does improve results. It does put you on leaderboards, but have you ever asked yourself, &quot;Why...">
+    <meta property="og:description" content="A model-evaluation note about chain-of-thought prompting, hidden computation, single-shot answers, benchmark incentives, and why more text is not always better reasoning.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2025-12-31-chain-of-thought-reasoning-may-be-a-mistake.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2025-12-31",
                                 "dateModified": "2026-07-09",
-                                "description": "Chain-of-thoughts reasoning model architecture is a mistake. It does improve results. It does put you on leaderboards, but have you ever asked yourself, \"Why...",
+                                "description": "A model-evaluation note about chain-of-thought prompting, hidden computation, single-shot answers, benchmark incentives, and why more text is not always better reasoning.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2025-12-31-chain-of-thought-reasoning-may-be-a-mistake.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,20 +78,34 @@
     <address>December 31, 2025</address>
 
     <section class="abstract">
+        <p>Chain-of-thought prompting can improve benchmark results, but extra visible reasoning text is not the same thing as better internal computation.</p>
+        <p>The useful question is how to evaluate model work when short answers sometimes outperform long traces, and when long traces can contain post-hoc narration, unnecessary steps, or errors that still lead to the right answer.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2025-12-31.</p>
+            <p><span class="status-label">Model-evaluation note</span>Originally posted 2025-12-31; expanded here around reasoning traces and evaluation.</p>
+            <p><strong>Article focus:</strong> chain-of-thought prompting, single-shot answers, hidden computation, benchmark incentives, trace quality, and verification.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Chain-of-thoughts reasoning model architecture is a mistake. It does improve results. It does put you on leaderboards, but have you ever asked yourself, &quot;Why some single-shots sometimes are so surprisingly capable to outperfrom an hour of a complicated chain-of-thoughts 'reasoning' by that much of an unexplained latent cognitive capacity&quot;? Have you? I wonder if it's the same with people too, when we over-think ourselves into some kind of Gödelian entropy decay?.. 🤷‍♂️💡🧠<br>
-                #GPT #LLM #airesearch #overthinking</p>
+            <h1>The Evaluation Problem</h1>
+            <p>A long reasoning trace gives the evaluator something to inspect, but it also changes the task. The model is no longer only answering; it is also producing an explanation-shaped artifact that may or may not reflect the computation that mattered.</p>
+            <p>That makes the evaluation question sharper: did the trace help the model reach the answer, did it help the human verify the answer, or did it mainly satisfy a benchmark format?</p>
+        </section>
+
+        <section>
+            <h1>Why Short Answers Matter</h1>
+            <p>Strong single-shot answers are a useful signal. They suggest that some work is carried in the model's internal representation rather than in the visible text sequence.</p>
+            <p>That does not make short answers inherently better. It means visible steps should be judged by their contribution: fewer errors, clearer verification, better decomposition, or stronger reproducibility.</p>
+        </section>
+
+        <section>
+            <h1>The Practical Rule</h1>
+            <p>Use reasoning traces when they expose checkable structure. Do not treat length as proof of reasoning quality.</p>
+            <p>For technical work, the final artifact still has to survive tests, source inspection, constraints, measurements, or review. The trace is useful only if it helps that happen.</p>
         </section>
 
     </main>
-
     <nav class="article-links">
         <p>Next:</p>
         <a href="2025-10-30-ai-does-not-repeal-no-free-lunch.html">AI Does Not Repeal No Free Lunch</a>
