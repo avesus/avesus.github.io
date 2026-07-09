@@ -157,7 +157,7 @@
     "title": "The Closed Photolithography Compute Cycle",
     "date": "2024-01-13",
     "slug": "2024-01-13-the-closed-photolithography-compute-cycle",
-    "description": "ASML makes machines to make chips at TSMC. Computational photolithography makes it work. Nvidia makes machines at TSMC to compute that. Closed cycle....",
+    "description": "Advanced chipmaking increasingly depends on computation made by the chips it produces: process models, mask correction, scanners, foundries, and GPU hardware in one manufacturing loop.",
     "words": 61,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7151791401909780482/"
   },
@@ -499,7 +499,7 @@
     "title": "Let Me Make a Chip at Home",
     "date": "2023-01-05",
     "slug": "2023-01-05-let-me-make-a-chip-at-home",
-    "description": "Well. Let me make a chip at home then, if there's such right? Let me to implement, without the Ivy League's intentional obscurity, behavioral design, AI,...",
+    "description": "A short argument for chip-making as ownership: useful machines depend on active devices that most builders can design around but not fabricate, inspect, or reproduce locally.",
     "words": 102,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7016631557213863936/"
   },
@@ -544,7 +544,7 @@
     "title": "Searching for a Tinkerer Replacement for Silicon",
     "date": "2022-07-06",
     "slug": "2022-07-06-searching-for-a-tinkerer-replacement-for-silicon",
-    "description": "Does inventing an alternative to semiconductors to realize Verilog at home makes your brain melt too? Magnetic amplifiers, ferroelectric capacitors, micro PCB...",
+    "description": "A device-search note asking what active element family could let builders make useful logic and control circuitry without depending entirely on silicon fabs.",
     "words": 90,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:6950530303903891456/"
   },

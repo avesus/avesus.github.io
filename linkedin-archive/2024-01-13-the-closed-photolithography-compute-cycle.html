@@ -6,11 +6,11 @@
     <title>The Closed Photolithography Compute Cycle</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="ASML makes machines to make chips at TSMC. Computational photolithography makes it work. Nvidia makes machines at TSMC to compute that. Closed cycle....">
+    <meta name="description" content="Advanced chipmaking increasingly depends on computation made by the chips it produces: process models, mask correction, scanners, foundries, and GPU hardware in one manufacturing loop.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2024-01-13-the-closed-photolithography-compute-cycle.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The Closed Photolithography Compute Cycle">
-    <meta property="og:description" content="ASML makes machines to make chips at TSMC. Computational photolithography makes it work. Nvidia makes machines at TSMC to compute that. Closed cycle....">
+    <meta property="og:description" content="Advanced chipmaking increasingly depends on computation made by the chips it produces: process models, mask correction, scanners, foundries, and GPU hardware in one manufacturing loop.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2024-01-13-the-closed-photolithography-compute-cycle.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2024-01-13",
                                 "dateModified": "2026-07-09",
-                                "description": "ASML makes machines to make chips at TSMC. Computational photolithography makes it work. Nvidia makes machines at TSMC to compute that. Closed cycle....",
+                                "description": "Advanced chipmaking increasingly depends on computation made by the chips it produces: process models, mask correction, scanners, foundries, and GPU hardware in one manufacturing loop.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2024-01-13-the-closed-photolithography-compute-cycle.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,16 +78,21 @@
     <address>January 13, 2024</address>
 
     <section class="abstract">
-        <p>Advanced computation now helps design the machines that manufacture advanced computation.</p>
+        <p>Advanced computation now helps design the manufacturing path for the next generation of advanced computation.</p>
         <div class="status-box">
-            <p><span class="status-label">Publication note</span>Originally posted 2024-01-13.</p>
-            <p><strong>Included:</strong> the original post about the loop between computational lithography, fabrication equipment, and the next generation of chips.</p>
-            <p><strong>Boundary:</strong> this page describes a manufacturing dependency loop, not a local fabrication process.</p>
+            <p><span class="status-label">Article focus</span>Computational photolithography closes a manufacturing loop: chips are used to calculate the shapes and process corrections needed to manufacture newer chips.</p>
+            <p><strong>Why it matters:</strong> open design files are only one layer. The process models, masks, scanners, metrology, packaging, and compute budget also decide who can build.</p>
             <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
         </div>
     </section>
 
     <main>
+        <section>
+            <h1>The Loop</h1>
+            <p>Modern photolithography is not only an optical exposure step. The printed wafer pattern depends on correction, simulation, mask generation, process knowledge, scanner behavior, and metrology. Those computations run on the same class of advanced chips that the process is trying to produce next.</p>
+            <p>That is the closed cycle worth noticing. A chip design can be open while the route from design to working silicon remains locked inside expensive tools, foundry recipes, proprietary process models, and scarce machine time. The manufacturing system becomes computational infrastructure, not just factory equipment.</p>
+        </section>
+
         <section>
             <h1>Original Post</h1>
             <p>ASML makes machines to make chips at TSMC. Computational photolithography makes it work. Nvidia makes machines at TSMC to compute that. Closed cycle. Confidential. Top Secret. Sign NDA, please.</p>
@@ -102,7 +107,7 @@
 
         <section>
             <h1>Manufacturing Boundary</h1>
-            <p>The useful constraints are process, material, metrology, packaging, and equipment limits. Those are the facts that determine whether the compute/manufacturing loop becomes more open or more closed.</p>
+            <p>The useful constraint is not only transistor size. It is the whole path from layout to physical device: process, material, optics, mask correction, metrology, packaging, equipment limits, and who can repeat the result. That is why local or civic-scale active-device fabrication is a different problem from simply publishing a chip design.</p>
         </section>
     </main>
 
