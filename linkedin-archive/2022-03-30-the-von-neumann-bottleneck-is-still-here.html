@@ -6,11 +6,11 @@
     <title>The Von Neumann Bottleneck Is Still Here</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="I am pretty seriously believe that for almost 100 years we haven&#39;t made any significant improvement on top of the Alan Turing/John von Neumann computer...">
+    <meta name="description" content="A parallel-computing note about the von Neumann bottleneck, many-core contention, object-capability ownership, and one program spanning cores and devices.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-03-30-the-von-neumann-bottleneck-is-still-here.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The Von Neumann Bottleneck Is Still Here">
-    <meta property="og:description" content="I am pretty seriously believe that for almost 100 years we haven&#39;t made any significant improvement on top of the Alan Turing/John von Neumann computer...">
+    <meta property="og:description" content="A parallel-computing note about the von Neumann bottleneck, many-core contention, object-capability ownership, and one program spanning cores and devices.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-03-30-the-von-neumann-bottleneck-is-still-here.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-03-30",
                                 "dateModified": "2026-07-09",
-                                "description": "I am pretty seriously believe that for almost 100 years we haven't made any significant improvement on top of the Alan Turing/John von Neumann computer...",
+                                "description": "A parallel-computing note about the von Neumann bottleneck, many-core contention, object-capability ownership, and one program spanning cores and devices.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-03-30-the-von-neumann-bottleneck-is-still-here.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,22 +78,30 @@
     <address>March 30, 2022</address>
 
     <section class="abstract">
+        <p>The von Neumann bottleneck is not only about memory bandwidth. It is also about the programming model that follows from one instruction stream moving through shared resources.</p>
+        <p>This note points at a harder target: a distributed program that can span cores and devices while preserving ownership, access, state, and reasoning boundaries.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-03-30.</p>
+            <p><span class="status-label">Parallel-computing note</span>Originally posted 2022-03-30; expanded here around the programming-model problem.</p>
+            <p><strong>Article focus:</strong> von Neumann bottleneck, many-core contention, object capabilities, distributed state, and multi-device execution.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>I am pretty seriously believe that for almost 100 years we haven't made any significant improvement on top of the Alan Turing/John von Neumann computer architecture.</p>
-            <p>The original program did exist and ran on a single core.</p>
-            <p>Then we hit the so called &quot;von Neumann bottleneck&quot;.</p>
-            <p>We have tried to address it since then. We thought that many cores was the solution. It wasn't: it simply gave us unscalable and unmanageable mess of multiple interconnected computers, or cores contending for concurrent access to the same resources.</p>
-            <p>I'm the only person on Earth who has a working solution that supersedes this 100-years old design. I found the way to make one giant distributed .exe that runs on many cores and many devices simultaneously, while maintaining a perfect so called &quot;object capabilities&quot; security model of access, ownership, and share of resources.</p>
-            <p>And developers can reason about the code in all holy grail way they dreamed of: object-oriented, reactive programming automatic dataflow, statecharts, Verilog, FPGAs, Python... whatever they want, but this time it's massive, distributed, infinitely scalable, homogeneous program.</p>
-            <p>No more #heterogeneous #computing.</p>
-            <p>To make an analogy, if you know about Node.js, imagine that every client session browser state is a temporary instance of a class transparently existing from the point of view of the server-side program as a part of it.</p>
+            <h1>The Bottleneck</h1>
+            <p>Many cores do not automatically solve the single-program problem. They can add contention, synchronization, resource sharing, and operational complexity while leaving the source model hard to reason about.</p>
+            <p>The useful question is how one program can spread across cores and devices without losing ownership, access control, causality, state, and locality.</p>
+        </section>
+
+        <section>
+            <h1>The Programming Target</h1>
+            <p>The note sketches a distributed executable model where object-capability style ownership governs access to resources. The same idea can be viewed through several surfaces: objects, reactive dataflow, statecharts, Verilog-like structure, FPGA placement, or conventional language syntax.</p>
+            <p>The tradeoff is that this is not only a runtime problem. The source language, security model, scheduler, data model, and device boundaries all have to preserve the same ownership story.</p>
+        </section>
+
+        <section>
+            <h1>Browser-State Analogy</h1>
+            <p>The Node.js analogy in the original post was useful: imagine a client session's browser state as a temporary instance that remains visible to the server-side program as part of the same system. The point is continuity of program structure across a network boundary.</p>
         </section>
 
     </main>

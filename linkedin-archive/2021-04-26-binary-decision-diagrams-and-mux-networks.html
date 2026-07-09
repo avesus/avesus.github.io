@@ -6,11 +6,11 @@
     <title>Binary Decision Diagrams and MUX Networks</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Two years ago, after analyzing the object-oriented-inspired cellular automata I made, I reinvented the wheel called &quot;Binary decision diagram&quot;. Turns out, it&#39;s...">
+    <meta name="description" content="A Boolean-representation note: binary decision diagrams can be read as MUX / if-then-else networks connecting EDA representation with programming conditionals.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-04-26-binary-decision-diagrams-and-mux-networks.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Binary Decision Diagrams and MUX Networks">
-    <meta property="og:description" content="Two years ago, after analyzing the object-oriented-inspired cellular automata I made, I reinvented the wheel called &quot;Binary decision diagram&quot;. Turns out, it&#39;s...">
+    <meta property="og:description" content="A Boolean-representation note: binary decision diagrams can be read as MUX / if-then-else networks connecting EDA representation with programming conditionals.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-04-26-binary-decision-diagrams-and-mux-networks.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-04-26",
                                 "dateModified": "2026-07-09",
-                                "description": "Two years ago, after analyzing the object-oriented-inspired cellular automata I made, I reinvented the wheel called \"Binary decision diagram\". Turns out, it's...",
+                                "description": "A Boolean-representation note: binary decision diagrams can be read as MUX / if-then-else networks connecting EDA representation with programming conditionals.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-04-26-binary-decision-diagrams-and-mux-networks.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,17 +78,26 @@
     <address>April 26, 2021</address>
 
     <section class="abstract">
+        <p>A binary decision diagram can be read as a structured network of conditional choices. In circuit terms, that is close to a MUX network. In programming terms, it is close to an if-then-else tree.</p>
+        <p>The useful connection is between EDA representation and programming conditionals: a Boolean decision structure can be both a data structure and a physical implementation path.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-04-26.</p>
+            <p><span class="status-label">Boolean-representation note</span>Originally posted 2021-04-26; expanded here around BDDs and MUX networks.</p>
             <p><strong>Related:</strong> <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a></p>
+            <p><strong>Article focus:</strong> binary decision diagrams, MUX networks, if-then-else trees, and EDA representation.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Two years ago, after analyzing the object-oriented-inspired cellular automata I made, I reinvented the wheel called &quot;Binary decision diagram&quot;. Turns out, it's also a much simpler implementation comparing to MIG, AIG, DNF, CNF... Just a network of multiplexers, or &quot;if-then-else&quot; trees. The use in EDA is interesting though, allowing to rethink the way we define the conditionals in PL.</p>
+            <h1>The Representation</h1>
+            <p>The original note compared binary decision diagrams with MIG, AIG, DNF, and CNF representations. The BDD path is interesting because it can be understood as a network of multiplexers.</p>
+            <p>That makes the representation readable from two directions: EDA can see a Boolean structure, and a programmer can see nested conditionals.</p>
             <p><a href="https://lnkd.in/gihhg7i" target="_blank" rel="noopener">https://lnkd.in/gihhg7i</a></p>
+        </section>
+
+        <section>
+            <h1>Why MUXes Matter</h1>
+            <p>A MUX makes a conditional physical. It selects one of two inputs based on a control bit. A tree or graph of those choices becomes a compact way to express Boolean behavior, and it connects directly to the larger Boolean-fabric work.</p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>

@@ -6,11 +6,11 @@
     <title>Open Hardware IP Cores Are Coming</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Open hardware IP cores, open wi-fi, open 5G IP, open USB are coming! The end of Moore&#39;s Law can be only solved by an npm-like Cambrian explosion where all...">
+    <meta name="description" content="An open-hardware note: reusable IP cores for Wi-Fi, 5G, USB, and accelerators could give hardware some of the scale benefits of open-source software.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-04-18-open-hardware-ip-cores-are-coming.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Open Hardware IP Cores Are Coming">
-    <meta property="og:description" content="Open hardware IP cores, open wi-fi, open 5G IP, open USB are coming! The end of Moore&#39;s Law can be only solved by an npm-like Cambrian explosion where all...">
+    <meta property="og:description" content="An open-hardware note: reusable IP cores for Wi-Fi, 5G, USB, and accelerators could give hardware some of the scale benefits of open-source software.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-04-18-open-hardware-ip-cores-are-coming.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-04-18",
                                 "dateModified": "2026-07-09",
-                                "description": "Open hardware IP cores, open wi-fi, open 5G IP, open USB are coming! The end of Moore's Law can be only solved by an npm-like Cambrian explosion where all...",
+                                "description": "An open-hardware note: reusable IP cores for Wi-Fi, 5G, USB, and accelerators could give hardware some of the scale benefits of open-source software.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-04-18-open-hardware-ip-cores-are-coming.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,15 +78,24 @@
     <address>April 18, 2021</address>
 
     <section class="abstract">
+        <p>Open-source software scaled because useful components could be inspected, reused, improved, and recombined.</p>
+        <p>This note asks whether hardware IP can move in the same direction: reusable cores for Wi-Fi, 5G, USB, accelerators, and system blocks, with enough openness to support a larger ecosystem.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-04-18.</p>
+            <p><span class="status-label">Open-hardware note</span>Originally posted 2021-04-18; expanded here around reusable IP cores.</p>
+            <p><strong>Article focus:</strong> open hardware IP, reusable cores, hardware ecosystem scale, and the post-Moore software/hardware analogy.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Open hardware IP cores, open wi-fi, open 5G IP, open USB are coming! The end of Moore's Law can be only solved by an npm-like Cambrian explosion where all massive players open all their hardware IP and start benefiting significantly from wiring much more sophisticated systems, than if they used the proprietary model. The same economy of scale from open source software is coming to open hardware. Wonderful times to live at!</p>
+            <h1>The Reuse Claim</h1>
+            <p>Hardware reuse is harder than software reuse, but the need is similar. If every team has to rebuild the same communication blocks, arithmetic blocks, interfaces, and verification scaffolding, the ecosystem wastes effort.</p>
+            <p>Open IP cores could make hardware composition more like software package reuse, while still needing stronger discipline around verification, timing, physical implementation, licensing, and integration.</p>
+        </section>
+
+        <section>
+            <h1>Useful Boundary</h1>
+            <p>The note does not make openness magic. It names the work required for openness to matter: inspectable RTL, test suites, integration examples, physical constraints, documentation, and trust that a reused block will behave in a real design.</p>
         </section>
 
     </main>
