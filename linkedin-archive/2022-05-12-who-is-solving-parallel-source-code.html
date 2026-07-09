@@ -6,11 +6,11 @@
     <title>Who Is Solving Parallel Source Code?</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Have you tried to use this for general-purpose compute? I wonder how easy it will be to write parallel SOURCE CODE for it, one orchestrated parallel...">
+    <meta name="description" content="Parallel source code as a fundamental computing problem: preserving causality, timing, locality, ownership, and failure when execution spreads across workers, devices, and machines.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-12-who-is-solving-parallel-source-code.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Who Is Solving Parallel Source Code?">
-    <meta property="og:description" content="Have you tried to use this for general-purpose compute? I wonder how easy it will be to write parallel SOURCE CODE for it, one orchestrated parallel...">
+    <meta property="og:description" content="Parallel source code as a fundamental computing problem: preserving causality, timing, locality, ownership, and failure when execution spreads across workers, devices, and machines.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-12-who-is-solving-parallel-source-code.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -31,8 +31,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-05-12",
-                                "dateModified": "2026-07-01",
-                                "description": "Have you tried to use this for general-purpose compute? I wonder how easy it will be to write parallel SOURCE CODE for it, one orchestrated parallel...",
+                                "dateModified": "2026-07-09",
+                                "description": "Parallel source code as a fundamental computing problem: preserving causality, timing, locality, ownership, and failure when execution spreads across workers, devices, and machines.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-12-who-is-solving-parallel-source-code.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,30 +79,69 @@
 
     <section class="abstract">
         <p>Parallel source code is the problem of keeping cause, timing, ownership, locality, and failure readable when execution spreads across workers, devices, regions, or machines.</p>
+        <p>The issue is not only how to run more operations. The issue is how a builder can still understand, change, and support the program after one sequential execution path is no longer enough.</p>
         <div class="status-box">
-            <p><span class="status-label">Selected LinkedIn publication</span>Originally posted 2022-05-12.</p>
-            <p><strong>Included:</strong> the original public question about parallel source code and the problem of making parallel execution comprehensible to builders.</p>
+            <p><span class="status-label">Problem note</span>Originally posted 2022-05-12; expanded here into the actual parallel-source-code question.</p>
+            <p><strong>Included:</strong> causality, timing, locality, ownership, failure, the support burden of long-lived code, and the link to multi-device scaling.</p>
             <p><strong>Boundary:</strong> this is a question-setting publication, not a finished language or runtime design.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Have you tried to use this for general-purpose compute? I wonder how easy it will be to write parallel SOURCE CODE for it, one orchestrated parallel easy-to-reason-about source code.</p>
-            <p>I mean, AIs are not the future. The future is more trillions of lines of code that need to be written by HUMAN programmers, and SUPPORTED by their CHILDREN in the future.</p>
-            <p>Does ANYBODY address THAT PROBLEM today???</p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31880/" target="_blank" rel="noopener">https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31880/</a></li>
-            </ul>
+            <h1>The Question</h1>
+            <p>Hardware can provide more lanes: cores, GPUs, FPGAs, accelerators, workers, services, regions, and machines. That does not by itself give the programmer a coherent program.</p>
+            <p>The hard question is source-level structure. Can one program describe parallel work while preserving the reasons a future maintainer needs: what caused what, when data is valid, which place owns a value, where failure can happen, and what has to remain local?</p>
         </section>
 
         <section>
-            <h1>Engineering Boundary</h1>
-            <p>The central problem is not only throughput. The hard part is preserving a usable model of cause, timing, state ownership, locality, and failure when work stops fitting on one sequential path.</p>
+            <h1>What Must Stay Readable</h1>
+            <div class="article-fact-table">
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Causality</div>
+                    <div>Which result depends on which inputs, messages, clocks, memory states, or completed tasks.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Timing</div>
+                    <div>When a value is ready, when it expires, and whether a later stage can safely observe it.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Locality</div>
+                    <div>Which work belongs near which memory, device, region, data source, or physical boundary.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Ownership</div>
+                    <div>Which worker, device, actor, process, or region is allowed to mutate a piece of state.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Failure</div>
+                    <div>What happens when one lane stalls, one worker retries, one device disappears, or one message arrives late.</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1>Why It Matters</h1>
+            <p>Single-path source code remains popular because it is supportable. A person can read it, step through it, patch it, and explain the order of events.</p>
+            <p>Parallel systems often lose that property. The source becomes a collection of callbacks, kernels, queues, jobs, actors, services, promises, locks, message handlers, and deployment assumptions. The runtime may be fast while the program becomes harder to reason about.</p>
+            <p>That is the problem this note is pointing at. More computation should not automatically mean less control over the program's causal shape.</p>
+        </section>
+
+        <section>
+            <h1>Scale Boundary</h1>
+            <p>As single execution paths stop carrying the whole workload, parallel computation becomes a central software problem rather than a niche accelerator topic.</p>
+            <p>The goal is not to claim a language or runtime solves the limits of hardware scaling. The goal is to name the programming burden created by those limits: large-scale computation still needs source code that a human team can understand and support.</p>
+        </section>
+
+        <section>
+            <h1>Original Post Context</h1>
+            <p>The original post asked whether general-purpose parallel compute can have one orchestrated source form that remains easy to reason about.</p>
+            <p>That is still the useful question: not just how to launch parallel work, but how to preserve the structure that lets future programmers maintain it.</p>
+        </section>
+
+        <section>
+            <h1>Original Link</h1>
+            <p>The post linked an NVIDIA GTC session as the immediate context for the question: <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31880/" target="_blank" rel="noopener">GTC Spring 2021 session S31880</a>.</p>
         </section>
     </main>
 
@@ -112,7 +151,7 @@
         <p>Another selected LinkedIn publication from May 11, 2022.</p>
         <p>More:</p>
         <a href="2022-05-12-verilog-allocation-and-dynamic-languages.html">Verilog, Allocation, and Dynamic Languages</a>
-        <p>Another selected LinkedIn publication from May 12, 2022.</p>
+        <p>A related note about static hardware allocation and dynamic software allocation.</p>
         <p>Archive:</p>
         <a href="./">Selected LinkedIn publications</a>
         <p>Source:</p>
