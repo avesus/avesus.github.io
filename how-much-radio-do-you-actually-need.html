@@ -25,7 +25,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-04-22",
-            "dateModified": "2026-07-01",
+            "dateModified": "2026-07-09",
             "image": "https://greenforest.io/backdrop_rf.jpeg",
             "description": "A one-pin FPGA FM receiver that thresholds RF into transitions, samples in four phases, uses Weaver-style XOR mixing, CIC filtering, cross-product FM demodulation, and sigma-delta audio output.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
@@ -49,13 +49,15 @@
         <p class="key-line"><strong>one input pin, one FPGA, real FM in, real sound out.</strong></p>
         <div class="status-box">
             <p><span class="status-label">Working receiver path</span>This page delivers the one-pin FM receiver article and the Verilog follow-up.</p>
-            <p><strong>Included:</strong> the FPGA input threshold, RF transition stream, four-phase sampling, Weaver-style XOR mixing, CIC filtering, cross-product FM discriminator, sigma-delta audio output, one-pin resonant-tank transmitter direction, videos, source paths, and build notes.</p>
+            <p><strong>Included:</strong> the FPGA input threshold, RF transition stream, four-phase sampling, Weaver-style XOR mixing, CIC filtering, cross-product FM discriminator, sigma-delta audio output, video link, source paths, and build notes.</p>
             <p><strong>Boundary:</strong> this is not a calibrated receiver-performance comparison and does not remove the FPGA input hardware that makes the one-pin path possible.</p>
         </div>
     </section>
 
-    <figure>
-        <img src="backdrop_rf.jpeg" alt="Waveforms, radio hardware prototype, and received spectrum">
+    <figure class="inspectable-image">
+        <a href="backdrop_rf.jpeg">
+            <img src="backdrop_rf.jpeg" alt="Waveforms, radio hardware prototype, and received spectrum">
+        </a>
         <figcaption>Waveforms, prototype hardware, and received RF structure from the one-pin radio work.</figcaption>
     </figure>
 
@@ -66,8 +68,10 @@
         <figcaption><a href="https://youtu.be/V40N7XRGAOo" target="_blank" rel="noopener">Watch the one-pin FPGA FM receiver video</a></figcaption>
     </figure>
 
-    <figure>
-        <img src="one_pin_fpga_rx.jpg" alt="Hand-drawn one-pin FPGA receiver architecture">
+    <figure class="inspectable-image">
+        <a href="one_pin_fpga_rx.jpg">
+            <img src="one_pin_fpga_rx.jpg" alt="Hand-drawn one-pin FPGA receiver architecture">
+        </a>
         <figcaption>Working sketch of the receiver boundary: RF enters as a thresholded digital stream, then moves through tuning, quadrature processing, CIC filtering, FM recovery, and audio output.</figcaption>
     </figure>
 
@@ -152,8 +156,10 @@
             <p>So when I reached post-CIC baseband I and Q in this receiver, I went straight to the geometric relation that mattered:</p>
             <p class="formula">I_cur Q_prev - I_prev Q_cur</p>
             <p>That is the 2D cross product of successive I/Q vectors.</p>
-            <figure>
-                <img src="approx_atan2.jpg" alt="Small-angle approximation for phase difference from vector components">
+            <figure class="inspectable-image">
+                <a href="approx_atan2.jpg">
+                    <img src="approx_atan2.jpg" alt="Small-angle approximation for phase difference from vector components">
+                </a>
                 <figcaption>A working note from the same no-<code>atan2</code> demodulation thread: estimate phase movement from vector components instead of extracting absolute phase.</figcaption>
             </figure>
             <p>For small phase steps, it already gives the relative rotation directly. FM only needs that rotation. So instead of computing <code>atan2</code>, then differentiating, then carrying all that arithmetic around, I just compute the cross product.</p>
