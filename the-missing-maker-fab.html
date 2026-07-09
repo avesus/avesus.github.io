@@ -48,11 +48,7 @@
         <p>Build a board on a bench, and the boundary appears fast.</p>
         <p>A maker can cut the enclosure, mill the copper, drill the vias, print the bracket, flash the firmware, inspect the solder joints, publish the design files, and ship a repairable artifact. Then the maker reaches the active silicon, and the loop stops. The community can own the shape, the code, the schematic, the PCB, and the assembly. It still cannot own the fast nonlinear devices inside the chips.</p>
         <p>That fact matters more than the usual open-hardware story admits.</p>
-        <div class="status-box">
-            <p><span class="status-label">Manufacturing question</span>This page names the active-device process boundary that still keeps open hardware below the chip level.</p>
-            <p><strong>Included:</strong> nonlinear gain, restoration, fanout, interconnect, digital logic and analog amplification, operation above 10 MHz, hundreds of thousands of elements, and local tools.</p>
-            <p><strong>Article focus:</strong> active-device and active-material process targets that makers cannot yet reproduce locally: process window, yield, speed, repeatability, and useful device class.</p>
-        </div>
+        <p>The missing object is not another board service or another HDL repository. It is a civic-scale active-device process: nonlinear gain, restoration, fanout, interconnect, digital logic and analog amplification above 10 MHz, enough yield for hundreds of thousands of elements, and tools a regional lab can buy, repair, teach, and distrust constructively.</p>
     </section>
 
     <figure class="inspectable-image">
@@ -65,8 +61,8 @@
     <main>
         <section>
             <h1>The Stack Is Open Until It Isn&rsquo;t</h1>
-            <p>Open hardware has solved many layers of the stack. A small team can design a processor core, route a board, publish HDL, run open toolchains, and even send open-source chip designs through programs such as the <a href="https://ir.skywatertechnology.com/news/news-details/2021/First-Google-Sponsored-MPW-Shuttle-Launched-at-SkyWater-with-40-Open-Source-Community-Submitted-Designs/default.aspx" target="_blank" rel="noopener">Google/SkyWater/Efabless shuttle</a>. Those programs lowered the barrier to silicon design and proved that open-source digital design can reach real foundry silicon. But the maker still waits in a queue, trusts a remote wafer process, accepts the foundry&rsquo;s layer stack, and receives a black physical object that local tools cannot reproduce.</p>
-            <p>PCB fabrication gives the maker a better model. A small shop can laminate, expose, etch, drill, plate, test, scrap, and repeat. Newer direct-metallization and laser-assisted via processes show that builders can route dense multilayer structures without the full traditional electroless copper path; one <a href="https://www.sciencedirect.com/science/article/pii/S0007850621000068" target="_blank" rel="noopener">open-access process</a> combined copper ink, epoxy insulation, CO<sub>2</sub> laser drilling, and laser sintering to make multilayer vias without chemical plating. Commercial HDI shops now laser-drill microvias and plate copper at production quality, though those shops still sit outside the ordinary maker loop.</p>
+            <p>Open hardware has solved many layers of the stack. An independent team can design a processor core, route a board, publish HDL, run open toolchains, and even send open-source chip designs through programs such as the <a href="https://ir.skywatertechnology.com/news/news-details/2021/First-Google-Sponsored-MPW-Shuttle-Launched-at-SkyWater-with-40-Open-Source-Community-Submitted-Designs/default.aspx" target="_blank" rel="noopener">Google/SkyWater/Efabless shuttle</a>. Those programs lowered the barrier to silicon design and proved that open-source digital design can reach real foundry silicon. But the maker still waits in a queue, trusts a remote wafer process, accepts the foundry&rsquo;s layer stack, and receives a black physical object that local tools cannot reproduce.</p>
+            <p>PCB fabrication gives the maker a better model. A regional shop can laminate, expose, etch, drill, plate, test, scrap, and repeat. Newer direct-metallization and laser-assisted via processes show that builders can route dense multilayer structures without the full traditional electroless copper path; one <a href="https://www.sciencedirect.com/science/article/pii/S0007850621000068" target="_blank" rel="noopener">open-access process</a> combined copper ink, epoxy insulation, CO<sub>2</sub> laser drilling, and laser sintering to make multilayer vias without chemical plating. Commercial HDI shops now laser-drill microvias and plate copper at production quality, though those shops still sit outside the ordinary maker loop.</p>
             <p>Interconnect has a path toward local ownership. Active devices do not.</p>
         </section>
 
@@ -92,7 +88,7 @@
             <p>Organic electrochemical transistors look like the most important near-miss. The fast vertical OECT work matters because it does not merely offer a passive memory element. It offers a three-terminal transistor-like device, low-voltage operation, multi-valued logic, and reported access frequencies over 10 MHz. The 2023 <a href="https://doi.org/10.1002/adma.202208757" target="_blank" rel="noopener">Advanced Materials paper on monolithic tandem vertical electrochemical transistors</a> reports ternary logic gates, full voltage swing within 1 V, and access to multiple logic states over 10 MHz.</p>
             <p>That should excite every person who wants post-CMOS local electronics.</p>
             <p>It should not satisfy them.</p>
-            <p>The fast OECT result depends on a careful vertical device geometry, controlled organic layers, ion gels, patterned electrodes, and laboratory discipline. It does not yet give a recipe that a small city fab can run like a PCB line. It does not yet show a hundred-thousand-element open logic fabric with yield, fanout, test coverage, standard cells, clocking, aging data, repair rules, and a trusted packaging flow. Slower OECT work can look more printable and friendly, and <a href="https://www.nature.com/articles/s41528-023-00245-4" target="_blank" rel="noopener">fully 3D-printed OECTs</a> now exist, but printable does not automatically mean fast, dense, stable, and cascadable.</p>
+            <p>The fast OECT result depends on a careful vertical device geometry, controlled organic layers, ion gels, patterned electrodes, and laboratory discipline. It does not yet give a recipe that a city-scale fab can run like a PCB line. It does not yet show a hundred-thousand-element open logic fabric with yield, fanout, test coverage, standard cells, clocking, aging data, repair rules, and a trusted packaging flow. Slower OECT work can look more printable and friendly, and <a href="https://www.nature.com/articles/s41528-023-00245-4" target="_blank" rel="noopener">fully 3D-printed OECTs</a> now exist, but printable does not automatically mean fast, dense, stable, and cascadable.</p>
         </section>
 
         <section>
@@ -140,14 +136,16 @@
         <section>
             <h1>The Next Real Frontier</h1>
             <p>That is the manufacturing gap. The maker movement can build almost everything around intelligence except the dense fast active fabric that intelligence runs on. It can make the board but not the chip, the harness but not the root, the enclosure but not the transistor family, the firmware but not the physical substrate that executes it.</p>
-            <p>The result does not invalidate open hardware. It defines the next real frontier.</p>
+            <p>The result does not invalidate open hardware. It defines the next real frontier and the resources needed to attack it.</p>
             <p class="key-line"><strong>Open hardware will remain partial until makers can fabricate their own fast active devices.</strong></p>
             <p>Not merely design them. Not merely order them. Not merely package them. Fabricate them, measure them, scrap them, improve them, and teach another town to do the same.</p>
         </section>
 
         <section>
-            <h1>Process Boundary</h1>
-            <p>The important comparison is concrete: which active-device process comes closest, and which requirement fails first: gain, restoration, fanout, interconnect, speed, yield, equipment cost, material stability, or local repeatability?</p>
+            <h1>The Research Program</h1>
+            <p>The next useful step is not another manifesto. It is a comparison program with measurements: choose candidate active-device paths, build test cells, measure gain, restoration, fanout, interconnect, speed, drift, endurance, yield, equipment cost, material stability, and local repeatability, then find which requirement fails first.</p>
+            <p>OECTs, memristive circuits, magnetic amplifiers, printed conductors, laser-sintered interconnect, protected chiplets, and hybrid flows should be judged against the same target: a locally reproducible control or compute substrate with enough gain, fanout, restoration, routing, and test coverage to support useful machines.</p>
+            <p>That needs materials collaborators, measurement equipment, process discipline, lab or fabrication access, funding, and people willing to treat a regional active-device process as infrastructure rather than hobby electronics.</p>
         </section>
     </main>
 

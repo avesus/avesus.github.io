@@ -42,15 +42,17 @@
 
     <section class="abstract">
         <p>Cartilage is a browser/GPU demo of hierarchical reconfiguration: a tiled Boolean fabric can allocate a bounded daughter region, stream configuration bits through a local reconfiguration port, and replace that region's tile roles through the fabric itself.</p>
-        <p>The demo is not just a visual cellular automaton. It is a model of circuit-like regions with local ports, local ownership, local configuration streams, and tile roles that can be rewritten.</p>
-        <div class="status-box">
-            <p><span class="status-label">Live demo</span>This page delivers the canonical browser/GPU Cartilage demo and the render vocabulary needed to read it.</p>
-            <p><strong>Included:</strong> the canonical Cartilage 3 live demo, local reconfiguration ports, bounded daughter regions, serial configuration streams, and the tile-role vocabulary.</p>
-            <p><strong>Article focus:</strong> nested instantiation, local ports, ownership boundaries, tile-role vocabulary, and the older render that led into the later checked Cartilage runs.</p>
-        </div>
+        <p>The invention here is not the picture. The picture is how the machine exposes its own structure: port roots, bounded regions, parent pointers, configuration streams, and tile roles that are rewritten as part of the fabric rather than by an invisible outside editor.</p>
+        <p>This page starts with the live artifact and then gives the vocabulary needed to read it.</p>
     </section>
 
     <main>
+        <section>
+            <h1>The Architecture Move</h1>
+            <p>Most programmable fabrics hide reconfiguration behind tooling, a bitstream file, or a global controller. Cartilage pushes that activity into the spatial model. A region has a boundary. Configuration enters through a local port. The child region receives new body roles. The parent relationship remains visible while the fabric changes.</p>
+            <p>That is why this demo matters even before the later checked runs. It shows a computational surface where ownership and reconfiguration are not documentation pasted onto the side; they are part of the machine being rendered.</p>
+        </section>
+
         <section>
             <h1>The Live Artifact</h1>
             <p class="artifact-link"><a href="/cellular-automata-2019/cartilage3.html">Open the Cartilage 3 demo</a></p>
@@ -135,7 +137,7 @@
         <section>
             <h1>Controls In The Artifact</h1>
             <p>The demo source includes editing controls: ASDW to draw wires while pressing the mouse, ZQERTYU to place multiplexers, backtick for ground, 1 for power, X for intersection, L for reconfiguration port, and numpad 4-8-6-2 to change the parent pointer in the ownership tree.</p>
-            <p>Those controls are artifact notes. The main delivered behavior is local nested instantiation.</p>
+            <p>Those controls exist because this was built as an editable fabric, not a movie of a fabric. The main delivered behavior is local nested instantiation.</p>
         </section>
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
@@ -143,8 +145,8 @@
         </section>
 
         <section>
-            <h1>Implementation Boundary</h1>
-            <p>The 2021 demo is preserved as a standalone browser/GPU artifact. The article explains how to read it and how it connects to the newer Cartilage render vocabulary; it does not claim that the old artifact has the later checked packaging, QFG driver, or exact-frame verification runs.</p>
+            <h1>Where It Sits In The Program</h1>
+            <p>The 2021 demo is the canonical live Cartilage artifact. Later pages add checked packaging, QFG drivers, exact-frame captures, and current render milestones. This one matters because it shows the original nested-instantiation behavior directly in the browser.</p>
         </section>
     </main>
 
