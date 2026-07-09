@@ -6,11 +6,11 @@
     <title>Verilog, Allocation, and Dynamic Languages</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Yes, but: 1. After all LUTs are occupied, I can&#39;t add a new line of Verilog. In C and C++ I can. 2. In C I can malloc(), in C++ I can new. In Verilog all I...">
+    <meta name="description" content="A hardware/software allocation note: Verilog reserves resources before runtime, while dynamic languages allocate objects, fields, and references while the program runs.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-12-verilog-allocation-and-dynamic-languages.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Verilog, Allocation, and Dynamic Languages">
-    <meta property="og:description" content="Yes, but: 1. After all LUTs are occupied, I can&#39;t add a new line of Verilog. In C and C++ I can. 2. In C I can malloc(), in C++ I can new. In Verilog all I...">
+    <meta property="og:description" content="A hardware/software allocation note: Verilog reserves resources before runtime, while dynamic languages allocate objects, fields, and references while the program runs.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-12-verilog-allocation-and-dynamic-languages.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-05-12",
                                 "dateModified": "2026-07-09",
-                                "description": "Yes, but: 1. After all LUTs are occupied, I can't add a new line of Verilog. In C and C++ I can. 2. In C I can malloc(), in C++ I can new. In Verilog all I...",
+                                "description": "A hardware/software allocation note: Verilog reserves resources before runtime, while dynamic languages allocate objects, fields, and references while the program runs.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-12-verilog-allocation-and-dynamic-languages.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,21 +79,40 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-05-12.</p>
-            <p><strong>Related:</strong> <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a></p>
+            <p><span class="status-label">Allocation note</span>Originally posted 2022-05-12; rewritten here around the static-resource boundary in hardware description.</p>
+            <p><strong>Included:</strong> LUT exhaustion, fixed-size hardware reservation, dynamic allocation, object references, kernels, and why a parallel language needs ownership and placement rules.</p>
+            <p><strong>Article focus:</strong> the difference between allocating hardware before runtime and allocating software structure while the program runs.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Yes, but:<br>
-                1. After all LUTs are occupied, I can't add a new line of Verilog. In C and C++ I can.<br>
-                2. In C I can malloc(), in C++ I can new. In Verilog all I can do is to reserve a fixed-size array and waste a lot of resources.<br>
-                3. In JavaScript and Python I can say &quot;obj.newField = anotherObjRef&quot; and then &quot;obj.newField.anotherObjRef.method(arg)&quot;. In OpenCL, oneAPI, CUDA, etc. nonsense I have to use MPI to even pass function arguments between kernels.</p>
-            <p>No, FPGAs are NOT cool. In fact, they are just CHIPS, but programmatically defined (and redefined).</p>
-            <p>We (software developers!) demand a post-von Neumann architecture! Reactive programmers who love OOP got tired of the von Neumann bottleneck, and FPGAs in their pure globally managed state are not a solution, even in a Kubernetes cloud cluster with clever Linux drivers.</p>
-            <p>We need a new distributed massively parallel PROGRAMMING LANGUAGE that runs on a breakthrough new innovation, a cluster of organically and scalably managed FPGAs. That can scale by just adding more servers to it. Homogeneously.</p>
+            <h1>The Allocation Boundary</h1>
+            <p>Verilog makes hardware resources explicit before runtime. LUTs, registers, memories, wires, and module instances have to exist in the design before a clock ever runs.</p>
+            <p>That is powerful because the resulting machine has real spatial structure. It is also restrictive: once the fabric is full, a new behavior cannot appear the way a dynamic language can allocate another object or attach another field.</p>
+        </section>
+
+        <section>
+            <h1>What Dynamic Languages Hide</h1>
+            <p>In C, C++, JavaScript, Python, and similar systems, a program can create new heap objects, attach references, dispatch through methods, and grow data structures while it runs. The machine pays for that flexibility through memory management, indirection, cache behavior, garbage collection or lifetime rules, and runtime failure modes.</p>
+            <p>Hardware description pushes the payment forward. A fixed array, FIFO, memory block, or pipeline stage reserves area even when the workload does not use every slot. The upside is timing and placement that can be reasoned about. The downside is wasted capacity when the static shape is wrong.</p>
+        </section>
+
+        <section>
+            <h1>Why Kernel Systems Feel Awkward</h1>
+            <p>GPU and accelerator systems often expose this boundary through kernels. Work is split into separate compiled units, and communication has to move through buffers, queues, host orchestration, or message-passing patterns.</p>
+            <p>That is not the same as object references inside a dynamic runtime. The programmer has to decide where data lives, when it crosses a boundary, and which execution region is allowed to mutate it.</p>
+        </section>
+
+        <section>
+            <h1>The Language Requirement</h1>
+            <p>A useful massively parallel language cannot merely say "use hardware" or "use kernels." It needs ownership, placement, allocation, communication, and failure rules that remain readable as work spreads across regions or devices.</p>
+            <p>That connects directly to <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>: more execution lanes are not enough if the source loses causality, locality, timing, and ownership.</p>
+        </section>
+
+        <section>
+            <h1>Concrete Hardware Example</h1>
+            <p>The <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a> is a small example of hardware-shaped scheduling. It is not dynamically allocated software; it is a fixed datapath arranged so streaming work keeps moving once the pipeline is filled.</p>
         </section>
 
     </main>
@@ -101,10 +120,10 @@
     <nav class="article-links">
         <p>Next:</p>
         <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>
-        <p>Another dated publication from May 12, 2022.</p>
+        <p>The source-code side of the same problem: preserving causality, timing, locality, ownership, and failure when execution spreads out.</p>
         <p>More:</p>
         <a href="2022-05-13-opencl-kernels-and-the-final-chip.html">OpenCL Kernels and the Final Chip</a>
-        <p>Another dated publication from May 13, 2022.</p>
+        <p>A related accelerator note about kernels, allocation, and the boundary between source code and final hardware.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
