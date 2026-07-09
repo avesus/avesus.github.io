@@ -6,11 +6,11 @@
     <title>Boolean Logic Is Everything</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Boolean logic is everything. It is massively parallel. It is dynamic. It is reactive. No need to reinvent the wheel. But an extreme need to raise...">
+    <meta name="description" content="Boolean logic as machine material: switching, state, layout, interconnect, MUXes, parallelism, and reactive structure rather than a classroom endpoint.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-18-boolean-logic-is-everything.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Boolean Logic Is Everything">
-    <meta property="og:description" content="Boolean logic is everything. It is massively parallel. It is dynamic. It is reactive. No need to reinvent the wheel. But an extreme need to raise...">
+    <meta property="og:description" content="Boolean logic as machine material: switching, state, layout, interconnect, MUXes, parallelism, and reactive structure rather than a classroom endpoint.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-18-boolean-logic-is-everything.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-06-18",
                                 "dateModified": "2026-07-09",
-                                "description": "Boolean logic is everything. It is massively parallel. It is dynamic. It is reactive. No need to reinvent the wheel. But an extreme need to raise...",
+                                "description": "Boolean logic as machine material: switching, state, layout, interconnect, MUXes, parallelism, and reactive structure rather than a classroom endpoint.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-18-boolean-logic-is-everything.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,17 +78,36 @@
     <address>June 18, 2021</address>
 
     <section class="abstract">
+        <p>Boolean logic is not only a classroom topic or a gate-level implementation detail. It is the material underneath switching, state, layout, interconnect, MUX networks, and parallel machine structure.</p>
+        <p>The useful claim is practical: if the computation can be shaped as Boolean structure, then placement, fanout, routing, timing, and parallelism become part of the design instead of hidden runtime behavior.</p>
         <div class="status-box">
-            <p><span class="status-label">Publication note</span>Originally posted 2021-06-18.</p>
-            <p><strong>Included:</strong> original publication text, source link, and related project links.</p>
-            <p><strong>Related:</strong> <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a></p>
+            <p><span class="status-label">Boolean-fabric note</span>Originally posted 2021-06-18; expanded into a concise article on 2026-07-09.</p>
+            <p><strong>Included:</strong> switching, state, interconnect, MUXes, parallel structure, and links to the fuller Boolean construction.</p>
+            <p><strong>Scope:</strong> this page frames the design material. The fuller construction is in the Boolean Algebra article.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Boolean logic is everything. It is massively parallel. It is dynamic. It is reactive. No need to reinvent the wheel. But an extreme need to raise appreciation. And use it instead of software to solve problems which software never can solve in reasonable amount of time. With right layouts and interconnects, even NP-complete problems can look much easier in Boolean logic. Think about it. Appreciate switching circuits. Holy Multiplexers! Amen!</p>
+            <h1>The Machine Material</h1>
+            <p>Boolean logic becomes interesting when it stops being only a truth-table exercise. A switching circuit has placement, fanout, timing, storage, routing, and physical cost. Those are not decorative implementation details; they are part of the computation.</p>
+            <p>Software often hides those details behind a sequential execution model. Boolean structure exposes them. A circuit can run many local operations at once because the structure itself carries the schedule and the connectivity.</p>
+        </section>
+
+        <section>
+            <h1>Why MUXes Matter</h1>
+            <p>A 2:1 MUX is small enough to inspect and strong enough to compose. With constants, wires, feedback, configuration, and tiling, MUX-based structure becomes a path from simple Boolean behavior to a reconfigurable substrate.</p>
+            <p>That is the connection to the later Cartilage and physical tile work: the machine can be made from roles that remain readable as parts, not only as an opaque compiled result.</p>
+        </section>
+
+        <section>
+            <h1>What This Does Not Mean</h1>
+            <p>Boolean structure does not make hard problems disappear. It changes where the work lives. A problem may become more tractable when parallelism, locality, and interconnect are explicit, but the design still has to pay for layout, routing, timing, resources, and configuration.</p>
+        </section>
+
+        <section>
+            <h1>Reading Path</h1>
+            <p>Read <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a> for the full minimal construction. Read <a href="2026-01-31-the-physical-mux-tile-alphabet.html">The Physical MUX Tile Alphabet</a> for the physical tile version of the same vocabulary. Read <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> for the rendered cell-role alphabet.</p>
         </section>
 
     </main>
