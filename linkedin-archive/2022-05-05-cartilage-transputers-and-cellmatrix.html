@@ -6,11 +6,11 @@
     <title>Cartilage, Transputers, and CellMatrix</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Our #Cartilage project resembles Inmos #Transputer, Nicholas Macias&#39; #CellMatrix, and uses micro-FPGAs with analog 1-wire SerDeses for power distribution and...">
+    <meta name="description" content="A reconfigurable-fabric note comparing Cartilage with Transputer and CellMatrix ideas: local links, cell-scale configuration, packaging, power, and routing discipline.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-05-cartilage-transputers-and-cellmatrix.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Cartilage, Transputers, and CellMatrix">
-    <meta property="og:description" content="Our #Cartilage project resembles Inmos #Transputer, Nicholas Macias&#39; #CellMatrix, and uses micro-FPGAs with analog 1-wire SerDeses for power distribution and...">
+    <meta property="og:description" content="A reconfigurable-fabric note comparing Cartilage with Transputer and CellMatrix ideas: local links, cell-scale configuration, packaging, power, and routing discipline.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-05-cartilage-transputers-and-cellmatrix.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-05-05",
                                 "dateModified": "2026-07-09",
-                                "description": "Our #Cartilage project resembles Inmos #Transputer, Nicholas Macias' #CellMatrix, and uses micro-FPGAs with analog 1-wire SerDeses for power distribution and...",
+                                "description": "A reconfigurable-fabric note comparing Cartilage with Transputer and CellMatrix ideas: local links, cell-scale configuration, packaging, power, and routing discipline.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-05-cartilage-transputers-and-cellmatrix.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,20 +78,52 @@
     <address>May 5, 2022</address>
 
     <section class="abstract">
+        <p>Cartilage belongs near several older fabric ideas: Transputer-style local communication, CellMatrix-style programmable cells, and FPGA-style configurable logic.</p>
+        <p>The useful comparison is architectural. A tiled machine has to define how cells communicate, how configuration enters, how power and timing cross the package, and how routing stays local enough to scale.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-05-05.</p>
+            <p><span class="status-label">Fabric comparison</span>Originally posted 2022-05-05; expanded here into the fabric comparison.</p>
             <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><strong>Article focus:</strong> local communication, cell-scale configuration, packaging, power, and routing discipline.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Our #Cartilage project resembles Inmos #Transputer, Nicholas Macias' #CellMatrix, and uses micro-FPGAs with analog 1-wire SerDeses for power distribution and signaling, while maintaining truly infinite #scalability by clever fabric design and physical packaging.</p>
-            <p>We did not raise any funding yet, and #now is the best time to jump on the project as a #cofounder or even early stage #angelinvestor because we do not even started to raise money yet, but already proved the model's feasibility. It definitely will impact many things in many areas of our ordinary lives. And, as you know, how much chips impact our lives already... These things are &quot;post-chips&quot;, something that comes after chips. After processors. Something truly &quot;next&quot;.</p>
-            <p>We have built our ideas on the shoulders of giants, and without Ross Freeman this all probably wouldn't be possible to intuit. But there's the Internet with its immense complexity and ingenuity, so we are grateful to that as well.</p>
-            <p>If you love to waste your life working for free with guaranteed 100% risk and 0% reward short-term and your name in history books long-term, come join me now. Otherwise, you'll get a salary, and would love to work with us anyway.</p>
-            <p>And... &quot;I told you&quot; ;-)</p>
+            <h1>The Comparison</h1>
+            <p>The Transputer treated communication as part of the computing node rather than an afterthought. CellMatrix explored a field of programmable cells. FPGAs make Boolean structure physical, timed, and placeable.</p>
+            <p>Cartilage overlaps with those questions. It asks how far a uniform fabric can go when cells expose local ports, local configuration, and explicit routing instead of depending on one global controller to hide the structure.</p>
+        </section>
+
+        <section>
+            <h1>What Has To Work</h1>
+            <div class="article-fact-table">
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Local links</div>
+                    <div>Neighbor communication has to be cheap enough that a tiled layout remains useful as the array grows.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Configuration</div>
+                    <div>Cells need an explicit way to receive and preserve local role changes without turning every update into a whole-machine event.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Packaging</div>
+                    <div>Power, timing, and external access become part of the architecture once the fabric is meant to scale physically.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Routing</div>
+                    <div>The routing rule has to remain visible enough that placement and boundaries can be reasoned about cell by cell.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Scaling limit</div>
+                    <div>The interesting limit is not a slogan about infinity. It is whether local rules keep latency, configuration cost, and layout cost bounded enough to compose.</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1>Useful Claim</h1>
+            <p>The point of the comparison is not that Cartilage is the same thing as any earlier machine. The point is that all of these systems make locality a design surface.</p>
+            <p>For a reconfigurable fabric, the hard parts are visible: ports, routing, configuration entry, power, timing, packaging, and the shape of the cells that have to repeat.</p>
         </section>
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>

@@ -6,11 +6,11 @@
     <title>A Shader for Nano-FPGA Fabric</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="7 months ago I wrote a GLSL shader for nano-FPGA fabric. I think prior art law holds, because ShaderToy.com is a findable on Google Search web site. Don&#39;t...">
+    <meta name="description" content="A WebGL/GLSL fabric-rendering note: a nano-FPGA surface drawn as a shader so cell roles, tiling, and local connections can be inspected visually.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-01-a-shader-for-nano-fpga-fabric.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="A Shader for Nano-FPGA Fabric">
-    <meta property="og:description" content="7 months ago I wrote a GLSL shader for nano-FPGA fabric. I think prior art law holds, because ShaderToy.com is a findable on Google Search web site. Don&#39;t...">
+    <meta property="og:description" content="A WebGL/GLSL fabric-rendering note: a nano-FPGA surface drawn as a shader so cell roles, tiling, and local connections can be inspected visually.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-01-a-shader-for-nano-fpga-fabric.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-05-01",
                                 "dateModified": "2026-07-09",
-                                "description": "7 months ago I wrote a GLSL shader for nano-FPGA fabric. I think prior art law holds, because ShaderToy.com is a findable on Google Search web site. Don't...",
+                                "description": "A WebGL/GLSL fabric-rendering note: a nano-FPGA surface drawn as a shader so cell roles, tiling, and local connections can be inspected visually.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-01-a-shader-for-nano-fpga-fabric.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,17 +78,31 @@
     <address>May 1, 2022</address>
 
     <section class="abstract">
+        <p>This note points to a GLSL shader used to render a nano-FPGA-style fabric. The artifact matters because the fabric is not only a diagram; it is a cell field whose roles, tiling, and local connections can be drawn by executable code.</p>
+        <p>Rendering the fabric in WebGL keeps the visual surface close to the machine model: every repeated tile has a role, a local neighborhood, and a place in the grid.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-05-01.</p>
+            <p><span class="status-label">Shader artifact</span>Originally posted 2022-05-01; expanded here around the rendered fabric.</p>
             <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><strong>Article focus:</strong> GLSL rendering, nano-FPGA tiling, visual roles, and inspectable local connections.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>7 months ago I wrote a GLSL shader for nano-FPGA fabric. I think prior art law holds, because ShaderToy.com is a findable on Google Search web site. Don't know where patent attorney would look: people invent so much, that &quot;who cares&quot;? #opensource #openhardware</p>
-            <p>PM for details and to schedule free learning lessons. Next version is also coming and in works right now.</p>
+            <h1>The Artifact</h1>
+            <p>The linked demo was a GLSL rendering of a nano-FPGA fabric: a repeated cell field where the visual pattern is meant to expose local structure instead of hiding it behind a block diagram.</p>
+            <p>The important part is the executable surface. A shader can draw the repeated geometry, show tile roles, and make the fabric readable as a live grid rather than a static illustration.</p>
+        </section>
+
+        <section>
+            <h1>Why Use a Shader</h1>
+            <p>A fabric made from many local cells is hard to explain with a single schematic. WebGL is a useful medium because it can render the whole field while preserving repeated local detail.</p>
+            <p>That makes the renderer part of the engineering work. It is a way to inspect tiling, orientation, role encoding, and local connection rules at the scale where the machine actually exists.</p>
+        </section>
+
+        <section>
+            <h1>What The Render Gives</h1>
+            <p>The useful output is a stable visual grammar: repeated cells, roles, orientations, and neighborhood connections can be inspected, shared, and compared with later Cartilage renders.</p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>

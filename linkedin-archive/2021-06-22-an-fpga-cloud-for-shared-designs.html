@@ -6,11 +6,11 @@
     <title>An FPGA Cloud for Shared Designs</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="I&#39;m looking for seed series capital to build an FPGA cloud, where people can make their designs run, share, and reuse, both open and proprietary. To even host...">
+    <meta name="description" content="A shared-FPGA infrastructure note: running reusable designs while preserving isolation, scheduling, dynamic reconfiguration, and open/proprietary boundaries.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-22-an-fpga-cloud-for-shared-designs.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="An FPGA Cloud for Shared Designs">
-    <meta property="og:description" content="I&#39;m looking for seed series capital to build an FPGA cloud, where people can make their designs run, share, and reuse, both open and proprietary. To even host...">
+    <meta property="og:description" content="A shared-FPGA infrastructure note: running reusable designs while preserving isolation, scheduling, dynamic reconfiguration, and open/proprietary boundaries.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-22-an-fpga-cloud-for-shared-designs.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-06-22",
                                 "dateModified": "2026-07-09",
-                                "description": "I'm looking for seed series capital to build an FPGA cloud, where people can make their designs run, share, and reuse, both open and proprietary. To even host...",
+                                "description": "A shared-FPGA infrastructure note: running reusable designs while preserving isolation, scheduling, dynamic reconfiguration, and open/proprietary boundaries.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-22-an-fpga-cloud-for-shared-designs.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,19 +78,52 @@
     <address>June 22, 2021</address>
 
     <section class="abstract">
+        <p>An FPGA cloud is useful only if shared hardware can run designs without erasing the boundaries that make those designs safe to reuse: isolation, scheduling, bitstream ownership, dynamic reconfiguration, and resource accounting.</p>
+        <p>The useful claim is infrastructure-shaped. Reconfigurable hardware becomes more valuable when designs can be hosted, reused, and composed without forcing every team to own the whole hardware stack.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-06-22.</p>
+            <p><span class="status-label">Infrastructure note</span>Originally posted 2021-06-22; expanded here around the shared-hardware architecture.</p>
             <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><strong>Article focus:</strong> multi-tenant FPGAs, isolation, scheduling, reusable designs, and dynamic reconfiguration.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>I'm looking for seed series capital to build an FPGA cloud, where people can make their designs run, share, and reuse, both open and proprietary. To even host server-side infrastructure. To replace multi-FPGA designs with plug-and-play chips, staying in the same cloud. Multi-tenant. Perfect and secure isolation and fast flexible dynamic reconfiguration. Scale with us! Make money together! Wow your clients with a surprise where processing was a pain and a bottleneck!</p>
-            <p>I want to teach everyone who writes software and who designs chips, that these two activities are worth fusing into one, to liberate engineers from doing boring work, where digital circuit design engineers can write fun application code, not only &quot;boring&quot; protocols and arithmetic. And where software developers can manage complexity, having fun with parallel, composable, reusable, dynamic, and (holy grail!) reactive programming style! Merry marry of Verilog and conventional programming with benefits of both!</p>
-            <p>#raisingcapital #raisingawareness #fpga #cloud #edge #ai #fullstack #semiconductorindustry #postvonneumann</p>
-            <p><a href="https://greenforest.io" target="_blank" rel="noopener">https://greenforest.io</a></p>
+            <h1>The Infrastructure Problem</h1>
+            <p>FPGA work often stops at the board boundary: one team, one bitstream, one hardware target, one deployment. A shared FPGA environment changes the problem. Designs have to run beside other designs, survive scheduling decisions, and preserve security and ownership boundaries.</p>
+            <p>That makes the cloud layer more than hosting. It has to manage configuration, placement, resource limits, provenance, versioning, test paths, and handoff between software services and hardware regions.</p>
+        </section>
+
+        <section>
+            <h1>What A Shared Fabric Needs</h1>
+            <div class="article-fact-table">
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Isolation</div>
+                    <div>Tenants and designs cannot be allowed to interfere through pins, memory, clocks, configuration state, or side effects.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Reuse</div>
+                    <div>A useful design should be callable, versioned, tested, and reused without every user rebuilding the whole toolchain.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Scheduling</div>
+                    <div>Hardware regions, bitstream load time, data movement, and service latency become shared operational resources.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Reconfiguration</div>
+                    <div>Dynamic reconfiguration has to be explicit enough that a design can change without corrupting neighboring work.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Open and proprietary work</div>
+                    <div>The platform has to support shared public designs and private designs without confusing disclosure, ownership, or deployment rights.</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1>Why It Matters</h1>
+            <p>The note is not a claim that cloud hosting makes hardware design easy. The tradeoff is real: an FPGA cloud reduces some ownership burden while adding infrastructure requirements that ordinary software hosting does not have.</p>
+            <p>The reason to consider it is also real. Parallel and hardware-shaped computation becomes easier to use when verified designs can move from one-off board projects into repeatable hosted services.</p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>

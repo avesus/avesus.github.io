@@ -6,11 +6,11 @@
     <title>Cellular Automata Across FPGA Chains</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="I made a simple estimate: it seems we&#39;re not doing cellular automata for a wrong reason. A fully pipelined FPGA chain, even at 16 nm node at 891 MHz has...">
+    <meta name="description" content="A cellular-automata hardware note: a fully pipelined FPGA mesh can trade global wires for local timing, but placement, links, and latency become the design.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-04-cellular-automata-across-fpga-chains.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Cellular Automata Across FPGA Chains">
-    <meta property="og:description" content="I made a simple estimate: it seems we&#39;re not doing cellular automata for a wrong reason. A fully pipelined FPGA chain, even at 16 nm node at 891 MHz has...">
+    <meta property="og:description" content="A cellular-automata hardware note: a fully pipelined FPGA mesh can trade global wires for local timing, but placement, links, and latency become the design.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-04-cellular-automata-across-fpga-chains.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-06-04",
                                 "dateModified": "2026-07-09",
-                                "description": "I made a simple estimate: it seems we're not doing cellular automata for a wrong reason. A fully pipelined FPGA chain, even at 16 nm node at 891 MHz has...",
+                                "description": "A cellular-automata hardware note: a fully pipelined FPGA mesh can trade global wires for local timing, but placement, links, and latency become the design.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-04-cellular-automata-across-fpga-chains.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,17 +78,31 @@
     <address>June 4, 2021</address>
 
     <section class="abstract">
+        <p>The original estimate used a fully pipelined FPGA chain: 100 devices over roughly 3 meters, clocked at 891 MHz, with an estimated traversal latency of about 0.113 milliseconds.</p>
+        <p>The useful question is whether cellular automata and mesh-style computation can use local timing and repeated structure instead of paying for wide global interconnect everywhere.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-06-04.</p>
+            <p><span class="status-label">Hardware estimate</span>Originally posted 2021-06-04; expanded here around latency and topology.</p>
             <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><strong>Article focus:</strong> FPGA chains, cellular automata, mesh topology, pipelining, placement, and latency.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>I made a simple estimate: it seems we're not doing cellular automata for a wrong reason. A fully pipelined FPGA chain, even at 16 nm node at 891 MHz has cell-to-cell latency over an array of 100 FPGAs (spanning over 3 meters) of just 0.113 milliseconds! Clocked pipelined signal travels at 95,000 kilometers per hour, which is more than enough for fast reaction time complex compute! So what a big deal supporting all these &quot;span-N&quot; wires and &quot;fat tree&quot; supercompute architectures?! Let's get back to mesh again?.. Please, let me know in the comments below \/ \/ \/ if I got it wrong. Seems that Intel 4 melting core with full pipeline has stopped the trend. Let's get it back on track, and redesign all our FPGAs, never worrying about timing closure ever again?</p>
-            <p>#networktopology #supercomputing #latency #fpgas</p>
+            <h1>The Estimate</h1>
+            <p>A fully pipelined chain changes how distance is paid for. The work does not wait for a combinational path across the whole fabric; each stage pays a clocked hop.</p>
+            <p>The 2021 estimate used 100 FPGAs over about 3 meters at 891 MHz and arrived at roughly 0.113 milliseconds for traversal through the chain. That is not a universal number. It is a scale check: local pipelined movement can be fast enough to deserve serious architectural attention.</p>
+        </section>
+
+        <section>
+            <h1>Why Mesh Comes Back</h1>
+            <p>Cellular automata are naturally local. Each cell reads a neighborhood, updates state, and lets the next step proceed from nearby information. That shape matches a mesh better than a design that assumes every stage needs a long-span wire or a global tree.</p>
+            <p>The engineering question is where the boundaries sit: FPGA-to-FPGA links, clock domains, placement, buffering, routing resources, and the update rule itself.</p>
+        </section>
+
+        <section>
+            <h1>Tradeoff</h1>
+            <p>A mesh does not remove architecture work. It moves the work into topology, pipeline depth, boundary latency, placement discipline, and programming model. That tradeoff is often preferable to hiding locality under a global communication pattern that becomes expensive at scale.</p>
         </section>
 
     </main>
