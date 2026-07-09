@@ -265,7 +265,7 @@
     "title": "Cross-Entropy Intuition",
     "date": "2023-09-19",
     "slug": "2023-09-19-cross-entropy-intuition",
-    "description": "To boost your intuition about the formula of cross-entropy (or neg-log-likelihood, as they confusingly call it). These series show up in eigendecomposition...",
+    "description": "A short mathematical note connecting cross-entropy, negative log-likelihood, matrix exponentials, expectation, and why the target distribution enters the loss.",
     "words": 81,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7110044633677631490/"
   },
@@ -337,7 +337,7 @@
     "title": "A Draft Theory of Discrete Photons",
     "date": "2023-07-24",
     "slug": "2023-07-24-a-draft-theory-of-discrete-photons",
-    "description": "This ChatGPT is pretty good, but I'd love to find any human collaborators who are interested in developing my draft theory of many-words discrete photons with...",
+    "description": "A bounded draft-theory note about discrete photons, emergent probability-density fields, observer state, entropy production, and what a physical model would have to answer.",
     "words": 64,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7089362236011409408/"
   },
@@ -373,7 +373,7 @@
     "title": "Rights for AI and Hardware Democratization",
     "date": "2023-06-26",
     "slug": "2023-06-26-rights-for-ai-and-hardware-democratization",
-    "description": "In the wild era of AI, ML, LLM, GPT #democratization, individuals and businesses of all sizes deserve the following #rights: 1. The right of #fabrication...",
+    "description": "A hardware-democratization post about fabrication access, trusted open hardware, local model compute, Soft IP versus Hard IP, and active-device paths beyond conventional silicon.",
     "words": 411,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7079146835960889344/"
   },
@@ -436,7 +436,7 @@
     "title": "Transformers as Mathematical Optimization",
     "date": "2023-03-26",
     "slug": "2023-03-26-transformers-as-mathematical-optimization",
-    "description": "Chatbots can hype and fade, AGI hype will dissipate. The Autoencoder built on Transformers forever will remain more efficient method of mathematical...",
+    "description": "A mathematical-optimization note about transformers, autoencoders, Euler-Lagrange and Pontryagin-style optimization, and hardware for efficient model execution.",
     "words": 114,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7045809045051478016/"
   },
@@ -472,7 +472,7 @@
     "title": "AI Is Mathematics",
     "date": "2023-03-18",
     "slug": "2023-03-18-ai-is-mathematics",
-    "description": "AI is not a tool. AI is mathematics. A much better math, than we had a century ago. Do not try to understand how to use GPT-4. It's not a tool. Teach kids...",
+    "description": "A machine-learning math note about autoencoders, autoregression, mixture models, noise bases, ICA, control theory, and recovering structure from measured data.",
     "words": 118,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7042934035156795392/"
   },
@@ -1075,7 +1075,7 @@
     "title": "A Warning About Constructive Foundations",
     "date": "2020-09-01",
     "slug": "2020-09-01-a-warning-about-constructive-foundations",
-    "description": "Everything is great about Univalent Foundations and Category Theory until you give a deep thought to things like A&~A denial, axiom of choice rejection,...",
+    "description": "A foundations note about classical logic, intuitionistic logic, axiom of choice, Univalent Foundations, Category Theory, and what changes when classicality is rejected.",
     "words": 71,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:6706367553402474496/"
   },
@@ -1174,7 +1174,7 @@
     "title": "Geometric Algebra and Matrix Multiplication",
     "date": "2019-04-24",
     "slug": "2019-04-24-geometric-algebra-and-matrix-multiplication",
-    "description": "Interesting individual observation: studying mathematics, physics, computer science, philosophy, and even psychology for a long time, one likely starts seeing...",
+    "description": "A mathematics note connecting geometric algebra, matrix multiplication, category theory, Hamiltonian action, and shared structure across formal systems.",
     "words": 78,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:6526692293943136256/"
   },
