@@ -6,11 +6,11 @@
     <title>The Physical MUX Tile Alphabet</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Soldered the first batch of hermaphrodite connectors onto my purple MUX tiles. After ~25 years of “designing in my head / on paper / in CAD,” I finally have a...">
+    <meta name="description" content="Physical MUX tiles turn the Boolean fabric alphabet into connectable circuit pieces: MUX, wire, constants, intersections, one-sided orientation, and edge-to-edge patches.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The Physical MUX Tile Alphabet">
-    <meta property="og:description" content="Soldered the first batch of hermaphrodite connectors onto my purple MUX tiles. After ~25 years of “designing in my head / on paper / in CAD,” I finally have a...">
+    <meta property="og:description" content="Physical MUX tiles turn the Boolean fabric alphabet into connectable circuit pieces: MUX, wire, constants, intersections, one-sided orientation, and edge-to-edge patches.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2026-01-31",
                                 "dateModified": "2026-07-09",
-                                "description": "Soldered the first batch of hermaphrodite connectors onto my purple MUX tiles. After ~25 years of “designing in my head / on paper / in CAD,” I finally have a...",
+                                "description": "Physical MUX tiles turn the Boolean fabric alphabet into connectable circuit pieces: MUX, wire, constants, intersections, one-sided orientation, and edge-to-edge patches.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,24 +78,43 @@
     <address>January 31, 2026</address>
 
     <section class="abstract">
+        <p>The physical MUX tile set turns a Boolean fabric alphabet into parts that can be assembled by hand: MUX tiles, wire tiles, constant tiles, and intersection tiles connected edge to edge.</p>
+        <p>The useful result is not that a PCB exists. The result is a readable set of circuit symbols with connector orientation, physical rotation, and patch assembly all forced into the same object.</p>
         <div class="status-box">
-            <p><span class="status-label">Publication note</span>Originally posted 2026-01-31.</p>
-            <p><strong>Included:</strong> original publication text, source link, and related project links.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-visual-language.html">Cartilage Visual Language</a></p>
+            <p><span class="status-label">Physical artifact note</span>Originally posted 2026-01-31; expanded into an article on the physical tile alphabet on 2026-07-09.</p>
+            <p><strong>Included:</strong> the assembled tile roles, connector/orientation constraint, first patch behavior, and next logic test target.</p>
+            <p><strong>Scope:</strong> this page records the physical assembly milestone. A later tile article can carry the D-flip-flop electrical test and characterization.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Soldered the first batch of hermaphrodite connectors onto my purple MUX tiles.<br>
-                After ~25 years of “designing in my head / on paper / in CAD,” I finally have a physical tile alphabet on the desk (MUX / wire / constants / intersections).<br>
-                I snapped a little patch together and it instantly reads like a language, not a random pile of PCBs.<br>
-                The big boss this whole time wasn’t electronics — it was getting unstuck long enough to hold the thing in my hands.</p>
-            <p>For context: these are small triangular tiles that are meant to connect edge-to-edge into a fabric, where each tile is a symbol (a MUX tile, a wire tile, a constant tile, an intersection tile…). The point isn’t “a PCB exists” — it’s that a set exists, like letters you can actually arrange into circuits.</p>
-            <p>This weekend’s move is simple: stop theorizing and make the first real, connectable patch. That means soldering the connectors onto the tiles (with the correct orientation), chaining a bunch together so it behaves like one long object, and then using that patch to build the first tiny piece of compute.</p>
-            <p>And yeah — the fear was real: I’ve shipped ideas before, but this one could’ve stayed forever in the “beautiful concept” stage. Another year of upgrades and re-designs and cost optimizations and “next revision will be the one,” while nothing ever clicks together.</p>
-            <p>But now it’s past that line. The alphabet is physical, the connectors make the tiles obviously one-sided (so orientation is unambiguous), and the patch is finally something you can assemble, pick up, rotate, and extend. Next step is the fun part: take just three MUX tiles and prove a D-flip-flop behaves like a D-flip-flop — not in a schematic, but in a little chunk of this fabric.</p>
+            <h1>The Artifact</h1>
+            <p>The first connectorized batch of purple MUX tiles made the fabric physical. These are small triangular PCB tiles intended to connect edge to edge into a circuit patch. Each tile is a symbol in the alphabet: MUX, wire, constant, or intersection.</p>
+            <p>The connectors matter because the tile is not just a drawing of a primitive. Once the connectors are soldered in the correct orientation, the part has a real side, a real rotation, and a real neighbor relation. A patch can be assembled, picked up, rotated, extended, and read as one object.</p>
+        </section>
+
+        <section>
+            <h1>The Alphabet</h1>
+            <ul class="article-facts">
+                <li><strong>MUX tile:</strong> the active primitive in the alphabet. A small number of MUX tiles should be enough to build the first sequential test circuit.</li>
+                <li><strong>Wire tile:</strong> a route piece for carrying a connection across the patch without changing its logical role.</li>
+                <li><strong>Constant tile:</strong> a physical source for fixed logic values inside the patch.</li>
+                <li><strong>Intersection tile:</strong> a crossing or connection-management role so layout can stay readable instead of collapsing every route into a flat wire bundle.</li>
+                <li><strong>Connector orientation:</strong> the assembled connector side makes tile orientation unambiguous. Rotation becomes a physical fact, not a caption.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Why This Matters</h1>
+            <p>The physical set is the bridge between the Boolean fabric idea and a bench object. A schematic can say MUX, wire, constant, and intersection. The tile alphabet makes those roles into parts with edges, orientations, and assembly rules.</p>
+            <p>That changes the work. A circuit patch can be read directly from the arrangement of tiles. The layout is no longer only a CAD file or a mental model; it is a small piece of fabric with the roles and rotations exposed.</p>
+            <p>The next useful test is deliberately small: use a few MUX tiles to build a D-flip-flop behavior in the physical patch, not only in a schematic. That is the point where the alphabet stops being a parts set and becomes a circuit substrate.</p>
+        </section>
+
+        <section>
+            <h1>Reading Path</h1>
+            <p>Read <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a> for the MUX-first computation argument. Read <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> for the related render alphabet used by the browser/GPU fabric. Read <a href="2026-02-25-why-i-need-this-instrument.html">Why This Instrument Exists</a> for the requirement that the fabric remain readable while it changes.</p>
         </section>
 
     </main>

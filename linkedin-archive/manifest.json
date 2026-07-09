@@ -85,7 +85,7 @@
     "title": "The Physical MUX Tile Alphabet",
     "date": "2026-01-31",
     "slug": "2026-01-31-the-physical-mux-tile-alphabet",
-    "description": "Soldered the first batch of hermaphrodite connectors onto my purple MUX tiles. After ~25 years of “designing in my head / on paper / in CAD,” I finally have a...",
+    "description": "Physical MUX tiles turn the Boolean fabric alphabet into connectable circuit pieces: MUX, wire, constants, intersections, one-sided orientation, and edge-to-edge patches.",
     "words": 298,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7423445182991495168/"
   },
@@ -958,7 +958,7 @@
     "title": "The End of the Hackers Era",
     "date": "2021-04-19",
     "slug": "2021-04-19-the-end-of-the-hackers-era",
-    "description": "I am overwhelmed by complexity. Please, stop showing how clever you are, and making the world a more complex place. Kids, UX designers, PMs should be able to...",
+    "description": "A programming-systems note on moving beyond clever one-off tricks: distributed, reactive, multi-device programs need structure people can run, understand, and extend.",
     "words": 202,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:6789785646673338368/"
   },
