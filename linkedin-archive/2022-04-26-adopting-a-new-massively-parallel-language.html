@@ -6,11 +6,11 @@
     <title>Adopting a New Massively Parallel Language</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Promoting a new, exciting, massively parallel and scalable programming language is HARD! But the lessons from adopting #erlang and #elixir will 100% be...">
+    <meta name="description" content="A 2022 note about what a new massively parallel language has to make adoptable: emulator, syntax, examples, concurrency semantics, debugging, and runtime boundaries.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-26-adopting-a-new-massively-parallel-language.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Adopting a New Massively Parallel Language">
-    <meta property="og:description" content="Promoting a new, exciting, massively parallel and scalable programming language is HARD! But the lessons from adopting #erlang and #elixir will 100% be...">
+    <meta property="og:description" content="A 2022 note about what a new massively parallel language has to make adoptable: emulator, syntax, examples, concurrency semantics, debugging, and runtime boundaries.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-26-adopting-a-new-massively-parallel-language.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-04-26",
                                 "dateModified": "2026-07-09",
-                                "description": "Promoting a new, exciting, massively parallel and scalable programming language is HARD! But the lessons from adopting #erlang and #elixir will 100% be...",
+                                "description": "A 2022 note about what a new massively parallel language has to make adoptable: emulator, syntax, examples, concurrency semantics, debugging, and runtime boundaries.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-26-adopting-a-new-massively-parallel-language.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,21 +79,51 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-04-26.</p>
+            <p><span class="status-label">Adoption note</span>Originally posted 2022-04-26; rewritten here around the engineering adoption problem.</p>
+            <p><strong>Included:</strong> emulator-first adoption, syntax, examples, concurrency semantics, debugging, runtime boundaries, and the Erlang/Elixir reference point.</p>
+            <p><strong>Article focus:</strong> what a new massively parallel language has to make concrete before another builder can use it.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Promoting a new, exciting, massively parallel and scalable programming language is HARD!</p>
-            <p>But the lessons from adopting #erlang and #elixir will 100% be helpful with our adoption of a new programming language, syntax of which we still have to create. But we have a working machine (&quot;Cartilage&quot;)! Wait until chip shortage ends, you'll get our processors in data centers (&quot;Greenforest&quot;) and inside of your new laptop!</p>
-            <p>PM me if you're interested in a volunteering opportunity to do early stage prototyping of the emulator engine. The worst thing beside a good time spent can happen to you is you'll better understand computer science, Harel statecharts, SerDeses, clock domain crossing, FIFOs, Verilog, HPC, distributed compute, data streams, OOP, reactive programming, self-modifying code, object capabilities, actor model, MVC, SaaS, full-stack webdev, GLSL, programming languages (a lot of them!), concurrent and massively parallel programming, scalability, performance, and even chip design on silicon level.</p>
-            <p>If you like where all of it is going with #programmablematter and #claytronics, feel free to send me a calendar invite. It's fun!</p>
+            <h1>The Adoption Problem</h1>
+            <p>A new parallel language is not adopted because the idea is large. It is adopted when another builder can run it, read it, debug it, and connect it to a real machine.</p>
+            <p>The 2022 post was written around Cartilage and the need for an emulator engine. The durable point is narrower: a language for massively parallel work needs an executable surface before its syntax can matter.</p>
         </section>
+
+        <section>
+            <h1>What Has To Be Concrete</h1>
+            <ul class="article-facts">
+                <li><strong>Emulator:</strong> a local way to run programs before custom hardware exists.</li>
+                <li><strong>Syntax:</strong> a readable form for expressing parallel work without hiding ownership, timing, or failure.</li>
+                <li><strong>Examples:</strong> small programs that show message flow, state, scheduling, and boundary behavior.</li>
+                <li><strong>Debugging:</strong> a way to see which region, process, lane, or cell owns a value when behavior changes.</li>
+                <li><strong>Runtime boundaries:</strong> rules for messages, restart behavior, clocks, FIFOs, data streams, and device crossings.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Why Erlang And Elixir Were The Reference</h1>
+            <p>Erlang-like systems are useful references because they made adoption possible around a runtime model, not only around notation. Processes, messages, supervision, failure isolation, and upgrade behavior are part of what the language means.</p>
+            <p>A new parallel language has the same burden. If the system asks people to think in many active places at once, it has to give them practical handles for communication, restart behavior, placement, ordering, and support.</p>
+        </section>
+
+        <section>
+            <h1>The Useful Path</h1>
+            <p>The first useful deliverable is not a manifesto for a language. It is a small emulator with examples that can be run, changed, and inspected.</p>
+            <p>From there, the language can earn each additional layer: syntax, type or capability rules, statecharts, object-capability boundaries, hardware-region mapping, SerDes and clock-domain behavior, and eventually a bridge to real fabric or FPGA implementation work.</p>
+        </section>
+
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
+        </section>
+
+        <section>
+            <h1>Original Post Context</h1>
+            <p>The original post was an early recruiting and adoption note for prototyping the Cartilage emulator engine.</p>
+            <p>The durable claim is this: adoption for a parallel language starts when the runtime behavior is visible enough that a second person can run examples and see where the work, state, messages, and failures live.</p>
         </section>
 
     </main>
@@ -101,10 +131,10 @@
     <nav class="article-links">
         <p>Next:</p>
         <a href="2022-04-21-legacy-cloud-infrastructure-and-reprogrammable-fpgas.html">Legacy Cloud Infrastructure and Reprogrammable FPGAs</a>
-        <p>Another dated publication from April 21, 2022.</p>
+        <p>A related scaling note about what changes when legacy backend work is pushed toward reprogrammable hardware.</p>
         <p>More:</p>
         <a href="2022-04-26-migrating-from-dsl-languages-to-erlang-like-parallelism.html">Migrating From DSL Languages to Erlang-Like Parallelism</a>
-        <p>Another dated publication from April 26, 2022.</p>
+        <p>The runtime side of the adoption problem: timing, communication, supervision, hot reload, and failure behavior.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
