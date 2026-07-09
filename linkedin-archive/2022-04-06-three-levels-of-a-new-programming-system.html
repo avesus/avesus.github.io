@@ -6,11 +6,11 @@
     <title>Three Levels of a New Programming System</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="This stuff is so cool. Was trying to create a programming language for 20 years. To write an operating system from scratch. To reinvent the way computer...">
+    <meta name="description" content="A programming-system note about three layers: hardware substrate, self-reprogramming object model, and high-level language syntax for distributed reactive computation.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-06-three-levels-of-a-new-programming-system.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Three Levels of a New Programming System">
-    <meta property="og:description" content="This stuff is so cool. Was trying to create a programming language for 20 years. To write an operating system from scratch. To reinvent the way computer...">
+    <meta property="og:description" content="A programming-system note about three layers: hardware substrate, self-reprogramming object model, and high-level language syntax for distributed reactive computation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-06-three-levels-of-a-new-programming-system.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-04-06",
                                 "dateModified": "2026-07-09",
-                                "description": "This stuff is so cool. Was trying to create a programming language for 20 years. To write an operating system from scratch. To reinvent the way computer...",
+                                "description": "A programming-system note about three layers: hardware substrate, self-reprogramming object model, and high-level language syntax for distributed reactive computation.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-06-three-levels-of-a-new-programming-system.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,23 +78,31 @@
     <address>April 6, 2022</address>
 
     <section class="abstract">
+        <p>This note describes a three-layer programming-system sketch: hardware substrate, self-reprogramming object model, and high-level language syntax.</p>
+        <p>The useful artifact path is concrete: an FPGA-array idea, PCB attempts around small Lattice parts, and emulators in Logisim and ShaderToy that exposed why a fine-grained cell needed controller structure around it.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-04-06.</p>
+            <p><span class="status-label">Programming-system note</span>Originally posted 2022-04-06; expanded here around the three-layer architecture.</p>
+            <p><strong>Article focus:</strong> FPGA arrays, emulation, hardware substrate, self-reprogramming object model, reactive dataflow, and language syntax.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>This stuff is so cool. Was trying to create a programming language for 20 years. To write an operating system from scratch. To reinvent the way computer works. Finally got both hardware and software sides together. There are three levels of abstraction: low-level silicon chips; middle-level self-reprogramming object-oriented model; high-level programming language with syntactic features.</p>
-            <p>On this weekend, I wrote an emulator of an FPGA array me and my colleagues kept working on since September 2020. We designed a flex PCB for Lattice iCE40LP384-SG32. They disappeared. We designed 4-layer PCB for Lattice iCE40HX1K-TQ144. They disappeared.</p>
-            <p>In September 2021, I wrote an emulator in Logisim and in ShaderToy. It worked. It showed that fine-grained FPGA is a waste, because each compute node has to serve as a container controller. It definitely has to have more than one logic cell.</p>
-            <p>This weekend, the idea showed to be not only neat and feasible, for the demanded array of FPGAs, but also hinted into an easy way to implement the middle-level self-reprogramming object-oriented model! I'm working on an emulator of it right now!</p>
-            <p>Next step, is to step-by-step follow most useful semantics and syntax, and generalize what is needed into the SILVER BULLET programming language we all kept dreaming about for more than 50 years!</p>
-            <p>It's a high-level. Distributed. Massively parallel. Homogeneous (not heterogeneous!) Dynamically typed. Reactive dataflow. Object-oriented. With first-class self-modification semantics.</p>
-            <p>It's coming. And it will definitely run on a VERY SPECIAL silicon hardware not found ANYWHERE IN THE WORLD.</p>
-            <p>We have invented a replacement for John von Neumann/Alan Turing CPU architecture. No more bottleneck + neat reactive features + infinite scalability (just add more hardware, and get superlinear speedup never ending!)</p>
-            <p>This stuff is so cool!</p>
+            <h1>The Three Layers</h1>
+            <p>The sketch separates the system into three layers. The low layer is the hardware substrate. The middle layer is a self-reprogramming object model that owns local structure. The top layer is the language surface: syntax and semantics for writing programs against that model.</p>
+            <p>That separation is useful because it prevents the language from pretending the substrate is generic. Placement, ownership, state, and reconfiguration have to remain visible enough for the program to behave predictably.</p>
+        </section>
+
+        <section>
+            <h1>The Emulator Result</h1>
+            <p>The original work passed through small FPGA-array hardware plans and then emulators in Logisim and ShaderToy. The emulators exposed a practical constraint: a very fine-grained FPGA-like cell is not enough if each compute region also needs local control, framing, and reconfiguration behavior.</p>
+            <p>That pushed the design toward a cell or region that contains more than one logic element and can act as a controlled local object instead of a bare gate.</p>
+        </section>
+
+        <section>
+            <h1>The Programming Target</h1>
+            <p>The target language was distributed, reactive, object-oriented, dynamically typed, and capable of describing self-modifying structure. Those words only matter if the middle layer gives them concrete meaning: what owns state, what can change, how messages or dependencies move, and how local reconfiguration is bounded.</p>
+            <p>The claim to preserve is the architecture, not the slogan: hardware substrate, reconfigurable object model, and language syntax have to be designed together.</p>
         </section>
 
     </main>
