@@ -6,11 +6,11 @@
     <title>Migrating From DSL Languages to Erlang-Like Parallelism</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Did you know you can migrate from your favorite powerful language that&#39;s so good at defining domain-specific languages (DSLs) but has this prominent Achilles&#39;...">
+    <meta name="description" content="DSLs help express a domain; Erlang-like systems show what changes when timing, messaging, supervision, hot reload, and failure become runtime requirements.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-26-migrating-from-dsl-languages-to-erlang-like-parallelism.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Migrating From DSL Languages to Erlang-Like Parallelism">
-    <meta property="og:description" content="Did you know you can migrate from your favorite powerful language that&#39;s so good at defining domain-specific languages (DSLs) but has this prominent Achilles&#39;...">
+    <meta property="og:description" content="DSLs help express a domain; Erlang-like systems show what changes when timing, messaging, supervision, hot reload, and failure become runtime requirements.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-26-migrating-from-dsl-languages-to-erlang-like-parallelism.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-04-26",
                                 "dateModified": "2026-07-09",
-                                "description": "Did you know you can migrate from your favorite powerful language that's so good at defining domain-specific languages (DSLs) but has this prominent Achilles'...",
+                                "description": "DSLs help express a domain; Erlang-like systems show what changes when timing, messaging, supervision, hot reload, and failure become runtime requirements.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-26-migrating-from-dsl-languages-to-erlang-like-parallelism.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,25 +79,42 @@
 
     <section class="abstract">
         <p>A language stops being only notation when it must carry timing, communication, supervision, and failure.</p>
+        <p>The useful comparison is not language fashion. It is the boundary between expressing a domain and operating a concurrent system that must keep working while messages, processes, upgrades, and failures are moving.</p>
         <div class="status-box">
-            <p><span class="status-label">Publication note</span>Originally posted 2022-04-26.</p>
-            <p><strong>Included:</strong> the original comparison between domain-specific expression and Erlang-like parallel execution concerns.</p>
-            <p><strong>Boundary:</strong> this is a technical argument, not a migration guide or language implementation.</p>
+            <p><span class="status-label">Language/runtime note</span>Originally posted 2022-04-26; expanded into a concise article on 2026-07-09.</p>
+            <p><strong>Included:</strong> domain-specific expression, concurrent execution, messaging, supervision, hot reload, and failure boundaries.</p>
+            <p><strong>Scope:</strong> this is a technical argument, not a migration guide or language implementation.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Did you know you can migrate from your favorite powerful language that's so good at defining domain-specific languages (DSLs) but has this prominent Achilles' heel of low performance?</p>
-            <p>Well, Telecoms used Erlang for decades in massively scalable parallel billing of your internet consumption, account accesses, and phone calls. For, like, ETERNITY! So it's so proven and so fast. (And have more industrial-grade hot reload than Node.js and React can ever have!)</p>
-            <p>Why I didn't know that #elixir (that runs on the same hyper-concurrent massively scalable virtual machine #erlang does) can be used to replace your #ruby / #rails #rubyonrails???</p>
-            <p>Let me know what do you think either in comments below, or in a private message!</p>
+            <h1>The Language Boundary</h1>
+            <p>DSL-friendly languages are good at compressing a domain. They let the program name the business objects, transformations, rules, or workflows without drowning the reader in low-level plumbing.</p>
+            <p>That strength does not automatically solve runtime behavior. Once the program needs independent processes, message passing, supervision, hot reload, fault isolation, and long-running service behavior, the language has crossed into a different problem.</p>
         </section>
 
         <section>
-            <h1>Language Boundary</h1>
-            <p>The useful distinction is between expressing a domain and operating a concurrent system. Once timing, communication, supervision, and failure matter, notation has to become runtime structure.</p>
+            <h1>Why Erlang-Like Systems Matter</h1>
+            <p>Erlang and Elixir are useful references because they treat concurrency, messaging, supervision, and upgrade behavior as part of the runtime shape, not as an afterthought around the application.</p>
+            <p>The original post used Ruby/Rails and DSL-heavy work as the contrast. The point is not that one language family should replace every other one. The point is that domain expression and concurrent operation are different responsibilities.</p>
+        </section>
+
+        <section>
+            <h1>What A Migration Has To Preserve</h1>
+            <ul class="article-facts">
+                <li>The domain model should remain readable.</li>
+                <li>Processes and messages need explicit ownership and failure behavior.</li>
+                <li>Runtime updates should not erase accumulated state or user work.</li>
+                <li>Supervision boundaries need to match the parts that can restart independently.</li>
+                <li>Performance work should not bury the domain under incidental concurrency machinery.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>The Useful Question</h1>
+            <p>The useful question is not whether a familiar DSL language is good or bad. The question is what happens when the same program must also carry timing, communication, supervision, failure, and upgrade behavior.</p>
+            <p>At that point, notation has to become runtime structure.</p>
         </section>
     </main>
 

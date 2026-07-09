@@ -652,7 +652,7 @@
     "title": "Reactive Programming Implies Distributed Systems",
     "date": "2022-04-27",
     "slug": "2022-04-27-reactive-programming-implies-distributed-systems",
-    "description": "I want to share with you my recent thought that came on a walk just a minute ago... It's for software developers and computer science engineers. It's about...",
+    "description": "Reactive variables become a distributed-systems problem when state changes over time, crosses boundaries, triggers other work, and needs ordering, ownership, fanout, and failure behavior.",
     "words": 447,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:6924897691604836352/"
   },
@@ -661,7 +661,7 @@
     "title": "Migrating From DSL Languages to Erlang-Like Parallelism",
     "date": "2022-04-26",
     "slug": "2022-04-26-migrating-from-dsl-languages-to-erlang-like-parallelism",
-    "description": "Did you know you can migrate from your favorite powerful language that's so good at defining domain-specific languages (DSLs) but has this prominent Achilles'...",
+    "description": "DSLs help express a domain; Erlang-like systems show what changes when timing, messaging, supervision, hot reload, and failure become runtime requirements.",
     "words": 115,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:6924785759598116864/"
   },

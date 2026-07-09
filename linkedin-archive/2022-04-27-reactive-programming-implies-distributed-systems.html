@@ -6,11 +6,11 @@
     <title>Reactive Programming Implies Distributed Systems</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="I want to share with you my recent thought that came on a walk just a minute ago... It&#39;s for software developers and computer science engineers. It&#39;s about...">
+    <meta name="description" content="Reactive variables become a distributed-systems problem when state changes over time, crosses boundaries, triggers other work, and needs ordering, ownership, fanout, and failure behavior.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-27-reactive-programming-implies-distributed-systems.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Reactive Programming Implies Distributed Systems">
-    <meta property="og:description" content="I want to share with you my recent thought that came on a walk just a minute ago... It&#39;s for software developers and computer science engineers. It&#39;s about...">
+    <meta property="og:description" content="Reactive variables become a distributed-systems problem when state changes over time, crosses boundaries, triggers other work, and needs ordering, ownership, fanout, and failure behavior.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-27-reactive-programming-implies-distributed-systems.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-04-27",
                                 "dateModified": "2026-07-09",
-                                "description": "I want to share with you my recent thought that came on a walk just a minute ago... It's for software developers and computer science engineers. It's about...",
+                                "description": "Reactive variables become a distributed-systems problem when state changes over time, crosses boundaries, triggers other work, and needs ordering, ownership, fanout, and failure behavior.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-27-reactive-programming-implies-distributed-systems.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,40 +79,47 @@
 
     <section class="abstract">
         <p>Reactive variables do not stay local for long. Once state changes over time, depends on other state, crosses boundaries, and triggers other work, the program begins to carry distributed-system problems.</p>
+        <p>The article is about that transition: reactivity is not only a UI convenience or a local dataflow trick once updates have ownership, timing, fanout, ordering, and failure behavior.</p>
         <div class="status-box">
-            <p><span class="status-label">Publication note</span>Originally posted 2022-04-27.</p>
-            <p><strong>Included:</strong> the original argument connecting reactivity, timing, state propagation, and distributed-system structure.</p>
-            <p><strong>Boundary:</strong> this is an architecture argument, not a released reactive runtime.</p>
+            <p><span class="status-label">Architecture note</span>Originally posted 2022-04-27; expanded into a concise article on 2026-07-09.</p>
+            <p><strong>Included:</strong> local reactivity, concurrent updates, process boundaries, ordering, fanout, liveness, and the Cartilage connection.</p>
+            <p><strong>Scope:</strong> this is an architecture argument, not a released reactive runtime.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>I want to share with you my recent thought that came on a walk just a minute ago...</p>
-            <p>It's for software developers and computer science engineers. It's about reactive programming.</p>
-            <p>I think, reactive programming implies concurrent programming: many things can happen simultaneously at more than one location in your source code. That's an easy thing to agree with.</p>
-            <p>Then, concurrent programming demands those multiple things to happen at those multiple places somehow. One way is multi-tasking on a single core. Another is to replace those computation updates with autonomous processes.</p>
-            <p>An autonomous process is simply a thread or a program that runs on one core (or migrates between different cores as in Kevin Cameron's design of wandering threads, closer to relevant data).</p>
-            <p>We can call the multi-processing programming a parallel programming, shall we?</p>
-            <p>After that, I only need to mention that self-modifying code with dynamic types is a must for self-consistent type instantiation support in reactive programming.</p>
-            <p>So, reactive programming is a parallel (at least, concurrent!) programming in disguise with self-modifying dynamic types, otherwise you're missing the point of its computer-scientific consistency.</p>
-            <p>Indeed, any parallel programming is orthogonal to distributed programming, and distributed programming adds reliability and liveliness concerns, but given the development of modern networks, and multipath alllocation of bandwidth, and other clever tricks to keep distributed systems coherent, we may assume (or even explicitly model!) the interconnectivity relations between PARTS of ONE LARGE DISTRIBUTED PROGRAM.</p>
-            <p>And that's the model of computation Cartilage hardware implements natively, without any OS support (it is a hardware operating system).</p>
-            <p>Okay, what I'm trying to point out to is that for many, reactive programming, Matlab/Labview &quot;Lego blocks&quot; composition, is the only way to manage immense complexity of large systems. We thought that parallel programming is MUCH HARDER than ordinary, single-threaded one, but it turns out it's the opposite.</p>
-            <p>In Cartilage, one process represents one reactive variable, or one reactive operation upon related reactive variables.</p>
-            <p>You can stretch an &quot;entanglement&quot; link upon creation of an object inside of a bigger membrane, and maintain that link, while passing that object far away: you don't ever have to use the reactive objects as classes with methods and instance variables; it's perfectly fine to treat them as pure functions for those who PREFER pure functional programming with only computed transient state.</p>
-            <p>Everything becomes possible, including hierarchical state machines (Harel), and distributed state machines (idle states). There are many ways you can design your distributed massively scalable applications on Cartilage, but the biggest kicker of WHY we doing this design is to make the FINAL CHIP.</p>
-            <p>Today's chip shortage makes it extremely hard to procure an appropriate device, and forces many of us to wait...</p>
-        </section>
-        <section class="cartilage-visual-link">
-            <h1>Cartilage Visual Language</h1>
-            <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
+            <h1>Local Reactivity Is The Small Case</h1>
+            <p>A local reactive value changes, and dependent values update. Inside a small program, that can look like a convenience: less boilerplate, fewer explicit callbacks, and a cleaner way to keep derived state current.</p>
+            <p>The structure changes when the dependent work is not all in one place. If a value update can trigger work in another process, device, thread, service, region, or fabric cell, the program now has a distributed-systems question even if the source code still looks like reactive notation.</p>
         </section>
 
         <section>
-            <h1>State Boundary</h1>
-            <p>The important boundary is where a local update becomes remote coordination: ordering, consistency, fanout, retry behavior, and the user's ability to understand what changed and why.</p>
+            <h1>What Becomes Distributed</h1>
+            <ul class="article-facts">
+                <li><strong>Ordering:</strong> which update happened first, and which dependent result is allowed to observe it.</li>
+                <li><strong>Ownership:</strong> which process, region, or device is responsible for the value now.</li>
+                <li><strong>Fanout:</strong> how many dependents receive the update, and what happens when one of them lags.</li>
+                <li><strong>Liveness:</strong> whether the system can keep moving when a dependent process stalls or disappears.</li>
+                <li><strong>Consistency:</strong> which values must agree immediately, and which values may converge later.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Why Concurrency Appears</h1>
+            <p>Reactive programming implies concurrency because many updates can become eligible at different locations in the program. A single-core scheduler can serialize some of that work, but the model itself already contains more than one active place.</p>
+            <p>Once those active places become autonomous processes, hardware regions, browser workers, services, or machines, the source language has to carry more than dependency notation. It has to carry communication, timing, placement, and failure boundaries.</p>
+        </section>
+
+        <section class="cartilage-visual-link">
+            <h1>Cartilage Connection</h1>
+            <p>Cartilage explores this problem as a visible fabric: a process-like tile or region can represent a reactive value or operation, and local ports define how configuration and state cross a boundary. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article decodes the rendered role alphabet used by that line of work.</p>
+        </section>
+
+        <section>
+            <h1>The Useful Boundary</h1>
+            <p>The important boundary is where a local update becomes coordination: ordering, consistency, fanout, retry behavior, and the user's ability to understand what changed and why.</p>
+            <p>That is why reactive programming and distributed systems belong in the same conversation. The first gives a compact way to express dependency over time. The second names the operating cost once those dependencies cross real boundaries.</p>
         </section>
     </main>
 
