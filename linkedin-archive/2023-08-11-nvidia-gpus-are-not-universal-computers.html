@@ -6,11 +6,11 @@
     <title>NVIDIA GPUs Are Not Universal Computers</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="NVIDIA GPUs are powerful tools for specific parallel computing tasks, excelling in workloads that can be massively parallelized, such as scientific...">
+    <meta name="description" content="A GPU-architecture note about why GPUs are excellent throughput machines for some parallel workloads but not universal replacements for CPUs or custom hardware.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-11-nvidia-gpus-are-not-universal-computers.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="NVIDIA GPUs Are Not Universal Computers">
-    <meta property="og:description" content="NVIDIA GPUs are powerful tools for specific parallel computing tasks, excelling in workloads that can be massively parallelized, such as scientific...">
+    <meta property="og:description" content="A GPU-architecture note about why GPUs are excellent throughput machines for some parallel workloads but not universal replacements for CPUs or custom hardware.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-11-nvidia-gpus-are-not-universal-computers.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-08-11",
                                 "dateModified": "2026-07-09",
-                                "description": "NVIDIA GPUs are powerful tools for specific parallel computing tasks, excelling in workloads that can be massively parallelized, such as scientific...",
+                                "description": "A GPU-architecture note about why GPUs are excellent throughput machines for some parallel workloads but not universal replacements for CPUs or custom hardware.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-11-nvidia-gpus-are-not-universal-computers.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,15 +78,25 @@
     <address>August 11, 2023</address>
 
     <section class="abstract">
+        <p>GPUs are excellent throughput machines when the workload has enough parallelism, regular memory access, and arithmetic density. That does not make them universal computers for every program shape.</p>
+        <p>The engineering question is not whether a GPU is powerful. It is whether the computation fits the execution model: many lanes, shared scheduling constraints, memory hierarchy, synchronization costs, and branch behavior.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-08-11.</p>
+            <p><span class="status-label">GPU architecture note</span>Originally posted 2023-08-11; expanded here around workload fit.</p>
+            <p><strong>Article focus:</strong> GPU throughput, branch divergence, memory access patterns, write behavior, synchronization, and workload mapping.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>NVIDIA GPUs are powerful tools for specific parallel computing tasks, excelling in workloads that can be massively parallelized, such as scientific simulations and deep learning. However, they are not a universal solution and have architectural constraints that make them less suitable for tasks involving complex branching, diverse memory access patterns, or massive memory writes from a single thread. The decision to use GPUs should be based on a careful assessment of the specific requirements of the computations, considering both the strengths and limitations of the GPU architecture, rather than viewing them as a one-size-fits-all solution.</p>
+            <h1>Where GPUs Fit</h1>
+            <p>GPUs fit workloads that can keep many execution lanes busy with similar work: dense linear algebra, graphics, stencil computations, simulation kernels, batched inference, training steps, and other jobs where data parallelism is large enough to amortize scheduling and memory movement.</p>
+            <p>When the kernel is regular, the hardware can turn parallelism into throughput. That is the real advantage.</p>
+        </section>
+
+        <section>
+            <h1>Where They Fight The Program</h1>
+            <p>The fit gets worse when a program depends on heavy branching, irregular pointer chasing, scattered writes, tight serial dependencies, or one thread producing a large amount of state that other lanes cannot help with.</p>
+            <p>Those constraints do not make GPUs weak. They make them specific. A CPU, FPGA, ASIC, distributed actor system, or mixed architecture may be the better shape when locality, control flow, latency, or authority boundaries matter more than raw parallel throughput.</p>
         </section>
 
     </main>

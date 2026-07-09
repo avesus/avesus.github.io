@@ -6,11 +6,11 @@
     <title>Remembering Carl Hewitt</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="My good friend and inspiration of the last 20 years since 2003 in everything I did computer science-related, was, and forever will be Carl Hewitt, died a year...">
+    <meta name="description" content="A remembrance of Carl Hewitt focused on the Actor Model, object capabilities, edge computation, message passing, and incompleteness robustness.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-12-08-remembering-carl-hewitt.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Remembering Carl Hewitt">
-    <meta property="og:description" content="My good friend and inspiration of the last 20 years since 2003 in everything I did computer science-related, was, and forever will be Carl Hewitt, died a year...">
+    <meta property="og:description" content="A remembrance of Carl Hewitt focused on the Actor Model, object capabilities, edge computation, message passing, and incompleteness robustness.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-12-08-remembering-carl-hewitt.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-12-08",
                                 "dateModified": "2026-07-09",
-                                "description": "My good friend and inspiration of the last 20 years since 2003 in everything I did computer science-related, was, and forever will be Carl Hewitt, died a year...",
+                                "description": "A remembrance of Carl Hewitt focused on the Actor Model, object capabilities, edge computation, message passing, and incompleteness robustness.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-12-08-remembering-carl-hewitt.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,24 +78,32 @@
     <address>December 8, 2023</address>
 
     <section class="abstract">
+        <p>Carl Hewitt's work matters because it gives distributed computation a concrete shape: independent actors, local state, message passing, capability-controlled access, and systems that keep working under incomplete knowledge.</p>
+        <p>This remembrance keeps the personal respect, but the technical reason is specific. The Actor Model remains one of the cleanest ways to think about computation spread across many independent components.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-12-08.</p>
+            <p><span class="status-label">Remembrance</span>Originally posted 2023-12-08, one year after Carl Hewitt's death.</p>
+            <p><strong>Article focus:</strong> Carl Hewitt, Actor Model, object capabilities, edge computation, message passing, and incompleteness robustness.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>My good friend and inspiration of the last 20 years since 2003 in everything I did computer science-related, was, and forever will be Carl Hewitt, died a year ago, on December 7th 2022.</p>
-            <p>Carl is most known for his advocacy for the Actor Model, work on Citadels (compute, inference, and storage at &quot;edge&quot; to enable AR industry with low latency and high bandwidth).</p>
-            <p>I met Carl in Mountain View, at Google building where the Object Capabilities group meets in person and online for many years now every Friday AM, at 10 AM, be precise. The group is thus called FriAM.</p>
-            <p>I was a huge fan of the Actor Model since 2003, but in 2008 I learned from Grigory Petrov that Carl Hewitt was the main popularizer and core computer scientist behind it.</p>
-            <p>Actor Model today is everywhere, from Erlang and Scala's Akka to best practices in programming. We wrote the coolest actors with Grisha, queueing messages over IOCP and writing metaprogramming template delegates.</p>
-            <p>But what most important was the William James' theory of initiation over handshakes with your professor. Direct quantum entanglement with the deepest minds in human history. Carl Hewitt was my direct connection with Isaac Newton (details in comments).</p>
-            <p>First time I met Carl at a Starbucks near Googleplex in Mountain View in 2019. I will never forget that moment. ☕️😍</p>
-            <p>You are loved ❤️ and remembered forever. 🙏Your proper concept insulation, reactive modeling simplicity, and perfect Object Capabilities will live forever and will change our lives.</p>
-            <p>Incompleteness Robustness is the obvious violation of Gödel's Incompleteness that allows us to build large complex and scalable systems, that Carl pioneered recently. His work continued until his last breath.</p>
-            <p>R.I.P. Carl Hewitt, 1944-2022</p>
+            <h1>The Actor Model</h1>
+            <p>Hewitt's Actor Model treats computation as independent actors that communicate by messages. Each actor can hold local state, create more actors, send messages, and decide how to respond to the next message it receives.</p>
+            <p>That model is still useful because it fits systems that are already distributed: services, devices, UI sessions, workers, edge nodes, and long-running agents. The important boundary is not a global shared memory image. It is ownership plus message exchange.</p>
+        </section>
+
+        <section>
+            <h1>Capabilities And Edge Computation</h1>
+            <p>Hewitt's later work also connected to object capabilities and edge computation. Object capabilities make access explicit: a component can affect only what it has been given a reference to affect. That is a practical discipline for distributed systems where authority should not leak through global names.</p>
+            <p>The Citadels direction placed compute, inference, and storage nearer the place where low latency and high bandwidth matter. That is still a serious systems question: where should state and computation live when the user experience depends on timing?</p>
+        </section>
+
+        <section>
+            <h1>Remembering The Work</h1>
+            <p>The original post came from years of following Hewitt's work and from meeting him through the FriAM object-capabilities community near Mountain View.</p>
+            <p>Hewitt's phrase &quot;incompleteness robustness&quot; points to a systems problem that remains central: large software cannot wait for complete knowledge before acting. It has to keep running, communicate, recover, and improve while information is incomplete.</p>
+            <p>R.I.P. Carl Hewitt, 1944-2022.</p>
         </section>
 
     </main>

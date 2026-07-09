@@ -6,11 +6,11 @@
     <title>Turing, Von Neumann, Boole, and Faggin</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Turing (mis)directed us to search for learning machines. Von Neumann has coined a misdirecting term &quot;singularity&quot;. Von Neumann has also invented cellular...">
+    <meta name="description" content="Notes on a computing lineage from Boolean algebra and sequential logic to VLSI, FPGAs, and statistical workloads, with Federico Faggin's Silicon as source context.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-30-turing-von-neumann-boole-and-faggin.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Turing, Von Neumann, Boole, and Faggin">
-    <meta property="og:description" content="Turing (mis)directed us to search for learning machines. Von Neumann has coined a misdirecting term &quot;singularity&quot;. Von Neumann has also invented cellular...">
+    <meta property="og:description" content="Notes on a computing lineage from Boolean algebra and sequential logic to VLSI, FPGAs, and statistical workloads, with Federico Faggin's Silicon as source context.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-30-turing-von-neumann-boole-and-faggin.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-06-30",
                                 "dateModified": "2026-07-09",
-                                "description": "Turing (mis)directed us to search for learning machines. Von Neumann has coined a misdirecting term \"singularity\". Von Neumann has also invented cellular...",
+                                "description": "Notes on a computing lineage from Boolean algebra and sequential logic to VLSI, FPGAs, and statistical workloads, with Federico Faggin's Silicon as source context.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-30-turing-von-neumann-boole-and-faggin.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,27 +78,31 @@
     <address>June 30, 2021</address>
 
     <section class="abstract">
+        <p>This note sketches a computing lineage: Boolean algebra, state, sequential circuits, VLSI, reconfigurable logic, and statistical workloads running on that substrate.</p>
+        <p>The useful point is not a hero ranking. It is that each layer gives the next layer a working handle: switching, memory, timing, layout, programmability, and large-scale execution.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-06-30.</p>
+            <p><span class="status-label">Computing-history note</span>Originally posted 2021-06-30; expanded here around the engineering sequence.</p>
+            <p><strong>Article focus:</strong> Boolean algebra, sequential circuits, VLSI, FPGAs, statistical workloads, and Federico Faggin's <i>Silicon</i>.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Turing (mis)directed us to search for learning machines.</p>
-            <p>Von Neumann has coined a misdirecting term &quot;singularity&quot;.</p>
-            <p>Von Neumann has also invented cellular automata, a very good idea.</p>
-            <p>George Boole characterized Boolean algebra.<br>
-                Samuel H. Caldwell, Huffman, McCluskey, Moore, Mealey, Nakashima, Shannon added time to Boolean algebra.</p>
-            <p>Federico Faggin put these together to create Intel 4004, pioneering making sense of sequential Boolean circuits in large scale. Very, very large scale. VLSI.</p>
-            <p>What became CMOS for laymen, professionals call Verilog, which &quot;runs&quot; on top of CMOS. Ross Freeman at  Xilinx showed us how to put Verilog inside of Verilog. He called those things FPGAs.</p>
-            <p>Then statisticians used these chips to classify large data sets. They called it &quot;AI&quot;.</p>
-            <p>Mind is you. Mind is your human nature. You are alive. You are intelligent. You exist. You are not a machine.</p>
-            <p>Charles Sanders Pierce was left behind, mistakenly. Carlo Rovelli told the same story being in mutual denial with Sean Carroll. And Searle saw it all...</p>
-            <p>Disclaimer: what is written above is not a preview of the contents of the book I highly recommend to read or listen.</p>
-            <p>Listen Federico Faggin's book, Silicon:<br>
-                Narrated by Mark Bramhall. <a href="https://lnkd.in/enUuVgW" target="_blank" rel="noopener">https://lnkd.in/enUuVgW</a></p>
+            <h1>The Engineering Line</h1>
+            <p>The technical thread runs from Boolean operations to stateful switching networks. Boolean algebra gives the logic. Sequential circuits add memory and timing. Circuit minimization, state machines, and switching theory make the structure implementable.</p>
+            <p>Faggin's Intel 4004 belongs to the VLSI step: sequential Boolean circuits became a manufactured processor with layout, timing, and control discipline. Freeman's FPGA direction added another layer: a manufactured fabric that can be configured into many circuits after fabrication.</p>
+        </section>
+
+        <section>
+            <h1>Why The Sequence Matters</h1>
+            <p>Machine-learning workloads do not float above this history. They run on switching hardware, memory systems, arithmetic units, interconnect, and software stacks built on earlier layers. The name &quot;AI&quot; should not hide the substrate that makes the workload execute.</p>
+            <p>The same point applies to programmable fabrics. An FPGA is useful because it turns a fixed chip into a surface for many hardware schedules. That makes the boundary between program, circuit, placement, and timing unusually visible.</p>
+        </section>
+
+        <section>
+            <h1>Source Context</h1>
+            <p>The original post linked Federico Faggin's <i>Silicon</i>. The book is kept here as source context for the VLSI and microprocessor thread, not as a complete history of computation.</p>
+            <p><a href="https://lnkd.in/enUuVgW" target="_blank" rel="noopener">Federico Faggin, <i>Silicon</i></a></p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>

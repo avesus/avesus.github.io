@@ -6,11 +6,11 @@
     <title>Hilbert-Space Operators as Statistical Models</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="If we have two states in vector representation on infinitely-dimensional Hilbert space, and we&#39;re trying to trace the transition probabilities from one such...">
+    <meta name="description" content="A mathematical modeling note connecting data vectors, correlation structure, linear operators, eigenvalues, and Hilbert-space language.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-01-hilbert-space-operators-as-statistical-models.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Hilbert-Space Operators as Statistical Models">
-    <meta property="og:description" content="If we have two states in vector representation on infinitely-dimensional Hilbert space, and we&#39;re trying to trace the transition probabilities from one such...">
+    <meta property="og:description" content="A mathematical modeling note connecting data vectors, correlation structure, linear operators, eigenvalues, and Hilbert-space language.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-01-hilbert-space-operators-as-statistical-models.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-08-01",
                                 "dateModified": "2026-07-09",
-                                "description": "If we have two states in vector representation on infinitely-dimensional Hilbert space, and we're trying to trace the transition probabilities from one such...",
+                                "description": "A mathematical modeling note connecting data vectors, correlation structure, linear operators, eigenvalues, and Hilbert-space language.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-01-hilbert-space-operators-as-statistical-models.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,16 +78,30 @@
     <address>August 1, 2023</address>
 
     <section class="abstract">
+        <p>Many statistical models can be read as operators acting on vector representations of data. Correlation matrices, covariance matrices, transition matrices, and kernel operators all turn observations into a structure that can be decomposed and studied.</p>
+        <p>Hilbert-space language is useful when it keeps the geometry visible: states as vectors, measurements as projections, transformations as operators, and eigenstructure as a way to find stable directions in the model.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-08-01.</p>
+            <p><span class="status-label">Mathematical-modeling note</span>Originally posted 2023-08-01; expanded here around operators and statistical structure.</p>
+            <p><strong>Article focus:</strong> vectors, operators, correlation matrices, covariance, eigenvalues, kernels, and Hilbert-space modeling language.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>If we have two states in vector representation on infinitely-dimensional Hilbert space, and we're trying to trace the transition probabilities from one such state to another, this is what all this operator theory is about. Collecting tons of cross-correlation or mutual information data in your design matrices seem to help building statistical models that can be represented as Hermitian operators acting on the vectors in Hilbert space. When #eigenvalues are mentioned in all kinds of contexts, these apply to these transformational operators, and study the operators' inner structure. Why so little literature mentions how all these fundamental concepts relate and how we apply them, at the places where we use them?</p>
-            <p>#matrices #tensors #operators #controltheory #quantumphysics #generalrelativity</p>
+            <h1>The Operator View</h1>
+            <p>A design matrix does more than hold samples. Once it is used to form correlations, covariances, kernels, or transitions, it defines an operator-like object: something that maps one vector representation into another or scores how directions in the data relate.</p>
+            <p>That is why the same language appears in statistics, control, signal processing, quantum mechanics, and numerical methods. The details differ, but the reusable structure is linear transformation on a vector space, often with an inner product that makes angles, projections, and norms meaningful.</p>
+        </section>
+
+        <section>
+            <h1>Why Eigenvalues Show Up</h1>
+            <p>Eigenvalues and eigenvectors are not decorative math. They identify directions that the operator preserves up to scaling. In a covariance matrix, that can reveal dominant variance directions. In a transition operator, it can reveal stable or slowly changing modes. In a physical operator, it can reveal measurable states or conserved structure.</p>
+            <p>The useful connection is practical: once a problem is represented as vectors plus operators, decomposition methods become a way to inspect the model's internal shape.</p>
+        </section>
+
+        <section>
+            <h1>The Limit</h1>
+            <p>The phrase &quot;Hilbert space&quot; can be too broad if it is used loosely. In day-to-day modeling, the starting point is often finite matrices and finite feature vectors. The infinite-dimensional language is valuable when the problem truly needs function spaces, kernels, or limiting arguments.</p>
         </section>
 
     </main>
