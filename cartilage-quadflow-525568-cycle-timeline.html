@@ -9,7 +9,7 @@
     <meta name="description" content="A 20-frame timeline from a successful 525,568-cycle Cartilage/QuadFlow browser-fabric run: 64x64 GLSL fabric, lockstep edge I/O, 7,956 parsed QFG frame declarations, and 704 browser-side expectations passing.">
     <link rel="canonical" href="https://greenforest.io/cartilage-quadflow-525568-cycle-timeline.html">
     <meta property="og:title" content="Cartilage QuadFlow 525,568-Cycle Timeline">
-    <meta property="og:description" content="A visual timeline and artifact note for a successful Cartilage/QuadFlow lockstep reconfiguration proof run.">
+    <meta property="og:description" content="A visual timeline and artifact note for a successful Cartilage/QuadFlow lockstep reconfiguration run.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-quadflow-525568-cycle-timeline.html">
     <meta property="og:image" content="https://greenforest.io/cartilage/codex5.5/quadflow-cartilage-525568-timeline-contact.png">
@@ -60,13 +60,13 @@
     <address>June 25, 2026</address>
 
     <section class="abstract">
-        <p>Long runs need human-readable glimpses without pretending the glimpses are the proof.</p>
-        <p>This artifact records a successful lockstep browser-fabric run of the reconfigurable ripple-adder QFG proof. A 64x64 Cartilage GLSL fabric was driven through 525,568 cycles by external edge I/O, streamed 7,956 parsed QFG frame declarations, and finished with 704 browser-side expectations passing.</p>
+        <p>Long runs need human-readable glimpses without pretending the sampled frames show every internal movement.</p>
+        <p>This artifact records a successful lockstep browser-fabric run of the reconfigurable ripple-adder QFG package. A 64x64 Cartilage GLSL fabric was driven through 525,568 cycles by external edge I/O, streamed 7,956 parsed QFG frame declarations, and finished with 704 browser-side expectations passing.</p>
         <p>The visible timeline is deliberately small: 20 committed renderer states sampled from cycle 0 through cycle 525,568. It is a verification artifact, not a cinematic demo of every configuration bit moving through the fabric.</p>
         <div class="status-box">
-            <p><span class="status-label">AI-assisted draft archive</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">AI-Assisted Cartilage Draft Archive</a>. Its computational artifact came from Codex GPT-5.5-generated work and is no longer the preferred Cartilage entry point.</p>
-            <p><strong>What is preserved here:</strong> <code>20</code> sampled states from a <code>525,568</code>-cycle run, the <code>64x64</code> fabric context, <code>7,956</code> QFG frame declarations, and <code>704</code> browser-side expectations passing.</p>
-            <p><strong>What this does not prove:</strong> every internal configuration bit movement, or that this archive cluster should be used as the primary Cartilage learning path.</p>
+            <p><span class="status-label">Recorded run timeline</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">AI-Assisted Cartilage Draft Archive</a>.</p>
+            <p><strong>Included:</strong> <code>20</code> sampled states from a <code>525,568</code>-cycle run, the <code>64x64</code> fabric context, <code>7,956</code> QFG frame declarations, and <code>704</code> browser-side expectations passing.</p>
+            <p><strong>Boundary:</strong> the timeline samples committed renderer states; it does not show every internal configuration bit movement.</p>
         </div>
     </section>
 
@@ -106,19 +106,19 @@
         <section>
             <h1>What Ran</h1>
             <p>The run used a 64x64 Cartilage GLSL fabric with external lockstep edge I/O. In this context, the important claim is not that the picture changes dramatically. The important claim is that the browser-side fabric was stepped through a long, externally driven reconfiguration run and reached the expected final state.</p>
-            <p>The run streamed 7,956 parsed QFG frame declarations. It ended with 704 browser-side expectations passing. The final visible state is the committed result after the 2-bit to 3-bit to 2-bit reversible ripple-adder reconfiguration proof.</p>
+            <p>The run streamed 7,956 parsed QFG frame declarations. It ended with 704 browser-side expectations passing. The final visible state is the committed result after the 2-bit to 3-bit to 2-bit reversible ripple-adder reconfiguration run.</p>
         </section>
 
         <section>
             <h1>What The Frames Hide</h1>
             <p>The renderer exposes committed cell/body state. It does not expose every hidden in-flight configuration shift-register bit. That matters because most of the timeline can look nearly still while the lockstep driver continues advancing the fabric, shifting configuration, and checking boundary behavior.</p>
-            <p>Read the timeline as evidence of a completed run and a way to audit the sampled committed states. Do not read it as a frame-by-frame visualization of all internal configuration traffic.</p>
+            <p>Read the timeline as sampled output from a completed run. Do not read it as a frame-by-frame visualization of all internal configuration traffic.</p>
         </section>
 
         <section>
             <h1>Why This Belongs With Cartilage</h1>
             <p>The existing <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation article</a> explains the model: local ports, bounded daughter regions, serial configuration streams, tile roles, composability, and no global magic controller.</p>
-            <p>This timeline is a narrower evidence page. It shows that the same family of ideas can be driven as a long, checked browser-fabric run rather than only as a static explanation or a manually inspected demo.</p>
+            <p>This timeline shows that the same family of ideas can be driven as a long, checked browser-fabric run rather than only as a static explanation or a manually read demo.</p>
         </section>
 
         <section>
@@ -130,9 +130,9 @@
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Value From A Reader</h1>
-            <p>If the timeline makes a proof claim seem stronger than the exact-frame package supports, I would value the exact sentence or frame label that misleads you.</p>
+        <section>
+            <h1>Timeline Boundary</h1>
+            <p>The frame labels should stay tied to the exact-frame package: sampled committed state, cycle count, parsed QFG frame count, and expectation count.</p>
         </section>
     </main>
 

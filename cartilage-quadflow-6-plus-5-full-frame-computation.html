@@ -56,13 +56,13 @@
     <address>June 25, 2026</address>
 
     <section class="abstract">
-        <p>The answer is less important than the fact that the computation passes through an inspectable body.</p>
+        <p>The answer is less important than the fact that the computation passes through a readable body.</p>
         <p>This package documents a real browser-fabric computation: a 64x64 Cartilage GLSL fabric seeded with a generated 3-bit ripple-carry adder body, driven by one external input frame for <code>a = 6</code> and <code>b = 5</code>, then advanced for 256 committed update cycles.</p>
         <p>The output ports read <code>s0 = 1</code>, <code>s1 = 1</code>, <code>s2 = 0</code>, and <code>s3 = 1</code>. In the adder's little-endian output order that is <code>1101</code>; in ordinary most-significant-bit display order it is <code>1011</code>, decimal <code>11</code>.</p>
         <div class="status-box">
-            <p><span class="status-label">AI-assisted draft archive</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">AI-Assisted Cartilage Draft Archive</a>. Its computational artifact came from Codex GPT-5.5-generated work and is no longer the preferred Cartilage entry point.</p>
-            <p><strong>What is preserved here:</strong> <code>6 + 5 = 11</code>, a <code>64x64</code> fabric, <code>256</code> update cycles, <code>257</code> captured committed states, QFG source, manifests, videos, run reports, and boundary I/O decode.</p>
-            <p><strong>What this does not prove:</strong> the long native reconfiguration proof. The adder body is pre-generated before this measured compute run begins.</p>
+            <p><span class="status-label">Measured compute run</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">AI-Assisted Cartilage Draft Archive</a>.</p>
+            <p><strong>Included:</strong> <code>6 + 5 = 11</code>, a <code>64x64</code> fabric, <code>256</code> update cycles, <code>257</code> captured committed states, QFG source, manifests, videos, run reports, and boundary I/O decode.</p>
+            <p><strong>Boundary:</strong> the adder body is pre-generated before this measured compute run begins; this is not the long native reconfiguration run.</p>
         </div>
     </section>
 
@@ -70,7 +70,7 @@
         <section>
             <h1>The Compute Claim</h1>
             <p>The driver does not compute the arithmetic answer. It seeds the browser fabric with primitive Cartilage cell bodies, stages sparse boundary-metal writes for one QFG frame, advances the fabric, and reads the external edge surface.</p>
-            <p>The measured run is not the 525,568-cycle native reconfiguration proof. The adder body is installed as the initial QFG seed before the measured compute run begins. The claim here is narrower and easier to inspect: an existing Cartilage body receives input bits at its boundary and computes the visible result through its cell state.</p>
+            <p>The measured run is not the 525,568-cycle native reconfiguration run. The adder body is installed as the initial QFG seed before the measured compute run begins. The claim here is narrower and easier to read: an existing Cartilage body receives input bits at its boundary and computes the visible result through its cell state.</p>
         </section>
 
         <section>
@@ -171,17 +171,17 @@ mark 63 48 s3=1</code></pre>
         </section>
 
         <section>
-            <h1>Tradeoff</h1>
-            <p>This is still a small computation, and the adder body is pre-generated before the measured run starts. The gain is that the example is inspectable end to end: source QFG, boundary frame, run report, manifests, first and final frames, videos, and every committed PNG state are all part of the published artifact package.</p>
+            <h1>Run Boundary</h1>
+            <p>This is still a small computation, and the adder body is pre-generated before the measured run starts. The useful part is that the source QFG, boundary frame, run report, manifests, first and final frames, videos, and every committed PNG state are all part of the published artifact package.</p>
         </section>
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Value From A Reader</h1>
-            <p>If you audit the run, I would value the first place where the boundary writes, callout labels, output readout, or manifest hashes fail to line up with the stated <code>6 + 5 = 11</code> result.</p>
+        <section>
+            <h1>Readout Boundary</h1>
+            <p>The boundary writes, callout labels, output readout, and manifest hashes should all line up with the stated <code>6 + 5 = 11</code> result.</p>
         </section>
     </main>
 

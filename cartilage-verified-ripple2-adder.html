@@ -43,12 +43,12 @@
 
     <section class="abstract">
         <p>This page is a checked run, not a concept sketch.</p>
-        <p>This is the corrected public Cartilage arithmetic artifact: a generated 2-bit ripple-carry adder rendered in the browser/GLSL fabric and checked by the QFG proof run.</p>
+        <p>This is the corrected public Cartilage arithmetic artifact: a generated 2-bit ripple-carry adder rendered in the browser/GLSL fabric and checked by the QFG verification run.</p>
         <p>The circuit computes <code>{C2, S1, S0} = A[1:0] + B[1:0]</code>. The source is not a hand-drawn route sketch; it is a generated QFG primitive-cell netlist with concrete cells for wires, muxes, constants, and crossbars.</p>
         <div class="status-box">
-            <p><span class="status-label">AI-assisted draft archive</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">AI-Assisted Cartilage Draft Archive</a>. Its computational artifact came from Codex GPT-5.5-generated work and is no longer the preferred Cartilage entry point.</p>
-            <p><strong>What is preserved here:</strong> <code>207</code> explicit seed cells, <code>16</code> parsed QFG frame declarations, <code>3072</code> lockstep fabric updates, and <code>96/96</code> browser expectations passed.</p>
-            <p><strong>What this does not prove:</strong> a general compiler, arbitrary circuit scale, or the withdrawn sketch pages. It proves this generated 2-bit adder run.</p>
+            <p><span class="status-label">Verified arithmetic run</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">AI-Assisted Cartilage Draft Archive</a>.</p>
+            <p><strong>Included:</strong> <code>207</code> explicit seed cells, <code>16</code> parsed QFG frame declarations, <code>3072</code> lockstep fabric updates, and <code>96/96</code> browser expectations passed.</p>
+            <p><strong>Boundary:</strong> this page verifies one generated 2-bit adder run. It is not a general compiler, arbitrary-scale circuit result, or replacement for the current Cartilage entry pages.</p>
         </div>
     </section>
 
@@ -71,7 +71,7 @@
         </section>
 
         <section>
-            <h1>The Proof Run</h1>
+            <h1>The Verification Run</h1>
             <p>The browser/GLSL lockstep run streamed the QFG frames through the fabric and checked the result at frame boundaries:</p>
             <pre><code>207 explicit seed cells
 16 parsed QFG frame declarations
@@ -93,18 +93,18 @@ C2 exits on the right edge at row 28</code></pre>
         <section>
             <h1>Artifacts</h1>
             <p>The source netlist is available as <a href="/cartilage-verified-ripple2-adder/browser-static-ripple2-adder-edge.qfg">browser-static-ripple2-adder-edge.qfg</a>. The full verification report is available as <a href="/cartilage-verified-ripple2-adder/verification-report.md">verification-report.md</a>.</p>
-            <p>The screenshot is a visualization of those artifacts. It is useful because it lets a reader inspect the placed fabric, but the proof comes from the generated QFG and the expectation checks.</p>
+            <p>The screenshot is a visualization of those artifacts. It is useful because it lets a reader follow the placed fabric, while verification comes from the generated QFG and the expectation checks.</p>
         </section>
 
         <section>
             <h1>What This Replaces</h1>
-            <p>The previous full-adder islands, PC-stepper islands, and mux-lanes pages are now treated as withdrawn artifacts. The first two are visual placement sketches without edge-surface proof. The mux-lanes page is a useful proof/debug fixture, but not the requested clean visitor-facing schematic.</p>
-            <p>This ripple2 adder is the current public replacement: generated source, inspectable render, edge-visible result lanes, and a passing browser expectation run.</p>
+            <p>The previous full-adder islands, PC-stepper islands, and mux-lanes pages are now treated as draft or debug artifacts. The first two are visual placement sketches without edge-surface verification. The mux-lanes page is a useful debug fixture, but not the requested clean visitor-facing schematic.</p>
+            <p>This ripple2 adder is the current public replacement: generated source, readable render, edge-visible result lanes, and a passing browser expectation run.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Value From A Reader</h1>
-            <p>If you try to reproduce or audit this page, I would value the first mismatch you find between the QFG source, the verification report, the rendered routes, and the edge-visible result lanes.</p>
+        <section>
+            <h1>Verification Boundary</h1>
+            <p>The QFG source, verification report, rendered routes, and edge-visible result lanes should all describe the same generated 2-bit adder run.</p>
         </section>
     </main>
 
