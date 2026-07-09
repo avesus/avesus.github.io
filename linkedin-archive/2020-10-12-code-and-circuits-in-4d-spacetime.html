@@ -6,11 +6,11 @@
     <title>Code and Circuits in 4D Spacetime</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Are you a neural networks training data scientist? Are you a programmer writing an object-oriented code? Are you a hardware design engineer? Study general...">
+    <meta name="description" content="A computation-structure note about treating time, state, Boolean algebra, circuit volume, and physical realization as part of code and hardware reasoning.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2020-10-12-code-and-circuits-in-4d-spacetime.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Code and Circuits in 4D Spacetime">
-    <meta property="og:description" content="Are you a neural networks training data scientist? Are you a programmer writing an object-oriented code? Are you a hardware design engineer? Study general...">
+    <meta property="og:description" content="A computation-structure note about treating time, state, Boolean algebra, circuit volume, and physical realization as part of code and hardware reasoning.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2020-10-12-code-and-circuits-in-4d-spacetime.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2020-10-12",
                                 "dateModified": "2026-07-09",
-                                "description": "Are you a neural networks training data scientist? Are you a programmer writing an object-oriented code? Are you a hardware design engineer? Study general...",
+                                "description": "A computation-structure note about treating time, state, Boolean algebra, circuit volume, and physical realization as part of code and hardware reasoning.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2020-10-12-code-and-circuits-in-4d-spacetime.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,18 +78,25 @@
     <address>October 12, 2020</address>
 
     <section class="abstract">
+        <p>This note connects code, circuits, time, and physical realization. The useful issue is that a program is not only a static expression; it occupies time, stores state, and eventually runs on a physical device.</p>
+        <p>Thinking about time as part of the structure changes how state, parallelism, Boolean algebra, and circuit volume are discussed.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2020-10-12.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+            <p><span class="status-label">Computation-structure note</span>Originally posted 2020-10-12; expanded here around time and physical realization.</p>
+            <p><strong>Related:</strong> <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a></p>
+            <p><strong>Article focus:</strong> time, state, Boolean algebra, physical devices, surface area, volume, and circuit structure.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Are you a neural networks training data scientist? Are you a programmer writing an object-oriented code? Are you a hardware design engineer? Study general relativity, and start thinking about time as a spatial dimension in your code and circuits.</p>
-            <p>Why? State disappears. Boolean algebra is Turing-complete in 4D spacetime.</p>
-            <p>(I need to add that I oppose pure functional programming, because for any given number of inputs, in a _physical device realization_, there's much more volume inside. Simply said, FP doesn't scale because surface area grows much slower than volume of a computer.)</p>
+            <h1>The Computation Question</h1>
+            <p>The original note asked what changes when time is treated as a first-class dimension in code and circuits. In a physical implementation, state is not only a variable name; it is stored, moved, clocked, observed, and constrained by the device.</p>
+            <p>Boolean structure can express computation, but the physical machine still has placement, volume, surface area, routing, and timing costs.</p>
+        </section>
+
+        <section>
+            <h1>Physical Scale</h1>
+            <p>The surface-area-versus-volume point is a hardware warning. As a physical computer grows, the inside volume and the communication surface do not scale the same way. A programming model that ignores that geometry can hide the cost of moving state and connecting parts.</p>
         </section>
 
     </main>

@@ -6,11 +6,11 @@
     <title>Training a Tiny LLaMA From Scratch</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Bizarre fun training a LLaMA-2 FROM SCRATCH 500k parameters on the TinyStories dataset (trained overnight on CPU in PyTorch: ModelArgs(dim=103, n_layers=5,...">
+    <meta name="description" content="A small-model training note: a 500k-parameter LLaMA-style model trained overnight on CPU with TinyStories, architecture parameters, and sample output preserved.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2024-01-10-training-a-tiny-llama-from-scratch.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Training a Tiny LLaMA From Scratch">
-    <meta property="og:description" content="Bizarre fun training a LLaMA-2 FROM SCRATCH 500k parameters on the TinyStories dataset (trained overnight on CPU in PyTorch: ModelArgs(dim=103, n_layers=5,...">
+    <meta property="og:description" content="A small-model training note: a 500k-parameter LLaMA-style model trained overnight on CPU with TinyStories, architecture parameters, and sample output preserved.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2024-01-10-training-a-tiny-llama-from-scratch.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2024-01-10",
                                 "dateModified": "2026-07-09",
-                                "description": "Bizarre fun training a LLaMA-2 FROM SCRATCH 500k parameters on the TinyStories dataset (trained overnight on CPU in PyTorch: ModelArgs(dim=103, n_layers=5,...",
+                                "description": "A small-model training note: a 500k-parameter LLaMA-style model trained overnight on CPU with TinyStories, architecture parameters, and sample output preserved.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2024-01-10-training-a-tiny-llama-from-scratch.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,17 +78,28 @@
     <address>January 10, 2024</address>
 
     <section class="abstract">
+        <p>This was a small LLaMA-style training run: about 500k parameters on TinyStories, trained overnight on CPU in PyTorch.</p>
+        <p>The value is that model shape and output stay together. The page preserves the architecture settings and a generated sample so the run can be read as a concrete artifact, not just a claim that a model was trained.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2024-01-10.</p>
+            <p><span class="status-label">Small-model run</span>Originally posted 2024-01-10; expanded here around the training artifact.</p>
             <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+            <p><strong>Article focus:</strong> TinyStories, 500k parameters, CPU training, PyTorch, architecture settings, and generated sample text.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Bizarre fun training a LLaMA-2 FROM SCRATCH 500k parameters on the TinyStories dataset (trained overnight on CPU in PyTorch: ModelArgs(dim=103, n_layers=5, n_heads=8, n_kv_heads=1, vocab_size=103, multiple_of=4, max_seq_len=240, dropout=0.2))</p>
-            <p>&quot;Once upon a time, there was a very cold! The road had been to be thoughtful and see the animals remembered to eat her new friends. One day, while playing, Tom took a big pot in his friend when he decided to see the sun to let Lucy be dangerous of happy plants. Tom jumped on...&quot;</p>
+            <h1>The Run</h1>
+            <p>The model used TinyStories and trained overnight on CPU in PyTorch. The reported size was about 500k parameters.</p>
+            <p>The preserved settings were: dim 103, 5 layers, 8 heads, 1 key/value head, vocabulary size 103, multiple_of 4, maximum sequence length 240, and dropout 0.2.</p>
+        </section>
+
+        <section>
+            <h1>Sample Output</h1>
+            <blockquote>
+                <p>Once upon a time, there was a very cold! The road had been to be thoughtful and see the animals remembered to eat her new friends. One day, while playing, Tom took a big pot in his friend when he decided to see the sun to let Lucy be dangerous of happy plants. Tom jumped on...</p>
+            </blockquote>
+            <p>The sample is useful because it shows the level of the run directly: local grammar and story-like texture appear, but the model is still very small and the generated sequence does not yet maintain strong coherence.</p>
         </section>
 
     </main>

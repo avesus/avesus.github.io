@@ -6,11 +6,11 @@
     <title>RAG as a Rewrite-or-Repeat Discipline</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Can you believe that #RAG is solely based on a quirk in #LLM of its capability to solve a very specific problem (and, of course, an additional summarization...">
+    <meta name="description" content="A retrieval-augmented generation note: rewrite an answer when retrieved context changes it, or repeat the answer when the context adds no useful information.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2024-01-02-rag-as-a-rewrite-or-repeat-discipline.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="RAG as a Rewrite-or-Repeat Discipline">
-    <meta property="og:description" content="Can you believe that #RAG is solely based on a quirk in #LLM of its capability to solve a very specific problem (and, of course, an additional summarization...">
+    <meta property="og:description" content="A retrieval-augmented generation note: rewrite an answer when retrieved context changes it, or repeat the answer when the context adds no useful information.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2024-01-02-rag-as-a-rewrite-or-repeat-discipline.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2024-01-02",
                                 "dateModified": "2026-07-09",
-                                "description": "Can you believe that #RAG is solely based on a quirk in #LLM of its capability to solve a very specific problem (and, of course, an additional summarization...",
+                                "description": "A retrieval-augmented generation note: rewrite an answer when retrieved context changes it, or repeat the answer when the context adds no useful information.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2024-01-02-rag-as-a-rewrite-or-repeat-discipline.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,26 +78,26 @@
     <address>January 2, 2024</address>
 
     <section class="abstract">
+        <p>One practical RAG discipline is a two-way decision: rewrite the existing answer when retrieved context changes it, or repeat the answer when the context adds nothing useful.</p>
+        <p>The value is not the acronym. The value is the control rule: retrieval should update the answer only when it actually carries new evidence.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2024-01-02.</p>
-            <p><strong>Related:</strong> <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a></p>
+            <p><span class="status-label">RAG note</span>Originally posted 2024-01-02; expanded here around the rewrite-or-repeat rule.</p>
+            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+            <p><strong>Article focus:</strong> retrieval, answer refinement, rewrite/repeat behavior, and context usefulness.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Can you believe that #RAG is solely based on a quirk in #LLM of its capability to solve a very specific problem (and, of course, an additional summarization embedding model)?</p>
-            <p>You are an expert Q&amp;A system that strictly operates in two modes<br>
-                when refining existing answers:<br>
-                1. **Rewrite** an original answer using the new context.<br>
-                2. **Repeat** the original answer if the new context isn't useful.<br>
-                Never reference the original answer or context directly in your answer.<br>
-                When in doubt, just repeat the original answer.<br>
-                New Context: Three apples were green.<br>
-                Query: What color where the apples?<br>
-                Original Answer: <br>
-                New Answer:</p>
+            <h1>The Rule</h1>
+            <p>The original prompt constrained answer refinement to two outcomes. If the new context is useful, rewrite the answer using it. If the new context is not useful, repeat the original answer.</p>
+            <p>That keeps retrieval from becoming automatic contamination. A retrieved passage has to earn its way into the answer.</p>
+        </section>
+
+        <section>
+            <h1>The Small Test</h1>
+            <p>The prompt example used a simple fact: "Three apples were green." The query asked what color the apples were. The model's job was not to discuss context. It was to produce the corrected answer when the context answered the query.</p>
+            <p>The same discipline scales to larger RAG systems: context should either change the answer for a reason or leave the answer alone.</p>
             <p><a href="https://lnkd.in/g6CGSTuH" target="_blank" rel="noopener">https://lnkd.in/g6CGSTuH</a></p>
         </section>
         <section>
