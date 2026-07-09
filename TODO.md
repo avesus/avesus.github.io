@@ -69,8 +69,9 @@ Do not publish a fake thumbnail for it. Local HTTP requests, direct media URL at
 
 ### SDR / Digital Radio
 
-- Preserve the engineering framing: pin count, thresholded RF stream, four-phase sampling, XOR/Weaver mixing, CIC filtering, cross-product FM demodulation, sigma-delta output, PCB prototype, limitations.
+- Preserve the engineering framing: one logical RF input on a physical differential comparator pair, thresholded RF stream, four-phase sampling, XOR/Weaver mixing, the selected snapshot's 80-sample rectangular integrate-and-dump filter, cross-product FM demodulation, sigma-delta output, PCB prototype, and explicit limitations.
 - The single-pin FM article now has a basic Verilog follow-up section with source links and extracted snippets from the selected UP5K receiver snapshot.
+- Keep `article-drafts/can-one-bit-tell-what-is-there.md` unpublished until its calibrated detector, sensitivity, selectivity, false-alarm, blocker, and FM-linearity result tables are populated from preserved captures.
 - Add videos of FM receiving when stable public links are available.
 - Add deeper module/resource/timing notes only from build logs or fresh FPGA measurements, not from packed bitstream files.
 - Add PCB prototype notes.
