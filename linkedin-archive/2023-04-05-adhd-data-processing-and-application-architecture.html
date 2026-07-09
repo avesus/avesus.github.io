@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ADHD Data Processing and Application Architecture</title>
+    <title>Application Startup and Dataflow Architecture</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="ADHD data processing is nonlinear. I physically read a thousand of books in parallel. Ten thousand of papers. Simultaneously. My space looks like a hoarder&#39;s....">
+    <meta name="description" content="An application-architecture note: startup code, object construction, state ownership, event handlers, dataflow, and feedback paths define the program users actually run.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-04-05-adhd-data-processing-and-application-architecture.html">
     <meta property="og:site_name" content="Greenforest I/O">
-    <meta property="og:title" content="ADHD Data Processing and Application Architecture">
-    <meta property="og:description" content="ADHD data processing is nonlinear. I physically read a thousand of books in parallel. Ten thousand of papers. Simultaneously. My space looks like a hoarder&#39;s....">
+    <meta property="og:title" content="Application Startup and Dataflow Architecture">
+    <meta property="og:description" content="An application-architecture note: startup code, object construction, state ownership, event handlers, dataflow, and feedback paths define the program users actually run.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-04-05-adhd-data-processing-and-application-architecture.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -24,7 +24,7 @@
                         {
                                 "@type": "Article",
                                 "@id": "https://greenforest.io/linkedin-archive/2023-04-05-adhd-data-processing-and-application-architecture.html#article",
-                                "headline": "ADHD Data Processing and Application Architecture",
+                                "headline": "Application Startup and Dataflow Architecture",
                                 "author": {
                                         "@type": "Person",
                                         "name": "Brian Greenforest",
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-04-05",
                                 "dateModified": "2026-07-09",
-                                "description": "ADHD data processing is nonlinear. I physically read a thousand of books in parallel. Ten thousand of papers. Simultaneously. My space looks like a hoarder's....",
+                                "description": "An application-architecture note: startup code, object construction, state ownership, event handlers, dataflow, and feedback paths define the program users actually run.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-04-05-adhd-data-processing-and-application-architecture.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -62,7 +62,7 @@
                                         {
                                                 "@type": "ListItem",
                                                 "position": 3,
-                                                "name": "ADHD Data Processing and Application Architecture",
+                                                "name": "Application Startup and Dataflow Architecture",
                                                 "item": "https://greenforest.io/linkedin-archive/2023-04-05-adhd-data-processing-and-application-architecture.html"
                                         }
                                 ]
@@ -74,36 +74,44 @@
 </head>
 
 <body>
-    <header>ADHD Data Processing and Application Architecture</header>
+    <header>Application Startup and Dataflow Architecture</header>
     <address>April 5, 2023</address>
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-04-05.</p>
+            <p><span class="status-label">Application-architecture note</span>Originally posted 2023-04-05; rewritten here around startup structure and dataflow ownership.</p>
+            <p><strong>Included:</strong> main entry points, construction order, long-lived state, event handlers, data pipelines, feedback paths, and what to inspect before changing a running system.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>ADHD data processing is nonlinear. I physically read a thousand of books in parallel. Ten thousand of papers. Simultaneously. My space looks like a hoarder's.</p>
-            <p>Nevertheless, when C++ main() is called, I always read the sequential instantiation code &quot;cover-to-cover.&quot;You see, the code that establishes the main application architecture which remains stable for the run time is the most important code. It's easy to write and comprehend the source code of &quot;event handlers.&quot; But the &quot;bigger picture&quot; is the fun one.When you start a new software development project, please, take your time, and read that code sequentionally.</p>
-            <p>Put the order of main function invocations and objects being constructed on a linear sheet of paper, and map in what order what steps up onto the grand stage of the app.Thinking about applications, even server applications, like they are just event handlers without any state is silly and non-productive. Everything has a bigger picture, look deeper.Take data science, for example. A control theory in disguise, with Human input as its ultimate feed of Creativity.</p>
-            <p>The Math heart of ML produces insights and recommendations, and eats the Creative input and Big Data of observations. The recommendations go cybernetically as actuators, transforming human minds on mass. The insights help your boss and you to bring a corrected Creativity feed. Hypothesis testing is that feed. You CHOOSE where to look at. You model the world, then you feed the constructed models back into that world.</p>
-            <p>As a data scientist... You. Are. Responsible. You own your data science projects, not your boss, and not even your customers.</p>
-            <p>P.S.: Things that have a beginning are not there to have an end. Temporal sequential processes establish structure, not behavior. Time is not a linear phenomenon, and never was.</p>
-            <p>(edit: someone/something has deleted all new lines in the copy. Sorry for the inconvenience of reading!)</p>
+            <h1>The Startup Path Defines the Runtime</h1>
+            <p>In a large application, the entry point is not boilerplate. The startup path constructs the long-lived objects, state stores, schedulers, event loops, data feeds, network clients, model pipelines, and shutdown responsibilities that shape the rest of the run.</p>
+            <p>Event handlers are easier to read in isolation. They are also easy to misunderstand if the reader has not first seen what was constructed, who owns it, and which pieces survive for the lifetime of the process.</p>
+        </section>
+
+        <section>
+            <h1>Read Construction Order</h1>
+            <p>A useful first pass through an unfamiliar application is simple: read the entry point, list the objects created in order, mark the durable state, and draw the paths where data enters, changes, and leaves.</p>
+            <p>That map answers practical questions before a change is made. Which component owns the setting? Which worker observes the feed? Which migration changes the stored shape? Which event handler is only a leaf, and which one mutates state that later code depends on?</p>
+        </section>
+
+        <section>
+            <h1>Data Work Is a Feedback System</h1>
+            <p>Data science and machine-learning applications are also application architectures. Observations enter, models are trained or updated, recommendations leave, users or operators react, and new observations come back. The useful question is where that feedback is stored, tested, audited, and corrected.</p>
+            <p>Responsibility follows the path. A model output is not only a number; it becomes part of a product, workflow, decision, or user-facing loop. The architecture should make that loop visible enough to test and improve.</p>
         </section>
 
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2023-03-26-transformers-as-mathematical-optimization.html">Transformers as Mathematical Optimization</a>
-        <p>Another dated publication from March 26, 2023.</p>
+        <a href="2026-03-06-correctness-emerges-by-acting.html">Correctness Emerges by Acting</a>
+        <p>The software-quality companion: observed behavior should become tests, migrations, and safer paths.</p>
         <p>More:</p>
-        <a href="2023-04-10-llms-reinforcement-learning-and-physical-world-models.html">LLMs, Reinforcement Learning, and Physical World Models</a>
-        <p>Another dated publication from April 10, 2023.</p>
+        <a href="2022-04-21-compiling-backend-code-to-a-colder-chip.html">Compiling Backend Code to a Colder Chip</a>
+        <p>A backend-architecture note about preserving data models, state, configuration, and observability when execution changes shape.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

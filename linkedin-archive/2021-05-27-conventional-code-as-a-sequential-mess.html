@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Conventional Code as a Sequential Mess</title>
+    <title>Sequential Code and Hidden Runtime State</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Do you realize how BAD conventional code is? If you imagine code as circuits, good luck with reasoning about something happening as inside of a black box (you...">
+    <meta name="description" content="A software-architecture note: sequential source code can hide state, time, ownership, and locality when the real system behaves like many interacting machines.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-05-27-conventional-code-as-a-sequential-mess.html">
     <meta property="og:site_name" content="Greenforest I/O">
-    <meta property="og:title" content="Conventional Code as a Sequential Mess">
-    <meta property="og:description" content="Do you realize how BAD conventional code is? If you imagine code as circuits, good luck with reasoning about something happening as inside of a black box (you...">
+    <meta property="og:title" content="Sequential Code and Hidden Runtime State">
+    <meta property="og:description" content="A software-architecture note: sequential source code can hide state, time, ownership, and locality when the real system behaves like many interacting machines.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-05-27-conventional-code-as-a-sequential-mess.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -24,7 +24,7 @@
                         {
                                 "@type": "Article",
                                 "@id": "https://greenforest.io/linkedin-archive/2021-05-27-conventional-code-as-a-sequential-mess.html#article",
-                                "headline": "Conventional Code as a Sequential Mess",
+                                "headline": "Sequential Code and Hidden Runtime State",
                                 "author": {
                                         "@type": "Person",
                                         "name": "Brian Greenforest",
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-05-27",
                                 "dateModified": "2026-07-09",
-                                "description": "Do you realize how BAD conventional code is? If you imagine code as circuits, good luck with reasoning about something happening as inside of a black box (you...",
+                                "description": "A software-architecture note: sequential source code can hide state, time, ownership, and locality when the real system behaves like many interacting machines.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-05-27-conventional-code-as-a-sequential-mess.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -62,7 +62,7 @@
                                         {
                                                 "@type": "ListItem",
                                                 "position": 3,
-                                                "name": "Conventional Code as a Sequential Mess",
+                                                "name": "Sequential Code and Hidden Runtime State",
                                                 "item": "https://greenforest.io/linkedin-archive/2021-05-27-conventional-code-as-a-sequential-mess.html"
                                         }
                                 ]
@@ -74,33 +74,43 @@
 </head>
 
 <body>
-    <header>Conventional Code as a Sequential Mess</header>
+    <header>Sequential Code and Hidden Runtime State</header>
     <address>May 27, 2021</address>
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-05-27.</p>
+            <p><span class="status-label">Software-architecture note</span>Originally posted 2021-05-27; rewritten here around sequential source code and hidden runtime state.</p>
+            <p><strong>Included:</strong> instruction pointers, event order, state ownership, locality, parallel work, and why a program can be hard to reason about even when each function is readable.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Do you realize how BAD conventional code is?</p>
-            <p>If you imagine code as circuits, good luck with reasoning about something happening as inside of a black box (you have to be time and history specific). You even have to pick the specific box to focus your attention at (it jumps out of sudden between ALL boxes!)</p>
-            <p>How did we allow for such sequential von Neumann mess? Where did we turn wrong? Instruction pointer (program counter) concept was the biggest obstacle to scalability in software. I state, then, that silver bullet must exist... Think about it.</p>
-            <p>#parallelprogramming #gpgpu #fpgas #programming #scalability #mathematics #abstraction #painpoints #hierarchy #encapsulation #complexsystems #components #comprehension #composable #systems</p>
+            <h1>The Sequential View Hides Runtime Shape</h1>
+            <p>Sequential source code is readable because it gives one line after another. A running application is often not that simple. It may have event handlers, timers, queues, workers, sockets, caches, subscriptions, GPU kernels, browser callbacks, or devices that all affect state at different times.</p>
+            <p>The instruction pointer is a useful local explanation. It becomes a weak global explanation when the important behavior is distributed across many active boxes.</p>
+        </section>
+
+        <section>
+            <h1>Why the Circuit Analogy Helps</h1>
+            <p>A circuit forces the reader to ask where state lives, which paths can change it, what happens on a clock boundary, and which values are local. Software needs the same questions once the program becomes event-driven or parallel.</p>
+            <p>The goal is not to make all software look like hardware. The goal is to preserve enough runtime structure that a future change can be made without guessing which hidden state will move next.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>The practical target is source code that keeps event order, ownership, locality, and failure visible. That matters for live feeds, background workers, remote-control paths, browser state, database migrations, and parallel computation.</p>
         </section>
 
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2021-04-26-binary-decision-diagrams-and-mux-networks.html">Binary Decision Diagrams and MUX Networks</a>
-        <p>Another dated publication from April 26, 2021.</p>
+        <a href="2021-06-18-cpus-solve-a-narrow-class-of-problems.html">CPUs Solve a Narrow Class of Problems</a>
+        <p>The compute-architecture version of the same sequential-shape question.</p>
         <p>More:</p>
-        <a href="2021-06-04-cellular-automata-across-fpga-chains.html">Cellular Automata Across FPGA Chains</a>
-        <p>Another dated publication from June 4, 2021.</p>
+        <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>
+        <p>The larger source-code problem once execution spreads across workers, devices, and machines.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

@@ -6,11 +6,11 @@
     <title>A Physical-Constraints-Aware Programming Language</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Wow, this type of abstraction this amazingly crystal clear minded author argues about is exactly what my research group at Solid State Pros working on for the...">
+    <meta name="description" content="A programming-language note: distributed programs need to express physical constraints such as placement, links, latency, clock domains, ownership, and device boundaries.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-04-18-a-physical-constraints-aware-programming-language.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="A Physical-Constraints-Aware Programming Language">
-    <meta property="og:description" content="Wow, this type of abstraction this amazingly crystal clear minded author argues about is exactly what my research group at Solid State Pros working on for the...">
+    <meta property="og:description" content="A programming-language note: distributed programs need to express physical constraints such as placement, links, latency, clock domains, ownership, and device boundaries.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-04-18-a-physical-constraints-aware-programming-language.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2021-04-18",
                                 "dateModified": "2026-07-09",
-                                "description": "Wow, this type of abstraction this amazingly crystal clear minded author argues about is exactly what my research group at Solid State Pros working on for the...",
+                                "description": "A programming-language note: distributed programs need to express physical constraints such as placement, links, latency, clock domains, ownership, and device boundaries.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-04-18-a-physical-constraints-aware-programming-language.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,15 +79,27 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2021-04-18.</p>
+            <p><span class="status-label">Programming-language note</span>Originally posted 2021-04-18; rewritten here around physical constraints in distributed execution.</p>
+            <p><strong>Included:</strong> CPUs, GPUs, FPGAs, Ethernet/IP links, placement, latency, ownership, and why accelerators should not be treated as invisible backend details.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Wow, this type of abstraction this amazingly crystal clear minded author argues about is exactly what my research group at Solid State Pros working on for the past few years! Steve Haak Wyatt Flanders</p>
-            <p>We ALMOST made it work! It's a dynamic distributed parallel reactive physical constraints aware programming language. It knows where you have all parts of your giant distributed program, including the constellation of GPUs and CPU over Ethernet and IP your mesh of FPGAs is connected to and controls. It's FPGA-first control architecture. FPGAs are not accelerators anymore, but main cores.</p>
+            <h1>Physical Constraints Belong in the Program</h1>
+            <p>A distributed program does not run in an abstract place. It runs across CPUs, GPUs, FPGAs, network links, memory regions, clock domains, device drivers, queues, and control paths. Those physical facts affect latency, throughput, failure, security, and who owns each piece of state.</p>
+            <p>A useful programming model should let the builder express those constraints directly instead of hiding them behind a flat worker abstraction.</p>
+        </section>
+
+        <section>
+            <h1>Placement Is Part of Meaning</h1>
+            <p>When a program spans devices, placement is not an optimization pass at the end. It changes what the program means operationally: where data waits, which clock observes it, which link can fail, which host can restart, and which region is allowed to mutate state.</p>
+            <p>That is why heterogeneous systems need language and runtime support for physical boundaries, not only faster kernels.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>The original post linked Adrian Sampson's FPGA abstraction writing as immediate context. The continuing question is how to make placement, resources, and physical costs readable without forcing every project into one accelerator-specific programming style.</p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>
@@ -100,11 +112,11 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2021-03-12-energy-paths-beyond-gasoline.html">Energy Paths Beyond Gasoline</a>
-        <p>Another dated publication from March 12, 2021.</p>
+        <a href="2022-05-11-when-one-fpga-is-not-enough.html">When One FPGA Is Not Enough</a>
+        <p>The multi-device hardware version of the same placement and boundary problem.</p>
         <p>More:</p>
-        <a href="2021-04-18-moore-law-grand-finale.html">Moore Law Grand Finale</a>
-        <p>Another dated publication from April 18, 2021.</p>
+        <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>
+        <p>The source-code version of the same scale problem.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
