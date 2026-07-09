@@ -6,11 +6,11 @@
     <title>Single-Argument Functions and Abstraction</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Imagine learning Python constrained with the use of only &quot;single argument and single return value&quot; functions. No lists allowed. An exception is a vector or a...">
+    <meta name="description" content="A programming-language note about single-argument functions, multi-input abstractions, tuples, records, and why useful interfaces need explicit shape.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2020-07-19-single-argument-functions-and-abstraction.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Single-Argument Functions and Abstraction">
-    <meta property="og:description" content="Imagine learning Python constrained with the use of only &quot;single argument and single return value&quot; functions. No lists allowed. An exception is a vector or a...">
+    <meta property="og:description" content="A programming-language note about single-argument functions, multi-input abstractions, tuples, records, and why useful interfaces need explicit shape.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2020-07-19-single-argument-functions-and-abstraction.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2020-07-19",
                                 "dateModified": "2026-07-09",
-                                "description": "Imagine learning Python constrained with the use of only \"single argument and single return value\" functions. No lists allowed. An exception is a vector or a...",
+                                "description": "A programming-language note about single-argument functions, multi-input abstractions, tuples, records, and why useful interfaces need explicit shape.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2020-07-19-single-argument-functions-and-abstraction.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,23 +78,31 @@
     <address>July 19, 2020</address>
 
     <section class="abstract">
+        <p>A single-argument function is a useful mathematical simplification, but it is not the whole story of software interfaces. Real programs move structured input through structured output.</p>
+        <p>The useful teaching point is interface shape: tuples, records, vectors, matrices, named fields, and typed data structures are not details added later. They are how a computation says what it needs and what it returns.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2020-07-19.</p>
+            <p><span class="status-label">Programming-language note</span>Originally posted 2020-07-19; expanded here around interface shape.</p>
+            <p><strong>Article focus:</strong> single-argument functions, multiple inputs, return values, tuples, records, type shape, and abstraction.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Imagine learning Python constrained with the use of only &quot;single argument and single return value&quot; functions. No lists allowed. An exception is a vector or a matrix can be return value. No matrices in arguments, please.</p>
-            <p>Standard Python syntax becomes unavailable this way. Class methods don't work anymore (remember &quot;self&quot; as the first argument?)</p>
-            <p>Abstraction is a dream impossible with this single-argument approach.</p>
-            <p>Somehow, we agree to study mathematics based on functions of single argument, and call it a core.</p>
-            <p>Multivariable calculus, PDEs, tensors, multilinear algebra become study subjects of undergraduate and PhD level mathematics.</p>
-            <p>A graduate student, re-learns addition and multiplication, discovering that MULTIPLE ARGUMENTS are a norm. Teachers were hand waving until you &quot;grow up&quot; because it was &quot;too messy&quot; and &quot;too general&quot; to introduce you to the BASIC &quot;abstract&quot; concepts.</p>
-            <p>It's not 1700s anymore. We have computers and abstraction. Teach students multiple inputs-multiple outputs in the 1st grade, please...</p>
-            <p>I don't believe that it's an education system conspiracy. We need to reform it.</p>
-            <p>#reformeducation</p>
+            <h1>The Constraint</h1>
+            <p>Teaching everything as a single-argument, single-return function can hide the structure of the problem. In a real API, the input may be a record, tuple, vector, matrix, stream, object reference, or message. The output may have the same kind of structure.</p>
+            <p>Currying and product types can reduce many-argument functions to one-argument functions formally, but that does not remove the engineering need to name and organize the data being passed.</p>
+        </section>
+
+        <section>
+            <h1>Why Shape Matters</h1>
+            <p>An interface with multiple named inputs is not merely messier notation. It tells the caller what roles exist: source, destination, clock, limit, predicate, coordinate, gain, state, or configuration.</p>
+            <p>When that shape is hidden, the reader has to recover it from convention. When it is explicit, the computation becomes easier to inspect, test, and change.</p>
+        </section>
+
+        <section>
+            <h1>The Teaching Point</h1>
+            <p>Students should meet structured input and output early. Arithmetic, geometry, programming, physics, and data modeling all use values whose relationships matter.</p>
+            <p>The lesson is not that single-argument functions are wrong. The lesson is that abstraction begins when the shape of the data is made explicit enough to build on.</p>
         </section>
 
     </main>

@@ -81,19 +81,29 @@
         <p>Model arithmetic on chips reduces quickly to concrete datapath and control pieces.</p>
         <p>The post names the layer that matters for chip implementations: carry-save adders, parallel-prefix adders, one-hot state machines, H-trees, FIFO, clock-domain crossing, IEEE 754 FMA, bfloat16, and pipelined backpropagation when enough chip area is available.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-11-29.</p>
-            <p><strong>Included:</strong> the original post and a compact framing around chip-level arithmetic and control structures.</p>
+            <p><span class="status-label">Chip-arithmetic note</span>Originally posted 2023-11-29; expanded here around datapath and control structures.</p>
+            <p><strong>Article focus:</strong> carry-save adders, parallel-prefix adders, state-machine control, clock distribution, FIFO, CDC, FMA, bfloat16, and training datapaths.</p>
             <p><strong>Related:</strong> <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a> and <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a>.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>To do AI arithmetic well on chips, all you need to master are CSA and PPA. Everything else is just Harel UML Statecharts, meaning you must already be an expert in one-hot FSM (if you're doing HW at all!) Don't forget power planes, ground-decoupled crossovers, H-trees, FIFO, and CDC, but those are trivial technicalities not much patent-protected and there was less intentional deception in education has being committed (thanks Intel, AMD, Nvidia, especially UofA).</p>
-            <p>Keep in mind IEEE 754 was considered the most complex datapath by its creators, don't let the fused multiply-add struggle to put your AI chip ambition down. Google Brain's BFLOAT16 format makes things easier to wrap your head around, and training in it was proven to converge for Transformers.</p>
-            <p>PM if you want to learn more. I can teach you online fully pipelined backpropagation, if you got a huge chip area like Cerebras Systems</p>
-            <p>#aichips #asic #dsp #bfloat16 #fma #mac #fpga #ai #silicon #chips</p>
+            <h1>The Datapath Pieces</h1>
+            <p>AI arithmetic on chips eventually becomes a physical datapath. Carry-save adders reduce partial products without propagating every carry immediately. Parallel-prefix adders handle the carry-propagate step when the design needs a final binary result.</p>
+            <p>Multiply-accumulate and fused multiply-add units sit on top of those primitives, along with format choices such as IEEE 754 floating point, bfloat16, integer accumulators, and saturation or rounding behavior.</p>
+        </section>
+
+        <section>
+            <h1>Control And Distribution</h1>
+            <p>The arithmetic unit is not enough by itself. The chip also needs state-machine control, FIFOs, clock-domain crossings, reset strategy, clock distribution, power distribution, and physical routing that preserves timing.</p>
+            <p>That is why a simple arithmetic formula becomes a chip-design problem. The datapath, controller, clock tree, memory movement, and verification plan all have to agree.</p>
+        </section>
+
+        <section>
+            <h1>Training On Large Chips</h1>
+            <p>A fully pipelined training datapath is possible only when the chip has enough area and memory movement to keep forward values, gradient flow, parameter updates, and synchronization organized. The arithmetic primitive is visible, but the schedule and data placement decide whether the machine is usable.</p>
+            <p>The related bit-serial multiplier article takes the same idea at smaller scale: make the arithmetic schedule inspectable first, then ask how it composes into a larger fabric.</p>
         </section>
 
     </main>

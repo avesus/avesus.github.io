@@ -81,16 +81,29 @@
         <p>Open-sourcing an FPU fused multiply-add unit is not the same kind of problem as open-sourcing a software package.</p>
         <p>The post points at the hard layer: reasoning between RTL and GDSII, paying for and operating commercial EDA tooling, and carrying the implementation know-how that turns arithmetic intent into a manufacturable chip block.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-11-02.</p>
-            <p><strong>Included:</strong> the original post and a compact framing around FMA IP, ASIC tooling, and the software-to-silicon gap.</p>
+            <p><span class="status-label">Chip-design note</span>Originally posted 2023-11-02; expanded here around FMA IP and ASIC tooling.</p>
+            <p><strong>Article focus:</strong> fused multiply-add, floating-point datapaths, RTL, GDSII, verification, timing closure, and open ASIC barriers.</p>
             <p><strong>Related:</strong> <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a> and <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Keep in mind it takes AMD and academia in Texas to make a new A x B + C chip compute unit. The complexity of a simple FPU FMA is overwhelming not because it's hard, but because of corporate closed-source know-how and really difficult way to reason about GDSII &lt;-&gt; RTL back-and-forth (think $80k/year per a Cadence seat). Linux is muuuuuch easier to open-source than ASIC IP. Chips are for rich large closed source proprietary Dark Black Magic IP Holders. Just admit it.</p>
+            <h1>The FMA Boundary</h1>
+            <p>A fused multiply-add unit looks simple at the arithmetic level: compute A x B + C with one rounding path. In hardware, it becomes a large floating-point datapath with alignment, partial-product reduction, normalization, rounding, exception behavior, pipeline staging, and verification.</p>
+            <p>That is why open-sourcing an ASIC FMA block is harder than publishing a compact formula or a software library.</p>
+        </section>
+
+        <section>
+            <h1>RTL Is Not The Whole Artifact</h1>
+            <p>The RTL matters, but ASIC usefulness depends on the path from RTL to layout. Timing closure, clocking, physical synthesis, placement, routing, standard-cell libraries, memories, power delivery, and design-rule closure all affect whether the block can become a chip.</p>
+            <p>Open HDL can still leave builders stuck if the manufacturable path depends on proprietary tools, foundry data, private implementation practice, or validation knowledge that is not available with the source.</p>
+        </section>
+
+        <section>
+            <h1>The Open-Hardware Gap</h1>
+            <p>Software openness scales well because most users can build, run, inspect, and test the result on commodity machines. ASIC openness has a deeper replication problem: the final object is physical, expensive to fabricate, and tied to process-specific constraints.</p>
+            <p>The useful open-hardware target is therefore larger than source release. It includes testbenches, timing constraints, implementation notes, process assumptions, verification coverage, and a path another builder can actually reproduce.</p>
         </section>
 
     </main>

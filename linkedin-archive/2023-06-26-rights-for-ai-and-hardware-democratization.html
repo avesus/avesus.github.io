@@ -6,11 +6,11 @@
     <title>Rights for AI and Hardware Democratization</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A hardware-democratization post about fabrication access, trusted open hardware, local model compute, Soft IP versus Hard IP, and active-device paths beyond conventional silicon.">
+    <meta name="description" content="A hardware-access note about local AI compute, open hardware, Soft IP versus Hard IP, and active-device fabrication beyond board-level maker work.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-06-26-rights-for-ai-and-hardware-democratization.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Rights for AI and Hardware Democratization">
-    <meta property="og:description" content="A hardware-democratization post about fabrication access, trusted open hardware, local model compute, Soft IP versus Hard IP, and active-device paths beyond conventional silicon.">
+    <meta property="og:description" content="A hardware-access note about local AI compute, open hardware, Soft IP versus Hard IP, and active-device fabrication beyond board-level maker work.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-06-26-rights-for-ai-and-hardware-democratization.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-06-26",
                                 "dateModified": "2026-07-09",
-                                "description": "A hardware-democratization post about fabrication access, trusted open hardware, local model compute, Soft IP versus Hard IP, and active-device paths beyond conventional silicon.",
+                                "description": "A hardware-access note about local AI compute, open hardware, Soft IP versus Hard IP, and active-device fabrication beyond board-level maker work.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-06-26-rights-for-ai-and-hardware-democratization.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,36 +78,38 @@
     <address>June 26, 2023</address>
 
     <section class="abstract">
-        <p>A hardware-democratization post about fabrication access, trusted open hardware, local model compute, Soft IP versus Hard IP, and active-device paths beyond conventional silicon.</p>
+        <p>Local AI compute is not only a software problem. It depends on fabrication access, inspectable hardware, reusable IP, trusted boards, and toolchains that people can actually run near themselves.</p>
+        <p>The hard boundary is active hardware. Makers can build boards, enclosures, firmware, fixtures, and test rigs. The missing layer is the ability to reproduce useful active-device behavior locally enough to matter.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-06-26.</p>
+            <p><span class="status-label">Hardware-access note</span>Originally posted 2023-06-26; expanded here around the manufacturing boundary.</p>
+            <p><strong>Article focus:</strong> local model compute, open hardware, Soft IP, Hard IP, fabrication access, and active-device process paths.</p>
             <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>In the wild era of AI, ML, LLM, GPT #democratization, individuals and businesses of all sizes deserve the following #rights:</p>
-            <p>1. The right of #fabrication (#tapeout) of their own custom supercomputer chip.<br>
-                2. The right to build their own secure, trusted, #open, tinkerer-friendly, #diy #hardware.<br>
-                3. The right to run an ML model at a fraction of a cost at their #makerspace, home, or on premises on that custom hardware they built (comparing to what they can afford on an NVIDIA GPU cluster).</p>
-            <p>For 2.5 years I've being reinventing the wheel, a special new #fpga fabric #asic IP (intellectual property) optimized to be configured from a Soft IP bitstream.</p>
-            <p>Hard IP (especially SERDES) is the nastiest obstacle for #opensource #hardware in my 4-years YosysHQ ride on the surf of the #fpgas made by Xilinx, Lattice Semiconductor, Efinix, Inc., QuickLogic Corporation...</p>
-            <p>Actually....</p>
-            <p>A single-crystal pure silicon wafer is so slow to grow. The &quot;Fairchild path&quot; stops now. We went way too far. #chipshortage shows how ridiculous the problem is...</p>
-            <p>While closed-source &quot;silicon mafia&quot; is around, the #claytronics dream of seth goldstein, the Terminator 2 liquid metal swarm robotics won't be economically feasible.</p>
-            <p>The whole year of 2022 I've being researching the 200 years of the switching circuits history, from Michael Faraday's coil to these days of Geoffrey Hinton's backprop, and Ilya Sutskever's DL and GPT.</p>
-            <p>I dove into the practical aspects of magnetic amplifiers and built some fascinating prototypes; I found you don't even need diodes, nor any silicon whatsoever.</p>
-            <p>I learned more and found that I don't need cobalt, molybdenum, not even iron.</p>
-            <p>Iterating on top of some ancient RF ideas, I FOUND A WAY TO ENABLE NONLINEARITY IN A 2-MATERIAL SYSTEM OF COPPER AND GLASS.</p>
-            <p>The problem? Nobody believes me 😂 and nobody knows what I was actually working on for the last 20 years. I always had too big of an ego. I was too much &quot;all over the place.&quot; I always had too weak communication skills. And in America, too many cultural clashes, and my pathological inability to listen without interrupting.</p>
-            <p>But!</p>
-            <p>I'm a good inventor. And I'm trying to improve my personality and Western social skills 🧘‍♂️. And I'm looking for an 😇 #angelinvestor who can believe. And for a marketer. And for a CEO. And a whole team ❤️ of awesome engineers and scientists!</p>
-            <p>Please, save me 🙏 Someone?..</p>
-            <p>#intellectualproperty #fundraising #venturecapital #chips #circuitdesign #asic #semiconductormanufacturing</p>
-            <p>The situation with Hard IP blocks vs. Soft IP:<br>
-                <a href="https://lnkd.in/g49pk3WG" target="_blank" rel="noopener">https://lnkd.in/g49pk3WG</a></p>
+            <h1>The Access Problem</h1>
+            <p>Running models locally is constrained by hardware access as much as by code. A person or small shop can download model weights and write software, but custom compute still depends on expensive fabrication, closed process knowledge, vendor-controlled IP, and hardware platforms that are difficult to inspect completely.</p>
+            <p>The practical access target is a stack where more of the compute path can be owned locally: board design, firmware, test, reusable open IP, and eventually active-device fabrication or active-material processes.</p>
+        </section>
+
+        <section>
+            <h1>Soft IP And Hard IP</h1>
+            <p>Soft IP can be inspected, synthesized, simulated, adapted, and moved across targets when the toolchain supports it. Hard IP is different. Blocks such as SERDES, PLLs, memory interfaces, and vendor-specific transceivers often carry the real system boundary because their behavior, layout, timing, and validation are not fully portable.</p>
+            <p>That boundary matters for open hardware. A design can have open HDL and still depend on closed hard blocks for the parts that make it usable at speed.</p>
+        </section>
+
+        <section>
+            <h1>The Active-Device Layer</h1>
+            <p>The maker layer is strong at PCBs, assembly, enclosures, firmware, fixtures, and test. It is weaker at locally reproducible active behavior: gain, switching, restoration, fanout, and repeatability.</p>
+            <p>This is why the hardware-access question connects to older switching devices, magnetic amplifiers, unconventional materials, and non-silicon experiments. The point is not to announce a replacement for CMOS. The point is to ask what useful active device class can be built, tested, and reproduced closer to the people using it.</p>
+        </section>
+
+        <section>
+            <h1>What Has To Hold</h1>
+            <p>For local compute to become more than a slogan, the path has to preserve real engineering constraints: process window, yield, timing, power, signal integrity, test coverage, and a way to compose many devices into a reliable system.</p>
+            <p>The right comparison is not only price against a cloud GPU. It is control over the compute path: what can be inspected, repaired, adapted, reproduced, and trusted without asking a remote stack for permission.</p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>
