@@ -407,6 +407,52 @@ figcaption {
 	border: 1px solid #ccc;
 }
 
+.demo-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+	margin: 1.5rem 0 2.5rem;
+}
+
+.demo-card {
+	border: 1px solid #ddd;
+	padding: 12px;
+}
+
+.demo-card img,
+.demo-card video {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	border: 1px solid #ccc;
+	background: #eee;
+}
+
+.demo-card.video-card img,
+.demo-card.video-card video {
+	aspect-ratio: auto;
+	height: auto;
+	object-fit: contain;
+	background: #111;
+}
+
+.demo-card a {
+	display: block;
+	margin-top: 0.7rem;
+	font-size: 22px;
+}
+
+.demo-card p {
+	margin: 0.5rem 0 0;
+	text-align: left;
+}
+
+.rule-note {
+	border-left: 3px solid #888;
+	padding-left: 14px;
+}
+
 nav.article-links {
 	margin-top: 3rem;
 }
@@ -951,7 +997,8 @@ dt {
 		grid-template-columns: 1fr;
 	}
 
-	.article-artifact-grid {
+	.article-artifact-grid,
+	.demo-grid {
 		grid-template-columns: 1fr;
 	}
 
