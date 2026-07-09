@@ -8,6 +8,8 @@ The value unit is the article. A reader should be able to find a URL online, ope
 
 The homepage, About page, Contact page, FAQ, footer, and any library page are support surfaces. They should stay quiet and non-damaging until the major articles are strong enough to determine what support pages are actually needed.
 
+This plan is not a brand-psychology rewrite. It is an article-delivery repair plan. Do not use it to create a new public identity, service funnel, intake workflow, or navigation theory.
+
 ## Operating Rule
 
 Fix article URLs first.
@@ -16,41 +18,49 @@ Do not redesign global navigation during this pass.
 
 Do not add a new article-navigation framework during this pass.
 
+Do not add navigation just to make the site feel organized. An article URL should stand on its own.
+
 Do not make the homepage the main funnel for article value.
+
+Do not treat homepage promotion as completion. A page is complete when the article itself delivers.
 
 Do not use a support page to explain Brian's psychology, motives, public identity, inner pattern, or assistant-derived interpretation.
 
 Do not make public copy sound like diagnosis, therapy, confession, branding memo, courtroom brief, patent review, archive apology, copywriting service, clarity coaching, or a transformer explaining Brian from outside.
 
-Do not present Brian as RF, FPGA, silicon, GPT, Cartilage, source code, artifacts, or a proof-page identity. Those are materials and domains where important problems appear.
+Do not present Brian as RF, FPGA, silicon, GPT, Cartilage, source code, artifacts, or proof. Those are materials and domains where important problems appear.
 
 Do not present old work as leftovers. If a page remains public, it should remain because it gives a reader something useful.
 
 ## Article Delivery Standard
 
-Every important article should deliver a usable result, not merely describe why a result matters.
+Every important article should give the reader a usable result, not merely describe why a result matters.
 
-An article can deliver a circuit, runnable demo, source package, PDF, image set, code path, verified render, reading key, implementation note, or reusable argument. If the material cannot include a full reproduction recipe, source path, or concrete artifact, do not dress it up as a finished technical result. Either keep it as a draft or publish it as a clearly useful idea note.
+An article can deliver a circuit, runnable demo, source package, PDF, image set, code path, render, reading key, implementation note, or reusable technical argument. Source paths, recipes, images, and files are not there to make a courtroom case. They are the thing being given away: the way a reader can use, rerun, cite, adapt, or build on the work.
+
+If the material cannot include a full reproduction recipe, source path, or concrete artifact, do not dress it up as a finished technical result. Either keep it as a draft or publish it as a clearly useful idea note.
 
 Each article needs:
 
-1. The delivered result in the first screen.
-2. The file, demo, PDF, source, image, video, or circuit that makes the result usable.
+1. The useful object in the first screen.
+2. The file, demo, PDF, source, image, video, circuit, run, or argument that the page gives to the reader.
 3. A build, run, reproduction, or reading recipe where the material allows it.
 4. The output or observed behavior a reader should expect.
 5. The operating scope of that result.
 6. Limits only where they prevent misuse or over-reading.
-7. A small set of useful next links, if the current page already uses article suggestions.
+7. Article-local links only when they directly help the reader use the current page or follow an already-established article convention. Do not add funnel links as a substitute for making the article complete.
 
 Use delivery words:
 
-source, run, build, recipe, result, output, implementation record, checked package, files, command, boundary, scope, limitation, fixture, sample, observed behavior.
+source, run, build, recipe, result, output, implementation record, package, files, command, boundary, scope, limitation, fixture, sample, observed behavior.
 
 Avoid public copy built around:
 
 proof, evidence, dossier, inspection, identity, confession, route, not-current, maybe-important, personal note, strange, messy, quirky, confusing, inner pattern, coherent center, direct contact with reality, human usefulness, signals intelligence, DSP as positioning.
 
-The public posture should be delivery, not a dossier. Source paths and recipes are there because they let the reader use, rerun, inspect, cite, or extend the work, not because the article needs courtroom-style proof.
+The public posture should be delivery, not a dossier. A complete article should feel like receiving the work itself, not like reading a file assembled to defend the work.
+
+Do not let "evidence" or "tradeoff" become the article's organizing principle. The article should lead with what the reader gets, show how to use or understand it, and name limits only where they protect the value being delivered.
 
 ## Article Inventory Method
 
@@ -524,7 +534,7 @@ Verification:
 
 ## Deferred Support Surface Guardrails
 
-Do not implement homepage, global navigation, About, Contact, FAQ, or library redesign as part of this article-repair pass unless a specific article publication requires one small link or index update.
+Do not implement homepage, global navigation, About, Contact, FAQ, or library redesign as part of this article-repair pass unless a specific article publication requires one small index update.
 
 When those support surfaces are eventually touched, the article graph should determine what they need to say. They should not introduce a new public identity, a generic services pitch, a psychological explanation, or a top-down category system.
 
@@ -536,6 +546,8 @@ Support pages may later help with practical needs:
 - How older work is organized by useful question or result.
 
 Support pages should not become the place where the site explains Brian as a person, apologizes for older work, or asks the reader to enter through a homepage funnel.
+
+If an article can only be understood after reading the homepage, About page, FAQ, or support copy, the article is not done.
 
 ## Verification Gates
 
@@ -581,7 +593,7 @@ It is complete only when:
 1. The priority article URLs above each deliver their promised result.
 2. Each published technical article includes the source/artifact path, reproduction recipe, run recipe, reading recipe, or concrete artifact needed to make the page useful.
 3. Idea notes are presented as useful idea notes, not as underdelivered technical results.
-4. Article pages no longer depend on the homepage to explain their value.
+4. Article pages no longer depend on the homepage, global navigation, or support pages to explain their value.
 5. Public labels do not apologize for old work.
 6. Public copy does not leak assistant-process language.
 7. Links, images, JSON-LD, sitemap entries, and mobile rendering are verified for the changed pages.
