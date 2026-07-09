@@ -6,11 +6,11 @@
     <title>DIY BGA and Solderless Multilayer PCB Tests</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="The preliminary tests for 0.4 mm pitch #multilayerpcb #DIY #BGA #solderless process finally exceeded all my expectations (less than 1 ohm via resistance, and...">
+    <meta name="description" content="A process note on 0.4 mm pitch solderless multilayer PCB/BGA tests using laser-drilled Avery masks and conductive ink, with measured via isolation.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2020-10-23-diy-bga-and-solderless-multilayer-pcb-tests.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="DIY BGA and Solderless Multilayer PCB Tests">
-    <meta property="og:description" content="The preliminary tests for 0.4 mm pitch #multilayerpcb #DIY #BGA #solderless process finally exceeded all my expectations (less than 1 ohm via resistance, and...">
+    <meta property="og:description" content="A process note on 0.4 mm pitch solderless multilayer PCB/BGA tests using laser-drilled Avery masks and conductive ink, with measured via isolation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2020-10-23-diy-bga-and-solderless-multilayer-pcb-tests.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2020-10-23",
                                 "dateModified": "2026-07-09",
-                                "description": "The preliminary tests for 0.4 mm pitch #multilayerpcb #DIY #BGA #solderless process finally exceeded all my expectations (less than 1 ohm via resistance, and...",
+                                "description": "A process note on 0.4 mm pitch solderless multilayer PCB/BGA tests using laser-drilled Avery masks and conductive ink, with measured via isolation.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2020-10-23-diy-bga-and-solderless-multilayer-pcb-tests.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,26 +78,40 @@
     <address>October 23, 2020</address>
 
     <section class="abstract">
+        <p>This test used laser-drilled Avery sticker masks and conductive ink to explore a solderless 0.4 mm pitch BGA / multilayer-PCB process.</p>
+        <p>The reported preliminary result was less than 1 ohm via resistance and more than 100 megaohm inter-via isolation after adding a copper-wire puncture step to help trapped air escape from ink-filled holes.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2020-10-23.</p>
+            <p><span class="status-label">Process note</span>Originally posted 2020-10-23; expanded here around the process and measured result.</p>
             <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
+            <p><strong>Article focus:</strong> 0.4 mm pitch BGA holes, laser-drilled masks, conductive ink, bubble removal, via resistance, and inter-via isolation.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>The preliminary tests for 0.4 mm pitch #multilayerpcb #DIY #BGA #solderless process finally exceeded all my expectations (less than 1 ohm via resistance, and more than 100 megaohm inter-via), after introducing a silly step (thanks to the reballing video makers, showing how meditative that process is!)</p>
-            <p>Shortly:<br>
-                1) Laminate pink (for laser!) Avery stickers (Neon 5975).<br>
-                2) Laser-drill BGA holes in laminated Avery (engraver 3W 0.050mm/pixel).<br>
-                3) Stick the Avery to your BGA.<br>
-                4) Laser-drill &quot;conductive ink mask&quot; (the same BGA holes) in another, NON-laminated Avery.<br>
-                5) (Carefully, precisely aligning the holes) Stick the non-laminated Avery on top of the laminated.<br>
-                6) Apply CircuitScribe conductive ink on each hole (paying attention to the bubbles of air under it, and to the whole CAPILLARY PHYSICS of the process).<br>
-                7) (The most important step!) To facilitate the removal of the air bubbles (and to improve drying of the conductive ink!), STAB each ink-filled hole using a SMALL COPPER WIRE. Make sure your chip lays on a firm surface, otherwise the chip can pull the ink between two holes on the adhesive side, short circuiting the vias.<br>
-                8) (Don't wait too long before this step) Remove the non-laminated Avery (it has short-circuited conductive ink on top of it anyway).</p>
-            <p>PM me for details.</p>
+            <h1>The Test</h1>
+            <p>The experiment was a solderless interconnect process for dense BGA-style contact geometry. The target pitch was 0.4 mm. The process used laser-drilled adhesive masks and CircuitScribe conductive ink.</p>
+            <p>The important measurement was electrical, not decorative: preliminary tests reached less than 1 ohm via resistance and more than 100 megaohm inter-via isolation.</p>
+        </section>
+
+        <section>
+            <h1>Process Steps</h1>
+            <ol>
+                <li>Laminate pink Avery Neon 5975 stickers for laser drilling.</li>
+                <li>Laser-drill the BGA holes in the laminated Avery mask using a 3 W engraver at 0.050 mm per pixel.</li>
+                <li>Stick the laminated Avery mask to the BGA.</li>
+                <li>Laser-drill the same BGA-hole pattern in a second non-laminated Avery sheet to make the conductive-ink mask.</li>
+                <li>Precisely align the holes and place the non-laminated mask on top of the laminated one.</li>
+                <li>Apply CircuitScribe conductive ink to each hole while watching for trapped air and capillary effects.</li>
+                <li>Puncture each ink-filled hole with a small copper wire to release trapped air and improve drying. Keep the chip on a firm surface so the ink is not pulled sideways between holes.</li>
+                <li>Remove the non-laminated mask before the ink on top of that mask becomes part of the structure.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h1>What The Step Fixed</h1>
+            <p>The copper-wire puncture step was the useful change. It gave trapped air a path out of the ink-filled vias and reduced the chance that bubbles or incomplete fill would dominate the electrical result.</p>
+            <p>The tradeoff is process sensitivity: alignment, surface support, ink drying, and capillary behavior matter at this pitch.</p>
         </section>
 
     </main>

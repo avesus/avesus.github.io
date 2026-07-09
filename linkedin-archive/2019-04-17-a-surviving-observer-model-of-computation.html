@@ -6,11 +6,11 @@
     <title>A Surviving-Observer Model of Computation</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="We discovered a surprising pre-condition to build a consistent declarative programming model of computation: it must be &quot;surviving observer&quot;-dependent!...">
+    <meta name="description" content="A computation-model note about declarative systems, concrete observers, testable examples, and the constraint that a model must survive contact with use.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2019-04-17-a-surviving-observer-model-of-computation.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="A Surviving-Observer Model of Computation">
-    <meta property="og:description" content="We discovered a surprising pre-condition to build a consistent declarative programming model of computation: it must be &quot;surviving observer&quot;-dependent!...">
+    <meta property="og:description" content="A computation-model note about declarative systems, concrete observers, testable examples, and the constraint that a model must survive contact with use.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2019-04-17-a-surviving-observer-model-of-computation.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2019-04-17",
                                 "dateModified": "2026-07-09",
-                                "description": "We discovered a surprising pre-condition to build a consistent declarative programming model of computation: it must be \"surviving observer\"-dependent!...",
+                                "description": "A computation-model note about declarative systems, concrete observers, testable examples, and the constraint that a model must survive contact with use.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2019-04-17-a-surviving-observer-model-of-computation.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,19 +78,26 @@
     <address>April 17, 2019</address>
 
     <section class="abstract">
+        <p>This note uses the phrase "surviving observer" for a practical constraint on declarative computation: the model has to connect to an observer, example, user, or physical situation that makes the result testable.</p>
+        <p>A formal model can be elegant and still fail to carry useful meaning if there is no concrete boundary where its outputs matter.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2019-04-17.</p>
+            <p><span class="status-label">Computation-model note</span>Originally posted 2019-04-17; expanded here around concrete observers and testable examples.</p>
             <p><strong>Related:</strong> <a href="/cellular-automata-2019/">Experiments with Cellular Automata</a></p>
+            <p><strong>Article focus:</strong> declarative models, concrete examples, observer boundaries, and testable computation.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>We discovered a surprising pre-condition to build a consistent declarative programming model of computation: it must be &quot;surviving observer&quot;-dependent!</p>
-            <p>Shortly, from the area of startups, if you're not trying to solve real life problems of real suffering customers, but are teaching kids abstract math without concrete examples instead, your theory is confusing.</p>
-            <p>It was a huge surprise to discover that the same thing holds for any kind of computation. For a physics student, it must be obvious, according to the minimal variance principle.</p>
-            <p>Abstract meaningless computation can't exist in the real world! Understanding it can help us to build real #AI.</p>
+            <h1>The Constraint</h1>
+            <p>A declarative model describes what should be true. That description still needs a boundary where results are observed, checked, and used.</p>
+            <p>Without concrete examples, the model can drift into symbols that are internally arranged but externally untested. The "surviving observer" language points to the missing boundary: what observes the result, what state changes, and what constraint decides whether the computation mattered.</p>
+        </section>
+
+        <section>
+            <h1>Why Examples Matter</h1>
+            <p>Concrete examples are not decoration. They force a model to choose inputs, outputs, state, update rules, and failure cases. They also expose when a clean theory is not yet a usable computation model.</p>
+            <p>The useful version of this note is simple: a programming model should be tested against the situations it claims to describe.</p>
         </section>
 
     </main>
