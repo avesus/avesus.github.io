@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, follow">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <title>Cartilage Verified Ripple2 Adder</title>
     <meta name="description" content="A verified browser/GLSL Cartilage render of a 2-bit ripple-carry adder generated from QFG source, run for 3072 lockstep updates, and checked with 96 browser expectations.">
     <link rel="canonical" href="https://greenforest.io/cartilage-verified-ripple2-adder.html">
@@ -42,8 +42,7 @@
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This page is a checked run, not a concept sketch.</p>
-        <p>This is the corrected public Cartilage arithmetic artifact: a generated 2-bit ripple-carry adder rendered in the browser/GLSL fabric and checked by the QFG verification run.</p>
+        <p>This page gives the current public Cartilage arithmetic artifact: a generated 2-bit ripple-carry adder rendered in the browser/GLSL fabric and checked by the QFG verification run.</p>
         <p>The circuit computes <code>{C2, S1, S0} = A[1:0] + B[1:0]</code>. The source is not a hand-drawn route sketch; it is a generated QFG primitive-cell netlist with concrete cells for wires, muxes, constants, and crossbars.</p>
         <div class="status-box">
             <p><span class="status-label">Verified arithmetic run</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>.</p>
@@ -78,7 +77,7 @@
 3072 lockstep fabric updates
 96 browser expectations checked
 96 browser expectations passed</code></pre>
-            <p>The correctness claim comes from the verification report and QFG source, not from simply looking at the picture.</p>
+            <p>The run result is documented by the verification report and QFG source. The picture is the readable render of that generated fabric.</p>
         </section>
 
         <section>
