@@ -23,7 +23,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-01",
+            "dateModified": "2026-07-09",
             "image": "https://greenforest.io/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png",
             "description": "A visual decoder for the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-visual-language.html",
@@ -54,12 +54,13 @@
     <main>
         <section>
             <h1>The Render Key</h1>
-            <figure>
+            <figure class="inspectable-image">
                 <a href="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png">
                     <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" alt="Cartilage fabric visual-language key showing port, cross, constants, wires, and MUX body types">
                 </a>
                 <figcaption>A 13x13 Cartilage fabric render showing the body-role vocabulary: port, cross, constants, wire orientations, and MUX roles.</figcaption>
             </figure>
+            <p>The public key image is <a href="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png"><code>cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png</code></a>. Open it directly when the inline view is too dense.</p>
         </section>
 
         <section>
@@ -243,12 +244,35 @@
         <section>
             <h1>How To Read The Drawing</h1>
             <p>Black marks are asserted local state or output values in the render. White rings are cell/port positions. Tan overlays mark MUX-like structure and visible value flow. Purple marks the reconfiguration-port role. The labels in the image are explanatory labels drawn over the fabric; the fabric itself is still the 32-code cell-role alphabet above.</p>
-            <p>This is the low-level visual vocabulary behind the larger Cartilage articles. A reconfiguration run is easier to inspect once the reader knows which marks mean constants, wires, crosses, MUXes, and ports.</p>
+            <p>This is the low-level visual vocabulary behind the larger Cartilage articles. A reconfiguration run is easier to read once the reader knows which marks mean constants, wires, crosses, MUXes, and ports.</p>
+        </section>
+
+        <section>
+            <h1>Where The Alphabet Shows Up</h1>
+            <p>The same body-role vocabulary appears in the current Cartilage pages. These renders are different artifacts, but the reader should not learn a new symbol system for each one.</p>
+            <div class="article-artifact-grid">
+                <a href="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif">
+                    <img src="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" alt="Cartilage 2026 render showing active child-owned reconfiguration port roots">
+                    Cartilage 2026 port roots
+                </a>
+                <a href="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png">
+                    <img src="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png" alt="Cartilage verified ripple2 adder render showing configured wires, MUX islands, constants, crosses, labels, and edge outputs">
+                    Verified ripple-adder roles
+                </a>
+                <a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png">
+                    <img src="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png" alt="Cartilage exact-frame reconfiguration final detail render">
+                    Exact-frame reconfiguration detail
+                </a>
+                <a href="/cartilage-nested-instantiation-demo.html">
+                    <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" alt="Cartilage visual language key reused as the nested-instantiation decoder">
+                    Nested-instantiation decoder
+                </a>
+            </div>
         </section>
 
         <section>
             <h1>Render Boundary</h1>
-            <p>The decoder is useful only if each mark stays distinguishable at article scale and on mobile. Ambiguous roles should be fixed in the render vocabulary, not explained away in prose.</p>
+            <p>The decoder is useful only if each mark stays distinguishable at article scale and on mobile. Ambiguous roles should be fixed in the render vocabulary, not explained away in prose. Large renders should link to the original asset so the reader can open the full-resolution image.</p>
         </section>
     </main>
 
