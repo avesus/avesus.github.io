@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>FPGAs as Reactive Parallel Beauty</title>
+    <title>FPGAs as Reactive Parallel Structure</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="It&#39;s good to hear the word &quot;FPGA&quot; of this beautiful, but obsolete technology. More software engineers will learn what reactive parallel beauty is hidden on...">
+    <meta name="description" content="An FPGA education note: Verilog exposes parallel structure, timing, local state, routing, and reactive behavior that conventional software often hides.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-05-fpgas-as-reactive-parallel-beauty.html">
     <meta property="og:site_name" content="Greenforest I/O">
-    <meta property="og:title" content="FPGAs as Reactive Parallel Beauty">
-    <meta property="og:description" content="It&#39;s good to hear the word &quot;FPGA&quot; of this beautiful, but obsolete technology. More software engineers will learn what reactive parallel beauty is hidden on...">
+    <meta property="og:title" content="FPGAs as Reactive Parallel Structure">
+    <meta property="og:description" content="An FPGA education note: Verilog exposes parallel structure, timing, local state, routing, and reactive behavior that conventional software often hides.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-05-fpgas-as-reactive-parallel-beauty.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -24,7 +24,7 @@
                         {
                                 "@type": "Article",
                                 "@id": "https://greenforest.io/linkedin-archive/2022-05-05-fpgas-as-reactive-parallel-beauty.html#article",
-                                "headline": "FPGAs as Reactive Parallel Beauty",
+                                "headline": "FPGAs as Reactive Parallel Structure",
                                 "author": {
                                         "@type": "Person",
                                         "name": "Brian Greenforest",
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-05-05",
                                 "dateModified": "2026-07-09",
-                                "description": "It's good to hear the word \"FPGA\" of this beautiful, but obsolete technology. More software engineers will learn what reactive parallel beauty is hidden on...",
+                                "description": "An FPGA education note: Verilog exposes parallel structure, timing, local state, routing, and reactive behavior that conventional software often hides.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-05-fpgas-as-reactive-parallel-beauty.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -62,7 +62,7 @@
                                         {
                                                 "@type": "ListItem",
                                                 "position": 3,
-                                                "name": "FPGAs as Reactive Parallel Beauty",
+                                                "name": "FPGAs as Reactive Parallel Structure",
                                                 "item": "https://greenforest.io/linkedin-archive/2022-05-05-fpgas-as-reactive-parallel-beauty.html"
                                         }
                                 ]
@@ -74,23 +74,32 @@
 </head>
 
 <body>
-    <header>FPGAs as Reactive Parallel Beauty</header>
+    <header>FPGAs as Reactive Parallel Structure</header>
     <address>May 5, 2022</address>
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-05-05.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
+            <p><span class="status-label">FPGA education note</span>Originally posted 2022-05-05; rewritten here around what FPGAs teach software builders.</p>
+            <p><strong>Included:</strong> Verilog, local state, timing, placement, routing, reactive structure, and why FPGA education matters for parallel systems.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>It's good to hear the word &quot;FPGA&quot; of this beautiful, but obsolete technology. More software engineers will learn what reactive parallel beauty is hidden on the &quot;low-level&quot; and learn that it allows to write 4 times less source code than their C++ Arduino port banging equivalents, more they will appreciate this new brave world of parallel distributed compute to come.</p>
-            <p>AMD, Intel Corporation, Lattice Semiconductor, Efinix, Inc. thank you so much promoting FPGAs! I teach Verilog and FPGAs for no cost, and if you have students, please, send them all to me!</p>
-            <p>Thank you so much!</p>
-            <p>#fpga #verilog #education #stemeducation #software #hpc #parallelprogramming #reactiveprogramming #customsilicon #asic #pcbdesign</p>
+            <h1>What FPGAs Teach</h1>
+            <p>FPGAs make parallel structure visible. A design has registers, wires, clocks, fanout, placement, routing, resource limits, and local state. Those details are not implementation trivia; they are the reason the machine behaves the way it does.</p>
+            <p>That makes FPGA education useful even for software engineers who do not plan to become FPGA specialists. It trains the habit of asking where state lives, when values are valid, and how work moves through a system.</p>
+        </section>
+
+        <section>
+            <h1>Reactive Structure</h1>
+            <p>Reactive software often begins as a convenience around changing values. Hardware makes the same issue concrete: a change has a path, a clock boundary, a fanout cost, and a destination that owns the next state.</p>
+            <p>That is the educational value behind Verilog and FPGA work. The source code describes structure and timing directly enough that locality and causality cannot be ignored.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>This note is about education and mental model transfer. FPGAs are not the answer to every problem, but they are a strong way to learn placed computation, explicit state, and parallel data movement.</p>
         </section>
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
@@ -102,10 +111,10 @@
     <nav class="article-links">
         <p>Next:</p>
         <a href="2022-05-01-a-shader-for-nano-fpga-fabric.html">A Shader for Nano-FPGA Fabric</a>
-        <p>Another dated publication from May 1, 2022.</p>
+        <p>A visual browser/GPU fabric experiment from the same line of thinking.</p>
         <p>More:</p>
         <a href="2022-05-05-cartilage-transputers-and-cellmatrix.html">Cartilage, Transputers, and CellMatrix</a>
-        <p>Another dated publication from May 5, 2022.</p>
+        <p>A related note connecting Cartilage with earlier parallel-computing machine ideas.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

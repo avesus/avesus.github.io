@@ -6,11 +6,11 @@
     <title>Hilbert 13 and Neural Networks</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="I think scalability of Hilbert&#39;s 13th problem in the form of a neural network or sum of products function of many, many, really many variables! We will be...">
+    <meta name="description" content="A machine-learning note: multivariate approximation, neural networks, sum-of-products structure, Q-learning, Monte Carlo methods, and why empirical scaling still needs mechanism.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-18-hilbert-13-and-neural-networks.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Hilbert 13 and Neural Networks">
-    <meta property="og:description" content="I think scalability of Hilbert&#39;s 13th problem in the form of a neural network or sum of products function of many, many, really many variables! We will be...">
+    <meta property="og:description" content="A machine-learning note: multivariate approximation, neural networks, sum-of-products structure, Q-learning, Monte Carlo methods, and why empirical scaling still needs mechanism.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-18-hilbert-13-and-neural-networks.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-04-18",
                                 "dateModified": "2026-07-09",
-                                "description": "I think scalability of Hilbert's 13th problem in the form of a neural network or sum of products function of many, many, really many variables! We will be...",
+                                "description": "A machine-learning note: multivariate approximation, neural networks, sum-of-products structure, Q-learning, Monte Carlo methods, and why empirical scaling still needs mechanism.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-18-hilbert-13-and-neural-networks.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,28 +79,38 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-04-18.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+            <p><span class="status-label">Machine-learning note</span>Originally posted 2022-04-18; rewritten here around multivariate approximation and scaling.</p>
+            <p><strong>Included:</strong> Hilbert's 13th problem as motivation, neural networks, sum-of-products structure, Q-learning, Monte Carlo methods, and the gap between empirical behavior and mechanism.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>I think scalability of Hilbert's 13th problem in the form of a neural network or sum of products function of many, many, really many variables! We will be finally able to curve-fit ANY arbitrary multivariate function. I honestly am very impressed that Q-learning combined with deep convolutional and recursive networks DOES WORK at all, because it's a pure magic, given that classical neural networks do not scale. The methods for Monte Carlo, used in deep reinforcement learning, allowing deep Markov chains to represent and model real systems without introducing huge piece-wise discontinuities and phase space transition chaotic attractor bifurcations, are FASCINATING. I swear, I do not understand why these methods should even work in theory.</p>
-            <p>Now simply imagine, what can we do with QUANTUM machine learning!!!! &lt;3 &lt;3 &lt;3</p>
-            <p>#machinelearning #neuralnetworks #scalability</p>
+            <h1>Approximation and Scaling</h1>
+            <p>The useful question in this note is how multivariate functions become representable at scale. Neural networks, sum-of-products forms, and related approximators all ask a practical version of the same question: how can many interacting variables be represented without the expression becoming unusable?</p>
+            <p>Hilbert's 13th problem is useful here as a historical pointer toward composition and representation. The modern engineering question is not only whether a network can fit a function, but what structure makes the fit efficient, trainable, and inspectable enough to use.</p>
+        </section>
+
+        <section>
+            <h1>Learning Systems Still Need Mechanism</h1>
+            <p>Q-learning, deep networks, recursive structures, Monte Carlo methods, and reinforcement-learning systems can work impressively in practice. That empirical success does not remove the need to understand stability, sample cost, state representation, discontinuities, and feedback paths.</p>
+            <p>The durable point is caution and curiosity together: when a method works better than the simple mental model predicts, the next useful step is to identify the mechanism, limits, and operating conditions.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>This is a short approximation note, not a claim that arbitrary functions, quantum machine learning, or reinforcement learning are solved. It points to a real engineering question: how to keep representation, training, and mechanism attached while model capacity scales.</p>
         </section>
 
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2022-04-13-focus-on-people-models-and-thought.html">Focus on People, Models, and Thought</a>
-        <p>Another dated publication from April 13, 2022.</p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>A small complete model run where architecture, tokenizer, loss, samples, and source path stay together.</p>
         <p>More:</p>
-        <a href="2022-04-18-verilog-as-a-programming-language.html">Verilog as a Programming Language</a>
-        <p>Another dated publication from April 18, 2022.</p>
+        <a href="2023-03-26-transformers-as-mathematical-optimization.html">Transformers as Mathematical Optimization</a>
+        <p>A later optimization-oriented note about transformers and hardware execution.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

@@ -6,11 +6,11 @@
     <title>ShaderToy as an ASIC Simulator Path</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Joining the amazig ShaderToy community, learning how to use SDF, and writing all my next ASIC circuit simulators in GLSL instead of Verilog since 2019 was the...">
+    <meta name="description" content="A browser/GPU computation note: GLSL, SDFs, and ShaderToy made circuit-like visual simulation and massively parallel kernels directly inspectable in the browser.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-06-23-shadertoy-as-an-asic-simulator-path.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="ShaderToy as an ASIC Simulator Path">
-    <meta property="og:description" content="Joining the amazig ShaderToy community, learning how to use SDF, and writing all my next ASIC circuit simulators in GLSL instead of Verilog since 2019 was the...">
+    <meta property="og:description" content="A browser/GPU computation note: GLSL, SDFs, and ShaderToy made circuit-like visual simulation and massively parallel kernels directly inspectable in the browser.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-06-23-shadertoy-as-an-asic-simulator-path.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-06-23",
                                 "dateModified": "2026-07-09",
-                                "description": "Joining the amazig ShaderToy community, learning how to use SDF, and writing all my next ASIC circuit simulators in GLSL instead of Verilog since 2019 was the...",
+                                "description": "A browser/GPU computation note: GLSL, SDFs, and ShaderToy made circuit-like visual simulation and massively parallel kernels directly inspectable in the browser.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-06-23-shadertoy-as-an-asic-simulator-path.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,26 +79,38 @@
 
     <section class="abstract">
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-06-23.</p>
+            <p><span class="status-label">Browser/GPU note</span>Originally posted 2023-06-23; rewritten here around GLSL as an inspectable simulation surface.</p>
+            <p><strong>Included:</strong> ShaderToy, signed-distance fields, GLSL, visual circuit simulation, GPGPU-style kernels, and why browser-native computation was useful for fabric experiments.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Joining the amazig ShaderToy community, learning how to use SDF, and writing all my next ASIC circuit simulators in GLSL instead of Verilog since 2019 was the biggest &quot;aha!&quot; moment in my scalable parallel compute and 2D/3D UI career. Turns out, it's the bleeding edge I've started to use back then, 4 years ago, long before it becamr mainstream.</p>
-            <p>Interestingly enough, I missed the bleeding edge train of Attention, Transformers, LLM, GPT back then, but what I effectively was doin was thinking in parallel, and writing massively scalable GPGPU compute kernels aka CUDA or the bleeding-edge developments from Microsoft and OpenAI.</p>
+            <h1>Why GLSL Was Useful</h1>
+            <p>ShaderToy and browser GLSL made it possible to put a small computation on screen quickly: a fragment shader runs many pixels in parallel, updates a visual field, and keeps the program close to the image it produces.</p>
+            <p>For fabric and circuit experiments, that matters. A shader can render local rules, routing, tile state, signed-distance-field geometry, and update behavior without first building a full native simulator UI.</p>
+        </section>
+
+        <section>
+            <h1>Simulation Surface, Not Replacement HDL</h1>
+            <p>GLSL is not Verilog. It does not replace synthesis, timing closure, placement, routing, or hardware verification. It is useful earlier in the path, where the goal is to explore a spatial rule, draw the structure, and see whether the local behavior reads correctly.</p>
+            <p>That is the ASIC-simulator connection in this note: browser/GPU code can carry visual and parallel structure while the idea is still being shaped.</p>
+        </section>
+
+        <section>
+            <h1>Useful Scope</h1>
+            <p>The useful result is practical: SDFs and fragment shaders give a compact way to prototype circuit-like visual systems, fabric renderers, and GPU-parallel experiments that can be shared as web pages.</p>
         </section>
 
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2023-06-21-reversible-computation-and-biological-efficiency.html">Reversible Computation and Biological Efficiency</a>
-        <p>Another dated publication from June 21, 2023.</p>
+        <a href="2022-05-01-a-shader-for-nano-fpga-fabric.html">A Shader for Nano-FPGA Fabric</a>
+        <p>A direct fabric-rendering example from the same browser/GPU line of work.</p>
         <p>More:</p>
-        <a href="2023-06-26-rights-for-ai-and-hardware-democratization.html">Rights for AI and Hardware Democratization</a>
-        <p>Another dated publication from June 26, 2023.</p>
+        <a href="2025-08-19-cheap-pixelless-textures-with-2d-sdfs.html">Cheap Pixelless Textures With 2D SDFs</a>
+        <p>A later source-backed SDF renderer article.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
