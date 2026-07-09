@@ -49,7 +49,7 @@
         <div class="status-box">
             <p><span class="status-label">Circuit artifact</span>This page delivers the Logisim circuit, rendered schematics, streaming schedule, and current implementation scope.</p>
             <p><strong>Included:</strong> the bubbles-free streaming schedule, LSB-first streams, 8x8 to 8-bit rendered circuit, 3-clock fixed latency in the rendered example, serial adders, Logisim file, and circuit images.</p>
-            <p><strong>Scope:</strong> positive-number arithmetic in the current Logisim artifact. Verilog timing, LUT count, Fmax, waveform captures, and FPGA target comparisons are future work.</p>
+            <p><strong>Article focus:</strong> positive-number arithmetic in the current Logisim artifact: 8x8 input streams, 8-bit output stream, LSB-first timing, 3-clock fixed latency in the rendered example, and one output bit per clock after fill.</p>
         </div>
     </section>
 
@@ -97,8 +97,8 @@
         </section>
 
         <section>
-            <h1>Design Boundary</h1>
-            <p>The cost is not simply "serial is slower." The architecture gives up wide immediate products in exchange for a uniform streaming schedule, narrow local links, and graph-style composition. That is the tradeoff being tested.</p>
+            <h1>Why This Shape</h1>
+            <p>The cost is not simply "serial is slower." The architecture replaces wide immediate products with a uniform streaming schedule, narrow local links, and graph-style composition. That is the engineering value in this artifact.</p>
             <p>Hard multiplier blocks and inferred <code>*</code> multipliers remain useful. This circuit explores the opposite direction: keep multiplication in the same bit-stream rhythm as the surrounding arithmetic and make the schedule easy to compose.</p>
         </section>
 
@@ -114,7 +114,7 @@
                     Serial adder image
                 </a>
             </div>
-            <p>These are the current public artifacts. They do not include a waveform capture or FPGA build report yet.</p>
+            <p>These are the current public artifacts: the Logisim circuit and rendered circuit images.</p>
         </section>
 
         <section>
