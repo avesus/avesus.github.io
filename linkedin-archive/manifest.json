@@ -211,7 +211,7 @@
     "title": "Learn How Chips Multiply and Add",
     "date": "2023-11-09",
     "slug": "2023-11-09-learn-how-chips-multiply-and-add",
-    "description": "If you don't know how to multiply and add numbers, you don't know anything. Learn, how IBM, Nvidia, Intel, AMD multiply numbers, transistor-by-transistor. All...",
+    "description": "A chip-arithmetic note about learning multiplier and adder structures directly: Wallace trees, Han-Carlson adders, FMA datapaths, Newton-Raphson approximation, and arithmetic blocks behind AI chips.",
     "words": 108,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7128430023149027328/"
   },

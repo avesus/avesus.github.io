@@ -6,11 +6,11 @@
     <title>Learn How Chips Multiply and Add</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="If you don&#39;t know how to multiply and add numbers, you don&#39;t know anything. Learn, how IBM, Nvidia, Intel, AMD multiply numbers, transistor-by-transistor. All...">
+    <meta name="description" content="A chip-arithmetic note about learning multiplier and adder structures directly: Wallace trees, Han-Carlson adders, FMA datapaths, Newton-Raphson approximation, and arithmetic blocks behind AI chips.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-11-09-learn-how-chips-multiply-and-add.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Learn How Chips Multiply and Add">
-    <meta property="og:description" content="If you don&#39;t know how to multiply and add numbers, you don&#39;t know anything. Learn, how IBM, Nvidia, Intel, AMD multiply numbers, transistor-by-transistor. All...">
+    <meta property="og:description" content="A chip-arithmetic note about learning multiplier and adder structures directly: Wallace trees, Han-Carlson adders, FMA datapaths, Newton-Raphson approximation, and arithmetic blocks behind AI chips.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-11-09-learn-how-chips-multiply-and-add.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-11-09",
                                 "dateModified": "2026-07-09",
-                                "description": "If you don't know how to multiply and add numbers, you don't know anything. Learn, how IBM, Nvidia, Intel, AMD multiply numbers, transistor-by-transistor. All...",
+                                "description": "A chip-arithmetic note about learning multiplier and adder structures directly: Wallace trees, Han-Carlson adders, FMA datapaths, Newton-Raphson approximation, and arithmetic blocks behind AI chips.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-11-09-learn-how-chips-multiply-and-add.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,9 +78,12 @@
     <address>November 9, 2023</address>
 
     <section class="abstract">
+        <p>Chip arithmetic is built from concrete multiplier, adder, and approximation structures, not from the word "AI" by itself.</p>
+        <p>The post points readers toward the arithmetic layer: Wallace trees, Han-Carlson adders, fused multiply-add units, Newton-Raphson approximation, and the transistor-level blocks behind GPU, FPGA, and ASIC datapaths.</p>
         <div class="status-box">
             <p><span class="status-label">LinkedIn post</span>Posted 2023-11-09.</p>
-            <p><strong>Related:</strong> <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a></p>
+            <p><strong>Included:</strong> the original post and a compact framing around chip arithmetic primitives.</p>
+            <p><strong>Related:</strong> <a href="2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Sourcing ASIC FMA Is Hard</a> and <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>.</p>
         </div>
     </section>
 
@@ -96,11 +99,11 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Sourcing ASIC FMA Is Hard</a>
-        <p>Another dated publication from November 2, 2023.</p>
-        <p>More:</p>
         <a href="2023-11-29-ai-arithmetic-on-chips.html">AI Arithmetic on Chips</a>
-        <p>Another dated publication from November 29, 2023.</p>
+        <p>The next note in this chip-arithmetic thread: CSA, PPA, bfloat16, FMA, MAC, pipelining, and chip-level arithmetic for model workloads.</p>
+        <p>More:</p>
+        <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>
+        <p>A small multiplier circuit artifact with a readable streaming schedule.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
