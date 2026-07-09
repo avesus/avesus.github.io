@@ -6,11 +6,11 @@
     <title>Predictive Models Are Control Theory</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Mathematics we call &quot;predictive models&quot; are not innocent matters, and these are surprisingly equivalent classes to control theory. We&#39;ve being told that...">
+    <meta name="description" content="A modeling note about the overlap between prediction and control: actions, observations, controllable variables, physical models, and desired future state.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-03-11-predictive-models-are-control-theory.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Predictive Models Are Control Theory">
-    <meta property="og:description" content="Mathematics we call &quot;predictive models&quot; are not innocent matters, and these are surprisingly equivalent classes to control theory. We&#39;ve being told that...">
+    <meta property="og:description" content="A modeling note about the overlap between prediction and control: actions, observations, controllable variables, physical models, and desired future state.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-03-11-predictive-models-are-control-theory.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-03-11",
                                 "dateModified": "2026-07-09",
-                                "description": "Mathematics we call \"predictive models\" are not innocent matters, and these are surprisingly equivalent classes to control theory. We've being told that...",
+                                "description": "A modeling note about the overlap between prediction and control: actions, observations, controllable variables, physical models, and desired future state.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-03-11-predictive-models-are-control-theory.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -85,8 +85,11 @@
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Mathematics we call &quot;predictive models&quot; are not innocent matters, and these are surprisingly equivalent classes to control theory. We've being told that control theory produces a set of recommended actions to be taken, but it doesn't: it gives you &quot;predictions&quot; in the form of transformed pixels, after you feed into it an actual set of actions taken and measurements-observations. The control theory algorithm learns which variables have controllability / manipulatability properties in the form of scientifically extracted statistical correlations between variables we call &quot;physical model.&quot; Physics is as &quot;dangerous&quot; as control theory: because it has strong causality / correlations embedded in its mathematics, after you run the computation process (even in your head!) the models starts controlling reality. But don't be afraid to trust it: the sole purpose is to communicate clearly the desired state of the world YOU WANT to see.</p>
+            <h1>Predictive Models Are Control Theory</h1>
+            <p>A predictive model is not only a passive description. Once a model is used to choose an action, it becomes part of a control loop.</p>
+            <p>Control theory makes the relationship explicit: there are actions, observations, state estimates, controllable variables, disturbances, and a desired future state. A model predicts what the system may do after a possible action, and that prediction shapes the next action.</p>
+            <p>The same structure appears in learned physical models, robotics, reinforcement learning, operations tools, and user-facing software that recommends or automates decisions. The model does not have to be mysterious; it has to expose what it is conditioned on and what effect it is allowed to have.</p>
+            <p>The useful question is practical: what variables can be changed, what is only observed, what is being optimized, and how does the system detect when its prediction is wrong?</p>
         </section>
 
     </main>

@@ -6,11 +6,11 @@
     <title>VLSI Questions for Reactive Programming</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="ASIC designers in VLSI are the best people to trust reactive programming software insight. What advice you can share regarding completeness of multi-bit...">
+    <meta name="description" content="A reactive-programming note framed through VLSI concerns: multi-bit completeness, comparators, pipelines, propagation delay, feedback, and oscillation.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-10-08-vlsi-questions-for-reactive-programming.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="VLSI Questions for Reactive Programming">
-    <meta property="og:description" content="ASIC designers in VLSI are the best people to trust reactive programming software insight. What advice you can share regarding completeness of multi-bit...">
+    <meta property="og:description" content="A reactive-programming note framed through VLSI concerns: multi-bit completeness, comparators, pipelines, propagation delay, feedback, and oscillation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-10-08-vlsi-questions-for-reactive-programming.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2022-10-08",
                                 "dateModified": "2026-07-09",
-                                "description": "ASIC designers in VLSI are the best people to trust reactive programming software insight. What advice you can share regarding completeness of multi-bit...",
+                                "description": "A reactive-programming note framed through VLSI concerns: multi-bit completeness, comparators, pipelines, propagation delay, feedback, and oscillation.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-10-08-vlsi-questions-for-reactive-programming.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -86,8 +86,11 @@
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>ASIC designers in VLSI are the best people to trust reactive programming software insight. What advice you can share regarding completeness of multi-bit values, and comparators, based on composite sets of elementary data values? How you go along with pipelining and signal propagation latencies, to determine higher-order cycles and to prevent higher-order oscillations? You are well aware that clock trees and D flip flops are not panacea for higher-level reactive effects.</p>
+            <h1>VLSI Questions for Reactive Programming</h1>
+            <p>Reactive programming has hardware-shaped problems once values are no longer single events. Multi-bit values need completeness rules: when is the value ready, what counts as a coherent update, and how do comparators behave while the pieces are still arriving?</p>
+            <p>VLSI makes those questions concrete. Pipelines, propagation delay, clock trees, latches, D flip-flops, and fanout all exist because timing and state cannot be wished away.</p>
+            <p>The software version has the same pressure at a higher level. Reactive graphs can oscillate, observe half-updated state, or create cycles whose timing depends on scheduling details. A runtime has to decide where state is stored, when updates commit, and how feedback is bounded.</p>
+            <p>The useful bridge is to treat reactive software as a timed system, not only as dependency notation. Circuit designers already live with those constraints.</p>
         </section>
 
     </main>
