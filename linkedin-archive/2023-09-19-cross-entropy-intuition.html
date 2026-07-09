@@ -78,17 +78,31 @@
     <address>September 19, 2023</address>
 
     <section class="abstract">
-        <p>A short mathematical note connecting cross-entropy, negative log-likelihood, matrix exponentials, expectation, and why the target distribution enters the loss.</p>
+        <p>Cross-entropy is easiest to read as an expectation under the target distribution of the negative log probability assigned by the model.</p>
+        <p>That connection explains why the target enters the loss and why the same expression appears as negative log likelihood in classification training.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-09-19.</p>
+            <p><span class="status-label">Mathematical note</span>Originally posted 2023-09-19; expanded here around the loss expression.</p>
+            <p><strong>Article focus:</strong> cross-entropy, negative log likelihood, target distribution, model distribution, expectation, and classification loss.</p>
             <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>To boost your intuition about the formula of cross-entropy (or neg-log-likelihood, as they confusingly call it). These series show up in eigendecomposition and quantum momentum exchange operators quite frequently. If you already know how to raise e to the power of a matrix, this thing will give the depth. And will explain better why we use LOTUS (the Law of unconscious statistician) &quot;chain rule&quot; when take the expectation operator of your y_hat distribution with respect to the training example target E_y[y_hat].</p>
+            <h1>The Loss</h1>
+            <p>For a target distribution <code>p</code> and model distribution <code>q</code>, cross-entropy is the expected value of <code>-log q</code> under <code>p</code>. In a one-hot classification target, that reduces to the negative log probability assigned to the correct class.</p>
+            <p>That is why the same training expression is often called negative log likelihood.</p>
+        </section>
+
+        <section>
+            <h1>Why The Target Matters</h1>
+            <p>The expectation is taken with respect to the target distribution. The model distribution supplies the probabilities being scored, but the target distribution says which outcomes matter for the sample or dataset.</p>
+            <p>This is the useful intuition: the loss punishes the model when it assigns low probability to outcomes the target says should be likely.</p>
+        </section>
+
+        <section>
+            <h1>Where Matrix Exponentials Fit</h1>
+            <p>Softmax contains exponentials, and matrix exponentials appear in other mathematical settings, but cross-entropy itself does not require a quantum or eigendecomposition interpretation. The classification case is already useful: logits become probabilities, and the loss scores those probabilities against the target.</p>
         </section>
         <section>
             <h1>Links From the Original Post</h1>

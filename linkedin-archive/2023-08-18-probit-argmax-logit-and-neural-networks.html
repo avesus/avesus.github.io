@@ -6,11 +6,11 @@
     <title>Probit, Argmax, Logit, and Neural Networks</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Probit is inverse of cdf of Gaussian curve. Argmax is inverse of softmax. Logit is inverse of the sigmoid. Derivative of the the cdf is the Gaussian curve....">
+    <meta name="description" content="A statistical-modeling note separating probit, logit, sigmoid, softmax, argmax, Gaussian CDFs, and neural-network output layers.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-18-probit-argmax-logit-and-neural-networks.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Probit, Argmax, Logit, and Neural Networks">
-    <meta property="og:description" content="Probit is inverse of cdf of Gaussian curve. Argmax is inverse of softmax. Logit is inverse of the sigmoid. Derivative of the the cdf is the Gaussian curve....">
+    <meta property="og:description" content="A statistical-modeling note separating probit, logit, sigmoid, softmax, argmax, Gaussian CDFs, and neural-network output layers.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-18-probit-argmax-logit-and-neural-networks.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-08-18",
                                 "dateModified": "2026-07-09",
-                                "description": "Probit is inverse of cdf of Gaussian curve. Argmax is inverse of softmax. Logit is inverse of the sigmoid. Derivative of the the cdf is the Gaussian curve....",
+                                "description": "A statistical-modeling note separating probit, logit, sigmoid, softmax, argmax, Gaussian CDFs, and neural-network output layers.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-18-probit-argmax-logit-and-neural-networks.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,16 +78,32 @@
     <address>August 18, 2023</address>
 
     <section class="abstract">
+        <p>Probit, logit, sigmoid, softmax, and argmax are often taught as isolated machine-learning vocabulary. They are better read as statistical links, probability transforms, and decision operators.</p>
+        <p>The useful point is that neural-network output layers are statistical interfaces, not just arbitrary activation functions.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-08-18.</p>
+            <p><span class="status-label">Statistical-modeling note</span>Originally posted 2023-08-18; expanded here around output-layer terminology.</p>
+            <p><strong>Article focus:</strong> probit, logit, sigmoid, Gaussian CDF, softmax, argmax, classification, and neural-network outputs.</p>
             <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Probit is inverse of cdf of Gaussian curve. Argmax is inverse of softmax. Logit is inverse of the sigmoid. Derivative of the the cdf is the Gaussian curve. The derivative of the softmax and the sigmoid both also look bell-shaped. What are really neural networks are doing, in addition to attention? The perceptron in deep networks is not actually what you think it is. NN are much closer connected to statistics than we teach other.</p>
+            <h1>Links And Inverses</h1>
+            <p>The probit function is the inverse CDF of the standard normal distribution. The logit function is the inverse of the logistic sigmoid. These are link functions: they map probabilities into an unbounded latent scale.</p>
+            <p>The derivative of the Gaussian CDF is the Gaussian density. The derivative of the sigmoid has its own peaked shape. Those derivatives matter because learning systems optimize through these nonlinear maps.</p>
+        </section>
+
+        <section>
+            <h1>Softmax And Argmax</h1>
+            <p>Softmax maps a vector of scores into a probability distribution over classes. Argmax selects the index with the largest score or probability. Argmax is not a true inverse of softmax; it is a decision rule applied after scores or probabilities have been computed.</p>
+            <p>That distinction matters in neural networks. Training usually needs differentiable probability-like outputs; deployment may collapse those outputs into a discrete class choice.</p>
+        </section>
+
+        <section>
+            <h1>The Neural-Network Point</h1>
+            <p>A deep network output layer often acts as a statistical model head. Attention, hidden layers, and embeddings produce representation; the final probability interface determines how the result is interpreted and trained.</p>
+            <p>That is why neural networks are closer to statistics than the word &quot;perceptron&quot; suggests.</p>
         </section>
 
     </main>
