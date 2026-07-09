@@ -33,7 +33,7 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2025-08-19",
-                                "dateModified": "2026-07-01",
+                                "dateModified": "2026-07-09",
                                 "description": "A self-contained Python scanline renderer for cheap pixelless procedural textures: UV-space 2D SDF material tests, point-cloud foliage speckles, triangle trunks and branches, and a UV-SDF deer sprite.",
                                 "image": "https://greenforest.io/linkedin-archive/media/cheap-pixelless-sdf-textures.png",
                                 "encoding": {
@@ -115,6 +115,41 @@
         </section>
 
         <section>
+            <h1>Implementation Record</h1>
+            <p>The source listing is a complete Python renderer, not a sketch around an external graphics engine.</p>
+            <div class="article-fact-table">
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Output</div>
+                    <div><code>640x480</code> rendered frames in the source listing.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Dependencies</div>
+                    <div><code>numpy</code> and <code>pillow</code>.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Projection</div>
+                    <div>Camera-space projection, quad homographies, and edge equations for row fills.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Materials</div>
+                    <div>Procedural side and back textures, UV-SDF ground material, and palette-driven generated color.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Geometry</div>
+                    <div>Triangle trunks, branches, ferns, leaf spans, point-cloud foliage, and a billboard deer.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Row discipline</div>
+                    <div>A per-row filled mask prevents later background passes from overwriting closer triangles, points, or the deer sprite.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Source PDF</div>
+                    <div><a href="/sdf_texture_scanline_renderer.pdf">19 pages</a> containing the self-contained renderer listing.</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
             <h1>What The Source Does</h1>
             <p>The source code is organized around projection, palette generation, procedural textures, scene construction, SDF primitives, row renderers, and a camera path. The row renderer is the important part: each scanline carries a filled mask, draws closer triangles and the deer sprite first, then paints background planes and the ground only into pixels that are still uncovered.</p>
             <p>The deer is not a bitmap pasted into the scene. The source builds it from rounded boxes and capsules in UV space. Each pixel inside the billboard quad is mapped back to <code>u, v</code>; <code>deer_sdf(u, v)</code> decides whether that pixel is inside the silhouette; then a small albedo and shading function colors only the filled pixels.</p>
@@ -159,8 +194,9 @@ def draw_sprite_row_deer(img, filled, y, invH, edges):
         </section>
 
         <section>
-            <h1>Original Post</h1>
-            <p>Procedurally-generated textures allow cheap pixelless textures. SDF in 2D is 1 eval, much cheaper than in 3D. So we use UV-SDF in texel space. Sprinkle speckles of point cloud in distance to emulate foliage. Use shaded or solid triangles for mid-field trunks, branches, fern. GPT-5 made decisions on the shapes and the geometries of the cedar trees, texture shapes, exact color palette, all on its own, and wrote an end-to-end SotA scanline rendering engine from scratch. All in ~500 lines of Python. Animated.</p>
+            <h1>Original Post Context</h1>
+            <p>The original updates introduced two connected artifacts: the rendered forest frame and the source listing. The important technical point is the renderer structure: UV-space SDF tests for surface detail, procedural scene geometry, point speckles for distant foliage, row-based filled masks, and a compact self-contained Python implementation.</p>
+            <p>The posts also recorded the model-assisted generation context for the prototype. That context matters because the source is published with the rendered output: the article does not ask the image to stand alone as a prompt result.</p>
         </section>
 
         <section>
