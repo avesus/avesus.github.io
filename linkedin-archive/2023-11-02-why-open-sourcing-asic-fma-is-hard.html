@@ -6,11 +6,11 @@
     <title>Why Open-Sourcing ASIC FMA Is Hard</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Keep in mind it takes AMD and academia in Texas to make a new A x B + C chip compute unit. The complexity of a simple FPU FMA is overwhelming not because it&#39;s...">
+    <meta name="description" content="A chip-design note about why FPU FMA IP is hard to open-source: RTL-to-GDSII reasoning, tool cost, proprietary implementation know-how, and the gap between software openness and ASIC openness.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Why Open-Sourcing ASIC FMA Is Hard">
-    <meta property="og:description" content="Keep in mind it takes AMD and academia in Texas to make a new A x B + C chip compute unit. The complexity of a simple FPU FMA is overwhelming not because it&#39;s...">
+    <meta property="og:description" content="A chip-design note about why FPU FMA IP is hard to open-source: RTL-to-GDSII reasoning, tool cost, proprietary implementation know-how, and the gap between software openness and ASIC openness.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-11-02",
                                 "dateModified": "2026-07-09",
-                                "description": "Keep in mind it takes AMD and academia in Texas to make a new A x B + C chip compute unit. The complexity of a simple FPU FMA is overwhelming not because it's...",
+                                "description": "A chip-design note about why FPU FMA IP is hard to open-source: RTL-to-GDSII reasoning, tool cost, proprietary implementation know-how, and the gap between software openness and ASIC openness.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -78,9 +78,12 @@
     <address>November 2, 2023</address>
 
     <section class="abstract">
+        <p>Open-sourcing an FPU fused multiply-add unit is not the same kind of problem as open-sourcing a software package.</p>
+        <p>The post points at the hard layer: reasoning between RTL and GDSII, paying for and operating commercial EDA tooling, and carrying the implementation know-how that turns arithmetic intent into a manufacturable chip block.</p>
         <div class="status-box">
             <p><span class="status-label">LinkedIn post</span>Posted 2023-11-02.</p>
-            <p><strong>Related:</strong> <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a></p>
+            <p><strong>Included:</strong> the original post and a compact framing around FMA IP, ASIC tooling, and the software-to-silicon gap.</p>
+            <p><strong>Related:</strong> <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a> and <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>.</p>
         </div>
     </section>
 
@@ -94,11 +97,11 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2023-10-25-the-long-mathematical-path-to-transformers.html">The Long Mathematical Path to Transformers</a>
-        <p>Another dated publication from October 25, 2023.</p>
-        <p>More:</p>
         <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a>
-        <p>Another dated publication from November 9, 2023.</p>
+        <p>The arithmetic-primitives side of the same FMA hardware problem.</p>
+        <p>More:</p>
+        <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>
+        <p>A small public multiplier circuit with source artifacts and a readable timing schedule.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>
