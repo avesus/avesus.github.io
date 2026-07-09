@@ -6,11 +6,11 @@
     <title>Live-Offline Dualism in Software</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Ironically, product managers designing project management software, lack an abstract skill of the thinking about time as a spatial dimension. For decades,...">
+    <meta name="description" content="Collaboration software as a time problem: meetings, missed sessions, reconnects, conflicts, document edits, and shared history must remain usable across presence and absence.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2019-04-23-live-offline-dualism-in-software.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Live-Offline Dualism in Software">
-    <meta property="og:description" content="Ironically, product managers designing project management software, lack an abstract skill of the thinking about time as a spatial dimension. For decades,...">
+    <meta property="og:description" content="Collaboration software as a time problem: meetings, missed sessions, reconnects, conflicts, document edits, and shared history must remain usable across presence and absence.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2019-04-23-live-offline-dualism-in-software.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -31,8 +31,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2019-04-23",
-                                "dateModified": "2026-07-01",
-                                "description": "Ironically, product managers designing project management software, lack an abstract skill of the thinking about time as a spatial dimension. For decades,...",
+                                "dateModified": "2026-07-09",
+                                "description": "Collaboration software as a time problem: meetings, missed sessions, reconnects, conflicts, document edits, and shared history must remain usable across presence and absence.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2019-04-23-live-offline-dualism-in-software.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -79,40 +79,74 @@
 
     <section class="abstract">
         <p>Collaboration software has to preserve continuity across presence and absence: live sessions, missed sessions, reconnects, conflicts, edits, and shared history.</p>
+        <p>The hard part is not only syncing bytes. The system has to keep enough time structure for people to rejoin work without losing what happened while they were away.</p>
         <div class="status-box">
-            <p><span class="status-label">Selected LinkedIn publication</span>Originally posted 2019-04-23.</p>
-            <p><strong>Included:</strong> the original live/offline argument and the software-state problem it points to.</p>
-            <p><strong>Boundary:</strong> this is an architecture note, not a complete collaboration product design.</p>
+            <p><span class="status-label">Architecture note</span>Originally posted 2019-04-23; expanded here around the concrete collaboration-state problem.</p>
+            <p><strong>Included:</strong> late meeting entry, missed-session playback, offline document edits, reconnect conflict handling, shared history, and the state a product must preserve.</p>
+            <p><strong>Boundary:</strong> this is a short architecture note, not a complete collaboration product design or a survey of CRDT/OT algorithms.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Ironically, product managers designing project management software, lack an abstract skill of the thinking about time as a spatial dimension.</p>
-            <p>For decades, users suffer from the &quot;live-offline&quot; dualism incompetence in computer science.</p>
-            <p>While watching an old video, why not fast forward to the live source?</p>
-            <p>While entering a video conference after it's over, why not rewind it back to see what we've missed?</p>
-            <p>While going offline with a Google Doc, and after returning back, why not automatically create a conflict resolution UI, and propose a Pull Request to merge it by other collaborators?</p>
-            <p>Why new Microsoft's &quot;Teams&quot; is so slow when browsing between tabs? What about offline access?</p>
-            <p>Concurrent, offline, and collaborative hierarchical documents editing computer science theory went insanely beyond of our imagination. But an entire generation of product managers seem to be totally unaware about this theory and design their products like it's Web 1.0.</p>
-            <p>Software developers, thrown on modern projects, often lack knowledge of the theory of concurrent computing, and they even avoid to think about these scary concepts of conflicts resolution!</p>
-            <p>Modern software runs slow, because an entire generation of web developers has built a &quot;perfect world&quot;, where everything is always consistent.</p>
+            <h1>The Time Problem</h1>
+            <p>Live and offline are not two separate product modes. They are two views of the same shared timeline.</p>
+            <p>A useful collaboration system has to answer ordinary questions: what happened before I arrived, what changed while I was away, what did I edit locally, what changed remotely, and what should happen when those histories meet?</p>
         </section>
 
         <section>
-            <h1>Continuity Boundary</h1>
-            <p>The hard part is not only syncing bytes. The system has to carry user intent through time: what happened live, what happened while someone was away, what conflicts, and what state should be trusted after reconnect.</p>
+            <h1>Three Concrete Cases</h1>
+            <p>A meeting should not become opaque because someone joined late. The late user needs enough retained state to catch up: what was said, what was decided, what is live now, and where the current conversation connects to the earlier part.</p>
+            <p>A collaborative document should not treat offline edits as an embarrassment. The system should know the base version, local changes, remote changes, and the conflict shape well enough to offer a merge path instead of dumping responsibility onto the user.</p>
+            <p>A team workspace should not become unusable because a network changed. Tabs, documents, messages, and task state need a local view that can reconnect, refresh, and reconcile without pretending the user was present the whole time.</p>
+        </section>
+
+        <section>
+            <h1>State The Product Must Keep</h1>
+            <div class="article-fact-table">
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Base state</div>
+                    <div>The version the user last saw before going offline, joining late, or opening the workspace.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Local changes</div>
+                    <div>Edits, drafts, acknowledgments, playback position, and actions taken while disconnected or behind live time.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Remote changes</div>
+                    <div>Updates made by other people while the user was away or working from an older view.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">Ordering</div>
+                    <div>Enough causal or version information to explain what can merge automatically and what needs user choice.</div>
+                </div>
+                <div class="article-fact-row">
+                    <div class="article-fact-key">User intent</div>
+                    <div>The meaning of the action, not just the final bytes: comment, approve, edit, resolve, reply, bookmark, or catch up.</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1>Failure Mode Avoided</h1>
+            <p>The weak design assumes everyone is always online, always current, and always looking at the same state. That makes the software simpler until real work happens.</p>
+            <p>Real collaboration includes absence. People miss meetings, edit documents on airplanes, reopen old tabs, reconnect through bad networks, and return to projects after decisions have moved on. The product either carries that time structure or forces people to reconstruct it manually.</p>
+        </section>
+
+        <section>
+            <h1>Original Post Context</h1>
+            <p>The original post asked why a user cannot move cleanly between recorded time and live time, or return from offline editing into a merge UI that reflects what actually changed.</p>
+            <p>The cleaned-up architecture point is simple: collaboration software should treat time, absence, and reconnects as first-class product state.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2019-04-17-a-surviving-observer-model-of-computation.html">A Surviving-Observer Model of Computation</a>
-        <p>Another selected LinkedIn publication from April 17, 2019.</p>
+        <a href="/blog/2023/05/19/Unleashing-the-Future-of-Web-Development.html">Frontend/Backend Page-State Architecture</a>
+        <p>A related architecture note about returning the state for the screen the user is actually on.</p>
         <p>More:</p>
-        <a href="2019-04-24-geometric-algebra-and-matrix-multiplication.html">Geometric Algebra and Matrix Multiplication</a>
-        <p>Another selected LinkedIn publication from April 24, 2019.</p>
+        <a href="2026-03-06-correctness-emerges-by-acting.html">Correctness Emerges by Acting</a>
+        <p>A note on closing the loop between real behavior and safer software paths.</p>
         <p>Archive:</p>
         <a href="./">Selected LinkedIn publications</a>
         <p>Source:</p>
