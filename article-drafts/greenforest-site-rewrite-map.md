@@ -2,15 +2,15 @@
 
 Status: internal implementation plan only. Do not publish this file.
 
-The previous plan does not pass the current checklist. It treated Greenforest I/O too much like a homepage, navigation, and positioning project. That is the wrong center for this site.
+Use this map to repair article URLs, not to redesign the site around a homepage or navigation scheme.
 
-The value unit is the article.
+The value unit is the article. A reader should be able to find a URL online, open one page, and receive the complete thing that page promises.
 
-A reader should be able to find a URL online, open one page, and receive the complete thing that page promises. The homepage, About page, Contact page, FAQ, footer, and any library page are support surfaces. They should stay quiet, clean, and non-damaging until the major articles are strong.
+The homepage, About page, Contact page, FAQ, footer, and any library page are support surfaces. They should stay quiet and non-damaging until the major articles are strong enough to determine what support pages are actually needed.
 
 ## Operating Rule
 
-Fix articles first.
+Fix article URLs first.
 
 Do not redesign global navigation during this pass.
 
@@ -28,18 +28,19 @@ Do not present old work as leftovers. If a page remains public, it should remain
 
 ## Article Delivery Standard
 
-Every important article should become a complete delivery packet.
+Every important article should deliver a usable result, not merely describe why a result matters.
+
+An article can deliver a circuit, runnable demo, source package, PDF, image set, code path, verified render, reading key, implementation note, or reusable argument. If the material cannot include a full reproduction recipe, source path, or concrete artifact, do not dress it up as a finished technical result. Either keep it as a draft or publish it as a clearly useful idea note.
 
 Each article needs:
 
-1. A clear delivered result.
-2. The artifact or claim in the first screen.
-3. Exact local source paths, linked files, images, diagrams, video, PDF, or demo URLs.
-4. A reproduction, build, run, or reading recipe where the material allows it.
-5. The observed result.
-6. The operating scope of that result.
-7. What is not included, stated only where it prevents misuse or over-reading.
-8. A small set of useful next links, if the current page already uses article suggestions.
+1. The delivered result in the first screen.
+2. The file, demo, PDF, source, image, video, or circuit that makes the result usable.
+3. A build, run, reproduction, or reading recipe where the material allows it.
+4. The output or observed behavior a reader should expect.
+5. The operating scope of that result.
+6. Limits only where they prevent misuse or over-reading.
+7. A small set of useful next links, if the current page already uses article suggestions.
 
 Use delivery words:
 
@@ -49,7 +50,7 @@ Avoid public copy built around:
 
 proof, evidence, dossier, inspection, identity, confession, route, not-current, maybe-important, personal note, strange, messy, quirky, confusing, inner pattern, coherent center, direct contact with reality, human usefulness, signals intelligence, DSP as positioning.
 
-Where an article is technical and cannot provide a source path, run recipe, or concrete artifact, it should be rewritten as an idea note instead of pretending to be a complete technical result.
+The public posture should be delivery, not a dossier. Source paths and recipes are there because they let the reader use, rerun, inspect, cite, or extend the work, not because the article needs courtroom-style proof.
 
 ## Article Inventory Method
 
@@ -312,11 +313,12 @@ Required article content:
 
 - Main render.
 - Source code PDF or embedded source listing.
-- Scanline renderer mechanism.
-- UV-space SDF material detail.
-- Forest structure.
+- Scanline traversal: what each horizontal pass computes.
+- UV-space SDF material functions.
+- Forest texture generation.
 - Sprites or flat shaded objects where present.
-- What bitmap assets the renderer avoids using.
+- Which parts of the frame are generated from code rather than bitmap assets.
+- How a reader can connect the displayed image back to the included source.
 
 Verification:
 
@@ -520,43 +522,20 @@ Verification:
 - Do not make GPT, AI, or writing the identity.
 - Do not present Brian as a writer or copywriter.
 
-## Support Page Cleanup After Article Repair
+## Deferred Support Surface Guardrails
 
-Only after the priority articles are repaired:
+Do not implement homepage, global navigation, About, Contact, FAQ, or library redesign as part of this article-repair pass unless a specific article publication requires one small link or index update.
 
-Homepage:
+When those support surfaces are eventually touched, the article graph should determine what they need to say. They should not introduce a new public identity, a generic services pitch, a psychological explanation, or a top-down category system.
 
-- Identify Greenforest I/O without making a manifesto.
-- Stop leading with RF, FPGA, silicon, GPT, Cartilage, maker fab, proof, source code, artifacts, or technical critique.
-- Do not impose article navigation as the main experience.
+Support pages may later help with practical needs:
 
-About:
+- Where to find the strongest articles.
+- How to cite or reuse work.
+- How to contact Brian about a concrete technical system, artifact, bug, migration, run, or collaboration.
+- How older work is organized by useful question or result.
 
-- Situate the work around important systems, structure, delivery, control, scale, and continuity.
-- Do not write a psychological profile.
-- Do not list a strange mix of interests.
-
-Work or Help:
-
-- Ground the page in real technical work: streaming data, durable state, upgrades, migrations, tests, production backports, NAT traversal, remote control, parallel computation, and technical architecture.
-- Do not make Brian a general confusion helper or copywriting consultant.
-
-Contact:
-
-- Ask for practical context only: the system, the change, the reliability concern, the artifact if one exists.
-- Do not ask introspective or therapeutic questions.
-
-FAQ:
-
-- Answer practical confusion without defensiveness.
-- If needed, say Greenforest I/O is not forestry, landscaping, arborist work, timber, or environmental field service, but keep it restrained.
-
-Library or archive:
-
-- Make older work useful to browse.
-- Do not apologize for it.
-- Do not label pages as questionable leftovers.
-- Public labels should point to the result or question each page delivers.
+Support pages should not become the place where the site explains Brian as a person, apologizes for older work, or asks the reader to enter through a homepage funnel.
 
 ## Verification Gates
 
@@ -599,14 +578,14 @@ The rewrite program is not complete when the homepage sounds better.
 
 It is complete only when:
 
-1. The priority articles above each deliver their promised result.
-2. Each priority article has source/artifact paths or is honestly scoped as an idea note.
-3. The article pages no longer depend on the homepage to explain their value.
-4. Support pages no longer contradict the article-first model.
+1. The priority article URLs above each deliver their promised result.
+2. Each published technical article includes the source/artifact path, reproduction recipe, run recipe, reading recipe, or concrete artifact needed to make the page useful.
+3. Idea notes are presented as useful idea notes, not as underdelivered technical results.
+4. Article pages no longer depend on the homepage to explain their value.
 5. Public labels do not apologize for old work.
 6. Public copy does not leak assistant-process language.
 7. Links, images, JSON-LD, sitemap entries, and mobile rendering are verified for the changed pages.
-8. The coherent batch is committed and pushed to `main`.
+8. Each coherent batch is committed and pushed to `main`.
 
 ## Response Rule For Future Copy Requests
 

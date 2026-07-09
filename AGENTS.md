@@ -103,8 +103,8 @@ Use `backdrop_rf.jpeg` as a likely visual asset for an SDR/radio article or RF w
 
 ## Current Codebase Notes
 
-- `index.html` is the current homepage.
-- `index.html` must be rethought first because routing by years actively undercuts the value of the work.
+- `index.html` is the current homepage and a support surface.
+- Do not start a publishing or cleanup pass by rethinking `index.html`. Repair individual article URLs first; revisit the homepage only after repeated article endings and real index needs show what belongs there.
 - `common-script.js` injects shared document styling, print behavior, heading counters, and runnable code-snippet behavior. This is the superpower of the static, backendless, frameworkless site: new articles can be plain HTML and still have useful shared behavior. It can later be cleaned/split because much of it only exists for the old interactive WebGL education pages.
 - `from-the-ground-up/` contains educational material around computation, WebGL, and browser-based low-level experimentation. It was originally shaped like an online book, which is not the desired model anymore. Salvage it by splitting strong article material from chunks of not-yet-organized ideas.
 - `cellular-automata-2019/` contains large self-contained WebGL/shader artifacts. Treat them as executable fossils unless doing a deliberate artifact-preservation or extraction pass.

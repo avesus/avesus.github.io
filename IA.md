@@ -175,7 +175,7 @@ Prefer:
 1. A direct continuation.
 2. A practical artifact made understandable by the current article.
 3. A prerequisite article if misunderstanding is likely.
-4. A proof or evidence page if the current article made a strong claim.
+4. A source, artifact, result, or implementation page if the current article depends on material the reader can reuse.
 5. A broader index only when the reader is likely to browse.
 
 Avoid:
