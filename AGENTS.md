@@ -17,13 +17,13 @@ Future changes should help the site answer these questions quickly:
 
 There are three real content types:
 
-1. Article: the main web-native unit. Articles inform, explain, and deliver value immediately. Use long explanatory article formats with illustrations, hyperlinks, embedded previews, and strong standalone introductions. Good inspiration includes Quanta Magazine and substantial Medium-style technical essays, without copying their tone.
-2. Paper: a printable PDF reference for academic or maker reuse. A paper is not the website article; it is the document people print, mark up, bookmark, and keep on a desk. Papers should be optimized 100% for print consumption. Target 8 to 23 pages, with about 11 pages as the ideal median. A DOI landing page only serves the PDF; it does not replace a web article.
+1. Article: the main web-native unit. Articles inform, explain, and deliver value immediately. A reader should be able to open the article URL directly from search, a citation, a repository, or another site and receive the complete result promised by that page.
+2. Paper: a printable PDF reference for academic or maker reuse. Papers should be optimized for print consumption. Target 8 to 23 pages, with about 11 pages as the ideal median. A DOI landing page can be a compact article if it gives the reader the construction, citation, download, scope, and next useful artifact without apologizing for being a landing page.
 3. Book: an educational unit intended for paper. Books should be sold and consumed as paper books, not as web pages and not even primarily as PDFs.
 
 Everything else on the site exists to help readers find, understand, cite, print, run, or reuse articles, papers, and books.
 
-When a paper exists, create or plan a separate long explanatory article with illustrations, hyperlinks, and reader-facing context. The current DOI metadata page is a landing page for a PDF, not the final article format to emulate.
+When a paper exists, do not make the public page sound underdelivered. Either make the DOI page stand on its own as a compact article or create a separate explanatory article that clearly delivers additional value.
 
 ## IA Philosophy
 
@@ -31,7 +31,7 @@ Do not assume visitors start at the homepage. Brian's model of the web is articl
 
 Navigation categories must emerge from article contents. Do not invent top-level buckets first. For each article, identify what the reader just learned, what page is now the most relevant next read, and what index page would become useful after that article. Create an index only when repeated article endings need the same collection.
 
-The current `index.html` sends people to years, which is harmful. The homepage must be completely rethought before it is treated as useful. It should not route by chronology. It should provide access to emergent index articles plus featured and recent content. Cartilage can be featured because it is visually and conceptually strong, but the serial multiplier may have the highest direct customer value once it is public because it is a drop-in building block.
+The current `index.html` is a support surface, not the main product. Do not start a publishing pass by redesigning homepage navigation. First make individual article URLs stand on their own; then let repeated article endings reveal which index pages or homepage changes are actually needed.
 
 Do not create generic "About" navigation by default. An about-like page must answer a specific reader question produced by actual articles, such as citation, collaboration, purpose, or how the projects connect.
 
@@ -105,11 +105,10 @@ Use `backdrop_rf.jpeg` as a likely visual asset for an SDR/radio article or RF w
 
 - `index.html` is the current homepage.
 - `index.html` must be rethought first because routing by years actively undercuts the value of the work.
-- `common-script.js` injects shared document styling, print behavior, heading counters, and runnable code-snippet behavior. This is the superpower of the static, backendless, frameworkless site: new articles can be plain HTML and still have useful shared behavior. It should eventually be cleaned/split because much of it only exists for the old interactive WebGL education pages.
+- `common-script.js` injects shared document styling, print behavior, heading counters, and runnable code-snippet behavior. This is the superpower of the static, backendless, frameworkless site: new articles can be plain HTML and still have useful shared behavior. It can later be cleaned/split because much of it only exists for the old interactive WebGL education pages.
 - `from-the-ground-up/` contains educational material around computation, WebGL, and browser-based low-level experimentation. It was originally shaped like an online book, which is not the desired model anymore. Salvage it by splitting strong article material from chunks of not-yet-organized ideas.
 - `cellular-automata-2019/` contains large self-contained WebGL/shader artifacts. Treat them as executable fossils unless doing a deliberate artifact-preservation or extraction pass.
-- `boolean-algebra-is-all-that-is-required.html` is the current polished publication-style page for the multiplexer-only Boolean computation paper.
-- `boolean-algebra-is-all-that-is-required.html` is a DOI/PDF landing page, not a complete web article. A long explanatory article with illustrations and hyperlinks should eventually supplement it.
+- `boolean-algebra-is-all-that-is-required.html` is the current polished publication-style page for the multiplexer-only Boolean computation paper. It should serve both as the DOI/PDF landing page and as a compact construction article.
 - `sitemap.xml`, `robots.txt`, and static HTML files are deployed as a simple GitHub Pages site.
 
 ## Editing Guidance

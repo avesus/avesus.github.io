@@ -11,17 +11,22 @@
 - Current page links to DOI: https://doi.org/10.5281/zenodo.18528622
 - Current page links to PDF download on Zenodo.
 - Current page has sections:
-  - TL;DR
-  - Abstract
-  - Related Cartilage work
+  - abstract/status box
+  - What The Paper Gives
+  - Why MUXes Are Enough
+  - Construction Recipe
+  - Implementation Path
+  - Relation To Cartilage
+  - Construction Boundary
+  - Cartilage Visual Language
+  - Use This With Prior Work
 - Current page links to the live Cartilage demo at `/cellular-automata-2019/cartilage3.html`.
 - Current page links to the ShaderToy Cartilage artifact: https://www.shadertoy.com/view/7lj3Rw
-- Current page ends with a plain `Back to greenforest.io` link.
-- It does not currently have the newer article-style `Next` / `More` navigation block.
+- Current page ends with the article-style `Read next` / `More` / `Go back` navigation block.
 
 ## Editorial Direction
 
-The page should lead as an engineering article/paper bridge, not as a philosophical claim.
+The page should lead as an engineering article and DOI/PDF landing, not as a philosophical claim.
 
 Lead terms:
 
@@ -39,8 +44,7 @@ Lead terms:
 Avoid as lead framing:
 
 - mystery
-- embodied choice
-- civilization-scale metaphor
+- philosophical metaphor
 - metaphor as the source of value
 
 ## Article Skeleton
@@ -51,7 +55,7 @@ Wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbou
 
 ### What The Paper Gives
 
-The paper makes a minimal construction explicit. It does not need a zoo of machine metaphors to explain computation. A clocked next-state function over bits, built from MUXes and state, can express logic, memory, reconfiguration, and growth.
+The paper makes a minimal construction explicit. A clocked next-state function over bits, built from MUXes and state, can express logic, memory, reconfiguration, and growth.
 
 ### Why MUXes Are Enough
 
@@ -78,20 +82,17 @@ Cartilage should be presented as an implementation direction and live demo linea
 - license.
 - Cartilage demo and ShaderToy links.
 
-### What To Change Later In HTML
+### Current HTML Direction
 
 - Remove visible author vanity while retaining machine-readable citation author metadata.
-- Add a simple date line.
-- Add standard article navigation:
+- Keep the simple visible date line.
+- Keep standard article navigation:
   - Back: greenforest.io
   - Read next: Cartilage nested-instantiation demo
-  - More: eventually a computation/circuit-fabric index, only when justified
-- Add stronger article body prose between the TL;DR and abstract or after the abstract.
-- Keep the DOI/PDF role clear without making the page feel like only a file landing page.
+  - More: Bit-Serial Bubbles-Free Multiplier until a stronger local computation index exists.
+- Keep the DOI/PDF role clear while letting the page stand as a compact construction article.
 
 ## Open Verification
 
-- Ask Brian whether the full explanatory article should live at this same URL or whether this URL remains the DOI/PDF landing page and a new article URL explains the construction.
-- Ask whether any figures from the PDF should be adapted into the web article.
-- Ask whether the next-read link should point to Cartilage or the serial multiplier once both article wrappers exist.
-
+- Consider adapting figures from the PDF into the page if they add concrete explanatory value.
+- If a longer article is added later, it should supplement this URL rather than make this page sound underdelivered.

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation</title>
-    <meta name="description" content="A paper bridge for a multiplexer-only Boolean model of universal computation built from wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling.">
+    <meta name="description" content="Universal computation built from wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling.">
     <link rel="canonical" href="https://greenforest.io/boolean-algebra-is-all-that-is-required.html">
     <meta property="og:title" content="Boolean Algebra Is All That Is Required">
     <meta property="og:description" content="A multiplexer-only Boolean model of universal computation based on wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling.">
@@ -27,7 +27,7 @@
                 "name": "Brian Greenforest"
             }],
             "datePublished": "2026-02-08",
-            "dateModified": "2026-07-01",
+            "dateModified": "2026-07-09",
             "publisher": {
                 "@type": "Organization",
                 "name": "Zenodo"
@@ -48,7 +48,7 @@
                 "contentUrl": "https://zenodo.org/records/18528623/files/Boolean_Algebra_is_All_You_Need.pdf?download=1",
                 "encodingFormat": "application/pdf"
             },
-            "description": "A paper bridge for a multiplexer-only Boolean model of universal computation built from wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling."
+            "description": "Universal computation built from wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling."
         }
     </script>
     <script src="/common-script.js" type="text/javascript"></script>
@@ -71,9 +71,9 @@
     <section class="abstract">
         <p>Universal computation from wires, constants, 2:1 MUXes, feedback, configuration registers, and unbounded tiling.</p>
         <p>The paper gives a small construction kit for a reconfigurable Boolean substrate. Wires move values. Constants anchor values. MUXes choose values. Feedback and registers create state. Configuration registers change the next-state function. Unbounded tiling gives the construction room to grow.</p>
-        <p>The delivered result is the formal construction and DOI/PDF reference. A fuller web article with illustrations should eventually sit beside it; this page keeps the citation, download, and implementation bridge in one place.</p>
+        <p>The delivered result is the formal construction, the DOI/PDF reference, and the implementation path in one place.</p>
         <div class="status-box">
-            <p><span class="status-label">Paper landing page</span>This page delivers the Zenodo DOI, PDF, license, citation metadata, and a short implementation bridge.</p>
+            <p><span class="status-label">Paper and construction</span>This page delivers the Zenodo DOI, PDF, license, citation metadata, and compact implementation path.</p>
             <p><strong>Included:</strong> the primitive set: wires, constants, 2:1 MUXes, feedback, configuration registers, and unbounded tiling.</p>
             <p><strong>Boundary:</strong> Boolean sufficiency and physical fabrication are different problems. This page does not supply a maker-scale active-device process.</p>
         </div>
@@ -82,8 +82,8 @@
     <main>
         <section>
             <h1>What The Paper Gives</h1>
-            <p>The paper defines a minimal computation model whose primitives are ordinary Boolean hardware primitives: wires, constants, and 2:1 multiplexers. With feedback and registers, those primitives become sequential switching networks. With configuration registers, the same substrate can be programmed. With unbounded tiling, it has unbounded memory and therefore universal computational power.</p>
-            <p>The point is not that multiplexers are mystical. The point is that a MUX fabric gives a small implementation path: conditional selection, state, reconfiguration, routing discipline, and replication can all be expressed inside the same Boolean system.</p>
+            <p>The paper defines a minimal computation model whose primitives are ordinary Boolean hardware primitives: wires, constants, and 2:1 multiplexers. With feedback and registers, those primitives become sequential switching networks. With configuration registers, the same substrate can be programmed. With unbounded tiling, the construction has unbounded memory and therefore universal computational power.</p>
+            <p>The point is implementation-level sufficiency. Conditional selection, state, reconfiguration, routing discipline, and replication can all be expressed inside the same Boolean system.</p>
         </section>
 
         <section>
@@ -93,9 +93,22 @@
         </section>
 
         <section>
+            <h1>Construction Recipe</h1>
+            <ol>
+                <li>Start with wires and constants so bits can be moved and fixed values can enter the network.</li>
+                <li>Use 2:1 MUXes as the switching primitive. A MUX selects one input under control of one bit.</li>
+                <li>Compose MUXes into arbitrary Boolean functions.</li>
+                <li>Add feedback through registers so the network has clocked state.</li>
+                <li>Reserve some state as configuration registers so the next-state function can be changed by data.</li>
+                <li>Tile the same local pattern without a fixed bound so memory and machine size can grow.</li>
+            </ol>
+            <p>That chain is the whole claim. It does not require a hidden CPU, a special instruction set, or an external programming oracle. The same kind of Boolean state that computes values can also carry the configuration that changes the fabric.</p>
+        </section>
+
+        <section>
             <h1>Implementation Path</h1>
-            <p>Read this as an implementation model for a reconfigurable substrate. The important terms are local wires, constants, 2:1 MUXes, feedback, configuration state, tiling, and the protocol that installs new configuration. The paper is the formal bridge; it says why that small kit is sufficient.</p>
-            <p>It also explains why reconfiguration should not be treated as outside the machine. Programming a fabric is itself a Boolean, clocked process. Configuration bits move through a substrate, land in registers, and change the next-state function the same way any other state changes it.</p>
+            <p>Read this as an implementation model for a reconfigurable substrate. The important terms are local wires, constants, 2:1 MUXes, feedback, configuration state, tiling, and the protocol that installs new configuration.</p>
+            <p>Reconfiguration is not outside the machine. Programming a fabric is itself a Boolean, clocked process. Configuration bits move through a substrate, land in registers, and change the next-state function the same way any other state changes it.</p>
         </section>
 
         <section>
