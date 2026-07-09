@@ -69,13 +69,13 @@
     </div>
 
     <section class="abstract">
-        <p>The reason I care about this formal page is practical: if a substrate can be described with a small kit of Boolean pieces, then the hidden part becomes easier to inspect and harder to mystify.</p>
-        <p>Wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling are enough to define a universal, reconfigurable Boolean substrate.</p>
-        <p>That is the engineering claim. The paper makes the construction explicit so the reader can treat computation as a clocked next-state function over bits, not as a collection of unrelated machine metaphors.</p>
+        <p>Universal computation from wires, constants, 2:1 MUXes, feedback, configuration registers, and unbounded tiling.</p>
+        <p>The paper gives a small construction kit for a reconfigurable Boolean substrate. Wires move values. Constants anchor values. MUXes choose values. Feedback and registers create state. Configuration registers change the next-state function. Unbounded tiling gives the construction room to grow.</p>
+        <p>The delivered result is the formal construction and DOI/PDF reference. A fuller web article with illustrations should eventually sit beside it; this page keeps the citation, download, and implementation bridge in one place.</p>
         <div class="status-box">
-            <p><span class="status-label">Paper/reference</span>This page is a DOI/PDF landing page with a short explanatory bridge, not the full future web article.</p>
-            <p><strong>What is preserved here:</strong> the Zenodo DOI, PDF, license, citation metadata, and the primitive set: wires, constants, 2:1 MUXes, feedback, configuration registers, and unbounded tiling.</p>
-            <p><strong>What this does not prove:</strong> that a physically local maker-scale active-device process exists. Boolean sufficiency and physical fabrication are different problems.</p>
+            <p><span class="status-label">Paper landing page</span>This page delivers the Zenodo DOI, PDF, license, citation metadata, and a short implementation bridge.</p>
+            <p><strong>Included:</strong> the primitive set: wires, constants, 2:1 MUXes, feedback, configuration registers, and unbounded tiling.</p>
+            <p><strong>Boundary:</strong> Boolean sufficiency and physical fabrication are different problems. This page does not supply a maker-scale active-device process.</p>
         </div>
     </section>
 
@@ -101,23 +101,23 @@
         <section>
             <h1>Relation To Cartilage</h1>
             <p>Cartilage is the live implementation direction attached to this paper. The primary <a href="/cellular-automata-2019/cartilage3.html">Cartilage demo</a> shows a tiled browser/GPU fabric where a local reconfiguration port streams bits into bounded regions and replaces tile roles such as wires, MUXes, constants, intersections, and further reconfiguration ports.</p>
-            <p>The <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation article</a> is the next useful read because it turns the formal claim into an inspectable artifact: module boundaries, local ports, serial configuration streams, bounded regions, composability, and no global magic controller.</p>
-            <p>You can also inspect the <a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/7lj3Rw">Cartilage ShaderToy artifact</a> from Summer 2021.</p>
+            <p>The <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation article</a> is the next useful read because it turns the formal claim into a live artifact: module boundaries, local ports, serial configuration streams, bounded regions, composability, and reconfiguration through the fabric.</p>
+            <p>You can also open the <a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/7lj3Rw">Cartilage ShaderToy artifact</a> from Summer 2021.</p>
         </section>
 
         <section>
-            <h1>Tradeoff</h1>
+            <h1>Construction Boundary</h1>
             <p>The construction is intentionally small. It does not start from a convenient CPU, an HDL standard library, or a friendly programming language. It starts from the fewest Boolean pieces that still reach state, configuration, and unbounded growth.</p>
-            <p>The tradeoff is that the first description looks lower-level than the machines people usually name. The gain is that every layer has a direct substrate interpretation.</p>
+            <p>The first description is lower-level than the machines people usually name. The gain is that every layer has a direct substrate interpretation.</p>
         </section>
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Value From A Reader</h1>
-            <p>If you know prior work on MUX fabrics, reconfigurable cellular hardware, BDD-style computation, or universal Boolean substrates, I would value the strongest reference that makes this less original or sharper than I am seeing.</p>
+        <section>
+            <h1>Use This With Prior Work</h1>
+            <p>The most relevant comparisons are MUX fabrics, reconfigurable cellular hardware, BDD-style computation, and universal Boolean substrates. Those references belong beside the paper because they sharpen what this construction contributes and what was already known.</p>
         </section>
     </main>
 
@@ -127,7 +127,7 @@
         <p>The live artifact showing local ports, bounded regions, and serial configuration streams.</p>
         <p>More:</p>
         <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>
-        <p>A small arithmetic datapath whose schedule can be inspected as a circuit artifact.</p>
+        <p>A small arithmetic datapath whose schedule can be read directly from the circuit artifact.</p>
         <a href="/">Go back</a>
     </nav>
 </body>

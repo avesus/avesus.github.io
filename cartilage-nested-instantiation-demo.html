@@ -39,13 +39,12 @@
     <address>Summer 2021</address>
 
     <section class="abstract">
-        <p>Reconfiguration should not arrive as global magic. A bounded region should be able to receive new structure through a visible local port.</p>
-        <p>Cartilage is a browser/GPU demo of hierarchical reconfiguration: a tiled Boolean fabric can allocate a bounded daughter region, stream configuration bits through a local reconfiguration port, and replace that region's tile roles without a global magic controller.</p>
+        <p>Cartilage is a browser/GPU demo of hierarchical reconfiguration: a tiled Boolean fabric can allocate a bounded daughter region, stream configuration bits through a local reconfiguration port, and replace that region's tile roles through the fabric itself.</p>
         <p>The demo is not just a visual cellular automaton. It is a model of circuit-like regions with local ports, local ownership, local configuration streams, and tile roles that can be rewritten.</p>
         <div class="status-box">
-            <p><span class="status-label">Live demo</span>This page explains a browser/GPU artifact; it is not an edge-verified arithmetic proof.</p>
-            <p><strong>What is preserved here:</strong> the canonical Cartilage 3 live demo, local reconfiguration ports, bounded daughter regions, serial configuration streams, and the tile-role vocabulary.</p>
-            <p><strong>What this does not prove:</strong> general compiler support, full reproduction packaging, or the later 2026 checked run results.</p>
+            <p><span class="status-label">Live demo</span>This page delivers the canonical browser/GPU Cartilage demo and the render vocabulary needed to read it.</p>
+            <p><strong>Included:</strong> the canonical Cartilage 3 live demo, local reconfiguration ports, bounded daughter regions, serial configuration streams, and the tile-role vocabulary.</p>
+            <p><strong>Boundary:</strong> this page does not include general compiler support, full reproduction packaging, or the later 2026 checked run results.</p>
         </div>
     </section>
 
@@ -93,8 +92,8 @@
 
         <section>
             <h1>Why Local Ports Matter</h1>
-            <p>A global controller would make the demo less interesting. The point is that reconfiguration enters through local ports. The region being configured is bounded, and the parent/daughter relationship is explicit in the cell state. FPGA and EDA readers should read this as a routing and configuration discipline, not as a metaphor.</p>
-            <p>The parent pointer creates an ownership tree. Reconfiguration ports are tile roles inside the same fabric, not magic holes in the model. That is the difference between a pretty cellular automaton and a composable reconfigurable substrate.</p>
+            <p>The point is that reconfiguration enters through local ports. The region being configured is bounded, and the parent/daughter relationship is explicit in the cell state. FPGA and EDA readers should read this as a routing and configuration discipline, not as a metaphor.</p>
+            <p>The parent pointer creates an ownership tree. Reconfiguration ports are tile roles inside the same fabric, not outside holes in the model. That is the difference between a visual cellular automaton and a composable reconfigurable substrate.</p>
         </section>
 
         <section>
@@ -105,16 +104,16 @@
         <section>
             <h1>Controls In The Artifact</h1>
             <p>The demo source includes editing controls: ASDW to draw wires while pressing the mouse, ZQERTYU to place multiplexers, backtick for ground, 1 for power, X for intersection, L for reconfiguration port, and numpad 4-8-6-2 to change the parent pointer in the ownership tree.</p>
-            <p>Those controls are artifact notes, not the main pitch. The main pitch is local nested instantiation.</p>
+            <p>Those controls are artifact notes. The main delivered behavior is local nested instantiation.</p>
         </section>
         <section class="cartilage-visual-link">
             <h1>Cartilage Visual Language</h1>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Value From A Reader</h1>
-            <p>If you work on FPGAs, cellular hardware, or reconfigurable substrates, I would value criticism of the hidden assumption: where does a global controller sneak back into this model?</p>
+        <section>
+            <h1>Implementation Boundary</h1>
+            <p>The next implementation boundary is packaging the demo so another builder can reproduce the setup, identify the active render path, and follow the configuration stream without reading the whole shader history first.</p>
         </section>
     </main>
 

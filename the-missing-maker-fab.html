@@ -47,9 +47,9 @@
         <p>A maker can cut the enclosure, mill the copper, drill the vias, print the bracket, flash the firmware, inspect the solder joints, publish the design files, and ship a repairable artifact. Then the maker reaches the active silicon, and the loop stops. The community can own the shape, the code, the schematic, the PCB, and the assembly. It still cannot own the fast nonlinear devices inside the chips.</p>
         <p>That fact matters more than the usual romance around &ldquo;open hardware&rdquo; admits.</p>
         <div class="status-box">
-            <p><span class="status-label">Speculative note</span>This page names a missing process boundary; it does not claim that I have solved fabrication.</p>
-            <p><strong>What is preserved here:</strong> the technical shape of the missing invention: nonlinear gain, restoration, fanout, interconnect, digital logic and analog amplification, operation above 10 MHz, hundreds of thousands of elements, and local tools.</p>
-            <p><strong>What this does not prove:</strong> that OECTs, memristors, magnetics, vacuum devices, or any other route already fills the box.</p>
+            <p><span class="status-label">Manufacturing question</span>This page names the active-device process boundary that still keeps open hardware below the chip level.</p>
+            <p><strong>Included:</strong> nonlinear gain, restoration, fanout, interconnect, digital logic and analog amplification, operation above 10 MHz, hundreds of thousands of elements, and local tools.</p>
+            <p><strong>Boundary:</strong> OECTs, memristors, magnetics, vacuum devices, and other possible routes still have to meet the process window, yield, speed, and repeatability requirements.</p>
         </div>
     </section>
 
@@ -95,7 +95,7 @@
             <h1>The Trust Problem</h1>
             <p>This gap also creates a security problem, not just a manufacturing problem.</p>
             <p>A root of trust asks the user to trust the hardware below the software. <a href="https://opentitan.org/" target="_blank" rel="noopener">OpenTitan</a> and similar projects attack the design-transparency side of that problem by opening the root-of-trust architecture and implementation. But open HDL cannot prove that a remote physical process built exactly what the files described. <a href="https://www.mdpi.com/1424-8220/20/18/5165" target="_blank" rel="noopener">Hardware Trojan research</a> keeps repeating the same warning: attackers can alter circuits during design or fabrication, and hidden triggers can stay dormant under ordinary testing.</p>
-            <p>A local active-device process would not magically solve trust. Local builders can still make mistakes. Local equipment can drift. Local suppliers can ship bad chemistry. But locality changes the proof surface. A community can inspect the masks, audit the materials, measure the process, compare wafers or panels, destructively sample lots, and reproduce the device in another shop. Trust moves from vendor belief toward repeated physical verification.</p>
+            <p>A local active-device process would not magically solve trust. Local builders can still make mistakes. Local equipment can drift. Local suppliers can ship bad chemistry. But locality changes the verification surface. A community can inspect the masks, audit the materials, measure the process, compare wafers or panels, destructively sample lots, and reproduce the device in another shop. Trust moves from vendor belief toward repeated physical verification.</p>
         </section>
 
         <section>
@@ -119,9 +119,9 @@
             <p>Not merely design them. Not merely order them. Not merely package them. Fabricate them, measure them, scrap them, improve them, and teach another town to do the same.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Value From A Reader</h1>
-            <p>If you have fabrication, OECT, MEMS, magnetic, packaging, PCB-process, or hardware-trust experience, I would value a direct challenge to the boundary: which active-device process comes closest, and which requirement above fails first?</p>
+        <section>
+            <h1>Process Boundary</h1>
+            <p>The important comparison is concrete: which active-device process comes closest, and which requirement fails first: gain, restoration, fanout, interconnect, speed, yield, equipment cost, material stability, or local repeatability?</p>
         </section>
     </main>
 

@@ -45,9 +45,9 @@
         <p>This is a current Cartilage WebGL/GPGPU fabric milestone: a self-contained renderer where reconfiguration-port roots belong to the child subtree, while the initialized ownership tree remains a square <code>6x6</code> block.</p>
         <p>The artifact is not a hand-drawn diagram. The GIF is captured from the running GLSL fabric, and the runnable demo is copied as a standalone web page.</p>
         <div class="status-box">
-            <p><span class="status-label">Live milestone</span>This is a checked boot/preallocation and render-capture milestone, not a finished full reconfiguration system.</p>
-            <p><strong>What is preserved here:</strong> child-owned reconfiguration port roots, square <code>6x6</code> ownership blocks, active port-root initialization, the 252-bit transaction calculation, and the 450-frame capture.</p>
-            <p><strong>What this does not prove:</strong> readout, a finished <code>4x4</code> coarse reconfiguration model, or exhaustive verification of every future dynamic stream.</p>
+            <p><span class="status-label">Live milestone</span>This page delivers the checked boot/preallocation and render-capture milestone.</p>
+            <p><strong>Included:</strong> child-owned reconfiguration port roots, square <code>6x6</code> ownership blocks, active port-root initialization, the 252-bit transaction calculation, and the 450-frame capture.</p>
+            <p><strong>Boundary:</strong> readout, a finished <code>4x4</code> coarse reconfiguration model, and exhaustive verification of every future dynamic stream are outside this milestone.</p>
         </div>
     </section>
 
@@ -104,9 +104,9 @@
             <p>Use the earlier <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation demo</a> article for the broader parent/daughter-region model. This 2026 artifact is a more recent boot-shape and reconfiguration-port-root milestone in that same line of work.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Value From A Reader</h1>
-            <p>If you inspect the ownership model, I would value the first place where the distinction between role column, parent pointer, and active configuration signal is unclear or under-justified.</p>
+        <section>
+            <h1>Ownership Boundary</h1>
+            <p>The useful distinction is between role column, parent pointer, and active configuration wire. If those three fields collapse into one visual idea, the render stops explaining child-owned reconfiguration ports.</p>
         </section>
     </main>
 

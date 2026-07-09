@@ -87,11 +87,12 @@
     <address>August 19, 2025</address>
 
     <section class="abstract">
-        <p>Archived from two LinkedIn posts by Brian Greenforest, with the render and source-code PDF preserved as site artifacts.</p>
+        <p>Images generated from geometry, functions, and material logic instead of bitmap texture assets.</p>
+        <p>This page preserves a render and source-code PDF for a self-contained Python scanline renderer: UV-space 2D SDF material tests, point-cloud foliage speckles, triangle trunks and branches, and a UV-SDF deer sprite.</p>
         <div class="status-box">
-            <p><span class="status-label">Rendered/code artifact</span>Originally posted 2025-08-19. Status: self-contained Python renderer with a source-code PDF.</p>
-            <p><strong>Current reading note:</strong> This is stronger than a feed note. The artifact is a scanline renderer that uses UV-space 2D SDFs for pixelless procedural surface detail, plus simple generated geometry for a small forest scene.</p>
-            <p><strong>Best read with:</strong> <a href="/">Greenforest I/O</a></p>
+            <p><span class="status-label">Rendered source artifact</span>Originally posted 2025-08-19; expanded with the rendered frame, source-code PDF, and a short reading guide.</p>
+            <p><strong>Included:</strong> the rendered forest frame, source-code PDF, row-fill rendering structure, UV-SDF material path, generated scene geometry, and links to the original posts.</p>
+            <p><strong>Boundary:</strong> this is a compact Python prototype, not a production GPU renderer or asset pipeline.</p>
         </div>
     </section>
 
@@ -163,13 +164,13 @@ def draw_sprite_row_deer(img, filled, y, invH, edges):
         </section>
 
         <section>
-            <h1>Tradeoff</h1>
-            <p>The tradeoff is visible in the source: this is a compact Python prototype with front-to-back painter ordering and scanline row functions, not a production GPU renderer. That is also why it is worth archiving. The machinery is small enough to read, while the rendered result already shows the point: procedural 2D SDF texture logic can carry visual complexity without turning every surface into a stored image.</p>
+            <h1>Implementation Boundary</h1>
+            <p>This is a compact Python prototype with front-to-back painter ordering and scanline row functions. It is not a production GPU renderer. The useful result is narrower: procedural 2D SDF texture logic can carry visible surface detail without turning every surface into a stored image.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Still Ask A Reader</h1>
-            <p>What would you port first: the UV-SDF material path, the deer sprite SDF, or the scanline filled-mask discipline?</p>
+        <section>
+            <h1>Porting Boundary</h1>
+            <p>The natural first ports are the UV-SDF material path, the deer sprite SDF, and the scanline filled-mask discipline. Those pieces are separable enough to move into a browser renderer or GPU path without preserving the whole Python prototype.</p>
         </section>
     </main>
 

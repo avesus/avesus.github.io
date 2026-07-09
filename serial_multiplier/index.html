@@ -75,21 +75,21 @@
         <p>A positive-number bit-serial multiplier whose pipeline stays full: after startup alignment, each clock accepts the next input bits and emits the next product bit, with no drain cycles between operand words.</p>
         <p>The public artifact is a Logisim circuit. The rendered version is 8x8 bits with an 8-bit result stream, but the width is not the point. The point is the schedule.</p>
         <div class="status-box">
-            <p><span class="status-label">Circuit artifact</span>This is a positive-number Logisim circuit artifact, not a finished FPGA timing comparison.</p>
-            <p><strong>What is preserved here:</strong> the bubbles-free streaming schedule, LSB-first streams, 8x8 rendered circuit, 3-clock fixed latency in the rendered example, serial adders, Logisim file, and circuit images.</p>
-            <p><strong>What this does not prove:</strong> signed arithmetic, Verilog timing, LUT count, Fmax, or superiority over hard DSP blocks on a target FPGA.</p>
+            <p><span class="status-label">Circuit artifact</span>This page delivers the Logisim circuit, rendered schematics, streaming schedule, and current implementation boundary.</p>
+            <p><strong>Included:</strong> the bubbles-free streaming schedule, LSB-first streams, 8x8 rendered circuit, 3-clock fixed latency in the rendered example, serial adders, Logisim file, and circuit images.</p>
+            <p><strong>Boundary:</strong> signed arithmetic, Verilog timing, LUT count, Fmax, and FPGA target comparisons are future work.</p>
         </div>
     </section>
 
     <figure>
         <img src="mul.png" alt="Logisim schematic of the bit-serial bubbles-free multiplier">
-        <figcaption>The multiplier datapath in Logisim. The repeated lanes and serial reducing adders are the artifact to inspect.</figcaption>
+        <figcaption>The multiplier datapath in Logisim. The repeated lanes and serial reducing adders are the circuit to read.</figcaption>
     </figure>
 
     <main>
         <section>
             <h1>Why It Exists</h1>
-            <p>Ordinary FPGA multiplication can become the wrong abstraction. A standard Verilog <code>*</code> may infer hardware with slow clock semantics, difficult timing closure, and pressure on DSP blocks. For some compute graphs, the problem is not multiplying once. The problem is composing many multipliers and adders at high clock rate without turning the design into wide buses, placement trouble, and memory traffic.</p>
+            <p>Ordinary FPGA multiplication can become the wrong abstraction. A standard Verilog <code>*</code> may infer hardware with slow clock semantics, difficult timing closure, and pressure on scarce hard multiplier resources. For some compute graphs, the problem is not multiplying once. The problem is composing many multipliers and adders at high clock rate without turning the design into wide buses, placement trouble, and memory traffic.</p>
             <p>This multiplier takes the opposite route. It keeps arithmetic in a narrow, regular, bit-serial stream. Every edge carries one bit per clock, every word advances on the same cadence, and the pipeline does not need a bubble between consecutive operands.</p>
         </section>
 
@@ -115,13 +115,13 @@
         <section>
             <h1>Scaling</h1>
             <p>The design scales linearly in resources with the number of input bits. Wider versions add repeated lanes and reduction structure instead of a wide parallel multiplier block. The balanced serial reduction tree adds one clock of extra latency each time operand width doubles.</p>
-            <p>The useful output width is an application decision. In fixed-width DSP, SDR, AI, and graphics arithmetic, the designer usually knows which product bits matter. Keeping only the useful stream width is part of the architecture, not a failure to compute a decorative full-width product. Signed arithmetic can be added with a cheap parallel sign stream.</p>
+            <p>The useful output width is an application decision. In fixed-width radio, machine-learning, and graphics arithmetic, the designer usually knows which product bits matter. Keeping only the useful stream width is part of the architecture, not a failure to compute a decorative full-width product. Signed arithmetic can be added with a cheap parallel sign stream.</p>
         </section>
 
         <section>
-            <h1>Tradeoff</h1>
-            <p>The tradeoff is not simply "serial is slower." The architecture gives up wide immediate products in exchange for a uniform streaming schedule, narrow local links, and graph-style composition. That can reduce routing pressure and make large arithmetic graphs easier to reason about, place, and clock.</p>
-            <p>Hard DSP blocks and inferred <code>*</code> multipliers remain useful, but they also bring placement and clocking constraints. This design explores the opposite direction: keep multiplication in the same bit-stream rhythm as the rest of the compute graph and aim for fabric-friendly Fmax.</p>
+            <h1>Design Boundary</h1>
+            <p>The cost is not simply "serial is slower." The architecture gives up wide immediate products in exchange for a uniform streaming schedule, narrow local links, and graph-style composition. That can reduce routing pressure and make large arithmetic graphs easier to reason about, place, and clock.</p>
+            <p>Hard multiplier blocks and inferred <code>*</code> multipliers remain useful, but they also bring placement and clocking constraints. This design explores the opposite direction: keep multiplication in the same bit-stream rhythm as the rest of the compute graph and aim for fabric-friendly Fmax.</p>
         </section>
 
         <section>
@@ -136,19 +136,19 @@
                     Serial adder image
                 </a>
             </div>
-            <p>The next engineering step is a Verilog port, followed by LUT count, achievable Fmax, timing reports, waveform captures, and comparison against inferred <code>*</code> and DSP-backed multipliers on the same target.</p>
+            <p>The next engineering step is a Verilog port, followed by LUT count, achievable Fmax, timing reports, waveform captures, and comparison against inferred <code>*</code> and target hard-multiplier implementations.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Value From A Reader</h1>
-            <p>If you have FPGA arithmetic experience, I would value the first target and comparison you would require before believing the schedule is useful outside Logisim.</p>
+        <section>
+            <h1>Next Measurement</h1>
+            <p>The useful next comparison is a Verilog implementation measured on the same FPGA target against inferred <code>*</code> and hard-multiplier implementations: LUT count, Fmax, timing report, waveform capture, and placement behavior.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
         <a href="/how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a>
-        <p>The one-pin radio work is another artifact where timing, pins, and digital signal flow matter more than inherited block diagrams.</p>
+        <p>The one-pin radio work is another artifact where timing, pins, and the digital receiver path matter more than inherited block diagrams.</p>
         <p>More:</p>
         <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
         <p>A paper bridge for the broader Boolean substrate direction behind circuit-like computation.</p>

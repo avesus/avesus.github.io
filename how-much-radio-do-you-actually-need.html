@@ -43,18 +43,14 @@
     <address>April 22, 2026</address>
 
     <section class="abstract">
-        <p>A radio receiver usually arrives as an inherited stack: analog front end, local oscillator, mixer, ADC, then a pile of DSP. People do not meet "radio" as a small mechanism. They meet it as a tradition.</p>
-        <p>That tradition works. It also hides the real question:</p>
-        <p class="key-line"><strong>How much of that stack does radio actually need?</strong></p>
-        <p>Not "how little of an FM receiver can I get away with" in the narrow hobby sense. The bigger question is broader and more serious: when you strip radio down until only the governing causes remain, what still stands? What belongs to radio itself, and what belongs only to the standard industrial answer?</p>
-        <p>I went after that question with FM because FM gives you a hard test. It is a real broadcast signal, it carries phase and frequency information continuously, and it punishes fake simplifications quickly. If a brutally reduced receiver can still recover real FM cleanly, then at least some of the inherited bulk was never fundamental.</p>
-        <p>So I forced the design into a corner:</p>
+        <p>FM radio recovered from one digital input pin.</p>
+        <p>Real RF crosses a digital threshold and becomes audio without the conventional receiver front end. This page preserves the receiver path: input threshold behavior, four-phase sampling, Weaver-style XOR mixing, CIC filtering, cross-product FM demodulation, and sigma-delta audio output.</p>
+        <p>The result is not a smaller radio for its own sake. It is a working receiver rebuilt from the behavior that matters.</p>
         <p class="key-line"><strong>one input pin, one FPGA, real FM in, real sound out.</strong></p>
-        <p>That is not a slogan. It is a way to make the argument answerable to hardware.</p>
         <div class="status-box">
-            <p><span class="status-label">Verified artifact</span>This page is an artifact-backed radio reduction, not a claim that all radio should be built this way.</p>
-            <p><strong>What is preserved here:</strong> the FPGA input threshold, RF transition stream, four-phase sampling, Weaver-style XOR mixing, CIC filtering, cross-product FM discriminator, sigma-delta audio output, one-pin resonant-tank transmitter direction, videos, and Verilog source follow-up.</p>
-            <p><strong>What this does not prove:</strong> receiver robustness under every RF environment, calibrated performance against conventional SDR front ends, or independence from the FPGA input hardware that makes the trick possible.</p>
+            <p><span class="status-label">Working receiver path</span>This page delivers the one-pin FM receiver article and the Verilog follow-up.</p>
+            <p><strong>Included:</strong> the FPGA input threshold, RF transition stream, four-phase sampling, Weaver-style XOR mixing, CIC filtering, cross-product FM discriminator, sigma-delta audio output, one-pin resonant-tank transmitter direction, videos, source paths, and build notes.</p>
+            <p><strong>Boundary:</strong> this is not a calibrated receiver-performance comparison and does not remove the FPGA input hardware that makes the one-pin path possible.</p>
         </div>
     </section>
 
@@ -77,12 +73,12 @@
 
     <main>
         <section>
-            <h1>The Usual Receiver Spends a Lot of Its Energy Fighting Itself</h1>
-            <p>I started where people usually start. Weak RF comes in. A low-noise amplifier boosts it. A mixer multiplies it against a local oscillator. The design produces IF or baseband. An ADC samples that. DSP cleans up the rest.</p>
-            <p>Then the architecture starts charging rent.</p>
+            <h1>The Conventional Receiver Brings A Lot Of Apparatus</h1>
+            <p>I started where people usually start. Weak RF comes in. A low-noise amplifier boosts it. A mixer multiplies it against a local oscillator. The design produces IF or baseband. An ADC samples that. Later digital stages recover the audio.</p>
+            <p>That architecture works. It also brings work of its own.</p>
             <p>The local oscillator has to be strong. Once it gets strong, it leaks into everything. It radiates. It pollutes the board. The receiver stops being a clean signal-recovery problem and turns into a containment problem for the machinery you introduced to solve it.</p>
-            <p>Then comes the ADC. It wants clean analog amplitude. It wants drive. It wants the front end to preserve explicit values faithfully enough that the digital chain can recover what the analog chain made expensive. Then the DSP arrives with lookup tables, multipliers, trigonometric mixing, <code>atan2</code> phase extraction, and the usual overhead people treat as normal.</p>
-            <p>That whole stack works. I do not deny that. I just do not grant that it is essential.</p>
+            <p>Then comes the ADC. It wants clean analog amplitude. It wants drive. It wants the front end to preserve explicit values faithfully enough that the later receiver path can recover what the analog chain made expensive. Then come lookup tables, multipliers, trigonometric mixing, <code>atan2</code> phase extraction, and the ordinary arithmetic cost of that representation.</p>
+            <p>That whole path works. The experiment here asks which parts are necessary for this FM receiver.</p>
             <p>So I cut the first burden out:</p>
             <p class="key-line"><strong>I hid the local oscillator action inside the FPGA.</strong></p>
             <p>That removed the loudest periodic signal from the outside world. It also forced the next question.</p>
@@ -123,7 +119,7 @@
             <p>Once I thresholded the RF at the FPGA input, I stopped asking for explicit amplitude and started asking for crossings.</p>
             <p>That turns out to be enough.</p>
             <p>When the signal crosses the midpoint frequently, the bitstream reflects that. When it stops crossing for a while, the state naturally resets and the process starts fresh. Over time, the crossing pattern still carries the structure of the original signal. The amplitude does not vanish. It reappears statistically.</p>
-            <p>That is why I could recover linear internal I and Q. The I/Q plots I show are not decorative. They are the proof. I can generate a sawtooth in the transmitter, send it over RF, receive it through one pin, and recover clean linear I and Q internally. So the thresholded representation does not merely "detect radio." It preserves signal structure well enough to reconstruct it.</p>
+            <p>That is why I could recover linear internal I and Q. The I/Q plots are not decoration. They are the result to check. I can generate a sawtooth in the transmitter, send it over RF, receive it through one pin, and recover clean linear I and Q internally. So the thresholded representation does not merely detect radio. It preserves signal structure well enough to reconstruct it.</p>
             <p>That is the core bet of the whole design, and the plots show that the bet was right.</p>
         </section>
 
@@ -142,11 +138,11 @@
 
         <section>
             <h1>I Do Not Multiply by Sines and Cosines</h1>
-            <p>Standard digital radio culture reaches immediately for trigonometric machinery: sine tables, cosine tables, multipliers, explicit oscillators, all the ritual.</p>
+            <p>A conventional digital receiver path often reaches for trigonometric machinery: sine tables, cosine tables, multipliers, and explicit oscillators.</p>
             <p>I do not need any of that here.</p>
             <p>The signal is already in thresholded quadrature form. My digital Weaver stage just flips bits in the right pattern. In practice, that means XOR operations, controlled inversion of the ones-and-zeros stream. That is enough to perform the mixing and frequency translation I need.</p>
-            <p>So the digital mixing stage becomes logic, not trigonometric ceremony.</p>
-            <p>That cut matters because it keeps the receiver aligned with the representation I actually have, instead of dragging in a whole math culture that belongs to a different design assumption.</p>
+            <p>So the digital mixing stage becomes logic, not a sine/cosine multiplier chain.</p>
+            <p>That cut matters because it keeps the receiver aligned with the representation it actually has.</p>
         </section>
 
         <section>
@@ -162,7 +158,7 @@
             </figure>
             <p>For small phase steps, it already gives the relative rotation directly. FM only needs that rotation. So instead of computing <code>atan2</code>, then differentiating, then carrying all that arithmetic around, I just compute the cross product.</p>
             <p>Two multiplications. One subtraction. Done.</p>
-            <p>That stage fits the rest of the receiver perfectly. The whole design keeps rejecting inherited heaviness in favor of the direct governing relation.</p>
+            <p>That stage fits the rest of the receiver path: keep the relative phase movement and avoid carrying absolute phase when the receiver does not need it.</p>
         </section>
 
         <section>
@@ -257,29 +253,29 @@ assign PIN2 = ~dac_out;</code></pre>
                 <li>no Gilbert-cell-centered analog front end</li>
                 <li>no fast amplitude-preserving ADC at RF or IF</li>
                 <li>no sine/cosine lookup tables</li>
-                <li>no multiplier-heavy DSP chain</li>
+                <li>no sine/cosine multiplier chain</li>
                 <li>no <code>atan2</code>-based phase extractor</li>
             </ul>
             <p>I did not remove them out of ideology. I removed them because the receiver still stood without them.</p>
             <p>That is the whole point of the project.</p>
-            <p>A serious hardware project does more than prove that something works. It shows what can disappear without breaking the thing.</p>
+            <p>A serious hardware project does more than show that something works. It shows what can disappear without breaking the thing.</p>
         </section>
 
         <section>
             <h1>Why This Receiver Matters</h1>
-            <p>This is not about making radio "simpler" in some shallow sense. I am not interested in toy simplifications. I care about the smallest set of causes that must remain so the real thing still stands.</p>
+            <p>This is not about making radio smaller as a trick. The useful result is the receiver boundary: thresholded RF enters one digital pin, and the later path still recovers audio.</p>
             <p>That is what this receiver exposed.</p>
-            <p>It showed that a lot of the inherited bulk around FM reception belongs to the standard answer, not to the essence of the task. Once you see that, radio changes status. It stops being a sealed industrial object. It becomes a mechanism you can reason about, vary, and build from.</p>
+            <p>It showed that a lot of the apparatus around FM reception belongs to the standard answer, not to the minimum receiver behavior. Once that boundary is visible, radio becomes a mechanism that can be varied and rebuilt.</p>
             <p>Much later I found an obscure old Xilinx publication from roughly twenty years earlier describing an FM receiver along related lines, quiet input biasing, direct threshold behavior, no front-end sigma-delta feedback. That did not weaken the result. It strengthened it. It showed this direction was real, not fantasy, even if the mainstream story of radio ignored it.</p>
             <p>So the one-pin FPGA FM receiver answered the only question that mattered:</p>
             <p class="key-line"><strong>How much radio do you actually need?</strong></p>
-            <p>Less than the inherited stack tells you.</p>
+            <p>Less than the conventional receiver path suggests.</p>
             <p>And that is exactly why I built it.</p>
         </section>
 
-        <section class="reader-note">
-            <h1>What I Would Value From A Reader</h1>
-            <p>If you know RF front ends, FPGA I/O behavior, or SDR receiver testing, I would value the harshest failure case you would measure first: which simplification breaks earliest, and what instrument would make that visible?</p>
+        <section>
+            <h1>Measurement Boundary</h1>
+            <p>The next useful measurements are receiver robustness under different RF environments, calibrated comparison against a conventional receiver front end, and the failure point where the FPGA input threshold no longer preserves enough timing structure for clean audio.</p>
         </section>
     </main>
 
