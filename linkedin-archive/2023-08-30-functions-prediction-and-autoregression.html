@@ -6,11 +6,11 @@
     <title>Functions, Prediction, and Autoregression</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Computer scientists and mathematicians use functions to make predictions: give me input arguments, I&#39;ll tell you the value of that function in simple...">
+    <meta name="description" content="A computation note connecting functions, finite-state machines, autoregression, and transformer output: prediction is shaped by representation and state.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-30-functions-prediction-and-autoregression.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Functions, Prediction, and Autoregression">
-    <meta property="og:description" content="Computer scientists and mathematicians use functions to make predictions: give me input arguments, I&#39;ll tell you the value of that function in simple...">
+    <meta property="og:description" content="A computation note connecting functions, finite-state machines, autoregression, and transformer output: prediction is shaped by representation and state.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-30-functions-prediction-and-autoregression.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-08-30",
                                 "dateModified": "2026-07-09",
-                                "description": "Computer scientists and mathematicians use functions to make predictions: give me input arguments, I'll tell you the value of that function in simple...",
+                                "description": "A computation note connecting functions, finite-state machines, autoregression, and transformer output: prediction is shaped by representation and state.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-30-functions-prediction-and-autoregression.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -86,11 +86,11 @@
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Computer scientists and mathematicians use functions to make predictions: give me input arguments, I'll tell you the value of that function in simple regression models. Give me values of your function at previous few arguments, and I'll tell you its values at next arguments in the autoregressive models. I can also write a Boolean function, implement a finite state machine, or event-driven datapath based on UML Statecharts, that provides the computational power of parallel reactive programming, the same that runs your CPU and GPU. You can run von Neumann architecture code on it, proved Turing complete.</p>
-            <p>What's new about Transformer is it's not &quot;just a function that for given input returns a computed output.&quot; It's something NEW. Computation-power wise, it can GENERATE unexpected end of the ceiling you're staring at and tell you that's where exactly the street starts!</p>
-            <p>I only know another mathematical concept that's capable behaving the same way: a function, implemented by a Human Software Engineer.</p>
-            <p>#LLM #selfattention #computerscience #Turingcomplete</p>
+            <h1>Functions, Prediction, and Autoregression</h1>
+            <p>A function maps arguments to values. A regression model estimates that map from data. An autoregressive model uses earlier values as part of the input for the next value.</p>
+            <p>Computers already contain several ways to build this behavior: Boolean functions, finite-state machines, event-driven datapaths, statecharts, CPUs, and GPUs. Each representation exposes a different handle on state, timing, and control.</p>
+            <p>Transformers are still functions in the mathematical sense, but their inputs include context, token history, position, learned embeddings, and attention weights. That makes the generated output less like a simple lookup and more like a computation over assembled state.</p>
+            <p>The engineering question is where that state lives, how it is updated, how much context is retained, and what the model is actually conditioned on when it predicts the next token.</p>
         </section>
 
     </main>

@@ -6,11 +6,11 @@
     <title>Hessian-Free Methods Did Not Vanish</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="In 2010, Martens invented deep Hessian-free methods. In 2011, Sutskever collaborated with Martens to apply it successfully to arbitrary RNNs (not special...">
+    <meta name="description" content="An optimizer-history note about Hessian-free methods, recurrent-network training, and why second-order ideas remain relevant beside AdamW and transformer-era training.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-10-24-hessian-free-methods-did-not-vanish.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Hessian-Free Methods Did Not Vanish">
-    <meta property="og:description" content="In 2010, Martens invented deep Hessian-free methods. In 2011, Sutskever collaborated with Martens to apply it successfully to arbitrary RNNs (not special...">
+    <meta property="og:description" content="An optimizer-history note about Hessian-free methods, recurrent-network training, and why second-order ideas remain relevant beside AdamW and transformer-era training.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-10-24-hessian-free-methods-did-not-vanish.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-10-24",
                                 "dateModified": "2026-07-09",
-                                "description": "In 2010, Martens invented deep Hessian-free methods. In 2011, Sutskever collaborated with Martens to apply it successfully to arbitrary RNNs (not special...",
+                                "description": "An optimizer-history note about Hessian-free methods, recurrent-network training, and why second-order ideas remain relevant beside AdamW and transformer-era training.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-10-24-hessian-free-methods-did-not-vanish.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -85,9 +85,11 @@
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>In 2010, Martens invented deep Hessian-free methods. In 2011, Sutskever collaborated with Martens to apply it successfully to arbitrary RNNs (not special LSTMs, GRUs etc.)<br>
-                In 2020, NERSC, Lawrence Berkeley National Laboratory, publish applications of combining the method with AdamW. What happened to the public who are so obsessed with Transformer? Why anyone stopped talking about the method invented by Sutskever and Martens 12 years ago?</p>
+            <h1>Hessian-Free Methods Did Not Vanish</h1>
+            <p>Hessian-free optimization is part of the history of training deep and recurrent networks. Martens' work and later work with Sutskever showed that second-order structure could be useful when ordinary gradient descent struggled with curvature and long dependencies.</p>
+            <p>Those methods did not vanish because they were conceptually wrong. They became less visible as large-scale training practice standardized around first-order methods, better initialization, normalization, hardware-friendly batches, and optimizers such as AdamW.</p>
+            <p>Second-order ideas still matter when curvature, conditioning, and stability determine whether training moves efficiently. Some later work combines those ideas with modern optimizer practice instead of treating them as separate eras.</p>
+            <p>The useful takeaway is historical continuity: transformer-era training did not erase earlier optimization work. It selected pieces that fit the data scale, hardware, and engineering constraints of the moment.</p>
             <p><a href="https://lnkd.in/gUvuya3S" target="_blank" rel="noopener">https://lnkd.in/gUvuya3S</a></p>
         </section>
         <section>

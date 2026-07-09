@@ -6,11 +6,11 @@
     <title>Optimizer History Around Attention and AdamW</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Pay attention: LeNet from 1989 used SGD with momentum, and so ImageNet of 2012. All you needed for old school was Averaged SGD with momentum. 1 million other...">
+    <meta name="description" content="A model-training note about why transformer history should include optimizer choices: SGD with momentum, Adam, AdamW, RMSProp, schedules, and attention.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-24-optimizer-history-around-attention-and-adamw.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Optimizer History Around Attention and AdamW">
-    <meta property="og:description" content="Pay attention: LeNet from 1989 used SGD with momentum, and so ImageNet of 2012. All you needed for old school was Averaged SGD with momentum. 1 million other...">
+    <meta property="og:description" content="A model-training note about why transformer history should include optimizer choices: SGD with momentum, Adam, AdamW, RMSProp, schedules, and attention.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-24-optimizer-history-around-attention-and-adamw.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-08-24",
                                 "dateModified": "2026-07-09",
-                                "description": "Pay attention: LeNet from 1989 used SGD with momentum, and so ImageNet of 2012. All you needed for old school was Averaged SGD with momentum. 1 million other...",
+                                "description": "A model-training note about why transformer history should include optimizer choices: SGD with momentum, Adam, AdamW, RMSProp, schedules, and attention.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-24-optimizer-history-around-attention-and-adamw.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -86,9 +86,11 @@
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Pay attention: LeNet from 1989 used SGD with momentum, and so ImageNet of 2012. All you needed for old school was Averaged SGD with momentum.</p>
-            <p>1 million other optimizers to distract you from the fact that Attention Transformer and AdamW were both invented in 2017, and used immediately in GPT-1 a year after (sic!), just to officially release weights in 2019, and (finally, hehe), officially publish RMSProp and AdamW.</p>
+            <h1>Optimizer History Around Attention and AdamW</h1>
+            <p>Transformer history is usually told as an architecture story, but optimizer choice is part of the mechanism. LeNet-era systems and later ImageNet training made heavy use of SGD with momentum; transformer work arrived in a period where Adam-style methods were already central to large neural-network training.</p>
+            <p>AdamW matters because decoupled weight decay changes how regularization is applied during optimization. That is not a minor implementation detail when training stability, scale, and reproducibility are the actual problem.</p>
+            <p>The useful reading is not that every newer optimizer replaces the older ones. It is that architecture, normalization, initialization, learning-rate schedules, batch size, regularization, and optimizer dynamics form one training system.</p>
+            <p>When a model works, the article should keep those parts connected. Attention was not deployed in isolation; it survived inside a training recipe.</p>
             <p><a href="https://lnkd.in/gjHJtFHw" target="_blank" rel="noopener">https://lnkd.in/gjHJtFHw</a></p>
         </section>
         <section>

@@ -6,11 +6,11 @@
     <title>The Long Mathematical Path to Transformers</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="To learn math of Transformers you just have to study Calculus and mathematical analysis for five years at uni, for 10 years out of curiosity, then four years...">
+    <meta name="description" content="A compact map of the mathematical background behind transformers: probability, optimization, sequence models, tensor operations, normalization, tokenization, and hardware arithmetic.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-10-25-the-long-mathematical-path-to-transformers.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The Long Mathematical Path to Transformers">
-    <meta property="og:description" content="To learn math of Transformers you just have to study Calculus and mathematical analysis for five years at uni, for 10 years out of curiosity, then four years...">
+    <meta property="og:description" content="A compact map of the mathematical background behind transformers: probability, optimization, sequence models, tensor operations, normalization, tokenization, and hardware arithmetic.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-10-25-the-long-mathematical-path-to-transformers.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -32,7 +32,7 @@
                                 },
                                 "datePublished": "2023-10-25",
                                 "dateModified": "2026-07-09",
-                                "description": "To learn math of Transformers you just have to study Calculus and mathematical analysis for five years at uni, for 10 years out of curiosity, then four years...",
+                                "description": "A compact map of the mathematical background behind transformers: probability, optimization, sequence models, tensor operations, normalization, tokenization, and hardware arithmetic.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-10-25-the-long-mathematical-path-to-transformers.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -86,8 +86,13 @@
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>To learn math of Transformers you just have to study Calculus and mathematical analysis for five years at uni, for 10 years out of curiosity, then four years of self-guided intensive crash course. From EM, HMM, Q-learning, Pontryagin, Euler-Lagrange, mean, joint and conditional probability, Bayes rule, chances, odds, observations, events, controls, factor analysis, design of experiments, Chi-square, k-NN, k-means, maximum entropy, mutual information, sliding Gaussians, central limit theorem, law of large numbers, kernels as measures, convolution, scaled windows, tensor analysis, topological spaces, set theory, LayerNorm, RMSNorm, penalized sampling, temperature-controlled stochastic sampling, top-k alternatives, sparse Transformers, attention sinks, Dropout and DropConnect, Xavier, MSRA, all-attention persistent memory, KV cache, cross-attention, momentum, minibatch, Kronecker delta, adaptive attention span, weights binarization, grouped query attention and multiquery attention, fused MLP, inner cross-attention and inner self-attention, RoPE, sine, and learned position embedding, GLU, GELU, Swish, LSTM, RNN, SoftMax, sigmoid, Boltzmann, logits, BPE, dynamic weights, probability density, tokenizer, bytepair, causal masking, autoregression, autoassociation, PCA, ICA, GMM, tensor contraction, Hadamard product, logit, FMA, GEMM fast matrix multiplication, Hilbert's 13th and 10th problem, DP, LP, HJB, quantum mechanics, and general relativity just to do the work mentioned.</p>
+            <h1>The Long Mathematical Path to Transformers</h1>
+            <p>Transformers sit at the junction of several older subjects, not a single trick.</p>
+            <p>The probability side includes conditional probability, maximum likelihood, cross-entropy, entropy, Bayes-style reasoning, sampling, and distributions over token sequences.</p>
+            <p>The optimization side includes gradient descent, momentum, Adam and AdamW, initialization, normalization, minibatches, regularization, learning-rate schedules, and stability over many updates.</p>
+            <p>The sequence-modeling side includes autoregression, embeddings, attention, causal masking, KV cache, position encodings, recurrent-model history, and the problem of preserving context while generating one token at a time.</p>
+            <p>The systems side includes tensor contraction, matrix multiplication, fused operations, memory bandwidth, quantization, low-precision weights, and the hardware path that decides whether a model can run at useful speed.</p>
+            <p>That is the point of the long list in the original post: transformers are not isolated from applied mathematics, numerical methods, or machine architecture. They are where those subjects meet.</p>
         </section>
 
     </main>
