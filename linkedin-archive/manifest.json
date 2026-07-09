@@ -571,7 +571,7 @@
     "title": "Who Is Solving Parallel Source Code?",
     "date": "2022-05-12",
     "slug": "2022-05-12-who-is-solving-parallel-source-code",
-    "description": "Have you tried to use this for general-purpose compute? I wonder how easy it will be to write parallel SOURCE CODE for it, one orchestrated parallel...",
+    "description": "Parallel source code as a fundamental computing problem: preserving causality, timing, locality, ownership, and failure when execution spreads across workers, devices, and machines.",
     "words": 67,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:6930322593442934784/"
   },
@@ -580,7 +580,7 @@
     "title": "When One FPGA Is Not Enough",
     "date": "2022-05-11",
     "slug": "2022-05-11-when-one-fpga-is-not-enough",
-    "description": "When you fill up your entire largest FPGA, when you have to break away from one single chip package, when you have to partition your logic, and lower your...",
+    "description": "What changes when an FPGA design crosses one device: partitioning, SerDes, clocks, protocols, latency, pipelines, placement, routing, and readable physical boundaries.",
     "words": 237,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:6930220193507917824/"
   },
@@ -1183,7 +1183,7 @@
     "title": "Live-Offline Dualism in Software",
     "date": "2019-04-23",
     "slug": "2019-04-23-live-offline-dualism-in-software",
-    "description": "Ironically, product managers designing project management software, lack an abstract skill of the thinking about time as a spatial dimension. For decades,...",
+    "description": "Collaboration software as a time problem: meetings, missed sessions, reconnects, conflicts, document edits, and shared history must remain usable across presence and absence.",
     "words": 196,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:6526526954395570177/"
   },
