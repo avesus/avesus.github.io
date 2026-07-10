@@ -24,7 +24,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2021",
-            "dateModified": "2026-07-09",
+            "dateModified": "2026-07-10",
             "description": "A browser/GPU demo of hierarchical reconfiguration: local ports, bounded daughter regions, serial configuration streams, and tiled Boolean roles.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-nested-instantiation-demo.html",
             "publisher": {
@@ -56,8 +56,13 @@
         <section>
             <h1>The Live Artifact</h1>
             <p class="artifact-link"><a href="/cellular-automata-2019/cartilage3.html">Open the Cartilage 3 demo</a></p>
-            <p>The current public artifact is a standalone WebGL page. The Boolean paper page also points to it as the primary live Cartilage demo, where series of MUX tile blocks are instantiated in a nested manner from a left-edge reconfiguration port area by streaming SPI-like configuration bits.</p>
+            <p>The preserved public artifact is a standalone WebGL page. It remains the primary live demo of the 2021 lineage, where series of MUX tile blocks are instantiated in a nested manner from a left-edge reconfiguration port area by streaming SPI-like configuration bits.</p>
             <p><a href="https://www.shadertoy.com/view/7lj3Rw" target="_blank" rel="noopener">Cartilage on ShaderToy</a></p>
+            <div class="status-box">
+                <p><span class="status-label">Current implementation</span><a href="/cartilage-core.html">Cartilage Core</a> publishes the compact current mechanism.</p>
+                <p>The <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> contains a single-file WebGL1 model, hardware paper, local-clocked SystemVerilog RTL, and Verilator testbench for an exact 252-bit <code>6x6</code> AND installation.</p>
+                <p><strong>Lineage:</strong> that repository is derived from the child-owned-port line; it is not the source tree for this preserved 2021 demo.</p>
+            </div>
         </section>
 
         <section>
@@ -152,9 +157,11 @@
 
     <nav class="article-links">
         <p>Read next:</p>
+        <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
+        <p>The current inspectable mechanism and hardware evidence.</p>
+        <p>More:</p>
         <a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
         <p>A newer milestone where child-owned port roots and square ownership blocks are visible in the running fabric.</p>
-        <p>More:</p>
         <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
         <p>The formal Boolean substrate argument behind the live Cartilage demo.</p>
         <a href="/">Go back</a>

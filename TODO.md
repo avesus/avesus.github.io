@@ -3,6 +3,7 @@
 Current repo state after the June 20, 2026 materialization pass:
 
 - Public wrapper/article pages now exist for the serial multiplier, the tiny Transformer run, and the Cartilage nested-instantiation demo.
+- `cartilage-core.html` is now the current Cartilage mechanism page, with a clean-clone capture, direct links to `avesus/cartilage-core`, the hardware paper, SystemVerilog RTL, Verilator testbench, and explicit proof boundaries.
 - Draft packets are preserved under `article-drafts/`.
 - The homepage links to article/wrapper pages first and raw artifacts second.
 - `boolean-algebra-is-all-that-is-required.html` now publishes the full July 10 revised web edition while preserving the original Zenodo DOI/PDF as a clearly labeled February 8 archive artifact.
@@ -30,9 +31,13 @@ Do not publish a fake thumbnail for it. Local HTTP requests, direct media URL at
 
 ### Cartilage
 
+- The public `avesus/cartilage-core` repository now supplies the compact WebGL1 model, editable architecture paper/PDF, local-clocked SystemVerilog fabric, and a self-checking Verilator testbench for one exact 252-bit `6x6` install plus apply pulse.
+- Keep the repository's proof layers distinct: browser ping-pong simulation, logical RTL behavior, and physical implementation are not interchangeable evidence.
+- The public repository currently exposes only `main`; its README's `source-baseline` branch and `baseline-child-owned-4143b8a` tag are not published. Do not describe the top-level browser suite as green until that compactness-ref defect is repaired.
+- The repository currently has no published license, release, GitHub Pages demo, or GitHub Actions record. Say "public source" rather than "open source" or "CI-proven."
 - The 525,568-cycle QuadFlow timeline article now publishes the video, GIF preview, contact sheet, and source note for a successful checked browser-fabric run.
 - The 6 + 5 full-frame computation article now publishes the seeded 3-bit adder QFG source, callout/plain videos, final states, manifests, run reports, and both 257-frame PNG sequences.
-- Write a more complete article on local ports, parent/daughter regions, serial configuration streams, and bounded replacement.
+- The current mechanism article and the nested-instantiation wrapper now explain local ports, parent/daughter regions, serial configuration streams, exact installation, and bounded replacement; future writing should extend the evidence rather than restating that entry path.
 - Add deeper QFG stream, driver, and expectation-check notes only from the actual source/log artifacts.
 - Preserve `cellular-automata-2019/cartilage3.html` as the canonical live artifact rather than editing it for site chrome.
 - Later: full Web UI to save, run, and print.

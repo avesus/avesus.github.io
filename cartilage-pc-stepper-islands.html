@@ -24,7 +24,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-09",
+            "dateModified": "2026-07-10",
             "image": "https://greenforest.io/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png",
             "description": "A Cartilage visual placement sketch for a 4-bit conditional incrementer: OUT = ENABLE ? (IN + 1) : IN.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-pc-stepper-islands.html",
@@ -66,7 +66,7 @@
         <section>
             <h1>What This Page Shows</h1>
             <p>The render shows the intended placement vocabulary for a small control datapath: left-edge input routes, top-edge enable, repeated local bit slices, carry propagation, and right-edge output routes.</p>
-            <p>For checked arithmetic behavior, use the <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>. For the current Cartilage reading path, use <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation demo</a>.</p>
+            <p>For checked arithmetic behavior, use the <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>. For the current mechanism and hardware reference, use <a href="/cartilage-core.html">Cartilage Core</a>; use <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">visual language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation demo</a> for the browser-artifact lineage.</p>
         </section>
 
         <section>
@@ -107,7 +107,7 @@ C[i + 1] = IN[i] ? C[i] : 0</code></pre>
 
         <section>
             <h1>Where It Fits</h1>
-            <p>The useful part is the placement vocabulary. The current project path is Cartilage 2026, the visual-language decoder, and the nested-instantiation demo.</p>
+            <p>The useful part is the placement vocabulary. <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> are the current mechanism and hardware reference. They do not turn this older cycle-zero placement sketch into a driven or verified counter.</p>
         </section>
     </main>
 

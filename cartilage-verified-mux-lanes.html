@@ -24,7 +24,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-09",
+            "dateModified": "2026-07-10",
             "image": "https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png",
             "description": "A Cartilage mux-lanes debug fixture with boundary inputs, local mux behavior, 160 fabric cycles, and passing edge-surface output checks.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-verified-mux-lanes.html",
@@ -43,7 +43,7 @@
 
     <section class="abstract">
         <p>This page is a mux-lanes debug fixture with passing edge-surface checks.</p>
-        <p>The annotation overlay comes from the older manifest <code>marks</code> path. The current Cartilage reading path starts with <a href="/cartilage2026.html">Cartilage 2026</a> and the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> decoder.</p>
+        <p>The annotation overlay comes from the older manifest <code>marks</code> path. The current mechanism reference is <a href="/cartilage-core.html">Cartilage Core</a>; use <a href="/cartilage2026.html">Cartilage 2026</a> and the <a href="/cartilage-visual-language.html">visual-language decoder</a> for the render lineage.</p>
         <div class="status-box">
             <p><span class="status-label">Mux-lanes fixture</span>This page records a small edge-driven mux example.</p>
             <p><strong>Included:</strong> a <code>16x16</code> mux-lanes run, <code>2048x2048</code> PNG, nine driven boundary values, <code>160</code> fabric cycles, and passing edge-surface output checks.</p>
@@ -99,21 +99,23 @@ observed OUT0=1, OUT1=1, OUT2=0</code></pre>
 
         <section>
             <h1>Render Notes</h1>
-            <p>The rendered lattice is <code>16x16</code> cells. The PNG is <code>2048x2048</code> pixels. The source manifest is <code>cartilage-grid-rs/examples/external-mux-lanes.surface.qfg</code>.</p>
+            <p>The rendered lattice is <code>16x16</code> cells. The PNG is <code>2048x2048</code> pixels. The run records the source path <code>cartilage-grid-rs/examples/external-mux-lanes.surface.qfg</code>, but that QFG file and its standalone report are not published in this website bundle. The checked inputs, outputs, cycle count, and render metadata retained on this page are the available public record.</p>
             <p>The labels and translucent regions are human reading aids. The underlying cell-role alphabet is decoded in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
         </section>
 
         <section>
             <h1>Where It Fits</h1>
-            <p>Use this page for the mux-lane boundary-drive example. The main public Cartilage path is Cartilage 2026, the visual-language decoder, and the nested-instantiation demo.</p>
+            <p>Use this page for the mux-lane boundary-drive example. <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> are the current compact implementation and hardware reference; they are not the source tree for this older fixture.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
+        <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
+        <p>The current source, hardware paper, and RTL evidence.</p>
+        <p>More:</p>
         <a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
         <p>The current preferred Cartilage milestone.</p>
-        <p>More:</p>
         <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
         <p>The local-port and bounded-region model behind larger Cartilage fabric examples.</p>
         <a href="/">Go back</a>

@@ -816,7 +816,8 @@ dt {
 		margin-right: auto;
 	}
 
-	main {
+	main,
+	.paper-body {
 		-webkit-column-count: 2 !important;
 		column-count: 2 !important;
 		/*column-width: 2.95in;*/

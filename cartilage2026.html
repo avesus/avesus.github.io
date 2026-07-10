@@ -24,7 +24,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-30",
-            "dateModified": "2026-07-09",
+            "dateModified": "2026-07-10",
             "image": "https://greenforest.io/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif",
             "description": "A Cartilage 2026 WebGL/GPGPU fabric milestone: child-owned reconfiguration port roots, restored 6x6 ownership blocks, active port initialization, and a 450-frame captured render.",
             "mainEntityOfPage": "https://greenforest.io/cartilage2026.html",
@@ -43,7 +43,7 @@
 
     <section class="abstract">
         <p>Ownership became visible enough here to show square child regions and active port roots inside a running fabric.</p>
-        <p>This is a current Cartilage WebGL/GPGPU fabric milestone: a self-contained renderer where reconfiguration-port roots belong to the child subtree, while the initialized ownership tree remains a square <code>6x6</code> block.</p>
+        <p>This is a preserved Cartilage WebGL/GPGPU visual milestone: a self-contained renderer where reconfiguration-port roots belong to the child subtree, while the initialized ownership tree remains a square <code>6x6</code> block.</p>
         <p>The artifact is not a hand-drawn diagram. The GIF is captured from the running GLSL fabric, and the runnable demo is copied as a standalone web page.</p>
         <div class="status-box">
             <p><span class="status-label">Live milestone</span>This page delivers the checked boot/preallocation and render-capture milestone.</p>
@@ -74,6 +74,11 @@
                 <p><strong>Verification report:</strong> <a href="/cartilage2026/verification-report.md">cartilage2026/verification-report.md</a></p>
             </div>
             <p>The source snapshot, copied file hash, GIF hash, timing calculation, and explicit non-claims are documented in those packet files.</p>
+            <div class="status-box">
+                <p><span class="status-label">Current core reference</span><a href="/cartilage-core.html">Cartilage Core</a> is now the compact source-and-hardware entry point.</p>
+                <p>Its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> adds a single-file WebGL1 model, architecture paper and PDF, local-clocked SystemVerilog RTL, and a self-checking Verilator testbench. It proves an exact 252-bit <code>6x6</code> installation plus one apply pulse and all four rows of an interior-MUX AND circuit.</p>
+                <p><strong>Lineage:</strong> Cartilage Core was reduced directly from the same <code>cartilage26/cartilage3.html</code> source revision, <code>4143b8a</code>, that produced this 450-frame packet. It is the compact descendant; this page's packet remains authoritative for the capture itself.</p>
+            </div>
         </section>
 
         <section>
@@ -125,9 +130,11 @@
 
     <nav class="article-links">
         <p>Read next:</p>
+        <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
+        <p>The current implementation, hardware paper, RTL, testbench, and evidence boundary.</p>
+        <p>More:</p>
         <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
         <p>The rendered cell-role alphabet used by the Cartilage family of artifacts.</p>
-        <p>More:</p>
         <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
         <p>The local-port and bounded-region fabric model behind the 2026 milestone.</p>
         <a href="/">Go back</a>

@@ -114,7 +114,7 @@
             <p class="lead">I design and build computational mechanisms when the usual stack hides the part that matters.</p>
             <p>The work runs through FPGA fabrics, one-pin radio, browser-native GPU computation, learning systems, semiconductor process hypotheses, magnetic circuits, and active-device research. The common move is reconstruction: find the primitive that must exist, build a runnable version, and keep the evidence close enough that another technical reader can inspect it.</p>
             <p>I am looking for serious R&amp;D conversations: funded prototype work, research architecture roles, product-development work, fabrication access, institutional support, and collaborators who can help move the larger mechanisms from public artifacts into stronger machines.</p>
-            <p><a href="#work-with-me">Work with Brian</a> | <a href="#strongest-demonstrations">Strongest demonstrations</a> | <a href="the-missing-maker-fab.html">Maker fab</a> | <a href="cartilage2026.html">Cartilage</a> | <a href="contact.html">Contact</a></p>
+            <p><a href="#work-with-me">Work with Brian</a> | <a href="#strongest-demonstrations">Strongest demonstrations</a> | <a href="the-missing-maker-fab.html">Maker fab</a> | <a href="cartilage-core.html">Cartilage</a> | <a href="contact.html">Contact</a></p>
         </section>
 
         <section id="work-with-me" class="traction-panel">
@@ -122,10 +122,10 @@
             <p class="lead">Bring a hard technical boundary, not a polished pitch.</p>
             <p>Good fits include a computation trapped behind a black box, a hardware/software boundary that is too expensive or opaque, an FPGA or reconfigurable-computing architecture that needs to become concrete, a signal path that may be simpler than the standard stack, or a fabrication/process idea that needs an engineer who can reason from physics back to runnable machinery.</p>
             <p><strong>Useful opportunities:</strong> funded R&amp;D, product architecture, prototype implementation, technical due diligence, collaboration with FPGA, semiconductor, radio, or reconfigurable-computing teams, access to fabrication or labs, and an institutional home for the Cartilage and active-device program.</p>
-            <div class="cta-row" aria-label="Primary Greenforest I/O actions">
+            <div class="cta-row" role="group" aria-label="Primary Greenforest I/O actions">
                 <a class="cta-link" href="technology-research-and-consulting.html">Work with Brian</a>
                 <a class="cta-link" href="the-missing-maker-fab.html">Read the maker-fab program</a>
-                <a class="cta-link" href="cartilage2026.html">Start with Cartilage</a>
+                <a class="cta-link" href="cartilage-core.html">Start with Cartilage</a>
             </div>
         </section>
 
@@ -144,13 +144,14 @@
             </div>
 
             <div class="entry">
-                <span class="label">Architecture program</span>
-                <a class="entry-title" href="cartilage2026.html">Cartilage: Child-Owned Reconfiguration Ports</a>
+                <span class="label">Architecture mechanism</span>
+                <a class="entry-title" href="cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
                 <p>Cartilage is my long-running architecture program for a computational fabric where ownership, routing, configuration, and local state are visible inside the machine rather than hidden behind a global runtime.</p>
-                <p>The current WebGL/GPGPU milestone shows child-owned reconfiguration port roots, square ownership blocks, active port-root initialization, and captured fabric evolution.</p>
+                <p>The current package publishes the compact WebGL1 fabric, architecture paper, local-clocked SystemVerilog RTL, and Verilator testbench. One checked <code>6x6</code> image receives 252 payload bits plus one apply pulse and settles to an interior-MUX AND circuit.</p>
+                <p><a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">Inspect the public source repository</a></p>
                 <figure>
-                    <img src="cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" alt="Cartilage 2026 WebGL fabric showing active child-owned reconfiguration port roots and square ownership blocks">
-                    <figcaption>Captured fabric evolution from the Cartilage 2026 renderer.</figcaption>
+                    <img src="cartilage-core/cartilage-core-and.gif" width="512" height="1024" alt="Cartilage Core browser fabric installing a 252-bit configuration into a 6 by 6 child-owned region">
+                    <figcaption>The exact 252-bit installation captured from the current browser model.</figcaption>
                 </figure>
             </div>
 
@@ -178,6 +179,13 @@
             <p>Cartilage is not only an FPGA-style demo. It is an attempt to replace the hidden runtime with a spatial fabric where regions own their ports, carry configuration through explicit boundaries, and keep data movement readable.</p>
 
             <div class="entry">
+                <span class="label">Current source and hardware evidence</span>
+                <a class="entry-title" href="cartilage-core.html">Cartilage Core</a>
+                <p>The current inspectable mechanism separates the browser simulation from the RTL application plane and local configuration clocks. The package includes the source, design paper, testbench, exact install, and explicit non-claims.</p>
+                <p><a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">Repository</a> | <a href="https://github.com/avesus/cartilage-core/blob/main/paper/cartilage-compute.md" target="_blank" rel="noopener">Hardware paper</a> | <a href="https://github.com/avesus/cartilage-core/tree/main/rtl" target="_blank" rel="noopener">RTL</a></p>
+            </div>
+
+            <div class="entry">
                 <span class="label">Visual language</span>
                 <a class="entry-title" href="cartilage-visual-language.html">Cartilage Visual Language</a>
                 <p>A fabric is easier to evaluate when its marks can be read.</p>
@@ -200,7 +208,7 @@
                 <span class="label">Renderer milestone</span>
                 <a class="entry-title" href="cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
                 <p>Ownership became visible enough to show square child regions and active port roots inside a running fabric.</p>
-                <p>This self-contained WebGL/GPGPU milestone preserves the 6x6 ownership block work and active port-root initialization fixes.</p>
+                <p>This preserved self-contained WebGL/GPGPU milestone keeps the 6x6 ownership block work and active port-root initialization fixes in the visual lineage.</p>
                 <figure>
                     <img src="cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" alt="Cartilage 2026 WebGL fabric showing active child-owned reconfiguration port roots and square ownership blocks">
                     <figcaption>Captured fabric evolution from the Cartilage 2026 renderer.</figcaption>
@@ -262,7 +270,7 @@
             <div class="entry">
                 <span class="label">Reader guide</span>
                 <a class="entry-title" href="ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>
-                <p>A guide to six Cartilage pages: checked runs, recorded timelines, visual placement sketches, source artifacts, and the current Cartilage reading path.</p>
+                <p>A guide to the current core plus the older checked runs, recorded timelines, visual placement sketches, source artifacts, and debug fixture.</p>
             </div>
         </section>
 
@@ -339,7 +347,7 @@
     </main>
 
     <footer>
-        <p><a href="about-greenforest.html">About</a> | <a href="technology-research-and-consulting.html">Work with Brian</a> | <a href="proof-and-artifacts.html">Artifacts and evidence</a> | <a href="contact.html">Contact</a> | <a href="faq.html">FAQ</a> | <a href="https://www.solidstatepros.com/" target="_blank" rel="noopener">Solid State Pros LLC</a> | <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a></p>
+        <p><a href="about-greenforest.html">About</a> | <a href="technology-research-and-consulting.html">Work with Brian</a> | <a href="proof-and-artifacts.html">Artifacts and evidence</a> | <a href="cartilage-core.html">Cartilage Core</a> | <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">Cartilage source</a> | <a href="contact.html">Contact</a> | <a href="faq.html">FAQ</a> | <a href="https://www.solidstatepros.com/" target="_blank" rel="noopener">Solid State Pros LLC</a> | <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a></p>
         <p>&copy; Brian Greenforest 2019-2026</p>
         <p><a href="https://www.linkedin.com/in/briangreenforest" target="_blank" rel="noopener">Connect on LinkedIn</a></p>
     </footer>

@@ -24,7 +24,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-09",
+            "dateModified": "2026-07-10",
             "image": "https://greenforest.io/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png",
             "description": "A visual decoder for the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-visual-language.html",
@@ -274,16 +274,19 @@
         <section>
             <h1>Render Boundary</h1>
             <p>The decoder is useful only if each mark stays distinguishable at article scale and on mobile. Ambiguous roles should be fixed in the render vocabulary, not explained away in prose. Large renders should link to the original asset so the reader can open the full-resolution image.</p>
+            <p>The current hardware-level definitions are inspectable in <a href="/cartilage-core.html">Cartilage Core</a> and the <a href="https://github.com/avesus/cartilage-core/tree/main/rtl" target="_blank" rel="noopener">SystemVerilog RTL</a>. The compact core keeps the same 32 installed roles while separating browser rendering evidence from the continuous application plane and local configuration edges checked in RTL.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
+        <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
+        <p>The current public source, role definitions, RTL, and exact installation proof.</p>
+        <p>More:</p>
         <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
         <p>The local-port and bounded-region model that uses these cell roles.</p>
-        <p>More:</p>
         <a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
-        <p>The current milestone where this visual vocabulary shows child-owned port roots and square ownership blocks.</p>
+        <p>The preserved visual milestone where this vocabulary shows child-owned port roots and square ownership blocks.</p>
         <a href="/">Go back</a>
     </nav>
 </body>

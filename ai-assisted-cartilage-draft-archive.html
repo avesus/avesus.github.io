@@ -24,7 +24,7 @@
             "name": "Cartilage Run and Sketch Index",
             "description": "A Cartilage index for checked runs, recorded timelines, visual placement sketches, source artifacts, and the current Cartilage reading path.",
             "datePublished": "2026-07-01",
-            "dateModified": "2026-07-09",
+            "dateModified": "2026-07-10",
             "publisher": {
                 "@type": "Organization",
                 "@id": "https://greenforest.io/#organization",
@@ -34,6 +34,12 @@
                 "sameAs": "https://www.solidstatepros.com/"
             },
             "hasPart": [
+                {
+                    "@type": "SoftwareSourceCode",
+                    "name": "Cartilage Core",
+                    "url": "https://greenforest.io/cartilage-core.html",
+                    "codeRepository": "https://github.com/avesus/cartilage-core"
+                },
                 {
                     "@type": "CreativeWork",
                     "name": "Cartilage Verified Ripple2 Adder",
@@ -63,6 +69,11 @@
                     "@type": "CreativeWork",
                     "name": "Cartilage QuadFlow 525,568-Cycle Timeline",
                     "url": "https://greenforest.io/cartilage-quadflow-525568-cycle-timeline.html"
+                },
+                {
+                    "@type": "CreativeWork",
+                    "name": "Cartilage Mux Lanes Debug Fixture",
+                    "url": "https://greenforest.io/cartilage-verified-mux-lanes.html"
                 }
             ]
         }
@@ -75,11 +86,11 @@
     <address>July 1, 2026</address>
 
     <section class="abstract">
-        <p>This page gathers six Cartilage run and sketch pages in one place.</p>
-        <p>The set includes a checked ripple-adder run, recorded reconfiguration timelines, visual placement sketches, source artifacts, and render outputs. The useful job is to keep checked runs, timelines, and visual placement sketches easy to tell apart.</p>
+        <p>This page separates the current Cartilage Core mechanism from seven older run, timeline, sketch, and debug pages.</p>
+        <p>The set includes public source and RTL, a checked ripple-adder run, recorded reconfiguration timelines, visual placement sketches, source artifacts, and render outputs. The useful job is to keep each evidence layer easy to tell apart.</p>
         <div class="status-box">
             <p><span class="status-label">Cartilage index</span>Use this page to choose between current Cartilage explainers, checked runs, recorded timelines, and visual placement sketches.</p>
-            <p><strong>Included:</strong> six page links, their role in the Cartilage material, and the current reading order.</p>
+            <p><strong>Included:</strong> the current core package, seven run/sketch/debug links, their role in the Cartilage material, and the current reading order.</p>
         </div>
     </section>
 
@@ -88,17 +99,19 @@
             <h1>Start Here</h1>
             <p>If you are new to Cartilage, start with the current pages in this order:</p>
             <ol>
+                <li><a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a></li>
+                <li><a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">Cartilage Core public source repository</a></li>
                 <li><a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a></li>
                 <li><a href="/cartilage-visual-language.html">Cartilage Visual Language</a></li>
                 <li><a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></li>
                 <li><a href="/cellular-automata-2019/">Cellular Automata Experiments, 2019-2021</a></li>
             </ol>
-            <p>Those pages explain the live artifact lineage, the visual alphabet, the nested-instantiation model, and the older cellular automata roots.</p>
+            <p>Those pages establish the current implementation boundary, then explain the visual lineage, the role alphabet, the nested-instantiation model, and the older cellular automata roots.</p>
         </section>
 
         <section>
             <h1>Run And Sketch Pages</h1>
-            <p>These six pages are useful when you need run material, source artifacts, rendered frames, or placement sketches.</p>
+            <p>These seven pages are useful when you need run material, source artifacts, rendered frames, placement sketches, or the small mux debug fixture.</p>
             <ul>
                 <li><a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a></li>
                 <li><a href="/cartilage-exact-frame-reconfiguration-run.html">Cartilage Exact-Frame Reconfiguration Run</a></li>
@@ -106,26 +119,30 @@
                 <li><a href="/cartilage-pc-stepper-islands.html">Cartilage PC Stepper Islands</a></li>
                 <li><a href="/cartilage-full-adder-islands.html">Cartilage Full-Adder Islands</a></li>
                 <li><a href="/cartilage-quadflow-525568-cycle-timeline.html">Cartilage QuadFlow 525,568-Cycle Timeline</a></li>
+                <li><a href="/cartilage-verified-mux-lanes.html">Cartilage Mux Lanes Debug Fixture</a> — passing edge-surface checks, but its recorded QFG source path is not published here.</li>
             </ul>
         </section>
 
         <section>
             <h1>How To Read Them</h1>
+            <p><a href="/cartilage-core.html">Cartilage Core</a> is the current compact implementation and hardware reference. It is not the source tree for the older QuadFlow/QFG captures listed below.</p>
             <p>Checked runs and sketches do different work. A checked run can state frame counts, source files, visible output lanes, and expectation results. A visual sketch can explain mapping vocabulary, cell roles, and intended routing, but it should not be read as a driven circuit unless the page says so.</p>
             <p>That distinction keeps the Cartilage material useful. The pages can show artifact paths and design vocabulary without blurring a sketch into a completed verification run.</p>
         </section>
 
         <section>
             <h1>Reading Order</h1>
-            <p>Use the 2026 milestone, visual-language decoder, nested-instantiation demo, and cellular-automata roots page for the main Cartilage explanation. Use the run and sketch pages when you want the specific artifact named by the link.</p>
+            <p>Use Cartilage Core for the current mechanism, RTL, and exact installation evidence. Use the 2026 milestone, visual-language decoder, nested-instantiation demo, and cellular-automata roots page for the visual lineage. Use the run and sketch pages when you want the specific older artifact named by the link.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
-        <a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
-        <p>The current Cartilage milestone.</p>
+        <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
+        <p>The current Cartilage mechanism package.</p>
         <p>More:</p>
+        <a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
+        <p>The preserved browser visual milestone.</p>
         <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
         <p>The Cartilage visual alphabet used by the generated renders.</p>
         <a href="/">Back to greenforest.io</a>
