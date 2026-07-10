@@ -6,142 +6,479 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <title>Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation</title>
-    <meta name="description" content="Universal computation built from wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling.">
+    <meta name="description" content="A finite local Boolean fabric in which computation, state, ownership, configuration, timing, and recursive reconfiguration remain inside one causal substrate.">
     <link rel="canonical" href="https://greenforest.io/boolean-algebra-is-all-that-is-required.html">
     <meta property="og:title" content="Boolean Algebra Is All That Is Required">
-    <meta property="og:description" content="A multiplexer-only Boolean model of universal computation based on wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling.">
+    <meta property="og:description" content="A finite local Boolean fabric in which computation, state, ownership, configuration, timing, and recursive reconfiguration remain inside one causal substrate.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/boolean-algebra-is-all-that-is-required.html">
+    <meta property="article:published_time" content="2026-02-08">
+    <meta property="article:modified_time" content="2026-07-10">
     <meta name="citation_title" content="Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation">
     <meta name="citation_author" content="Brian Greenforest">
     <meta name="citation_publication_date" content="2026-02-08">
-    <meta name="citation_pdf_url" content="https://zenodo.org/records/18528623/files/Boolean_Algebra_is_All_You_Need.pdf?download=1">
-    <meta name="citation_doi" content="10.5281/zenodo.18528623">
-        <link rel="icon" href="/favicon.ico">
+    <meta name="citation_online_date" content="2026-07-10">
+    <meta name="citation_fulltext_html_url" content="https://greenforest.io/boolean-algebra-is-all-that-is-required.html">
+    <meta name="citation_doi" content="10.5281/zenodo.18528622">
+    <link rel="icon" href="/favicon.ico">
     <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "ScholarlyArticle",
-            "headline": "Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation",
-            "author": [{
-                "@type": "Person",
-                "name": "Brian Greenforest"
-            }],
-            "datePublished": "2026-02-08",
-            "dateModified": "2026-07-09",
-            "publisher": {
+{
+        "@context": "https://schema.org",
+        "@type": "ScholarlyArticle",
+        "headline": "Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation",
+        "author": [
+                {
+                        "@type": "Person",
+                        "name": "Brian Greenforest"
+                }
+        ],
+        "datePublished": "2026-02-08",
+        "dateModified": "2026-07-10",
+        "version": "Revised web edition, July 10, 2026",
+        "publisher": {
                 "@type": "Organization",
-                "name": "Zenodo"
-            },
-            "license": "https://creativecommons.org/licenses/by/4.0/",
-            "identifier": [
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+        },
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "identifier": [
                 "https://doi.org/10.5281/zenodo.18528622",
                 "https://doi.org/10.5281/zenodo.18528623"
-            ],
-            "sameAs": [
+        ],
+        "sameAs": [
                 "https://doi.org/10.5281/zenodo.18528622",
                 "https://doi.org/10.5281/zenodo.18528623",
                 "https://zenodo.org/records/18528623"
-            ],
-            "url": "https://greenforest.io/boolean-algebra-is-all-that-is-required.html",
-            "encoding": {
+        ],
+        "isBasedOn": {
+                "@type": "ScholarlyArticle",
+                "@id": "https://doi.org/10.5281/zenodo.18528623",
+                "name": "Original archived edition, February 8, 2026"
+        },
+        "associatedMedia": {
                 "@type": "MediaObject",
+                "name": "Original archived PDF, February 8, 2026",
                 "contentUrl": "https://zenodo.org/records/18528623/files/Boolean_Algebra_is_All_You_Need.pdf?download=1",
                 "encodingFormat": "application/pdf"
-            },
-            "description": "Universal computation built from wires, constants, 2:1 multiplexers, feedback, configuration registers, and unbounded tiling."
-        }
+        },
+        "mainEntityOfPage": "https://greenforest.io/boolean-algebra-is-all-that-is-required.html",
+        "url": "https://greenforest.io/boolean-algebra-is-all-that-is-required.html",
+        "description": "A finite local Boolean fabric in which computation, state, ownership, configuration, timing, and recursive reconfiguration remain inside one causal substrate.",
+        "keywords": [
+                "Boolean algebra",
+                "multiplexer fabric",
+                "reconfigurable computing",
+                "Cartilage",
+                "causal switching",
+                "Turing equivalence"
+        ]
+}
     </script>
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body class="doi-landing">
-    <h1>Boolean Algebra Is All That Is Required: An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation</h1>
-
-    <address>February 8, 2026</address>
+<body class="doi-landing paper-revision">
+    <header class="paper-header">
+        <h1>Boolean Algebra Is All That Is Required</h1>
+        <p class="paper-subtitle">An Infinitely Extensible Multiplexer Fabric as a Unified Model of Computation</p>
+        <address>
+            <time datetime="2026-02-08">Originally published February 8, 2026</time><br>
+            <time datetime="2026-07-10">Revised web edition July 10, 2026</time>
+        </address>
+    </header>
 
     <div class="meta">
-        <p><strong>License:</strong> CC BY 4.0</p>
+        <p><strong>License:</strong> <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
     </div>
 
     <div class="links">
-        <p><strong>DOI:</strong> <a href="https://doi.org/10.5281/zenodo.18528622">https://doi.org/10.5281/zenodo.18528622</a><br>
-            <strong>Download:</strong> <a href="https://zenodo.org/records/18528623/files/Boolean_Algebra_is_All_You_Need.pdf?download=1">Boolean_Algebra_is_All_You_Need.pdf</a></p>
+        <p>
+            <strong>Concept DOI:</strong> <a href="https://doi.org/10.5281/zenodo.18528622">10.5281/zenodo.18528622</a><br>
+            <strong>Original version DOI:</strong> <a href="https://doi.org/10.5281/zenodo.18528623">10.5281/zenodo.18528623</a><br>
+            <strong>Original archived PDF:</strong> <a href="https://zenodo.org/records/18528623/files/Boolean_Algebra_is_All_You_Need.pdf?download=1">Boolean_Algebra_is_All_You_Need.pdf</a>
+        </p>
     </div>
 
-    <section class="abstract">
-        <p>Universal computation from wires, constants, 2:1 MUXes, feedback, configuration registers, and unbounded tiling.</p>
-        <p>The paper gives a small construction kit for a reconfigurable Boolean substrate. Wires move values. Constants anchor values. MUXes choose values. Feedback and registers create state. Configuration registers change the next-state function. Unbounded tiling gives the construction room to grow.</p>
-        <p>The delivered result is the formal construction, the DOI/PDF reference, and the implementation path in one place.</p>
-        <div class="status-box">
-            <p><span class="status-label">Paper and construction</span>This page delivers the Zenodo DOI, PDF, license, citation metadata, and compact implementation path.</p>
-            <p><strong>Included:</strong> the primitive set: wires, constants, 2:1 MUXes, feedback, configuration registers, and unbounded tiling.</p>
-            <p><strong>Article focus:</strong> a minimal universal-computation construction from wires, constants, 2:1 MUXes, feedback, configuration registers, and unbounded tiling.</p>
-        </div>
+    <div class="status-box revision-status">
+        <p><span class="status-label">Revised web edition</span>This page publishes the complete July 10, 2026 construction and its updated meaning.</p>
+        <p><strong>Archive boundary:</strong> the linked Zenodo PDF is the original February 8 edition. It does not yet contain this web revision.</p>
+        <p><strong>Implementation boundary:</strong> the browser artifact demonstrates the parent-preserving transaction. Retained transaction routes, acknowledged commit/release, safe arbitrary reparenting, and lazy <code>CLAIM</code> are requirements of the robust substrate contract, not features independently proved by that shader.</p>
+    </div>
+
+    <section class="revision-summary" aria-labelledby="revision-summary-heading">
+        <h2 id="revision-summary-heading">What changed in this revision</h2>
+        <p>The claim is now stated at the level of computational primitives: every machine-visible value and transformation remains Boolean, while locality, persistence, matter, energy, and finite propagation are explicit physical premises rather than consequences of an algebraic identity.</p>
+        <ul>
+            <li>Configuration is Boolean state interpreted and installed by fixed Boolean circuitry inside the same fabric.</li>
+            <li><code>CLOCK</code> is a local, potentially aperiodic transaction strobe—not a global clock domain or timebase.</li>
+            <li>Finite replacement now has an explicit ownership-tree protocol for staging, traversal, commit, acknowledgement, release, and application fencing.</li>
+            <li>Universality is exactly Turing equivalence under constructive execution and potential-extension premises; unbounded passive memory alone is not enough.</li>
+            <li>The seven-bit result is minimal only for the selected 32-role, four-direction direct encoding, and the browser implementation is evidence for a stated subset of the full contract.</li>
+        </ul>
     </section>
 
-    <main>
-        <section>
-            <h1>What The Paper Gives</h1>
-            <p>The paper defines a minimal computation model whose primitives are ordinary Boolean hardware primitives: wires, constants, and 2:1 multiplexers. With feedback and registers, those primitives become sequential switching networks. With configuration registers, the same substrate can be programmed. With unbounded tiling, the construction has unbounded memory and therefore universal computational power.</p>
-            <p>The point is implementation-level sufficiency. Conditional selection, state, reconfiguration, routing discipline, and replication can all be expressed inside the same Boolean system.</p>
+    <article class="paper-text" aria-label="Revised paper">
+        <section class="abstract" aria-labelledby="abstract-heading">
+            <h2 id="abstract-heading">Abstract</h2>
+<p>This paper gives a finite local construction in which computation, storage, routing, configuration, and reconfiguration are performed by one kind of machinery: Boolean switching circuits. The substrate is a homogeneous two-dimensional fabric of identical cells. Every cell is a fixed Boolean sequential circuit. A finite Boolean configuration word selects the cell's effective role as a wire, constant, crossing, 2:1 multiplexer, or local reconfiguration port. Further Boolean state records local ownership and implements the configuration loader. A configuration is therefore not metadata interpreted by a machine outside the model. It is state inside the same Boolean machine whose behavior it selects.</p>
+<p>An owning region configures a finite child region by presenting Boolean DATA and CLOCK signals to the child's local reconfiguration port. Fixed Boolean circuitry in the cells routes that stream through the child's ownership tree, records progress, installs cell records, and reports completion. CLOCK is neither global nor continuously broadcast: loading follows one selected branch, while the final commit strobe is fanned only through the finite target region and need not arrive simultaneously. It is an application signal produced by the owner. Under a bounded-delay discipline, the owner need only separate its CLOCK transitions by a finite interval determined by the target region's maximum causal depth. A delay path made from the same cells can provide that interval. No global clock, global or local H-tree, continuously running clock-distribution network, local crystal oscillator, GPS reference, or non-Boolean configuration controller is required. The finite transaction tree does distribute a finite strobe; it is not required to be balanced or zero-skew.</p>
+<p>The construction is closed under reconfiguration: a configured Boolean region can compute a configuration stream which causes another region to become a new Boolean circuit, including a circuit containing further reconfiguration ports. Finite-state machines, conventional stored-program processors, tapes, stacks, and linked storage are finite configurations or potentially unbounded organizations of this one substrate. With finitely described initial conditions and arbitrarily extensible finite active regions, the model is Turing-equivalent. The contribution is not a new computability class. It is an explicit demonstration that no change of computational ontology is required between Boolean logic, state, programming, and the machines produced by programming.</p>
         </section>
 
-        <section>
-            <h1>Why MUXes Are Enough</h1>
-            <p>Constants supply fixed zeros and ones. Wires move bits. A 2:1 MUX selects one of two inputs under control of a select bit. Networks of those MUXes implement arbitrary Boolean functions.</p>
-            <p>Once outputs feed registers and registers feed later logic, the fabric becomes a clocked state machine. Once some registers are treated as configuration, structure becomes data. Once the pattern can be tiled without a fixed global bound, memory and machine size are no longer fixed by the first drawing.</p>
-        </section>
+        <main>
+<h2 id="1-the-claim">1. The claim</h2>
+<p>The statement "Boolean algebra is all that is required" is a claim about computational primitives.</p>
+<p>It means:</p>
+<ol>
+<li>Every value carried by the substrate is Boolean.</li>
+<li>Every local combinational transformation is a Boolean function.</li>
+<li>Every stored configuration, ownership indication, progress indication, and application value is Boolean state.</li>
+<li>Every change to that state is caused by Boolean signals acting through Boolean switching circuitry.</li>
+<li>A circuit which installs or replaces another circuit is not a second-order interpreter outside the substrate. It is another Boolean circuit inside the substrate.</li>
+</ol>
+<p>The claim does not assert that the equations of Boolean algebra manufacture matter, energy, spatial adjacency, or propagation delay. Any physical computer requires a realization. Cartilage requires only that its realization provide stable Boolean levels, state-holding switching structures, local connections, and finite causal propagation. These are properties of a physical Boolean circuit, not additional computational data types or abstract machines.</p>
+<p>In this paper, a <strong>Boolean process</strong> means a retained network of Boolean operations and Boolean storage connected by causal signal paths. Two processes may compute the same extensional truth function while differing in placement, propagation depth, feedback, or ownership. Those differences remain part of the machine even though they are erased by ordinary truth-table equivalence.</p>
+<p>The distinction is important. A truth table describes a Boolean function after the structure and timing of its realization have been discarded. Cartilage does not discard them. Its primitive object is a locally connected Boolean switching process whose effective connections and functions are themselves selected by Boolean state.</p>
+<p>George Boole's calculus supplies the algebra of Boolean operations and predicates. His writings also discuss successive operations and propositions interpreted over portions of time, but the formal calculus does not prescribe gate delay or a next-state schedule. This paper does not attribute such a schedule to an algebraic identity. It retains Boole's value algebra while refusing to erase the causal switching structure which realizes Boolean operations. The additional premises are explicit physical locality, persistence, and propagation—not another computational value or transformation algebra.</p>
+<h2 id="2-the-fixed-substrate-and-the-circuits-it-realizes">2. The fixed substrate and the circuits it realizes</h2>
+<h3 id="21-carrier-fabric">2.1 Carrier fabric</h3>
+<p>Let</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>L</mi><mo>&#x0003D;</mo><msup><mi>&#x02124;</mi><mn>2</mn></msup></mrow></math></div>
 
-        <section>
-            <h1>Construction Recipe</h1>
-            <ol>
-                <li>Start with wires and constants so bits can be moved and fixed values can enter the network.</li>
-                <li>Use 2:1 MUXes as the switching primitive. A MUX selects one input under control of one bit.</li>
-                <li>Compose MUXes into arbitrary Boolean functions.</li>
-                <li>Add feedback through registers so the network has clocked state.</li>
-                <li>Reserve some state as configuration registers so the next-state function can be changed by data.</li>
-                <li>Tile the same local pattern without a fixed bound so memory and machine size can grow.</li>
-            </ol>
-            <p>That chain is the whole claim. It does not require a hidden CPU, a special instruction set, or an external programming oracle. The same kind of Boolean state that computes values can also carry the configuration that changes the fabric.</p>
-        </section>
+<p>be a regular lattice. A site has four fixed physical neighbors: left, up, right, and down. The use of an infinite lattice is a concise representation of potential extension. Every configuration, region, input, transaction, and finite-event causal cone considered below is finite or finitely described. No result depends on an actually fabricated infinite device.</p>
+<p>For the computability theorem, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>L</mi></mrow></math> is initialized by one computable rule: a finite seed is allocated and every other site contains the same unclaimed quiescent cell state. It does not contain an arbitrary infinite program. At every finite event prefix, non-Zeno local propagation permits only a finite claimed causal region. A family of finite physical devices can realize successively larger finite prefixes of this abstract machine; physical attachment is an implementation resource action, not silently identified with the abstract CLAIM operation defined in Section 7.4.</p>
+<p>Each site contains the same fixed cell circuit. The fixed carrier graph is denoted by <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>G</mi><mn>0</mn></msub></mrow></math>. It consists only of the repeated cells and their nearest-neighbor physical links.</p>
+<h3 id="22-cell-state">2.2 Cell state</h3>
+<p>For a site <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>v</mi></mrow></math>, let its stored Boolean state be</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>z</mi><mi>v</mi></msub><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>A</mi><mi>v</mi></msub><mo>&#x0002C;</mo><msub><mi>C</mi><mi>v</mi></msub><mo>&#x0002C;</mo><msub><mi>P</mi><mi>v</mi></msub><mo>&#x0002C;</mo><msub><mi>Q</mi><mi>v</mi></msub><mo>&#x0002C;</mo><msub><mi>B</mi><mi>v</mi></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0002E;</mo></mrow></math></div>
 
-        <section>
-            <h1>Implementation Path</h1>
-            <p>Read this as an implementation model for a reconfigurable substrate. The important terms are local wires, constants, 2:1 MUXes, feedback, configuration state, tiling, and the protocol that installs new configuration.</p>
-            <p>Reconfiguration is not outside the machine. Programming a fabric is itself a Boolean, clocked process. Configuration bits move through a substrate, land in registers, and change the next-state function the same way any other state changes it.</p>
-        </section>
+<p>The fields have the following meanings.</p>
+<ul>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>A</mi><mi>v</mi></msub></mrow></math> indicates whether the site has been claimed into the active finite fabric.</li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>C</mi><mi>v</mi></msub></mrow></math> is the installed role code.</li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>P</mi><mi>v</mi></msub></mrow></math> is the ownership or parent-direction code.</li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>Q</mi><mi>v</mi></msub></mrow></math> is application signal or retained application state.</li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>B</mi><mi>v</mi></msub></mrow></math> is the fixed loader's working state: configuration shift bits, progress, completion, and edge-history bits.</li>
+</ul>
+<p>The exact number of working bits is an implementation choice. It does not change the argument, provided it is finite and every working transition is Boolean. The concrete Cartilage encoding uses a seven-bit installed record, consisting of five role bits and two parent-direction bits. A complete robust loader additionally retains a seven-bit shadow record, a finite bit index, BUSY and FULL indications, the preceding CLOCK value, and the old parent/root relation used by the active transaction. Newly received role or parent bits therefore cannot cut the route still being used to finish the transaction.</p>
+<p>The cell has a fixed local transition circuit</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>F</mi><mi>:</mi><mo stretchy="false">&#x0007B;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>1</mn><msup><mo stretchy="false">&#x0007D;</mo><mrow><mi>k</mi><mo>&#x0002B;</mo><mn>4</mn><mi>m</mi></mrow></msup><mo>&#x02192;</mo><mo stretchy="false">&#x0007B;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>1</mn><msup><mo stretchy="false">&#x0007D;</mo><mrow><mi>k</mi><mo>&#x0002B;</mo><mn>4</mn><mi>m</mi></mrow></msup><mo>&#x0002C;</mo></mrow></math></div>
 
-        <section>
-            <h1>Relation To Cartilage</h1>
-            <p>Cartilage is the live implementation direction attached to this paper. The primary <a href="/cellular-automata-2019/cartilage3.html">Cartilage demo</a> shows a tiled browser/GPU fabric where a local reconfiguration port streams bits into bounded regions and replaces tile roles such as wires, MUXes, constants, intersections, and further reconfiguration ports.</p>
-            <p>The <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation article</a> is the next useful read because it turns the formal claim into a live artifact: module boundaries, local ports, serial configuration streams, bounded regions, composability, and reconfiguration through the fabric.</p>
-            <p>You can also open the <a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/7lj3Rw">Cartilage ShaderToy artifact</a> from Summer 2021.</p>
-        </section>
+<p>where the arguments are the cell's retained bits and the Boolean signals presented by its four neighbors. This notation names the fixed cell circuit; it does not impose a global update clock. In an event-driven realization, each output transition of <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi></mrow></math> occurs after the causal delay of the gates and links involved.</p>
+<h3 id="23-installed-role-alphabet">2.3 Installed role alphabet</h3>
+<p>The five-bit role code selects one of 32 effective roles:</p>
+<ul>
+<li>24 oriented 2:1 multiplexer roles;</li>
+<li>four oriented wire roles;</li>
+<li>one crossing role;</li>
+<li>one forced-zero role;</li>
+<li>one forced-one role;</li>
+<li>one reconfiguration-port role.</li>
+</ul>
+<p>The 24 multiplexer roles arise from four rotations and six ordered choices of two data inputs from the three non-selector sides. A normal cell broadcasts its selected output toward its neighbors. The crossing role carries the two opposite routes independently. The crossing is a routing convenience; it adds no new Boolean function.</p>
+<p>The reconfiguration port is not a different kind of hardware. It is one value of the same five-bit role field. Installing a port therefore requires the same operation as installing a wire or a multiplexer.</p>
+<h3 id="24-two-graph-levels-one-computational-ontology">2.4 Two graph levels, one computational ontology</h3>
+<p>The fixed carrier graph <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>G</mi><mn>0</mn></msub></mrow></math> must be distinguished from two decoded graphs:</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>G</mi><mo stretchy="false">&#x00028;</mo><mi>A</mi><mo>&#x0002C;</mo><mi>C</mi><mo>&#x0002C;</mo><mi>P</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mtext>the&#x000A0;effective&#x000A0;application,&#x000A0;port-ingress,&#x000A0;and&#x000A0;routing&#x000A0;graph</mtext><mo>&#x0002C;</mo></mrow></math></div>
 
-        <section>
-            <h1>Construction Boundary</h1>
-            <p>The construction is intentionally small. It does not start from a convenient CPU, an HDL standard library, or a friendly programming language. It starts from the fewest Boolean pieces that still reach state, configuration, and unbounded growth.</p>
-            <p>The first description is lower-level than the machines people usually name. The gain is that every layer has a direct substrate interpretation.</p>
-        </section>
-        <section class="cartilage-visual-link">
-            <h1>Cartilage Visual Language</h1>
-            <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
-        </section>
+<p>and</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>T</mi><mo stretchy="false">&#x00028;</mo><mi>A</mi><mo>&#x0002C;</mo><mi>C</mi><mo>&#x0002C;</mo><mi>P</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mtext>the&#x000A0;ownership&#x000A0;forest&#x000A0;decoded&#x000A0;from&#x000A0;claimed&#x000A0;cells,&#x000A0;roles,&#x000A0;and&#x000A0;directions</mtext><mo>&#x0002E;</mo></mrow></math></div>
 
-        <section>
-            <h1>Use This With Prior Work</h1>
-            <p>The most relevant comparisons are MUX fabrics, reconfigurable cellular hardware, BDD-style computation, and universal Boolean substrates. Those references belong beside the paper because they sharpen what this construction contributes and what was already known.</p>
-        </section>
-    </main>
+<p>Unclaimed sites are absent from both decoded graphs. In <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>T</mi><mo stretchy="false">&#x00028;</mo><mi>A</mi><mo>&#x0002C;</mo><mi>C</mi><mo>&#x0002C;</mo><mi>P</mi><mo stretchy="false">&#x00029;</mo></mrow></math>, a claimed cell whose role is a reconfiguration port is a component root; its two direction bits select its external ingress orientation rather than an internal parent edge. Every claimed non-port cell contributes the locally directed parent edge selected by its two direction bits. Thus root status cannot be decoded from <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>P</mi></mrow></math> alone. Likewise, the effective behavior of a port in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>G</mi></mrow></math> depends on both its role and its ingress orientation.</p>
+<p>The carrier graph is fabricated. The effective circuit graph and ownership graph are not supplied by an external interpreter. They are decoded locally by the fixed Boolean cell circuits from Boolean state. When a configuration stream changes <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>C</mi></mrow></math> or <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>P</mi></mrow></math>, the same fixed Boolean substrate changes the effective graphs it presents.</p>
+<p>This is the same logical recursion used by an SRAM FPGA. A fabricated FPGA is already a Boolean sequential circuit containing configuration storage, routing selectors, lookup structures, registers, and loading circuitry. If <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>U</mi></mrow></math> denotes that fixed circuit and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>C</mi></mrow></math> its configuration state, then</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>U</mi><mo stretchy="false">&#x00028;</mo><mi>C</mi><mo>&#x0002C;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><msub><mi>f</mi><mi>C</mi></msub><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002E;</mo></mrow></math></div>
 
-    <nav class="article-links">
+<p>The bit pattern <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>C</mi></mrow></math> specializes the fixed circuit into the effective circuit <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>f</mi><mi>C</mi></msub></mrow></math>. Cartilage makes this specialization local and recursively available through owned ports.</p>
+<h2 id="3-boolean-completeness-storage-and-causal-time">3. Boolean completeness, storage, and causal time</h2>
+<h3 id="31-multiplexer-completeness">3.1 Multiplexer completeness</h3>
+<p>A 2:1 multiplexer computes</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>M</mi><mo stretchy="false">&#x00028;</mo><mi>s</mi><mo>&#x0002C;</mo><mi>a</mi><mo>&#x0002C;</mo><mi>b</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mi>&#x000AC;</mi><mi>s</mi><mo>&#x02227;</mo><mi>a</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02228;</mo><mo stretchy="false">&#x00028;</mo><mi>s</mi><mo>&#x02227;</mo><mi>b</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>With constants zero and one,</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x000AC;</mi><mi>x</mi><mo>&#x0003D;</mo><mi>M</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mn>1</mn><mo>&#x0002C;</mo><mn>0</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0002C;</mo></mrow></math></div>
+
+<p>and every finite Boolean function can be constructed recursively by Shannon expansion:</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>f</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi mathvariant="bold">y</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mi>M</mi><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>f</mi><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi mathvariant="bold">y</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002C;</mo><mi>f</mi><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x0002C;</mo><mi mathvariant="bold">y</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>Consequently, the cell's fixed loader, counters, decoders, progress flags, ownership tests, routing selectors, and application logic can all be reduced to multiplexers, constants, and stored Boolean values. The interpretation, movement, and installation of configuration bits require no richer logical primitive than the circuits being installed.</p>
+<h3 id="32-storage">3.2 Storage</h3>
+<p>A retained bit can be constructed from a configured MUX and a positive-delay feedback route. Connect the MUX's first data input to its own prior output through that route, connect its second data input to new value <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math>, and use enable <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>e</mi></mrow></math> as selector. Its Boolean next-value relation is</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>q</mi><mo>&#x0002B;</mo></msup><mo>&#x0003D;</mo><mi>M</mi><mo stretchy="false">&#x00028;</mo><mi>e</mi><mo>&#x0002C;</mo><mi>q</mi><mo>&#x0002C;</mo><mi>d</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>When <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>e</mi><mo>&#x0003D;</mo><mn>0</mn></mrow></math>, the delayed prior value <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>q</mi></mrow></math> is selected and retained. When <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>e</mi><mo>&#x0003D;</mo><mn>1</mn></mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math> is selected and becomes the value subsequently presented through the feedback path. Holding <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>e</mi></mrow></math> and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math> for the declared setup, propagation, and hold intervals gives an addressable one-bit latch. A physical latch, flip-flop, charge-holding node, or other bistable switching structure realizes the same relation causally. The stored value is Boolean; the load, hold, and feedback paths are Boolean circuits. An initial value is part of the finite initial configuration.</p>
+<p>Purely equational Boolean algebra does not specify how long a transition takes. Cartilage makes no such claim. It requires a causal realization of the Boolean circuit. The realization is non-Zeno: it cannot perform infinitely many causally successive local transitions in a finite physical interval. Once finite propagation is retained rather than abstracted away, feedback provides retention and transitions provide an ordering of events without requiring a universal time coordinate.</p>
+<h3 id="33-no-operational-global-state">3.3 No operational global state</h3>
+<p>The behavior of one cell depends only on its own retained bits and signals arriving from adjacent cells. Two events with no causal path between them need not be ordered. A mathematical observer may describe values on a chosen cut through the event history, but the machine does not read, construct, or update a simultaneous global state.</p>
+<p>The browser emulator evaluates the lattice through repeated framebuffer passes. Those passes are an integration and scheduling device of the emulator. They impose one simulated propagation increment per pass; they are not a clock distributed to the modeled Cartilage machine.</p>
+<h2 id="4-finite-regions-ownership-and-ports">4. Finite regions, ownership, and ports</h2>
+<h3 id="41-valid-owned-region">4.1 Valid owned region</h3>
+<p>A finite owned region is one current component of the decoded ownership forest, written</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>R</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>V</mi><mi>R</mi></msub><mo>&#x0002C;</mo><msub><mi>p</mi><mi>R</mi></msub><mo>&#x0002C;</mo><msub><mi>T</mi><mi>R</mi></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0002C;</mo></mrow></math></div>
+
+<p>where:</p>
+<ul>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mi>R</mi></msub><mo>&#x02282;</mo><mi>L</mi></mrow></math> is a finite connected set of claimed cells;</li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>p</mi><mi>R</mi></msub><mo>&#x02208;</mo><msub><mi>V</mi><mi>R</mi></msub></mrow></math> is the only cell in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mi>R</mi></msub></mrow></math> whose installed role is reconfiguration port;</li>
+<li>every other cell in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mi>R</mi></msub></mrow></math> is a non-port cell with one parent direction pointing to an adjacent cell in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mi>R</mi></msub></mrow></math>;</li>
+<li>following parent directions from every cell reaches <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>p</mi><mi>R</mi></msub></mrow></math> after finitely many steps;</li>
+<li>no parent-direction cycle exists inside <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math>;</li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mi>R</mi></msub></mrow></math> is closed for this transaction: no cell outside <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mi>R</mi></msub></mrow></math> is accepted by a member as a child of the retained transaction tree.</li>
+</ul>
+<p>Thus <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>T</mi><mi>R</mi></msub></mrow></math> is a rooted spanning tree of exactly one ownership component. A nested child port is the root of a different component and is not traversed as an ordinary member of <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mi>R</mi></msub></mrow></math>; that component is a transaction-closed boundary unless separately selected through its own port. The port belongs to the child region and is its root. Its parent/ingress code selects one local application side for DATA; the next application side in the fixed rotational convention supplies CLOCK. These are two distinct ordinary Boolean signal paths driven by one logical owner. The port's separate configuration-overlay channels participate in the child's ownership tree. The single-driver condition excludes configuration-ingress contention.</p>
+<p>One convenient numeric decoding is <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>0</mn><mo>&#x0003D;</mo><mtext>left</mtext></mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0003D;</mo><mtext>up</mtext></mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>2</mn><mo>&#x0003D;</mo><mtext>right</mtext></mrow></math>, and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>3</mn><mo>&#x0003D;</mo><mtext>down</mtext></mrow></math>. The port root uses the same two bits to identify its external DATA ingress orientation; its CLOCK ingress is the conventionally adjacent side and its root status is supplied by the port role itself.</p>
+<p>Let</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>D</mi><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><msub><mo>max</mo><mrow><mi>v</mi><mo>&#x02208;</mo><msub><mi>V</mi><mi>R</mi></msub></mrow></msub><msub><mo>dist</mo><mrow><msub><mi>T</mi><mi>R</mi></msub></mrow></msub><mo stretchy="false">&#x00028;</mo><msub><mi>p</mi><mi>R</mi></msub><mo>&#x0002C;</mo><mi>v</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+<p>be the ownership-tree depth. Because <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math> is finite, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>D</mi><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo></mrow></math> is finite.</p>
+<h3 id="42-ownership-is-authority-not-address-space">4.2 Ownership is authority, not address space</h3>
+<p>Under the valid-tree and exclusive-driver contract, the parent field serves two related purposes:</p>
+<ol>
+<li>it supplies the local route by which configuration control reaches a cell; and</li>
+<li>it identifies the unique enclosing port whose well-formed transaction may replace that cell.</li>
+</ol>
+<p>No global coordinate is needed during a transaction. The owner addresses the child by possessing a physical signal path to the child's port. The port and the tree behind it define the scope of the operation.</p>
+<p>The ownership tree is not an application heap. It is the configuration-authority structure. An application heap is an encoded graph of objects and references implemented by ordinary configured storage and routes. It may contain sharing and cycles even though the physical ownership relation remains a tree.</p>
+<h3 id="43-owner-and-loader-responsibilities">4.3 Owner and loader responsibilities</h3>
+<p>The owning application region determines:</p>
+<ul>
+<li>the sequence of seven-bit cell records to install;</li>
+<li>the Boolean DATA waveform carrying those records;</li>
+<li>the Boolean CLOCK waveform delimiting record bits;</li>
+<li>a safe interval between CLOCK transitions for the particular child region.</li>
+</ul>
+<p>Before replacement, the owner poisons, fences, or otherwise isolates the child's application boundary and prevents ordinary application traffic from entering until release. The base theorem guarantees a correct final replacement. It does not claim useful hazard-free application behavior from the intermediate commit wave.</p>
+<p>The fixed loader circuitry distributed through the child determines:</p>
+<ul>
+<li>which incomplete cell receives the current bit;</li>
+<li>how CLOCK and DATA are forwarded one neighbor at a time;</li>
+<li>when a cell record is complete;</li>
+<li>when a subtree is complete;</li>
+<li>when the whole region is complete.</li>
+</ul>
+<p>The owner may contain a processor, finite controller, dataflow network, or dedicated bitstream generator. It is itself a configured region of the same fabric. The loader is not software executed by a hidden processor. It is fixed Boolean circuitry in every cell.</p>
+<h2 id="5-the-finite-reconfiguration-transaction">5. The finite reconfiguration transaction</h2>
+<h3 id="51-installed-record">5.1 Installed record</h3>
+<p>For the base role alphabet, one installed cell record is</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>w</mi><mi>v</mi></msub><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>C</mi><mi>v</mi></msub><mo>&#x0002C;</mo><msub><mi>P</mi><mi>v</mi></msub><mo stretchy="false">&#x00029;</mo><mo>&#x02208;</mo><mo stretchy="false">&#x0007B;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>1</mn><msup><mo stretchy="false">&#x0007D;</mo><mn>7</mn></msup><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>Five bits select one of 32 roles and two bits select one of four parent directions. Optional application-state initialization or prototype-inheritance fields may be added, but they are not required for Boolean closure or universal computation.</p>
+<p>CLOCK edge recognition is itself Boolean. If <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>c</mi></mrow></math> is the current CLOCK input and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mi>c</mi><mo>&#x02212;</mo></msup></mrow></math> its retained preceding value, then</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>rise</mo><mo>&#x0003D;</mo><mi>&#x000AC;</mi><msup><mi>c</mi><mo>&#x02212;</mo></msup><mo>&#x02227;</mo><mi>c</mi><mo>&#x0002C;</mo><mspace width="2em" /><mo>fall</mo><mo>&#x0003D;</mo><msup><mi>c</mi><mo>&#x02212;</mo></msup><mo>&#x02227;</mo><mi>&#x000AC;</mi><mi>c</mi><mo>&#x0002C;</mo><mspace width="2em" /><mo stretchy="false">&#x00028;</mo><msup><mi>c</mi><mo>&#x02212;</mo></msup><msup><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo></msup><mo>&#x0003D;</mo><mi>c</mi><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>The bit index, FULL transition, commit enable, and reset/release conditions are finite Boolean functions of these edge indications and the loader's retained bits.</p>
+<h3 id="52-deterministic-traversal">5.2 Deterministic traversal</h3>
+<p>Each cell orders its possible child directions relative to its parent direction. Any fixed order is sufficient. The concrete Cartilage order used here is right-relative, forward-relative, then left-relative.</p>
+<p>The loader applies the following rule locally:</p>
+<ol>
+<li>If an ordered child exists and is not complete, forward CLOCK and DATA to the first such child.</li>
+<li>If every child is complete, consume incoming DATA bits into the local staging register.</li>
+<li>When the local record is complete, mark the cell complete toward its parent.</li>
+</ol>
+<p>In COMMIT state, a complete node forwards the commit-high transition to every retained transaction child. A leaf then copies its shadow record; an internal node copies only after every retained transaction child has acknowledged commit. Commit-low and release likewise use the retained transaction route. No new active role or parent value controls the transaction which installed it.</p>
+<p>This is a depth-first postorder traversal generated without a traversal stack. The ownership pointers are the stack embedded in space, while each completion bit records which subtrees no longer require data.</p>
+<p>On the first transaction event observed by a cell, the loader retains its current parent direction and whether it is the transaction root. These retained bits define the transaction route. Loading, completion, commit dissemination, and release use this route rather than newly received role or parent bits. Incoming records remain in shadow latches while loading proceeds.</p>
+<p>After every cell is complete, one additional commit cycle is forwarded through the complete transaction tree. It causes a postorder copy of shadow role and parent records into active latches: leaves copy first, and each internal node copies after its children acknowledge. The cells continue routing commit and its guarded return phase using the retained transaction route. A postorder release then clears transaction working state.</p>
+<p>For the base theorem, a valid final ownership forest partitions every cell of <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math> into disjoint rooted components. Every installed port is exactly one component root; no non-root is a port. Every non-root parent direction points to an adjacent cell in the same component, and repeated parent following terminates at that component's port. The original root <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>p</mi><mi>R</mi></msub></mrow></math> remains a port, preserving the enclosing owner's interface.</p>
+<p>To denote an immediately usable nested hierarchy, the final configuration must satisfy an additional local wiring condition. For every new port root, the DATA and CLOCK driver sites selected by its ingress orientation must exist, lie in one different component designated as its immediate owner, and be configured to drive that port. Directing an edge from that owner component to the child component must produce an acyclic component graph rooted, within <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math>, at the component containing <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>p</mi><mi>R</mi></msub></mrow></math>. Under this condition each additional component is a genuine locally driven child. A forest which lacks the driver wiring remains a valid partition, but its extra ports are not thereby claimed to be usable. Deletion or return of capacity to an enclosing region is a separate allocation operation, not part of the base replacement theorem.</p>
+<p>This finite overlay epoch permits a transaction to install new ports and new parent directions without allowing those new values to redirect their own installation. It requires only Boolean latches, completion bits, and multiplexers in the fixed loader.</p>
+<h3 id="53-transaction-modes-and-termination">5.3 Transaction modes and termination</h3>
+<p>Each loader has a finite Boolean mode field encoding the following protocol states:</p>
+<ul>
+<li><strong>IDLE:</strong> no transaction route is retained and FULL is clear.</li>
+<li><strong>LOAD:</strong> the transaction route is retained; the first incomplete frontier consumes DATA on rising strobes.</li>
+<li><strong>FULL:</strong> the local shadow record and every transaction-child subtree are complete; FULL remains asserted toward the transaction parent.</li>
+<li><strong>COMMIT:</strong> a commit-high event is being forwarded through every FULL transaction child.</li>
+<li><strong>COMMITTED:</strong> the local active record has been copied from shadow and commit acknowledgement has been returned toward the root.</li>
+<li><strong>RELEASE:</strong> the commit-low/release event is clearing FULL, shadow-valid, acknowledgement, and transaction-route state in a safe postorder.</li>
+</ul>
+<p>The first loading strobe entering an IDLE region establishes BUSY/LOAD and causes each visited cell to retain its current transaction route. Seven rising strobes at a selected cell fill its shadow record; the following guarded low phase makes that cell FULL. FULL is monotone until release.</p>
+<p>After the root observes every transaction child FULL and becomes FULL itself, the next rising strobe is unambiguously COMMIT rather than an eighth data strobe. A COMMIT node first asserts commit-high on every retained transaction-child output. A leaf then copies shadow to active state and acknowledges its transaction parent. An internal node waits until every transaction child acknowledges, then copies its own shadow record and acknowledges. Root acknowledgement is COMPLETE.</p>
+<p>The owner keeps the application boundary fenced, holds the commit phase for its declared causal guard, and then lowers the strobe. RELEASE propagates through the retained tree. A releasing node asserts RELEASE_ACK on its retained parent edge and holds both that ACK and the retained route for a characterized one-hop capture guard long enough for the parent to latch it. An internal node begins its own capture guard only after latching every child RELEASE_ACK. It clears transaction state after that guard; consequently the root clears last. The complete release path, including these capture guards, is included in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x0039B;</mi><mi>L</mi></msub><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo></mrow></math>. COMPLETE then returns low, the retained transaction overlay is gone, and the newly installed forest becomes the only ownership decoding used by later transactions.</p>
+<p>All modes, child tests, monotone flags, fan-out enables, acknowledgements, copies, and clearing conditions are finite Boolean state and Boolean functions.</p>
+<h3 id="54-traversal-lemma">5.4 Traversal lemma</h3>
+<p><strong>Lemma 1 — unique finite coverage.</strong> For every valid finite owned region <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math>, the local traversal rule selects every cell exactly once and terminates at the root.</p>
+<p><strong>Proof.</strong> A one-cell tree has no children, so its root consumes one record and completes. Assume the statement for trees smaller than <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>n</mi></mrow></math>. In a tree of <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>n</mi></mrow></math> cells, the root forwards the stream to its first incomplete child. That child's subtree is smaller than <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>n</mi></mrow></math>, so by induction it consumes exactly one record per cell and completes. The root then selects the next incomplete child. The child order is fixed and a completed child is never selected again. After all child subtrees complete, the root consumes exactly one record and completes. Every non-root node belongs to exactly one child subtree because the ownership relation is a tree. The retained transaction route is unaffected by shadow or newly committed records, so the induction remains valid while roles and parent directions are replaced. Therefore no node is omitted or repeated. ∎</p>
+<p>The owner supplies records in the postorder induced by the transaction tree. Within each record it supplies five role bits—two orientation bits and three mode bits—and two parent bits in their declared least-significant-bit-first order. For <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007C;</mo><msub><mi>V</mi><mi>R</mi></msub><mo stretchy="false">&#x0007C;</mo></mrow></math>, loading consumes exactly <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>7</mn><mi>N</mi></mrow></math> rising strobes. One additional guarded cycle disseminates commit. Completion and release carry no additional cell record.</p>
+<h3 id="55-installation-lemma">5.5 Installation lemma</h3>
+<p><strong>Lemma 2 — local Boolean staging and installation.</strong> If a selected cell receives seven DATA bits separated by valid CLOCK transitions and subsequently receives commit, then its installed record becomes exactly those seven bits using only Boolean state transitions.</p>
+<p><strong>Proof.</strong> The fixed loader shifts one Boolean DATA value into a seven-bit shadow register on each designated CLOCK event. A finite Boolean counter or equivalent shift-completion signal recognizes the seventh received bit and makes the cell complete for loading purposes. The later commit event enables copying from the shadow register into the active role and parent latches. Shift, count, equality detection, completion, enable, and copying are all finite Boolean functions with retained Boolean state. ∎</p>
+<h3 id="56-commit-and-release-lemma">5.6 Commit-and-release lemma</h3>
+<p><strong>Lemma 3 — finite commit and safe release.</strong> For every finite transaction tree whose cells are FULL, one commit-high event causes every cell to copy its shadow record exactly once and causes COMPLETE at the root. The subsequent release event clears every retained transaction route exactly once without cutting a still-required commit, acknowledgement, or release path.</p>
+<p><strong>Proof.</strong> A FULL leaf has no transaction child. It copies once, latches COMMITTED, and acknowledges. Assume the result for child subtrees of height less than <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math>. A node at height <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math> forwards commit to all children. By induction every child subtree commits and acknowledges in finite causal depth. The node then copies once and acknowledges. Thus the root eventually receives all acknowledgements and asserts COMPLETE. For release, a leaf asserts RELEASE_ACK and retains its route for the one-hop capture guard, so its parent necessarily latches the acknowledgement before the leaf clears. Inductively, an internal node latches every child acknowledgement, asserts its own, and retains its route for the same guaranteed capture before clearing. The root clears last. No active or shadow parent value participates in this proof; all paths are retained transaction paths. ∎</p>
+<h3 id="57-endogenous-reconfiguration-theorem">5.7 Endogenous-reconfiguration theorem</h3>
+<p><strong>Theorem 1 — Boolean closure under finite reconfiguration.</strong> Let <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math> be a valid finite owned region with one designated configuration driver and a quiescent application boundary. Let an owning region emit a finite valid configuration transaction at <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>p</mi><mi>R</mi></msub></mrow></math>, and let the new role and parent records jointly decode to a valid final ownership forest. Then the transaction installs the specified Boolean record in every cell of <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math>, changes no installed record outside <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math>, terminates, releases a well-defined final circuit, and invokes no computational mechanism outside the Boolean fabric.</p>
+<p><strong>Proof.</strong> By Lemma 1, the fixed local traversal delivers one record to every cell and terminates. Transaction closure and child-only forwarding prevent the stream from selecting a cell outside <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>R</mi></mrow></math>. By Lemma 2, each record is staged by Boolean sequential circuitry. Lemma 3 commits and releases the finite tree without severing a still-required path. Commit is causally progressive rather than simultaneous, but the application fence hides the intermediate circuit from external application use. After root acknowledgement and release, the stipulated final records jointly decode to the valid final forest. The port is an installed Boolean role. Routing decisions are functions of Boolean transaction-route and completion bits. Configuration transport uses Boolean signals. The installed application and ownership fields are Boolean state. The owner is assumed here to emit finite Boolean DATA and CLOCK waveforms; Section 7.3 shows that such a generator is itself a finite Cartilage configuration. Therefore production, transport, traversal, progress recognition, commit, release, and the resulting circuit are all processes of the same fixed Boolean substrate. ∎</p>
+<p>When the final driver-wiring and component-acyclicity condition of Section 5.2 holds, a newly installed port may receive another locally produced configuration transaction and instantiate its own finite child region. Recursion introduces no new kind of machine.</p>
+<h2 id="6-timing-without-a-clock-system">6. Timing without a clock system</h2>
+<h3 id="61-clock-is-a-local-transaction-strobe">6.1 CLOCK is a local transaction strobe</h3>
+<p>The signal called CLOCK is not a clock domain or a global timebase. It is one Boolean transaction signal entering one child port from its immediate owner. It need not be periodic, and no other region is required to observe it. During loading, the fixed overlay forwards CLOCK and DATA only toward the first incomplete node selected by the transaction tree. During commit and release, it propagates over that retained finite tree. It is never required to reach all cells simultaneously.</p>
+<h3 id="62-causal-size-and-bounded-delay-model">6.2 Causal size and bounded-delay model</h3>
+<p>Let</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mi>h</mi><mo>&#x0005E;</mo></mover><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mn>1</mn><mo>&#x0002B;</mo><msub><mo>max</mo><mrow><mi>v</mi><mo>&#x02208;</mo><msub><mi>V</mi><mi>R</mi></msub></mrow></msub><msub><mo>dist</mo><mrow><msub><mi>T</mi><mrow><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">x</mi></mrow></mrow></msub></mrow></msub><mo stretchy="false">&#x00028;</mo><msub><mi>p</mi><mi>R</mi></msub><mo>&#x0002C;</mo><mi>v</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+<p>be the maximum causal path measured from the owner-side neighbor, through the port ingress, to a region cell. The added one counts the physical owner-to-port forwarding stage, including for a one-cell region. This causal radius, rather than bounding-box width alone, is the relevant linear size. A serpentine tree in an <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>L</mi></mrow></math>-by-<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>L</mi></mrow></math> area may have <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mover><mi>h</mi><mo>&#x0005E;</mo></mover><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mi>&#x00398;</mi><mo stretchy="false">&#x00028;</mo><msup><mi>L</mi><mn>2</mn></msup><mo stretchy="false">&#x00029;</mo></mrow></math>. If allocation maintains a shortest-path, breadth-first, or monotone tree in a <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>W</mi></mrow></math>-by-<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>H</mi></mrow></math> region, then</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mi>h</mi><mo>&#x0005E;</mo></mover><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02264;</mo><mi>W</mi><mo>&#x0002B;</mo><mi>H</mi><mo>&#x02212;</mo><mn>1</mn><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>Otherwise the owner uses the actual tree depth.</p>
+<p>Let <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x0039B;</mi><mi>H</mi></msub><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo></mrow></math> be a static upper bound on every complete causal dependency which must close during a high phase. This includes an ordinary loading rise reaching the selected receiver and, on the commit cycle, commit fan-out, local copies, and acknowledgement returning to the root. It also upper-bounds the amount by which unequal rise and fall paths can shorten the high pulse observed at any participating receiver.</p>
+<p>Let <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x0039B;</mi><mi>L</mi></msub><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo></mrow></math> be a static upper bound on every complete causal dependency which must close during a low phase. This includes falling-edge propagation, FULL changes, completion returning far enough to select the next frontier, new DATA reaching that frontier, and the final postorder release. It also upper-bounds the amount by which unequal fall and rise paths can shorten the low pulse observed at any participating receiver.</p>
+<p>These are whole-path bounds, not single-hop delays. They are obtained from the fixed cell netlist and the finite retained transaction tree. Because one protocol phase traverses only a fixed finite number of tree paths, fixed implementation constants <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>a</mi><mi>H</mi></msub><mo>&#x0002C;</mo><msub><mi>a</mi><mi>L</mi></msub><mo>&#x0002C;</mo><msub><mi>b</mi><mi>H</mi></msub><mo>&#x0002C;</mo><msub><mi>b</mi><mi>L</mi></msub></mrow></math> and a worst-case tree-level delay <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x00394;</mi></mrow></math> exist such that</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>&#x0039B;</mi><mi>H</mi></msub><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02264;</mo><msub><mi>a</mi><mi>H</mi></msub><mover><mi>h</mi><mo>&#x0005E;</mo></mover><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mi>&#x00394;</mi><mo>&#x0002B;</mo><msub><mi>b</mi><mi>H</mi></msub><mo>&#x0002C;</mo><mspace width="2em" /><msub><mi>&#x0039B;</mi><mi>L</mi></msub><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02264;</mo><msub><mi>a</mi><mi>L</mi></msub><mover><mi>h</mi><mo>&#x0005E;</mo></mover><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mi>&#x00394;</mi><mo>&#x0002B;</mo><msub><mi>b</mi><mi>L</mi></msub><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>The constants are properties of the concrete loader and must be established by its gate-level static timing analysis; they are not guessed from geometric dimensions.</p>
+<p>Let <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>t</mi><mrow><mi>s</mi><mi>u</mi></mrow></msub></mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>t</mi><mi>h</mi></msub></mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>t</mi><mrow><mi>p</mi><mi>w</mi><mo>&#x0002C;</mo><mi>H</mi></mrow></msub></mrow></math>, and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>t</mi><mrow><mi>p</mi><mi>w</mi><mo>&#x0002C;</mo><mi>L</mi></mrow></msub></mrow></math> be the required receiver setup time, hold time, high pulse width, and low pulse width. Let <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>m</mi><mo>&#x0003E;</mo><mn>0</mn></mrow></math> be engineering margin. Delays may differ among cells and transitions but must remain within the declared whole-path bounds. No open-loop bounded-delay proof is possible if propagation or metastability is unbounded.</p>
+<h3 id="63-owner-phase-contract">6.3 Owner phase contract</h3>
+<p>Define the conservative required high and low guards by</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>H</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x0039B;</mi><mi>H</mi></msub><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mo>max</mo><mo stretchy="false">&#x00028;</mo><msub><mi>t</mi><mi>h</mi></msub><mo>&#x0002C;</mo><msub><mi>t</mi><mrow><mi>p</mi><mi>w</mi><mo>&#x0002C;</mo><mi>H</mi></mrow></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mi>m</mi><mo>&#x0002C;</mo></mrow></math></div>
+
+<p>and</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>L</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x0039B;</mi><mi>L</mi></msub><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mo>max</mo><mo stretchy="false">&#x00028;</mo><msub><mi>t</mi><mrow><mi>s</mi><mi>u</mi></mrow></msub><mo>&#x0002C;</mo><msub><mi>t</mi><mrow><mi>p</mi><mi>w</mi><mo>&#x0002C;</mo><mi>L</mi></mrow></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mi>m</mi><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>Let <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>H</mi><mi>R</mi></msub></mrow></math> and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mi>R</mi></msub></mrow></math> be the actual finite source phase lengths chosen by the owner. Correctness requires</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>H</mi><mi>R</mi></msub><mo>&#x02265;</mo><msub><mi>H</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></mrow></msub><mo>&#x0002C;</mo><mspace width="2em" /><msub><mi>L</mi><mi>R</mi></msub><mo>&#x02265;</mo><msub><mi>L</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></mrow></msub><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>The owner uses the following protocol for each bit:</p>
+<ol>
+<li>While CLOCK is low, present the next DATA value.</li>
+<li>Keep DATA and CLOCK low for at least <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mi>R</mi></msub></mrow></math>.</li>
+<li>Raise CLOCK and keep DATA unchanged.</li>
+<li>Keep CLOCK high for at least <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>H</mi><mi>R</mi></msub></mrow></math>.</li>
+<li>Lower CLOCK, then advance DATA only as step 1 of the next low phase.</li>
+</ol>
+<p>The high bound ensures that the last high-phase consequence has occurred and receiver hold and pulse-width requirements are met before the source can lower CLOCK or change DATA. The low bound ensures that completion, rerouting, release where applicable, and the newly presented DATA have settled with setup margin before the next rise. No assumption about equal path delays or a guessed forward/return coefficient is required.</p>
+<p>There is no single positive fixed configuration rate valid for unbounded causal radius. For every finite region, however, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mover><mi>h</mi><mo>&#x0005E;</mo></mover><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo></mrow></math>, <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>H</mi><mi>R</mi></msub></mrow></math>, and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mi>R</mi></msub></mrow></math> are finite. A periodic description may write</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>f</mi><mrow><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">g</mi></mrow></mrow></msub><mo>&#x02264;</mo><mfrac><mrow><mn>1</mn></mrow><mrow><msub><mi>H</mi><mi>R</mi></msub><mo>&#x0002B;</mo><msub><mi>L</mi><mi>R</mi></msub></mrow></mfrac><mo>&#x0002C;</mo></mrow></math></div>
+
+<p>but periodicity is not required.</p>
+<h3 id="64-timing-theorem-and-finite-completion-bound">6.4 Timing theorem and finite completion bound</h3>
+<p><strong>Theorem 2 — finite-region timing closure.</strong> Assume a finite valid transaction tree, empty initial loader-progress bits, one owner, a quiescent application boundary, retained transaction routing, and the bounded-delay owner phase contract. Then the first <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>7</mn><mi>N</mi></mrow></math> rising strobes, where <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007C;</mo><msub><mi>V</mi><mi>R</mi></msub><mo stretchy="false">&#x0007C;</mo></mrow></math>, are captured by exactly one cell each in deterministic postorder, seven consecutive bits per cell. One additional guarded cycle commits the shadow records. The transaction completes and releases in finite time without a global clock, synchronized local clocks, a global or local H-tree, a continuously running clock-distribution network, a crystal oscillator, GPS, or any external time reference. The finite transaction strobe is deliberately routed over the retained tree and is permitted to arrive with bounded skew.</p>
+<p><strong>Proof.</strong> Lemma 1 gives a unique finite postorder at the abstract protocol level. The high and low inequalities dominate, by definition, every whole causal dependency from one source transition which can affect interpretation of the next. Induction over the finite source-transition sequence therefore makes the physical bounded-delay execution observationally equivalent to that serialized traversal. After <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>7</mn><mi>N</mi></mrow></math> rising strobes every shadow record is full. Lemma 3 and the guarded final high and low phases commit, acknowledge, and release the retained tree even when newly installed roles or parent bits differ. No step requires simultaneous switching or a shared phase outside this one finite transaction. ∎</p>
+<p>If the owner chooses constant finite phase lengths <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>H</mi><mi>R</mi></msub></mrow></math> and <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mi>R</mi></msub></mrow></math> for the transaction and an actual finite initial settling interval <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mrow><mrow><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow></mrow></msub></mrow></math>, the duration of the source sequence through release is</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>T</mi><mrow><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">e</mi></mrow></mrow></msub><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mn>7</mn><mi>N</mi><mo>&#x0002B;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00028;</mo><msub><mi>H</mi><mi>R</mi></msub><mo>&#x0002B;</mo><msub><mi>L</mi><mi>R</mi></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><msub><mi>L</mi><mrow><mrow><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow></mrow></msub><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>The initial guard must satisfy</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>L</mi><mrow><mrow><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow></mrow></msub><mo>&#x02265;</mo><msub><mi>&#x0039B;</mi><mrow><mrow><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow></mrow></msub><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><msub><mi>t</mi><mrow><mi>s</mi><mi>u</mi></mrow></msub><mo>&#x0002B;</mo><mi>m</mi><mo>&#x0002C;</mo></mrow></math></div>
+
+<p>where <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x0039B;</mi><mrow><mrow><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi></mrow></mrow></msub><mo stretchy="false">&#x00028;</mo><mi>R</mi><mo stretchy="false">&#x00029;</mo></mrow></math> is the static bound from initial DATA presentation to stability at the first selected receiver. The equality describes the source sequence for the chosen guards; it is not an upper bound on an owner which is permitted to wait longer. When the owner or its delay replicas also have characterized finite maximum delays, substituting those maxima gives a physical worst-case completion bound. In either case every finite region has a finite witness schedule.</p>
+<h3 id="65-producing-the-guard-inside-the-owner">6.5 Producing the guard inside the owner</h3>
+<p>The owner need not measure the required guards with a crystal. It can contain two matched delay replicas constructed from the same Boolean and wire cells. If one replica stage has a characterized minimum delay <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x003B4;</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi><mo>&#x0002C;</mo><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow></mrow></msub></mrow></math>, choose finite lengths <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>n</mi><mi>H</mi></msub><mo>&#x0002C;</mo><msub><mi>n</mi><mi>L</mi></msub></mrow></math> such that</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>n</mi><mi>H</mi></msub><msub><mi>&#x003B4;</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi><mo>&#x0002C;</mo><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow></mrow></msub><mo>&#x02265;</mo><msub><mi>H</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></mrow></msub><mo>&#x0002C;</mo><mspace width="2em" /><msub><mi>n</mi><mi>L</mi></msub><msub><mi>&#x003B4;</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">p</mi><mo>&#x0002C;</mo><mi mathvariant="normal">m</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mrow></mrow></msub><mo>&#x02265;</mo><msub><mi>L</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">q</mi></mrow></mrow></msub><mo>&#x0002E;</mo></mrow></math></div>
+
+<p>A Boolean phase controller raises CLOCK, launches a token through the high-phase replica, and lowers CLOCK only when the delayed token returns. On lowering CLOCK it advances DATA, launches a token through the low-phase replica, and raises CLOCK only when that token returns. This is a bundled-delay sequencer, not a free-running time reference or a balanced clock H-tree. Minimum replica delay is compared against maximum protected-path delay with process, voltage, temperature, loading, and skew margin. Internal commit and release acknowledgements remain part of the finite loader protocol. The owner may observe root COMPLETE for fault detection or adaptive speed, but bounded-delay correctness does not require COMPLETE to determine the nominal phase length.</p>
+<p>For a larger finite child, the owner instantiates a longer finite delay replica or otherwise emits wider finite phases. The initial event which starts the owner is ordinary Boolean input or retained initialization; the model does not require a quiescent circuit to begin spontaneously.</p>
+<p>The browser implementation's guarded sequence is a direct emulator instance of this discipline: one framebuffer update advances local propagation by one neighboring step, while the owner changes the modeled configuration strobe only after a fixed number of propagation updates. Those updates emulate closure time; they are not an architectural global clock.</p>
+<h2 id="7-programming-and-ordinary-machines">7. Programming and ordinary machines</h2>
+<h3 id="71-programming-is-installation">7.1 Programming is installation</h3>
+<p>A program for the fabric is a finite description which an owner converts into configuration records and local application data. It may originate outside the machine as initial input, just as a bitstream, machine-code image, or Turing-machine tape may be supplied to another model. Once a suitable generator or processor is installed, further configuration streams can be computed inside the fabric.</p>
+<p>There is no ontological boundary between program, configuration, and application data. They are distinguished by where Boolean bits are routed and which Boolean latches they control.</p>
+<h3 id="72-finite-boolean-circuits">7.2 Finite Boolean circuits</h3>
+<p><strong>Theorem 3 — finite-circuit embedding.</strong> Every finite Boolean circuit has a finite Cartilage configuration with the same Boolean input-output behavior after propagation settles.</p>
+<p><strong>Proof.</strong> Replace every gate by a finite multiplexer-and-constant network using Shannon expansion. Embed the resulting finite directed netlist into a finite rectangular portion of the grid. Use wire roles for routed segments, crossing roles where two independent routes cross, and multiplexer roles for logic. Fan-out is obtained by presenting one cell output to more than one routed successor. Because the source netlist is finite, the replacement and its planar routed embedding are finite. The configured network therefore produces the same Boolean function after the finite propagation depth settles. ∎</p>
+<h3 id="73-sequential-circuits-and-stored-program-processors">7.3 Sequential circuits and stored-program processors</h3>
+<p><strong>Theorem 4 — finite transition-system embedding.</strong> Every finite deterministic Boolean transition system</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>q</mi><mrow><mi>n</mi><mo>&#x0002B;</mo><mn>1</mn></mrow></msub><mo>&#x0003D;</mo><mi>F</mi><mo stretchy="false">&#x00028;</mo><msub><mi>q</mi><mi>n</mi></msub><mo>&#x0002C;</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+<p>has a finite Cartilage configuration whose state observed after each declared local publish event is exactly <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>q</mi><mi>n</mi></msub></mrow></math>, under a compatible finite-delay discipline.</p>
+<p><strong>Proof.</strong> Theorem 3 embeds the finite combinational function <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi></mrow></math>. Use two finite banks of the retained elements of Section 3.2 and one retained phase bit. At any time exactly one bank is active and is the sole state input to <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi></mrow></math>; the other bank is inactive. During an evaluate phase, hold <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mi>n</mi></msub></mrow></math> and the active bank fixed, allow <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi><mo stretchy="false">&#x00028;</mo><msub><mi>q</mi><mi>n</mi></msub><mo>&#x0002C;</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">&#x00029;</mo></mrow></math> to settle, and load only the inactive bank. After its setup and hold requirements are satisfied, close the inactive bank. During a nonoverlapping publish phase, change the phase bit so that the completed inactive bank becomes active. Keep the former active bank unchanged until that selector transition and all externally visible outputs have settled; it may then serve as the inactive bank for the next transition.</p>
+<p>The combinational network never reads the bank currently being written, so transparent-latch race-through cannot occur. The evaluate guard exceeds the maximum path from active state and input through <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi></mrow></math> into the inactive bank; the publish guard exceeds the maximum phase-selector and output path. These are finite static timing bounds for the finite configuration. A fence makes observations only after the publish guard, so physical bit and selector skew does not assert mathematical simultaneity. By induction on publish events, the selected bank contains exactly <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>q</mi><mi>n</mi></msub></mrow></math> and the next selected bank contains exactly <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi><mo stretchy="false">&#x00028;</mo><msub><mi>q</mi><mi>n</mi></msub><mo>&#x0002C;</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">&#x00029;</mo></mrow></math>. The required evaluate, close, publish, and return sequence is generated by a fixed finite phase controller built directly from the MUX latches of Section 3.2; acknowledgements or bundled-delay guards prevent it from advancing early. This controller is finite Boolean circuitry, not an invocation of the theorem being proved. It need not be a global clock and need not be shared with any other region. ∎</p>
+<p>Registers, finite memories, arithmetic units, instruction decoders, program counters, buses, and control units have finite Boolean transition-system realizations. Therefore, for every finite memory capacity <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>n</mi></mrow></math>, a conventional von Neumann computer <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mi>n</mi></msub></mrow></math> has a finite Cartilage configuration.</p>
+<p>The construction is uniform. Given a finite Boolean or RTL description and a finite memory bound, Boolean decomposition is mechanical and a finite placement-and-routing search can enumerate successively larger finite rectangles until it finds an embedding. Efficiency is a separate engineering question; existence does not depend on noncomputable knowledge of the final layout.</p>
+<p><strong>Corollary — in-fabric owner.</strong> A finite controller which reads a finite configuration description and emits the DATA waveform and guarded CLOCK phases of Section 6 has a finite Boolean transition-system realization. By Theorem 4 it has a finite Cartilage configuration. The Boolean-source premise of Theorem 1 is therefore realizable inside the same fabric rather than by an external interpreter.</p>
+<p><strong>Corollary — finite recursive composition.</strong> For every finite nesting depth <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math>, a Cartilage region can configure a child hierarchy of depth <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math> using no machinery outside the fabric.</p>
+<p><strong>Proof.</strong> Depth zero contains no child transaction. Assume a hierarchy of depth <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math> is internally configurable. Theorem 1 allows its owner to install another port, its local DATA/CLOCK driver wiring, and the finite owner controller of the preceding corollary, satisfying the component-acyclicity condition of Section 5.2. That child can configure a depth-<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi></mrow></math> hierarchy, producing depth <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>d</mi><mo>&#x0002B;</mo><mn>1</mn></mrow></math>. ∎</p>
+<p>A conventional compiler may produce the instruction bits stored in <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mi>n</mi></msub></mrow></math>. This does not introduce a new computational primitive. The compiler is a method of producing Boolean input. It may itself be implemented as another finite or extensible Boolean machine.</p>
+<p>The useful distinction is therefore not "Turing machine versus von Neumann machine versus Boolean fabric." A Turing machine is a convenient proof object; a von Neumann processor is a convenient programmable configuration; both are organizations of Boolean state and switching.</p>
+<h3 id="74-potentially-unbounded-storage">7.4 Potentially unbounded storage</h3>
+<p>For the abstract universality theorem, every site outside the finite seed begins in the same computable unclaimed state <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>A</mi><mi>v</mi></msub><mo>&#x0003D;</mo><mn>0</mn></mrow></math>. An unclaimed cell ignores application and configuration traffic except a fixed local CLAIM interface.</p>
+<p>A finite boundary controller annexes one adjacent site by the following Boolean protocol:</p>
+<ol>
+<li>One claimed boundary cell asserts CLAIM toward an adjacent unclaimed site.</li>
+<li>If more than one neighbor requests simultaneously, the unclaimed cell uses one fixed direction priority; well-formed allocators normally avoid the contention.</li>
+<li>The selected cell sets <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>A</mi><mi>v</mi></msub><mo>&#x0003D;</mo><mn>1</mn></mrow></math>, sets its parent direction toward the requester, retains a quiescent installed role, and asserts ACK on that edge.</li>
+<li>After ACK, the requester treats the new cell as an owned leaf and may include it in a finite configuration transaction.</li>
+</ol>
+<p>CLAIM, priority, the allocated latch, parent installation, and ACK are fixed finite Boolean circuitry. No operation names the cell by a global coordinate and no oracle chooses the eventual active size.</p>
+<p>For universal computation, no one finite active machine is claimed to contain infinite memory. The assumption is potential extension: every finite claimed region has quiescent neighboring sites in the computably blank carrier, and the finite CLAIM protocol may be repeated without a predetermined bound.</p>
+<p>An unbounded tape can be represented by a locally linked path of finite symbol cells. When the simulated head reaches the current end, the allocation controller claims one adjacent quiescent cell and installs its blank-symbol role. At every finite event prefix, only finitely many cells have been claimed and only a finite causal region is involved.</p>
+<p>A sequence of finite von Neumann configurations <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>V</mi><mn>1</mn></msub><mo>&#x0002C;</mo><msub><mi>V</mi><mn>2</mn></msub><mo>&#x0002C;</mo><mi>&#x02026;</mi></mrow></math> can also be generated uniformly, while a running machine can organize newly claimed blocks as linked or segmented storage. The word "heap" in this context means an application-level graph of dynamically allocated storage, not a sorted binary heap and not the ownership tree itself.</p>
+<p>A finite physical device lacks the abstract lattice's unclaimed reservoir. Attaching another physical cell or module is therefore an explicit resource action by the environment. Once the standard local interface exists, CLAIM and all subsequent allocation/configuration behavior are Boolean; the mechanical act of supplying matter is a resource premise, not a computation performed by the existing finite circuit.</p>
+<h3 id="75-computability-theorem">7.5 Computability theorem</h3>
+<p>A function computation begins from a finite input and the computable quiescent background. It terminates when a designated Boolean HALT output makes its declared transition; the finite Boolean values at designated output ports are the result. Exact analog transition times are not output data.</p>
+<p>An admissible configuration has constructive execution semantics of one of two forms. In the delay-robust form, all legal delay assignments satisfying the timing contract agree on termination as well as result: for each input, either every legal execution diverges, or every legal execution eventually asserts HALT with the same finite output. In the scheduled form, every machine-visible race or arbitration is resolved by one explicitly specified computable fair scheduler, and all timing bounds needed to generate that execution are computably specified. The computed partial function is then defined by that scheduled execution. In either form, the finite machine description supplies at least one computable fair legal event schedule; in the delay-robust form that schedule is only a simulation witness, not a source of the result. Metastable amplitudes, noncomputable real delays, relative-delay races, and exact-time measurements are not oracles available to the program.</p>
+<p><strong>Theorem 5 — Turing equivalence under constructive premises.</strong> Cartilage with finitely described initial conditions, computable local cell circuitry, non-Zeno finite causal propagation, constructive execution semantics, and potentially unbounded finite extension computes exactly the partial recursive functions.</p>
+<p><strong>Proof, lower bound.</strong> By Theorem 4, finite sequential control is implementable. A locally linked path implements tape symbols and head position. Potential extension supplies another blank symbol cell whenever required. Therefore Cartilage simulates any ordinary Turing machine.</p>
+<p><strong>Proof, upper bound.</strong> The state alphabet of one cell is finite and its local transition is computable. From a finite or computably generated initial description, a Turing machine can enumerate the finite causal events affecting any finite event prefix under the specified computable fair scheduler. Locality, quiescence outside the finitely reached cone, and non-Zeno propagation make each such prefix finite. In the scheduled case, simulate the declared scheduler directly. In the delay-robust case, choose any fixed computable fair legal scheduler satisfying the stated bounds; by admissibility, its halting behavior and output equal those of every other legal execution. CLAIM and configuration are computable local protocols and add only finitely described active cells. HALT and output are finite Boolean observations, not measurements of arbitrary real time. Thus the simulator halts exactly on the Cartilage computation's domain and returns the same finite output. Therefore every Cartilage-computable partial function is partial recursive. ∎</p>
+<p>An arbitrary noncomputable infinite initial pattern is excluded from the theorem. If such a pattern is supplied and made queryable, it acts as an oracle supplied in the initial condition; it is not power generated by the Boolean substrate. Ordinary quantum computation likewise changes complexity bounds, not this computability classification.</p>
+<h2 id="8-what-classical-machine-distinctions-become">8. What classical machine distinctions become</h2>
+<p>The substrate does not erase useful distinctions between machines. It locates those distinctions in organization and resource discipline rather than in different logical primitives.</p>
+<ul>
+<li>A fixed finite active region is a finite-state sequential machine.</li>
+<li>A finite controller with one unbounded last-in-first-out path realizes a pushdown discipline.</li>
+<li>A finite controller with an extensible symbol path and movable head realizes a Turing tape.</li>
+<li>A processor configuration with finite memory realizes a finite von Neumann machine.</li>
+<li>A uniformly extensible collection of linked storage blocks realizes potentially unbounded general storage.</li>
+</ul>
+<p>A pushdown automaton remains weaker than a Turing machine because its access discipline is restricted, not because its stack uses a different kind of logic. Unbounded storage alone does not imply universality. Universality follows here because each newly available cell contributes configurable logic, routing, and retained state, and because the explicit tape construction organizes those resources into a universal machine.</p>
+<h2 id="9-compactness-claims">9. Compactness claims</h2>
+<p>The role and ownership record admits a precise conditional minimality statement.</p>
+<p>There are 32 directly selectable roles, so a fixed-length direct role code requires at least</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x02308;</mi><msub><mi>log</mi><mn>2</mn></msub><mn>32</mn><mi>&#x02309;</mi><mo>&#x0003D;</mo><mn>5</mn></mrow></math></div>
+
+<p>bits. There are four parent directions, so their direct encoding requires at least</p>
+<div class="formula"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>&#x02308;</mi><msub><mi>log</mi><mn>2</mn></msub><mn>4</mn><mi>&#x02309;</mi><mo>&#x0003D;</mo><mn>2</mn></mrow></math></div>
+
+<p>bits. If role and parent are independently selectable, there are <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>32</mn><mi>&#x000B7;</mi><mn>4</mn><mo>&#x0003D;</mo><mn>128</mn></mrow></math> installed records, requiring at least seven bits. The base Cartilage record attains this bound.</p>
+<p>This does not prove that Cartilage is the smallest possible universal cellular substrate, that its complete loader uses the fewest possible latches, or that two dimensions and a direct crossing role are necessary. It proves only that seven bits are optimal for this chosen direct alphabet and four-direction ownership encoding.</p>
+<h2 id="10-finite-realization-and-the-emulator">10. Finite realization and the emulator</h2>
+<p>A physical Cartilage device is finite. It can be tiled with other devices or extended at an exposed boundary. The theoretical unboundedness assumption is the absence of a fixed maximum over all such finite extensions, exactly as an abstract Turing tape represents the absence of a fixed tape bound.</p>
+<p>The browser/GPGPU implementation stores each logical cell in finite packed Boolean state and repeatedly applies the fixed local cell transition. Its full-texture passes provide simulation progress and emulate nonzero propagation time. They are not visible to a configured Cartilage application as a global clock. Configuration CLOCK and DATA are ordinary modeled signals entering through a local port and moving through the ownership tree.</p>
+<p>The implementation is evidence for the finite cell transition, role decoding, local ownership representation, serial loader, progress flags, guarded local strobe, and nested-port mechanism. The published browser transaction demonstrates the parent-preserving case. The retained transaction-route epoch, acknowledged commit/release protocol, and quiescent-site CLAIM interface used here to prove arbitrary safe reparenting and uniform lazy allocation are requirements of the robust substrate contract; they are not yet independently implemented in that shader. A particular shader, ASIC, FPGA realization, or modular assembly is conforming to the full theorem when its observable local behavior includes those mechanisms and its physical timing obeys the declared bounds.</p>
+<h2 id="11-explicit-premises-and-nonclaims">11. Explicit premises and nonclaims</h2>
+<p>The result depends on the following premises.</p>
+<p><strong>P1 — Boolean cell circuitry.</strong> Every cell's application and loader transformations are finite Boolean circuits with retained Boolean state.</p>
+<p><strong>P2 — Local carrier.</strong> Cells communicate only through a fixed finite number of local physical links.</p>
+<p><strong>P3 — Causal realization.</strong> Signal and storage transitions have characterized positive, finite behavior, including the worst-case loader bounds used in Section 6 and a non-Zeno guarantee excluding infinitely many causally successive local transitions in finite time.</p>
+<p><strong>P4 — Valid ownership.</strong> Every reconfigured region is one finite transaction-closed component of <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>T</mi><mo stretchy="false">&#x00028;</mo><mi>A</mi><mo>&#x0002C;</mo><mi>C</mi><mo>&#x0002C;</mo><mi>P</mi><mo stretchy="false">&#x00029;</mo></mrow></math>; its retained claim, role, and direction fields decode to a rooted acyclic tree with exactly one port root. Integrity-repair mutations are suspended while that transaction is active. The cells remain claimed throughout the base transaction, and their newly installed role and direction fields jointly decode with those claim bits to a valid final forest before release. Any claimed nested hierarchy also satisfies the explicit driver-wiring and component-acyclicity condition of Section 5.2.</p>
+<p><strong>P5 — Owner timing.</strong> The owner separates configuration transitions by a bound calculated for the target region's finite causal depth.</p>
+<p><strong>P6 — Constructive initialization, execution, and observation.</strong> Initial configurations, input streams, CLAIM actions, timing generators, HALT, and output observations are finite or computably generated. The machine description supplies a computable fair legal event schedule. Machine-visible nondeterminism is either invariant in both termination and output over all legal delays, or resolved by a specified computable fair scheduler with computably specified timing bounds. Exact analog time, arbitrary real delays, race outcomes, and metastable quantities are not program-visible oracle values.</p>
+<p><strong>P7 — Potential extension.</strong> The theoretical carrier has a computably uniform quiescent background, and the finite Boolean CLAIM protocol may annex adjacent sites without a predetermined bound. Physical attachment is a separate resource premise for finite implementations.</p>
+<p><strong>P8 — Exclusive transaction.</strong> One designated owner drives a child's configuration ingress, and no overlapping transaction mutates that child before release.</p>
+<p>The paper does not claim:</p>
+<ul>
+<li>that Boolean equations derive physical spacetime or energy;</li>
+<li>that every arbitrary asynchronous circuit is hazard-free;</li>
+<li>that partially installed application logic is useful before completion and release;</li>
+<li>that a global snapshot is physically taken by the machine;</li>
+<li>that unbounded passive memory alone implies universality;</li>
+<li>that a noncomputable infinite pattern is generated by the substrate;</li>
+<li>that Cartilage exceeds Turing computability under the constructive premises;</li>
+<li>that the seven-bit installed record is a global minimum for universal computation;</li>
+<li>that parent pointers alone provide cryptographic protection against a physically adversarial driver;</li>
+<li>that a browser shader proves the electrical limits of a future physical implementation.</li>
+</ul>
+<h2 id="12-conclusion">12. Conclusion</h2>
+<p>Cartilage begins with a fixed repeated Boolean cell circuit. Boolean configuration bits select each cell's effective application role. Boolean parent bits select its local ownership relation. Boolean loader state routes Boolean DATA and CLOCK signals through the resulting finite region. Boolean completion state determines when records and subtrees are finished. The installed result is another Boolean circuit, which may generate and install further Boolean configurations.</p>
+<p>Thus the machine which is configured and the machine which performs configuration are not different ontological layers. They are two uses of the same Boolean substrate.</p>
+<p>Time enters operationally as causal propagation of switching events, not as a universal clock variable. A finite owner waits long enough for the finite region it owns. The required interval grows with that region's finite causal depth and can be produced by a finite path in the same fabric. Nothing requires global synchronization, a global or local H-tree, a continuously running clock-distribution network, a crystal, GPS, or a non-Boolean timing controller. A finite local strobe is routed through the selected transaction tree with bounded, tolerated skew.</p>
+<p>Finite Boolean circuits, sequential machines, conventional processors, tapes, stacks, and linked memories are configurations and resource disciplines inside this substrate. Potential extension removes a fixed resource bound; it does not introduce a new logical primitive. Under constructive initial conditions, the resulting model is Turing-equivalent.</p>
+<p>Under the explicit carrier, causal-propagation, non-Zeno, timing, and resource premises of this paper, every machine-visible value and every computational transformation involved in application behavior, configuration transport, ownership, traversal, commit, release, and circuit replacement is Boolean. No non-Boolean computational value, transformation, interpreter, or configurator is required.</p>
+        </main>
+    </article>
+
+    <section class="paper-artifacts">
+        <h2>Paper and implementation artifacts</h2>
+        <p>The <a href="/cellular-automata-2019/cartilage3.html">canonical Cartilage browser artifact</a> shows nested local reconfiguration. The <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation article</a> explains its bounded regions, local ports, and serial configuration stream. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> decodes all 32 installed role codes.</p>
+        <p>The <a target="_blank" rel="noopener" href="https://www.shadertoy.com/view/7lj3Rw">Summer 2021 ShaderToy artifact</a> preserves the earlier public implementation.</p>
+    </section>
+
+    <nav class="article-links" aria-label="Continue reading">
         <p>Read next:</p>
         <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>The live artifact showing local ports, bounded regions, and serial configuration streams.</p>
+        <p>Inspect the live parent-preserving transaction that grounds the implementation claims made here.</p>
         <p>More:</p>
-        <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>
-        <p>A small arithmetic datapath whose schedule can be read directly from the circuit artifact.</p>
+        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
+        <p>Decode the port, crossing, constants, wires, and 24 oriented MUX roles used by the construction.</p>
         <a href="/">Go back</a>
     </nav>
 </body>

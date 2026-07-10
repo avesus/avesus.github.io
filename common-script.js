@@ -482,6 +482,65 @@ body.doi-landing a {
 	word-break: break-word;
 }
 
+body.paper-revision .paper-header h1 {
+	margin-bottom: 0.35rem;
+	font-size: clamp(32px, 5vw, 48px);
+	font-family: 'Spectral', serif;
+	font-weight: 200;
+	text-align: center !important;
+}
+
+body.paper-revision .paper-subtitle {
+	max-width: 720px;
+	margin: 0 auto 1rem;
+	font-size: 24px;
+	line-height: 1.25;
+	text-align: center;
+}
+
+body.paper-revision .paper-header address {
+	font-size: 20px;
+	line-height: 1.4;
+}
+
+body.paper-revision .revision-status,
+body.paper-revision .revision-summary {
+	margin-bottom: 2.5rem;
+}
+
+body.paper-revision .paper-text h2 {
+	margin-top: 2.4rem;
+}
+
+body.paper-revision .paper-text h3 {
+	margin-top: 1.8rem;
+	font-size: 20px;
+	font-weight: normal;
+}
+
+body.paper-revision math[display="inline"] {
+	white-space: nowrap;
+}
+
+body.paper-revision .formula {
+	max-width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0.15rem 0 0.35rem;
+	-webkit-overflow-scrolling: touch;
+}
+
+body.paper-revision .formula math {
+	width: max-content;
+	min-width: min-content;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+body.paper-revision .paper-artifacts {
+	margin-top: 3rem;
+}
+
 code {
 	background: #f4f4f4;
 	padding: 0.1rem 0.3rem;
@@ -685,6 +744,25 @@ dt {
 	html {
     	-webkit-transform-origin: 0 0;
     	transform-origin: 0 0;
+	}
+
+	body.paper-revision .paper-header h1 {
+		font-size: 20pt;
+	}
+
+	body.paper-revision .paper-subtitle {
+		font-size: 12pt;
+	}
+
+	body.paper-revision .formula {
+		overflow: visible;
+		font-size: 10pt;
+	}
+
+	body.paper-revision section.abstract {
+		width: auto;
+		page-break-before: always;
+		break-before: page;
 	}
 
 	.run-button {

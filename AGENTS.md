@@ -108,7 +108,7 @@ Use `backdrop_rf.jpeg` as a likely visual asset for an SDR/radio article or RF w
 - `common-script.js` injects shared document styling, print behavior, heading counters, and runnable code-snippet behavior. This is the superpower of the static, backendless, frameworkless site: new articles can be plain HTML and still have useful shared behavior. It can later be cleaned/split because much of it only exists for the old interactive WebGL education pages.
 - `from-the-ground-up/` contains educational material around computation, WebGL, and browser-based low-level experimentation. It was originally shaped like an online book, which is not the desired model anymore. Salvage it by splitting strong article material from chunks of not-yet-organized ideas.
 - `cellular-automata-2019/` contains large self-contained WebGL/shader artifacts. Treat them as executable fossils unless doing a deliberate artifact-preservation or extraction pass.
-- `boolean-algebra-is-all-that-is-required.html` is the current polished publication-style page for the multiplexer-only Boolean computation paper. It should serve both as the DOI/PDF landing page and as a compact construction article.
+- `boolean-algebra-is-all-that-is-required.html` is the full revised web edition and DOI/PDF bridge for the multiplexer-only Boolean computation paper. Until the revised manuscript receives a new Zenodo version, keep the February 8 PDF clearly labeled as the original archived edition rather than implying that it contains the web revision.
 - `sitemap.xml`, `robots.txt`, and static HTML files are deployed as a simple GitHub Pages site.
 
 ## Editing Guidance

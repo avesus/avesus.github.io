@@ -1,4 +1,6 @@
-# Boolean Algebra Is All That Is Required: Polish Packet
+# Boolean Algebra Is All That Is Required: Historical Polish Packet
+
+> **Status:** Superseded on July 10, 2026 by the full revised web edition at `boolean-algebra-is-all-that-is-required.html`. The notes below describe the earlier compact DOI/PDF bridge and should not be used as the current semantic specification.
 
 ## Current Page Facts
 

@@ -5,7 +5,7 @@ Current repo state after the June 20, 2026 materialization pass:
 - Public wrapper/article pages now exist for the serial multiplier, the tiny Transformer run, and the Cartilage nested-instantiation demo.
 - Draft packets are preserved under `article-drafts/`.
 - The homepage links to article/wrapper pages first and raw artifacts second.
-- `boolean-algebra-is-all-that-is-required.html` is now an artifact-first DOI/PDF bridge with date-only visible metadata and standard next/back navigation.
+- `boolean-algebra-is-all-that-is-required.html` now publishes the full July 10 revised web edition while preserving the original Zenodo DOI/PDF as a clearly labeled February 8 archive artifact.
 - `cellular-automata-2019/` is now an article-style archive with screenshot cards for the local demos, active GPGPU shader rule summaries for Conservative through Vortex, a compressed model-of-computation routing video, and a Cartilage ShaderToy card.
 - Visible author bylines were removed from current article pages and older book/blog address blocks where they were only repeating the obvious author.
 - `sitemap.xml` includes the new public article URLs and updated lastmod dates for touched public pages.
@@ -45,9 +45,10 @@ Do not publish a fake thumbnail for it. Local HTTP requests, direct media URL at
 
 ### Boolean Paper
 
-- Keep the current page as a DOI/PDF bridge.
-- Later: write the full explanatory web article with diagrams, implementation path, and hyperlinks.
-- Later: v2 paper after comments.
+- Keep the current page as both the full revised web edition and the bridge to the original Zenodo DOI/PDF.
+- Deposit the revised manuscript as a new Zenodo version after review, then update the version DOI, PDF URL, citation metadata, and archive-boundary note together.
+- Add diagrams for the ownership forest, retained transaction route, commit/release wave, and guarded timing paths when source figures exist.
+- Add scholarly references for the Boole history, Shannon expansion, FPGA analogy, bundled-delay discipline, and standard computability results.
 
 ## Broader Publishing Backlog
 
