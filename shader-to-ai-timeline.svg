@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title description">
+  <title id="title">From programmable shading to matrix engines</title>
+  <desc id="description">A five-stage timeline from 1984 and 1988 offline programmable shading, through the 2001 programmable GPU and 2004 to 2008 general GPU compute, to AlexNet in 2012 and matrix engines in 2017. A lower band distinguishes the ideas that carried across from the machine details that changed.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061914"/>
+      <stop offset="1" stop-color="#103c2d"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#2c604c" stroke-width="1" opacity="0.35"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#d8e8c5"/>
+    </marker>
+    <style>
+      .heading { font: 700 35px Arial, sans-serif; fill: #f8f4e7; }
+      .year { font: 700 25px Arial, sans-serif; fill: #f2ca70; }
+      .stage { font: 700 21px Arial, sans-serif; fill: #f8f4e7; }
+      .detail { font: 17px Arial, sans-serif; fill: #d8e8c5; }
+      .band-title { font: 700 21px Arial, sans-serif; fill: #f8f4e7; }
+      .band { font: 18px Arial, sans-serif; fill: #d8e8c5; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="720" rx="18" fill="url(#background)"/>
+  <rect width="1200" height="720" rx="18" fill="url(#grid)"/>
+  <text x="58" y="62" class="heading">The abstraction moved. The machine changed.</text>
+  <path d="M100 227H1100" stroke="#d8e8c5" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <g transform="translate(80 0)">
+    <circle cx="35" cy="227" r="22" fill="#d5537d" stroke="#f7a6c1" stroke-width="4"/>
+    <path d="M10 188Q35 157 60 188V204H10Z" fill="none" stroke="#f7a6c1" stroke-width="3"/>
+    <path d="M17 184Q35 170 53 184" fill="none" stroke="#f7a6c1" stroke-width="3"/>
+    <text x="0" y="112" class="year">1984 / 1988</text>
+    <text x="0" y="145" class="stage">Offline shading</text>
+    <text x="0" y="294" class="detail">Shade trees and</text>
+    <text x="0" y="318" class="detail">RenderMan make</text>
+    <text x="0" y="342" class="detail">appearance code.</text>
+  </g>
+
+  <g transform="translate(300 0)">
+    <circle cx="35" cy="227" r="22" fill="#2d9b77" stroke="#91d8bc" stroke-width="4"/>
+    <rect x="4" y="158" width="62" height="45" rx="5" fill="none" stroke="#91d8bc" stroke-width="3"/>
+    <path d="M14 191L26 171L38 188L50 166L58 191" fill="none" stroke="#91d8bc" stroke-width="3"/>
+    <text x="0" y="112" class="year">2001</text>
+    <text x="0" y="145" class="stage">Programmable GPU</text>
+    <text x="0" y="294" class="detail">Vertex and pixel</text>
+    <text x="0" y="318" class="detail">stages expose small</text>
+    <text x="0" y="342" class="detail">parallel programs.</text>
+  </g>
+
+  <g transform="translate(520 0)">
+    <circle cx="35" cy="227" r="22" fill="#2f8fa4" stroke="#8bd8e7" stroke-width="4"/>
+    <path d="M9 183L24 168M9 183L24 198M61 183L46 168M61 183L46 198" fill="none" stroke="#8bd8e7" stroke-width="4"/>
+    <path d="M29 201L41 165" stroke="#8bd8e7" stroke-width="3"/>
+    <text x="0" y="112" class="year">2004–2008</text>
+    <text x="0" y="145" class="stage">Brook and CUDA</text>
+    <text x="0" y="294" class="detail">Graphics hardware</text>
+    <text x="0" y="318" class="detail">becomes a general</text>
+    <text x="0" y="342" class="detail">parallel computer.</text>
+  </g>
+
+  <g transform="translate(740 0)">
+    <circle cx="35" cy="227" r="22" fill="#9a5bc2" stroke="#d4a5ef" stroke-width="4"/>
+    <g fill="#d4a5ef">
+      <circle cx="12" cy="174" r="5"/><circle cx="35" cy="164" r="5"/><circle cx="58" cy="174" r="5"/>
+      <circle cx="12" cy="198" r="5"/><circle cx="35" cy="188" r="5"/><circle cx="58" cy="198" r="5"/>
+    </g>
+    <g stroke="#d4a5ef" stroke-width="2" opacity="0.8">
+      <path d="M12 174L35 164L58 174M12 198L35 188L58 198M12 174L35 188L58 174M12 198L35 164L58 198"/>
+    </g>
+    <text x="0" y="112" class="year">2012</text>
+    <text x="0" y="145" class="stage">AlexNet</text>
+    <text x="0" y="294" class="detail">Optimized GPU</text>
+    <text x="0" y="318" class="detail">convolution trains</text>
+    <text x="0" y="342" class="detail">a large network.</text>
+  </g>
+
+  <g transform="translate(960 0)">
+    <circle cx="35" cy="227" r="22" fill="#c18435" stroke="#f2ca70" stroke-width="4"/>
+    <g fill="none" stroke="#f2ca70" stroke-width="3">
+      <rect x="8" y="158" width="19" height="19"/><rect x="31" y="158" width="19" height="19"/><rect x="54" y="158" width="19" height="19"/>
+      <rect x="8" y="181" width="19" height="19"/><rect x="31" y="181" width="19" height="19"/><rect x="54" y="181" width="19" height="19"/>
+    </g>
+    <text x="0" y="112" class="year">2017</text>
+    <text x="0" y="145" class="stage">Matrix engine</text>
+    <text x="0" y="294" class="detail">Tensor Cores expose</text>
+    <text x="0" y="318" class="detail">tiled mixed-precision</text>
+    <text x="0" y="342" class="detail">multiply-accumulate.</text>
+  </g>
+
+  <rect x="58" y="410" width="1084" height="105" rx="12" fill="#154d3a" stroke="#3d7c60" stroke-width="2"/>
+  <text x="82" y="450" class="band-title">WHAT CARRIED ACROSS</text>
+  <text x="82" y="484" class="band">Programmable kernels · parallel streams · weighted sums · bandwidth pressure · locality</text>
+
+  <rect x="58" y="535" width="1084" height="125" rx="12" fill="#2a2330" stroke="#7f5b79" stroke-width="2"/>
+  <text x="82" y="575" class="band-title">WHAT CHANGED</text>
+  <text x="82" y="609" class="band">Batch scenes → real-time vertices and pixels → general threads → model training → matrix tiles</text>
+  <text x="82" y="639" class="band">Different precision · different memory systems · different control · different proof of correctness</text>
+</svg>

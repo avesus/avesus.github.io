@@ -6,11 +6,11 @@
     <title>Floating-Point Hardware From Pixar to AI Chips</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A graphics and compute-history note connecting RenderMan-era floating-point needs, SGI/DEC workstations, custom ASIC suppliers, programmable shaders, and GPU-heavy model training through scalable FMA.">
+    <meta name="description" content="An archived 2025 hypothesis about graphics and AI hardware, preserved with a link to a new sourced article that corrects the unsupported corporate lineage.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2025-06-29-floating-point-hardware-from-pixar-to-ai-chips.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Floating-Point Hardware From Pixar to AI Chips">
-    <meta property="og:description" content="A graphics and compute-history note connecting RenderMan-era floating-point needs, SGI/DEC workstations, custom ASIC suppliers, programmable shaders, and GPU-heavy model training through scalable FMA.">
+    <meta property="og:description" content="An archived 2025 hypothesis about graphics and AI hardware, now paired with a sourced correction and expanded article.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2025-06-29-floating-point-hardware-from-pixar-to-ai-chips.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2025-06-29",
-                                "dateModified": "2026-07-09",
-                                "description": "A graphics and compute-history note connecting RenderMan-era floating-point needs, SGI/DEC workstations, custom ASIC suppliers, programmable shaders, and GPU-heavy model training through scalable FMA.",
+                                "dateModified": "2026-07-10",
+                                "description": "An archived 2025 hypothesis about graphics and AI hardware, preserved with a link to a new sourced article that corrects the unsupported corporate lineage.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2025-06-29-floating-point-hardware-from-pixar-to-ai-chips.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -90,18 +90,19 @@
     <address>June 29, 2025</address>
 
     <section class="abstract">
-        <p>Floating-point multiply-add became a shared pressure point for movie rendering, programmable graphics hardware, and later model training.</p>
-        <p>This note follows one compute lineage: RenderMan-era rendering needed large amounts of FMA throughput; workstation and ASIC vendors supplied specialized hardware; programmable shaders moved that arithmetic into real-time graphics; GPU-heavy model training later reused the same kind of floating-point machinery.</p>
+        <p>This page preserves a June 29, 2025 post that proposed a direct hardware lineage from movie rendering to AI.</p>
+        <p>The expanded article replaces that hypothesis with the documented path: RenderMan made appearance programmable; real-time shading research influenced GPU languages; Brook evolved into CUDA; GPU convolution made AlexNet practical; and matrix engines specialized the recurring multiply-accumulate workload. The unsupported supply-chain claims remain below only as part of the original post record.</p>
         <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2025-06-29.</p>
-            <p><strong>Included:</strong> the original post, a compact article lead, and a content path into procedural rendering and FMA hardware notes.</p>
+            <p><span class="status-label">Archived hypothesis</span>Posted 2025-06-29; source boundary corrected 2026-07-10.</p>
+            <p><strong>Expanded and sourced:</strong> <a href="/shader-before-gpu-renderman-ai-hardware.html">The Shader Before the Programmable GPU: RenderMan, Graphics, and AI Hardware</a>.</p>
+            <p><strong>Correction:</strong> no primary source reviewed for the new article supports a Pixar-to-LSI-to-NVIDIA hardware handoff or the revenue and custom-FMA claims in the original text.</p>
             <p><strong>Related:</strong> <a href="2025-08-19-cheap-pixelless-textures-with-2d-sdfs.html">Cheap Pixelless Textures With 2D SDFs</a> and <a href="2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Sourcing ASIC FMA Is Hard</a>.</p>
         </div>
     </section>
 
     <main>
         <section>
-            <h1>Original Post</h1>
+            <h1>Original Post, Preserved</h1>
             <p>In the late 1970s, Ed Catmull at the University of Utah developed foundational graphics methods like z-buffering and texture mapping. By 1979, he joined George Lucas at Lucasfilm, forming the Graphics Group. Their work, eventually named RenderMan, required computers able to handle massive floating-point multiply-add (FMA) operations per frame.</p>
             <p>DEC and later SGI supplied the advanced workstations for this. LSI Logic, as ASIC supplier, manufactured custom chips for SGI and DEC, with future Nvidia founder Jensen Huang working at LSI, gaining direct insight into these compute needs.</p>
             <p>In 1986, Steve Jobs acquired Catmull's group, renaming it Pixar. Pixar's RenderMan software, released in 1988, let filmmakers program surface appearance and light. It became the gold standard for photorealistic animation and VFX, used in films like Toy Story, Jurassic Park, and The Lord of the Rings.</p>
