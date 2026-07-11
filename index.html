@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Greenforest I/O | Brian Greenforest</title>
+    <title>Brian Greenforest | FPGA &amp; Reconfigurable Computing R&amp;D</title>
     <meta name="description" content="Brian Greenforest's public work on FPGA fabrics, one-pin radio, browser-native GPU computation, learning systems, and maker-scale active-device research.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/">
-    <meta property="og:title" content="Greenforest I/O | Brian Greenforest">
+    <meta property="og:title" content="Brian Greenforest | FPGA &amp; Reconfigurable Computing R&amp;D">
     <meta property="og:description" content="FPGA fabrics, one-pin radio, browser-native GPU computation, learning systems, and maker-scale active-device research by Brian Greenforest.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/">
@@ -21,10 +21,10 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Greenforest I/O | Brian Greenforest - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Brian Greenforest | FPGA &amp; Reconfigurable Computing R&amp;D - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/index.png">
-    <meta name="twitter:image:alt" content="Greenforest I/O | Brian Greenforest - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Brian Greenforest | FPGA &amp; Reconfigurable Computing R&amp;D - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
@@ -102,7 +102,7 @@
                     "@type": "WebPage",
                     "@id": "https://greenforest.io/#webpage",
                     "url": "https://greenforest.io/",
-                    "name": "Greenforest I/O | Brian Greenforest",
+                    "name": "Brian Greenforest | FPGA & Reconfigurable Computing R&D",
                     "isPartOf": {
                         "@id": "https://greenforest.io/#website"
                     },
@@ -117,9 +117,9 @@
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
+<body class="article-structured">
     <header>Greenforest I/O</header>
-    <sub class="tagline">Computational mechanisms rebuilt from the boundary up.</sub>
+    <h1 class="tagline">Computational mechanisms rebuilt from the boundary up.</h1>
 
     <main>
         <section class="abstract">
@@ -130,7 +130,7 @@
         </section>
 
         <section id="work-with-me" class="traction-panel">
-            <h1>What To Bring</h1>
+            <h2>What To Bring</h2>
             <p class="lead">Bring a hard technical boundary, not a polished pitch.</p>
             <p>Good fits include a computation trapped behind a black box, a hardware/software boundary that is too expensive or opaque, an FPGA or reconfigurable-computing architecture that needs to become concrete, a signal path that may be simpler than the standard stack, or a fabrication/process idea that needs an engineer who can reason from physics back to runnable machinery.</p>
             <p><strong>Useful opportunities:</strong> funded R&amp;D, product architecture, prototype implementation, technical due diligence, collaboration with FPGA, semiconductor, radio, or reconfigurable-computing teams, access to fabrication or labs, and an institutional home for the Cartilage and active-device program.</p>
@@ -142,7 +142,7 @@
         </section>
 
         <section id="strongest-demonstrations">
-            <h1>Strongest Demonstrations</h1>
+            <h2>Strongest Demonstrations</h2>
 
             <div class="entry">
                 <span class="label">Manufacturing program</span>
@@ -150,30 +150,33 @@
                 <p>The maker loop can reach the board, enclosure, firmware, and fixture. Then it hits active silicon and stops.</p>
                 <p>This article names the missing civic-scale process: local fast nonlinear gain, restoration, fanout, interconnect, and enough repeatability for useful logic. It is the material bottleneck behind the rest of the site.</p>
                 <figure>
-                    <img src="inaccessible_fab_thumb.png" alt="Maker bench leading toward an inaccessible chip fabrication boundary">
+                    <picture>
+                        <source srcset="inaccessible_fab_thumb.webp" type="image/webp">
+                        <img src="inaccessible_fab_thumb.png" width="720" height="405" loading="lazy" decoding="async" alt="Maker bench leading toward an inaccessible chip fabrication boundary">
+                    </picture>
                     <figcaption>The missing local active-device process.</figcaption>
                 </figure>
             </div>
 
             <div class="entry">
                 <span class="label">Architecture mechanism</span>
-                <a class="entry-title" href="cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
+                <a class="entry-title" href="cartilage-core.html">Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog</a>
                 <p>Cartilage is my long-running architecture program for a computational fabric where ownership, routing, configuration, and local state are visible inside the machine rather than hidden behind a global runtime.</p>
                 <p>The current package publishes the compact WebGL1 fabric, architecture paper, local-clocked SystemVerilog RTL, and Verilator testbench. One checked <code>6x6</code> image receives 252 payload bits plus one apply pulse and settles to an interior-MUX AND circuit.</p>
                 <p><a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">Inspect the public source repository</a></p>
                 <figure>
-                    <img src="cartilage-core/cartilage-core-and.gif" width="512" height="1024" alt="Cartilage Core browser fabric installing a 252-bit configuration into a 6 by 6 child-owned region">
+                    <img src="cartilage-core/cartilage-core-and.gif" width="512" height="1024" loading="lazy" decoding="async" alt="Cartilage Core browser fabric installing a 252-bit configuration into a 6 by 6 child-owned region">
                     <figcaption>The exact 252-bit installation captured from the current browser model.</figcaption>
                 </figure>
             </div>
 
             <div class="entry">
                 <span class="label">RF system</span>
-                <a class="entry-title" href="how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a>
+                <a class="entry-title" href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need?</a>
                 <p>Radio is an inherited stack of analog front ends, mixers, ADCs, filters, oscillators, and digital processing habits. I wanted to know which parts were necessary.</p>
                 <p>The page preserves a one-pin FPGA receiver and a one-pin resonant-tank transmitter chain, including the Verilog follow-up, operating evidence, and limits.</p>
                 <figure>
-                    <img src="backdrop_rf.jpeg" alt="RF prototype and signal-processing workbench">
+                    <img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="RF prototype and signal-processing workbench">
                     <figcaption>RF and digital-radio workbench.</figcaption>
                 </figure>
             </div>
@@ -187,7 +190,7 @@
         </section>
 
         <section>
-            <h1>Cartilage And Reconfigurable Fabrics</h1>
+            <h2>Cartilage And Reconfigurable Fabrics</h2>
             <p>Cartilage is not only an FPGA-style demo. It is an attempt to replace the hidden runtime with a spatial fabric where regions own their ports, carry configuration through explicit boundaries, and keep data movement readable.</p>
 
             <div class="entry">
@@ -203,7 +206,10 @@
                 <p>A fabric is easier to evaluate when its marks can be read.</p>
                 <p>This decoder preserves the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.</p>
                 <figure>
-                    <img src="cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" alt="Cartilage fabric visual-language key showing the 32 cell-role codes">
+                    <picture>
+                        <source srcset="cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.webp" type="image/webp">
+                        <img src="cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" width="1248" height="1248" loading="lazy" decoding="async" alt="Cartilage fabric visual-language key showing the 32 cell-role codes">
+                    </picture>
                     <figcaption>The 32-code Cartilage role alphabet rendered in the fabric.</figcaption>
                 </figure>
             </div>
@@ -222,7 +228,7 @@
                 <p>Ownership became visible enough to show square child regions and active port roots inside a running fabric.</p>
                 <p>This preserved self-contained WebGL/GPGPU milestone keeps the 6x6 ownership block work and active port-root initialization fixes in the visual lineage.</p>
                 <figure>
-                    <img src="cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" alt="Cartilage 2026 WebGL fabric showing active child-owned reconfiguration port roots and square ownership blocks">
+                    <img src="cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" width="512" height="1024" loading="lazy" decoding="async" alt="Cartilage 2026 WebGL fabric showing active child-owned reconfiguration port roots and square ownership blocks">
                     <figcaption>Captured fabric evolution from the Cartilage 2026 renderer.</figcaption>
                 </figure>
             </div>
@@ -236,7 +242,7 @@
         </section>
 
         <section>
-            <h1>Other Built Mechanisms</h1>
+            <h2>Other Built Mechanisms</h2>
 
             <div class="entry">
                 <span class="label">Circuit artifact</span>
@@ -245,11 +251,11 @@
                 <p>This positive-number Logisim multiplier keeps bit-serial arguments and products moving continuously after the pipeline fills, trading wide immediate products for regular local timing.</p>
                 <div class="artifact-grid">
                     <a class="artifact" href="serial_multiplier/mul.png">
-                        <img src="serial_multiplier/mul.png" alt="Logisim bit-serial multiplier circuit">
+                        <img src="serial_multiplier/mul.png" width="650" height="702" loading="lazy" decoding="async" alt="Logisim bit-serial multiplier circuit">
                         <span>Multiplier circuit image</span>
                     </a>
                     <a class="artifact" href="serial_multiplier/add.png">
-                        <img src="serial_multiplier/add.png" alt="Logisim serial adder circuit">
+                        <img src="serial_multiplier/add.png" width="491" height="330" loading="lazy" decoding="async" alt="Logisim serial adder circuit">
                         <span>Serial adder image</span>
                     </a>
                 </div>
@@ -269,25 +275,31 @@
                 <p>A self-contained Python scanline renderer uses UV-space 2D SDF material tests, point-cloud foliage speckles, triangle trunks and branches, and a UV-SDF deer sprite to make a forest scene without ordinary bitmap texture art.</p>
                 <p>The article keeps the generated frame, source-code PDF, row-fill algorithm, UV-SDF material path, procedural scene geometry, and original post links together so the image can be read as renderer output.</p>
                 <figure>
-                    <img src="linkedin-archive/media/cheap-pixelless-sdf-textures.png" alt="Scanline-rendered forest corridor with procedural SDF textures and a deer sprite">
+                    <picture>
+                        <source srcset="linkedin-archive/media/cheap-pixelless-sdf-textures.webp" type="image/webp">
+                        <img src="linkedin-archive/media/cheap-pixelless-sdf-textures.png" width="2048" height="857" loading="lazy" decoding="async" alt="Scanline-rendered forest corridor with procedural SDF textures and a deer sprite">
+                    </picture>
                     <figcaption>Procedural UV-SDF texture renderer output.</figcaption>
                 </figure>
             </div>
 
             <div id="featured-shader-history" class="entry">
                 <span class="label">Featured technical history</span>
-                <a class="entry-title" href="shader-before-gpu-renderman-ai-hardware.html">The Shader Before the Programmable GPU: RenderMan, Graphics, and AI Hardware</a>
+                <a class="entry-title" href="shader-before-gpu-renderman-ai-hardware.html">A History of Programmable Shaders: RenderMan, GPUs, CUDA, and AI</a>
                 <p>Programmable shading existed before the programmable consumer GPU. That fact opens a better path through graphics and AI history than the usual founder mythology.</p>
                 <p>This sourced article follows the documented line from RenderMan shading to real-time shader languages, Brook and CUDA, AlexNet's GPU convolution, and mixed-precision matrix engines—while keeping the different machines and numerical contracts separate.</p>
                 <figure>
-                    <img src="graphics-to-ai-hardware-illustration.png" width="1731" height="909" alt="Editorial illustration moving from film rendering through a parallel graphics processor to neural-network and matrix hardware">
+                    <picture>
+                        <source srcset="graphics-to-ai-hardware-illustration.webp" type="image/webp">
+                        <img src="graphics-to-ai-hardware-illustration.png" width="1731" height="909" loading="lazy" decoding="async" alt="Editorial illustration moving from film rendering through a parallel graphics processor to neural-network and matrix hardware">
+                    </picture>
                     <figcaption>The abstraction moved from programmable appearance to programmable parallel computation; the machine changed around it.</figcaption>
                 </figure>
             </div>
         </section>
 
         <section>
-            <h1>Cartilage Evidence Trail</h1>
+            <h2>Cartilage Evidence Trail</h2>
             <p>The generated Cartilage pages are grouped by use: checked runs, recorded timelines, visual placement sketches, source artifacts, and current reading paths.</p>
 
             <div class="entry">
@@ -298,7 +310,7 @@
         </section>
 
         <section>
-            <h1>Origins And Source Trail</h1>
+            <h2>Origins And Source Trail</h2>
 
             <div class="entry">
                 <span class="label">Origin sequence</span>
@@ -328,13 +340,13 @@
 
             <div class="entry">
                 <span class="label">Publication practice</span>
-                <a class="entry-title" href="writing-assistance-and-published-work.html">Writing Assistance and Published Work</a>
+                <a class="entry-title" href="writing-assistance-and-published-work.html">AI-Assisted Drafting and Published Technical Work</a>
                 <p>Some article drafts use machine assistance, but the published page still has to carry the source, result, scope, and responsibility for the claim.</p>
             </div>
         </section>
 
         <section id="open-research-threads">
-            <h1>Research Program Still Needing Resources</h1>
+            <h2>Research Program Still Needing Resources</h2>
 
             <div class="entry">
                 <span class="label">Magnetics</span>
@@ -348,12 +360,15 @@
 
             <div class="entry">
                 <span class="label">Fabrication substrate</span>
-                <a class="entry-title" href="wafer-diced-smart-dust-substrate.html">Wafer-Diced Smart Dust as a Claytronics Substrate</a>
+                <a class="entry-title" href="wafer-diced-smart-dust-substrate.html">Wafer-Diced Chiplets for Programmable Matter and Claytronics</a>
                 <p><strong>Fabrication:</strong> can active or semi-active substrates become physically reproducible at civic scale? This note connects through-wafer dicing, SiO<sub>2</sub>-protected chiplets, near-field power/clock/data links, resonant distributed energy storage, and Cartilage-style spatial computation to the old Claytronics problem.</p>
                 <p>The PDF remains the manufacturing reference. The local article explains why that reference belongs on Greenforest I/O and where the open boundary still is.</p>
                 <figure>
                     <a href="wafer-diced-smart-dust-substrate.html">
-                        <img src="wafer-dicing.png" alt="Plasma-singulated semiconductor die before flip chip or wafer-level packaging">
+                        <picture>
+                            <source srcset="wafer-dicing.webp" type="image/webp">
+                            <img src="wafer-dicing.png" width="1243" height="506" loading="lazy" decoding="async" alt="Plasma-singulated semiconductor die before flip chip or wafer-level packaging">
+                        </picture>
                     </a>
                     <figcaption>Plasma-singulated die as a clue for protected chiplet substrates.</figcaption>
                 </figure>
@@ -361,7 +376,7 @@
         </section>
 
         <section>
-            <h1>Brand And Contact</h1>
+            <h2>Brand And Contact</h2>
             <p><strong>For search clarity:</strong> Greenforest I/O is not forestry, landscaping, arborist, or forest-product services.</p>
             <p>Greenforest I/O is the public work site of Brian Greenforest, connected to <a href="https://www.solidstatepros.com/" target="_blank" rel="noopener">Solid State Pros LLC</a> for emerging-technology R&amp;D and product-design work.</p>
             <p><strong>Legal entity:</strong> Solid State Pros LLC. <strong>Email:</strong> <a href="mailto:brian@solidstatepros.com">brian@solidstatepros.com</a>.</p>

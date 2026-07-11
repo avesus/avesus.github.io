@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Why Open-Sourcing ASIC FMA Is Hard</title>
+    <title>Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A chip-design note about why FPU FMA IP is hard to open-source: RTL-to-GDSII reasoning, tool cost, proprietary implementation know-how, and the gap between software openness and ASIC openness.">
+    <meta name="description" content="Why reusable open-source ASIC FMA IP requires more than RTL: floating-point behavior, verification, constraints, PDK assumptions, physical design, and signoff.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">
     <meta property="og:site_name" content="Greenforest I/O">
-    <meta property="og:title" content="Why Open-Sourcing ASIC FMA Is Hard">
-    <meta property="og:description" content="A chip-design note about why FPU FMA IP is hard to open-source: RTL-to-GDSII reasoning, tool cost, proprietary implementation know-how, and the gap between software openness and ASIC openness.">
+    <meta property="og:title" content="Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII">
+    <meta property="og:description" content="Why reusable open-source ASIC FMA IP requires more than RTL: floating-point behavior, verification, constraints, PDK assumptions, physical design, and signoff.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -23,10 +23,10 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Why Open-Sourcing ASIC FMA Is Hard - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.png">
-    <meta name="twitter:image:alt" content="Why Open-Sourcing ASIC FMA Is Hard - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
@@ -36,15 +36,15 @@
                         {
                                 "@type": "Article",
                                 "@id": "https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html#article",
-                                "headline": "Why Open-Sourcing ASIC FMA Is Hard",
+                                "headline": "Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII",
                                 "author": {
                                         "@type": "Person",
                                         "name": "Brian Greenforest",
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-11-02",
-                                "dateModified": "2026-07-09",
-                                "description": "A chip-design note about why FPU FMA IP is hard to open-source: RTL-to-GDSII reasoning, tool cost, proprietary implementation know-how, and the gap between software openness and ASIC openness.",
+                                "dateModified": "2026-07-11",
+                                "description": "Why reusable open-source ASIC FMA IP requires more than RTL: floating-point behavior, verification, constraints, PDK assumptions, physical design, and signoff.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -74,7 +74,7 @@
                                         {
                                                 "@type": "ListItem",
                                                 "position": 3,
-                                                "name": "Why Open-Sourcing ASIC FMA Is Hard",
+                                                "name": "Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII",
                                                 "item": "https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html"
                                         }
                                 ]
@@ -85,8 +85,8 @@
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
-    <header>Why Open-Sourcing ASIC FMA Is Hard</header>
+<body class="article-structured">
+    <header><h1 class="page-title">Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</h1></header>
     <address>November 2, 2023</address>
 
     <section class="abstract">
@@ -101,21 +101,28 @@
 
     <main>
         <section>
-            <h1>The FMA Boundary</h1>
+            <h2>The FMA Boundary</h2>
             <p>A fused multiply-add unit looks simple at the arithmetic level: compute A x B + C with one rounding path. In hardware, it becomes a large floating-point datapath with alignment, partial-product reduction, normalization, rounding, exception behavior, pipeline staging, and verification.</p>
             <p>That is why open-sourcing an ASIC FMA block is harder than publishing a compact formula or a software library.</p>
         </section>
 
         <section>
-            <h1>RTL Is Not The Whole Artifact</h1>
+            <h2>RTL Is Not The Whole Artifact</h2>
             <p>The RTL matters, but ASIC usefulness depends on the path from RTL to layout. Timing closure, clocking, physical synthesis, placement, routing, standard-cell libraries, memories, power delivery, and design-rule closure all affect whether the block can become a chip.</p>
             <p>Open HDL can still leave builders stuck if the manufacturable path depends on proprietary tools, foundry data, private implementation practice, or validation knowledge that is not available with the source.</p>
         </section>
 
         <section>
-            <h1>The Open-Hardware Gap</h1>
+            <h2>The Open-Hardware Gap</h2>
             <p>Software openness scales well because most users can build, run, inspect, and test the result on commodity machines. ASIC openness has a deeper replication problem: the final object is physical, expensive to fabricate, and tied to process-specific constraints.</p>
             <p>The useful open-hardware target is therefore larger than source release. It includes testbenches, timing constraints, implementation notes, process assumptions, verification coverage, and a path another builder can actually reproduce.</p>
+        </section>
+
+        <section>
+            <h2>What Changed Since 2023</h2>
+            <p>The open tool boundary moved. <a href="https://openroad.readthedocs.io/en/latest/" target="_blank" rel="noopener">OpenROAD</a> now documents an open RTL-to-GDSII toolchain, and <a href="https://openlane2.readthedocs.io/en/latest/reference/flows.html" target="_blank" rel="noopener">OpenLane</a> integrates Yosys, OpenROAD, KLayout, and Magic into reproducible flows. The problem is no longer accurately described as the absence of an open physical-design path.</p>
+            <p>Open floating-point RTL exists too. <a href="https://github.com/openhwgroup/cvfpu" target="_blank" rel="noopener">FPnew/CVFPU</a> is a configurable SystemVerilog floating-point unit with standard and transprecision formats. That makes the sharper question visible: what must accompany an FMA implementation before another team can reuse it with confidence?</p>
+            <p>The answer includes supported formats and rounding modes, exception behavior, interface and pipeline contracts, tests and coverage, timing constraints, library and PDK assumptions, power-performance-area results, physical verification, and a named signoff boundary. A successful layout in one process is evidence. It is not automatically a portable hard macro or a complete reusable product.</p>
         </section>
 
     </main>

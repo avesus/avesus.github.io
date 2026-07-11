@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</title>
-    <meta name="description" content="Inspectable Cartilage source, hardware paper, SystemVerilog RTL, Verilator checks, and evidence for one exact 252-bit local installation.">
+    <title>Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog</title>
+    <meta name="description" content="A nearest-neighbor reconfigurable computing fabric with a WebGL model, SystemVerilog RTL, Verilator checks, and one exact 252-bit 6x6 installation.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/cartilage-core.html">
-    <meta property="og:title" content="Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install">
+    <meta property="og:title" content="Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog">
     <meta property="og:description" content="A public Cartilage mechanism package: WebGL1 model, architecture paper, local-clocked SystemVerilog RTL, Verilator checks, and an exact 6x6 AND installation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-core.html">
@@ -21,21 +21,21 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-core.png">
-    <meta name="twitter:image:alt" content="Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install",
+            "headline": "Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog",
             "datePublished": "2026-07-10",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-11",
             "image": "https://greenforest.io/cartilage-core/cartilage-core-and-late.png",
-            "description": "Inspectable Cartilage source, hardware paper, SystemVerilog RTL, Verilator checks, and evidence for one exact 252-bit local installation.",
+            "description": "A nearest-neighbor reconfigurable computing fabric with a WebGL model, SystemVerilog RTL, Verilator checks, and one exact 252-bit 6x6 installation.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-core.html",
             "author": {
                 "@type": "Person",
@@ -64,12 +64,12 @@
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
-    <header>Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</header>
+<body class="article-structured">
+    <header><h1 class="page-title">Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog</h1></header>
     <address>July 10, 2026</address>
 
     <section class="abstract">
-        <p>Cartilage now has an inspectable mechanism package, not only a visual argument.</p>
+        <p>Cartilage Core is a nearest-neighbor reconfigurable computing fabric with local state, routing, ownership, and configuration made visible in the machine.</p>
         <p><a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">Cartilage Core</a> publishes a compact nearest-neighbor fabric, its hardware model, the configuration protocol, and executable checks. A child-owned port receives a complete <code>6x6</code> image as 252 payload bits plus one apply pulse. The installed image then uses an interior MUX as an AND circuit.</p>
         <div class="status-box">
             <p><span class="status-label">Audited revision</span><a href="https://github.com/avesus/cartilage-core/tree/b5bd1c0a6edd31d4b60525c4d4cb9dc2630ae74a" target="_blank" rel="noopener"><code>b5bd1c0</code></a>, July 10, 2026.</p>
@@ -86,10 +86,10 @@
 
     <main>
         <section>
-            <h1>The Captured Installation</h1>
+            <h2>The Captured Installation</h2>
             <figure class="inspectable-image">
                 <a href="/cartilage-core/cartilage-core-and.gif">
-                    <img src="/cartilage-core/cartilage-core-and.gif" width="512" height="1024" alt="Cartilage Core browser fabric installing a 252-bit configuration into a purple 6 by 6 child-owned region and settling to an AND circuit">
+                    <img src="/cartilage-core/cartilage-core-and.gif" width="512" height="1024" loading="lazy" decoding="async" alt="Cartilage Core browser fabric installing a 252-bit configuration into a purple 6 by 6 child-owned region and settling to an AND circuit">
                 </a>
                 <figcaption>A native-pixel capture from the audited browser model. The 36-cell region receives 252 payload bits and completes with <code>A=1</code>, <code>B=1</code>, <code>Y=1</code>.</figcaption>
             </figure>
@@ -97,14 +97,14 @@
         </section>
 
         <section>
-            <h1>What This Changes</h1>
+            <h2>What This Changes</h2>
             <p>The implementation evidence accompanying <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a> is no longer limited to a browser shader. The browser model still shows the finite packed state, local transition, ownership tree, serial stream, and visible installed result. The new SystemVerilog layer independently makes the application plane continuous and combinational while configuration changes occur only on locally routed reconfiguration-clock edges.</p>
             <p>That distinction matters. The WebGL host advances a ping-pong texture simulation and compares the previous modeled clock state. It is evidence for the modeled behavior, not a physical clock implementation. The RTL separately checks positive and negative local configuration edges, the three-bit route-shadow handoff, and a fabric with no global application-clock port.</p>
             <p>The repository therefore strengthens the concrete construction beneath the paper. It does not by itself prove every premise used by the theorem.</p>
         </section>
 
         <section>
-            <h1>The Mechanism</h1>
+            <h2>The Mechanism</h2>
             <p>Each installed record has seven bits: two orientation bits, three mode bits, and two parent-direction bits. The <code>6x6</code> example has 36 records:</p>
             <pre><code>36 records x 7 bits = 252 payload bits
 252 payload bits + 1 apply pulse = one complete installation</code></pre>
@@ -113,7 +113,7 @@
         </section>
 
         <section>
-            <h1>Evidence Layers</h1>
+            <h2>Evidence Layers</h2>
             <div class="article-fact-table" role="table" aria-label="Cartilage Core evidence layers">
                 <div class="article-fact-row" role="row">
                     <div class="article-fact-key" role="cell">Browser model</div>
@@ -139,22 +139,22 @@
         </section>
 
         <section>
-            <h1>Fresh-Clone Check</h1>
+            <h2>Fresh-Clone Check</h2>
             <p>I audited the public repository at <a href="https://github.com/avesus/cartilage-core/tree/b5bd1c0a6edd31d4b60525c4d4cb9dc2630ae74a" target="_blank" rel="noopener"><code>b5bd1c0</code></a>. From a clean clone, <code>npm ci</code>, <code>npm run rtl:test</code>, the paper build, and the documented capture command completed. The RTL run passed its advertised checks.</p>
             <p>The browser command deserves a precise caveat: its other nine structural and functional tests pass, but <code>npm test</code> currently exits nonzero because one compactness comparison names a <code>source-baseline</code> ref that is not published on GitHub. The repository currently exposes only <code>main</code>. That publication defect is separate from those results, but the top-level browser suite should not be called green until the ref or the test is repaired.</p>
         </section>
 
         <section>
-            <h1>Established And Not Established</h1>
+            <h2>Established And Not Established</h2>
             <p>The package establishes the logical mechanism for this particular image: local role functions, routed child ownership, local configuration edges, exact serial installation, route-shadow handoff, and the checked AND circuit.</p>
             <p>It does not establish fabricated silicon, synthesis or place-and-route results, timing, area, frequency, power, metastability behavior, physical generated-clock closure, gate-level extracted-delay behavior, formal placed-netlist equivalence, a general placer/router, arbitrary feedback semantics, an application DFF opcode, or autonomous ownership discovery.</p>
             <p>The public repository also has no published license, release, hosted live demo, or GitHub Actions record. It is accurate to call it public source and executable evidence; it is not yet accurate to assign a reuse license or call the results CI-proven.</p>
         </section>
 
         <section>
-            <h1>Lineage</h1>
+            <h2>Lineage</h2>
             <p>Cartilage Core was reduced directly from <code>cartilage26/cartilage3.html</code> at source revision <code>4143b8a</code>, the same revision used for the <a href="/cartilage2026.html">Cartilage 2026</a> 450-frame packet. It is the current compact descendant of that artifact.</p>
-            <p>The repository is not the historical source tree for the preserved 2021 WebGL demos or the later QuadFlow/QFG captures. Those older artifacts remain evidence of their own runs and should be read through their wrappers.</p>
+            <p>The repository is not the historical source tree for the preserved 2021 WebGL demos or the later QuadFlow/QFG captures. Those older artifacts remain evidence of their own runs and should be read through their wrappers. The related <a href="/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html">physical MUX and wire tile alphabet</a> tests what happens when the same readable roles become connectorized PCB parts.</p>
         </section>
     </main>
 

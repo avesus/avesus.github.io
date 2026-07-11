@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Wafer-Diced Smart Dust as a Claytronics Substrate</title>
+    <title>Wafer-Diced Chiplets for Programmable Matter and Claytronics</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="A speculative fabrication note connecting wafer dicing, protected chiplets, near-field power/data links, Cartilage-style spatial computation, and the old Claytronics programmable-matter goal.">
+    <meta name="description" content="A fabrication proposal using wafer-singulated protected chiplets with near-field power, clock, data, and actuation as a substrate for programmable matter.">
     <link rel="canonical" href="https://greenforest.io/wafer-diced-smart-dust-substrate.html">
-    <meta property="og:title" content="Wafer-Diced Smart Dust as a Claytronics Substrate">
+    <meta property="og:title" content="Wafer-Diced Chiplets for Programmable Matter and Claytronics">
     <meta property="og:description" content="A fabrication note about turning known wafer-level manufacturing steps into a plausible substrate for programmable matter, with the limits kept visible.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/wafer-diced-smart-dust-substrate.html">
@@ -22,25 +22,25 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Wafer-Diced Smart Dust as a Claytronics Substrate - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Wafer-Diced Chiplets for Programmable Matter and Claytronics - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/wafer-diced-smart-dust-substrate.png">
-    <meta name="twitter:image:alt" content="Wafer-Diced Smart Dust as a Claytronics Substrate - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Wafer-Diced Chiplets for Programmable Matter and Claytronics - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Wafer-Diced Smart Dust as a Claytronics Substrate",
+            "headline": "Wafer-Diced Chiplets for Programmable Matter and Claytronics",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-07-01",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-11",
             "image": "https://greenforest.io/wafer-dicing.png",
-            "description": "A speculative fabrication note connecting wafer dicing, protected chiplets, near-field power/data links, Cartilage-style spatial computation, and the old Claytronics programmable-matter goal.",
+            "description": "A fabrication proposal using wafer-singulated protected chiplets with near-field power, clock, data, and actuation as a substrate for programmable matter.",
             "mainEntityOfPage": "https://greenforest.io/wafer-diced-smart-dust-substrate.html",
             "publisher": {
                 "@type": "Organization",
@@ -61,8 +61,8 @@
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
-    <header>Wafer-Diced Smart Dust as a Claytronics Substrate</header>
+<body class="article-structured">
+    <header><h1 class="page-title">Wafer-Diced Chiplets for Programmable Matter and Claytronics</h1></header>
     <address>July 1, 2026</address>
 
     <section class="abstract">
@@ -79,42 +79,45 @@
 
     <figure>
         <a href="https://imapsource.org/article/56056-wafer-dicing-using-dry-etching-on-standard-tapes-and-frames.pdf" target="_blank" rel="noopener">
-            <img src="wafer-dicing.png" alt="Plasma-singulated semiconductor die before flip chip or wafer-level packaging">
+            <picture>
+                <source srcset="wafer-dicing.webp" type="image/webp">
+                <img src="wafer-dicing.png" width="1243" height="506" loading="lazy" decoding="async" alt="Plasma-singulated semiconductor die before flip chip or wafer-level packaging">
+            </picture>
         </a>
         <figcaption>Figure 14 from the wafer-dicing reference: plasma-singulated die prior to flip chip or wafer-level packaging. The image matters here because the proposal begins with many tiny manufactured active islands, not with imaginary atoms.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h1>The Missing Manufacturing Move</h1>
+            <h2>The Missing Manufacturing Move</h2>
             <p>Claytronics asked for catoms: small units with computation, communication, actuation, adhesion, and collective behavior. The original CMU/Intel Research Pittsburgh framing already contained the crucial simplification: each unit should include only enough functionality to contribute to the ensemble.</p>
             <p>That principle still feels right. A catom should not be a complete robot in miniature if the ensemble can supply power, clock, data, redundancy, mechanical structure, and control. The chiplet should be small because small parts can be manufactured, tested, sorted, and repeated. The ensemble should be intelligent because the individual particle should not carry the whole architecture alone.</p>
             <p>The manufacturing move I care about is therefore not exotic atom-by-atom construction. It is closer to this: fabricate many active die on a normal wafer, dice them into small chiplets, passivate or coat them so they can survive handling and contact, then let adjacent chiplets exchange power, clock, data, and mechanical force through engineered near-field interfaces.</p>
         </section>
 
         <section>
-            <h1>What The Wafer-Dicing Paper Contributes</h1>
+            <h2>What The Wafer-Dicing Paper Contributes</h2>
             <p>The <a href="https://imapsource.org/article/56056-wafer-dicing-using-dry-etching-on-standard-tapes-and-frames.pdf" target="_blank" rel="noopener">dry-etch wafer-dicing paper</a> is not a smart-dust paper. It is more valuable than that here: it shows that through-wafer singulation can be treated as a serious manufacturing step, not as a fantasy process attached to programmable matter.</p>
             <p>The paper describes front-side plasma singulation on standard dicing tape and frames. It uses lithographically defined streets, reports typical singulation-line widths of 10-15&micro;m, avoids some saw and laser damage mechanisms, and supports non-orthogonal or nonlinear dicing paths. In one test-wafer case, the authors report 10 to 15 percent more die per wafer.</p>
             <p>Read narrowly, that is a packaging/process improvement. Read as a substrate clue, it says something stronger: if the active circuit is already on the wafer, then the particle boundary can be a designed geometric object rather than only a saw street. The chiplet can be shaped, protected, contacted, and repeated at wafer scale.</p>
         </section>
 
         <section>
-            <h1>The Protected Chiplet</h1>
+            <h2>The Protected Chiplet</h2>
             <p>The candidate particle is not bare silicon dust. Bare die are fragile, electrically exposed, and mechanically hostile. The more interesting object is a tiny active chiplet with a dielectric skin, probably involving SiO<sub>2</sub> or another passivation stack, and with deliberate capacitive, inductive, optical, or contact windows where the particle is supposed to couple to neighbors.</p>
             <p>That coating is not decoration. It is the difference between a die fragment and a body. It protects the active island, defines the allowed electrical fields, sets the mechanical surface, and makes neighbor-to-neighbor interfaces more reproducible. If the skin is designed with coupling regions, then electrostatic or electromagnetic attraction can occur while power, clock, and data are also being transferred.</p>
             <p>The hard part is co-design. The shape, coating, pads, resonators, interconnect, local storage, charge limits, thermal path, and test strategy have to be one object. If any layer is treated as an afterthought, the system becomes dust in the bad sense: tiny parts nobody can reliably power, address, cool, or recover.</p>
         </section>
 
         <section>
-            <h1>Power, Clock, Data, And Force Should Share The Boundary</h1>
+            <h2>Power, Clock, Data, And Force Should Share The Boundary</h2>
             <p>The old mistake is to imagine each particle as a sealed autonomous machine. That makes every chiplet carry too much: battery, radio, clock, processor, actuator, sensor, and failure management. It turns manufacturability into a miracle.</p>
             <p>The ensemble approach suggests the opposite. Neighboring chiplets should use the same physical adjacency for several functions. Electrostatic or electromagnetic attraction can hold or move local structure. Capacitive or inductive coupling can move bits and timing. Resonant elements can store and redistribute energy across a region. The particle becomes less like a lone robot and more like a powered cell in a live fabric.</p>
             <p>Resonant distributed energy storage is the key idea I do not want to lose. A large region of programmable matter cannot depend on every particle owning a private energy source. The region needs a way to guarantee that computation and actuation are powered as a field property: energy enters through accessible boundaries, sloshes through tuned local stores, and remains available to large connected subregions even while geometry changes.</p>
         </section>
 
         <section>
-            <h1>Where Cartilage Fits</h1>
+            <h2>Where Cartilage Fits</h2>
             <p>Cartilage matters here because programmable matter needs a model of computation that is native to space. A CPU-style program can control an array from outside, but that keeps the important structure hidden in a global controller. Claytronics needs computation that can live in the material: local state, local ports, local ownership, visible boundaries, repairable regions, and hierarchical reconfiguration.</p>
             <p>That is exactly the architectural pressure behind Cartilage. The browser artifacts on this site are small, but the idea is not small: a region can own child regions, expose ports, accept configuration streams, and change its internal fabric while the boundary remains readable. That is the kind of computation model a programmable-matter substrate would need if macroscopic instructions are supposed to reach microscopic structure without becoming a single opaque broadcast.</p>
             <p>This does not mean Cartilage demonstrates Claytronics hardware. It means Cartilage supplies a missing language for the hardware: how to describe ownership, reconfiguration, routing, local repair, and nested scale while keeping global CPU control outside the material model.</p>
@@ -122,28 +125,28 @@
         </section>
 
         <section>
-            <h1>Why This Is Not Science Fiction In The Usual Sense</h1>
+            <h2>Why This Is Not Science Fiction In The Usual Sense</h2>
             <p>The speculative part is the integrated system. The non-speculative ingredients are more ordinary: wafers, passivation, dicing, chiplets, capacitive coupling, inductive coupling, resonators, clocks, local logic, error correction, and distributed protocols. None of those words require a new law of physics.</p>
             <p>The question is whether they can be composed into a manufacturable substrate whose unit economics and physical behavior match the programmable-matter problem. That is different from saying the future is guaranteed. It is a better kind of question because it can fail in concrete places: yield, coating defects, alignment, adhesion, inter-particle communication, heat, ESD, radiation, charging, aggregate mechanics, and test coverage.</p>
             <p>If this fails, I want to know where it fails. If it works even partially, then smart dust stops being only a science-fiction phrase and becomes a wafer-level packaging and distributed-systems problem.</p>
         </section>
 
         <section>
-            <h1>Space Is The Most Serious And Most Dangerous Use Case</h1>
+            <h2>Space Is The Most Serious And Most Dangerous Use Case</h2>
             <p>A cloud of resilient programmable chiplets in low Earth orbit is an obvious dream and an obvious warning. It could provide distributed solar power collection, compute, communications, sensing, inspection, and nanosatellite-style persistence without relying on a few large fragile spacecraft. It could also become surveillance infrastructure, debris risk, orbital clutter, or dual-use military hardware.</p>
             <p>That dual-use fact should be stated early, not hidden behind optimism. Any path toward orbital programmable matter would need deorbit plans, identification, tracking, containment, radiation behavior, collision analysis, licensing, and rules for offensive and defensive use. A system that can compute, move, sense, and reconfigure in orbit is not politically neutral.</p>
             <p>The reason I still care is that the same properties that make this dangerous also make it valuable: redundancy, radiation resilience, repair through reconfiguration, graceful degradation, and the ability to keep computation alive when individual pieces fail.</p>
         </section>
 
         <section>
-            <h1>The Longest Claim</h1>
+            <h2>The Longest Claim</h2>
             <p>The longest claim is not that wafer dicing alone gives programmable matter. It does not.</p>
             <p>The claim is that modern manufacturing may already contain enough of the physical toolkit to begin: wafer-scale active devices, small-die singulation, dielectric protection, near-field coupling, and distributed energy. Cartilage is my attempt to supply the matching computation toolkit: hierarchical spatial ownership, local reconfiguration, visible ports, and computation that remains readable as it scales.</p>
             <p>If those two toolkits meet, then the path to programmable matter stops looking like a single impossible invention. It becomes a sequence of hard but nameable interfaces.</p>
         </section>
 
         <section>
-            <h1>Open Questions</h1>
+            <h2>Open Questions</h2>
             <p><strong>Observed:</strong> wafer-level semiconductor processes and plasma/dry singulation exist; the dicing reference shows through-wafer separation on standard tape and frames.</p>
             <p><strong>Implemented elsewhere:</strong> chiplets, passivation, capacitive links, inductive links, resonant power transfer, distributed algorithms, and microrobotics all exist in partial forms.</p>
             <p><strong>Argued here:</strong> a protected, wafer-diced chiplet could be a plausible catom substrate if its boundary carries mechanical, power, clock, and data roles together.</p>
@@ -151,7 +154,7 @@
         </section>
 
         <section>
-            <h1>Interface Boundary</h1>
+            <h2>Interface Boundary</h2>
             <p>The sharpest failure mode is likely at an interface: wafer-level packaging, plasma dicing, passivation, MEMS assembly, chiplet handling, electrostatic actuation, resonant power, or local communication. The useful next step is to name which interface breaks first and what measurement would expose it.</p>
         </section>
     </main>

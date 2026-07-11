@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <title>The Shader Before the Programmable GPU: RenderMan, Graphics, and AI Hardware</title>
+    <title>A History of Programmable Shaders: RenderMan, GPUs, CUDA, and AI</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="RenderMan made appearance programmable before consumer GPUs did. A sourced history of shading languages, GPU compute, AlexNet, multiply-accumulate, and matrix engines.">
+    <meta name="description" content="How programmable shading moved from RenderMan to GPU languages, CUDA, AlexNet, and AI matrix hardware, with primary sources and corrected myths.">
     <link rel="canonical" href="https://greenforest.io/shader-before-gpu-renderman-ai-hardware.html">
-    <meta property="og:title" content="The Shader Before the Programmable GPU: RenderMan, Graphics, and AI Hardware">
+    <meta property="og:title" content="A History of Programmable Shaders: RenderMan, GPUs, CUDA, and AI">
     <meta property="og:description" content="The shader is older than the programmable consumer GPU. Here is the documented path from movie rendering to GPU compute and AI hardware—and the myths that do not survive it.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/shader-before-gpu-renderman-ai-hardware.html">
@@ -23,21 +23,21 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="The Shader Before the Programmable GPU: RenderMan, Graphics, and AI Hardware - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="A History of Programmable Shaders: RenderMan, GPUs, CUDA, and AI - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/shader-before-gpu-renderman-ai-hardware.png">
-    <meta name="twitter:image:alt" content="The Shader Before the Programmable GPU: RenderMan, Graphics, and AI Hardware - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="A History of Programmable Shaders: RenderMan, GPUs, CUDA, and AI - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "The Shader Before the Programmable GPU: RenderMan, Graphics, and AI Hardware",
+            "headline": "A History of Programmable Shaders: RenderMan, GPUs, CUDA, and AI",
             "datePublished": "2026-07-10",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-11",
             "image": "https://greenforest.io/graphics-to-ai-hardware-illustration.png",
-            "description": "RenderMan made appearance programmable before consumer GPUs did. A sourced history of shading languages, GPU compute, AlexNet, multiply-accumulate, and matrix engines.",
+            "description": "How programmable shading moved from RenderMan to GPU languages, CUDA, AlexNet, and AI matrix hardware, with primary sources and corrected myths.",
             "mainEntityOfPage": "https://greenforest.io/shader-before-gpu-renderman-ai-hardware.html",
             "author": {
                 "@type": "Person",
@@ -59,8 +59,8 @@
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
-    <header>The Shader Before the Programmable GPU: RenderMan, Graphics, and AI Hardware</header>
+<body class="article-structured">
+    <header><h1 class="page-title">A History of Programmable Shaders: RenderMan, GPUs, CUDA, and AI</h1></header>
     <address>July 10, 2026</address>
 
     <section class="abstract">
@@ -79,23 +79,26 @@
         </div>
     </section>
 
-    <figure class="inspectable-image">
+    <figure>
         <a href="/graphics-to-ai-hardware-illustration.png">
-            <img src="/graphics-to-ai-hardware-illustration.png" width="1731" height="909" alt="Editorial illustration moving from a film projector and geometric creature through a parallel graphics processor to a neural network and tiled matrix engine">
+            <picture>
+                <source srcset="/graphics-to-ai-hardware-illustration-720.webp 720w, /graphics-to-ai-hardware-illustration.webp 1731w" sizes="(max-width: 640px) calc(100vw - 48px), 600px" type="image/webp">
+                <img src="/graphics-to-ai-hardware-illustration.png" width="1731" height="909" decoding="async" fetchpriority="high" alt="Editorial illustration moving from a film projector and geometric creature through a parallel graphics processor to a neural network and tiled matrix engine">
+            </picture>
         </a>
         <figcaption>An editorial map of the workload transition, not a literal hardware family tree. Film rendering, programmable graphics, and neural-network training share recurring arithmetic pressure; their algorithms, precision, memory systems, and machines differ. Open the image for the full-resolution illustration.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h1>The Hook Is True; the Easy Myth Is Not</h1>
+            <h2>The Hook Is True; the Easy Myth Is Not</h2>
             <p>Rob Cook's 1984 “shade trees” let a renderer build surface and lighting behavior from composable operations. Pixar's RenderMan Interface, released in 1988, carried that idea into a full shading language. NVIDIA's GeForce3 user-programmable vertex engine arrived in 2001.</p>
             <p>So yes: programmable shading existed in software before it became a mass-market GPU feature.</p>
             <p>But chronology is not a license to invent a clean corporate genealogy. The old archive post suggested that workstation vendors, LSI Logic, Pixar, NVIDIA, and AI formed one hardware chain centered on fused multiply-add. The available primary sources support a different chain: movie requirements shaped a scalable renderer and language; real-time shading research translated the programming model; stream-computing research exposed the GPU; neural networks then exploited the resulting parallel machine.</p>
         </section>
 
         <section>
-            <h1>What the Movie Problem Actually Demanded</h1>
+            <h2>What the Movie Problem Actually Demanded</h2>
             <p>In the early 1980s, Ed Catmull, Loren Carpenter, and Rob Cook at Lucasfilm asked what a computer-generated image would need in order to sit beside live-action photography without revealing itself through jagged edges, polygonal surfaces, missing motion blur, or crude materials.</p>
             <p>Their REYES design target was deliberately extreme: 5 million pixels, 80 million micropolygons per image, 16 samples per pixel, and a budget of about 300 floating-point operations per micropolygon. The exact numbers were planning assumptions, not a benchmark result. Their purpose was to make incremental extensions impossible. The architecture had to be rebuilt around scale.</p>
             <p>The resulting pipeline—bucket, split, dice, shade, hide, filter, display—kept working sets small, exploited locality, and shaded coherent grids that could be vectorized. The floating-point work mattered, but so did sampling, visibility, texture access, caching, and the order in which geometry moved through the machine.</p>
@@ -103,14 +106,14 @@
         </section>
 
         <section>
-            <h1>Pixar and SGI Tried One Interface—Then Split</h1>
+            <h2>Pixar and SGI Tried One Interface—Then Split</h2>
             <p>The history contains a useful failed convergence. In 1987, Pixar and Silicon Graphics explored a common procedural 3D interface. They separated because their primary use cases wanted different abstractions.</p>
             <p>RenderMan described a scene for batch-oriented photorealistic rendering that could take hours. SGI's interactive systems needed lower-level drawing commands, real-time response, z-buffers, accumulation buffers, 2D applications, and a graphical user interface.</p>
             <p>That fork matters. It disproves the idea that movie rendering simply became the consumer GPU pipeline. Offline and real-time rendering diverged. What crossed the gap later was not one untouched architecture; it was the idea that shading should be programmable.</p>
         </section>
 
         <section>
-            <h1>The Abstraction Crossed Anyway</h1>
+            <h2>The Abstraction Crossed Anyway</h2>
             <p>Pat Hanrahan's Stanford group later developed a real-time shading language, RTSL. Hanrahan and Catmull's 2021 retrospective says RTSL strongly influenced NVIDIA Cg, Microsoft HLSL, and GLSL. In the same research lineage, Ian Buck developed Brook for GPUs; Brook evolved into CUDA.</p>
             <p>On the hardware side, GeForce3's 2001 vertex engine moved a tightly tuned fixed-function stage behind a user-programmable instruction stream. Programs still operated on independent vertices inside a larger graphics pipeline. That restriction was a strength: the machine could keep transparent multithreading and parallel throughput while exposing a useful programming model.</p>
             <p>Later unified-shader designs let more graphics stages share a parallel processor array. CUDA then exposed threads, memory, and synchronization without requiring the program to pretend it was drawing triangles.</p>
@@ -124,7 +127,7 @@
         </section>
 
         <section>
-            <h1>One Arithmetic Motif, Four Different Meanings</h1>
+            <h2>One Arithmetic Motif, Four Different Meanings</h2>
             <p>Graphics and learning repeatedly need weighted sums:</p>
             <pre><code>accumulator = accumulator + value * weight</code></pre>
             <p>A lighting calculation forms dot products between directions, then combines the results with colors and material terms. A convolution forms dot products between an image neighborhood and a learned kernel. A dense neural layer multiplies an input vector by many weight vectors. Matrix multiplication performs many dot products together.</p>
@@ -151,7 +154,7 @@
         </section>
 
         <section>
-            <h1>AlexNet Was the Hinge</h1>
+            <h2>AlexNet Was the Hinge</h2>
             <p>The 2012 AlexNet paper did not claim that a graphics renderer had become a neural network. It made the more concrete claim that current GPUs, paired with a highly optimized implementation of two-dimensional convolution, were powerful enough to train an unusually large convolutional network on high-resolution images.</p>
             <p>The network had five convolutional and three fully connected layers. Training took five to six days on two 3 GB GTX 580 GPUs. The model was split because one GPU did not have enough memory, and the two devices communicated only at selected layers so communication would remain a tolerable fraction of computation.</p>
             <p>The authors ended that hardware discussion with a remarkably direct forecast: larger models would be limited mainly by GPU memory and acceptable training time, and results could improve with faster GPUs and bigger datasets.</p>
@@ -159,14 +162,14 @@
         </section>
 
         <section>
-            <h1>The Scalar Loop Became a Matrix Tile</h1>
+            <h2>The Scalar Loop Became a Matrix Tile</h2>
             <p>By 2017, NVIDIA's Volta Tensor Cores exposed the operation <code>D = A × B + C</code> on matrix tiles. The first generation used FP16 multiplication inputs with FP16 or FP32 accumulation. NVIDIA counted 64 mixed-precision floating-point FMA operations per Tensor Core per clock.</p>
             <p>That is not merely a faster old pixel shader. The instruction shape, cooperating threads, data layout, precision contract, and accumulation behavior changed. The recurring sum-of-products was important enough to become a dedicated matrix datapath.</p>
             <p>Peak numbers across generations need caution. A scalar FP32 FMA rate, an early shader MAD rate, and mixed-precision Tensor TFLOPS do not measure the same numerical contract. The more useful comparison is architectural: the hardware unit grew to match the dominant workload.</p>
         </section>
 
         <section>
-            <h1>What Did Not Carry Across</h1>
+            <h2>What Did Not Carry Across</h2>
             <p><strong>Rendering is not only arithmetic.</strong> REYES depended on splitting and dicing geometry, stochastic sampling, visibility, texture thrift, locality, and bounded working sets. Modern path tracing adds ray traversal, divergent paths, complex shaders, random sampling, and large scene data.</p>
             <p><strong>Training is not only Tensor Cores.</strong> Data loading, activation functions, normalization, softmax, optimizer state, memory movement, and communication across accelerators can dominate parts of a run.</p>
             <p><strong>Precision is a design choice, not a footnote.</strong> A visually acceptable rendering error, an IEEE scientific result, and a stable mixed-precision training step have different tolerances. Training with low-precision products works only when range, accumulation, scaling, and updates are protected appropriately.</p>
@@ -174,25 +177,25 @@
         </section>
 
         <section>
-            <h1>Inspect the Same Boundary at Small Scale</h1>
+            <h2>Inspect the Same Boundary at Small Scale</h2>
             <p>The nearby artifacts on this site are intentionally smaller than the history:</p>
             <ul>
                 <li><a href="/linkedin-archive/2025-08-19-cheap-pixelless-textures-with-2d-sdfs.html">Cheap Pixelless Textures With 2D SDFs</a> keeps one procedural image beside the source that produced it. It is a Python/NumPy/Pillow renderer, not GPU-throughput evidence.</li>
                 <li><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a> keeps a model shape, command, loss log, samples, and source path together. It was trained on CPU, not evidence for accelerator performance.</li>
-                <li><a href="/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Sourcing ASIC FMA Is Hard</a> follows <code>a × b + c</code> into the physical-design boundary: alignment, partial products, normalization, rounding, exceptions, pipeline staging, timing, verification, and layout.</li>
+                <li><a href="/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</a> follows <code>a × b + c</code> into the physical-design boundary: alignment, partial products, normalization, rounding, exceptions, pipeline staging, timing, verification, and layout.</li>
             </ul>
             <p>Those boundaries matter because a powerful historical analogy becomes useful only after each artifact says what it actually proves.</p>
         </section>
 
         <section>
-            <h1>The Engineering Claim</h1>
+            <h2>The Engineering Claim</h2>
             <p>A workload shapes hardware when four things line up: an operation repeats often enough, its dataflow exposes parallel work, a programming interface lets people express new uses, and a large enough market rewards specialized implementation.</p>
             <p>Movie rendering helped make programmable appearance a production requirement. Games and real-time graphics made programmable parallel arithmetic a mass-market product. GPU computing opened the machine beyond the raster pipeline. Deep learning arrived with dot-product-heavy work large enough to justify matrix-specific, mixed-precision hardware.</p>
             <p>The movie frame and the model token do not share one product family tree. They share a pressure: keep enormous streams of small arithmetic fed.</p>
         </section>
 
         <section>
-            <h1>Primary Sources</h1>
+            <h2>Primary Sources</h2>
             <ul>
                 <li>Pat Hanrahan and Edwin Catmull, <a href="https://ieeemilestones.ethw.org/w/images/b/b8/7-The_Design_of_RenderMan.pdf" target="_blank" rel="noopener">The Design of RenderMan</a>, IEEE Computer Graphics and Applications, 2021.</li>
                 <li>Pixar RenderMan, <a href="https://renderman.pixar.com/the-evolution-of-renderman" target="_blank" rel="noopener">The Evolution of RenderMan</a>.</li>
@@ -208,7 +211,7 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Sourcing ASIC FMA Is Hard</a>
+        <a href="/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</a>
         <p>The repeated arithmetic becomes a physical artifact with rounding, exceptions, pipelines, timing closure, verification, and layout.</p>
         <p>More:</p>
         <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>

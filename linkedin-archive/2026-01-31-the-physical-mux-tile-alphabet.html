@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>The Physical MUX Tile Alphabet</title>
+    <title>Modular PCB Logic Tiles: A Physical MUX and Wire Alphabet</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <meta name="description" content="Physical MUX tiles turn the Boolean fabric alphabet into connectable circuit pieces: MUX, wire, constants, intersections, one-sided orientation, and edge-to-edge patches.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html">
     <meta property="og:site_name" content="Greenforest I/O">
-    <meta property="og:title" content="The Physical MUX Tile Alphabet">
+    <meta property="og:title" content="Modular PCB Logic Tiles: A Physical MUX and Wire Alphabet">
     <meta property="og:description" content="Physical MUX tiles turn the Boolean fabric alphabet into connectable circuit pieces: MUX, wire, constants, intersections, one-sided orientation, and edge-to-edge patches.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html">
@@ -23,10 +23,10 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="The Physical MUX Tile Alphabet - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Modular PCB Logic Tiles: A Physical MUX and Wire Alphabet - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.png">
-    <meta name="twitter:image:alt" content="The Physical MUX Tile Alphabet - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Modular PCB Logic Tiles: A Physical MUX and Wire Alphabet - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
@@ -36,14 +36,14 @@
                         {
                                 "@type": "Article",
                                 "@id": "https://greenforest.io/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html#article",
-                                "headline": "The Physical MUX Tile Alphabet",
+                                "headline": "Modular PCB Logic Tiles: A Physical MUX and Wire Alphabet",
                                 "author": {
                                         "@type": "Person",
                                         "name": "Brian Greenforest",
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2026-01-31",
-                                "dateModified": "2026-07-10",
+                                "dateModified": "2026-07-11",
                                 "description": "Physical MUX tiles turn the Boolean fabric alphabet into connectable circuit pieces: MUX, wire, constants, intersections, one-sided orientation, and edge-to-edge patches.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html",
                                 "isPartOf": {
@@ -74,7 +74,7 @@
                                         {
                                                 "@type": "ListItem",
                                                 "position": 3,
-                                                "name": "The Physical MUX Tile Alphabet",
+                                                "name": "Modular PCB Logic Tiles: A Physical MUX and Wire Alphabet",
                                                 "item": "https://greenforest.io/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html"
                                         }
                                 ]
@@ -85,8 +85,8 @@
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
-    <header>The Physical MUX Tile Alphabet</header>
+<body class="article-structured">
+    <header><h1 class="page-title">Modular PCB Logic Tiles: A Physical MUX and Wire Alphabet</h1></header>
     <address>January 31, 2026</address>
 
     <section class="abstract">
@@ -101,13 +101,13 @@
 
     <main>
         <section>
-            <h1>The Artifact</h1>
+            <h2>The Artifact</h2>
             <p>The first connectorized batch of purple MUX tiles made the fabric physical. These are small triangular PCB tiles intended to connect edge to edge into a circuit patch. Each tile is a symbol in the alphabet: MUX, wire, constant, or intersection.</p>
             <p>The connectors matter because the tile is not just a drawing of a primitive. Once the connectors are soldered in the correct orientation, the part has a real side, a real rotation, and a real neighbor relation. A patch can be assembled, picked up, rotated, extended, and read as one object.</p>
         </section>
 
         <section>
-            <h1>The Alphabet</h1>
+            <h2>The Alphabet</h2>
             <ul class="article-facts">
                 <li><strong>MUX tile:</strong> the active primitive in the alphabet. A small number of MUX tiles should be enough to build the first sequential test circuit.</li>
                 <li><strong>Wire tile:</strong> a route piece for carrying a connection across the patch without changing its logical role.</li>
@@ -118,14 +118,14 @@
         </section>
 
         <section>
-            <h1>Why This Matters</h1>
+            <h2>Why This Matters</h2>
             <p>The physical set is the bridge between the Boolean fabric idea and a bench object. A schematic can say MUX, wire, constant, and intersection. The tile alphabet makes those roles into parts with edges, orientations, and assembly rules.</p>
             <p>That changes the work. A circuit patch can be read directly from the arrangement of tiles. The layout is no longer only a CAD file or a mental model; it is a small piece of fabric with the roles and rotations exposed.</p>
             <p>The next useful test is deliberately small: use a few MUX tiles to build a D-flip-flop behavior in the physical patch, not only in a schematic. That is the point where the alphabet stops being a parts set and becomes a circuit substrate.</p>
         </section>
 
         <section>
-            <h1>Reading Path</h1>
+            <h2>Reading Path</h2>
             <p>Start with <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> for the current logical cell, router, fabric, hardware paper, and exact install. Read <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a> for the MUX-first computation argument. Read <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> for the related render alphabet. The repository is logical RTL evidence; it does not establish a fabricated physical tile or physical timing closure.</p>
         </section>
 
@@ -133,11 +133,13 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="2025-12-31-chain-of-thought-reasoning-may-be-a-mistake.html">Chain-of-Thought Reasoning May Be a Mistake</a>
-        <p>Another dated publication from December 31, 2025.</p>
+        <a href="/cartilage-core.html">Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog</a>
+        <p>The current logical fabric, public source, RTL, and exact local installation.</p>
         <p>More:</p>
-        <a href="2026-02-25-why-i-need-this-instrument.html">Why This Instrument Exists</a>
-        <p>Another dated publication from February 25, 2026.</p>
+        <a href="/boolean-algebra-is-all-that-is-required.html">Universal Computation With Multiplexers</a>
+        <p>The formal multiplexer-first computation argument behind the physical alphabet.</p>
+        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
+        <p>The related port, wire, constant, crossing, and MUX roles in the rendered fabric.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

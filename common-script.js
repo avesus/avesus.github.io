@@ -28,7 +28,7 @@ var greenforestBoot = window.greenforestBoot || (function() {
 
 	ensure_favicon();
 
-	const backdrop_src = '/linkedin-forest-backdrop.jpeg';
+	const backdrop_src = '/linkedin-forest-backdrop.webp';
 	const backdrop_preload = document.createElement('link');
 	backdrop_preload.rel = 'preload';
 	backdrop_preload.as = 'image';
@@ -575,8 +575,15 @@ code {
 .gf-homepage .tagline {
 	display: block;
 	margin: -10px 0 36px;
+	font-size: 26px;
+	font-weight: normal;
 	text-align: center;
 	font-style: italic;
+}
+
+.gf-homepage .tagline:before {
+	content: none;
+	counter-increment: none;
 }
 
 .gf-homepage .lead {
@@ -591,7 +598,8 @@ code {
 	border-top: 1px solid #ddd;
 }
 
-.gf-homepage h1+.entry {
+.gf-homepage h1+.entry,
+.gf-homepage h2+.entry {
 	border-top: none;
 	padding-top: 0;
 }
@@ -721,6 +729,32 @@ h1, h2 {
 	text-align: left !important;
 }
 
+header .page-title {
+	margin: 0;
+	font: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	text-align: inherit !important;
+}
+
+header .page-title:before {
+	content: none;
+	counter-increment: none;
+}
+
+body.article-structured {
+	counter-reset: article-section;
+}
+
+body.article-structured main > section > h2 {
+	font-size: 26px;
+}
+
+body.article-structured main > section > h2:before {
+	content: counter(article-section) ". ";
+	counter-increment: article-section;
+}
+
 h1 {
     counter-reset: h2counter;
 }
@@ -837,6 +871,10 @@ dt {
 		font-weight: normal;
 	}
 
+	body.article-structured main > section > h2 {
+		font-size: 16pt;
+	}
+
 	p {
     	page-break-inside: avoid;
 	}
@@ -941,7 +979,7 @@ dt {
 		left: 50%;
 		width: 100vw;
 		height: var(--gf-backdrop-height);
-		background-image: url('/linkedin-forest-backdrop.jpeg');
+		background-image: url('/linkedin-forest-backdrop.webp');
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;

@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <title>Cartilage Visual Language</title>
+    <title>Reconfigurable Fabric Tile Types | Cartilage Visual Language</title>
     <meta name="description" content="A visual decoder for the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.">
     <link rel="canonical" href="https://greenforest.io/cartilage-visual-language.html">
-    <meta property="og:title" content="Cartilage Visual Language">
+    <meta property="og:title" content="Reconfigurable Fabric Tile Types | Cartilage Visual Language">
     <meta property="og:description" content="The visual vocabulary used by Cartilage fabric renders: 32 cell-role codes built from mode and orientation bits.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-visual-language.html">
@@ -21,23 +21,23 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cartilage Visual Language - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Reconfigurable Fabric Tile Types | Cartilage Visual Language - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-visual-language.png">
-    <meta name="twitter:image:alt" content="Cartilage Visual Language - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Reconfigurable Fabric Tile Types | Cartilage Visual Language - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Cartilage Visual Language",
+            "headline": "Reconfigurable Fabric Tile Types | Cartilage Visual Language",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-11",
             "image": "https://greenforest.io/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png",
             "description": "A visual decoder for the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-visual-language.html",
@@ -50,8 +50,8 @@
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
-    <header>Cartilage Visual Language</header>
+<body class="article-structured">
+    <header><h1 class="page-title">Reconfigurable Fabric Tile Types: The Cartilage Visual Language</h1></header>
     <address>June 26, 2026</address>
 
     <section class="abstract">
@@ -67,10 +67,13 @@
 
     <main>
         <section>
-            <h1>The Render Key</h1>
+            <h2>The Render Key</h2>
             <figure class="inspectable-image">
                 <a href="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png">
-                    <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" alt="Cartilage fabric visual-language key showing port, cross, constants, wires, and MUX body types">
+                    <picture>
+                        <source srcset="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.webp" type="image/webp">
+                        <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" width="1248" height="1248" loading="lazy" decoding="async" alt="Cartilage fabric visual-language key showing port, cross, constants, wires, and MUX body types">
+                    </picture>
                 </a>
                 <figcaption>A 13x13 Cartilage fabric render showing the body-role vocabulary: port, cross, constants, wire orientations, and MUX roles.</figcaption>
             </figure>
@@ -78,14 +81,14 @@
         </section>
 
         <section>
-            <h1>How The 32 Codes Are Packed</h1>
+            <h2>How The 32 Codes Are Packed</h2>
             <p>The renderer stores the visible role as two fields: <code>orientation</code> is two bits, and <code>mode</code> is three bits. The natural body-type code is <code>orientation + 4 * mode</code>, giving codes <code>0</code> through <code>31</code>.</p>
             <p>Mode <code>0</code> is special: its four orientations mean port, cross, constant zero, and constant one. Mode <code>1</code> is a wire. Modes <code>2</code> through <code>7</code> are the six MUX behaviors, each rotated into four render orientations.</p>
             <p>The suffixes <code>L</code>, <code>T</code>, <code>B</code>, and <code>R</code> name the rendered orientation. Read them as local tile orientation labels, not as a global coordinate system.</p>
         </section>
 
         <section>
-            <h1>Cell Role Codes</h1>
+            <h2>Cell Role Codes</h2>
             <div class="cartilage-code-table">
                 <div class="cartilage-code-row cartilage-code-head">
                     <div>Code</div>
@@ -256,38 +259,41 @@
         </section>
 
         <section>
-            <h1>How To Read The Drawing</h1>
+            <h2>How To Read The Drawing</h2>
             <p>Black marks are asserted local state or output values in the render. White rings are cell/port positions. Tan overlays mark MUX-like structure and visible value flow. Purple marks the reconfiguration-port role. The labels in the image are explanatory labels drawn over the fabric; the fabric itself is still the 32-code cell-role alphabet above.</p>
             <p>This is the low-level visual vocabulary behind the larger Cartilage articles. A reconfiguration run is easier to read once the reader knows which marks mean constants, wires, crosses, MUXes, and ports.</p>
         </section>
 
         <section>
-            <h1>Where The Alphabet Shows Up</h1>
+            <h2>Where The Alphabet Shows Up</h2>
             <p>The same body-role vocabulary appears in the current Cartilage pages. These renders are different artifacts, but the reader should not learn a new symbol system for each one.</p>
             <div class="article-artifact-grid">
                 <a href="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif">
-                    <img src="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" alt="Cartilage 2026 render showing active child-owned reconfiguration port roots">
+                    <img src="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" width="512" height="1024" loading="lazy" decoding="async" alt="Cartilage 2026 render showing active child-owned reconfiguration port roots">
                     Cartilage 2026 port roots
                 </a>
                 <a href="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png">
-                    <img src="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png" alt="Cartilage verified ripple2 adder render showing configured wires, MUX islands, constants, crosses, labels, and edge outputs">
+                    <img src="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png" width="3072" height="3072" loading="lazy" decoding="async" alt="Cartilage verified ripple2 adder render showing configured wires, MUX islands, constants, crosses, labels, and edge outputs">
                     Verified ripple-adder roles
                 </a>
                 <a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png">
-                    <img src="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png" alt="Cartilage exact-frame reconfiguration final detail render">
+                    <img src="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png" width="290" height="270" loading="lazy" decoding="async" alt="Cartilage exact-frame reconfiguration final detail render">
                     Exact-frame reconfiguration detail
                 </a>
                 <a href="/cartilage-nested-instantiation-demo.html">
-                    <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" alt="Cartilage visual language key reused as the nested-instantiation decoder">
+                    <picture>
+                        <source srcset="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.webp" type="image/webp">
+                        <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" width="1248" height="1248" loading="lazy" decoding="async" alt="Cartilage visual language key reused as the nested-instantiation decoder">
+                    </picture>
                     Nested-instantiation decoder
                 </a>
             </div>
         </section>
 
         <section>
-            <h1>Render Boundary</h1>
+            <h2>Render Boundary</h2>
             <p>The decoder is useful only if each mark stays distinguishable at article scale and on mobile. Ambiguous roles should be fixed in the render vocabulary, not explained away in prose. Large renders should link to the original asset so the reader can open the full-resolution image.</p>
-            <p>The current hardware-level definitions are inspectable in <a href="/cartilage-core.html">Cartilage Core</a> and the <a href="https://github.com/avesus/cartilage-core/tree/main/rtl" target="_blank" rel="noopener">SystemVerilog RTL</a>. The compact core keeps the same 32 installed roles while separating browser rendering evidence from the continuous application plane and local configuration edges checked in RTL.</p>
+            <p>The current hardware-level definitions are inspectable in <a href="/cartilage-core.html">Cartilage Core</a> and the <a href="https://github.com/avesus/cartilage-core/tree/main/rtl" target="_blank" rel="noopener">SystemVerilog RTL</a>. The compact core keeps the same 32 installed roles while separating browser rendering evidence from the continuous application plane and local configuration edges checked in RTL. The <a href="/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html">physical MUX and wire tile alphabet</a> carries the same readability question into connectorized PCB parts.</p>
         </section>
     </main>
 

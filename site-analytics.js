@@ -35,18 +35,9 @@
         document.head.appendChild(script);
     }
 
-    function scheduleGoogleTag() {
-        if ("requestIdleCallback" in window) {
-            window.requestIdleCallback(loadGoogleTag, { timeout: 3000 });
-            return;
-        }
-
-        window.setTimeout(loadGoogleTag, 0);
-    }
-
-    if (document.readyState === "complete") {
-        scheduleGoogleTag();
-    } else {
-        window.addEventListener("load", scheduleGoogleTag, { once: true });
-    }
+    // This file is loaded with `defer`, so parsing is already complete here.
+    // Start the asynchronous tag request immediately: waiting for window.load
+    // made analytics depend on every large article image finishing first and
+    // missed short visits on image-heavy pages.
+    loadGoogleTag();
 }());

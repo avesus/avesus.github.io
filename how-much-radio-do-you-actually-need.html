@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <title>How Much Radio Do You Actually Need?</title>
+    <title>One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need?</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="A one-pin FPGA FM recovery path that thresholds RF into transitions, samples in four phases, uses XOR mixing, integrate-and-dump filtering, cross-product demodulation, and sigma-delta audio output.">
+    <meta name="description" content="A one-pin FPGA FM receiver using threshold crossings, four-phase sampling, XOR mixing, integrate-and-dump filtering, cross-product demodulation, and sigma-delta audio.">
     <link rel="canonical" href="https://greenforest.io/how-much-radio-do-you-actually-need.html">
-    <meta property="og:title" content="How Much Radio Do You Actually Need?">
+    <meta property="og:title" content="One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need?">
     <meta property="og:description" content="A proof-of-mechanism one-pin FPGA FM path built from threshold crossings, quadrature timing, simple digital mixing, and direct relative-phase demodulation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/how-much-radio-do-you-actually-need.html">
@@ -23,25 +23,25 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="How Much Radio Do You Actually Need? - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need? - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/how-much-radio-do-you-actually-need.png">
-    <meta name="twitter:image:alt" content="How Much Radio Do You Actually Need? - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need? - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "How Much Radio Do You Actually Need?",
+            "headline": "One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need?",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-04-22",
-            "dateModified": "2026-07-09",
+            "dateModified": "2026-07-11",
             "image": "https://greenforest.io/backdrop_rf.jpeg",
-            "description": "A one-pin FPGA FM recovery path that thresholds RF into transitions, samples in four phases, uses XOR mixing, integrate-and-dump filtering, cross-product demodulation, and sigma-delta audio output.",
+            "description": "A one-pin FPGA FM receiver using threshold crossings, four-phase sampling, XOR mixing, integrate-and-dump filtering, cross-product demodulation, and sigma-delta audio.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
             "publisher": {
                 "@type": "Person",
@@ -52,8 +52,8 @@
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
-    <header>How Much Radio Do You Actually Need?</header>
+<body class="article-structured">
+    <header><h1 class="page-title">One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need?</h1></header>
     <address>April 22, 2026</address>
 
     <section class="abstract">
@@ -70,28 +70,31 @@
 
     <figure class="inspectable-image">
         <a href="backdrop_rf.jpeg">
-            <img src="backdrop_rf.jpeg" alt="Waveforms, radio hardware prototype, and received spectrum">
+            <img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Waveforms, radio hardware prototype, and received spectrum">
         </a>
         <figcaption>Waveforms, prototype hardware, and received RF structure from the one-pin radio work.</figcaption>
     </figure>
 
     <figure class="video-embed">
         <a href="https://youtu.be/V40N7XRGAOo" target="_blank" rel="noopener">
-            <img src="https://img.youtube.com/vi/V40N7XRGAOo/hqdefault.jpg" alt="Thumbnail for the one-pin FPGA FM receiver video">
+            <img src="https://img.youtube.com/vi/V40N7XRGAOo/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for the one-pin FPGA FM receiver video">
         </a>
         <figcaption><a href="https://youtu.be/V40N7XRGAOo" target="_blank" rel="noopener">Watch the one-pin FPGA FM receiver video</a></figcaption>
     </figure>
 
     <figure class="inspectable-image">
         <a href="one_pin_fpga_rx.jpg">
-            <img src="one_pin_fpga_rx.jpg" alt="Hand-drawn one-pin FPGA receiver architecture">
+            <picture>
+                <source srcset="one_pin_fpga_rx.webp" type="image/webp">
+                <img src="one_pin_fpga_rx.jpg" width="2181" height="2269" loading="lazy" decoding="async" alt="Hand-drawn one-pin FPGA receiver architecture">
+            </picture>
         </a>
         <figcaption>Broader receiver architecture, not the selected public build. The sketch includes LC preselection, an LNA, AGC, an offset DAC, three tuner paths, and CIC-plus-FIR filtering. The selected <code>fm_radio_nov15.sv</code> snapshot implements one thresholded input path, one tuner, rectangular integrate-and-dump filtering, cross-product FM recovery, and sigma-delta output.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h1>The Conventional Receiver Brings A Lot Of Apparatus</h1>
+            <h2>The Conventional Receiver Brings A Lot Of Apparatus</h2>
             <p>I started where people usually start. Weak RF comes in. A low-noise amplifier boosts it. A mixer multiplies it against a local oscillator. The design produces IF or baseband. An ADC samples that. Later digital stages recover the audio.</p>
             <p>That architecture works. It also brings work of its own.</p>
             <p>The local oscillator has to be strong. Once it gets strong, it leaks into everything. It radiates. It pollutes the board. The receiver stops being a clean signal-recovery problem and turns into a containment problem for the machinery you introduced to solve it.</p>
@@ -104,7 +107,7 @@
         </section>
 
         <section>
-            <h1>I Stopped Trying to Digitize Amplitude</h1>
+            <h2>I Stopped Trying to Digitize Amplitude</h2>
             <p>The answer was not "a cheaper ADC." The answer was: <strong>stop treating amplitude as the thing that must survive first.</strong></p>
             <p>I let the FPGA input threshold the incoming RF around its midpoint.</p>
             <p>When the signal crosses that midpoint, the pin sees a zero or a one.</p>
@@ -118,7 +121,7 @@
         </section>
 
         <section>
-            <h1>I Did Not Get That Idea from Radio</h1>
+            <h2>I Did Not Get That Idea from Radio</h2>
             <p>That threshold idea came from somewhere else.</p>
             <p>About a year and a half before this receiver, I was training neural networks to discover digital circuit layouts on multiplexer-based fabrics using backpropagation. Digital logic is brutally nonlinear, so people do not normally expect those systems to train well. But I found one trick that helped a lot: I introduced a 50-50 noise process that generated zeros and ones statistically at the weight generator. Once that noise was there, simple circuits, adders for example, became much more trainable.</p>
             <p>That left me with a useful lesson:</p>
@@ -133,7 +136,7 @@
         </section>
 
         <section id="amplitude-boundary">
-            <h1>What the Pin Preserves, and What It Does Not</h1>
+            <h2>What the Pin Preserves, and What It Does Not</h2>
             <p>Once I thresholded the RF at the FPGA input, I stopped asking for explicit amplitude and started asking for crossings.</p>
             <p>That turns out to be enough for the result shown here: recovering FM structure and intelligible audio.</p>
             <p>A fixed midpoint threshold discards absolute RF scale. In the noise-dominated region, however, coherent statistics of the one-bit stream vary with signal-to-noise ratio, allowing signal presence and relative strength to be recovered after calibration.</p>
@@ -142,7 +145,7 @@
         </section>
 
         <section>
-            <h1>Four-Phase Sampling Gives Me the Signal Back</h1>
+            <h2>Four-Phase Sampling Gives Me the Signal Back</h2>
             <p>Inside the FPGA, I sample the thresholded bitstream in four phases.</p>
             <p>That matters. I do not just oversample more and hope for the best. I sample in quadrature, with 90-degree offsets, so I preserve direct and quadrature structure explicitly. In effect, I sample at 2F in quadrature: two samples per carrier cycle, but with the quadrature timing preserved. Those four phases carry the full signal content I need.</p>
             <p>That gives me:</p>
@@ -155,7 +158,7 @@
         </section>
 
         <section>
-            <h1>I Do Not Multiply by Sines and Cosines</h1>
+            <h2>I Do Not Multiply by Sines and Cosines</h2>
             <p>A conventional digital receiver path often reaches for trigonometric machinery: sine tables, cosine tables, multipliers, and explicit oscillators.</p>
             <p>I do not need any of that here.</p>
             <p>The signal is already in thresholded quadrature form. My digital Weaver stage just flips bits in the right pattern. In practice, that means XOR operations, controlled inversion of the ones-and-zeros stream. That is enough to perform the mixing and frequency translation I need.</p>
@@ -164,7 +167,7 @@
         </section>
 
         <section id="cross-product-boundary">
-            <h1>I Do Not Use atan2 Either</h1>
+            <h2>I Do Not Use atan2 Either</h2>
             <p>The usual FM-demodulation answer is to recover explicit phase with <code>atan2</code> and then differentiate it. That is expensive. It also never matched how I was already thinking.</p>
             <p>I had been working on a DQPSK demodulator, and that had already trained me to think in relative phase change between successive I/Q vectors, not in absolute phase extraction.</p>
             <p>So when I reached post-accumulator baseband I and Q in this receiver, I went straight to the geometric relation that mattered:</p>
@@ -172,7 +175,10 @@
             <p>That is the 2D cross product of successive I/Q vectors in the operand order used by the selected source. Reversing the operands changes only the output polarity.</p>
             <figure class="inspectable-image">
                 <a href="approx_atan2.jpg">
-                    <img src="approx_atan2.jpg" alt="Small-angle approximation for phase difference from vector components">
+                    <picture>
+                        <source srcset="approx_atan2.webp" type="image/webp">
+                        <img src="approx_atan2.jpg" width="1107" height="896" loading="lazy" decoding="async" alt="Small-angle approximation for phase difference from vector components">
+                    </picture>
                 </a>
                 <figcaption>A working note from the same no-<code>atan2</code> demodulation thread: estimate phase movement from vector components instead of extracting absolute phase.</figcaption>
             </figure>
@@ -182,7 +188,7 @@
         </section>
 
         <section>
-            <h1>The Rest of the Chain Is Simple</h1>
+            <h2>The Rest of the Chain Is Simple</h2>
             <p>In the selected source snapshot, an 80-sample rectangular integrate-and-dump window filters the quadrature signal, followed by one transfer/reset clock. That keeps the rate conversion cheap, but its selectivity is limited and must not be confused with the CIC-plus-FIR path in the broader sketch.</p>
             <p>Then the cross-product demodulator recovers the FM baseband.</p>
             <p>Then a sigma-delta output stage turns the recovered signal into audio that can drive a speaker.</p>
@@ -201,7 +207,7 @@
         </section>
 
         <section>
-            <h1>The Verilog Follow-Up</h1>
+            <h2>The Verilog Follow-Up</h2>
             <p>The added source snapshot is now in <a href="one-pin-RF/README.md">one-pin-RF/README.md</a>. The selected receiver file for this article is <a href="one-pin-RF/fm_radio_demo_2026/fm_radio_nov15.sv">fm_radio_demo_2026/fm_radio_nov15.sv</a>, because <a href="one-pin-RF/fm_radio_demo_2026/build.sh">build.sh</a> is wired to synthesize that file for an iCE40 UP5K build. The nearby <code>fm_radio_2026_pin_4_3.sv</code> file is a near-identical retuned variant, not the build target.</p>
             <p>The intended build path is explicit: Yosys reads the SystemVerilog, nextpnr targets UP5K SG48 with the pin constraints, IceStorm packs the bitstream, and <code>dfu-util</code> downloads it. The archived source currently uses an unresolved identifier <code>n</code> in both sample-shift ranges, and <code>build.sh</code> supplies no definition. This page therefore treats it as the selected historical source snapshot, not as a freshly reproduced build; that typo or missing definition and a clean build log must be resolved before claiming source-level reproducibility.</p>
             <pre><code>read_verilog -sv ./fm_radio_nov15.sv
@@ -266,7 +272,7 @@ assign PIN2 = ~dac_out;</code></pre>
         </section>
 
         <section id="predicted-filter-response">
-            <h1>What the Selected Snapshot Predicts, and What It Does Not Measure</h1>
+            <h2>What the Selected Snapshot Predicts, and What It Does Not Measure</h2>
             <p>The selected source is simpler than the broader architecture sketch. Its 21 MHz processing clock accumulates 80 rectangular samples, then spends one clock transferring and resetting the accumulator. The resulting I/Q update rate is <code>21 MHz / 81 = 259.26 kS/s</code>.</p>
             <p>For the 80-sample rectangular window alone, the calculated digital response is:</p>
             <ul>
@@ -281,7 +287,7 @@ assign PIN2 = ~dac_out;</code></pre>
         </section>
 
         <section>
-            <h1>What I Removed</h1>
+            <h2>What I Removed</h2>
             <p>I removed the parts people normally assume are untouchable:</p>
             <ul>
                 <li>no strong external local oscillator spraying into the board</li>
@@ -297,7 +303,7 @@ assign PIN2 = ~dac_out;</code></pre>
         </section>
 
         <section>
-            <h1>Why This Receiver Matters</h1>
+            <h2>Why This Receiver Matters</h2>
             <p>This is not about making radio smaller as a trick. The useful result is the receiver boundary: thresholded RF enters one digital pin, and the later path still recovers audio.</p>
             <p>That is what this receiver exposed.</p>
             <p>It showed that this constrained FM audio-recovery path can omit much of the conventional apparatus. It did not establish that the same path matches a conventional receiver's sensitivity, selectivity, dynamic range, calibration, or blocker tolerance.</p>
@@ -309,7 +315,7 @@ assign PIN2 = ~dac_out;</code></pre>
         </section>
 
         <section id="next-receiver-result">
-            <h1>The Next Receiver Result</h1>
+            <h2>The Next Receiver Result</h2>
             <p>This page proves that threshold crossings preserve enough information to recover FM audio. The next result must establish a detector and a calibrated receiver boundary:</p>
             <p class="key-line"><strong>From the same thresholded RF pin, distinguish no detected signal, CW, and modulated RF at a selected frequency, with stated bandwidth, sensitivity, probability of detection, false-alarm rate, and blocker rejection.</strong></p>
             <p>That requires a quiet capture path for signed post-filter I/Q, raw one-density, transition count, and discriminator output; a conducted and shielded 50 &Omega; fixture; a frozen detector rule; terminated-input calibration; CW power and frequency sweeps; two-tone blocker tests; and FM SINAD, distortion, and deviation-linearity measurements.</p>
