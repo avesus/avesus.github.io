@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">A routed connection across multiple metal layers</title>
+  <desc id="desc">A source and load are connected by horizontal and vertical routing layers with vias, alongside a resistance-capacitance model.</desc>
+  <rect width="1200" height="675" fill="#faf8f2"/>
+  <rect x="42" y="58" width="708" height="548" rx="12" fill="#fff" stroke="#28363a" stroke-width="4"/>
+  <rect x="806" y="58" width="352" height="548" rx="12" fill="#fff" stroke="#28363a" stroke-width="4"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 408 H300" stroke="#2d6a9f" stroke-width="18"/>
+    <path d="M300 408 V224" stroke="#a65d2f" stroke-width="18"/>
+    <path d="M300 224 H650" stroke="#2d6a9f" stroke-width="18"/>
+    <circle cx="300" cy="408" r="16" fill="#d8b24b" stroke="#28363a" stroke-width="3"/>
+    <circle cx="300" cy="224" r="16" fill="#d8b24b" stroke="#28363a" stroke-width="3"/>
+    <rect x="84" y="368" width="80" height="80" rx="8" fill="#eef4ec" stroke="#28363a" stroke-width="4"/>
+    <rect x="626" y="184" width="80" height="80" rx="8" fill="#eef4ec" stroke="#28363a" stroke-width="4"/>
+    <path d="M854 225 H932" stroke="#28363a" stroke-width="4"/>
+    <path d="M932 190 V260 M950 190 V260" stroke="#520" stroke-width="4"/>
+    <path d="M950 225 H1022" stroke="#28363a" stroke-width="4"/>
+    <path d="M1022 185 V265" stroke="#28363a" stroke-width="4"/>
+    <path d="M1022 225 H1098" stroke="#28363a" stroke-width="4"/>
+    <path d="M974 350 H1034 M1004 350 V402 M980 402 H1028 M988 416 H1020 M996 430 H1012" stroke="#28363a" stroke-width="4"/>
+    <path d="M1004 332 V350" stroke="#520" stroke-width="4"/>
+  </g>
+  <g fill="#28363a" font-family="Georgia, serif" text-anchor="middle">
+    <text x="396" y="112" font-size="30">A route is geometry, layers, and vias</text>
+    <text x="982" y="112" font-size="30">A wire is an RC load</text>
+    <text x="124" y="418" font-size="21">source</text>
+    <text x="666" y="234" font-size="21">load</text>
+    <text x="396" y="526" font-size="24">Blue: horizontal layer · Orange: vertical layer · Gold: vias</text>
+    <text x="982" y="492" font-size="24">Longer and narrower routes</text>
+    <text x="982" y="524" font-size="24">change delay and energy.</text>
+  </g>
+  <g fill="#520" font-family="Consolas, monospace" font-size="24">
+    <text x="892" y="178">Rwire</text>
+    <text x="1038" y="386">Cwire</text>
+  </g>
+</svg>

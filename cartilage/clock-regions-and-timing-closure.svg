@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">A timed path crossing FPGA clock regions</title>
+  <desc id="desc">A grid of clock regions contains launch and capture registers connected by logic and a routed path, with a timing budget shown below.</desc>
+  <rect width="1200" height="675" fill="#faf8f2"/>
+  <rect x="58" y="58" width="1084" height="452" rx="12" fill="#fff" stroke="#28363a" stroke-width="4"/>
+  <g fill="#f3f0e7" stroke="#aaa" stroke-width="2">
+    <rect x="92" y="104" width="238" height="160"/><rect x="330" y="104" width="238" height="160"/><rect x="568" y="104" width="238" height="160"/><rect x="806" y="104" width="302" height="160"/>
+    <rect x="92" y="264" width="238" height="200"/><rect x="330" y="264" width="238" height="200"/><rect x="568" y="264" width="238" height="200"/><rect x="806" y="264" width="302" height="200"/>
+  </g>
+  <g fill="none" stroke="#28363a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="130" y="302" width="88" height="70" rx="8" fill="#eef4ec"/>
+    <rect x="894" y="150" width="88" height="70" rx="8" fill="#eef4ec"/>
+    <path d="M218 337 C310 337 304 184 424 184 S558 400 682 400 S782 185 894 185" stroke="#520" stroke-width="7"/>
+    <path d="M884 175 L894 185 L884 195" stroke="#520"/>
+    <path d="M92 284 H1108" stroke="#28363a" stroke-dasharray="12 10"/>
+  </g>
+  <g fill="#28363a" font-family="Georgia, serif" font-size="24" text-anchor="middle">
+    <text x="211" y="91">CR X0Y1</text><text x="449" y="91">CR X1Y1</text><text x="687" y="91">CR X2Y1</text><text x="957" y="91">CR X3Y1</text>
+    <text x="174" y="345">launch</text><text x="938" y="193">capture</text>
+    <text x="600" y="554">clock period ≥ clock-to-Q + logic delay + route delay + setup + margin</text>
+    <text x="600" y="596" font-size="21">Placement decides where the path goes; routing decides much of what it costs.</text>
+  </g>
+</svg>

@@ -629,10 +629,14 @@ def write_or_compare(path: Path, expected: bytes, check: bool) -> bool:
 
 def build(args: argparse.Namespace) -> int:
     root = args.root.resolve()
-    html_files = tracked_files(root, "*.html")
     tracked = set(tracked_files(root))
+    html_files = args.paths or tracked_files(root, "*.html")
+    html_files = [PurePosixPath(path).as_posix() for path in html_files]
     if not html_files:
         raise SystemExit(f"No tracked HTML files found under {root}")
+    for relative_text in html_files:
+        if relative_text not in tracked or not relative_text.lower().endswith(".html"):
+            raise SystemExit(f"Not a tracked HTML file: {relative_text}")
 
     changed_html: list[str] = []
     changed_previews: list[str] = []
@@ -708,6 +712,11 @@ def build(args: argparse.Namespace) -> int:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     default_root = Path(__file__).resolve().parent.parent
+    parser.add_argument(
+        "paths",
+        nargs="*",
+        help="optional tracked HTML paths to build instead of every tracked page",
+    )
     parser.add_argument("--root", type=Path, default=default_root)
     parser.add_argument("--check", action="store_true", help="report drift without writing")
     parser.add_argument("--html-only", action="store_true", help="skip preview rendering")

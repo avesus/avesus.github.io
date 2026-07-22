@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Tree, H-tree, and grid distribution topologies</title>
+  <desc id="desc">Three diagrams compare a branching buffer tree, a symmetric H-tree, and a driven grid for distributing clocks, events, or reset signals.</desc>
+  <rect width="1200" height="675" fill="#faf8f2"/>
+  <g fill="#fff" stroke="#28363a" stroke-width="4">
+    <rect x="32" y="58" width="348" height="548" rx="12"/>
+    <rect x="426" y="58" width="348" height="548" rx="12"/>
+    <rect x="820" y="58" width="348" height="548" rx="12"/>
+  </g>
+  <g fill="none" stroke="#28363a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M206 176 V238 M206 238 H128 V308 M206 238 H284 V308 M128 308 H86 V388 M128 308 H170 V388 M284 308 H242 V388 M284 308 H326 V388"/>
+    <g fill="#eef4ec">
+      <rect x="178" y="146" width="56" height="30" rx="5"/><rect x="100" y="278" width="56" height="30" rx="5"/><rect x="256" y="278" width="56" height="30" rx="5"/>
+    </g>
+    <path d="M600 176 V244 M490 244 H710 M490 190 V298 M710 190 V298 M490 244 H544 M656 244 H710 M544 244 V364 M656 244 V364 M490 364 H710 M490 310 V418 M710 310 V418"/>
+    <circle cx="600" cy="176" r="12" fill="#eef4ec"/>
+    <path d="M880 204 H1108 M880 284 H1108 M880 364 H1108 M880 444 H1108 M914 170 V478 M982 170 V478 M1050 170 V478"/>
+    <path d="M844 324 H914" stroke="#520" stroke-width="7"/>
+    <circle cx="844" cy="324" r="12" fill="#eef4ec"/>
+  </g>
+  <g fill="#520">
+    <circle cx="86" cy="388" r="8"/><circle cx="170" cy="388" r="8"/><circle cx="242" cy="388" r="8"/><circle cx="326" cy="388" r="8"/>
+    <circle cx="490" cy="190" r="8"/><circle cx="710" cy="190" r="8"/><circle cx="490" cy="418" r="8"/><circle cx="710" cy="418" r="8"/>
+    <circle cx="914" cy="204" r="7"/><circle cx="982" cy="284" r="7"/><circle cx="1050" cy="364" r="7"/><circle cx="982" cy="444" r="7"/>
+  </g>
+  <g fill="#28363a" font-family="Georgia, serif" font-size="30" text-anchor="middle">
+    <text x="206" y="112">Buffer tree</text>
+    <text x="600" y="112">H-tree</text>
+    <text x="994" y="112">Driver grid</text>
+  </g>
+  <g fill="#28363a" font-family="Georgia, serif" font-size="23" text-anchor="middle">
+    <text x="206" y="520">Branch and restore</text><text x="206" y="552">at bounded fanout.</text>
+    <text x="600" y="520">Balance nominal</text><text x="600" y="552">path geometry.</text>
+    <text x="994" y="520">Spend metal and energy</text><text x="994" y="552">for many access points.</text>
+  </g>
+</svg>

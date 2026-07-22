@@ -144,7 +144,7 @@ stylesheet.type = 'text/css';
 stylesheet.innerText = `
 
 :root {
-	--gf-backdrop-height: clamp(96px, 28vw, 180px);
+	--gf-backdrop-height: clamp(96px, min(28vw, 20vh), 180px);
 	--gf-bottom-backdrop-gap: 70px;
 }
 
@@ -220,6 +220,140 @@ figure.inspectable-image a {
 
 .article-artifact-grid img {
 	border: 1px solid #ccc;
+}
+
+.capability-grid,
+.chapter-grid,
+.reference-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+	margin: 1.5rem 0 2.5rem;
+	text-align: left;
+}
+
+.capability-card,
+.chapter-card,
+.reference-card {
+	box-sizing: border-box;
+	min-width: 0;
+	padding: 16px;
+	border: 1px solid #d7d7d7;
+	background: #fff;
+}
+
+.capability-card h3,
+.chapter-card h3,
+.reference-card h3 {
+	margin: 0 0 0.55rem;
+	font-size: 22px;
+	font-weight: normal;
+}
+
+.capability-card p,
+.chapter-card p,
+.reference-card p {
+	margin: 0.55rem 0 0;
+	text-align: left;
+}
+
+.capability-card img,
+.chapter-card img,
+.reference-card img {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin-bottom: 0.8rem;
+	border: 1px solid #ccc;
+}
+
+.capability-card-wide {
+	grid-column: 1 / -1;
+}
+
+.chapter-number,
+.chapter-status,
+.eyebrow {
+	display: inline-block;
+	margin: 0 0.55em 0.45rem 0;
+	font-family: 'Inconsolata', monospace;
+	font-size: 15px;
+	line-height: 1.2;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+}
+
+.chapter-status {
+	padding: 0.2rem 0.4rem;
+	border: 1px solid #aaa;
+	border-radius: 3px;
+}
+
+.chapter-status.available {
+	border-color: #520;
+	color: #520;
+}
+
+.learning-path {
+	margin: 1.5rem 0 2.5rem;
+	padding: 0;
+	list-style: none;
+	counter-reset: learning-step;
+}
+
+.learning-path > li {
+	position: relative;
+	margin: 0;
+	padding: 0 0 1.4rem 3.1rem;
+	counter-increment: learning-step;
+}
+
+.learning-path > li::before {
+	content: counter(learning-step);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: grid;
+	width: 2rem;
+	height: 2rem;
+	place-items: center;
+	border: 1px solid #520;
+	border-radius: 50%;
+	color: #520;
+	font-family: 'Inconsolata', monospace;
+	font-size: 16px;
+}
+
+.learning-path > li:not(:last-child)::after {
+	content: "";
+	position: absolute;
+	top: 2rem;
+	bottom: 0;
+	left: 1rem;
+	border-left: 1px solid #ccc;
+}
+
+.learning-path h3 {
+	margin: 0 0 0.35rem;
+	font-size: 22px;
+	font-weight: normal;
+}
+
+.learning-path p {
+	margin: 0.35rem 0 0;
+	text-align: left;
+}
+
+.concept-diagram {
+	padding: 18px;
+	border: 1px solid #d7d7d7;
+	background: #faf8f2;
+}
+
+.concept-diagram svg {
+	display: block;
+	width: 100%;
+	height: auto;
 }
 
 .article-facts {
@@ -337,6 +471,21 @@ figcaption {
 	margin: 0.35rem 0;
 }
 
+.stream-schedule {
+	box-sizing: border-box;
+	max-width: 100%;
+	margin: 1.4rem 0;
+	padding: 0.85rem 1rem;
+	overflow-x: auto;
+	border: 1px solid #d7d7d7;
+	background: #f7f7f7;
+	font-family: 'Inconsolata', monospace;
+	font-size: 16px;
+	line-height: 1.45;
+	text-align: left;
+	-webkit-overflow-scrolling: touch;
+}
+
 .status-label {
 	display: inline-block;
 	margin-right: 0.45em;
@@ -381,6 +530,14 @@ figcaption {
 	background: #faf8f2;
 	text-decoration: underline;
 	text-underline-offset: 0.12em;
+}
+
+.run-button {
+	box-sizing: border-box;
+	min-height: 44px;
+	padding: 0.45rem 0.75rem;
+	font-family: 'Inconsolata', monospace;
+	font-size: 18px;
 }
 
 .chain,
@@ -448,6 +605,50 @@ figcaption {
 	text-align: left;
 }
 
+.artifact-list,
+.metric-list {
+	font-family: 'Inconsolata', monospace;
+	font-size: 18px;
+	line-height: 1.45;
+}
+
+.timeline-media video,
+.timeline-media img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.timeline-preview {
+	image-rendering: auto;
+}
+
+.checkpoint-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 18px;
+	margin: 28px 0;
+}
+
+.checkpoint-grid figure {
+	margin: 0;
+}
+
+.checkpoint-grid img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border: 1px solid #d4d4d4;
+	background: #fff;
+}
+
+.checkpoint-grid figcaption {
+	margin-top: 6px;
+	font-size: 15px;
+	font-style: normal;
+	text-align: left;
+}
+
 .rule-note {
 	border-left: 3px solid #888;
 	padding-left: 14px;
@@ -458,7 +659,10 @@ nav.article-links {
 }
 
 nav.article-links a {
-	display: block;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	min-height: 44px;
 	margin: 0.6rem 0;
 }
 
@@ -951,18 +1155,21 @@ dt {
 		background-color: #28363a;
 		margin: 0;
 	    height: 100%;
+		overflow-x: hidden;
+		overflow-x: clip;
 	}
 
 	body {
 		background-color: #ffffff;
 		font-size: 20px;
 		box-sizing: border-box;
-		width: 900px;
+		width: 960px;
+		max-width: 100vw;
 		position: relative;
 		min-height: 100vh;
 		padding-top: calc(var(--gf-backdrop-height) + 32px);
-		padding-left: 150px;
-		padding-right: 150px;
+		padding-left: 136px;
+		padding-right: 136px;
 		padding-bottom: calc(var(--gf-bottom-backdrop-gap) + var(--gf-backdrop-height));
 		/*min-height: 100%;*/
 		margin-top: 0;
@@ -1048,12 +1255,19 @@ dt {
 
 	body {
 		width: 100%;
+		padding-left: clamp(64px, 12vw, 110px);
+		padding-right: clamp(64px, 12vw, 110px);
 	}
 }
 
 @media screen and (min-width: 320px) and (max-width: 800px) {
 	section.abstract {
 		width: auto;
+	}
+
+	header {
+		margin-left: 0;
+		margin-right: 0;
 	}
 
 	textarea {
@@ -1070,8 +1284,8 @@ dt {
 		width: auto;
 		max-width: 100vw;
 		overflow-x: hidden;
-		padding-left: 24px;
-		padding-right: 24px;
+		padding-left: clamp(20px, 5.5vw, 24px);
+		padding-right: clamp(20px, 5.5vw, 24px);
 	}
 
 	body > :not(.gf-backdrop-link),
@@ -1115,8 +1329,15 @@ dt {
 	}
 
 	.article-artifact-grid,
-	.demo-grid {
+	.demo-grid,
+	.capability-grid,
+	.chapter-grid,
+	.reference-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.capability-card-wide {
+		grid-column: auto;
 	}
 
 	.article-fact-table {
@@ -1178,6 +1399,11 @@ dt {
 		max-width: none;
 	}
 
+	figure.inspectable-image.inspectable-image--fit img {
+		width: 100%;
+		max-width: 100%;
+	}
+
 	.source-embed object {
 		min-height: 60vh;
 	}
@@ -1193,13 +1419,6 @@ dt {
 
 document.head.appendChild(stylesheet);
 greenforestBoot.ready();
-
-const NAV = [
-	'Home', '/',
-	[	'From the ground up', 'from-the-ground-up',
-		'Scaffolding', 'scaffolding',
-	],
-];
 
 const snippets = [];
 

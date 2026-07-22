@@ -14,6 +14,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/serial_multiplier/">
     <meta property="article:published_time" content="2025-07-26">
+    <meta property="article:modified_time" content="2026-07-22">
         <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:serial_multiplier/mul.png -->
@@ -39,7 +40,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2025-07-26",
-            "dateModified": "2026-07-09",
+            "dateModified": "2026-07-22",
             "image": "https://greenforest.io/serial_multiplier/mul.png",
             "description": "A positive-number Logisim bit-serial multiplier: the rendered artifact is 8x8 to 8 bits, LSB-first, with one output bit per clock after fill and no drain gap between operand words.",
             "mainEntityOfPage": "https://greenforest.io/serial_multiplier/",
@@ -53,13 +54,21 @@
 </head>
 
 <body>
-    <header>Bit-Serial Bubbles-Free Multiplier</header>
+    <header><h1 class="page-title">Bit-Serial Bubbles-Free Multiplier</h1></header>
     <address>July 26, 2025</address>
 
     <section class="abstract">
-        <p>Serial is not automatically inferior when the schedule remains full.</p>
-        <p>A positive-number bit-serial multiplier whose schedule stays full: after startup alignment, each clock advances the next input bits and emits the next product bit, with no drain cycles between operand words.</p>
-        <p>The public artifact is a Logisim circuit. The rendered version is 8x8 bits with an 8-bit result stream. The width can be changed by building a wider version of the same pattern; the point of this article is the schedule.</p>
+        <p class="lead">A bit-serial multiplier can stay busy across word boundaries.</p>
+        <p>The public 8x8 Logisim artifact accepts positive operands LSB-first. After its fixed three-clock pipeline latency, it emits the low eight product bits one per clock while the next operand word enters immediately.</p>
+        <div class="cta-row" role="group" aria-label="Multiplier artifacts">
+            <a class="cta-link" href="serial_july_2025.circ">Download the Logisim circuit</a>
+            <a class="cta-link" href="mul.png">Inspect the full schematic</a>
+        </div>
+        <pre class="stream-schedule" aria-label="Continuous input and output word schedule">A input:           a0 ... a7 | a'0 ... a'7
+B input:           b0 ... b7 | b'0 ... b'7
+Output (+3 clocks): p0 ... p7 | p'0 ... p'7
+                                  ^ no empty clock</pre>
+        <p>The vertical bars are word boundaries, not idle cycles. The next input word starts on the clock after bit 7, and the next result does the same after the fixed three-clock offset.</p>
         <div class="status-box">
             <p><span class="status-label">Circuit artifact</span>This page delivers the Logisim circuit, rendered schematics, streaming schedule, and current implementation scope.</p>
             <p><strong>Included:</strong> the bubbles-free streaming schedule, LSB-first streams, 8x8 to 8-bit rendered circuit, 3-clock fixed latency in the rendered example, serial adders, Logisim file, and circuit images.</p>
@@ -67,7 +76,7 @@
         </div>
     </section>
 
-    <figure class="inspectable-image">
+    <figure class="inspectable-image inspectable-image--fit">
         <a href="mul.png">
             <img src="mul.png" alt="Logisim schematic of the bit-serial bubbles-free multiplier">
         </a>
@@ -76,26 +85,26 @@
 
     <main>
         <section>
-            <h1>Why It Exists</h1>
+            <h2>Why It Exists</h2>
             <p>The circuit was invented on July 26, 2025 because ordinary FPGA multiplication was becoming the wrong shape for the intended compute graph. A standard Verilog <code>*</code> was pushing timing closure too slowly, hard multiplier blocks were scarce, and the design needed a streamable arithmetic path instead of another wide immediate product.</p>
             <p>This multiplier keeps arithmetic in a narrow, regular, bit-serial stream. Every word advances on the same cadence, and the pipeline does not need a bubble between consecutive operands.</p>
         </section>
 
         <section>
-            <h1>What Exists</h1>
+            <h2>What Exists</h2>
             <p>The source is <a href="serial_july_2025.circ">serial_july_2025.circ</a>, a Logisim 2.7.1 project. The rendered multiplier image is <a href="mul.png">mul.png</a>, and the rendered serial adder image is <a href="add.png">add.png</a>.</p>
             <p>The reusable circuits in the file include <code>var</code>, <code>add</code>, <code>mul</code>, and helper harnesses. The article is about <code>mul</code>, with <code>var</code> as the serializer and <code>add</code> as the clocked serial adder used inside the reduction tree.</p>
         </section>
 
         <section>
-            <h1>Streaming Behavior</h1>
+            <h2>Streaming Behavior</h2>
             <p>The input streams are LSB-first. The output stream is also LSB-first. In the rendered 8-bit circuit, the fixed pipeline latency is 3 clocks, matching the depth of the balanced serial reduction tree. Once that latency is accounted for, output bits continue one per clock.</p>
             <p>"Bubbles-free" means there is no idle drain period between words. The next operand word begins immediately after the previous operand word in the same stream cadence. The output side behaves the same way: after the fixed latency, result bits keep coming on every clock.</p>
             <p>There is no reset/start framing between words and no ready/valid backpressure in this artifact. The stream phase begins from power-on, and the surrounding circuit must know which clock corresponds to bit 0 of each word.</p>
         </section>
 
         <section>
-            <h1>Schematic Anatomy</h1>
+            <h2>Schematic Anatomy</h2>
             <p>The important pieces are compact:</p>
             <ul class="article-facts">
                 <li><code>var</code> serializes an 8-bit value into a one-bit stream.</li>
@@ -107,19 +116,19 @@
         </section>
 
         <section>
-            <h1>Scaling</h1>
+            <h2>Scaling</h2>
             <p>The design scales linearly in resources with the number of input bits. Wider versions add repeated lanes and reduction structure instead of a wide parallel multiplier block. In the balanced serial reduction tree, doubling operand width adds one clock of extra tree latency.</p>
             <p>The rendered artifact is 8x8 to 8 bits: the result stream is intentionally cut to 8 bits. A different output width would be a deliberate variant of the same schedule, not a different claim in this article.</p>
         </section>
 
         <section>
-            <h1>Why This Shape</h1>
+            <h2>Why This Shape</h2>
             <p>The cost is not simply "serial is slower." The architecture replaces wide immediate products with a uniform streaming schedule, narrow local links, and graph-style composition. That is the engineering value in this artifact.</p>
             <p>Hard multiplier blocks and inferred <code>*</code> multipliers remain useful. This circuit explores the opposite direction: keep multiplication in the same bit-stream rhythm as the surrounding arithmetic and make the schedule easy to compose.</p>
         </section>
 
         <section>
-            <h1>Artifacts</h1>
+            <h2>Artifacts</h2>
             <div class="article-artifact-grid">
                 <a href="serial_july_2025.circ">
                     <img src="mul.png" alt="Logisim bit-serial multiplier circuit">
@@ -134,7 +143,7 @@
         </section>
 
         <section>
-            <h1>Next Measurement</h1>
+            <h2>Next Measurement</h2>
             <p>The useful next comparison is a Verilog implementation measured on the same FPGA target against inferred <code>*</code> and hard-multiplier implementations: LUT count, Fmax, timing report, waveform capture, and placement behavior.</p>
         </section>
     </main>

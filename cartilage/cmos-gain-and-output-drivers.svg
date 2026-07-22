@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">CMOS inverter restoration and a tapered output-driver chain</title>
+  <desc id="desc">A voltage transfer curve with a steep gain region beside a chain of increasingly large inverters driving a capacitive load.</desc>
+  <rect width="1200" height="675" fill="#faf8f2"/>
+  <g fill="#fff" stroke="#28363a" stroke-width="4">
+    <rect x="42" y="58" width="520" height="548" rx="12"/>
+    <rect x="638" y="58" width="520" height="548" rx="12"/>
+  </g>
+  <g fill="none" stroke="#28363a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M116 493 V160 M116 493 H502"/>
+    <path d="M130 180 C252 180 272 206 300 326 C328 447 350 471 486 471" stroke="#520" stroke-width="7"/>
+    <path d="M270 176 V478 M338 176 V478" stroke="#aaa" stroke-dasharray="10 10"/>
+    <path d="M694 326 H746"/>
+    <path d="M746 250 L844 326 L746 402 Z" fill="#f3f0e7"/>
+    <circle cx="856" cy="326" r="12" fill="#fff"/>
+    <path d="M868 326 H906"/>
+    <path d="M906 220 L1036 326 L906 432 Z" fill="#eef4ec"/>
+    <circle cx="1048" cy="326" r="12" fill="#fff"/>
+    <path d="M1060 326 H1102"/>
+    <path d="M1102 276 V376 M1128 276 V376"/>
+  </g>
+  <g fill="#28363a" font-family="Georgia, serif">
+    <text x="302" y="112" font-size="30" text-anchor="middle">Restoration comes from gain</text>
+    <text x="898" y="112" font-size="30" text-anchor="middle">Drive comes from physical size</text>
+    <text x="302" y="552" font-size="24" text-anchor="middle">A small input error returns to a valid rail.</text>
+    <text x="898" y="552" font-size="24" text-anchor="middle">A tapered chain charges a larger load.</text>
+  </g>
+  <g fill="#520" font-family="Consolas, monospace" font-size="21">
+    <text x="78" y="175" transform="rotate(-90 78 175)">VOUT</text>
+    <text x="458" y="526">VIN</text>
+    <text x="266" y="516">VIL</text>
+    <text x="333" y="516">VIH</text>
+    <text x="770" y="332">INV</text>
+    <text x="944" y="332">DRIVER</text>
+    <text x="1086" y="412">CL</text>
+  </g>
+</svg>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Clock Regions and Timing Closure | Cartilage</title>
+    <meta name="description" content="Cartilage chapter five: place launch and capture state into clock regions, constrain setup and hold paths, account for routed delay, and understand timing closure as architecture work.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/cartilage/clock-regions-and-timing-closure.html">
+    <meta property="og:title" content="Clock Regions and Timing Closure">
+    <meta property="og:description" content="Placement, routing, setup, hold, skew, congestion, and constraints determine whether a logical machine can run at its required clock.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage/clock-regions-and-timing-closure.html">
+    <meta property="article:published_time" content="2026-07-22">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:cartilage/clock-regions-and-timing-closure.png -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/cartilage/clock-regions-and-timing-closure.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/cartilage/clock-regions-and-timing-closure.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Clock Regions and Timing Closure - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage/clock-regions-and-timing-closure.png">
+    <meta name="twitter:image:alt" content="Clock Regions and Timing Closure - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Clock Regions and Timing Closure",
+            "datePublished": "2026-07-22",
+            "dateModified": "2026-07-22",
+            "description": "Clock regions, setup and hold paths, routed delay, skew, congestion, constraints, and timing closure.",
+            "image": "https://greenforest.io/cartilage/clock-regions-and-timing-closure.svg",
+            "mainEntityOfPage": "https://greenforest.io/cartilage/clock-regions-and-timing-closure.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Cartilage: A Spatial Computing Learning Path",
+                "url": "https://greenforest.io/cartilage/"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Clock Regions And Timing Closure</h1></header>
+    <address>July 22, 2026</address>
+
+    <section class="abstract">
+        <p><span class="eyebrow">Cartilage · Chapter 5</span></p>
+        <p>A state machine can be correct in logic and still fail after placement and routing.</p>
+        <p>Clock regions expose the device's spatial clocking structure. Timing closure asks whether every constrained path meets its setup and hold requirements after the tools choose real resources and routes. The report is not administrative paperwork after design; it is evidence about whether the architecture fits the machine.</p>
+    </section>
+
+    <figure class="concept-diagram">
+        <a href="clock-regions-and-timing-closure.svg">
+            <img src="clock-regions-and-timing-closure.svg" width="1200" height="675" alt="Launch-to-capture timing path routed across a grid of FPGA clock regions">
+        </a>
+        <figcaption>Original Greenforest I/O diagram. The path is schematic; device clock-region structure and timing methodology are linked to current AMD documentation below.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>A Clock Region Is A Physical Resource Boundary</h2>
+            <p>In AMD UltraScale architecture, the device is divided into rows and columns of clock regions. Each region contains logic, DSP, block RAM, interconnect, a horizontal clock spine, and associated leaf clocking. Vertical and horizontal resources connect or isolate regions.</p>
+            <p>The official <a href="https://docs.amd.com/r/en-US/ug572-ultrascale-clocking/Clocking-Architecture-Overview" target="_blank" rel="noopener">UG572 clocking overview</a> describes the region dimensions, clock roots, distribution tracks, and segmented boundaries. A region is therefore more than a rectangle drawn for organization: it is part of how clocks reach placed resources.</p>
+        </section>
+
+        <section>
+            <h2>Setup Constrains The Long Path</h2>
+            <p>A launch register changes state after a clock edge. Its output passes through combinational logic and routed nets. A capture register must see a stable value early enough before its next active edge.</p>
+            <p>A useful budget reads:</p>
+            <p class="formula">T<sub>period</sub> ≥ T<sub>cq</sub> + T<sub>logic</sub> + T<sub>route</sub> + T<sub>setup</sub> + margin</p>
+            <p>The full tool calculation also accounts for clock arrival, skew, uncertainty, waveform relationships, path exceptions, and corner-specific delay models. Positive setup slack means the analyzed path meets its requirement by that margin; negative slack means it does not.</p>
+        </section>
+
+        <section>
+            <h2>Hold Constrains The Short Path</h2>
+            <p>A new value must not reach the capture register so quickly that it corrupts the value belonging to the same edge. Hold analysis therefore constrains minimum delay rather than maximum delay.</p>
+            <p>Making every path faster cannot solve both problems. Extra data-path delay can repair hold while consuming setup margin. Clock skew that helps one check can hurt the other. Timing closure is a coupled spatial problem, not a single “make it faster” optimization.</p>
+        </section>
+
+        <section>
+            <h2>Constraints Define The Question</h2>
+            <p>Timing tools need primary and generated clocks, input and output delays, clock-domain relationships, and justified exceptions. An unconstrained path is not a passing path; it is a path for which the tool was not asked the right question.</p>
+            <p>AMD's current <a href="https://docs.amd.com/r/en-US/ug949-vivado-design-methodology/Defining-Timing-Constraints-in-Four-Steps" target="_blank" rel="noopener">four-step timing-constraint guidance</a> begins with clock waveforms and I/O delays, then reviews asynchronous or exclusive clock relationships. The methodology matters because false paths and multicycle paths can hide real failures when used as decorations instead of architectural statements.</p>
+        </section>
+
+        <section>
+            <h2>Routing Often Owns The Delay</h2>
+            <p>Synthesis sees logic and estimated nets. Implementation chooses sites and routes. A low-logic path can still be slow when its endpoints are far apart, a high-fanout net needs replication or buffering, a route crosses region boundaries, or congestion forces detours.</p>
+            <p>AMD's <a href="https://docs.amd.com/r/en-US/ug949-vivado-design-methodology/Reducing-Net-Delay-Caused-by-Congestion" target="_blank" rel="noopener">congestion guidance</a> explicitly connects routing congestion with long net delays and difficult timing closure. Final confidence therefore comes from routed timing, not a synthesis estimate alone.</p>
+        </section>
+
+        <section>
+            <h2>Closure Is An Iteration Through The Architecture</h2>
+            <p>When a path fails, the repair may be logic restructuring, pipelining, retiming, resource selection, fanout reduction, placement, floorplanning, clocking, congestion relief, or a corrected requirement. The useful question is which physical cause dominates the path.</p>
+            <p>The <a href="https://docs.amd.com/r/en-US/ug949-vivado-design-methodology/Analyzing-and-Resolving-Timing-Violations" target="_blank" rel="noopener">UG949 closure process</a> recommends addressing high-impact clocking and worst-domain violations before isolated path tweaks. A timing report becomes architectural feedback when it changes the design rather than merely recording a miss.</p>
+        </section>
+
+        <section>
+            <h2>The Cartilage Boundary</h2>
+            <p>A spatially reconfigurable region must eventually fit within placement, routing, clocking, event, and configuration budgets. Region ownership may help express locality, but locality in a diagram does not prove a short route or a closed clock.</p>
+            <p>The current Cartilage browser models, RTL, exact installs, and QFG runs are logical evidence. They are not a physical timing-closure result. The next chapter goes one level lower and treats the route itself—the “metal wire”—as a component with layer, direction, resistance, capacitance, and capacity.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue the Cartilage learning path">
+        <p>Next:</p>
+        <a href="metal-wires.html">Metal Wires Are Part Of The Machine</a>
+        <p>Replace the free arrow with a routed conductor, layer choice, via, capacitance, resistance, and congestion cost.</p>
+        <p>More:</p>
+        <a href="/cartilage/">The Complete Cartilage Learning Path</a>
+        <p>Return to the sequence and its current evidence map.</p>
+    </nav>
+</body>
+
+</html>

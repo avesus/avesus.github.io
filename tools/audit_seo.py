@@ -20,6 +20,17 @@ SITE = "https://greenforest.io/"
 SITEMAP_NS = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 PILLARS = {
     "index.html",
+    "serial_multiplier/index.html",
+    "webgl-glsl-computing.html",
+    "cartilage/index.html",
+    "cartilage/logic-to-luts.html",
+    "cartilage/cmos-gain-and-output-drivers.html",
+    "cartilage/clock-event-reset-distribution.html",
+    "cartilage/statecharts-and-one-hot-fsms.html",
+    "cartilage/clock-regions-and-timing-closure.html",
+    "cartilage/metal-wires.html",
+    "cartilage/nested-components-and-composition.html",
+    "cartilage-nested-instantiation-demo.html",
     "shader-before-gpu-renderman-ai-hardware.html",
     "cartilage-core.html",
     "cartilage-visual-language.html",
@@ -238,8 +249,8 @@ def run(root: Path) -> int:
     homepage_source = homepage.path.read_text(encoding="utf-8")
     if 'loading="lazy"' not in homepage_source:
         errors.append("index.html: expected lazy-loaded article images")
-    if "graphics-to-ai-hardware-illustration.webp" not in homepage_source:
-        errors.append("index.html: expected modern image source for the largest illustration")
+    if not any(suffix in homepage_source.lower() for suffix in (".avif", ".webp", ".svg")):
+        errors.append("index.html: expected at least one modern or vector image source")
 
     print(
         f"pages={len(pages)} sitemap_urls={len(entries)} "

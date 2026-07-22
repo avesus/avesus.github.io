@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">A parent component owns an adjacent daughter region through a local port</title>
+  <desc id="desc">A large parent region contains ordinary composed logic and touches a separate daughter region through a visible reconfiguration port and boundary bonds.</desc>
+  <rect width="1200" height="675" fill="#faf8f2"/>
+  <rect x="54" y="62" width="1092" height="540" rx="14" fill="#fff" stroke="#28363a" stroke-width="4"/>
+  <rect x="98" y="122" width="610" height="416" rx="18" fill="#f3f0e7" stroke="#28363a" stroke-width="4"/>
+  <rect x="790" y="172" width="278" height="316" rx="18" fill="#eef4ec" stroke="#28363a" stroke-width="4"/>
+  <g fill="#fff" stroke="#28363a" stroke-width="4">
+    <rect x="162" y="216" width="166" height="90" rx="12"/>
+    <rect x="448" y="354" width="166" height="90" rx="12"/>
+    <rect x="842" y="252" width="174" height="90" rx="12"/>
+    <circle cx="749" cy="330" r="30" fill="#f8eeee"/>
+  </g>
+  <g fill="none" stroke="#520" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M328 261 C390 261 388 399 448 399"/>
+    <path d="M614 399 C676 399 674 330 719 330"/>
+    <path d="M779 330 H842"/>
+    <path d="M832 320 L842 330 L832 340"/>
+    <path d="M749 300 V214 H842" stroke-dasharray="12 9"/>
+  </g>
+  <g fill="#28363a" font-family="Georgia, serif" text-anchor="middle">
+    <text x="403" y="105" font-size="30">Parent-owned region</text>
+    <text x="929" y="154" font-size="30">Daughter region</text>
+    <text x="245" y="270" font-size="23">ordinary logic</text>
+    <text x="531" y="408" font-size="23">composed logic</text>
+    <text x="929" y="306" font-size="23">replaceable body</text>
+    <text x="749" y="337" font-size="18">PORT</text>
+    <text x="600" y="568" font-size="24">The child is a bounded region with a local interface—not just a source-code name.</text>
+  </g>
+</svg>

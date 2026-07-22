@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">From a two-input multiplexer to FPGA lookup tables</title>
+  <desc id="desc">A diagram showing a visible multiplexer, a LUT2 truth table, and the growth from LUT4 through LUT6.</desc>
+  <rect width="1200" height="675" fill="#faf8f2"/>
+  <g fill="none" stroke="#28363a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="42" y="58" width="318" height="548" rx="12" fill="#fff"/>
+    <rect x="424" y="58" width="318" height="548" rx="12" fill="#fff"/>
+    <rect x="806" y="58" width="352" height="548" rx="12" fill="#fff"/>
+    <path d="M130 224 L278 286 L130 348 Z" fill="#f3f0e7"/>
+    <path d="M94 246 H130 M94 326 H130 M204 410 V317 M278 286 H328"/>
+    <path d="M360 332 H404" stroke="#520"/>
+    <path d="M394 322 L404 332 L394 342" stroke="#520"/>
+    <rect x="476" y="184" width="214" height="260" fill="#f3f0e7"/>
+    <path d="M476 236 H690 M476 288 H690 M476 340 H690 M476 392 H690 M548 184 V444 M620 184 V444"/>
+    <path d="M742 332 H786" stroke="#520"/>
+    <path d="M776 322 L786 332 L776 342" stroke="#520"/>
+    <rect x="854" y="185" width="256" height="78" rx="8" fill="#eef4ec"/>
+    <rect x="854" y="299" width="256" height="78" rx="8" fill="#f3f0e7"/>
+    <rect x="854" y="413" width="256" height="78" rx="8" fill="#f8eeee"/>
+  </g>
+  <g fill="#28363a" font-family="Georgia, serif">
+    <text x="201" y="112" font-size="30" text-anchor="middle">1. Choose</text>
+    <text x="583" y="112" font-size="30" text-anchor="middle">2. Store a truth table</text>
+    <text x="982" y="112" font-size="30" text-anchor="middle">3. Scale the address</text>
+    <text x="201" y="475" font-size="25" text-anchor="middle">A 2:1 MUX selects</text>
+    <text x="201" y="509" font-size="25" text-anchor="middle">one of two values.</text>
+    <text x="583" y="495" font-size="25" text-anchor="middle">A LUT2 stores four bits.</text>
+    <text x="583" y="529" font-size="25" text-anchor="middle">A and B select one.</text>
+    <text x="982" y="235" font-size="28" text-anchor="middle">LUT4 · 16 entries</text>
+    <text x="982" y="349" font-size="28" text-anchor="middle">LUT5 · 32 entries</text>
+    <text x="982" y="463" font-size="28" text-anchor="middle">LUT6 · 64 entries</text>
+  </g>
+  <g fill="#520" font-family="Consolas, monospace" font-size="24">
+    <text x="54" y="251">D0</text>
+    <text x="54" y="331">D1</text>
+    <text x="195" y="440">S</text>
+    <text x="307" y="276">Y</text>
+    <text x="510" y="219">A</text>
+    <text x="574" y="219">B</text>
+    <text x="646" y="219">Q</text>
+    <text x="510" y="271">0</text><text x="574" y="271">0</text><text x="646" y="271">q0</text>
+    <text x="510" y="323">0</text><text x="574" y="323">1</text><text x="646" y="323">q1</text>
+    <text x="510" y="375">1</text><text x="574" y="375">0</text><text x="646" y="375">q2</text>
+    <text x="510" y="427">1</text><text x="574" y="427">1</text><text x="646" y="427">q3</text>
+  </g>
+  <text x="600" y="642" fill="#520" font-family="Consolas, monospace" font-size="20" text-anchor="middle">2^N stored choices · N address inputs · one selected output</text>
+</svg>

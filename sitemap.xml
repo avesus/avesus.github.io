@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://greenforest.io/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/about-greenforest.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/technology-research-and-consulting.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/contact.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/faq.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/proof-and-artifacts.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/privacy.html</loc>
@@ -38,15 +38,47 @@
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-core.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-22</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage/</loc>
+    <lastmod>2026-07-22</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage/logic-to-luts.html</loc>
+    <lastmod>2026-07-22</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage/cmos-gain-and-output-drivers.html</loc>
+    <lastmod>2026-07-22</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage/clock-event-reset-distribution.html</loc>
+    <lastmod>2026-07-22</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage/statecharts-and-one-hot-fsms.html</loc>
+    <lastmod>2026-07-22</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage/clock-regions-and-timing-closure.html</loc>
+    <lastmod>2026-07-22</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage/metal-wires.html</loc>
+    <lastmod>2026-07-22</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage/nested-components-and-composition.html</loc>
+    <lastmod>2026-07-22</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/webgl-glsl-computing.html</loc>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage_random.html</loc>
     <lastmod>2026-07-11</lastmod>
-  </url>
-  <url>
-    <loc>https://greenforest.io/ai-assisted-cartilage-draft-archive.html</loc>
-    <lastmod>2026-07-10</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-verified-ripple2-adder.html</loc>
@@ -78,7 +110,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/serial_multiplier/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/four-layer-tiny-transformer-training-run.html</loc>
@@ -90,11 +122,11 @@
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-nested-instantiation-demo.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/blog/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/blog/2023/05/19/Unleashing-the-Future-of-Web-Development.html</loc>
@@ -102,27 +134,27 @@
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/history.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/scaffolding.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/minimum-webgl.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/logic/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/addition/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-22</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cellular-automata-2019/</loc>

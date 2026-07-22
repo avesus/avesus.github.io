@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Harel Statecharts and One-Hot Hardware State Machines | Cartilage</title>
+    <meta name="description" content="Cartilage chapter four: use Harel statecharts for hierarchical reactive behavior and one-hot encoding to give each hardware state a visible storage location.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/cartilage/statecharts-and-one-hot-fsms.html">
+    <meta property="og:title" content="Harel Statecharts and One-Hot Hardware State Machines">
+    <meta property="og:description" content="Hierarchy, concurrent reactive behavior, events, and one visible state bit per hardware state.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage/statecharts-and-one-hot-fsms.html">
+    <meta property="article:published_time" content="2026-07-22">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:cartilage/statecharts-and-one-hot-fsms.png -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/cartilage/statecharts-and-one-hot-fsms.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/cartilage/statecharts-and-one-hot-fsms.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Harel Statecharts and One-Hot Hardware State Machines - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage/statecharts-and-one-hot-fsms.png">
+    <meta name="twitter:image:alt" content="Harel Statecharts and One-Hot Hardware State Machines - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Harel Statecharts and One-Hot Hardware State Machines",
+            "datePublished": "2026-07-22",
+            "dateModified": "2026-07-22",
+            "description": "Harel statecharts for hierarchical reactive behavior and one-hot encoding for visible hardware state.",
+            "image": "https://greenforest.io/cartilage/statecharts-and-one-hot-fsms.svg",
+            "mainEntityOfPage": "https://greenforest.io/cartilage/statecharts-and-one-hot-fsms.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Cartilage: A Spatial Computing Learning Path",
+                "url": "https://greenforest.io/cartilage/"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Harel Statecharts And One-Hot Hardware State Machines</h1></header>
+    <address>July 22, 2026</address>
+
+    <section class="abstract">
+        <p><span class="eyebrow">Cartilage · Chapter 4</span></p>
+        <p>A flat finite-state diagram becomes unreadable when a reactive machine contains modes inside modes, concurrent activities, and events that cross component boundaries.</p>
+        <p>Harel statecharts make hierarchy and orthogonal activity part of the behavioral model. One-hot encoding gives each hardware state a separate bit. Together they form a useful bridge from nested reactive behavior to visible spatial state.</p>
+    </section>
+
+    <figure class="concept-diagram">
+        <a href="statecharts-and-one-hot-fsms.svg">
+            <img src="statecharts-and-one-hot-fsms.svg" width="1200" height="675" alt="Hierarchical installation statechart mapped to four one-hot state bits">
+        </a>
+        <figcaption>Original Greenforest I/O example: an installation controller expressed as hierarchy and as one-hot state. It is a teaching model, not a transcription of the current Cartilage RTL.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>Finite State Is Stored Behavior</h2>
+            <p>A combinational circuit maps present inputs to outputs. A finite-state machine also remembers a current state. Inputs and current state determine outputs and the next state; a clock or event commits that next state.</p>
+            <p>The diagram is not the machine. The machine needs storage bits, transition logic, output logic, a clock or event discipline, reset behavior, and routes between them. The value of a state model is that it makes those behavioral obligations explicit before physical implementation.</p>
+        </section>
+
+        <section>
+            <h2>Harel Added Depth And Concurrency</h2>
+            <p>David Harel's 1987 paper, <a href="https://dl.acm.org/doi/10.1016/0167-6423%2887%2990035-9" target="_blank" rel="noopener">“Statecharts: A Visual Formalism for Complex Systems”</a>, extends conventional state diagrams with hierarchy, orthogonal components, and broadcast communication.</p>
+            <p>Hierarchy lets a transition target a containing state instead of repeating the same transition from every substate. Orthogonal regions describe activities that are simultaneously active. Events coordinate transitions without flattening the whole behavior into one enormous state list.</p>
+            <p>Those features matter for nested machinery. A daughter component can have internal states while the parent sees a higher-level mode. A configuration event can affect one region without pretending the entire fabric is one flat controller.</p>
+        </section>
+
+        <section>
+            <h2>One-Hot Encoding Makes State Spatial</h2>
+            <p>In one-hot encoding, a machine with four states uses four state bits. Exactly one is asserted during valid operation:</p>
+            <p class="formula">IDLE=0001 · RECEIVE=0010 · APPLY=0100 · RUN=1000</p>
+            <p>AMD's <a href="https://docs.amd.com/r/2024.2-English/ug901-vivado-synthesis/One-Hot-State-Encoding" target="_blank" rel="noopener">Vivado synthesis guide</a> describes one flip-flop per state and one asserted state bit per cycle. Current tools can choose among one-hot, sequential, Gray, Johnson, and other encodings; one-hot is a design choice, not a universal optimum.</p>
+            <p>The spatial advantage is directness. Each state has a named storage location. Transition logic can often test one state bit instead of decoding a dense binary code. The cost is more storage bits, plus the need to handle invalid zero-hot or multi-hot states.</p>
+        </section>
+
+        <section>
+            <h2>A Concrete Teaching Machine</h2>
+            <p>Consider a simplified region installer:</p>
+            <ol>
+                <li><strong>IDLE:</strong> wait for a request.</li>
+                <li><strong>RECEIVE:</strong> accept configuration bits and track completion.</li>
+                <li><strong>APPLY:</strong> commit the received image at a defined boundary.</li>
+                <li><strong>RUN:</strong> expose the installed application's behavior.</li>
+            </ol>
+            <p>The RECEIVE state can contain substates for bit transfer and completion. A larger machine can run application behavior in one orthogonal region while configuration transport advances in another, if the architecture defines how those activities interact.</p>
+            <p>This sequence resembles the concerns visible in Cartilage Core's bounded installation, but the diagram above is intentionally pedagogical. It does not claim that the current browser model or RTL is implemented as this exact four-state controller.</p>
+        </section>
+
+        <section>
+            <h2>Reset Is Part Of The Encoding</h2>
+            <p>A one-hot machine is invalid if no state bit or multiple state bits are active. Reset must establish one legal starting state, and reset release must not let only part of the state register advance.</p>
+            <p>AMD exposes <a href="https://docs.amd.com/r/en-US/ug901-vivado-synthesis/FSM_SAFE_STATE" target="_blank" rel="noopener"><code>FSM_SAFE_STATE</code></a> options for detecting invalid states and returning to a specified valid state. That is one tool-specific mechanism. The architectural lesson is that recovery behavior must be designed; “one-hot” alone does not make illegal states impossible.</p>
+        </section>
+
+        <section>
+            <h2>From Behavior To Placement</h2>
+            <p>Once each state and event has storage and logic, physical questions return. Which clock region contains the state bits? How far does an event travel? What is the longest transition path? Does a hierarchical boundary also become a placement boundary? Which wires carry a state transition across the region?</p>
+            <p>The next chapter treats clock regions and timing closure as part of the architecture rather than as a report generated after the interesting work is over.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue the Cartilage learning path">
+        <p>Next:</p>
+        <a href="clock-regions-and-timing-closure.html">Clock Regions And Timing Closure</a>
+        <p>Place the state machine into a bounded physical fabric and account for every timed path.</p>
+        <p>More:</p>
+        <a href="/cartilage/">The Complete Cartilage Learning Path</a>
+        <p>Return to the sequence and its current evidence map.</p>
+    </nav>
+</body>
+
+</html>

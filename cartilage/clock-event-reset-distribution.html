@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Clock, Event, and Reset Distribution: Trees, H-Trees, and Grids | Cartilage</title>
+    <meta name="description" content="Cartilage chapter three: compare buffer trees, H-trees, grids, clock regions, local roots, leaves, skew, and reset release as physical distribution problems.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/cartilage/clock-event-reset-distribution.html">
+    <meta property="og:title" content="Clock, Event, and Reset Distribution">
+    <meta property="og:description" content="Trees, H-trees, grids, roots, leaves, skew, and regional networks turn one control edge into a physical distribution system.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage/clock-event-reset-distribution.html">
+    <meta property="article:published_time" content="2026-07-22">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:cartilage/clock-event-reset-distribution.png -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/cartilage/clock-event-reset-distribution.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/cartilage/clock-event-reset-distribution.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Clock, Event, and Reset Distribution - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage/clock-event-reset-distribution.png">
+    <meta name="twitter:image:alt" content="Clock, Event, and Reset Distribution - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Clock, Event, and Reset Distribution: Trees, H-Trees, and Grids",
+            "datePublished": "2026-07-22",
+            "dateModified": "2026-07-22",
+            "description": "Buffer trees, H-trees, grids, clock regions, local roots, leaves, skew, and reset release as physical distribution problems.",
+            "image": "https://greenforest.io/cartilage/clock-event-reset-distribution.svg",
+            "mainEntityOfPage": "https://greenforest.io/cartilage/clock-event-reset-distribution.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Cartilage: A Spatial Computing Learning Path",
+                "url": "https://greenforest.io/cartilage/"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Clock, Event, And Reset Distribution</h1></header>
+    <address>July 22, 2026</address>
+
+    <section class="abstract">
+        <p><span class="eyebrow">Cartilage · Chapter 3</span></p>
+        <p>A control signal drawn as one line may physically be thousands of wires, buffers, branches, and loads.</p>
+        <p>Clock trees, H-trees, driver grids, and segmented regional networks are different answers to the same problem: deliver an edge to many destinations with bounded skew, slew, delay, energy, and routing cost. Events and resets share the distribution problem even when their semantics differ from a periodic clock.</p>
+    </section>
+
+    <figure class="concept-diagram">
+        <a href="clock-event-reset-distribution.svg">
+            <img src="clock-event-reset-distribution.svg" width="1200" height="675" alt="Comparison of a buffer tree, symmetric H-tree, and driven grid distribution network">
+        </a>
+        <figcaption>Original Greenforest I/O topology diagram. It compares general distribution shapes; it does not imply that a specific AMD device uses a literal H-tree or grid.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>One Edge, Many Arrival Times</h2>
+            <p>A source sees wire capacitance, buffer inputs, register clock pins, reset pins, and other loads. The network has resistance and capacitance; buffers have delay; branches are not perfectly matched; routing detours around occupied resources; and process, voltage, and temperature shift the result.</p>
+            <p>The difference between arrival times at two destinations is skew. A clocked system must include that difference in setup and hold analysis. An event network must define whether destinations are allowed to observe different cycles. A reset network must control when state becomes active after reset is released.</p>
+        </section>
+
+        <section>
+            <h2>Buffer Trees Bound Fanout</h2>
+            <p>A tree divides one large load into smaller branches. Each buffer drives a bounded set of child buffers or leaves. The number of stages, branching factor, placement, and wire lengths determine the delay and load seen at each level.</p>
+            <p>A logically balanced tree has the same number of stages to each leaf. A physically balanced tree also tries to equalize route and load. Those are different claims: equal depth in a schematic does not guarantee equal delay after placement and routing.</p>
+        </section>
+
+        <section>
+            <h2>H-Trees Balance Nominal Geometry</h2>
+            <p>An H-tree recursively divides a rectangular region. A source enters near the center; equal-length branches reach the centers of subregions; the pattern repeats. The geometry gives selected leaves equal nominal path length.</p>
+            <p>Real loads, obstacles, wire layers, local variations, and final routing still matter. H-tree is a useful teaching shape because it makes spatial balance visible. It is not a promise of zero skew.</p>
+        </section>
+
+        <section>
+            <h2>Grids Buy Access With Capacitance</h2>
+            <p>A driven grid offers many nearby tap points and multiple paths. It can reduce sensitivity to one route and simplify local access. The price is substantial switched capacitance, metal usage, driver current, and design effort.</p>
+            <p>Trees spend less wire but depend more strongly on branch balance. Grids spend more physical resources to make distribution less tree-like. Hybrid networks use a tree or spine for long reach and local meshes or grids near the loads.</p>
+        </section>
+
+        <section>
+            <h2>Modern FPGAs Use Dedicated Regional Clocking</h2>
+            <p>AMD UltraScale devices divide the fabric into clock regions with horizontal clock spines, vertical and horizontal routing and distribution tracks, clock roots, and leaf buffers. The official <a href="https://docs.amd.com/r/en-US/ug572-ultrascale-clocking/Clock-Structure" target="_blank" rel="noopener">Clock Structure chapter of UG572</a> explains how segmented resources can form device-wide or more local clock networks.</p>
+            <p>This is a better concrete reference than pretending every chip implements the three textbook shapes above. The device exposes a designed clock-distribution fabric with explicit region boundaries and routing resources. The implementation tools still have to select and place the network correctly.</p>
+        </section>
+
+        <section>
+            <h2>Clock, Event, And Reset Are Not Interchangeable</h2>
+            <p>A clock is periodic and participates directly in sequential timing. An event may be a pulse, transition, token, or locally acknowledged action. Reset establishes or restores a known state and has its own assertion and release requirements.</p>
+            <p>The physical machinery can look related—high-fanout drivers, trees, regional spines, local leaves—but the correctness conditions differ. Altera's current <a href="https://docs.altera.com/r/docs/847422/26.1/device-configuration-user-guide-agilextm-3-fpgas-and-socs/protecting-state-machine-logic" target="_blank" rel="noopener">state-machine reset guidance</a> gives a concrete failure mode: partial reset release can place a one-hot machine into an illegal state.</p>
+        </section>
+
+        <section>
+            <h2>The Cartilage Question</h2>
+            <p>Cartilage contains more than application data. Configuration edges, local ownership, region replacement, events, and state must also move. The architectural opportunity is to keep those paths spatial and explicit instead of assuming a hidden global control plane.</p>
+            <p>The current WebGL and RTL evidence demonstrates local configuration mechanisms on bounded examples. It does not yet close a physical clock, event, or reset network. The next conceptual step is therefore behavioral: what exactly should an event activate, and how can hierarchical behavior become visible state?</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue the Cartilage learning path">
+        <p>Next:</p>
+        <a href="statecharts-and-one-hot-fsms.html">Harel Statecharts And One-Hot Hardware State Machines</a>
+        <p>Turn distributed events into hierarchical behavior and visible state.</p>
+        <p>More:</p>
+        <a href="/cartilage/">The Complete Cartilage Learning Path</a>
+        <p>Return to the sequence and its current evidence map.</p>
+    </nav>
+</body>
+
+</html>

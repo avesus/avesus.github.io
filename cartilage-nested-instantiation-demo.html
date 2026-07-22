@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <title>Cartilage Nested-Instantiation Demo</title>
+    <title>Runtime Instantiation in Space: Cartilage Nested Regions</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="description" content="A browser/GPU demo of hierarchical reconfiguration: local ports, bounded daughter regions, serial configuration streams, and tiled Boolean roles.">
     <link rel="canonical" href="https://greenforest.io/cartilage-nested-instantiation-demo.html">
-    <meta property="og:title" content="Cartilage Nested-Instantiation Demo">
-    <meta property="og:description" content="A wrapper article for the Cartilage browser/GPU demo: a tiled Boolean fabric with local reconfiguration ports and nested region instantiation.">
+    <meta property="og:title" content="Runtime Instantiation in Space: Cartilage Nested Regions">
+    <meta property="og:description" content="Cartilage chapter eight: a tiled Boolean fabric creates and replaces a bounded daughter region through a local reconfiguration port.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-nested-instantiation-demo.html">
         <link rel="icon" href="/favicon.ico">
@@ -22,23 +22,23 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cartilage Nested-Instantiation Demo - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Runtime Instantiation in Space: Cartilage Nested Regions - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-nested-instantiation-demo.png">
-    <meta name="twitter:image:alt" content="Cartilage Nested-Instantiation Demo - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Runtime Instantiation in Space: Cartilage Nested Regions - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Cartilage Nested-Instantiation Demo",
+            "headline": "Runtime Instantiation in Space: Cartilage Nested Regions",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest"
             },
             "datePublished": "2021",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-22",
             "description": "A browser/GPU demo of hierarchical reconfiguration: local ports, bounded daughter regions, serial configuration streams, and tiled Boolean roles.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-nested-instantiation-demo.html",
             "publisher": {
@@ -51,10 +51,11 @@
 </head>
 
 <body>
-    <header>Cartilage Nested-Instantiation Demo</header>
+    <header><h1 class="page-title">Runtime Instantiation In Space</h1></header>
     <address>Summer 2021</address>
 
     <section class="abstract">
+        <p><span class="eyebrow">Cartilage · Chapter 8</span></p>
         <p>Cartilage is a browser/GPU demo of hierarchical reconfiguration: a tiled Boolean fabric can allocate a bounded daughter region, stream configuration bits through a local reconfiguration port, and replace that region's tile roles through the fabric itself.</p>
         <p>The invention here is not the picture. The picture is how the machine exposes its own structure: port roots, bounded regions, parent pointers, configuration streams, and tile roles that are rewritten as part of the fabric rather than by an invisible outside editor.</p>
         <p>This page starts with the live artifact and then gives the vocabulary needed to read it.</p>
@@ -62,13 +63,13 @@
 
     <main>
         <section>
-            <h1>The Architecture Move</h1>
+            <h2>The Architecture Move</h2>
             <p>Most programmable fabrics hide reconfiguration behind tooling, a bitstream file, or a global controller. Cartilage pushes that activity into the spatial model. A region has a boundary. Configuration enters through a local port. The child region receives new body roles. The parent relationship remains visible while the fabric changes.</p>
             <p>That is why this demo matters even before the later checked runs. It shows a computational surface where ownership and reconfiguration are not documentation pasted onto the side; they are part of the machine being rendered.</p>
         </section>
 
         <section>
-            <h1>The Live Artifact</h1>
+            <h2>The Live Artifact</h2>
             <p class="artifact-link"><a href="/cellular-automata-2019/cartilage3.html">Open the Cartilage 3 demo</a></p>
             <p>The preserved public artifact is a standalone WebGL page. It remains the primary live demo of the 2021 lineage, where series of MUX tile blocks are instantiated in a nested manner from a left-edge reconfiguration port area by streaming SPI-like configuration bits.</p>
             <p><a href="https://www.shadertoy.com/view/7lj3Rw" target="_blank" rel="noopener">Cartilage on ShaderToy</a></p>
@@ -80,7 +81,7 @@
         </section>
 
         <section>
-            <h1>Tile Roles</h1>
+            <h2>Tile Roles</h2>
             <p>The code identifies the model as MUX VLSI Boolean logic cellular automata. Each cell has compact configuration state for orientation, mode, parent pointer, current state, and a configuration shift register.</p>
             <ul class="role-list">
                 <li>Mode 1: wire.</li>
@@ -93,7 +94,7 @@
         </section>
 
         <section>
-            <h1>Reading The Fabric Render</h1>
+            <h2>Reading The Fabric Render</h2>
             <p>The render has three layers that should not be collapsed into one idea: the installed body role, the runtime signal state, and the human publication callouts.</p>
             <p>The installed body role is the important one. Each visible cell has a body-role code made from two orientation bits and three mode bits: <code>orientation + 4 * mode</code>. That gives 32 renderable cell roles.</p>
             <figure class="inspectable-image">
@@ -107,7 +108,7 @@
         </section>
 
         <section>
-            <h1>What The Marks Mean</h1>
+            <h2>What The Marks Mean</h2>
             <ul class="article-facts">
                 <li>Purple port: local configuration ingress for a bounded child region.</li>
                 <li>Cross: route-intersection primitive, not a four-way MUX.</li>
@@ -121,7 +122,7 @@
         </section>
 
         <section>
-            <h1>Concrete Render Examples</h1>
+            <h2>Concrete Render Examples</h2>
             <p>These renders use the same visual vocabulary at different scales. The 2021 demo is the live artifact; the newer renders below are easier stills for reading ports, roles, and configured routes.</p>
             <div class="article-artifact-grid">
                 <a href="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif">
@@ -137,34 +138,34 @@
         </section>
 
         <section>
-            <h1>Configuration Stream</h1>
+            <h2>Configuration Stream</h2>
             <p>The implementation contains an 8-bit core configuration block and an 8-bit shift register for new configuration data. The new configuration bits are applied to the main tile-role bits when the subtree has been filled with configuration bits.</p>
             <p>The configuration stream is clocked from an input into the subtree's reconfiguration port at its root. A completion flip-flop marks when the new configuration bits have been collected.</p>
         </section>
 
         <section>
-            <h1>Why Local Ports Matter</h1>
+            <h2>Why Local Ports Matter</h2>
             <p>The point is that reconfiguration enters through local ports. The region being configured is bounded, and the parent/daughter relationship is explicit in the cell state. FPGA and EDA readers should read this as a routing and configuration discipline.</p>
             <p>The parent pointer creates an ownership tree. Reconfiguration ports are tile roles inside the same fabric, not outside holes in the model. That is the difference between a visual cellular automaton and a composable reconfigurable substrate.</p>
         </section>
 
         <section>
-            <h1>Relation To Boolean Algebra</h1>
+            <h2>Relation To Boolean Algebra</h2>
             <p>The Boolean paper explains why wires, constants, MUXes, feedback, configuration, and tiling are enough as a universal substrate. Cartilage is a live artifact in that direction: it shows tiles being assigned roles and reconfigured locally in a visible browser/GPU model.</p>
         </section>
 
         <section>
-            <h1>Controls In The Artifact</h1>
+            <h2>Controls In The Artifact</h2>
             <p>The demo source includes editing controls: ASDW to draw wires while pressing the mouse, ZQERTYU to place multiplexers, backtick for ground, 1 for power, X for intersection, L for reconfiguration port, and numpad 4-8-6-2 to change the parent pointer in the ownership tree.</p>
             <p>Those controls exist because this was built as an editable fabric, not a movie of a fabric. The main delivered behavior is local nested instantiation.</p>
         </section>
         <section class="cartilage-visual-link">
-            <h1>Cartilage Visual Language</h1>
+            <h2>Cartilage Visual Language</h2>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
         </section>
 
         <section>
-            <h1>Where It Sits In The Program</h1>
+            <h2>Where It Sits In The Program</h2>
             <p>The 2021 demo is the canonical live Cartilage artifact. Later pages add checked packaging, QFG drivers, exact-frame captures, and current render milestones. This one matters because it shows the original nested-instantiation behavior directly in the browser.</p>
         </section>
     </main>
@@ -174,11 +175,9 @@
         <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
         <p>The current inspectable mechanism and hardware evidence.</p>
         <p>More:</p>
-        <a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
-        <p>A newer milestone where child-owned port roots and square ownership blocks are visible in the running fabric.</p>
-        <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
-        <p>The formal Boolean substrate argument behind the live Cartilage demo.</p>
-        <a href="/">Go back</a>
+        <a href="/cartilage/">The Complete Cartilage Learning Path</a>
+        <p>Return to the foundations, chapter sequence, and evidence map.</p>
+        <a href="/">Back to greenforest.io</a>
     </nav>
 </body>
 

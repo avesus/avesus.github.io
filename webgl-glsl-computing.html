@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Raw WebGL and GLSL for Browser GPU Computation</title>
+    <meta name="description" content="Brian Greenforest's direct WebGL and GLSL work: shader compilation, textures, framebuffers, packed state, ping-pong computation, readback, and inspectable browser GPU machines.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/webgl-glsl-computing.html">
+    <meta property="og:title" content="Raw WebGL and GLSL for Browser GPU Computation">
+    <meta property="og:description" content="Contexts, shaders, textures, framebuffers, packed state, ping-pong updates, and readback—used to make computation inspectable in an ordinary browser.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/webgl-glsl-computing.html">
+    <meta property="article:published_time" content="2026-07-22">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:cellular-automata-2019/thumbs/vortex.png -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/webgl-glsl-computing.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/webgl-glsl-computing.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Raw WebGL and GLSL for Browser GPU Computation - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/webgl-glsl-computing.png">
+    <meta name="twitter:image:alt" content="Raw WebGL and GLSL for Browser GPU Computation - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Raw WebGL and GLSL for Browser GPU Computation",
+            "datePublished": "2026-07-22",
+            "dateModified": "2026-07-22",
+            "description": "Direct WebGL and GLSL work using contexts, shaders, textures, framebuffers, packed state, ping-pong computation, and readback.",
+            "mainEntityOfPage": "https://greenforest.io/webgl-glsl-computing.html",
+            "image": "https://greenforest.io/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Raw WebGL And GLSL For Browser GPU Computation</h1></header>
+    <address>July 22, 2026</address>
+
+    <section class="abstract">
+        <p>I write browser GPU programs at the layer most sites hide: context creation, GLSL ES shader compilation, textures, framebuffers, packed state, ping-pong updates, and readback.</p>
+        <div class="cta-row" role="group" aria-label="WebGL and GLSL evidence routes">
+            <a class="cta-link" href="/from-the-ground-up/minimum-webgl.html">Run the minimum path</a>
+            <a class="cta-link" href="/cellular-automata-2019/">Inspect shader machines</a>
+            <a class="cta-link" href="/cartilage-core.html">Follow WebGL into RTL</a>
+        </div>
+        <p>The point is not another visual effect. It is to use the GPU as an inspectable computation substrate in an ordinary browser, without placing a framework between the reader and the machine.</p>
+        <p>The public work runs from a minimal raw-WebGL lesson through stateful cellular automata and into Cartilage, where a GLSL fabric installs and executes circuit-like spatial roles.</p>
+    </section>
+
+    <main>
+        <section>
+            <h2>The Compute Pattern</h2>
+            <p>WebGL exposes a graphics pipeline, but its programmable fragment stage can also evaluate the same local rule across a rectangular field of data. Textures hold the input state. A framebuffer-attached texture receives the output. A draw call invokes the fragment shader once per output location.</p>
+            <p>Stateful computation needs two fields. One texture is read while the other is written; then their roles swap. This ping-pong step avoids reading and writing the same storage in one pass. A separate display shader can turn packed machine state into visible marks without confusing the simulation rule with its rendering.</p>
+            <p>That pattern is visible in the preserved automata: packed RGBA state, neighbor reads, one active update function, a swap texture, and a display pass. Cartilage uses the same browser/GPU discipline to make routing, constants, MUX roles, ports, and region ownership visible.</p>
+        </section>
+
+        <section>
+            <h2>What “Raw” Means Here</h2>
+            <div class="article-fact-table" role="table" aria-label="Direct WebGL computation layers">
+                <div class="article-fact-row" role="row">
+                    <div class="article-fact-key" role="cell">Control plane</div>
+                    <div role="cell">JavaScript obtains the context, compiles and links shaders, allocates textures and framebuffers, binds inputs, issues draws, swaps state, and reads results.</div>
+                </div>
+                <div class="article-fact-row" role="row">
+                    <div class="article-fact-key" role="cell">Compute plane</div>
+                    <div role="cell">GLSL ES 1.00 evaluates the local rule in parallel, using texture samples and uniform parameters.</div>
+                </div>
+                <div class="article-fact-row" role="row">
+                    <div class="article-fact-key" role="cell">State</div>
+                    <div role="cell">Texture channels encode bits, small fields, directions, roles, ownership, or other per-cell values.</div>
+                </div>
+                <div class="article-fact-row" role="row">
+                    <div class="article-fact-key" role="cell">Inspection</div>
+                    <div role="cell">Display shaders, readback, screenshots, frame sequences, and independent reports keep the evolving machine visible.</div>
+                </div>
+            </div>
+            <p>“No framework” is not a claim that frameworks are bad. It is a teaching and verification choice. When the topic is the browser-to-GPU boundary itself, the calls that allocate, compile, bind, execute, and read should remain close enough for a reader to inspect.</p>
+        </section>
+
+        <section>
+            <h2>Five Evidence Routes</h2>
+            <div class="capability-grid">
+                <div class="capability-card">
+                    <span class="chapter-number">1 · Minimum path</span>
+                    <h3><a href="/from-the-ground-up/minimum-webgl.html">Run GPU Code With Raw WebGL And GLSL</a></h3>
+                    <p>The direct setup path: browser context, GLSL shader source, compilation, program linkage, and a visible result. The shared site engine turns the code blocks into sequentially runnable snippets.</p>
+                </div>
+                <div class="capability-card">
+                    <span class="chapter-number">2 · Scaffold</span>
+                    <h3><a href="/from-the-ground-up/scaffolding.html">WebGL GPGPU Scaffolding</a></h3>
+                    <p>The support structure around a compute shader: capabilities, textures, buffers, programs, framebuffers, and the JavaScript control path.</p>
+                </div>
+                <div class="capability-card">
+                    <img src="/cellular-automata-2019/thumbs/vortex.png" loading="lazy" decoding="async" alt="Vortex cellular automaton rendered from packed WebGL state">
+                    <span class="chapter-number">3 · Stateful machines</span>
+                    <h3><a href="/cellular-automata-2019/">Browser/GPU Cellular Automata</a></h3>
+                    <p>Local symbol routing, six-neighbor reads, packed state, ping-pong updates, and separate display logic across the preserved 2019–2021 experiments.</p>
+                </div>
+                <div class="capability-card">
+                    <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.webp" loading="lazy" decoding="async" alt="Cartilage GLSL fabric showing local cell roles and routing marks">
+                    <span class="chapter-number">4 · Reconfigurable fabric</span>
+                    <h3><a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested Instantiation</a></h3>
+                    <p>Local ports, parent pointers, serial configuration streams, and replaceable tile roles inside the canonical browser/GPU artifact.</p>
+                </div>
+                <div class="capability-card">
+                    <img src="/cartilage-core/cartilage-core-and-late.png" loading="lazy" decoding="async" alt="Cartilage Core browser fabric after installing an AND circuit">
+                    <span class="chapter-number">5 · Browser to hardware model</span>
+                    <h3><a href="/cartilage-core.html">Cartilage Core</a></h3>
+                    <p>A compact WebGL1 fabric beside an independent SystemVerilog implementation and self-checking Verilator testbench for one exact 252-bit installation.</p>
+                </div>
+                <div class="capability-card">
+                    <img src="/graphics-to-ai-hardware-illustration-720.webp" loading="lazy" decoding="async" alt="Illustrated path from programmable film shading to GPU and matrix hardware">
+                    <span class="chapter-number">Context · History</span>
+                    <h3><a href="/shader-before-gpu-renderman-ai-hardware.html">Programmable Shaders Before AI Hardware</a></h3>
+                    <p>The sourced history from RenderMan-style shading through real-time languages, Brook and CUDA, AlexNet, and matrix engines. This is context for the abstraction—not the primary evidence of implementation skill.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Why The Browser Matters</h2>
+            <p>An ordinary browser is a useful laboratory because the artifact, control code, shader code, input state, display, and explanatory article can travel together. A reader does not need a vendor IDE merely to see the machine move. Developer tools expose the source and runtime boundary.</p>
+            <p>That makes WebGL unusually good for architectural sketches whose state needs to be inspected spatially. It does not make a browser simulation identical to hardware. In Cartilage Core, the WebGL model is host-stepped texture ping-pong; the SystemVerilog separately models a continuous combinational application plane and locally routed configuration-clock edges. Agreement on a bounded example is evidence, not proof that the execution models are interchangeable.</p>
+        </section>
+
+        <section>
+            <h2>Current Boundary</h2>
+            <p>These pages establish substantial direct WebGL1 and GLSL ES 1.00 work. They are not a modern WebGPU curriculum, a cross-browser performance benchmark, or a claim that every preserved shader artifact follows current production practice.</p>
+            <p>The older material remains valuable for a narrower reason: it shows the machinery from first principles and keeps a long line of local-state experiments executable. New work can add WebGPU or native GLES paths without rewriting that history into something it was not.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading about browser GPU computation">
+        <p>Read next:</p>
+        <a href="/from-the-ground-up/minimum-webgl.html">Run GPU Code With Raw WebGL And GLSL</a>
+        <p>Start at the direct context and shader boundary with visible, runnable browser code.</p>
+        <p>More:</p>
+        <a href="/cartilage/">Cartilage: A Spatial Computing Learning Path</a>
+        <p>Follow the larger route from visible logic and physical distribution to runtime spatial reconfiguration.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

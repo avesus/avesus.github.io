@@ -68,7 +68,7 @@
         </div>
     </section>
 
-    <figure class="inspectable-image">
+    <figure class="inspectable-image inspectable-image--fit">
         <a href="backdrop_rf.jpeg">
             <img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Waveforms, radio hardware prototype, and received spectrum">
         </a>
@@ -82,7 +82,7 @@
         <figcaption><a href="https://youtu.be/V40N7XRGAOo" target="_blank" rel="noopener">Watch the one-pin FPGA FM receiver video</a></figcaption>
     </figure>
 
-    <figure class="inspectable-image">
+    <figure class="inspectable-image inspectable-image--fit">
         <a href="one_pin_fpga_rx.jpg">
             <picture>
                 <source srcset="one_pin_fpga_rx.webp" type="image/webp">
@@ -173,7 +173,7 @@
             <p>So when I reached post-accumulator baseband I and Q in this receiver, I went straight to the geometric relation that mattered:</p>
             <p class="formula">X<sub>n</sub> = I<sub>n-1</sub>Q<sub>n</sub> - Q<sub>n-1</sub>I<sub>n</sub> = |z<sub>n</sub>||z<sub>n-1</sub>| sin(&phi;<sub>n</sub> - &phi;<sub>n-1</sub>)</p>
             <p>That is the 2D cross product of successive I/Q vectors in the operand order used by the selected source. Reversing the operands changes only the output polarity.</p>
-            <figure class="inspectable-image">
+            <figure class="inspectable-image inspectable-image--fit">
                 <a href="approx_atan2.jpg">
                     <picture>
                         <source srcset="approx_atan2.webp" type="image/webp">
