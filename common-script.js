@@ -565,6 +565,55 @@ figcaption {
 	text-underline-offset: 0.12em;
 }
 
+section.abstract.about-profile {
+	display: grid;
+	grid-template-columns: minmax(160px, 200px) minmax(0, 1fr);
+	align-items: start;
+	gap: clamp(1.5rem, 5vw, 2.75rem);
+	width: auto;
+	max-width: none;
+	text-align: left;
+}
+
+.about-profile__portrait {
+	width: 100%;
+	margin: 0;
+}
+
+.about-profile__portrait img {
+	aspect-ratio: 1;
+	border: 1px solid #c8c8c8;
+	border-radius: 16px;
+	box-shadow: 0 12px 28px rgba(22, 43, 37, 0.18);
+	object-fit: cover;
+	object-position: 50% 32%;
+}
+
+.about-profile__portrait figcaption {
+	margin-top: 0.55rem;
+	color: #555;
+	font-family: 'Inconsolata', monospace;
+	font-size: 15px;
+	line-height: 1.3;
+	text-align: center;
+}
+
+.about-profile__copy {
+	min-width: 0;
+}
+
+.about-profile__copy > :first-child {
+	margin-top: 0;
+}
+
+.about-profile__resume-note {
+	margin: 0.7rem 0 0;
+	color: #444;
+	font-size: 17px;
+	line-height: 1.4;
+	text-align: left;
+}
+
 .run-button {
 	box-sizing: border-box;
 	min-height: 44px;
@@ -1443,6 +1492,19 @@ dt {
 	}
 }
 
+@media screen and (max-width: 760px) {
+	section.abstract.about-profile {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1.25rem;
+	}
+
+	.about-profile__portrait {
+		width: min(72vw, 240px);
+		margin-right: auto;
+		margin-left: auto;
+	}
+}
+
 @media screen and (max-width: 640px) {
 	html {
 		overflow-x: hidden;
@@ -1490,6 +1552,15 @@ dt {
 
 	.gf-homepage .entry-title {
 		font-size: 22px;
+	}
+
+	.about-profile .cta-row {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.about-profile .cta-link {
+		width: 100%;
 	}
 
 	.gf-homepage .artifact-grid {

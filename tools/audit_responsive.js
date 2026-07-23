@@ -11,6 +11,7 @@ const debugPort = 9223;
 
 const pages = [
   '/',
+  '/about-greenforest.html',
   '/fpga-systems.html',
   '/one-pin-quadrature-sdm-transmitter.html',
   '/how-much-radio-do-you-actually-need.html',
@@ -41,6 +42,7 @@ const breakpointHeight = 900;
 
 const screenshotPages = new Set([
   '/',
+  '/about-greenforest.html',
   '/fpga-systems.html',
   '/one-pin-quadrature-sdm-transmitter.html',
   '/how-much-radio-do-you-actually-need.html',
