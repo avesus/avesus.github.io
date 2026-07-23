@@ -182,6 +182,10 @@ section {
 	outline-offset: 2px;
 }
 
+.gf-margin-atmosphere {
+	display: none;
+}
+
 img {
 	max-width: 100%;
 }
@@ -1007,6 +1011,10 @@ dt {
 }
 
 @media print {
+	.gf-margin-atmosphere {
+		display: none !important;
+	}
+
 	html {
     	-webkit-transform-origin: 0 0;
     	transform-origin: 0 0;
@@ -1220,7 +1228,7 @@ dt {
 		background-size: cover;
 		pointer-events: none;
 		transform: translateX(-50%);
-		z-index: 0;
+		z-index: 2;
 	}
 
 	body::before {
@@ -1231,7 +1239,7 @@ dt {
 		bottom: 0;
 	}
 
-	body > :not(.gf-backdrop-link) {
+	body > :not(.gf-backdrop-link):not(.gf-margin-atmosphere) {
 		position: relative;
 		z-index: 1;
 	}
@@ -1279,6 +1287,96 @@ dt {
 	}
 }
 
+@media screen and (min-width: 1100px) {
+	.gf-backdrop-link {
+		z-index: 3;
+	}
+
+	.gf-margin-atmosphere {
+		display: block;
+		position: fixed;
+		inset: 0;
+		overflow: hidden;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 900ms ease;
+		z-index: 0;
+		contain: strict;
+	}
+
+	.gf-margin-atmosphere.gf-margin-atmosphere-ready {
+		opacity: 1;
+	}
+
+	.gf-margin-gutter {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: calc((100vw - 960px) / 2);
+		min-width: 0;
+		overflow: hidden;
+		background: #28363a;
+	}
+
+	.gf-margin-gutter-left {
+		left: 0;
+	}
+
+	.gf-margin-gutter-right {
+		right: 0;
+	}
+
+	.gf-margin-image {
+		position: absolute;
+		top: -12%;
+		left: -8%;
+		width: 116%;
+		height: 124%;
+		max-width: none;
+		object-fit: cover;
+		object-position: var(--gf-atmosphere-focus, 50%) 50%;
+		opacity: 0.9;
+		transform: translate3d(0, 0, 0) scale(1.06);
+		transform-origin: center;
+		will-change: transform;
+	}
+
+	.gf-margin-gutter::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(to bottom, rgba(40, 54, 58, 0.78) 0, rgba(40, 54, 58, 0.3) 90px, rgba(40, 54, 58, 0.08) 220px),
+			rgba(40, 54, 58, 0.18);
+		pointer-events: none;
+	}
+
+	.gf-margin-gutter-left::after {
+		background:
+			linear-gradient(to bottom, rgba(40, 54, 58, 0.78) 0, rgba(40, 54, 58, 0.3) 90px, rgba(40, 54, 58, 0.08) 220px),
+			linear-gradient(to left, rgba(40, 54, 58, 0.42) 0, rgba(40, 54, 58, 0.08) 58px, transparent 118px),
+			rgba(40, 54, 58, 0.18);
+	}
+
+	.gf-margin-gutter-right::after {
+		background:
+			linear-gradient(to bottom, rgba(40, 54, 58, 0.78) 0, rgba(40, 54, 58, 0.3) 90px, rgba(40, 54, 58, 0.08) 220px),
+			linear-gradient(to right, rgba(40, 54, 58, 0.42) 0, rgba(40, 54, 58, 0.08) 58px, transparent 118px),
+			rgba(40, 54, 58, 0.18);
+	}
+}
+
+@media screen and (min-width: 1100px) and (prefers-reduced-motion: reduce) {
+	.gf-margin-atmosphere {
+		transition: none;
+	}
+
+	.gf-margin-image {
+		transform: translate3d(0, 0, 0) scale(1.06);
+		will-change: auto;
+	}
+}
+
 @media screen and (max-width: 920px) {
 
 	body {
@@ -1316,7 +1414,7 @@ dt {
 		padding-right: clamp(20px, 5.5vw, 24px);
 	}
 
-	body > :not(.gf-backdrop-link),
+	body > :not(.gf-backdrop-link):not(.gf-margin-atmosphere),
 	main,
 	section,
 	nav,
@@ -1448,6 +1546,290 @@ dt {
 
 document.head.appendChild(stylesheet);
 greenforestBoot.ready();
+
+const greenforestAtmosphereReady = (function() {
+	const desktop_query = window.matchMedia('(min-width: 1100px)');
+	const reduced_motion_query = window.matchMedia('(prefers-reduced-motion: reduce)');
+	const reduced_data_query = window.matchMedia('(prefers-reduced-data: reduce)');
+	const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+	let installation;
+
+	const hash_string = value => {
+		let hash = 2166136261;
+		for (let index = 0; index < value.length; ++index) {
+			hash ^= value.charCodeAt(index);
+			hash = Math.imul(hash, 16777619);
+		}
+		return hash >>> 0;
+	};
+
+	const make_random = initial_seed => {
+		let seed = initial_seed >>> 0;
+		return () => {
+			seed += 0x6D2B79F5;
+			let value = seed;
+			value = Math.imul(value ^ value >>> 15, value | 1);
+			value ^= value + Math.imul(value ^ value >>> 7, value | 61);
+			return ((value ^ value >>> 14) >>> 0) / 4294967296;
+		};
+	};
+
+	const session_seed = () => {
+		const key = 'greenforest-atmosphere-seed-v1';
+		try {
+			let value = window.sessionStorage.getItem(key);
+			if (!value) {
+				const words = new Uint32Array(2);
+				if (window.crypto && window.crypto.getRandomValues) {
+					window.crypto.getRandomValues(words);
+					value = `${ words[0].toString(16) }${ words[1].toString(16) }`;
+				} else {
+					value = `${ Date.now().toString(16) }${ Math.random().toString(16).slice(2) }`;
+				}
+				window.sessionStorage.setItem(key, value);
+			}
+			return value;
+		} catch (_) {
+			return `${ Date.now().toString(16) }`;
+		}
+	};
+
+	const choose_weighted = (choices, random) => {
+		const total = choices.reduce((sum, choice) => sum + choice.weight, 0);
+		let cursor = random() * total;
+		for (const choice of choices) {
+			cursor -= choice.weight;
+			if (cursor <= 0) {
+				return choice.id;
+			}
+		}
+		return choices[choices.length - 1].id;
+	};
+
+	const install = () => {
+		if (installation) {
+			return installation;
+		}
+
+		installation = greenforestBoot.ready().then(async () => {
+			if (!desktop_query.matches) {
+				return 'desktop-inactive';
+			}
+
+			if ((connection && connection.saveData) || reduced_data_query.matches) {
+				document.documentElement.setAttribute('data-greenforest-atmosphere', 'reduced-data');
+				return 'reduced-data';
+			}
+
+			if (!document.body || document.querySelector('.gf-margin-atmosphere')) {
+				return 'already-installed';
+			}
+
+			const assets = {
+				forest: {
+					src: '/media/site-atmospheres/forest-window-pastel.webp',
+					left_focus: [18, 42],
+					right_focus: [58, 82]
+				},
+				port: {
+					src: '/media/site-atmospheres/port-edmonds-waveform-pastel.webp',
+					left_focus: [42, 58],
+					right_focus: [42, 58]
+				},
+				red_moon: {
+					src: '/media/site-atmospheres/red-moon-forest-pastel.webp',
+					left_focus: [38, 52],
+					right_focus: [48, 62]
+				},
+				coils: {
+					src: '/media/site-atmospheres/rf-coils-copper-pastel.webp',
+					left_focus: [40, 56],
+					right_focus: [44, 60]
+				},
+				moon: {
+					src: '/media/site-atmospheres/crescent-moon-slate.webp',
+					left_focus: [42, 55],
+					right_focus: [50, 68]
+				}
+			};
+
+			const scene_catalog = {
+				forest: { id: 'forest', pair: ['forest', 'forest'], swappable: false },
+				port: { id: 'port', pair: ['forest', 'port'], swappable: true },
+				red_moon: { id: 'red-moon', pair: ['forest', 'red_moon'], swappable: true },
+				coils: { id: 'coils', pair: ['forest', 'coils'], swappable: true },
+				moon: { id: 'moon', pair: ['forest', 'moon'], swappable: true }
+			};
+
+			const pathname = location.pathname.toLowerCase();
+			let choices = [
+				{ id: 'forest', weight: 58 },
+				{ id: 'port', weight: 20 },
+				{ id: 'red_moon', weight: 10 },
+				{ id: 'coils', weight: 8 },
+				{ id: 'moon', weight: 4 }
+			];
+
+			if (pathname === '/' || pathname === '/index.html') {
+				choices = [
+					{ id: 'forest', weight: 76 },
+					{ id: 'port', weight: 10 },
+					{ id: 'red_moon', weight: 8 },
+					{ id: 'coils', weight: 4 },
+					{ id: 'moon', weight: 2 }
+				];
+			} else if (pathname.includes('ethernet-udp-ice40-reprogrammer')) {
+				choices = [
+					{ id: 'port', weight: 70 },
+					{ id: 'forest', weight: 30 }
+				];
+			} else if (
+				pathname.includes('one-pin') ||
+				pathname.includes('radio') ||
+				pathname.includes('fpga-systems')
+			) {
+				choices = [
+					{ id: 'coils', weight: 48 },
+					{ id: 'forest', weight: 32 },
+					{ id: 'port', weight: 12 },
+					{ id: 'red_moon', weight: 6 },
+					{ id: 'moon', weight: 2 }
+				];
+			}
+
+			const random = make_random(hash_string(`${ session_seed() }:${ pathname }`));
+			const forced_scene = new URLSearchParams(location.search).get('gf-atmosphere');
+			const scene_key = forced_scene && scene_catalog[forced_scene]
+				? forced_scene
+				: choose_weighted(choices, random);
+			const scene = scene_catalog[scene_key];
+			const pair = scene.pair.slice();
+
+			if (scene.swappable && random() < 0.5) {
+				pair.reverse();
+			}
+
+			const atmosphere = document.createElement('div');
+			atmosphere.className = 'gf-margin-atmosphere';
+			atmosphere.setAttribute('aria-hidden', 'true');
+			atmosphere.dataset.scene = scene.id;
+
+			const images = [];
+			const image_ready = pair.map((asset_name, side_index) => {
+				const side = side_index === 0 ? 'left' : 'right';
+				const gutter = document.createElement('div');
+				gutter.className = `gf-margin-gutter gf-margin-gutter-${ side }`;
+
+				const image = new Image();
+				const asset = assets[asset_name];
+				const focus_range = asset[`${ side }_focus`];
+				const focus = focus_range[0] + random() * (focus_range[1] - focus_range[0]);
+				image.className = 'gf-margin-image';
+				image.alt = '';
+				image.decoding = 'async';
+				image.fetchPriority = 'low';
+				image.style.setProperty('--gf-atmosphere-focus', `${ focus.toFixed(2) }%`);
+				gutter.appendChild(image);
+				atmosphere.appendChild(gutter);
+				images.push(image);
+
+				return new Promise(resolve => {
+					const finish = () => resolve(image.naturalWidth > 0);
+					image.addEventListener('load', finish, { once: true });
+					image.addEventListener('error', finish, { once: true });
+					image.src = asset.src;
+					if (image.complete) {
+						finish();
+					}
+				});
+			});
+
+			document.body.insertAdjacentElement('afterbegin', atmosphere);
+			const results = await Promise.all(image_ready);
+			if (!results.some(Boolean)) {
+				atmosphere.remove();
+				document.documentElement.setAttribute('data-greenforest-atmosphere', 'image-error');
+				return 'image-error';
+			}
+
+			document.documentElement.setAttribute('data-greenforest-atmosphere', scene.id);
+			atmosphere.classList.add('gf-margin-atmosphere-ready');
+
+			if (!reduced_motion_query.matches && images.every(image => image.animate)) {
+				const duration = 1000;
+				const animations = images.map((image, index) => {
+					const vertical = 64 + random() * 34;
+					const horizontal = 5 + random() * 7;
+					const direction = random() < 0.5 ? -1 : 1;
+					const animation = image.animate([
+						{
+							transform: `translate3d(${ (-horizontal * direction).toFixed(2) }px, ${ (-vertical).toFixed(2) }px, 0) scale(1.08)`
+						},
+						{
+							transform: `translate3d(${ (horizontal * direction).toFixed(2) }px, ${ vertical.toFixed(2) }px, 0) scale(1.08)`
+						}
+					], {
+						duration,
+						fill: 'both',
+						easing: index === 0 ? 'ease-in-out' : 'cubic-bezier(0.35, 0, 0.65, 1)'
+					});
+					animation.pause();
+					return animation;
+				});
+
+				let frame_pending = false;
+				const update = () => {
+					frame_pending = false;
+					if (!desktop_query.matches || document.visibilityState === 'hidden') {
+						return;
+					}
+					const maximum = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+					const progress = Math.max(0, Math.min(1, window.scrollY / maximum));
+					animations.forEach(animation => {
+						animation.currentTime = progress * duration;
+					});
+				};
+				const schedule_update = () => {
+					if (!frame_pending) {
+						frame_pending = true;
+						window.requestAnimationFrame(update);
+					}
+				};
+
+				window.addEventListener('scroll', schedule_update, { passive: true });
+				window.addEventListener('resize', schedule_update, { passive: true });
+				window.addEventListener('pageshow', schedule_update);
+				document.addEventListener('visibilitychange', schedule_update);
+				schedule_update();
+			}
+
+			return 'ready';
+		}).catch(() => {
+			document.documentElement.setAttribute('data-greenforest-atmosphere', 'error');
+			return 'error';
+		});
+
+		return installation;
+	};
+
+	const ready = desktop_query.matches
+		? install()
+		: Promise.resolve('desktop-inactive');
+
+	const activate_after_resize = event => {
+		if (event.matches && !installation) {
+			install();
+		}
+	};
+	if (desktop_query.addEventListener) {
+		desktop_query.addEventListener('change', activate_after_resize);
+	} else if (desktop_query.addListener) {
+		desktop_query.addListener(activate_after_resize);
+	}
+
+	window.greenforestAtmosphereReady = ready;
+	return ready;
+})();
 
 const snippets = [];
 

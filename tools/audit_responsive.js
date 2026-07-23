@@ -46,7 +46,18 @@ const screenshotPages = new Set([
   '/cartilage-visual-language.html',
 ]);
 
-const screenshotViewports = new Set(['1920x1080', '390x844']);
+const screenshotViewports = new Set(['1920x1080', '1280x1200', '390x844']);
+
+const shouldCaptureScreenshot = (pagePath, viewportName) => (
+  screenshotPages.has(pagePath)
+  && (
+    screenshotViewports.has(viewportName)
+    || (
+      viewportName === '2560x1440'
+      && (pagePath === '/' || pagePath === '/ethernet-udp-ice40-reprogrammer.html')
+    )
+  )
+);
 
 const pause = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
@@ -131,8 +142,21 @@ async function waitForDocument(client) {
 async function inspectPage(client) {
   const expression = String.raw`(async () => {
     if (window.greenforestReady) await window.greenforestReady;
+    let atmosphereReady = 'missing';
+    if (window.greenforestAtmosphereReady) {
+      atmosphereReady = await Promise.race([
+        window.greenforestAtmosphereReady,
+        new Promise(resolve => window.setTimeout(() => resolve('timeout'), 5000)),
+      ]);
+    }
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
     const root = document.documentElement;
+    const atmosphere = document.querySelector('.gf-margin-atmosphere');
+    const gutters = Array.from(document.querySelectorAll('.gf-margin-gutter'));
+    const atmosphereImages = Array.from(document.querySelectorAll('.gf-margin-image'));
+    const atmosphereResources = performance.getEntriesByType('resource')
+      .filter(entry => entry.name.includes('/media/site-atmospheres/'))
+      .map(entry => entry.name);
     const badImages = Array.from(document.images)
       .filter(image => image.complete && image.naturalWidth === 0)
       .map(image => image.getAttribute('src'));
@@ -156,6 +180,14 @@ async function inspectPage(client) {
       status: navigation && navigation.responseStatus || 0,
       h1Count: document.querySelectorAll('h1').length,
       ready: root.classList.contains('gf-ready'),
+      atmosphereReady,
+      atmosphereScene: root.getAttribute('data-greenforest-atmosphere') || '',
+      atmosphereCount: atmosphere ? 1 : 0,
+      atmosphereDisplay: atmosphere ? getComputedStyle(atmosphere).display : 'none',
+      gutterWidths: gutters.map(gutter => gutter.getBoundingClientRect().width),
+      atmosphereSources: atmosphereImages.map(image => image.currentSrc || image.src),
+      atmosphereImageWidths: atmosphereImages.map(image => image.naturalWidth),
+      atmosphereResources,
       horizontalOverflow: root.scrollWidth > window.innerWidth + 1,
       rootWidth: window.innerWidth,
       scrollWidth: root.scrollWidth,
@@ -193,6 +225,7 @@ async function main() {
 
   const failures = [];
   let combinations = 0;
+  let auxiliaryChecks = 0;
   let client;
 
   try {
@@ -223,7 +256,7 @@ async function main() {
         await waitForDocument(client);
         const result = await inspectPage(client);
         const viewportName = `${width}x${height}`;
-        if (screenshotDir && screenshotPages.has(pagePath) && screenshotViewports.has(viewportName)) {
+        if (screenshotDir && shouldCaptureScreenshot(pagePath, viewportName)) {
           fs.mkdirSync(screenshotDir, { recursive: true });
           const name = pagePath === '/'
             ? 'homepage'
@@ -234,6 +267,30 @@ async function main() {
             captureBeyondViewport: false,
           });
           fs.writeFileSync(path.join(screenshotDir, `${name}-${viewportName}.png`), screenshot.data, 'base64');
+
+          if (
+            viewportName === '1920x1080' &&
+            (pagePath === '/' || pagePath === '/ethernet-udp-ice40-reprogrammer.html')
+          ) {
+            for (const [positionName, progress] of [['mid', 0.45], ['bottom', 1]]) {
+              await client.send('Runtime.evaluate', {
+                expression: `window.scrollTo(0, Math.max(0, (document.documentElement.scrollHeight - window.innerHeight) * ${progress}))`,
+              });
+              await pause(180);
+              const positionScreenshot = await client.send('Page.captureScreenshot', {
+                format: 'png',
+                fromSurface: true,
+                captureBeyondViewport: false,
+              });
+              fs.writeFileSync(
+                path.join(screenshotDir, `${name}-${positionName}-${viewportName}.png`),
+                positionScreenshot.data,
+                'base64',
+              );
+            }
+            await client.send('Runtime.evaluate', { expression: 'window.scrollTo(0, 0)' });
+            await pause(100);
+          }
 
           if (pagePath === '/cartilage-visual-language.html' && viewportName === '390x844') {
             await client.send('Runtime.evaluate', {
@@ -312,6 +369,42 @@ async function main() {
         if (result.status >= 400 || result.status === 0) issues.push(`HTTP ${result.status}`);
         if (result.h1Count !== 1) issues.push(`h1=${result.h1Count}`);
         if (!result.ready) issues.push('framework not ready');
+        if (width >= 1100) {
+          const expectedGutterWidth = (width - 960) / 2;
+          if (result.atmosphereReady !== 'ready') {
+            issues.push(`atmosphere ${result.atmosphereReady}/${result.atmosphereScene || 'none'}`);
+          }
+          if (result.atmosphereCount !== 1 || result.atmosphereDisplay === 'none') {
+            issues.push(`atmosphere count/display ${result.atmosphereCount}/${result.atmosphereDisplay}`);
+          }
+          if (
+            result.gutterWidths.length !== 2 ||
+            result.gutterWidths.some(gutterWidth => Math.abs(gutterWidth - expectedGutterWidth) > 1)
+          ) {
+            issues.push(`gutter widths ${result.gutterWidths.join(',')}/${expectedGutterWidth}`);
+          }
+          if (
+            result.atmosphereSources.length !== 2
+            || result.atmosphereImageWidths.some(imageWidth => imageWidth < 1)
+          ) {
+            issues.push(
+              `atmosphere images ${result.atmosphereSources.length}/${result.atmosphereImageWidths.join(',')}`,
+            );
+          }
+          if (result.atmosphereResources.length > 2) {
+            issues.push(`atmosphere resources ${result.atmosphereResources.length}`);
+          }
+        } else {
+          if (result.atmosphereCount !== 0) {
+            issues.push(`mobile atmosphere count ${result.atmosphereCount}`);
+          }
+          if (result.atmosphereSources.length) {
+            issues.push(`mobile atmosphere images ${result.atmosphereSources.length}`);
+          }
+          if (result.atmosphereResources.length) {
+            issues.push(`mobile atmosphere resources ${result.atmosphereResources.length}`);
+          }
+        }
         if (result.horizontalOverflow) issues.push(`overflow ${result.scrollWidth}/${result.rootWidth}`);
         if (result.badImages.length) issues.push(`missing images: ${result.badImages.join(', ')}`);
         if (result.clipped.length) issues.push(`clipped: ${result.clipped.join(', ')}`);
@@ -319,6 +412,94 @@ async function main() {
         if (issues.length) failures.push(`${width}x${height} ${pagePath}: ${issues.join('; ')}`);
       }
     }
+
+    await client.send('Emulation.setDeviceMetricsOverride', {
+      width: 1920,
+      height: 1080,
+      screenWidth: 1920,
+      screenHeight: 1080,
+      deviceScaleFactor: 1,
+      mobile: false,
+    });
+    await client.send('Emulation.setTouchEmulationEnabled', { enabled: false, maxTouchPoints: 1 });
+    await client.send('Emulation.setEmulatedMedia', {
+      features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }],
+    });
+    await client.send('Page.navigate', { url: new URL('/', baseUrl).href });
+    await waitForDocument(client);
+    await inspectPage(client);
+    const motionResult = await client.send('Runtime.evaluate', {
+      expression: String.raw`(async () => {
+        const images = Array.from(document.querySelectorAll('.gf-margin-image'));
+        window.scrollTo(0, 0);
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        const animations = images.map(image => image.getAnimations()[0]).filter(Boolean);
+        const before = images.map(image => getComputedStyle(image).transform);
+        const beforeTimes = animations.map(animation => animation.currentTime);
+        window.scrollTo(0, Math.max(0, document.documentElement.scrollHeight - window.innerHeight));
+        await new Promise(resolve => window.setTimeout(resolve, 80));
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        const after = images.map(image => getComputedStyle(image).transform);
+        const afterTimes = animations.map(animation => animation.currentTime);
+        return {
+          imageCount: images.length,
+          animationCount: animations.length,
+          changed: (
+            before.length === after.length
+            && (
+              before.some((value, index) => value !== after[index])
+              || beforeTimes.some((value, index) => value !== afterTimes[index])
+            )
+          ),
+        };
+      })()`,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+    auxiliaryChecks += 1;
+    if (
+      !motionResult.result
+      || !motionResult.result.value
+      || motionResult.result.value.imageCount !== 2
+      || motionResult.result.value.animationCount !== 2
+      || !motionResult.result.value.changed
+    ) {
+      failures.push(
+        `1920x1080 /: scroll-linked atmosphere motion did not advance ${
+          JSON.stringify(motionResult.result && motionResult.result.value || {})
+        }`,
+      );
+    }
+
+    await client.send('Emulation.setEmulatedMedia', {
+      features: [{ name: 'prefers-reduced-motion', value: 'reduce' }],
+    });
+    await client.send('Page.navigate', { url: new URL('/', baseUrl).href });
+    await waitForDocument(client);
+    await inspectPage(client);
+    const reducedMotionResult = await client.send('Runtime.evaluate', {
+      expression: String.raw`(() => {
+        const atmosphere = document.querySelector('.gf-margin-atmosphere');
+        const images = Array.from(document.querySelectorAll('.gf-margin-image'));
+        return {
+          atmosphereCount: atmosphere ? 1 : 0,
+          imageCount: images.length,
+          animationCount: images.reduce((sum, image) => sum + image.getAnimations().length, 0),
+        };
+      })()`,
+      returnByValue: true,
+    });
+    auxiliaryChecks += 1;
+    if (
+      !reducedMotionResult.result
+      || !reducedMotionResult.result.value
+      || reducedMotionResult.result.value.atmosphereCount !== 1
+      || reducedMotionResult.result.value.imageCount !== 2
+      || reducedMotionResult.result.value.animationCount !== 0
+    ) {
+      failures.push('1920x1080 /: reduced-motion atmosphere was not static');
+    }
+    await client.send('Emulation.setEmulatedMedia', { features: [] });
   } finally {
     if (client) client.close();
     chrome.kill();
@@ -327,6 +508,7 @@ async function main() {
   }
 
   console.log(`pages=${pages.length} viewports=${viewports.length} combinations=${combinations}`);
+  console.log(`auxiliary=${auxiliaryChecks}`);
   console.log(`failures=${failures.length}`);
   failures.forEach(failure => console.log(`FAIL: ${failure}`));
   process.exitCode = failures.length ? 1 : 0;
