@@ -146,6 +146,7 @@ stylesheet.innerText = `
 :root {
 	--gf-backdrop-height: clamp(96px, min(28vw, 20vh), 180px);
 	--gf-bottom-backdrop-gap: 70px;
+	--gf-layout-viewport-width: 100vw;
 }
 
 section {
@@ -160,7 +161,7 @@ section {
 	display: block;
 	position: absolute;
 	left: 50%;
-	width: 100vw;
+	width: var(--gf-layout-viewport-width);
 	max-width: none;
 	height: var(--gf-backdrop-height);
 	color: inherit;
@@ -1188,7 +1189,7 @@ dt {
 
 @media screen {
 	html {
-		background-color: #28363a;
+		background-color: #1b2a2f;
 		margin: 0;
 	    height: 100%;
 		overflow-x: hidden;
@@ -1199,8 +1200,8 @@ dt {
 		background-color: #ffffff;
 		font-size: 20px;
 		box-sizing: border-box;
-		width: 960px;
-		max-width: 100vw;
+		width: 100%;
+		max-width: 960px;
 		position: relative;
 		min-height: 100vh;
 		padding-top: calc(var(--gf-backdrop-height) + 32px);
@@ -1220,7 +1221,7 @@ dt {
 		content: "";
 		position: absolute;
 		left: 50%;
-		width: 100vw;
+		width: var(--gf-layout-viewport-width);
 		height: var(--gf-backdrop-height);
 		background-image: url('/linkedin-forest-backdrop.webp');
 		background-position: center;
@@ -1287,7 +1288,18 @@ dt {
 	}
 }
 
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 961px) {
+	html {
+		background-color: #1b2a2f;
+		background-image:
+			linear-gradient(rgba(18, 31, 36, 0.42), rgba(18, 31, 36, 0.42)),
+			url('/linkedin-forest-backdrop.webp');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-attachment: fixed;
+	}
+
 	.gf-backdrop-link {
 		z-index: 3;
 	}
@@ -1299,9 +1311,11 @@ dt {
 		overflow: hidden;
 		pointer-events: none;
 		opacity: 0;
-		transition: opacity 900ms ease;
+		transition: opacity 480ms ease-out;
 		z-index: 0;
 		contain: strict;
+		--gf-top-seam-opacity: 1;
+		--gf-bottom-seam-opacity: 0;
 	}
 
 	.gf-margin-atmosphere.gf-margin-atmosphere-ready {
@@ -1312,10 +1326,16 @@ dt {
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		width: calc((100vw - 960px) / 2);
+		width: max(0px, calc((100% - 960px) / 2));
 		min-width: 0;
 		overflow: hidden;
-		background: #28363a;
+		background-color: #1b2a2f;
+		background-image:
+			linear-gradient(rgba(18, 31, 36, 0.44), rgba(18, 31, 36, 0.44)),
+			url('/linkedin-forest-backdrop.webp');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 
 	.gf-margin-gutter-left {
@@ -1326,18 +1346,19 @@ dt {
 		right: 0;
 	}
 
-	.gf-margin-image {
+	.gf-margin-atmosphere .gf-margin-gutter > .gf-margin-image {
 		position: absolute;
-		top: -12%;
-		left: -8%;
-		width: 116%;
-		height: 124%;
-		max-width: none;
+		top: calc(-1 * var(--gf-atmosphere-pad, 72px));
+		left: -32px;
+		width: calc(100% + 64px);
+		height: calc(100% + var(--gf-atmosphere-track-extra, 144px));
+		max-width: none !important;
+		min-width: calc(100% + 64px);
 		object-fit: cover;
 		object-position: var(--gf-atmosphere-focus, 50%) 50%;
-		opacity: 0.9;
-		transform: translate3d(0, 0, 0) scale(1.06);
-		transform-origin: center;
+		opacity: 0.96;
+		transform: translate3d(0, 0, 0);
+		transform-origin: center top;
 		will-change: transform;
 	}
 
@@ -1345,35 +1366,56 @@ dt {
 		content: "";
 		position: absolute;
 		inset: 0;
-		background:
-			linear-gradient(to bottom, rgba(40, 54, 58, 0.78) 0, rgba(40, 54, 58, 0.3) 90px, rgba(40, 54, 58, 0.08) 220px),
-			rgba(40, 54, 58, 0.18);
+		background: rgba(27, 42, 47, 0.08);
 		pointer-events: none;
+		z-index: 2;
 	}
 
 	.gf-margin-gutter-left::after {
 		background:
-			linear-gradient(to bottom, rgba(40, 54, 58, 0.78) 0, rgba(40, 54, 58, 0.3) 90px, rgba(40, 54, 58, 0.08) 220px),
-			linear-gradient(to left, rgba(40, 54, 58, 0.42) 0, rgba(40, 54, 58, 0.08) 58px, transparent 118px),
-			rgba(40, 54, 58, 0.18);
+			linear-gradient(to left, rgba(27, 42, 47, 0.28) 0, rgba(27, 42, 47, 0.06) 72px, transparent 148px),
+			rgba(27, 42, 47, 0.08);
 	}
 
 	.gf-margin-gutter-right::after {
 		background:
-			linear-gradient(to bottom, rgba(40, 54, 58, 0.78) 0, rgba(40, 54, 58, 0.3) 90px, rgba(40, 54, 58, 0.08) 220px),
-			linear-gradient(to right, rgba(40, 54, 58, 0.42) 0, rgba(40, 54, 58, 0.08) 58px, transparent 118px),
-			rgba(40, 54, 58, 0.18);
-	}
-}
-
-@media screen and (min-width: 1100px) and (prefers-reduced-motion: reduce) {
-	.gf-margin-atmosphere {
-		transition: none;
+			linear-gradient(to right, rgba(27, 42, 47, 0.28) 0, rgba(27, 42, 47, 0.06) 72px, transparent 148px),
+			rgba(27, 42, 47, 0.08);
 	}
 
-	.gf-margin-image {
-		transform: translate3d(0, 0, 0) scale(1.06);
-		will-change: auto;
+	.gf-margin-seam {
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 180px;
+		pointer-events: none;
+		z-index: 3;
+	}
+
+	.gf-margin-seam-top {
+		top: var(--gf-backdrop-height);
+		opacity: var(--gf-top-seam-opacity);
+	}
+
+	.gf-margin-seam-bottom {
+		bottom: var(--gf-backdrop-height);
+		opacity: var(--gf-bottom-seam-opacity);
+	}
+
+	.gf-margin-gutter-left .gf-margin-seam-top {
+		background: linear-gradient(to bottom, rgba(32, 41, 45, 0.98), rgba(32, 41, 45, 0.5) 52px, transparent 180px);
+	}
+
+	.gf-margin-gutter-right .gf-margin-seam-top {
+		background: linear-gradient(to bottom, rgba(39, 60, 66, 0.98), rgba(39, 60, 66, 0.5) 52px, transparent 180px);
+	}
+
+	.gf-margin-gutter-left .gf-margin-seam-bottom {
+		background: linear-gradient(to top, rgba(23, 33, 40, 0.98), rgba(23, 33, 40, 0.5) 52px, transparent 180px);
+	}
+
+	.gf-margin-gutter-right .gf-margin-seam-bottom {
+		background: linear-gradient(to top, rgba(53, 68, 70, 0.98), rgba(53, 68, 70, 0.5) 52px, transparent 180px);
 	}
 }
 
@@ -1408,7 +1450,7 @@ dt {
 
 	body {
 		width: auto;
-		max-width: 100vw;
+		max-width: 100%;
 		overflow-x: hidden;
 		padding-left: clamp(20px, 5.5vw, 24px);
 		padding-right: clamp(20px, 5.5vw, 24px);
@@ -1545,14 +1587,53 @@ dt {
 `;
 
 document.head.appendChild(stylesheet);
+
+let greenforestLayoutViewportFrame = 0;
+let greenforestLayoutViewportWidth = 0;
+const syncGreenforestLayoutViewport = () => {
+	greenforestLayoutViewportFrame = 0;
+	const width = document.documentElement.clientWidth;
+	if (width && width !== greenforestLayoutViewportWidth) {
+		greenforestLayoutViewportWidth = width;
+		document.documentElement.style.setProperty('--gf-layout-viewport-width', `${ width }px`);
+	}
+};
+const scheduleGreenforestLayoutViewportSync = () => {
+	if (!greenforestLayoutViewportFrame) {
+		greenforestLayoutViewportFrame = window.requestAnimationFrame(syncGreenforestLayoutViewport);
+	}
+};
+syncGreenforestLayoutViewport();
+const handleGreenforestLayoutViewportResize = () => {
+	syncGreenforestLayoutViewport();
+	scheduleGreenforestLayoutViewportSync();
+};
+window.addEventListener('resize', handleGreenforestLayoutViewportResize, { passive: true });
+window.addEventListener('load', syncGreenforestLayoutViewport, { once: true });
+document.addEventListener('DOMContentLoaded', syncGreenforestLayoutViewport, { once: true });
+if (window.ResizeObserver) {
+	const greenforestLayoutViewportObserver = new ResizeObserver(scheduleGreenforestLayoutViewportSync);
+	greenforestLayoutViewportObserver.observe(document.documentElement);
+	const observeGreenforestBody = () => {
+		if (document.body) {
+			greenforestLayoutViewportObserver.observe(document.body);
+		}
+	};
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', observeGreenforestBody, { once: true });
+	} else {
+		observeGreenforestBody();
+	}
+}
+greenforestBoot.ready().then(syncGreenforestLayoutViewport);
+
 greenforestBoot.ready();
 
 const greenforestAtmosphereReady = (function() {
-	const desktop_query = window.matchMedia('(min-width: 1100px)');
-	const reduced_motion_query = window.matchMedia('(prefers-reduced-motion: reduce)');
 	const reduced_data_query = window.matchMedia('(prefers-reduced-data: reduce)');
 	const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 	let installation;
+	const has_gutter = () => document.documentElement.clientWidth > 960;
 
 	const hash_string = value => {
 		let hash = 2166136261;
@@ -1612,7 +1693,8 @@ const greenforestAtmosphereReady = (function() {
 		}
 
 		installation = greenforestBoot.ready().then(async () => {
-			if (!desktop_query.matches) {
+			if (!has_gutter()) {
+				installation = undefined;
 				return 'desktop-inactive';
 			}
 
@@ -1730,6 +1812,13 @@ const greenforestAtmosphereReady = (function() {
 				image.fetchPriority = 'low';
 				image.style.setProperty('--gf-atmosphere-focus', `${ focus.toFixed(2) }%`);
 				gutter.appendChild(image);
+
+				const top_seam = document.createElement('span');
+				top_seam.className = 'gf-margin-seam gf-margin-seam-top';
+				const bottom_seam = document.createElement('span');
+				bottom_seam.className = 'gf-margin-seam gf-margin-seam-bottom';
+				gutter.append(top_seam, bottom_seam);
+
 				atmosphere.appendChild(gutter);
 				images.push(image);
 
@@ -1746,62 +1835,106 @@ const greenforestAtmosphereReady = (function() {
 
 			document.body.insertAdjacentElement('afterbegin', atmosphere);
 			const results = await Promise.all(image_ready);
-			if (!results.some(Boolean)) {
-				atmosphere.remove();
-				document.documentElement.setAttribute('data-greenforest-atmosphere', 'image-error');
-				return 'image-error';
+			results.forEach((loaded, index) => {
+				if (!loaded) {
+					images[index].remove();
+				}
+			});
+			if (!results.every(Boolean)) {
+				atmosphere.dataset.fallback = results.some(Boolean) ? 'partial' : 'full';
 			}
 
-			document.documentElement.setAttribute('data-greenforest-atmosphere', scene.id);
+			document.documentElement.setAttribute(
+				'data-greenforest-atmosphere',
+				results.some(Boolean) ? scene.id : 'hero-fallback'
+			);
 			atmosphere.classList.add('gf-margin-atmosphere-ready');
 
-			if (!reduced_motion_query.matches && images.every(image => image.animate)) {
-				const duration = 1000;
-				const animations = images.map((image, index) => {
-					const vertical = 64 + random() * 34;
-					const horizontal = 5 + random() * 7;
-					const direction = random() < 0.5 ? -1 : 1;
-					const animation = image.animate([
-						{
-							transform: `translate3d(${ (-horizontal * direction).toFixed(2) }px, ${ (-vertical).toFixed(2) }px, 0) scale(1.08)`
-						},
-						{
-							transform: `translate3d(${ (horizontal * direction).toFixed(2) }px, ${ vertical.toFixed(2) }px, 0) scale(1.08)`
-						}
-					], {
-						duration,
-						fill: 'both',
-						easing: index === 0 ? 'ease-in-out' : 'cubic-bezier(0.35, 0, 0.65, 1)'
-					});
-					animation.pause();
-					return animation;
+			const moving_images = images
+				.map((image, index) => ({
+					image,
+					rate: index === 0
+						? 0.052 + random() * 0.012
+						: 0.068 + random() * 0.014,
+					horizontal: 6 + random() * 6,
+					direction: random() < 0.5 ? -1 : 1
+				}))
+				.filter((_, index) => results[index]);
+			const pad = 72;
+			let maximum_scroll = 0;
+			let target_scroll = Math.max(0, window.scrollY);
+			let smoothed_scroll = target_scroll;
+			let previous_time = 0;
+			let frame = 0;
+
+			const clamp = (minimum, value, maximum) => Math.max(minimum, Math.min(maximum, value));
+			const measure = () => {
+				maximum_scroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+				moving_images.forEach(item => {
+					const extra = Math.ceil(maximum_scroll * item.rate + pad * 2);
+					item.image.style.setProperty('--gf-atmosphere-pad', `${ pad }px`);
+					item.image.style.setProperty('--gf-atmosphere-track-extra', `${ extra }px`);
+				});
+			};
+			const paint = scroll_position => {
+				const progress = maximum_scroll > 0
+					? clamp(0, scroll_position / maximum_scroll, 1)
+					: 0;
+				moving_images.forEach(item => {
+					const horizontal = item.direction * item.horizontal * (progress * 2 - 1);
+					const vertical = -scroll_position * item.rate;
+					item.image.style.transform = `translate3d(${ horizontal.toFixed(2) }px, ${ vertical.toFixed(2) }px, 0)`;
 				});
 
-				let frame_pending = false;
-				const update = () => {
-					frame_pending = false;
-					if (!desktop_query.matches || document.visibilityState === 'hidden') {
-						return;
-					}
-					const maximum = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-					const progress = Math.max(0, Math.min(1, window.scrollY / maximum));
-					animations.forEach(animation => {
-						animation.currentTime = progress * duration;
-					});
-				};
-				const schedule_update = () => {
-					if (!frame_pending) {
-						frame_pending = true;
-						window.requestAnimationFrame(update);
-					}
-				};
+				const seam_distance = 260;
+				const top_opacity = 1 - clamp(0, scroll_position / seam_distance, 1);
+				const bottom_opacity = 1 - clamp(0, (maximum_scroll - scroll_position) / seam_distance, 1);
+				atmosphere.style.setProperty('--gf-top-seam-opacity', top_opacity.toFixed(3));
+				atmosphere.style.setProperty('--gf-bottom-seam-opacity', bottom_opacity.toFixed(3));
+			};
+			const animate = time => {
+				frame = 0;
+				if (!has_gutter() || document.visibilityState === 'hidden') {
+					previous_time = 0;
+					return;
+				}
 
-				window.addEventListener('scroll', schedule_update, { passive: true });
-				window.addEventListener('resize', schedule_update, { passive: true });
-				window.addEventListener('pageshow', schedule_update);
-				document.addEventListener('visibilitychange', schedule_update);
+				if (!previous_time) {
+					previous_time = time;
+				}
+				const elapsed = Math.min(64, Math.max(0, time - previous_time));
+				previous_time = time;
+				const smoothing = 1 - Math.exp(-elapsed / 92);
+				smoothed_scroll += (target_scroll - smoothed_scroll) * smoothing;
+				if (Math.abs(target_scroll - smoothed_scroll) < 0.12) {
+					smoothed_scroll = target_scroll;
+				}
+				paint(smoothed_scroll);
+				if (smoothed_scroll !== target_scroll) {
+					frame = window.requestAnimationFrame(animate);
+				} else {
+					previous_time = 0;
+				}
+			};
+			const schedule_update = () => {
+				target_scroll = clamp(0, window.scrollY, maximum_scroll);
+				if (!frame && has_gutter() && document.visibilityState !== 'hidden') {
+					frame = window.requestAnimationFrame(animate);
+				}
+			};
+			const resize = () => {
+				measure();
+				target_scroll = clamp(0, window.scrollY, maximum_scroll);
+				smoothed_scroll = clamp(0, smoothed_scroll, maximum_scroll);
 				schedule_update();
-			}
+			};
+
+			measure();
+			paint(smoothed_scroll);
+			window.addEventListener('scroll', schedule_update, { passive: true });
+			window.addEventListener('resize', resize, { passive: true });
+			window.addEventListener('pageshow', resize);
+			document.addEventListener('visibilitychange', schedule_update);
 
 			return 'ready';
 		}).catch(() => {
@@ -1812,20 +1945,23 @@ const greenforestAtmosphereReady = (function() {
 		return installation;
 	};
 
-	const ready = desktop_query.matches
-		? install()
-		: Promise.resolve('desktop-inactive');
+	const ready = install();
 
-	const activate_after_resize = event => {
-		if (event.matches && !installation) {
-			install();
+	let activation_frame = 0;
+	const activate_after_resize = () => {
+		if (activation_frame) {
+			window.cancelAnimationFrame(activation_frame);
 		}
+		activation_frame = window.requestAnimationFrame(() => {
+			activation_frame = window.requestAnimationFrame(() => {
+				activation_frame = 0;
+				if (has_gutter() && !installation) {
+					window.greenforestAtmosphereReady = install();
+				}
+			});
+		});
 	};
-	if (desktop_query.addEventListener) {
-		desktop_query.addEventListener('change', activate_after_resize);
-	} else if (desktop_query.addListener) {
-		desktop_query.addListener(activate_after_resize);
-	}
+	window.addEventListener('resize', activate_after_resize, { passive: true });
 
 	window.greenforestAtmosphereReady = ready;
 	return ready;
