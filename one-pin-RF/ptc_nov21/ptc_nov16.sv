@@ -1,5 +1,5 @@
 /* FM Radio SDR receiver
-(C) Ivan Borisenko 2024
+(C) Brian Greenforest 2024
 MIT License.
 */
 

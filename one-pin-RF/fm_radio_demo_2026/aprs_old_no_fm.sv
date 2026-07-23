@@ -1,5 +1,5 @@
 /* FM Radio SDR receiver & APRS receiver
-(C) Ivan Borisenko 2024, 2025
+(C) Brian Greenforest 2024, 2025
 MIT License.
 */
 

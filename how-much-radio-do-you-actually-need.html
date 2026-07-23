@@ -16,7 +16,7 @@
     <meta property="article:published_time" content="2026-04-22">
         <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:backdrop_rf.jpeg -->
+    <!-- greenforest:preview-source:one_pin_fpga_rx.webp -->
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:image" content="https://greenforest.io/social-previews/how-much-radio-do-you-actually-need.png">
     <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/how-much-radio-do-you-actually-need.png">
@@ -39,8 +39,8 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-04-22",
-            "dateModified": "2026-07-11",
-            "image": "https://greenforest.io/backdrop_rf.jpeg",
+            "dateModified": "2026-07-22",
+            "image": "https://greenforest.io/one_pin_fpga_rx.webp",
             "description": "A one-pin FPGA FM receiver using threshold crossings, four-phase sampling, XOR mixing, integrate-and-dump filtering, cross-product demodulation, and sigma-delta audio.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
             "publisher": {
@@ -68,13 +68,6 @@
         </div>
     </section>
 
-    <figure class="inspectable-image inspectable-image--fit">
-        <a href="backdrop_rf.jpeg">
-            <img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Waveforms, radio hardware prototype, and received spectrum">
-        </a>
-        <figcaption>Waveforms, prototype hardware, and received RF structure from the one-pin radio work.</figcaption>
-    </figure>
-
     <figure class="video-embed">
         <a href="https://youtu.be/V40N7XRGAOo" target="_blank" rel="noopener">
             <img src="https://img.youtube.com/vi/V40N7XRGAOo/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="Thumbnail for the one-pin FPGA FM receiver video">
@@ -95,11 +88,8 @@
     <main>
         <section>
             <h2>The Companion FPGA Transmit Path</h2>
-            <p>The receiver is one half of the radio work. A companion source trail explores the reverse boundary: producing RF from one iCE40 output through fully digital quadrature and sigma-delta modulation.</p>
-            <p>The preserved <a href="one-pin-RF/ptc_nov21/mod_apr20.sv"><code>ptc_nov21/mod_apr20.sv</code></a> snapshot builds two sawtooth-driven sigma-delta streams, uses them to select among four phases of a 216 MHz quadrature clock, and drives one <code>RF_OUT</code> package pin through an iCE40 <code>SB_IO</code> primitive. Its nearby <a href="one-pin-RF/ptc_nov21/build.sh">build script</a> targets an HX8K CT256 through Yosys, nextpnr, IceStorm, and <code>iceprog</code>.</p>
-            <p>The related <a href="one-pin-RF/fm_radio_demo_2026/fm_radio_to_injection_locking_317kHz.sv"><code>fm_radio_to_injection_locking_317kHz.sv</code></a> snapshot combines the receiver with a fixed 317 kHz low-frequency output. Its active output is fixed; the audio-controlled modulation path remains commented source. These are historical source and build trails, not yet a complete transmitter evidence page: the public package does not include a fresh build log, resonant-tank schematic, measured spectrum, RF power, range, or regulatory characterization.</p>
-            <p>The selected receiver and transmitter RTL files carry MIT-licensed copyright headers naming Ivan Borisenko. Greenforest I/O presents the documented hardware, build, and operating evidence while preserving that source authorship explicitly.</p>
-            <p><a href="fpga-systems.html#rf-systems">See the receiver and transmitter in the complete FPGA systems map</a>.</p>
+            <p>The receiver is one half of the radio work. The companion <a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM RF Transmitter</a> follows the reverse boundary: two one-bit control paths select among four carrier phases, gate one iCE40 output pin, and hand the result to a resonant network.</p>
+            <p>Its wrapper now owns the transmitter montage, circuit sketches, historical spectrum context, source links, and fresh-build boundary. This page stays focused on the demonstrated FM receiver.</p>
         </section>
 
         <section>
@@ -335,10 +325,10 @@ assign PIN2 = ~dac_out;</code></pre>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="the-missing-maker-fab.html">The Missing Maker Fab</a>
-        <p>The broader ownership boundary behind the one-pin hardware experiment.</p>
+        <a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM RF Transmitter</a>
+        <p>Follow the companion path from two one-bit modulation streams to four RF phases and one switched output pin.</p>
         <p>More:</p>
-        <a href="boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
+        <a href="fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
         <a href="/">Back to greenforest.io</a>
     </nav>
 </body>

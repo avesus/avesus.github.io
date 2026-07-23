@@ -15,7 +15,7 @@
     <meta property="article:published_time" content="2026-04-22">
         <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:backdrop_rf.jpeg -->
+    <!-- greenforest:preview-source:one_pin_fpga_rx.webp -->
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:image" content="https://greenforest.io/social-previews/how-much-radio-do-you-actually-need2.png">
@@ -39,8 +39,8 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-04-22",
-            "dateModified": "2026-06-20",
-            "image": "https://greenforest.io/backdrop_rf.jpeg",
+            "dateModified": "2026-07-22",
+            "image": "https://greenforest.io/one_pin_fpga_rx.webp",
             "description": "A one-pin FPGA FM receiver that treats the FPGA input threshold as the RF boundary and recovers broadcast FM from a binary transition stream.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
             "publisher": {
@@ -63,9 +63,14 @@
         <p>Otherwise, the work stayed trapped in the familiar loop: oscillator leakage, analog containment, ADC drive requirements, and DSP burden before the real question was even answered.</p>
     </section>
 
-    <figure>
-        <img src="backdrop_rf.jpeg" alt="Waveforms, radio hardware prototype, and received spectrum">
-        <figcaption>Waveforms, prototype hardware, and received RF structure from the one-pin radio work.</figcaption>
+    <figure class="inspectable-image inspectable-image--fit">
+        <a href="one_pin_fpga_rx.jpg">
+            <picture>
+                <source srcset="one_pin_fpga_rx.webp" type="image/webp">
+                <img src="one_pin_fpga_rx.jpg" width="2181" height="2269" loading="lazy" decoding="async" alt="Hand-drawn one-pin FPGA receiver architecture">
+            </picture>
+        </a>
+        <figcaption>Working sketch of the receiver boundary: RF enters as a thresholded digital stream, then moves through tuning, quadrature processing, filtering, FM recovery, and audio output.</figcaption>
     </figure>
 
     <figure class="video-embed">

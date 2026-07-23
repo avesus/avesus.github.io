@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>One-Pin Quadrature/SDM RF Transmitter RTL | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A preserved iCE40 HX8K RF transmitter design with two sigma-delta control paths, four-phase quadrature selection, one RF output pin, and a resonant-tank experiment trail.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/one-pin-quadrature-sdm-transmitter.html">
+    <meta property="og:title" content="One-Pin Quadrature/SDM RF Transmitter RTL">
+    <meta property="og:description" content="Two one-bit modulation paths select among four carrier phases and gate one iCE40 RF output pin. Source, circuit sketches, historical spectrum context, and evidence limits are included.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/one-pin-quadrature-sdm-transmitter.html">
+    <meta property="article:published_time" content="2026-07-22">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:backdrop_rf.jpeg -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/one-pin-quadrature-sdm-transmitter.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/one-pin-quadrature-sdm-transmitter.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="One-Pin Quadrature/SDM RF Transmitter RTL - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/one-pin-quadrature-sdm-transmitter.png">
+    <meta name="twitter:image:alt" content="One-Pin Quadrature/SDM RF Transmitter RTL - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "One-Pin Quadrature/SDM RF Transmitter RTL",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "datePublished": "2026-07-22",
+            "dateModified": "2026-07-22",
+            "image": "https://greenforest.io/backdrop_rf.jpeg",
+            "description": "A preserved iCE40 HX8K RF transmitter design with two sigma-delta control paths, four-phase quadrature selection, one RF output pin, and a resonant-tank experiment trail.",
+            "mainEntityOfPage": "https://greenforest.io/one-pin-quadrature-sdm-transmitter.html",
+            "proficiencyLevel": "Advanced",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">One-Pin Quadrature/SDM RF Transmitter RTL</h1></header>
+    <address>July 22, 2026</address>
+
+    <section class="abstract">
+        <p class="eyebrow">RF transmit</p>
+        <p class="lead">Two one-bit modulation paths choose among four carrier phases, then gate one iCE40 output pin.</p>
+        <figure class="inspectable-image inspectable-image--fit">
+            <a href="backdrop_rf.jpeg">
+                <img src="backdrop_rf.jpeg" width="1279" height="320" loading="eager" decoding="async" alt="Transmitter sawtooth waveforms, hand-built resonant-tank hardware, and a historical RF spectrum display">
+            </a>
+            <figcaption>The transmitter experiment family: sawtooth modulation, a hand-built resonant network, and historical spectrum context. These views are not one synchronized or calibrated measurement run.</figcaption>
+        </figure>
+        <p>The preserved HX8K SystemVerilog snapshot puts the quadrature modulator inside the FPGA. Its I and Q sigma-delta paths select 0&deg;, 90&deg;, 180&deg;, or 270&deg; from the source's 216 MHz carrier clock. The selected phase controls the pMOS side of one <code>RF_OUT</code> pin.</p>
+        <p>The important result is architectural: a one-pin switched RF boundary that can feed a resonant output network without an external quadrature mixer.</p>
+        <div class="status-box">
+            <p><span class="status-label">Preserved source design</span>The RTL, HX8K pin constraints, historical build script, circuit sketches, and a qualitative spectrum capture are public here.</p>
+            <p><strong>Source establishes:</strong> two sawtooth-driven sigma-delta state paths, four carrier phases, a two-bit phase selector, an iCE40 <code>SB_IO</code> output stage, and <code>RF_OUT</code> on CT256 pin N16.</p>
+            <p><strong>Still requires fresh evidence:</strong> a clean reproducible build, timing report, calibrated RF power and spectrum, resonant-tank transfer measurement, harmonic and emissions characterization, and range.</p>
+        </div>
+    </section>
+
+    <main>
+        <section>
+            <h2>Start With The Source</h2>
+            <p>The selected file is <a href="one-pin-RF/ptc_nov21/mod_apr20.sv"><code>one-pin-RF/ptc_nov21/mod_apr20.sv</code></a>. The adjacent <a href="one-pin-RF/ptc_nov21/build.sh">build script</a>, <a href="one-pin-RF/ptc_nov21/hx8k.pcf">HX8K constraints</a>, and <a href="one-pin-RF/ptc_nov21/timing.py">nextpnr timing declarations</a> preserve the intended Yosys, nextpnr, IceStorm, and <code>iceprog</code> path.</p>
+            <p>This is historical source, not a reconstructed release. Read it for the implemented signal path; do not treat the presence of a build script as a fresh successful build log.</p>
+        </section>
+
+        <section>
+            <h2>Four Carrier Phases</h2>
+            <p>The source names two PLL outputs <code>pll_216mhz</code> and <code>pll_216mhz_90</code>. Their complements supply the other two phases. The final selector therefore has four phase choices:</p>
+            <pre><code>wire p1 =  pll_216mhz;
+wire p2 =  pll_216mhz_90;
+wire p3 = ~pll_216mhz;
+wire p4 = ~pll_216mhz_90;
+
+assign MODULATED_RF_OUT = rfI ? (
+  rfQ ? p1 : p4
+) : (
+  rfQ ? p2 : p3
+);</code></pre>
+            <p>The I/Q control pair is not multiplied by a sine table. It directly chooses which phase reaches the output stage.</p>
+            <figure class="inspectable-image inspectable-image--fit">
+                <a href="one-pin-RF/images/quadrature-sdm-four-phase-sketch.jpg">
+                    <img src="one-pin-RF/images/quadrature-sdm-four-phase-sketch.jpg" width="1280" height="1010" loading="lazy" decoding="async" alt="Hand sketch of four phase-offset carrier waves and their square-wave equivalents">
+                </a>
+                <figcaption>Working sketch of four carrier phases and their square-wave equivalents. It explains the selection rule; it is not a measured 216 MHz timing capture.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h2>Two Sigma-Delta Control Paths</h2>
+            <p>Two sawtooth states move in opposite directions. Each feeds a one-bit accumulator/quantizer path, producing <code>dac_out</code> and <code>dac_outQ</code>. Johnson-counter phases are XORed into those bits before the four-way phase selector.</p>
+            <pre><code>sawtooth  &lt;= sawtooth  - 32'd148000;
+sawtoothQ &lt;= sawtoothQ + 32'd148000;
+
+wire rfI = dac_out  ^ j_0[0];
+wire rfQ = dac_outQ ^ j_0[1];</code></pre>
+            <p>The useful idea is compact: two density-coded control streams become a phase trajectory at RF. The source contains that path directly, even though the preserved snapshot still needs repair before a fresh build can be claimed.</p>
+        </section>
+
+        <section>
+            <h2>The One-Pin Output Boundary</h2>
+            <p><code>RF_OUT</code> is mapped to N16 in the HX8K CT256 constraint file. The source does not drive it as an ordinary push-pull data assignment. An <code>SB_IO</code> primitive holds the data side high and applies <code>MODULATED_RF_OUT</code> to <code>OUTPUT_ENABLE</code>, using the pMOS side as the switched RF boundary.</p>
+            <pre><code>SB_IO #(
+  .PIN_TYPE(6'b101000),
+  .IO_STANDARD("SB_LVCMOS"),
+  .PULLUP(1'b0)
+) ddr_io_1 (
+  .PACKAGE_PIN(RF_OUT),
+  .D_OUT_0(1'b1),
+  .OUTPUT_ENABLE(MODULATED_RF_OUT)
+);</code></pre>
+            <p>That pin is the digital/physical handoff. The FPGA chooses phase; the external network supplies the narrowband electrical behavior.</p>
+        </section>
+
+        <section>
+            <h2>The Resonant-Tank Experiment</h2>
+            <figure class="inspectable-image inspectable-image--fit">
+                <a href="one-pin-RF/images/resonant-tank-output-sketch.jpg">
+                    <img src="one-pin-RF/images/resonant-tank-output-sketch.jpg" width="1280" height="663" loading="lazy" decoding="async" alt="Hand sketch of an FPGA square-wave output feeding a coupled resonant-tank network">
+                </a>
+                <figcaption>Working output-network sketch: a digital drive passes through a series resistor and coupling capacitor into a parallel resonant primary coupled to a secondary. The current bench record identifies an 8.5 k&Omega; coupling resistor; the sketch's handwritten values and &minus;15 dBm note are historical and have not been remeasured.</figcaption>
+            </figure>
+            <p>The resonant network is not decoration. In the reported bench setup, the one-pin FPGA output was coupled through an 8.5 k&Omega; resistor into the local resonant tank. A phase-switched digital pin produces edges and harmonics; the tuned physical network is the boundary that favors a narrow RF region and couples energy onward. Loaded Q, impedance transformation, insertion loss, and output power still need a documented repeat measurement.</p>
+        </section>
+
+        <section>
+            <h2>Historical Spectrum Context</h2>
+            <figure class="inspectable-image inspectable-image--fit">
+                <a href="one-pin-RF/images/historical-cubicsdr-spectrum.jpg">
+                    <img src="one-pin-RF/images/historical-cubicsdr-spectrum.jpg" width="1280" height="708" loading="lazy" decoding="async" alt="Historical CubicSDR spectrum display with two narrow RF components near the displayed 220 to 223 MHz span">
+                </a>
+                <figcaption>Historical CubicSDR comparison centered near 221.62 MHz: an adjacent received PTC radio channel appears beside the locally generated sawtooth-spectrum signal from the one-pin FPGA output, coupled through the 8.5 k&Omega; resistor and resonant tank.</figcaption>
+            </figure>
+            <p>The screen is useful as a qualitative spectrum-purity comparison between the adjacent over-the-air PTC channel and the local transmitter experiment. It does not record a calibrated amplitude reference, RBW/VBW, receiver gain, coupling loss, or a complete fixture description, so it cannot establish absolute output power, occupied bandwidth, harmonic performance, or compliance. Those measurements should be repeated from a named build and fixture.</p>
+        </section>
+
+        <section>
+            <h2>Fresh-Build Boundary</h2>
+            <p>The archived build command targets <code>--hx8k --package ct256</code>, but the selected source is not presently a clean reproduction package. It contains an unresolved <code>n</code> in two sample-shift ranges, procedural assignments to quantizer signals declared as wires, an undeclared clock source in the broader combined design, and transmitter registers without explicit initialization. The timing file also contains conflicting declarations for <code>CLK_21_MHZ</code>.</p>
+            <p>A trustworthy rebuild should first isolate the transmitter from the receiver-era code, repair those source boundaries, synthesize without <code>--ignore-loops</code> if possible, and publish the complete Yosys/nextpnr reports with the resulting bitstream hash. Then the RF measurements can name the exact image under test.</p>
+        </section>
+
+        <section>
+            <h2>Why This Transmitter Matters</h2>
+            <p>The design compresses a recognizable quadrature transmitter boundary into FPGA primitives and one physical output: two one-bit control streams, four clock phases, one phase selector, one switched pin, and one resonant network.</p>
+            <p>That is useful beyond this particular snapshot. It shows a route from digital modulation state to RF phase without inserting a conventional external I/Q modulator between the FPGA and the tuned output network.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Next:</p>
+        <a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a>
+        <p>Follow the reverse boundary: thresholded RF enters one FPGA input and becomes recovered FM audio.</p>
+        <p>More:</p>
+        <a href="fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
+        <p>Place the transmitter beside the Ethernet, arithmetic, tangible-logic, and reconfiguration work.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

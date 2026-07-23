@@ -1,5 +1,5 @@
 /* I/Q SDM SDR transmitter
-(C) Ivan Borisenko 2025
+(C) Brian Greenforest 2025
 MIT License.
 */
 

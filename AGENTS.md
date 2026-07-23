@@ -53,7 +53,7 @@ Use these as the current IA seeds. They are not final navigation labels yet, but
 8. Magnetic material properties and formulae, gathered while studying magnetic amplifiers. This should become practical reference material for people dealing with magnetics.
 9. Magnetic amplifiers and diodeless circuit theory. Important points include second-harmonic modulation/demodulation, DC-to-DC amplification without semiconductors, parametrons, and sequential magnetic token storage/propagation devices.
 10. Smart-dust substrate ideas using ordinary-fab-compatible through-wafer dicing into micrometer-scale modules plus conformal SiO2 coating, enabling adjacent capacitive and inductively coupled actuation, power, clock, and data transfer without conventional post-packaging. Example reference for the dicing direction: `https://imapsource.org/article/56056-wafer-dicing-using-dry-etching-on-standard-tapes-and-frames.pdf`.
-11. SDR/radio work: a 1-pin fully digital SDR receiver frontend, plus a 1-pin resonant-tank transmitter driven by a fully digital SDM Weaver modulator in Verilog. There are crude PCB prototypes, some videos of receiving FM radio, and a root image `backdrop_rf.jpeg` from a LinkedIn backdrop that illustrates this work.
+11. SDR/radio work: a 1-pin fully digital SDR receiver frontend, plus a 1-pin resonant-tank transmitter driven by a fully digital SDM Weaver modulator in Verilog. There are crude PCB prototypes, some videos of receiving FM radio, and a root image `backdrop_rf.jpeg` that belongs to the transmitter experiment and its wrapper article.
 
 ## Technical Disambiguation Notes
 
@@ -93,7 +93,7 @@ Large technical images need a deliberate mobile presentation. Do not publish a h
 
 "Artifact link" means a reader-facing link/card to something usable or inspectable: runnable demo, PDF paper, image, video, source repository, circuit file, Verilog file, ShaderToy, local static HTML demo, or downloadable asset. The site does not yet have a thumbnail/card system for these. Build one before publishing many artifact-heavy articles.
 
-Use `backdrop_rf.jpeg` as a likely visual asset for an SDR/radio article or RF work preview, not as generic decoration.
+Use `backdrop_rf.jpeg` for the one-pin quadrature/SDM transmitter wrapper or a preview that links to it. Do not use it as receiver evidence or generic decoration.
 
 ## Site Architecture Principles
 

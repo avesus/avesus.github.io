@@ -1,5 +1,5 @@
 /* FM Radio SDR receiver to 317kHz transmitter
-(C) Ivan Borisenko 2024
+(C) Brian Greenforest 2024
 MIT License.
 */
 

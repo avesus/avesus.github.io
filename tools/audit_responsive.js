@@ -12,9 +12,10 @@ const debugPort = 9223;
 const pages = [
   '/',
   '/fpga-systems.html',
+  '/one-pin-quadrature-sdm-transmitter.html',
+  '/how-much-radio-do-you-actually-need.html',
   '/ethernet-udp-ice40-reprogrammer.html',
   '/physical-mux-tiles/',
-  '/how-much-radio-do-you-actually-need.html',
   '/proof-and-artifacts.html',
   '/technology-research-and-consulting.html',
   '/cartilage/',
@@ -38,6 +39,8 @@ const viewports = [
 const screenshotPages = new Set([
   '/',
   '/fpga-systems.html',
+  '/one-pin-quadrature-sdm-transmitter.html',
+  '/how-much-radio-do-you-actually-need.html',
   '/ethernet-udp-ice40-reprogrammer.html',
   '/physical-mux-tiles/',
   '/cartilage-visual-language.html',
@@ -276,6 +279,33 @@ async function main() {
               sectionScreenshot.data,
               'base64',
             );
+          }
+
+          if (pagePath === '/one-pin-quadrature-sdm-transmitter.html' && viewportName === '390x844') {
+            const transmitterSections = [
+              ['Four Carrier Phases', 'one-pin-transmitter-phases-390x844.png'],
+              ['The Resonant-Tank Experiment', 'one-pin-transmitter-tank-390x844.png'],
+              ['Historical Spectrum Context', 'one-pin-transmitter-spectrum-390x844.png'],
+            ];
+            for (const [title, filename] of transmitterSections) {
+              await client.send('Runtime.evaluate', {
+                expression: `(() => {
+                  const heading = Array.from(document.querySelectorAll('h2'))
+                    .find(element => element.textContent.trim() === ${JSON.stringify(title)});
+                  if (heading) {
+                    heading.scrollIntoView({ block: 'start' });
+                    window.scrollBy(0, -16);
+                  }
+                })()`,
+              });
+              await pause(100);
+              const sectionScreenshot = await client.send('Page.captureScreenshot', {
+                format: 'png',
+                fromSurface: true,
+                captureBeyondViewport: false,
+              });
+              fs.writeFileSync(path.join(screenshotDir, filename), sectionScreenshot.data, 'base64');
+            }
           }
         }
         const issues = [];

@@ -64,10 +64,10 @@
     </section>
 
     <figure class="inspectable-image inspectable-image--fit">
-        <a href="backdrop_rf.jpeg">
-            <img src="backdrop_rf.jpeg" width="1279" height="320" loading="eager" decoding="async" alt="RF waveforms, hand-built radio hardware, and a received spectrum from Brian Greenforest's FPGA radio work">
+        <a href="one-pin-quadrature-sdm-transmitter.html">
+            <img src="backdrop_rf.jpeg" width="1279" height="320" loading="eager" decoding="async" alt="Transmitter sawtooth waveforms, a hand-built resonant-tank network, and historical RF spectrum context">
         </a>
-        <figcaption>Waveforms, hand-built hardware, and received RF structure from the one-pin radio work.</figcaption>
+        <figcaption>The one-pin quadrature/SDM transmitter experiment: modulation waveforms, hand-built resonant hardware, and historical spectrum context.</figcaption>
     </figure>
 
     <main>
@@ -84,14 +84,14 @@
                     <p class="eyebrow">RF receive</p>
                     <h3><a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a></h3>
                     <p>A thresholded RF stream enters one logical iCE40 input, is sampled in four phases, mixed by inversion and XOR, accumulated, demodulated by an I/Q cross product, and emitted as sigma-delta audio.</p>
-                    <p>The page includes operating video, the selected UP5K source snapshot, build path, and the receiver measurements still needed. The selected RTL retains its MIT header naming Ivan Borisenko.</p>
+                    <p>The page includes operating video, the selected UP5K source snapshot, build path, and the receiver measurements still needed.</p>
                 </article>
 
                 <article class="capability-card">
                     <p class="eyebrow">RF transmit</p>
-                    <h3><a href="one-pin-RF/ptc_nov21/mod_apr20.sv">One-Pin Quadrature/SDM Transmitter RTL</a></h3>
-                    <p>The preserved iCE40 HX8K source builds two sigma-delta streams and selects among four phases of a 216 MHz quadrature clock to drive one RF output pin.</p>
-                    <p>This historical RTL retains its MIT header naming Ivan Borisenko. Measured power, spectrum, range, resonant-tank behavior, and a fresh build log remain separate evidence milestones.</p>
+                    <h3><a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM Transmitter RTL</a></h3>
+                    <p>The preserved iCE40 HX8K source defines two sigma-delta control paths and selects among four phases of the source's 216 MHz quadrature clock to gate one RF output pin.</p>
+                    <p>The wrapper connects the RTL to the resonant-tank sketches and historical spectrum context while keeping calibrated power, spectrum, range, and a fresh build as separate evidence milestones.</p>
                 </article>
 
                 <article class="capability-card">

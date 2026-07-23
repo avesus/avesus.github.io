@@ -1,5 +1,5 @@
 /* ITCNet Radio SDR receiver
-(C) Ivan Borisenko 2024 and Meteorcomm LLC
+(C) Brian Greenforest 2024 and Meteorcomm LLC
 All rights reserved. This product is NOT open source.
 */
 
