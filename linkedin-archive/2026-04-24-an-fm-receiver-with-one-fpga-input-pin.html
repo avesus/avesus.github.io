@@ -6,18 +6,18 @@
     <title>An FM Receiver With One FPGA Input Pin</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Launch note for the one-pin FPGA FM receiver: one digital input pin receives RF, the FPGA threshold produces transitions, and the receiver recovers FM audio through logic, CIC filtering, and sigma-delta output.">
+    <meta name="description" content="Launch note for the one-pin FPGA FM receiver: one logical differential input thresholds RF, DDR decisions become I/Q lanes, and integrate-and-dump plus cross-product processing recovers FM audio.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2026-04-24-an-fm-receiver-with-one-fpga-input-pin.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="An FM Receiver With One FPGA Input Pin">
-    <meta property="og:description" content="Launch note for the one-pin FPGA FM receiver: one digital input pin receives RF, the FPGA threshold produces transitions, and the receiver recovers FM audio through logic, CIC filtering, and sigma-delta output.">
+    <meta property="og:description" content="Launch note for the one-pin FPGA FM receiver: one logical differential input thresholds RF, DDR decisions become I/Q lanes, and integrate-and-dump plus cross-product processing recovers FM audio.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2026-04-24-an-fm-receiver-with-one-fpga-input-pin.html">
     <meta property="article:author" content="Brian Greenforest">
     <meta property="article:published_time" content="2026-04-24">
         <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:none -->
+    <!-- greenforest:preview-source:one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png -->
     <meta property="og:image" content="https://greenforest.io/social-previews/linkedin-archive/2026-04-24-an-fm-receiver-with-one-fpga-input-pin.png">
     <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/linkedin-archive/2026-04-24-an-fm-receiver-with-one-fpga-input-pin.png">
     <meta property="og:image:type" content="image/png">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2026-04-24",
-                                "dateModified": "2026-07-09",
-                                "description": "Launch note for the one-pin FPGA FM receiver: one digital input pin receives RF, the FPGA threshold produces transitions, and the receiver recovers FM audio through logic, CIC filtering, and sigma-delta output.",
+                                "dateModified": "2026-07-22",
+                                "description": "Launch note for the one-pin FPGA FM receiver: one logical differential input thresholds RF, DDR decisions become I/Q lanes, and integrate-and-dump plus cross-product processing recovers FM audio.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2026-04-24-an-fm-receiver-with-one-fpga-input-pin.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -94,6 +94,7 @@
         <div class="status-box">
             <p><span class="status-label">Receiver article link</span>Originally posted 2026-04-24. The full article gives the receiver path and the Verilog follow-up.</p>
             <p><strong>Included:</strong> the short publication text, source link, and link to the full writeup.</p>
+            <p><strong>Source correction:</strong> the original post below uses "four-phase sampling" and "CIC" as architecture shorthand. The selected November 15 RTL has one DDR input sampler, fixed I/Q lane construction, and an 80-update rectangular integrate-and-dump stage; it does not instantiate four input samplers or a CIC cascade.</p>
             <p><strong>Full article:</strong> <a href="/how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a></p>
         </div>
     </section>

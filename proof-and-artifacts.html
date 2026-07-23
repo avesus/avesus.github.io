@@ -141,9 +141,16 @@
             <p>The <a href="fpga-systems.html">FPGA systems map</a> connects work that was previously scattered across radio, arithmetic, archives, and source files.</p>
             <div class="capability-grid">
                 <article class="capability-card">
-                    <p class="eyebrow">RF transmit and receive</p>
+                    <a href="one-pin-quadrature-sdm-transmitter.html"><img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Transmitter waveforms, resonant-tank hardware, and historical spectrum context"></a>
+                    <p class="eyebrow">RF transmit</p>
                     <h3><a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM Transmitter</a></h3>
-                    <p>The transmitter wrapper traces two one-bit control paths through four carrier phases to one HX8K output and a resonant network. The companion <a href="how-much-radio-do-you-actually-need.html">one-pin FM receiver</a> has operating video and a selected UP5K source trail. Fresh transmitter measurements and receiver calibration remain open.</p>
+                    <p>The wrapper traces two one-bit control paths through four carrier phases to one HX8K output and a resonant network. Its CubicSDR capture shows the local signal and a live PTC channel received together by an RTL-SDR Blog V4; fresh calibrated measurements remain open.</p>
+                </article>
+                <article class="capability-card">
+                    <a href="how-much-radio-do-you-actually-need.html"><img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="lazy" decoding="async" alt="Illustrated one-pin FPGA FM receiver path from thresholded RF to recovered audio"></a>
+                    <p class="eyebrow">RF receive</p>
+                    <h3><a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a></h3>
+                    <p>Operating video and a selected UP5K source trail establish FM audio recovery from one logical differential input site through DDR sampling, DDS-controlled one-bit mixing, integration, cross-product demodulation, and sigma-delta output. Receiver calibration remains open.</p>
                 </article>
                 <article class="capability-card">
                     <p class="eyebrow">Ethernet and configuration</p>

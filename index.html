@@ -186,7 +186,15 @@
                     <span class="eyebrow">RF transmit</span>
                     <h3><a href="one-pin-quadrature-sdm-transmitter.html">One-pin quadrature/SDM transmitter</a></h3>
                     <p>The HX8K source defines two sigma-delta control paths, four-way phase selection from the source's 216 MHz quadrature carrier, and one switched RF output pin. The wrapper connects that RTL to the resonant-tank experiment while keeping fresh-build and calibrated-measurement boundaries explicit.</p>
-                    <p><a href="one-pin-quadrature-sdm-transmitter.html">Inspect the transmitter</a> &middot; <a href="how-much-radio-do-you-actually-need.html">See the one-pin FM receiver</a></p>
+                    <p><a href="one-pin-quadrature-sdm-transmitter.html">Inspect the transmitter</a></p>
+                </article>
+
+                <article class="capability-card">
+                    <a href="how-much-radio-do-you-actually-need.html"><img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="lazy" decoding="async" alt="Illustrated one-pin FPGA FM receiver path from thresholded RF to recovered audio"></a>
+                    <span class="eyebrow">RF receive</span>
+                    <h3><a href="how-much-radio-do-you-actually-need.html">One-pin FPGA FM receiver</a></h3>
+                    <p>One logical differential input thresholds RF, DDR decisions become I/Q bit lanes, DDS sign bits control XOR mixers, and a cross product recovers FM phase movement before sigma-delta audio output.</p>
+                    <p><a href="how-much-radio-do-you-actually-need.html">Watch the operating result and inspect the source boundary</a></p>
                 </article>
 
                 <article class="capability-card">

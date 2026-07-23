@@ -49,7 +49,7 @@
     "title": "An FM Receiver With One FPGA Input Pin",
     "date": "2026-04-24",
     "slug": "2026-04-24-an-fm-receiver-with-one-fpga-input-pin",
-    "description": "One digital input pin receives RF, the FPGA threshold produces transitions, and the receiver recovers FM audio through logic, CIC filtering, and sigma-delta output.",
+    "description": "One logical differential input thresholds RF, DDR decisions become I/Q lanes, and rectangular integrate-and-dump plus cross-product processing recovers FM audio.",
     "words": 119,
     "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7453252285146546176/"
   },

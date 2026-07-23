@@ -7,16 +7,16 @@
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <title>One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need?</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="A one-pin FPGA FM receiver using threshold crossings, four-phase sampling, XOR mixing, integrate-and-dump filtering, cross-product demodulation, and sigma-delta audio.">
+    <meta name="description" content="A one-pin FPGA FM receiver using an LVDS input threshold, DDR sampling, DDS-controlled XOR mixing, Weaver-style recombination, integrate-and-dump filtering, cross-product FM recovery, and sigma-delta audio.">
     <link rel="canonical" href="https://greenforest.io/how-much-radio-do-you-actually-need.html">
     <meta property="og:title" content="One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need?">
-    <meta property="og:description" content="A proof-of-mechanism one-pin FPGA FM path built from threshold crossings, quadrature timing, simple digital mixing, and direct relative-phase demodulation.">
+    <meta property="og:description" content="RF crosses one FPGA input threshold, becomes I/Q bit lanes, and reaches recovered audio through DDS-controlled mixing and direct relative-phase demodulation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/how-much-radio-do-you-actually-need.html">
     <meta property="article:published_time" content="2026-04-22">
         <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:one_pin_fpga_rx.webp -->
+    <!-- greenforest:preview-source:one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png -->
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:image" content="https://greenforest.io/social-previews/how-much-radio-do-you-actually-need.png">
     <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/how-much-radio-do-you-actually-need.png">
@@ -40,8 +40,8 @@
             },
             "datePublished": "2026-04-22",
             "dateModified": "2026-07-22",
-            "image": "https://greenforest.io/one_pin_fpga_rx.webp",
-            "description": "A one-pin FPGA FM receiver using threshold crossings, four-phase sampling, XOR mixing, integrate-and-dump filtering, cross-product demodulation, and sigma-delta audio.",
+            "image": "https://greenforest.io/one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png",
+            "description": "A one-pin FPGA FM receiver using an LVDS input threshold, DDR sampling, DDS-controlled XOR mixing, Weaver-style recombination, integrate-and-dump filtering, cross-product FM recovery, and sigma-delta audio.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
             "publisher": {
                 "@type": "Person",
@@ -56,14 +56,21 @@
     <header><h1 class="page-title">One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need?</h1></header>
     <address>April 22, 2026</address>
 
+    <figure class="inspectable-image inspectable-image--fit">
+        <a href="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png">
+            <img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="eager" decoding="async" alt="Editorial illustration of thresholded RF entering an FPGA, becoming quadrature bit paths, and leaving as recovered audio">
+        </a>
+        <figcaption>Receiver path illustration: one thresholded RF input, digital quadrature processing inside the FPGA, and recovered audio. This is an explanatory hero, not a circuit schematic or measurement capture.</figcaption>
+    </figure>
+
     <section class="abstract">
         <p>FM radio recovered from one digital input pin.</p>
-        <p>Real RF crosses a digital threshold and becomes audio without the conventional receiver front end. This page preserves the demonstrated path: input threshold behavior, four-phase sampling, XOR-based frequency translation, rectangular integrate-and-dump filtering, cross-product FM demodulation, and sigma-delta audio output.</p>
+        <p>Real RF crosses a digital threshold and becomes audio without the conventional receiver front end. The selected historical RTL uses one logical differential input site, DDR threshold sampling, fixed ordering and inversion into I/Q bit lanes, DDS-sign-bit XOR mixing, Weaver-style recombination, rectangular integrate-and-dump filtering, cross-product FM demodulation, and sigma-delta audio output.</p>
         <p>The result is not a smaller radio for its own sake. It is a working FM proof of mechanism rebuilt around threshold-crossing timing.</p>
         <p class="key-line"><strong>one input pin, one FPGA, real FM in, real sound out.</strong></p>
         <div class="status-box">
             <p><span class="status-label">Proof of mechanism</span>This page delivers the one-pin FM audio-recovery result and its Verilog follow-up. Calibrated carrier detection and receiver performance remain the next result.</p>
-            <p><strong>Included:</strong> the FPGA input threshold, RF transition stream, four-phase sampling, XOR mixing, an 80-sample integrate-and-dump window, cross-product FM discriminator, sigma-delta audio output, video link, source paths, and build notes.</p>
+            <p><strong>Included:</strong> the FPGA input threshold, RF transition stream, DDR sampling, I/Q lane construction, DDS-controlled XOR mixing, 80 processing-clock accumulation updates plus transfer/reset, cross-product FM discrimination, sigma-delta audio output, video link, source paths, and build notes.</p>
             <p><strong>Not yet established:</strong> calibrated sensitivity, measured selectivity or bandwidth, probability of detection, false-alarm rate, blocker rejection, or a terminal decision among no detected signal, CW, and modulated RF.</p>
         </div>
     </section>
@@ -75,21 +82,11 @@
         <figcaption><a href="https://youtu.be/V40N7XRGAOo" target="_blank" rel="noopener">Watch the one-pin FPGA FM receiver video</a></figcaption>
     </figure>
 
-    <figure class="inspectable-image inspectable-image--fit">
-        <a href="one_pin_fpga_rx.jpg">
-            <picture>
-                <source srcset="one_pin_fpga_rx.webp" type="image/webp">
-                <img src="one_pin_fpga_rx.jpg" width="2181" height="2269" loading="lazy" decoding="async" alt="Hand-drawn one-pin FPGA receiver architecture">
-            </picture>
-        </a>
-        <figcaption>Broader receiver architecture, not the selected public build. The sketch includes LC preselection, an LNA, AGC, an offset DAC, three tuner paths, and CIC-plus-FIR filtering. The selected <code>fm_radio_nov15.sv</code> snapshot implements one thresholded input path, one tuner, rectangular integrate-and-dump filtering, cross-product FM recovery, and sigma-delta output.</figcaption>
-    </figure>
-
     <main>
         <section>
             <h2>The Companion FPGA Transmit Path</h2>
             <p>The receiver is one half of the radio work. The companion <a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM RF Transmitter</a> follows the reverse boundary: two one-bit control paths select among four carrier phases, gate one iCE40 output pin, and hand the result to a resonant network.</p>
-            <p>Its wrapper now owns the transmitter montage, circuit sketches, historical spectrum context, source links, and fresh-build boundary. This page stays focused on the demonstrated FM receiver.</p>
+            <p>Its CubicSDR image was received through an RTL-SDR Blog V4 dongle and compares two signals: the local FPGA transmitter through the 8.5 k&Omega;-coupled resonant tank and a live PTC channel. It is transmitter evidence and a qualitative comparison, not a capture from this one-pin receiver. This page stays focused on the demonstrated FM receive path.</p>
         </section>
 
         <section>
@@ -139,30 +136,54 @@
             <p>Once I thresholded the RF at the FPGA input, I stopped asking for explicit amplitude and started asking for crossings.</p>
             <p>That turns out to be enough for the result shown here: recovering FM structure and intelligible audio.</p>
             <p>A fixed midpoint threshold discards absolute RF scale. In the noise-dominated region, however, coherent statistics of the one-bit stream vary with signal-to-noise ratio, allowing signal presence and relative strength to be recovered after calibration.</p>
-            <p>The I/Q plots are evidence for structure recovery, not an absolute RF voltmeter. I can generate a sawtooth in the transmitter, send it over RF, receive it through one pin, and recover its internal I/Q behavior. Absolute volts or dBm would require a calibrated input gain, threshold, and noise reference, or a measurement mode that deliberately varies the threshold.</p>
+            <p>The recovered audio and I/Q behavior are evidence for structure recovery, not an absolute RF voltmeter. The companion transmitter and this receiver are complementary experiments, but the present public record does not establish one calibrated transmitter-to-receiver loopback run. Absolute volts or dBm would require a calibrated input gain, threshold, and noise reference, or a measurement mode that deliberately varies the threshold.</p>
             <p>That is the core result of this design: threshold crossings preserved enough phase and frequency structure for this FM path, even though the fixed threshold did not preserve absolute amplitude.</p>
         </section>
 
         <section>
-            <h2>Four-Phase Sampling Gives Me the Signal Back</h2>
-            <p>Inside the FPGA, I sample the thresholded bitstream in four phases.</p>
-            <p>That matters. I do not just oversample more and hope for the best. I sample in quadrature, with 90-degree offsets, so I preserve direct and quadrature structure explicitly. In effect, I sample at 2F in quadrature: two samples per carrier cycle, but with the quadrature timing preserved. Those four phases carry the full signal content I need.</p>
-            <p>That gives me:</p>
+            <h2>DDR Samples Become I/Q Bit Lanes</h2>
+            <p>The design idea began with four-phase sampling, but the selected <code>fm_radio_nov15.sv</code> snapshot must be described more exactly. One iCE40 DDR input primitive is clocked by the source-labeled 168 MHz sampler clock and records two threshold decisions per clock. The logic shifts those even and odd decisions into history, then uses fixed ordering and inversion patterns to construct two 16-lane words named <code>samples_i</code> and <code>samples_q</code>.</p>
+            <p>The file defines a 270-degree clock signal, but it does not instantiate four separately clocked input samplers. The quadrature structure in this snapshot comes from the DDR decision stream and the lane patterns that reorganize it.</p>
+            <p>That gives the later logic:</p>
             <ul>
-                <li>direct and quadrature channels,</li>
-                <li>a Weaver-style quadrature path intended to reject the image,</li>
-                <li>and a proper internal signal representation without a conventional analog quadrature front end.</li>
+                <li>direct and quadrature bit lanes,</li>
+                <li>a compact input representation for DDS-controlled one-bit mixing,</li>
+                <li>and a Weaver-style recombination path intended to reject the image.</li>
             </ul>
-            <p>Once I have that, the rest of the receiver simplifies aggressively.</p>
+            <p>The broader notebook pages still matter because they show how the architecture developed. They are not all parameter sheets for this exact source file.</p>
+        </section>
+
+        <section>
+            <h2>The Weaver Lineage Is Real, but This Is Not a Facsimile</h2>
+            <figure class="inspectable-image inspectable-image--fit">
+                <a href="one-pin-RF/images/weaver-1956-receiver-lineage-cropped.png">
+                    <img src="one-pin-RF/images/weaver-1956-receiver-lineage-cropped.png" width="1448" height="1086" loading="lazy" decoding="async" alt="Cropped working photograph of Donald Weaver's two-stage quadrature receiver figure with handwritten annotations">
+                </a>
+                <figcaption>Working copy of the two-stage quadrature method in Donald K. Weaver, Jr., <a href="https://doi.org/10.1109/JRPROC.1956.275061" target="_blank" rel="noopener"><cite>A Third Method of Generation and Detection of Single-Sideband Signals</cite></a>, <cite>Proceedings of the IRE</cite>, December 1956. The crop preserves my annotations; the DOI is the original paper record.</figcaption>
+            </figure>
+            <p>Weaver's method translates quadrature paths twice and recombines four products so the wanted sideband adds while the image cancels. The selected receiver source has the same structural idea at one-bit resolution: I and Q lane patterns, two intended-quadrature DDS sign bits, four XOR-and-popcount product terms, and sum/difference recombination.</p>
+            <p>That is why <em>Weaver-style</em> is the accurate phrase. This RTL does not reproduce every analog mixer and low-pass section in the 1956 figure.</p>
         </section>
 
         <section>
             <h2>I Do Not Multiply by Sines and Cosines</h2>
             <p>A conventional digital receiver path often reaches for trigonometric machinery: sine tables, cosine tables, multipliers, and explicit oscillators.</p>
             <p>I do not need any of that here.</p>
-            <p>The signal is already in thresholded quadrature form. My digital Weaver stage just flips bits in the right pattern. In practice, that means XOR operations, controlled inversion of the ones-and-zeros stream. That is enough to perform the mixing and frequency translation I need.</p>
+            <p>The signal is already in thresholded quadrature form. My digital Weaver stage flips bits in the right pattern. In practice, that means XOR operations: controlled inversion of the one-bit streams by the DDS sign bits. Population counts then turn those one-bit products into signed baseband contributions.</p>
             <p>So the digital mixing stage becomes logic, not a sine/cosine multiplier chain.</p>
-            <p>That cut matters because it keeps the receiver aligned with the representation it actually has.</p>
+            <p>The <a href="https://en.wikipedia.org/wiki/Detector_%28radio%29#XOR_gate_detector" target="_blank" rel="noopener">XOR-gate detector entry</a> is useful adjacent context: XOR duty cycle can encode phase difference in one-bit detector topologies. It is not the FM discriminator in this selected source. Here XOR performs the one-bit mixing; the later I/Q cross product performs FM recovery.</p>
+        </section>
+
+        <section>
+            <h2>DDS Tuning Without a Sine Table</h2>
+            <figure class="inspectable-image inspectable-image--fit">
+                <a href="one-pin-RF/images/dds-explainer-cat-fpga-cropped.png">
+                    <img src="one-pin-RF/images/dds-explainer-cat-fpga-cropped.png" width="1086" height="1448" loading="lazy" decoding="async" alt="Black cat above an FPGA board and two handwritten direct digital synthesis explainer sheets">
+                </a>
+                <figcaption>My DDS explainer sheets beside the FPGA: a phase accumulator walks a modular circle, its most-significant bit becomes a one-bit local oscillator, and an offset accumulator supplies the intended quadrature path. The cat stayed in the frame; the chair and feet did not.</figcaption>
+            </figure>
+            <p>A direct digital synthesizer adds a tuning word to a phase accumulator every clock. For an <code>N</code>-bit accumulator, the basic relationship is <code>f<sub>out</sub> = M f<sub>clock</sub> / 2<sup>N</sup></code>. A full DDS can map phase into sine and cosine amplitude. This receiver uses a cheaper boundary: it consumes the accumulator sign or most-significant bit as a square-wave, one-bit LO.</p>
+            <p>The selected snapshot contains one 49-bit tuning path and a second accumulator intended to stay in quadrature. Those sign bits control the XOR mixers. Read <a href="https://www.analog.com/media/en/training-seminars/tutorials/MT-085.pdf" target="_blank" rel="noopener">Analog Devices MT-085, <cite>Fundamentals of Direct Digital Synthesis</cite></a> for the phase-accumulator model, tuning resolution, aliasing, and spurs. AMD's <a href="https://docs.amd.com/r/en-US/pg141-dds-compiler/Core-Overview" target="_blank" rel="noopener">DDS Compiler core overview</a> is useful FPGA-specific background for quadrature synthesizers in digital downconverters. These links explain the design vocabulary; they are not claims that this iCE40 source instantiates either vendor's IP.</p>
         </section>
 
         <section id="cross-product-boundary">
@@ -188,19 +209,19 @@
 
         <section>
             <h2>The Rest of the Chain Is Simple</h2>
-            <p>In the selected source snapshot, an 80-sample rectangular integrate-and-dump window filters the quadrature signal, followed by one transfer/reset clock. That keeps the rate conversion cheap, but its selectivity is limited and must not be confused with the CIC-plus-FIR path in the broader sketch.</p>
+            <p>In the selected source snapshot, the baseband accumulators accept 80 updates of the 21 MHz processing clock, followed by one transfer/reset clock. That rectangular integrate-and-dump stage keeps rate conversion cheap, but its selectivity is limited. It is not the CIC-plus-FIR roadmap drawn in a later notebook page.</p>
             <p>Then the cross-product demodulator recovers the FM baseband.</p>
             <p>Then a sigma-delta output stage turns the recovered signal into audio that can drive a speaker.</p>
             <p>So the full chain is this:</p>
             <ul>
-                <li>one FPGA pin receives RF</li>
-                <li>the input threshold converts RF into a binary transition stream</li>
-                <li>four-phase quadrature sampling preserves the signal</li>
-                <li>a Weaver-style quadrature stage performs frequency translation</li>
-                <li>XOR logic does the mixing</li>
-                <li>an 80-sample rectangular window integrates and downsamples</li>
-                <li>a cross product between successive I/Q vectors approximates FM phase change directly</li>
-                <li>a sigma-delta output stage produces sound</li>
+                <li>one logical differential FPGA input site receives RF,</li>
+                <li>the input threshold converts RF into a binary transition stream,</li>
+                <li>DDR decisions are reorganized into 16-lane I/Q words,</li>
+                <li>DDS sign bits control four XOR-and-popcount product terms,</li>
+                <li>Weaver-style sum/difference recombination translates the selected channel,</li>
+                <li>80 processing-clock updates integrate before one transfer/reset cycle,</li>
+                <li>a cross product between successive I/Q vectors recovers FM phase movement,</li>
+                <li>and a sigma-delta output stage produces sound.</li>
             </ul>
             <p>That is the published FM audio-recovery path.</p>
         </section>
@@ -228,7 +249,7 @@ SB_IO #(
     .D_IN_0(RF4X_SAMPLES[0]),
     .D_IN_1(RF4X_SAMPLES[1])
 );</code></pre>
-            <p>The sampler is not a metaphor. The comments in the source call the DDR samplers the heart of the radio: they sample binary RF values at the four-times-LO clock. The code then folds the even and odd samples into two 16-bit quadrature words.</p>
+            <p>The sampler is not a metaphor. The comments in the source call the DDR input the heart of the radio. It samples binary RF decisions on both clock edges, and the code folds the even and odd history into two 16-bit quadrature words by fixed ordering and inversion.</p>
             <pre><code>samples_even &lt;= {samples_even[n-1:0], RF4X_SAMPLES[0]};
 samples_odd  &lt;= {samples_odd [n-1:0], RF4X_SAMPLES[1]};
 
@@ -245,7 +266,7 @@ samples_q &lt;= {
  ~samples_even[5],  samples_odd[5],
   // same quadrature pattern continues through bit 0
 };</code></pre>
-            <p>The digital mixer is controlled inversion. The repeated accumulation blocks XOR each one-bit sample against the DDS sign bit, then sum the results into the baseband accumulators.</p>
+            <p>The digital mixer is controlled inversion. Four repeated accumulation blocks XOR one-bit I/Q lanes against the two DDS sign bits, population-count each product, and recombine the terms into the baseband accumulators.</p>
             <pre><code>sum &lt;=
     { 4'd0, samples_i[ 0] ^ dds_ch1[CH1_MSB] }
   + { 4'd0, samples_i[ 1] ^ dds_ch1[CH1_MSB] }
@@ -267,13 +288,38 @@ sd_dac &lt;= {2'd0, phase_delta, 16'd0} + 34'd6442450944 +
 
 dac_out &lt;= sd_dac[SD_DAC_MSB];
 assign PIN2 = ~dac_out;</code></pre>
-            <p>That is the promised Verilog follow-up in miniature: thresholded RF enters one FPGA pin, the iCE40 DDR input primitive samples it, the logic builds I/Q by timing and inversion, the baseband path uses the cross product instead of <code>atan2</code>, and the recovered signal leaves as a sigma-delta bitstream.</p>
+            <p>That is the promised Verilog follow-up in miniature: thresholded RF enters one logical differential FPGA input, the iCE40 DDR primitive samples it, fixed lane patterns build I/Q, the DDS sign bits control one-bit mixers, the baseband path uses the cross product instead of <code>atan2</code>, and the recovered signal leaves as a sigma-delta bitstream.</p>
+        </section>
+
+        <section>
+            <h2>The Notebook Trail Spans Several Receiver Generations</h2>
+            <p>These pages are valuable because they show the architecture being worked out. They do not all describe the same bitstream or clock plan.</p>
+            <div class="article-artifact-grid">
+                <figure class="inspectable-image inspectable-image--fit">
+                    <a href="one-pin-RF/images/receiver-planning-72mhz-cropped.png">
+                        <img src="one-pin-RF/images/receiver-planning-72mhz-cropped.png" width="1448" height="1086" loading="lazy" decoding="async" alt="Cropped receiver planning sheet with 72 MHz, 288 MSPS, 88.1 MHz, DDS, and baseband notes">
+                    </a>
+                    <figcaption><strong>Earlier front-end plan.</strong> The 72 MHz, 288 MS/s, 88.1 MHz, and 720-cycle annotations capture an earlier sampling and baseband plan. DDS tuning and the cross-product idea survive; these numbers are not the selected November 15 build parameters.</figcaption>
+                </figure>
+                <figure class="inspectable-image inspectable-image--fit">
+                    <a href="one-pin-RF/images/channelizer-108mhz-cropped.png">
+                        <img src="one-pin-RF/images/channelizer-108mhz-cropped.png" width="1448" height="1086" loading="lazy" decoding="async" alt="Cropped 108 MHz DDC channelizer note with quadrature DDS and 675-sample accumulation">
+                    </a>
+                    <figcaption><strong>Earlier channelizer prototype.</strong> The 108 MHz input, 4.7375 MHz quadrature DDS, and 675-to-160 kHz accumulate/reset notes correspond most closely to <a href="one-pin-RF/fm_radio_demo_2026/dirty_ptc_nov3.sv"><code>dirty_ptc_nov3.sv</code></a>, not the selected <code>fm_radio_nov15.sv</code>.</figcaption>
+                </figure>
+                <figure class="inspectable-image inspectable-image--fit article-artifact-wide">
+                    <a href="one-pin-RF/images/digital-receiver-roadmap-cropped.png">
+                        <img src="one-pin-RF/images/digital-receiver-roadmap-cropped.png" width="1718" height="915" loading="lazy" decoding="async" alt="Cropped digital receiver roadmap with multiple DDS-tuned I/Q channels, moving-average decimators, and matched FIR filters">
+                    </a>
+                    <figcaption><strong>Broader receiver roadmap.</strong> Multiple tunable channels, CIC or moving-average decimation, and matched FIR filtering describe the direction beyond the selected proof. The public November 15 snapshot has one tuner, one rectangular integrate-and-dump stage, and no FIR.</figcaption>
+                </figure>
+            </div>
         </section>
 
         <section id="predicted-filter-response">
             <h2>What the Selected Snapshot Predicts, and What It Does Not Measure</h2>
-            <p>The selected source is simpler than the broader architecture sketch. Its 21 MHz processing clock accumulates 80 rectangular samples, then spends one clock transferring and resetting the accumulator. The resulting I/Q update rate is <code>21 MHz / 81 = 259.26 kS/s</code>.</p>
-            <p>For the 80-sample rectangular window alone, the calculated digital response is:</p>
+            <p>The selected source is simpler than the broader architecture sketches. Its 21 MHz processing clock performs 80 accumulator updates, then spends one clock transferring and resetting the accumulator. The resulting I/Q update rate is <code>21 MHz / 81 = 259.26 kS/s</code>.</p>
+            <p>For that 80-update rectangular window alone, the calculated digital response is:</p>
             <ul>
                 <li>one-sided &minus;3 dB frequency: approximately 116 kHz</li>
                 <li>first null: 262.5 kHz</li>

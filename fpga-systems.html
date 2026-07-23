@@ -56,7 +56,8 @@
         <p class="lead">I build complete FPGA paths across boundaries that are usually separated.</p>
         <p>That means pin-level signal behavior, protocol parsing, clocking, arithmetic schedules, configuration transport, device primitives, open toolchains, and the Linux or browser surface used to inspect the machine.</p>
         <div class="cta-row" role="group" aria-label="Explore Brian Greenforest's FPGA systems">
-            <a class="cta-link" href="how-much-radio-do-you-actually-need.html">FPGA radio</a>
+            <a class="cta-link" href="how-much-radio-do-you-actually-need.html">RF receiver</a>
+            <a class="cta-link" href="one-pin-quadrature-sdm-transmitter.html">RF transmitter</a>
             <a class="cta-link" href="ethernet-udp-ice40-reprogrammer.html">Ethernet reprogrammer</a>
             <a class="cta-link" href="physical-mux-tiles/">Physical MUX tiles</a>
             <a class="cta-link" href="contact.html">Discuss FPGA work</a>
@@ -81,13 +82,15 @@
             <h2>Six Concrete FPGA Paths</h2>
             <div class="capability-grid">
                 <article id="rf-systems" class="capability-card">
+                    <a href="how-much-radio-do-you-actually-need.html"><img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="lazy" decoding="async" alt="Illustrated one-pin FPGA FM receiver path from thresholded RF to recovered audio"></a>
                     <p class="eyebrow">RF receive</p>
                     <h3><a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a></h3>
-                    <p>A thresholded RF stream enters one logical iCE40 input, is sampled in four phases, mixed by inversion and XOR, accumulated, demodulated by an I/Q cross product, and emitted as sigma-delta audio.</p>
+                    <p>A thresholded RF stream enters one logical differential iCE40 input site. DDR decisions become I/Q bit lanes, DDS sign bits control four XOR-and-popcount terms, and a later I/Q cross product recovers FM phase movement before sigma-delta audio.</p>
                     <p>The page includes operating video, the selected UP5K source snapshot, build path, and the receiver measurements still needed.</p>
                 </article>
 
                 <article class="capability-card">
+                    <a href="one-pin-quadrature-sdm-transmitter.html"><img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Transmitter waveforms, a hand-built resonant-tank network, and historical RF spectrum context"></a>
                     <p class="eyebrow">RF transmit</p>
                     <h3><a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM Transmitter RTL</a></h3>
                     <p>The preserved iCE40 HX8K source defines two sigma-delta control paths and selects among four phases of the source's 216 MHz quadrature clock to gate one RF output pin.</p>

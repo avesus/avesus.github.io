@@ -222,6 +222,10 @@ figure.inspectable-image a {
 	border: 1px solid #ccc;
 }
 
+.article-artifact-wide {
+	grid-column: 1 / -1;
+}
+
 .article-details {
 	margin: 1.5rem 0 2rem;
 	border: 1px solid #d7d7d7;
@@ -1360,6 +1364,7 @@ dt {
 		grid-template-columns: 1fr;
 	}
 
+	.article-artifact-wide,
 	.capability-card-wide {
 		grid-column: auto;
 	}

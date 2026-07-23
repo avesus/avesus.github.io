@@ -75,7 +75,7 @@ Do not publish a fake thumbnail for it. Local HTTP requests, direct media URL at
 
 ### SDR / Digital Radio
 
-- Preserve the engineering framing: one logical RF input on a physical differential comparator pair, thresholded RF stream, four-phase sampling, XOR/Weaver mixing, the selected snapshot's 80-sample rectangular integrate-and-dump filter, cross-product FM demodulation, sigma-delta output, PCB prototype, and explicit limitations.
+- Preserve the engineering framing: one logical RF input on a physical differential comparator pair, one DDR sampler, fixed ordering/inversion into I/Q lanes, DDS-sign-bit XOR/Weaver-style mixing, the selected snapshot's 80 processing-clock accumulation updates plus transfer/reset, cross-product FM demodulation, sigma-delta output, PCB prototype, and explicit limitations. Keep the earlier four-phase, 72/288, 108/675, multi-channel, CIC, and FIR notebook generations separate from the selected November 15 source.
 - The single-pin FM article now has a basic Verilog follow-up section with source links and extracted snippets from the selected UP5K receiver snapshot.
 - Keep `article-drafts/can-one-bit-tell-what-is-there.md` unpublished until its calibrated detector, sensitivity, selectivity, false-alarm, blocker, and FM-linearity result tables are populated from preserved captures.
 - Add videos of FM receiving when stable public links are available.

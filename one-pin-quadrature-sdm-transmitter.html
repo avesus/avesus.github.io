@@ -147,11 +147,11 @@ wire rfQ = dac_outQ ^ j_0[1];</code></pre>
             <h2>Historical Spectrum Context</h2>
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="one-pin-RF/images/historical-cubicsdr-spectrum.jpg">
-                    <img src="one-pin-RF/images/historical-cubicsdr-spectrum.jpg" width="1280" height="708" loading="lazy" decoding="async" alt="Historical CubicSDR spectrum display with two narrow RF components near the displayed 220 to 223 MHz span">
+                    <img src="one-pin-RF/images/historical-cubicsdr-spectrum.jpg" width="1280" height="708" loading="lazy" decoding="async" alt="Historical CubicSDR display from an RTL-SDR Blog V4 showing the local FPGA transmitter and a live PTC channel">
                 </a>
-                <figcaption>Historical CubicSDR comparison centered near 221.62 MHz: an adjacent received PTC radio channel appears beside the locally generated sawtooth-spectrum signal from the one-pin FPGA output, coupled through the 8.5 k&Omega; resistor and resonant tank.</figcaption>
+                <figcaption>Historical CubicSDR capture received through an RTL-SDR Blog V4 dongle. Two received signals are visible: the local one-pin FPGA transmitter coupled through the 8.5 k&Omega; resistor and resonant tank, and a live PTC channel used as a qualitative spectrum-purity reference.</figcaption>
             </figure>
-            <p>The screen is useful as a qualitative spectrum-purity comparison between the adjacent over-the-air PTC channel and the local transmitter experiment. It does not record a calibrated amplitude reference, RBW/VBW, receiver gain, coupling loss, or a complete fixture description, so it cannot establish absolute output power, occupied bandwidth, harmonic performance, or compliance. Those measurements should be repeated from a named build and fixture.</p>
+            <p>The screen is not evidence from the one-pin FPGA receiver. CubicSDR and the RTL-SDR Blog V4 are the observation instrument here: they receive the local tank-coupled FPGA signal and the live PTC signal in the same view. The local signal's sawtooth-like spectral shape is the comparison of interest. The capture does not record a calibrated amplitude reference, RBW/VBW, receiver gain, coupling loss, or a complete fixture description, so it cannot establish absolute output power, occupied bandwidth, harmonic performance, or compliance. Those measurements should be repeated from a named build and fixture.</p>
         </section>
 
         <section>
