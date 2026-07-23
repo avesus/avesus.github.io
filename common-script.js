@@ -222,6 +222,30 @@ figure.inspectable-image a {
 	border: 1px solid #ccc;
 }
 
+.article-details {
+	margin: 1.5rem 0 2rem;
+	border: 1px solid #d7d7d7;
+	background: #fff;
+}
+
+.article-details summary {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	min-height: 48px;
+	padding: 12px 16px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.article-details[open] summary {
+	border-bottom: 1px solid #d7d7d7;
+}
+
+.article-details .cartilage-code-table {
+	margin: 0;
+}
+
 .capability-grid,
 .chapter-grid,
 .reference-grid {

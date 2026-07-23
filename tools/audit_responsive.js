@@ -19,6 +19,7 @@ const pages = [
   '/technology-research-and-consulting.html',
   '/cartilage/',
   '/cartilage/logic-to-luts.html',
+  '/cartilage-visual-language.html',
 ];
 
 const viewports = [
@@ -39,6 +40,7 @@ const screenshotPages = new Set([
   '/fpga-systems.html',
   '/ethernet-udp-ice40-reprogrammer.html',
   '/physical-mux-tiles/',
+  '/cartilage-visual-language.html',
 ]);
 
 const screenshotViewports = new Set(['1920x1080', '390x844']);
@@ -198,13 +200,18 @@ async function main() {
     await client.send('Runtime.enable');
 
     for (const [width, height] of viewports) {
+      const mobileViewport = width <= 440;
       await client.send('Emulation.setDeviceMetricsOverride', {
         width,
         height,
         screenWidth: width,
         screenHeight: height,
         deviceScaleFactor: 1,
-        mobile: false,
+        mobile: mobileViewport,
+      });
+      await client.send('Emulation.setTouchEmulationEnabled', {
+        enabled: mobileViewport,
+        maxTouchPoints: mobileViewport ? 5 : 1,
       });
 
       for (const pagePath of pages) {
@@ -224,6 +231,52 @@ async function main() {
             captureBeyondViewport: false,
           });
           fs.writeFileSync(path.join(screenshotDir, `${name}-${viewportName}.png`), screenshot.data, 'base64');
+
+          if (pagePath === '/cartilage-visual-language.html' && viewportName === '390x844') {
+            await client.send('Runtime.evaluate', {
+              expression: `(() => {
+                const heading = Array.from(document.querySelectorAll('h2'))
+                  .find(element => element.textContent.trim() === 'The Render Key');
+                if (heading) {
+                  heading.scrollIntoView({ block: 'start' });
+                  window.scrollBy(0, -16);
+                }
+              })()`,
+            });
+            await pause(100);
+            const keyScreenshot = await client.send('Page.captureScreenshot', {
+              format: 'png',
+              fromSurface: true,
+              captureBeyondViewport: false,
+            });
+            fs.writeFileSync(
+              path.join(screenshotDir, 'cartilage-visual-language-key-390x844.png'),
+              keyScreenshot.data,
+              'base64',
+            );
+
+            await client.send('Runtime.evaluate', {
+              expression: `(() => {
+                const heading = Array.from(document.querySelectorAll('h2'))
+                  .find(element => element.textContent.trim() === 'Where The Alphabet Shows Up');
+                if (heading) {
+                  heading.scrollIntoView({ block: 'start' });
+                  window.scrollBy(0, -16);
+                }
+              })()`,
+            });
+            await pause(100);
+            const sectionScreenshot = await client.send('Page.captureScreenshot', {
+              format: 'png',
+              fromSurface: true,
+              captureBeyondViewport: false,
+            });
+            fs.writeFileSync(
+              path.join(screenshotDir, 'cartilage-visual-language-artifacts-390x844.png'),
+              sectionScreenshot.data,
+              'base64',
+            );
+          }
         }
         const issues = [];
         if (result.status >= 400 || result.status === 0) issues.push(`HTTP ${result.status}`);

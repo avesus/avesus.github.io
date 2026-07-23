@@ -37,7 +37,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-11",
+            "dateModified": "2026-07-22",
             "image": "https://greenforest.io/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png",
             "description": "A visual decoder for the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-visual-language.html",
@@ -68,16 +68,32 @@
     <main>
         <section>
             <h2>The Render Key</h2>
-            <figure class="inspectable-image">
+            <figure class="inspectable-image inspectable-image--fit">
                 <a href="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png">
                     <picture>
                         <source srcset="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.webp" type="image/webp">
                         <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" width="1248" height="1248" loading="lazy" decoding="async" alt="Cartilage fabric visual-language key showing port, cross, constants, wires, and MUX body types">
                     </picture>
                 </a>
-                <figcaption>A 13x13 Cartilage fabric render showing the body-role vocabulary: port, cross, constants, wire orientations, and MUX roles.</figcaption>
+                <figcaption>Overview of all 32 installed roles. Tap the image for the full-resolution key; use the grouped explanation below before opening individual code definitions.</figcaption>
             </figure>
-            <p>The public key image is <a href="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png"><code>cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png</code></a>. Open it directly when the inline view is too dense.</p>
+            <div class="capability-grid">
+                <article class="capability-card">
+                    <p class="eyebrow">Codes 00&ndash;03</p>
+                    <h3>Special Roles</h3>
+                    <p>Port, cross, constant zero, and constant one establish configuration ingress, intersections, and fixed values.</p>
+                </article>
+                <article class="capability-card">
+                    <p class="eyebrow">Codes 04&ndash;07</p>
+                    <h3>Wire Orientations</h3>
+                    <p>One pass-through role appears in left, top, bottom, and right orientations.</p>
+                </article>
+                <article class="capability-card capability-card-wide">
+                    <p class="eyebrow">Codes 08&ndash;31</p>
+                    <h3>Six MUX Modes, Four Rotations Each</h3>
+                    <p>Modes 2 through 7 select different pairs of neighboring sides. Each mode is rendered in four orientations, producing the remaining 24 codes.</p>
+                </article>
+            </div>
         </section>
 
         <section>
@@ -89,7 +105,9 @@
 
         <section>
             <h2>Cell Role Codes</h2>
-            <div class="cartilage-code-table">
+            <details class="article-details">
+                <summary>Open all 32 individual code definitions</summary>
+                <div class="cartilage-code-table">
                 <div class="cartilage-code-row cartilage-code-head">
                     <div>Code</div>
                     <div>Role</div>
@@ -256,6 +274,7 @@
                     <div class="cartilage-code-purpose">Mode 7 MUX in right orientation. This is the right-rotated form of the final MUX mode.</div>
                 </div>
             </div>
+            </details>
         </section>
 
         <section>
@@ -267,26 +286,28 @@
         <section>
             <h2>Where The Alphabet Shows Up</h2>
             <p>The same body-role vocabulary appears in the current Cartilage pages. These renders are different artifacts, but the reader should not learn a new symbol system for each one.</p>
-            <div class="article-artifact-grid">
-                <a href="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif">
-                    <img src="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" width="512" height="1024" loading="lazy" decoding="async" alt="Cartilage 2026 render showing active child-owned reconfiguration port roots">
-                    Cartilage 2026 port roots
-                </a>
-                <a href="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png">
-                    <img src="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png" width="3072" height="3072" loading="lazy" decoding="async" alt="Cartilage verified ripple2 adder render showing configured wires, MUX islands, constants, crosses, labels, and edge outputs">
-                    Verified ripple-adder roles
-                </a>
-                <a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png">
-                    <img src="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png" width="290" height="270" loading="lazy" decoding="async" alt="Cartilage exact-frame reconfiguration final detail render">
-                    Exact-frame reconfiguration detail
-                </a>
-                <a href="/cartilage-nested-instantiation-demo.html">
-                    <picture>
-                        <source srcset="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.webp" type="image/webp">
-                        <img src="/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png" width="1248" height="1248" loading="lazy" decoding="async" alt="Cartilage visual language key reused as the nested-instantiation decoder">
-                    </picture>
-                    Nested-instantiation decoder
-                </a>
+            <div class="capability-grid">
+                <article class="capability-card">
+                    <p class="eyebrow">Ownership milestone</p>
+                    <h3><a href="/cartilage2026.html">Cartilage 2026 Port Roots</a></h3>
+                    <p>Read what the purple port-root marks establish before opening the dense captured animation.</p>
+                    <p><a href="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif">Open the raw 4.9 MB animation</a></p>
+                </article>
+                <article class="capability-card">
+                    <p class="eyebrow">Checked role placement</p>
+                    <h3><a href="/cartilage-verified-ripple2-adder.html">Verified Ripple-Adder Roles</a></h3>
+                    <p>Follow the configured wires, MUX islands, constants, crosses, labels, and edge outputs with the run context beside them.</p>
+                </article>
+                <article class="capability-card">
+                    <p class="eyebrow">Reconfiguration sequence</p>
+                    <h3><a href="/cartilage-exact-frame-reconfiguration-run.html">Exact-Frame Reconfiguration</a></h3>
+                    <p>Inspect the final detail only after the page explains the frame sequence and evidence boundary.</p>
+                </article>
+                <article class="capability-card">
+                    <p class="eyebrow">Composition</p>
+                    <h3><a href="/cartilage-nested-instantiation-demo.html">Nested Instantiation</a></h3>
+                    <p>See how the same roles participate in a parent-owned configuration stream and bounded daughter region.</p>
+                </article>
             </div>
         </section>
 
