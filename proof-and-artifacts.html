@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Built Mechanisms and Evidence | Brian Greenforest</title>
-    <meta name="description" content="Inspect Brian Greenforest's bubbles-free serial multiplier, raw WebGL and GLSL computing work, Cartilage learning path, source, circuit runs, and evidence boundaries.">
+    <meta name="description" content="Inspect Brian Greenforest's FPGA, RF, Ethernet RTL, physical MUX, serial multiplier, WebGL/GLSL, and Cartilage artifacts with evidence boundaries.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/proof-and-artifacts.html">
     <meta property="og:title" content="Built Mechanisms and Evidence | Brian Greenforest">
-    <meta property="og:description" content="Start with a streaming multiplier, raw WebGL and GLSL systems, and the Cartilage reconfigurable-computing path.">
+    <meta property="og:description" content="FPGA radio, Ethernet RTL, physical MUX tiles, a streaming multiplier, raw WebGL/GLSL systems, and the Cartilage path.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/proof-and-artifacts.html">
         <link rel="icon" href="/favicon.ico">
@@ -34,7 +34,7 @@
             "@id": "https://greenforest.io/proof-and-artifacts.html#webpage",
             "url": "https://greenforest.io/proof-and-artifacts.html",
             "name": "Built Mechanisms and Evidence",
-            "description": "Public circuits, browser-GPU systems, reconfigurable-computing artifacts, source trails, and evidence boundaries from Greenforest I/O.",
+            "description": "Public FPGA, RF, Ethernet RTL, physical logic, browser-GPU, arithmetic, and reconfigurable-computing artifacts from Greenforest I/O.",
             "publisher": {
                 "@type": "Organization",
                 "@id": "https://greenforest.io/#organization",
@@ -59,6 +59,21 @@
                     "@type": "CollectionPage",
                     "name": "Learn Cartilage",
                     "url": "https://greenforest.io/cartilage/"
+                },
+                {
+                    "@type": "CollectionPage",
+                    "name": "FPGA Systems From Pins To Bitstreams",
+                    "url": "https://greenforest.io/fpga-systems.html"
+                },
+                {
+                    "@type": "TechArticle",
+                    "name": "Ethernet To An Adjacent iCE40",
+                    "url": "https://greenforest.io/ethernet-udp-ice40-reprogrammer.html"
+                },
+                {
+                    "@type": "TechArticle",
+                    "name": "Physical MUX Tiles",
+                    "url": "https://greenforest.io/physical-mux-tiles/"
                 },
                 {
                     "@type": "SoftwareSourceCode",
@@ -117,6 +132,28 @@
                     <h3><a href="cartilage/">Learn Cartilage, One Chapter At A Time</a></h3>
                     <p>The ordered path begins with Logisim and LUTs, then builds through CMOS gain, output drivers, clock and event distribution, state machines, timing, metal routing, nested components, and runtime reconfiguration in space.</p>
                     <p><strong>Boundary:</strong> the path distinguishes teaching models, browser artifacts, matched RTL examples, and still-open device research.</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>FPGA Systems Evidence</h2>
+            <p>The <a href="fpga-systems.html">FPGA systems map</a> connects work that was previously scattered across radio, arithmetic, archives, and source files.</p>
+            <div class="capability-grid">
+                <article class="capability-card">
+                    <p class="eyebrow">RF receive and transmit</p>
+                    <h3><a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA Radio</a></h3>
+                    <p>The receiver has operating video and a selected iCE40 UP5K source trail. The companion HX8K transmitter source builds quadrature/SDM modulation for one RF output pin. Receiver calibration and transmitter spectrum, power, and range remain open measurements.</p>
+                </article>
+                <article class="capability-card">
+                    <p class="eyebrow">Ethernet and configuration</p>
+                    <h3><a href="ethernet-udp-ice40-reprogrammer.html">Ethernet To An Adjacent iCE40</a></h3>
+                    <p>The 2020 multi-file source implements RMII receive, ARP response, fixed-layout IPv4/UDP-carried image ingestion, RAM storage, and direct iCE40LP384 configuration, plus a Linux UDP/XCB/EGL control shell.</p>
+                </article>
+                <article class="capability-card capability-card-wide">
+                    <p class="eyebrow">Physical-computing education</p>
+                    <h3><a href="physical-mux-tiles/">Physical MUX Tiles</a></h3>
+                    <p>Original photographs establish fabricated role variants, connector-spaced palm-scale assemblies, and manual composition. The proposed STEM/EE path connects the tangible selector alphabet to Logisim and FPGA LUTs without claiming powered operation or classroom validation.</p>
                 </article>
             </div>
         </section>

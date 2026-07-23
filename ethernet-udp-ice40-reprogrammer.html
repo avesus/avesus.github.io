@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Ethernet To An Adjacent iCE40: A Verilog FPGA Reprogrammer</title>
+    <meta name="description" content="A 2020 Verilog RMII Ethernet and ARP path receives a UDP-carried image, stores it in FPGA RAM, and directly reprograms an adjacent Lattice iCE40LP384.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/ethernet-udp-ice40-reprogrammer.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:title" content="Ethernet To An Adjacent iCE40: A Verilog FPGA Reprogrammer">
+    <meta property="og:description" content="RMII receive, ARP response, fixed-layout IPv4/UDP bitstream ingestion, FPGA RAM, and direct iCE40 configuration in one published source tree.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/ethernet-udp-ice40-reprogrammer.html">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/ethernet-udp-ice40-reprogrammer.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/ethernet-udp-ice40-reprogrammer.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Ethernet To An Adjacent iCE40: A Verilog FPGA Reprogrammer - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/ethernet-udp-ice40-reprogrammer.png">
+    <meta name="twitter:image:alt" content="Ethernet To An Adjacent iCE40: A Verilog FPGA Reprogrammer - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Ethernet To An Adjacent iCE40: A Verilog FPGA Reprogrammer",
+            "description": "A 2020 Verilog RMII Ethernet and ARP path receives a UDP-carried image, stores it in FPGA RAM, and directly reprograms an adjacent Lattice iCE40LP384.",
+            "datePublished": "2026-07-22",
+            "dateModified": "2026-07-22",
+            "isBasedOn": "https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07",
+            "mainEntityOfPage": "https://greenforest.io/ethernet-udp-ice40-reprogrammer.html",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Ethernet To An Adjacent iCE40: A Verilog Reprogrammer</h1></header>
+    <address>Source first published January 19, 2020</address>
+
+    <section class="abstract">
+        <p class="eyebrow">Ethernet &middot; ARP &middot; UDP-carried bitstreams &middot; FPGA configuration</p>
+        <p class="lead">One FPGA receives the network image. Another FPGA becomes that image.</p>
+        <p>A Xilinx Arty/7-series FPGA hosts the published RMII Ethernet receiver, ARP responder, fixed-layout IPv4/UDP-carried bitstream path, image RAM, and controller for an adjacent Lattice iCE40LP384. A Linux utility sends the image and integrates UDP, epoll, XCB, EGL, and OpenGL ES 2 in the host shell.</p>
+        <div class="cta-row" role="group" aria-label="Inspect the Ethernet FPGA reprogrammer source">
+            <a class="cta-link" href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07" target="_blank" rel="noopener">Open the 14-file Gist</a>
+            <a class="cta-link" href="fpga-systems.html">See the FPGA systems map</a>
+        </div>
+    </section>
+
+    <main>
+        <section>
+            <h2>The Complete Path</h2>
+            <div class="stream-schedule" role="img" aria-label="Linux utility sends a UDP-carried bitstream through an RMII PHY to Verilog packet logic, FPGA RAM, and the adjacent iCE40 configuration pins">
+Linux C++ utility
+    -> UDP-carried 7,337-byte image
+    -> RMII Ethernet PHY
+    -> Verilog ARP / IPv4 fixed-layout receive path
+    -> Arty / Xilinx 7-series bitstream RAM
+    -> CRESET_B + SPI_SCK + SPI_SI + SPI_SS_B + CDONE
+    -> adjacent iCE40LP384
+            </div>
+            <p>This is the valuable system-level achievement: the source crosses the physical network edge, packet framing, on-chip storage, cross-vendor FPGA boundary, and target-device configuration sequence in one artifact.</p>
+        </section>
+
+        <section>
+            <h2>ARP Without A CPU In The Datapath</h2>
+            <p>The FPGA-side code receives RMII dibits, finds the start-of-frame delimiter, collects bytes, recognizes the relevant ARP request pattern and destination, captures the requester addresses, and constructs the response in RTL.</p>
+            <p>The response path emits the preamble, destination and source MAC addresses, ARP fields, padding, and frame CRC. The parser deliberately locks while its response is being sent; the source comments acknowledge that another packet can be missed during that interval.</p>
+            <p><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-top-v-L551-L570" target="_blank" rel="noopener">Inspect the ARP recognition and trigger</a> and <a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-top-v-L582-L758" target="_blank" rel="noopener">the response construction</a>.</p>
+        </section>
+
+        <section>
+            <h2>The UDP-Carried Image Path Is Intentionally Narrow</h2>
+            <p>The receive path checks the Ethernet IPv4 EtherType and destination IP address, then treats byte 42 as the beginning of a fixed-layout payload. Incoming dibits are written into the image RAM at addresses derived from their packet position.</p>
+            <p>That is direct network-to-configuration transport in RTL. It is not a standards-complete UDP stack: this snapshot does not visibly validate IPv4 header length or options, fragmentation, protocol number 17, UDP ports, UDP length, or UDP checksum.</p>
+            <p><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-top-v-L469-L487" target="_blank" rel="noopener">Inspect the EtherType, destination-IP, fixed-offset, and RAM-write path</a>.</p>
+        </section>
+
+        <section>
+            <h2>The Neighboring FPGA Is The Payload Destination</h2>
+            <p>After the image is in RAM, the controller drives the Lattice slave-configuration interface directly: <code>CRESET_B</code>, <code>SPI_SCK</code>, <code>SPI_SI</code>, and <code>SPI_SS_B</code>, with <code>CDONE</code> returning target status.</p>
+            <p>The source selects the iCE40LP384 image length, switches the same RAM between network writes and configuration reads, sequences reset and data, and clocks the stored image into the adjacent device.</p>
+            <p><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-top-v-L1173-L1217" target="_blank" rel="noopener">Inspect the configuration-pin wiring</a>, <a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-top-v-L1462-L1507" target="_blank" rel="noopener">RAM selection and LP384 length</a>, and <a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-top-v-L1525-L1533" target="_blank" rel="noopener">the final configuration outputs</a>.</p>
+        </section>
+
+        <section>
+            <h2>The Linux Side Is A Real Control Shell</h2>
+            <p>The host program loads a 7,337-byte processed image and sends it over UDP to the hard-coded device address and port. Its event loop combines the socket, terminal and signal handling, and XCB events through epoll.</p>
+            <p>The same program creates an XCB window and EGL/OpenGL ES 2 context. The active render routine sets the viewport and clears the 64-pixel window red. That is an XCB/EGL/GLES2 integration scaffold, not a developed visualization renderer; the value here is the published host-control boundary and the direct graphics/event shell beside it.</p>
+            <p><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-udp_sender-cpp-L176-L188" target="_blank" rel="noopener">Inspect image loading</a>, <a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-udp_sender-cpp-L326-L371" target="_blank" rel="noopener">UDP transmission</a>, <a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-init-egl-h-L33-L97" target="_blank" rel="noopener">EGL setup</a>, and <a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-runapp-h-L5-L12" target="_blank" rel="noopener">the active draw routine</a>.</p>
+        </section>
+
+        <section>
+            <h2>Source Map</h2>
+            <div class="article-fact-table" role="table" aria-label="Source files in the Ethernet to iCE40 publication">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell"><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-top-v" target="_blank" rel="noopener">top.v</a></div><div role="cell">RMII receive, ARP response, fixed-layout image ingestion, RAM, and adjacent-device configuration</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell"><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-phy_rmii_wrapper-v" target="_blank" rel="noopener">phy_rmii_wrapper.v</a></div><div role="cell">PHY reset and RMII-mode bring-up wrapper</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell"><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-udp_sender-cpp" target="_blank" rel="noopener">udp_sender.cpp</a></div><div role="cell">Linux image sender and epoll/XCB/EGL control shell</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell"><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-yosys_launch-sh" target="_blank" rel="noopener">yosys_launch.sh</a></div><div role="cell">Yosys, arachne-pnr, iCE40LP384 QN32 placement, modified IcePack, and image conversion</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell"><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-testbench-v" target="_blank" rel="noopener">testbench.v</a></div><div role="cell">Published Verilog testbench for the controller design</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell"><a href="https://gist.github.com/avesus/4acc11a26e03c4ff79557bf9d3cfaf07#file-galois-v" target="_blank" rel="noopener">galois.v</a></div><div role="cell">CRC/LFSR module credited in-file to Alex Forencich, 2016&ndash;2018, under MIT</div></div>
+            </div>
+            <p>The publication contains fourteen files in total and eight recorded revisions. A later related Gist is preserved as <a href="https://gist.github.com/avesus/769a2ae3e1ddbdc9c1ca34a37540bb63" target="_blank" rel="noopener">Working reprogrammer</a>.</p>
+        </section>
+
+        <section>
+            <h2>What The Publication Establishes</h2>
+            <p>The 2020 source tree establishes serious cross-layer FPGA work: PHY and RMII handling, direct ARP behavior, constrained network payload ingestion, on-chip image storage, configuration-pin sequencing for an adjacent Lattice FPGA, a Yosys/arachne-pnr/IceStorm build path, and a Linux control utility.</p>
+            <p>It should be read as a historical source publication, not a freshly reproduced 2026 build or a line-rate compliance result. The next high-value evidence would be a clean modern build, a captured ARP exchange and image transfer, target <code>CDONE</code>, and a before/after function test on the adjacent iCE40.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Read next:</p>
+        <a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a>
+        <p>Follow another FPGA path from a physical pin through custom signal processing.</p>
+        <p>More:</p>
+        <a href="fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
+        <p>See the network work beside radio, arithmetic, physical logic, and Cartilage.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

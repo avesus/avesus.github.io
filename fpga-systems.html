@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>FPGA Systems, RF, Ethernet RTL &amp; Reconfigurable Hardware | Brian Greenforest</title>
+    <meta name="description" content="Brian Greenforest builds FPGA systems across RF, direct Ethernet and ARP RTL, adjacent-device reconfiguration, streaming arithmetic, physical logic, and Cartilage.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/fpga-systems.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:title" content="FPGA Systems From Pins To Bitstreams | Brian Greenforest">
+    <meta property="og:description" content="RF receiver and transmitter paths, direct Ethernet and ARP RTL, adjacent iCE40 reconfiguration, streaming arithmetic, and tangible logic.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://greenforest.io/fpga-systems.html">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:backdrop_rf.jpeg -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/fpga-systems.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/fpga-systems.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="FPGA Systems From Pins To Bitstreams | Brian Greenforest - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-systems.png">
+    <meta name="twitter:image:alt" content="FPGA Systems From Pins To Bitstreams | Brian Greenforest - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "FPGA Systems From Pins To Bitstreams",
+            "url": "https://greenforest.io/fpga-systems.html",
+            "description": "FPGA systems by Brian Greenforest across RF, direct network RTL, configuration transport, streaming arithmetic, tangible logic, and spatial reconfiguration.",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">FPGA Systems From Pins To Bitstreams</h1></header>
+
+    <section class="abstract">
+        <p class="lead">I build complete FPGA paths across boundaries that are usually separated.</p>
+        <p>That means pin-level signal behavior, protocol parsing, clocking, arithmetic schedules, configuration transport, device primitives, open toolchains, and the Linux or browser surface used to inspect the machine.</p>
+        <div class="cta-row" role="group" aria-label="Explore Brian Greenforest's FPGA systems">
+            <a class="cta-link" href="how-much-radio-do-you-actually-need.html">FPGA radio</a>
+            <a class="cta-link" href="ethernet-udp-ice40-reprogrammer.html">Ethernet reprogrammer</a>
+            <a class="cta-link" href="physical-mux-tiles/">Physical MUX tiles</a>
+            <a class="cta-link" href="contact.html">Discuss FPGA work</a>
+        </div>
+    </section>
+
+    <figure class="inspectable-image inspectable-image--fit">
+        <a href="backdrop_rf.jpeg">
+            <img src="backdrop_rf.jpeg" width="1279" height="320" loading="eager" decoding="async" alt="RF waveforms, hand-built radio hardware, and a received spectrum from Brian Greenforest's FPGA radio work">
+        </a>
+        <figcaption>Waveforms, hand-built hardware, and received RF structure from the one-pin radio work.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>The Work Is The Boundary Between Blocks</h2>
+            <p>An FPGA is not merely a place to translate software into gates. It is where electrical behavior, clocks, packet structure, state, routing, and configuration meet. I work directly at those joins.</p>
+            <p>The public record spans Lattice iCE40 and Xilinx 7-series hardware, Verilog and SystemVerilog, vendor primitives, Yosys-based toolchains, raw network framing, RF threshold crossings, and reconfiguration of one FPGA by another. The projects below are the evidence, not a generic list of skills.</p>
+        </section>
+
+        <section>
+            <h2>Six Concrete FPGA Paths</h2>
+            <div class="capability-grid">
+                <article id="rf-systems" class="capability-card">
+                    <p class="eyebrow">RF receive</p>
+                    <h3><a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a></h3>
+                    <p>A thresholded RF stream enters one logical iCE40 input, is sampled in four phases, mixed by inversion and XOR, accumulated, demodulated by an I/Q cross product, and emitted as sigma-delta audio.</p>
+                    <p>The page includes operating video, the selected UP5K source snapshot, build path, and the receiver measurements still needed. The selected RTL retains its MIT header naming Ivan Borisenko.</p>
+                </article>
+
+                <article class="capability-card">
+                    <p class="eyebrow">RF transmit</p>
+                    <h3><a href="one-pin-RF/ptc_nov21/mod_apr20.sv">One-Pin Quadrature/SDM Transmitter RTL</a></h3>
+                    <p>The preserved iCE40 HX8K source builds two sigma-delta streams and selects among four phases of a 216 MHz quadrature clock to drive one RF output pin.</p>
+                    <p>This historical RTL retains its MIT header naming Ivan Borisenko. Measured power, spectrum, range, resonant-tank behavior, and a fresh build log remain separate evidence milestones.</p>
+                </article>
+
+                <article class="capability-card">
+                    <p class="eyebrow">Network and configuration</p>
+                    <h3><a href="ethernet-udp-ice40-reprogrammer.html">Ethernet To An Adjacent iCE40</a></h3>
+                    <p>A 2020 multi-file source publication implements RMII receive, ARP response, fixed-layout IPv4/UDP-carried bitstream ingestion, FPGA RAM storage, and direct control of an adjacent iCE40LP384 configuration interface.</p>
+                    <p>The Linux sender combines UDP, epoll, XCB, EGL, and GLES2 in the same control shell.</p>
+                </article>
+
+                <article class="capability-card">
+                    <p class="eyebrow">Arithmetic scheduling</p>
+                    <h3><a href="serial_multiplier/">Bubbles-Free Bit-Serial Multiplier</a></h3>
+                    <p>The current Logisim artifact is an <code>8x8</code> unsigned positive-number circuit with three clocks of fixed latency and one LSB-first result bit per clock after fill. Consecutive operand words enter without a drain gap.</p>
+                    <p>It is a concrete architecture for narrow streaming graphs and a clear target for an RTL port.</p>
+                </article>
+
+                <article class="capability-card">
+                    <p class="eyebrow">Tangible logic</p>
+                    <h3><a href="physical-mux-tiles/">Physical MUX Tiles For STEM EE</a></h3>
+                    <p>Fabricated input, constant, selector, route, and intersection PCB variants make circuit role, orientation, and topology into objects that can be assembled and changed by hand.</p>
+                    <p>The project is a physical teaching alphabet, not a claim that every assembled patch is already a powered or classroom-validated computer.</p>
+                </article>
+
+                <article class="capability-card">
+                    <p class="eyebrow">Spatial reconfiguration</p>
+                    <h3><a href="cartilage/">Cartilage</a></h3>
+                    <p>Cartilage is the larger architecture: locally coherent regions of cells with owned ports, state, routing, and replacement. Its learning path runs from one MUX through LUTs, drivers, clock distribution, state, timing, metal, composition, and runtime instantiation in adjacent space.</p>
+                    <p><a href="cartilage-core.html">Cartilage Core</a> keeps the current browser and SystemVerilog proof package separate from the longer research program.</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>Devices, Primitives, And Toolchains</h2>
+            <div class="article-fact-table" role="table" aria-label="FPGA devices, primitives, and tools represented in the public work">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lattice targets</div><div role="cell">iCE40 UP5K, HX4K/HX8K, and LP384 source and build trails</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Xilinx target</div><div role="cell">Arty / 7-series Ethernet controller and adjacent-device reprogrammer source</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">HDL boundary</div><div role="cell">Verilog and SystemVerilog; PLLs, global buffers, DDR input, RMII, RAM, CRC, and configuration-pin control</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Open tools</div><div role="cell">Yosys, nextpnr, IceStorm, arachne-pnr, IcePack, Verilator, and Logisim</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Host integration</div><div role="cell">Linux UDP and epoll, XCB events, EGL/GLES2, raw WebGL/GLSL, and browser-visible tests</div></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>What This Range Is Worth</h2>
+            <p class="lead">I can follow a computation until the abstraction stops matching the machine.</p>
+            <p>Sometimes the right intervention is an arithmetic schedule. Sometimes it is an FPGA input threshold used as the front edge of a receiver. Sometimes it is an ARP response and bitstream path with no CPU in the datapath. Sometimes it is a configuration port between devices, or a circuit alphabet that a learner can hold.</p>
+            <p>The value is not breadth for its own sake. It is the ability to make the boundary concrete when hardware, software, protocol, and physical behavior have been split into separate specialties.</p>
+        </section>
+
+        <section class="traction-panel">
+            <h2>Bring An FPGA Boundary That Does Not Fit The Usual Stack</h2>
+            <p>Good work can begin with an RTL path, signal boundary, timing problem, packet interface, reconfiguration mechanism, teaching instrument, or architecture that needs to become inspectable before a team can decide what to build.</p>
+            <div class="cta-row">
+                <a class="cta-link" href="technology-research-and-consulting.html">Ways to work together</a>
+                <a class="cta-link" href="proof-and-artifacts.html">Inspect built evidence</a>
+                <a class="cta-link" href="mailto:brian@solidstatepros.com?subject=FPGA%20systems%20inquiry%20for%20Greenforest%20I%2FO">Email an FPGA inquiry</a>
+            </div>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Read next:</p>
+        <a href="ethernet-udp-ice40-reprogrammer.html">Ethernet To An Adjacent iCE40</a>
+        <p>Inspect the 2020 Verilog, configuration, and Linux host-control source trail.</p>
+        <p>More:</p>
+        <a href="physical-mux-tiles/">Physical MUX Tiles For STEM EE</a>
+        <p>See roles from reconfigurable logic represented as a hand-assemblable PCB alphabet.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

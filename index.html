@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Brian Greenforest | Computational Hardware, WebGL &amp; Cartilage</title>
-    <meta name="description" content="Brian Greenforest builds inspectable computational hardware: a streaming serial multiplier, raw WebGL and GLSL systems, and the Cartilage reconfigurable fabric.">
+    <title>Brian Greenforest | FPGA Systems, WebGL &amp; Cartilage</title>
+    <meta name="description" content="Brian Greenforest builds FPGA systems across streaming arithmetic, RF, Ethernet RTL and reconfiguration, plus raw WebGL/GLSL computing and Cartilage.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/">
     <link rel="icon" href="/favicon.ico">
-    <meta property="og:title" content="Brian Greenforest | Computational Hardware, WebGL &amp; Cartilage">
-    <meta property="og:description" content="A streaming serial multiplier, raw WebGL and GLSL systems, and Cartilage: inspectable mechanisms rebuilt from the boundary up.">
+    <meta property="og:title" content="Brian Greenforest | FPGA Systems, WebGL &amp; Cartilage">
+    <meta property="og:description" content="Streaming arithmetic, one-pin radio, direct Ethernet RTL, adjacent-FPGA reconfiguration, raw WebGL/GLSL, and Cartilage.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/">
     <!-- greenforest:share-metadata:start -->
@@ -21,10 +21,10 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Brian Greenforest | Computational Hardware, WebGL &amp; Cartilage - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Brian Greenforest | FPGA Systems, WebGL &amp; Cartilage - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/index.png">
-    <meta name="twitter:image:alt" content="Brian Greenforest | Computational Hardware, WebGL &amp; Cartilage - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Brian Greenforest | FPGA Systems, WebGL &amp; Cartilage - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
@@ -57,6 +57,9 @@
                         "browser-native circuit fabrics",
                         "programmable matter",
                         "one-pin digital radio",
+                        "RMII Ethernet and ARP in Verilog",
+                        "FPGA bitstream reconfiguration",
+                        "physical logic education",
                         "semiconductor R&D",
                         "local learning systems",
                         "maker-scale active-device processes"
@@ -83,6 +86,9 @@
                     ],
                     "knowsAbout": [
                         "FPGA design",
+                        "RF receiver and transmitter RTL",
+                        "Ethernet and ARP RTL",
+                        "cross-device FPGA reconfiguration",
                         "streaming arithmetic architectures",
                         "WebGL and GLSL",
                         "reconfigurable computing",
@@ -106,7 +112,7 @@
                     "@type": "WebPage",
                     "@id": "https://greenforest.io/#webpage",
                     "url": "https://greenforest.io/",
-                    "name": "Brian Greenforest | Computational Hardware, WebGL & Cartilage",
+                    "name": "Brian Greenforest | FPGA Systems, WebGL & Cartilage",
                     "isPartOf": {
                         "@id": "https://greenforest.io/#website"
                     },
@@ -131,6 +137,7 @@
             <p>The result is a mechanism another engineer can run, inspect, challenge, and continue.</p>
             <div class="cta-row" role="group" aria-label="Start with Brian Greenforest's work">
                 <a class="cta-link" href="serial_multiplier/">Streaming multiplier</a>
+                <a class="cta-link" href="fpga-systems.html">FPGA systems</a>
                 <a class="cta-link" href="webgl-glsl-computing.html">WebGL &amp; GLSL</a>
                 <a class="cta-link" href="cartilage/">Cartilage</a>
                 <a class="cta-link" href="technology-research-and-consulting.html">Work with Brian</a>
@@ -168,6 +175,38 @@
             </div>
         </section>
 
+        <section id="fpga-systems">
+            <h2>FPGA Systems Across Signal, Protocol, Logic, And Configuration</h2>
+            <p class="lead">The FPGA work extends far beyond one arithmetic circuit.</p>
+            <p>It spans RF receive and transmit paths, Ethernet and ARP in direct RTL, network-carried images, one FPGA reprogramming an adjacent iCE40, physical MUX tiles, device primitives, timing, and open build toolchains. <a href="fpga-systems.html">See the complete FPGA systems map</a>.</p>
+
+            <div class="capability-grid">
+                <article class="capability-card">
+                    <a href="how-much-radio-do-you-actually-need.html"><img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Waveforms, hand-built radio hardware, and received RF structure from the one-pin FPGA radio work"></a>
+                    <span class="eyebrow">RF receive and transmit</span>
+                    <h3><a href="how-much-radio-do-you-actually-need.html">One-pin FPGA radio paths</a></h3>
+                    <p>The demonstrated receiver turns thresholded RF into FM audio through four-phase sampling, XOR/Weaver mixing, accumulation, cross-product demodulation, and sigma-delta output. The companion HX8K transmitter source builds quadrature/SDM modulation for one RF output pin.</p>
+                    <p><a href="fpga-systems.html#rf-systems">See both RF source trails</a></p>
+                </article>
+
+                <article class="capability-card">
+                    <a href="ethernet-udp-ice40-reprogrammer.html"><img src="social-previews/ethernet-udp-ice40-reprogrammer.png" width="1200" height="630" loading="lazy" decoding="async" alt="Preview for the Ethernet-to-iCE40 Verilog reprogrammer article"></a>
+                    <span class="eyebrow">Network RTL and reconfiguration</span>
+                    <h3><a href="ethernet-udp-ice40-reprogrammer.html">Ethernet to an adjacent iCE40</a></h3>
+                    <p>A 2020 source publication crosses RMII receive, ARP response, fixed-layout IPv4/UDP bitstream ingestion, FPGA RAM, and direct configuration of a neighboring iCE40LP384. The Linux sender combines UDP, epoll, XCB, EGL, and GLES2.</p>
+                    <p><a href="ethernet-udp-ice40-reprogrammer.html">Inspect the 14-file source map</a></p>
+                </article>
+
+                <article class="capability-card capability-card-wide">
+                    <a href="physical-mux-tiles/"><img src="physical-mux-tiles/media/assembly.webp" width="1440" height="1080" loading="lazy" decoding="async" alt="A palm-scale assembly of physical purple MUX, input, constant, route, and intersection PCB tiles"></a>
+                    <span class="eyebrow">Tangible logic for STEM EE</span>
+                    <h3><a href="physical-mux-tiles/">A physical MUX-tile alphabet</a></h3>
+                    <p>Fabricated PCB variants turn inputs, constants, selectors, routes, intersections, orientation, and topology into a language a learner can assemble and change by hand. The new project page connects the physical pieces to Logisim, LUT1&ndash;LUT6, and real FPGA logic without pretending that the prototype is already a classroom-validated powered computer.</p>
+                    <p><a href="physical-mux-tiles/">Follow the hands-on learning path and photographic evidence</a></p>
+                </article>
+            </div>
+        </section>
+
         <section id="value">
             <h2>The Value I Provide</h2>
             <p class="lead">I create escape routes from inherited technical stacks.</p>
@@ -193,12 +232,6 @@
                 <span class="label">Manufacturing program</span>
                 <a class="entry-title" href="the-missing-maker-fab.html">The Missing Maker Fab</a>
                 <p>The maker loop reaches boards, enclosures, firmware, and fixtures, then stops at active silicon. This program asks what civic-scale process could provide nonlinear gain, restoration, fanout, interconnect, and enough repeatability for useful logic.</p>
-            </div>
-
-            <div class="entry">
-                <span class="label">RF system</span>
-                <a class="entry-title" href="how-much-radio-do-you-actually-need.html">A One-Pin FPGA FM Receiver</a>
-                <p>The page preserves a one-pin FPGA receiver and a one-pin resonant-tank transmitter chain, including the Verilog follow-up, operating evidence, and limits.</p>
             </div>
 
             <div class="entry">
@@ -263,7 +296,7 @@
 
     <footer>
         <p>Greenforest I/O is the public work site of Brian Greenforest, connected to <a href="https://www.solidstatepros.com/" target="_blank" rel="noopener">Solid State Pros LLC</a>.</p>
-        <p><a href="about-greenforest.html">About</a> | <a href="technology-research-and-consulting.html">Work with Brian</a> | <a href="proof-and-artifacts.html">Built evidence</a> | <a href="cartilage/">Cartilage</a> | <a href="webgl-glsl-computing.html">WebGL &amp; GLSL</a> | <a href="contact.html">Contact</a> | <a href="faq.html">FAQ</a> | <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a></p>
+        <p><a href="about-greenforest.html">About</a> | <a href="technology-research-and-consulting.html">Work with Brian</a> | <a href="proof-and-artifacts.html">Built evidence</a> | <a href="fpga-systems.html">FPGA systems</a> | <a href="cartilage/">Cartilage</a> | <a href="webgl-glsl-computing.html">WebGL &amp; GLSL</a> | <a href="contact.html">Contact</a> | <a href="faq.html">FAQ</a> | <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a></p>
         <p>&copy; Brian Greenforest 2019-2026</p>
         <p><a href="https://www.linkedin.com/in/briangreenforest" target="_blank" rel="noopener">Connect on LinkedIn</a></p>
     </footer>

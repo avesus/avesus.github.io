@@ -94,6 +94,15 @@
 
     <main>
         <section>
+            <h2>The Companion FPGA Transmit Path</h2>
+            <p>The receiver is one half of the radio work. A companion source trail explores the reverse boundary: producing RF from one iCE40 output through fully digital quadrature and sigma-delta modulation.</p>
+            <p>The preserved <a href="one-pin-RF/ptc_nov21/mod_apr20.sv"><code>ptc_nov21/mod_apr20.sv</code></a> snapshot builds two sawtooth-driven sigma-delta streams, uses them to select among four phases of a 216 MHz quadrature clock, and drives one <code>RF_OUT</code> package pin through an iCE40 <code>SB_IO</code> primitive. Its nearby <a href="one-pin-RF/ptc_nov21/build.sh">build script</a> targets an HX8K CT256 through Yosys, nextpnr, IceStorm, and <code>iceprog</code>.</p>
+            <p>The related <a href="one-pin-RF/fm_radio_demo_2026/fm_radio_to_injection_locking_317kHz.sv"><code>fm_radio_to_injection_locking_317kHz.sv</code></a> snapshot combines the receiver with a fixed 317 kHz low-frequency output. Its active output is fixed; the audio-controlled modulation path remains commented source. These are historical source and build trails, not yet a complete transmitter evidence page: the public package does not include a fresh build log, resonant-tank schematic, measured spectrum, RF power, range, or regulatory characterization.</p>
+            <p>The selected receiver and transmitter RTL files carry MIT-licensed copyright headers naming Ivan Borisenko. Greenforest I/O presents the documented hardware, build, and operating evidence while preserving that source authorship explicitly.</p>
+            <p><a href="fpga-systems.html#rf-systems">See the receiver and transmitter in the complete FPGA systems map</a>.</p>
+        </section>
+
+        <section>
             <h2>The Conventional Receiver Brings A Lot Of Apparatus</h2>
             <p>I started where people usually start. Weak RF comes in. A low-noise amplifier boosts it. A mixer multiplies it against a local oscillator. The design produces IF or baseband. An ADC samples that. Later digital stages recover the audio.</p>
             <p>That architecture works. It also brings work of its own.</p>

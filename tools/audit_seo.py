@@ -21,6 +21,9 @@ SITEMAP_NS = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 PILLARS = {
     "index.html",
     "serial_multiplier/index.html",
+    "fpga-systems.html",
+    "ethernet-udp-ice40-reprogrammer.html",
+    "physical-mux-tiles/index.html",
     "webgl-glsl-computing.html",
     "cartilage/index.html",
     "cartilage/logic-to-luts.html",

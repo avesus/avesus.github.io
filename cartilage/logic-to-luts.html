@@ -83,6 +83,10 @@
             <p class="formula">Y = S ? D1 : D0</p>
             <p>Now stop treating <code>D0</code> and <code>D1</code> as live signals. Store two configuration bits there instead. The select input becomes an address. That is LUT1: one input chooses one of two stored truth-table values.</p>
             <p>If the two stored bits are <code>1, 0</code>, the table is an inverter. If they are <code>0, 1</code>, it is a buffer. <code>0, 0</code> and <code>1, 1</code> are constant zero and constant one. The same selector implements every Boolean function of one input because the configuration supplies the function's complete truth table.</p>
+            <div class="reader-note">
+                <p><strong>Hands-on companion:</strong> the <a href="/physical-mux-tiles/">physical MUX-tile alphabet</a> turns selector inputs, constants, routes, intersections, orientation, and composition into fabricated PCB parts a learner can manipulate before moving into stored LUT bits.</p>
+                <p>The photographs establish real pieces and palm-scale assembly. The project does not yet claim powered operation or classroom validation.</p>
+            </div>
         </section>
 
         <section>

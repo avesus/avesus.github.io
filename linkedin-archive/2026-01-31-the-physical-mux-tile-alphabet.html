@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <title>Modular PCB Logic Tiles: A Physical MUX and Wire Alphabet</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="robots" content="noindex, follow">
     <meta name="description" content="Physical MUX tiles turn the Boolean fabric alphabet into connectable circuit pieces: MUX, wire, constants, intersections, one-sided orientation, and edge-to-edge patches.">
-    <link rel="canonical" href="https://greenforest.io/linkedin-archive/2026-01-31-the-physical-mux-tile-alphabet.html">
+    <link rel="canonical" href="https://greenforest.io/physical-mux-tiles/">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Modular PCB Logic Tiles: A Physical MUX and Wire Alphabet">
     <meta property="og:description" content="Physical MUX tiles turn the Boolean fabric alphabet into connectable circuit pieces: MUX, wire, constants, intersections, one-sided orientation, and edge-to-edge patches.">
@@ -90,19 +90,20 @@
     <address>January 31, 2026</address>
 
     <section class="abstract">
-        <p>The physical MUX tile set turns a Boolean fabric alphabet into parts that can be assembled by hand: MUX tiles, wire tiles, constant tiles, and intersection tiles connected edge to edge.</p>
+        <p>The physical MUX tile set turns a Boolean fabric alphabet into parts that can be assembled by hand: MUX, route, constant, input, and intersection variants joined through visible connector geometry.</p>
         <p>The useful result is not that a PCB exists. The result is a readable set of circuit symbols with connector orientation, physical rotation, and patch assembly all forced into the same object.</p>
         <div class="status-box">
             <p><span class="status-label">Physical artifact note</span>Originally posted 2026-01-31; expanded into an article on the physical tile alphabet on 2026-07-09.</p>
-            <p><strong>Included:</strong> the assembled tile roles, connector/orientation constraint, first patch behavior, and next logic test target.</p>
+            <p><strong>Included:</strong> the assembled tile roles, connector and orientation constraints, manual composition, and next logic test target.</p>
             <p><strong>Article focus:</strong> the physical MUX-tile vocabulary: parts, arrangement, visual reading, and the path from abstract logic toward assembled structure.</p>
+            <p><strong>Expanded project:</strong> <a href="/physical-mux-tiles/">see the original photographs and the proposed hands-on STEM/EE learning path</a>.</p>
         </div>
     </section>
 
     <main>
         <section>
             <h2>The Artifact</h2>
-            <p>The first connectorized batch of purple MUX tiles made the fabric physical. These are small triangular PCB tiles intended to connect edge to edge into a circuit patch. Each tile is a symbol in the alphabet: MUX, wire, constant, or intersection.</p>
+            <p>The first connectorized batch of purple MUX tiles made the fabric physical. These three-lobed PCB variants were designed to compose into a circuit patch. Each tile is a symbol in the alphabet: MUX, route, constant, input, or intersection.</p>
             <p>The connectors matter because the tile is not just a drawing of a primitive. Once the connectors are soldered in the correct orientation, the part has a real side, a real rotation, and a real neighbor relation. A patch can be assembled, picked up, rotated, extended, and read as one object.</p>
         </section>
 
@@ -126,20 +127,18 @@
 
         <section>
             <h2>Reading Path</h2>
-            <p>Start with <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> for the current logical cell, router, fabric, hardware paper, and exact install. Read <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a> for the MUX-first computation argument. Read <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> for the related render alphabet. The repository is logical RTL evidence; it does not establish a fabricated physical tile or physical timing closure.</p>
+            <p>Start with the expanded <a href="/physical-mux-tiles/">Physical MUX Tiles</a> project page for the photographs, evidence boundary, and teaching sequence. Continue to <a href="/cartilage/logic-to-luts.html">Logisim, The MUX, And LUT1 Through LUT6</a> for the bridge into stored truth tables and real FPGA logic.</p>
         </section>
 
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="/cartilage-core.html">Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog</a>
-        <p>The current logical fabric, public source, RTL, and exact local installation.</p>
+        <a href="/physical-mux-tiles/">Physical MUX Tiles: A Hands-On Logic Alphabet</a>
+        <p>See the fabricated pieces, original photographs, and proposed STEM/EE teaching path.</p>
         <p>More:</p>
         <a href="/boolean-algebra-is-all-that-is-required.html">Universal Computation With Multiplexers</a>
         <p>The formal multiplexer-first computation argument behind the physical alphabet.</p>
-        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
-        <p>The related port, wire, constant, crossing, and MUX roles in the rendered fabric.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

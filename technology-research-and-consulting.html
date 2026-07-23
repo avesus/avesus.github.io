@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Hardware R&amp;D, Product Architecture &amp; Prototyping | Brian Greenforest</title>
-    <meta name="description" content="Work with Brian Greenforest on funded R&D, product architecture, and prototypes that make hidden timing, state, routing, GPU computation, and physical constraints explicit.">
+    <meta name="description" content="Work with Brian Greenforest on FPGA system architecture, RF and network RTL, WebGL/GLSL computing, Cartilage, product R&D, and inspectable prototypes.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/technology-research-and-consulting.html">
     <meta property="og:title" content="Hardware R&amp;D, Product Architecture &amp; Prototyping | Brian Greenforest">
-    <meta property="og:description" content="Funded R&D and prototypes for streaming FPGA arithmetic, raw WebGL and GLSL systems, Cartilage, radio, and physical-computing boundaries.">
+    <meta property="og:description" content="FPGA system architecture, RF and network RTL, adjacent-device reconfiguration, raw WebGL/GLSL, Cartilage, and physical-computing R&D.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/technology-research-and-consulting.html">
         <link rel="icon" href="/favicon.ico">
@@ -33,7 +33,7 @@
             "@type": "Service",
             "@id": "https://greenforest.io/technology-research-and-consulting.html#service",
             "name": "Greenforest I/O technical R&D and architecture work",
-            "serviceType": "Funded R&D, product architecture, prototype implementation, FPGA streaming systems, WebGL and GLSL computing, reconfigurable fabrics, radio, and semiconductor process boundaries",
+            "serviceType": "Funded R&D, FPGA system architecture, RF and network RTL, adjacent-device reconfiguration, product architecture, WebGL and GLSL computing, reconfigurable fabrics, and physical-computing boundaries",
             "provider": {
                 "@type": "Organization",
                 "@id": "https://greenforest.io/#organization",
@@ -66,10 +66,10 @@
     <main>
         <section>
             <h2>Where I Am Unusually Useful</h2>
-            <p><strong>Streaming FPGA arithmetic:</strong> narrow, regular schedules that fit dataflow systems better than a wide immediate operator. The <a href="serial_multiplier/">bubbles-free bit-serial multiplier</a> is the concrete public example: an <code>8x8</code> Logisim artifact with an 8-bit LSB-first result, three clocks of fixed latency, and no drain gap between words.</p>
+            <p><strong>FPGA system architecture and RTL:</strong> work from pin behavior and clocking through arithmetic, signal processing, packet structure, memory, configuration transport, and host control. The <a href="fpga-systems.html">public FPGA systems map</a> connects the bubbles-free serial multiplier, one-pin RF receive and transmit paths, a Verilog RMII/ARP reprogrammer, adjacent iCE40 configuration, physical MUX tiles, and Cartilage.</p>
             <p><strong>Raw WebGL and GLSL computation:</strong> browser-GPU systems built below a rendering framework, with shader compilation, texture-backed state, framebuffer passes, ping-pong updates, and readback exposed as part of the architecture. <a href="webgl-glsl-computing.html">Inspect the implementation trail</a>.</p>
-            <p><strong>Reconfigurable systems from logic to space:</strong> Cartilage connects LUTs, drivers, event distribution, state machines, timing, routing metal, nested composition, and runtime region replacement. The <a href="cartilage/">chapter-by-chapter learning path</a> explains the concepts; <a href="cartilage-core.html">Cartilage Core</a> presents the current bounded browser-and-RTL proof.</p>
-            <p>These are not three unrelated specialties. They are examples of the same contribution: escaping a fixed abstraction when the mechanism beneath it is the real design surface.</p>
+            <p><strong>Reconfigurable systems from logic to space:</strong> Cartilage connects LUTs, drivers, event distribution, state machines, timing, routing metal, nested composition, and runtime region replacement. The <a href="cartilage/">chapter-by-chapter learning path</a> explains the concepts; <a href="cartilage-core.html">Cartilage Core</a> presents the current bounded browser-and-RTL proof; the <a href="physical-mux-tiles/">physical MUX tiles</a> make the selector and routing alphabet tangible for EE learners.</p>
+            <p>These are not unrelated specialties. They are examples of the same contribution: escaping a fixed abstraction when the mechanism beneath it is the real design surface.</p>
         </section>
 
         <section>
@@ -95,7 +95,7 @@
 
         <section>
             <h2>How I Treat Evidence</h2>
-            <p>A useful prototype states what ran, what was measured, and what remains open. The multiplier is a public circuit and schedule, not a performance comparison with DSP blocks. The WebGL pages establish direct implementation experience, not universal browser performance. Cartilage Core checks one installed fabric image across bounded models, not a finished compiler, placer/router, or fabricated chip.</p>
+            <p>A useful prototype states what ran, what was measured, and what remains open. The multiplier is a public circuit and schedule, not a performance comparison with DSP blocks. The 2020 Ethernet reprogrammer is a substantial source publication, not a freshly reproduced standards-compliance result. The WebGL pages establish direct implementation experience, not universal browser performance. Cartilage Core checks one installed fabric image across bounded models, not a finished compiler, placer/router, or fabricated chip.</p>
             <p><a href="proof-and-artifacts.html">Built Mechanisms and Evidence</a> keeps those proof boundaries beside the strongest public artifacts.</p>
         </section>
 
@@ -109,8 +109,10 @@
     <nav class="article-links">
         <p>Read next:</p>
         <a href="contact.html">Contact Brian</a>
-        <p>Direct contact details and business identity.</p>
+        <p>Send a technical boundary, opportunity, or project that may fit.</p>
         <p>More:</p>
+        <a href="fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
+        <p>Inspect the RF, network RTL, adjacent-device configuration, arithmetic, and tangible-logic evidence behind the offer.</p>
         <a href="proof-and-artifacts.html">Built Mechanisms And Evidence</a>
         <p>The public circuits, browser systems, source paths, and limits behind the offer.</p>
         <a href="/">Back to greenforest.io</a>

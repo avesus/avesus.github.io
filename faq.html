@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Greenforest I/O FAQ | Brian Greenforest Technical Work</title>
-    <meta name="description" content="Answers about Brian Greenforest's value, bubbles-free serial multiplier, WebGL and GLSL systems, Cartilage, evidence boundaries, technical R&D, and contact details.">
+    <meta name="description" content="Answers about Brian Greenforest's FPGA systems, RF and Ethernet RTL, physical MUX tiles, streaming multiplier, WebGL/GLSL, Cartilage, and technical R&D.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/faq.html">
     <meta property="og:title" content="Greenforest I/O FAQ">
-    <meta property="og:description" content="Answers about Brian Greenforest's streaming multiplier, WebGL and GLSL work, Cartilage, evidence boundaries, and R&D opportunities.">
+    <meta property="og:description" content="Answers about FPGA systems, RF and Ethernet RTL, physical logic education, the streaming multiplier, WebGL/GLSL, Cartilage, and R&D opportunities.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/faq.html">
         <link rel="icon" href="/favicon.ico">
@@ -62,6 +62,22 @@
                     "acceptedAnswer": {
                         "@type": "Answer",
                         "text": "Brian's public artifacts use raw WebGL1 and GLSL ES 1.00 for cellular automata and reconfigurable-fabric experiments, including shader compilation, packed texture state, framebuffer passes, ping-pong updates, and readback. This establishes direct implementation experience, not a universal cross-browser performance claim."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What FPGA systems has Brian built?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The public work spans a bubbles-free bit-serial multiplier, one-pin FPGA FM receive and quadrature/SDM transmit paths, RMII Ethernet and ARP in Verilog, UDP-carried bitstream ingestion, one FPGA configuring an adjacent iCE40LP384, physical MUX tiles, and Cartilage RTL and browser models. The selected RF RTL snapshots retain MIT copyright headers naming Ivan Borisenko."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What are the physical MUX tiles?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "They are fabricated PCB variants for inputs, constants, selectors, routes, and intersections. The pieces make circuit role, orientation, and topology physically manipulable for a proposed STEM electrical-engineering learning path. The current evidence establishes fabrication and manual composition, not powered operation or classroom outcomes."
                     }
                 },
                 {
@@ -126,6 +142,19 @@
             <h2>What WebGL And GLSL Work Has Brian Done?</h2>
             <p>The <a href="webgl-glsl-computing.html">public implementation trail</a> uses raw WebGL1 and GLSL ES 1.00 for cellular automata and reconfigurable-fabric experiments. It exposes context setup, shader compilation, packed texture state, framebuffer passes, ping-pong updates, and readback instead of hiding them behind a rendering framework.</p>
             <p>This establishes substantial direct implementation experience. It is not a universal cross-browser performance claim or an assertion that a browser simulation is identical to hardware.</p>
+        </section>
+
+        <section>
+            <h2>What FPGA Systems Has Brian Built?</h2>
+            <p>The <a href="fpga-systems.html">public FPGA systems map</a> spans the bubbles-free bit-serial multiplier, one-pin FPGA FM receive and quadrature/SDM transmit paths, RMII Ethernet and ARP in direct Verilog, UDP-carried image ingestion, one FPGA configuring an adjacent iCE40LP384, and Cartilage's current SystemVerilog and browser models.</p>
+            <p>The selected RF RTL snapshots retain MIT copyright headers naming Ivan Borisenko; the project pages distinguish those source credits from the demonstrated system and integration evidence.</p>
+            <p>The point is not a generic claim of FPGA familiarity. Each path keeps the pin, protocol, clock, RAM, configuration, source, or build boundary visible enough to inspect.</p>
+        </section>
+
+        <section>
+            <h2>What Are The Physical MUX Tiles?</h2>
+            <p>The <a href="physical-mux-tiles/">physical MUX tiles</a> are fabricated PCB variants for inputs, constants, selectors, routes, and intersections. They make circuit role, orientation, topology, and connector geometry physically manipulable for a proposed STEM electrical-engineering learning path.</p>
+            <p>The current evidence establishes real fabricated pieces and palm-scale manual composition. It does not yet establish powered operation, complete electrical correctness, or measured classroom outcomes.</p>
         </section>
 
         <section>
