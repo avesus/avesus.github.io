@@ -1,200 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Cartilage Core | Greenforest I/O</title>
+    <meta name="description" content="This retired Cartilage run page has been replaced by Cartilage Core, the current implementation, architecture paper, SystemVerilog RTL, and verification package.">
     <meta name="robots" content="noindex, follow">
-    <title>Cartilage Exact-Frame Reconfiguration Run</title>
-    <meta name="description" content="A full exact-frame Cartilage/QuadFlow browser-fabric run: 64x64 seed fabric, 525,568 committed updates, 525,569 decoded video frames, 7,956 QFG frames, and 704 expectations passing while a ripple-carry adder body is reconfigured 2-bit to 3-bit and back.">
-    <link rel="canonical" href="https://greenforest.io/cartilage-exact-frame-reconfiguration-run.html">
-    <meta property="og:title" content="Cartilage Exact-Frame Reconfiguration Run">
-    <meta property="og:description" content="A checked browser-fabric reconfiguration artifact with one recorded frame for the initial state and one after every committed update.">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://greenforest.io/cartilage-exact-frame-reconfiguration-run.html">
-        <link rel="icon" href="/favicon.ico">
-    <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png -->
+    <link rel="canonical" href="https://greenforest.io/cartilage-core.html">
+    <meta http-equiv="refresh" content="0; url=/cartilage-core.html">
+    <link rel="icon" href="/favicon.ico">
     <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:title" content="Cartilage Core">
+    <meta property="og:description" content="The current compact Cartilage implementation, architecture paper, RTL, and verification package.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://greenforest.io/cartilage-core.html">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
     <meta property="og:image" content="https://greenforest.io/social-previews/cartilage-exact-frame-reconfiguration-run.png">
     <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/cartilage-exact-frame-reconfiguration-run.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cartilage Exact-Frame Reconfiguration Run - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Cartilage Core - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-exact-frame-reconfiguration-run.png">
-    <meta name="twitter:image:alt" content="Cartilage Exact-Frame Reconfiguration Run - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Cartilage Core - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "Cartilage Exact-Frame Reconfiguration Run",
-            "author": {
-                "@type": "Person",
-                "name": "Brian Greenforest"
-            },
-            "datePublished": "2026-06-25",
-            "dateModified": "2026-07-10",
-            "image": "https://greenforest.io/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png",
-            "description": "A full exact-frame Cartilage/QuadFlow browser-fabric run: 64x64 seed fabric, 525,568 committed updates, 525,569 decoded video frames, 7,956 QFG frames, and 704 expectations passing while a ripple-carry adder body is reconfigured 2-bit to 3-bit and back.",
-            "mainEntityOfPage": "https://greenforest.io/cartilage-exact-frame-reconfiguration-run.html",
-            "publisher": {
-                "@type": "Person",
-                "name": "Brian Greenforest"
-            }
-        }
-    </script>
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
-    <header>Cartilage Exact-Frame Reconfiguration Run</header>
-    <address>June 25, 2026</address>
-
-    <section class="abstract">
-        <p>The fabric body changes while the edge discipline stays readable.</p>
-        <p>This package records one complete browser-hosted Cartilage fabric run. A seeded 64x64 fabric is driven through 525,568 committed updates by a QuadFlow/Cartilage QFG stream, while a ripple-carry adder body is reconfigured from a 2-bit body to a 3-bit body and then back to a preserved 2-bit body.</p>
-        <p>The important engineering claim is the lockstep capture rule: the recorder stores one initial frame, then one video frame after every committed fabric update. The compressed publication MP4 and the local canonical WebM both decode to 525,569 frames.</p>
-        <div class="status-box">
-            <p><span class="status-label">Recorded run package</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>.</p>
-            <p><strong>Included:</strong> <code>64x64</code> seed fabric, <code>525,568</code> committed updates, <code>525,569</code> decoded frames, <code>7,956</code> QFG frames, <code>704/704</code> expectations passed, and the 2-bit to 3-bit to 2-bit reconfiguration arc.</p>
-            <p><strong>Package focus:</strong> the exact 525,568-update run, final frame, timeline checkpoints, generated media, and source artifacts that reproduce this render path.</p>
-        </div>
-    </section>
-
+<body class="article-structured">
+    <header><h1 class="page-title">Cartilage Core</h1></header>
     <main>
-        <section>
-            <h1>The Run Claim</h1>
-            <p>This is not a sampled timeline page. The exact-frame package records every committed update in the run: 525,568 fabric updates plus the initial state. The QFG stream contains 7,956 parsed frame declarations and 704 expectations; all 704 passed.</p>
-            <ul class="metric-list">
-                <li>Fabric grid: 64 x 64 cells.</li>
-                <li>Seed cells: 4,096 explicit primitive cells.</li>
-                <li>QFG frames: 7,956.</li>
-                <li>Fabric updates: 525,568.</li>
-                <li>Recorded frames: 525,569.</li>
-                <li>Expectation result: 704 / 704 passed.</li>
-                <li>Final active boundary outputs: right edge positions 16 and 34.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h1>Publication Video</h1>
-            <figure class="timeline-media">
-                <video controls preload="metadata" poster="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png">
-                    <source src="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-exact-525568-compressed.mp4" type="video/mp4">
-                    <a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-exact-525568-compressed.mp4">Open the compressed MP4</a>
-                </video>
-                <figcaption>Compressed H.264 publication copy of the exact-frame capture. The verification JSON reports 525,569 decoded MP4 frames, matching the local canonical WebM frame count.</figcaption>
-            </figure>
-            <p>The canonical VP9 WebM is preserved locally in the same package, but it is about 221 MB and is intentionally not committed to this web repository. The committed MP4 is about 25 MB and keeps the same decoded frame count for publication.</p>
-        </section>
-
-        <section>
-            <h1>Final State</h1>
-            <figure class="timeline-media">
-                <a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final.png">
-                    <img src="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png" alt="Cropped detail of the final Cartilage fabric state for the exact-frame reconfigurable ripple-carry adder run">
-                </a>
-                <figcaption>Cropped detail from the final committed frame. Open the image for the full 512x512 final render.</figcaption>
-            </figure>
-        </section>
-
-        <section>
-            <h1>What Reconfigured</h1>
-            <p>The QFG source describes a browser/GLSL-native reconfigurable ripple-carry adder run. The run starts as a stable 2-bit body, streams a physical 187-cell delta component into a root-owned Cartilage subtree, grows the body to 3 bits, and later drives the same region back to the preserved 2-bit body.</p>
-            <p>The run note identifies the reconfiguration root as <code>(25,28)</code> with parent top and first child <code>(25,29)</code>. It reports a maximum tree depth of 57 and a dwell value of 64. The target sequence after the initial 2-bit check is <code>3 -&gt; 2</code>.</p>
-        </section>
-
-        <section>
-            <h1>Boundary I/O Discipline</h1>
-            <p>The browser host receives primitive seed cells and boundary/edge value frames. During execution, the driver does not address arbitrary internal cells by global coordinate. It streams values through the exposed edge surface and advances the fabric one committed update at a time.</p>
-            <p>The key runtime repair for this package is that edgecell <code>pwr</code>/<code>gnd</code> declarations are treated as boundary metal drives, not as whole boundary-cell rewrites. That preserves parent pointers and configuration ownership while still allowing the host to drive the inward-facing Sinew metal bit.</p>
-            <pre><code>edgecell left 4 pwr parent right
-now drives only left.sinew_right[4]
-instead of rewriting the whole boundary cell body</code></pre>
-        </section>
-
-        <section>
-            <h1>Lockstep Timing</h1>
-            <p>For each QFG frame, the driver stages the sparse boundary writes, performs exactly one fabric update, and records the resulting canvas frame. The package note describes the rule as one initial frame before computation plus one frame after each committed fabric update.</p>
-            <p>That is why the arithmetic is in the counts: <code>525,568</code> fabric updates produce <code>525,569</code> recorded frames. The video is not a screen recording that happens to show a run. It is a frame-source capture driven by the browser canvas after each committed update.</p>
-        </section>
-
-        <section>
-            <h1>Checkpoint Frames</h1>
-            <p>The package also includes 20 checkpoint PNGs for quick inspection. These are not a replacement for the exact-frame video; they are convenient stills from the same run.</p>
-            <div class="checkpoint-grid">
-                <figure>
-                    <a href="/cartilage/codex5.5/frames/codex55-reconfigurable-ripple-exact-cycle-000000.png">
-                        <img src="/cartilage/codex5.5/frames/codex55-reconfigurable-ripple-exact-cycle-000000.png" alt="Checkpoint frame at cycle 0">
-                    </a>
-                    <figcaption>Cycle 0.</figcaption>
-                </figure>
-                <figure>
-                    <a href="/cartilage/codex5.5/frames/codex55-reconfigurable-ripple-exact-cycle-276615.png">
-                        <img src="/cartilage/codex5.5/frames/codex55-reconfigurable-ripple-exact-cycle-276615.png" alt="Checkpoint frame at cycle 276,615">
-                    </a>
-                    <figcaption>Cycle 276,615.</figcaption>
-                </figure>
-                <figure>
-                    <a href="/cartilage/codex5.5/frames/codex55-reconfigurable-ripple-exact-cycle-525568.png">
-                        <img src="/cartilage/codex5.5/frames/codex55-reconfigurable-ripple-exact-cycle-525568.png" alt="Checkpoint frame at cycle 525,568">
-                    </a>
-                    <figcaption>Cycle 525,568.</figcaption>
-                </figure>
-            </div>
-        </section>
-
-        <section>
-            <h1>Artifact Bundle</h1>
-            <p>The committed publication bundle is under <code>cartilage/codex5.5/</code>. These links point to concrete files; the oversized canonical WebM is intentionally excluded from git.</p>
-            <ul class="artifact-list">
-                <li><a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64.md">package note</a> - human-readable summary of the run, artifacts, counts, and runtime repair.</li>
-                <li><a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-verification.json">verification JSON</a> - generated frame counts, byte counts, and ffprobe summaries for WebM and MP4.</li>
-                <li><a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final.png">full final PNG</a> and <a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-final-detail.png">cropped final detail</a> - final committed visual state and publication preview crop.</li>
-                <li><a href="/cartilage/codex5.5/reconfigurable-ripple-2to3to2-preserveguard-d64-run-report.md">raw run report</a> - browser expectation trace and run metadata.</li>
-                <li><a href="/cartilage/codex5.5/samples/cartilage3-host.html">generated self-contained browser host</a> - the published QFG driver/host artifact; treat it as generated run machinery, not as a hand-maintained article.</li>
-                <li><a href="/cartilage/codex5.5/codex55-full-exact-stdout.log">stdout log</a> and <a href="/cartilage/codex5.5/codex55-full-exact-stderr.log">stderr log</a> - the stderr log is empty for this run.</li>
-                <li><a href="/cartilage/codex5.5/samples/tmp-reconfigurable-ripple-2to3to2-preserveguard-d64.qfg">main QFG sample</a> - generated 2-bit to 3-bit to 2-bit stream.</li>
-                <li><a href="/cartilage/codex5.5/samples/reconfigurable-ripple-2to3to2-preserveguard-d64-callouts.surface.qfg">callout surface QFG</a> - publication labels for the final rendered fabric.</li>
-                <li><a href="/cartilage/codex5.5/samples/browser-edgecell-as-sinew-metal-preserve.qfg">edge I/O regression fixture</a> - checks the ownership-preserving edgecell behavior.</li>
-                <li><a href="/cartilage/codex5.5/docs/QUADFLOW_CARTILAGE_SEMANTICS.md">QuadFlow Cartilage semantics</a>, <a href="/cartilage/codex5.5/docs/CARTILAGE3_SUBSTRATE_MAP.md">substrate map</a>, and <a href="/cartilage/codex5.5/docs/CARTILAGE_BROWSER_FABRIC_GOALS.md">browser fabric goals</a>.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h1>Why This Package Shape</h1>
-            <p>The exact-frame capture is useful because it ties the video frame count to the fabric update count. The cost is file size: the canonical lossier-but-exact-frame WebM is still too large for normal git hosting, and the publication page uses the smaller MP4 copy for browser playback.</p>
-            <p>The next useful layer is not a more dramatic video. It is tighter reproduction packaging around the QFG generator, host driver, runtime ownership checks, and compact summaries of the 704 expectations.</p>
-        </section>
-        <section class="cartilage-visual-link">
-            <h1>Cartilage Visual Language</h1>
-            <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
-        </section>
-
-        <section>
-            <h1>Current Core Reference</h1>
-            <p><a href="/cartilage-core.html">Cartilage Core</a> and the <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> are the current compact mechanism and hardware reference. They are not the source tree for this older QFG exact-frame run; use this page's bundle for claims about the capture above.</p>
-        </section>
-
-        <section>
-            <h1>Handoff Boundary</h1>
-            <p>The important audit points are boundary I/O discipline, frame accounting, and the QFG-to-fabric handoff. Those are the places where a hidden global assumption would matter.</p>
+        <section class="abstract">
+            <p>This retired run page is no longer presented as Cartilage evidence.</p>
+            <p>Continue to <a href="/cartilage-core.html">Cartilage Core</a> for the current compact implementation, architecture paper, SystemVerilog RTL, and verification package.</p>
         </section>
     </main>
-
-    <nav class="article-links">
-        <p>Read next:</p>
-        <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>
-        <p>A guide to the Cartilage run, timeline, and sketch pages.</p>
-        <p>More:</p>
-        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>The local-port and bounded-region fabric model behind the reconfiguration run.</p>
-        <a href="/">Go back</a>
-    </nav>
 </body>
 
 </html>
