@@ -20,6 +20,7 @@ const pages = [
   '/ethernet-udp-ice40-reprogrammer.html',
   '/physical-mux-tiles/',
   '/mux-algebra.html',
+  '/cartilage-reconfigurable-computing-roadmap.html',
   '/proof-and-artifacts.html',
   '/technology-research-and-consulting.html',
   '/cartilage/',
@@ -52,6 +53,7 @@ const screenshotPages = new Set([
   '/ethernet-udp-ice40-reprogrammer.html',
   '/physical-mux-tiles/',
   '/mux-algebra.html',
+  '/cartilage-reconfigurable-computing-roadmap.html',
   '/cartilage-visual-language.html',
 ]);
 
@@ -623,6 +625,45 @@ async function main() {
               fs.writeFileSync(
                 path.join(screenshotDir, `mux-algebra-${slug}-${viewportName}.png`),
                 artifactScreenshot.data,
+                'base64',
+              );
+            }
+          }
+
+          if (
+            pagePath === '/cartilage-reconfigurable-computing-roadmap.html'
+            && (viewportName === '390x844' || viewportName === '1920x1080')
+          ) {
+            const roadmapSections = [
+              ['Implementation Progress', 'progress'],
+              ['Render Components And Make Every Net Traceable', 'ergonomics'],
+              ['Replace The One-Cell Root Assumption With A Region Interface', 'root'],
+              ['Support Shared Objects Without Creating Multiple Writers', 'ownership'],
+              ['Recover A Stuck Ownership Island With A Closed-Contour Kill Pill', 'recovery'],
+              ['Turn The Shader Into A Practical Browser Workstation', 'simulator'],
+              ['The Logisim Replacement Target', 'logisim-target'],
+              ['How To Support Or Contribute', 'support'],
+            ];
+            for (const [title, slug] of roadmapSections) {
+              await client.send('Runtime.evaluate', {
+                expression: `(() => {
+                  const heading = Array.from(document.querySelectorAll('h2'))
+                    .find(element => element.textContent.trim() === ${JSON.stringify(title)});
+                  if (heading) {
+                    heading.scrollIntoView({ block: 'start' });
+                    window.scrollBy(0, -16);
+                  }
+                })()`,
+              });
+              await pause(180);
+              const sectionScreenshot = await client.send('Page.captureScreenshot', {
+                format: 'png',
+                fromSurface: true,
+                captureBeyondViewport: false,
+              });
+              fs.writeFileSync(
+                path.join(screenshotDir, `cartilage-roadmap-${slug}-${viewportName}.png`),
+                sectionScreenshot.data,
                 'base64',
               );
             }
