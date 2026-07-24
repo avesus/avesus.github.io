@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>MUX Algebra: Every Two-Input Logic Gate From MUXes | Greenforest I/O</title>
-    <meta name="description" content="A visual 2020 construction of all 16 two-input Boolean functions using exact 2:1 MUX circuits, the inputs A and B, and constants zero and one.">
+    <meta name="description" content="A visual 2020 construction of all 16 two-input Boolean functions, pairing exact 2:1 MUX diagrams with placed, routed, and shader-verified Cartilage fabric patches.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/mux-algebra.html">
     <link rel="icon" href="/favicon.ico">
     <meta property="og:title" content="MUX Algebra: Every Two-Input Logic Gate From MUXes">
-    <meta property="og:description" content="See every two-input Boolean function built from exact 2:1 multiplexer circuits, inputs, and constants.">
+    <meta property="og:description" content="See every two-input Boolean function as both an exact MUX circuit and a placed, routed Cartilage fabric patch.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/mux-algebra.html">
     <meta property="article:published_time" content="2026-07-23">
@@ -33,7 +33,7 @@
             "@context": "https://schema.org",
             "@type": "TechArticle",
             "headline": "MUX Algebra: Every Two-Input Logic Gate From MUXes",
-            "description": "A visual 2020 construction of all 16 two-input Boolean functions using exact 2:1 MUX circuits, the inputs A and B, and constants zero and one.",
+            "description": "A visual 2020 construction of all 16 two-input Boolean functions, pairing exact 2:1 MUX diagrams with placed, routed, and shader-verified Cartilage fabric patches.",
             "dateCreated": "2020",
             "datePublished": "2026-07-23",
             "dateModified": "2026-07-23",
@@ -54,7 +54,8 @@
                 "Boolean algebra",
                 "Logic gates",
                 "Lookup tables",
-                "Shannon decomposition"
+                "Shannon decomposition",
+                "Cartilage fabric"
             ]
         }
     </script>
@@ -188,6 +189,119 @@
             line-height: 1.35;
         }
 
+        .mux-parity-intro {
+            margin: 0.7rem 0 1rem;
+            padding: 0.7rem 0.8rem;
+            border: 1px solid #c4cec9;
+            background: #f6f8f6;
+            line-height: 1.4;
+        }
+
+        .mux-parity-intro p {
+            margin: 0;
+        }
+
+        .mux-parity-panels {
+            display: grid;
+            gap: 12px;
+        }
+
+        .mux-parity-panel {
+            min-width: 0;
+            padding: 0.5rem;
+            border: 1px solid #c4cec9;
+            background: #fff;
+        }
+
+        .mux-parity-panel--abstract {
+            background: #fbfaf5;
+        }
+
+        .mux-parity-label {
+            display: block;
+            margin: 0 0 0.4rem;
+            color: #43534d;
+            font-family: "Inconsolata", monospace;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .mux-parity-panel > a,
+        .mux-parity-panel > picture {
+            display: block;
+        }
+
+        .mux-parity-panel--cartilage img {
+            width: auto;
+            max-width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            border: 0;
+            background: #fbfaf5;
+        }
+
+        .mux-major .mux-parity-panel--cartilage img {
+            width: 100%;
+        }
+
+        .mux-parity-metrics,
+        .mux-parity-raw-links {
+            margin-top: 0.4rem;
+            color: #43534d;
+            font-family: "Inconsolata", monospace;
+            font-size: 14px;
+            line-height: 1.35;
+            text-align: center;
+        }
+
+        .mux-parity-metrics--responsive {
+            display: grid;
+            gap: 0.2rem;
+        }
+
+        .mux-parity-raw-links a {
+            display: inline;
+            white-space: nowrap;
+        }
+
+        .mux-propagation {
+            max-width: 448px;
+            margin: 1.15rem auto;
+        }
+
+        .mux-propagation picture,
+        .mux-propagation a {
+            display: block;
+        }
+
+        .mux-propagation img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #aebdb6;
+            background: #fbfaf5;
+        }
+
+        .mux-propagation figcaption {
+            margin-top: 0.45rem;
+            font-size: 17px;
+            font-style: normal;
+            line-height: 1.35;
+        }
+
+        .mux-cartilage-evidence {
+            padding: 0.85rem 0.95rem;
+            border: 1px solid #aebdb6;
+            background: #f6f8f6;
+        }
+
+        .mux-cartilage-evidence p {
+            margin: 0.45rem 0;
+        }
+
         .mux-encoding-note {
             padding: 0.75rem 0.9rem;
             border: 1px solid #c4cec9;
@@ -265,6 +379,15 @@
             body.mux-algebra-visual section {
                 margin-bottom: 2rem;
             }
+
+            .mux-parity-panel {
+                padding: 0.4rem;
+            }
+
+            .mux-parity-metrics,
+            .mux-parity-raw-links {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -285,17 +408,52 @@
         <section id="mux-rule">
             <h2>The Only MUX Rule</h2>
             <p class="mux-rule">M(S, D0, D1) = S ? D1 : D0</p>
+            <div class="mux-parity-intro">
+                <p><strong>Every lesson has two views.</strong> First comes the clean circuit; immediately beneath it is the same function placed and routed in the real Cartilage fabric. A pale beige square identifies a MUX tile; a filled dark signal ring means <code>1</code>, while a hollow ring means <code>0</code>. Open a compact fabric image—or the <strong>Native</strong> links beneath a responsive route—to inspect its unlabelled native pixels.</p>
+            </div>
             <div class="mux-grid mux-grid--2">
-                <figure class="mux-figure">
-                    <a href="/media/mux-algebra/diagrams/01-mux-selects-d0.svg">
-                        <img src="/media/mux-algebra/diagrams/01-mux-selects-d0.svg" width="440" height="360" loading="eager" decoding="async" alt="A 2-to-1 multiplexer with selector S equal to zero; the solid selected route connects D0 to output Y while D1 is dashed">
-                    </a>
+                <figure class="mux-figure" data-parity-id="01-mux-selects-d0">
+                    <!-- mux-cartilage-parity:start -->
+                    <div class="mux-parity-panels">
+                        <div class="mux-parity-panel mux-parity-panel--abstract">
+                            <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                            <!-- mux-cartilage-parity:abstract:start -->
+                            <a href="/media/mux-algebra/diagrams/01-mux-selects-d0.svg">
+                                <img src="/media/mux-algebra/diagrams/01-mux-selects-d0.svg" width="440" height="360" loading="eager" decoding="async" alt="A 2-to-1 multiplexer with selector S equal to zero; the solid selected route connects D0 to output Y while D1 is dashed">
+                            </a>
+                            <!-- mux-cartilage-parity:abstract:end -->
+                        </div>
+                        <div class="mux-parity-panel mux-parity-panel--cartilage">
+                            <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                            <a href="/media/mux-algebra/cartilage/raw/01-mux-selects-d0.png" aria-label="Open native Cartilage fabric PNG for MUX SELECTS D0">
+                                <img src="/media/mux-algebra/cartilage/cartilage-01-mux-selects-d0.png" width="448" height="464" loading="eager" decoding="async" alt="Actual Cartilage GLSL fabric rendering of a 2:1 MUX selecting its D0 input when S is zero.">
+                            </a>
+                            <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 1 verified state"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>1 verified state</code></div>
+                        </div>
+                    </div>
+                    <!-- mux-cartilage-parity:end -->
                     <figcaption><code>S=0</code> connects <code>D0</code> to <code>Y</code>.</figcaption>
                 </figure>
-                <figure class="mux-figure">
-                    <a href="/media/mux-algebra/diagrams/02-mux-selects-d1.svg">
-                        <img src="/media/mux-algebra/diagrams/02-mux-selects-d1.svg" width="440" height="360" loading="eager" decoding="async" alt="A 2-to-1 multiplexer with selector S equal to one; the solid selected route connects D1 to output Y while D0 is dashed">
-                    </a>
+                <figure class="mux-figure" data-parity-id="02-mux-selects-d1">
+                    <!-- mux-cartilage-parity:start -->
+                    <div class="mux-parity-panels">
+                        <div class="mux-parity-panel mux-parity-panel--abstract">
+                            <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                            <!-- mux-cartilage-parity:abstract:start -->
+                            <a href="/media/mux-algebra/diagrams/02-mux-selects-d1.svg">
+                                <img src="/media/mux-algebra/diagrams/02-mux-selects-d1.svg" width="440" height="360" loading="eager" decoding="async" alt="A 2-to-1 multiplexer with selector S equal to one; the solid selected route connects D1 to output Y while D0 is dashed">
+                            </a>
+                            <!-- mux-cartilage-parity:abstract:end -->
+                        </div>
+                        <div class="mux-parity-panel mux-parity-panel--cartilage">
+                            <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                            <a href="/media/mux-algebra/cartilage/raw/02-mux-selects-d1.png" aria-label="Open native Cartilage fabric PNG for MUX SELECTS D1">
+                                <img src="/media/mux-algebra/cartilage/cartilage-02-mux-selects-d1.png" width="448" height="464" loading="eager" decoding="async" alt="Actual Cartilage GLSL fabric rendering of a 2:1 MUX selecting its D1 input when S is one.">
+                            </a>
+                            <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 1 verified state"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>1 verified state</code></div>
+                        </div>
+                    </div>
+                    <!-- mux-cartilage-parity:end -->
                     <figcaption><code>S=1</code> connects <code>D1</code> to <code>Y</code>.</figcaption>
                 </figure>
             </div>
@@ -306,28 +464,92 @@
             <h2>Constants Create The Four Possible Sources</h2>
             <p>Once <code>A</code> is the only live input, its output can behave in only four ways. Each picture below uses the same MUX geometry and gives that behavior a two-bit pointer.</p>
             <div class="mux-grid mux-grid--2">
-                <figure class="mux-figure">
-                    <a href="/media/mux-algebra/diagrams/03-source-00-zero.svg">
-                        <img src="/media/mux-algebra/diagrams/03-source-00-zero.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 00 represented by a multiplexer selected by A with both data inputs tied to zero, producing constant zero">
-                    </a>
+                <figure class="mux-figure" data-parity-id="03-source-00-zero">
+                    <!-- mux-cartilage-parity:start -->
+                    <div class="mux-parity-panels">
+                        <div class="mux-parity-panel mux-parity-panel--abstract">
+                            <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                            <!-- mux-cartilage-parity:abstract:start -->
+                            <a href="/media/mux-algebra/diagrams/03-source-00-zero.svg">
+                                <img src="/media/mux-algebra/diagrams/03-source-00-zero.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 00 represented by a multiplexer selected by A with both data inputs tied to zero, producing constant zero">
+                            </a>
+                            <!-- mux-cartilage-parity:abstract:end -->
+                        </div>
+                        <div class="mux-parity-panel mux-parity-panel--cartilage">
+                            <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                            <a href="/media/mux-algebra/cartilage/raw/03-source-00-zero.png" aria-label="Open native Cartilage fabric PNG for SOURCE 00 · ZERO">
+                                <img src="/media/mux-algebra/cartilage/cartilage-03-source-00-zero.png" width="448" height="464" loading="eager" decoding="async" alt="Actual Cartilage GLSL fabric rendering of a MUX producing zero for both values of A.">
+                            </a>
+                            <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 2 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>2 verified states</code></div>
+                        </div>
+                    </div>
+                    <!-- mux-cartilage-parity:end -->
                     <figcaption><code>00</code>: tie both data inputs to zero. The result is always <code>0</code>.</figcaption>
                 </figure>
-                <figure class="mux-figure">
-                    <a href="/media/mux-algebra/diagrams/04-source-01-a.svg">
-                        <img src="/media/mux-algebra/diagrams/04-source-01-a.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 01 represented by a multiplexer selected by A with D0 tied to zero and D1 tied to one, producing A">
-                    </a>
+                <figure class="mux-figure" data-parity-id="04-source-01-a">
+                    <!-- mux-cartilage-parity:start -->
+                    <div class="mux-parity-panels">
+                        <div class="mux-parity-panel mux-parity-panel--abstract">
+                            <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                            <!-- mux-cartilage-parity:abstract:start -->
+                            <a href="/media/mux-algebra/diagrams/04-source-01-a.svg">
+                                <img src="/media/mux-algebra/diagrams/04-source-01-a.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 01 represented by a multiplexer selected by A with D0 tied to zero and D1 tied to one, producing A">
+                            </a>
+                            <!-- mux-cartilage-parity:abstract:end -->
+                        </div>
+                        <div class="mux-parity-panel mux-parity-panel--cartilage">
+                            <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                            <a href="/media/mux-algebra/cartilage/raw/04-source-01-a.png" aria-label="Open native Cartilage fabric PNG for SOURCE 01 · A">
+                                <img src="/media/mux-algebra/cartilage/cartilage-04-source-01-a.png" width="448" height="464" loading="eager" decoding="async" alt="Actual Cartilage GLSL fabric rendering of a MUX following A.">
+                            </a>
+                            <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 2 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>2 verified states</code></div>
+                        </div>
+                    </div>
+                    <!-- mux-cartilage-parity:end -->
                     <figcaption><code>01</code>: choose between zero and one with <code>A</code>. The result follows <code>A</code>.</figcaption>
                 </figure>
-                <figure class="mux-figure">
-                    <a href="/media/mux-algebra/diagrams/05-source-10-one.svg">
-                        <img src="/media/mux-algebra/diagrams/05-source-10-one.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 10 represented by a multiplexer selected by A with both data inputs tied to one, producing constant one">
-                    </a>
+                <figure class="mux-figure" data-parity-id="05-source-10-one">
+                    <!-- mux-cartilage-parity:start -->
+                    <div class="mux-parity-panels">
+                        <div class="mux-parity-panel mux-parity-panel--abstract">
+                            <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                            <!-- mux-cartilage-parity:abstract:start -->
+                            <a href="/media/mux-algebra/diagrams/05-source-10-one.svg">
+                                <img src="/media/mux-algebra/diagrams/05-source-10-one.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 10 represented by a multiplexer selected by A with both data inputs tied to one, producing constant one">
+                            </a>
+                            <!-- mux-cartilage-parity:abstract:end -->
+                        </div>
+                        <div class="mux-parity-panel mux-parity-panel--cartilage">
+                            <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                            <a href="/media/mux-algebra/cartilage/raw/05-source-10-one.png" aria-label="Open native Cartilage fabric PNG for SOURCE 10 · ONE">
+                                <img src="/media/mux-algebra/cartilage/cartilage-05-source-10-one.png" width="448" height="464" loading="eager" decoding="async" alt="Actual Cartilage GLSL fabric rendering of a MUX producing one for both values of A.">
+                            </a>
+                            <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 2 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>2 verified states</code></div>
+                        </div>
+                    </div>
+                    <!-- mux-cartilage-parity:end -->
                     <figcaption><code>10</code>: tie both data inputs to one. The result is always <code>1</code>.</figcaption>
                 </figure>
-                <figure class="mux-figure">
-                    <a href="/media/mux-algebra/diagrams/06-source-11-not-a.svg">
-                        <img src="/media/mux-algebra/diagrams/06-source-11-not-a.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 11 represented by a multiplexer selected by A with D0 tied to one and D1 tied to zero, producing NOT A">
-                    </a>
+                <figure class="mux-figure" data-parity-id="06-source-11-not-a">
+                    <!-- mux-cartilage-parity:start -->
+                    <div class="mux-parity-panels">
+                        <div class="mux-parity-panel mux-parity-panel--abstract">
+                            <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                            <!-- mux-cartilage-parity:abstract:start -->
+                            <a href="/media/mux-algebra/diagrams/06-source-11-not-a.svg">
+                                <img src="/media/mux-algebra/diagrams/06-source-11-not-a.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 11 represented by a multiplexer selected by A with D0 tied to one and D1 tied to zero, producing NOT A">
+                            </a>
+                            <!-- mux-cartilage-parity:abstract:end -->
+                        </div>
+                        <div class="mux-parity-panel mux-parity-panel--cartilage">
+                            <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                            <a href="/media/mux-algebra/cartilage/raw/06-source-11-not-a.png" aria-label="Open native Cartilage fabric PNG for SOURCE 11 · NOT A">
+                                <img src="/media/mux-algebra/cartilage/cartilage-06-source-11-not-a.png" width="448" height="464" loading="eager" decoding="async" alt="Actual Cartilage GLSL fabric rendering of a MUX producing NOT A.">
+                            </a>
+                            <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 2 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>2 verified states</code></div>
+                        </div>
+                    </div>
+                    <!-- mux-cartilage-parity:end -->
                     <figcaption><code>11</code>: choose the opposite constant with <code>A</code>. The result is <code>NOT A</code>.</figcaption>
                 </figure>
             </div>
@@ -337,61 +559,210 @@
             <h2>Build AND One Branch At A Time</h2>
             <p>Freeze <code>B</code>, and ask what the output must do as <code>A</code> changes. The answer for each value of <code>B</code> is one of the four source pictures above.</p>
             <div class="mux-grid mux-grid--2">
-                <figure class="mux-figure">
-                    <a href="/media/mux-algebra/diagrams/10-and-when-b-zero.svg">
-                        <img src="/media/mux-algebra/diagrams/10-and-when-b-zero.svg" width="440" height="430" loading="lazy" decoding="async" alt="AND with B fixed at zero; both values of A produce zero, so the branch selects source zero with pointer 00">
-                    </a>
+                <figure class="mux-figure" data-parity-id="10-and-when-b-zero">
+                    <!-- mux-cartilage-parity:start -->
+                    <div class="mux-parity-panels">
+                        <div class="mux-parity-panel mux-parity-panel--abstract">
+                            <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                            <!-- mux-cartilage-parity:abstract:start -->
+                            <a href="/media/mux-algebra/diagrams/10-and-when-b-zero.svg">
+                                <img src="/media/mux-algebra/diagrams/10-and-when-b-zero.svg" width="440" height="430" loading="lazy" decoding="async" alt="AND with B fixed at zero; both values of A produce zero, so the branch selects source zero with pointer 00">
+                            </a>
+                            <!-- mux-cartilage-parity:abstract:end -->
+                        </div>
+                        <div class="mux-parity-panel mux-parity-panel--cartilage">
+                            <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                            <a href="/media/mux-algebra/cartilage/raw/10-and-when-b-zero.png" aria-label="Open native Cartilage fabric PNG for AND · B = 0">
+                                <img src="/media/mux-algebra/cartilage/cartilage-10-and-when-b-zero.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of the AND MUX branch with B zero, forcing Y to zero.">
+                            </a>
+                            <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 2 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>2 verified states</code></div>
+                        </div>
+                    </div>
+                    <!-- mux-cartilage-parity:end -->
                     <figcaption>When <code>B=0</code>, AND must be zero for both values of <code>A</code>. Choose source <code>0</code>.</figcaption>
                 </figure>
-                <figure class="mux-figure">
-                    <a href="/media/mux-algebra/diagrams/11-and-when-b-one.svg">
-                        <img src="/media/mux-algebra/diagrams/11-and-when-b-one.svg" width="440" height="430" loading="lazy" decoding="async" alt="AND with B fixed at one; the output follows A, so the branch selects source A with pointer 01">
-                    </a>
+                <figure class="mux-figure" data-parity-id="11-and-when-b-one">
+                    <!-- mux-cartilage-parity:start -->
+                    <div class="mux-parity-panels">
+                        <div class="mux-parity-panel mux-parity-panel--abstract">
+                            <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                            <!-- mux-cartilage-parity:abstract:start -->
+                            <a href="/media/mux-algebra/diagrams/11-and-when-b-one.svg">
+                                <img src="/media/mux-algebra/diagrams/11-and-when-b-one.svg" width="440" height="430" loading="lazy" decoding="async" alt="AND with B fixed at one; the output follows A, so the branch selects source A with pointer 01">
+                            </a>
+                            <!-- mux-cartilage-parity:abstract:end -->
+                        </div>
+                        <div class="mux-parity-panel mux-parity-panel--cartilage">
+                            <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                            <a href="/media/mux-algebra/cartilage/raw/11-and-when-b-one.png" aria-label="Open native Cartilage fabric PNG for AND · B = 1">
+                                <img src="/media/mux-algebra/cartilage/cartilage-11-and-when-b-one.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of the AND MUX branch with B one, passing A to Y.">
+                            </a>
+                            <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 2 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>2 verified states</code></div>
+                        </div>
+                    </div>
+                    <!-- mux-cartilage-parity:end -->
                     <figcaption>When <code>B=1</code>, AND follows <code>A</code>. Choose source <code>A</code>.</figcaption>
                 </figure>
             </div>
-            <figure class="mux-figure mux-example-card">
-                <a href="/media/mux-algebra/diagrams/function-0001-and.svg">
-                    <img src="/media/mux-algebra/diagrams/function-0001-and.svg" width="440" height="610" loading="lazy" decoding="async" alt="A minimal AND circuit: one multiplexer selected by B with D0 equal to zero and D1 equal to A, plus all four truth-table outputs">
-                </a>
+            <figure class="mux-figure mux-example-card" data-parity-id="function-0001-and">
+                <!-- mux-cartilage-parity:start -->
+                <div class="mux-parity-panels">
+                    <div class="mux-parity-panel mux-parity-panel--abstract">
+                        <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                        <!-- mux-cartilage-parity:abstract:start -->
+                        <a href="/media/mux-algebra/diagrams/function-0001-and.svg">
+                            <img src="/media/mux-algebra/diagrams/function-0001-and.svg" width="440" height="610" loading="lazy" decoding="async" alt="A minimal AND circuit: one multiplexer selected by B with D0 equal to zero and D1 equal to A, plus all four truth-table outputs">
+                        </a>
+                        <!-- mux-cartilage-parity:abstract:end -->
+                    </div>
+                    <div class="mux-parity-panel mux-parity-panel--cartilage">
+                        <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                        <a href="/media/mux-algebra/cartilage/raw/function-0001-and.png" aria-label="Open native Cartilage fabric PNG for AND">
+                            <img src="/media/mux-algebra/cartilage/cartilage-function-0001-and.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of AND, placed and routed as a compact one-MUX patch matching M(B,0,A).">
+                        </a>
+                        <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 4 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                    </div>
+                </div>
+                <!-- mux-cartilage-parity:end -->
                 <figcaption><code>B=0</code> forces zero; <code>B=1</code> passes <code>A</code>. Only <code>A=1, B=1</code> produces one.</figcaption>
             </figure>
             <p class="mux-rule">AND = M(B, 0, A) &nbsp;&nbsp; pointer word 00|01 = 0001</p>
+            <figure class="mux-propagation" id="mux-and-propagation">
+                <a href="/media/mux-algebra/cartilage/cartilage-and-propagation.gif" aria-label="Open the native-size Cartilage AND propagation GIF">
+                    <picture>
+                        <source media="(prefers-reduced-motion: reduce)" srcset="/media/mux-algebra/cartilage/cartilage-and-propagation-poster.png" width="448" height="464">
+                        <img src="/media/mux-algebra/cartilage/cartilage-and-propagation.gif" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric frames for a one-MUX AND patch with A and B high; the signal advances through the fabric and output Y rises on cycle two">
+                    </picture>
+                </a>
+                <figcaption>Each frame advances exactly one native GLSL fabric transition. Watch the dark <code>1</code> state enter the beige MUX tile: with <code>A=1</code> and <code>B=1</code>, <code>Y</code> rises on cycle 2. Labels are composited over unscaled renderer captures.</figcaption>
+            </figure>
         </section>
 
         <section id="mux-proof">
             <h2>Why No Boolean Function Is Missing</h2>
             <h3>Direct truth-bit construction</h3>
             <p>Store the four truth-table outputs as <code>C00</code>, <code>C10</code>, <code>C01</code>, and <code>C11</code>. Two MUXes choose by <code>A</code>; a third chooses the correct column by <code>B</code>. Because the four stored bits can contain any pattern, this tree realizes all 16 two-input functions.</p>
-            <figure class="mux-figure mux-major" id="mux-lut2-tree">
-                <picture>
-                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/09a-universal-lut2-tree-mobile.svg">
-                    <img src="/media/mux-algebra/diagrams/09a-universal-lut2-tree.svg" width="960" height="620" loading="lazy" decoding="async" alt="A universal LUT2 tree made from three 2-to-1 multiplexers and four stored truth bits; A selects within each B column and B selects the column">
-                </picture>
+            <figure class="mux-figure mux-major" id="mux-lut2-tree" data-parity-id="09a-universal-lut2-tree">
+                <!-- mux-cartilage-parity:start -->
+                <div class="mux-parity-panels mux-parity-panels--responsive">
+                    <div class="mux-parity-panel mux-parity-panel--abstract">
+                        <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                        <!-- mux-cartilage-parity:abstract:start -->
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/09a-universal-lut2-tree-mobile.svg">
+                            <img src="/media/mux-algebra/diagrams/09a-universal-lut2-tree.svg" width="960" height="620" loading="lazy" decoding="async" alt="A universal LUT2 tree made from three 2-to-1 multiplexers and four stored truth bits; A selects within each B column and B selects the column">
+                        </picture>
+                        <!-- mux-cartilage-parity:abstract:end -->
+                    </div>
+                    <div class="mux-parity-panel mux-parity-panel--cartilage mux-parity-panel--responsive">
+                        <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/cartilage/cartilage-09a-universal-lut2-tree-mobile.png" width="832" height="464">
+                            <img src="/media/mux-algebra/cartilage/cartilage-09a-universal-lut2-tree.png" width="832" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of a universal two-input lookup table using three routed MUX tiles and four programmable truth-bit leaves.">
+                        </picture>
+                        <div class="mux-parity-raw-links" aria-label="Native Cartilage fabric PNGs">
+                            Native: <a href="/media/mux-algebra/cartilage/raw/09a-universal-lut2-tree.png" aria-label="Open wide native Cartilage fabric PNG for DIRECT LUT2 · XOR 0110">wide PNG</a><span aria-hidden="true"> · </span><a href="/media/mux-algebra/cartilage/raw/09a-universal-lut2-tree-mobile.png" aria-label="Open mobile native Cartilage fabric PNG for DIRECT LUT2 · XOR 0110">mobile PNG</a>
+                        </div>
+                        <div class="mux-parity-metrics mux-parity-metrics--responsive">
+                            <span aria-label="Wide: 7 by 3 tiles; 3 MUXes; 64 verified states"><strong>Wide:</strong> <code>7×3 tiles</code><span aria-hidden="true"> · </span><code>3 MUXes</code><span aria-hidden="true"> · </span><code>64 verified states</code></span>
+                            <span aria-label="Mobile: 7 by 3 tiles; 3 MUXes; 64 verified states"><strong>Mobile:</strong> <code>7×3 tiles</code><span aria-hidden="true"> · </span><code>3 MUXes</code><span aria-hidden="true"> · </span><code>64 verified states</code></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- mux-cartilage-parity:end -->
                 <figcaption>Three nested 2:1 MUXes select one of four stored truth bits. This is the direct LUT2 construction.</figcaption>
             </figure>
 
             <h3>The 2020 source-pointer construction</h3>
             <p>The manuscript uses a different four-bit encoding. It notices that each fixed-<code>B</code> column is exactly one of <code>0</code>, <code>A</code>, <code>1</code>, or <code>NOT A</code>, then stores two source addresses instead of four direct truth bits.</p>
-            <figure class="mux-figure mux-major" id="mux-truth-columns">
-                <picture>
-                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/07-split-truth-table-by-b-mobile.svg">
-                    <img src="/media/mux-algebra/diagrams/07-split-truth-table-by-b.svg" width="960" height="700" loading="lazy" decoding="async" alt="A two-input truth table split into B equals zero and B equals one columns; each two-bit column maps to source zero, A, one, or NOT A and its manuscript pointer code">
-                </picture>
+            <figure class="mux-figure mux-major" id="mux-truth-columns" data-parity-id="07-split-truth-table-by-b">
+                <!-- mux-cartilage-parity:start -->
+                <div class="mux-parity-panels mux-parity-panels--responsive">
+                    <div class="mux-parity-panel mux-parity-panel--abstract">
+                        <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                        <!-- mux-cartilage-parity:abstract:start -->
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/07-split-truth-table-by-b-mobile.svg">
+                            <img src="/media/mux-algebra/diagrams/07-split-truth-table-by-b.svg" width="960" height="700" loading="lazy" decoding="async" alt="A two-input truth table split into B equals zero and B equals one columns; each two-bit column maps to source zero, A, one, or NOT A and its manuscript pointer code">
+                        </picture>
+                        <!-- mux-cartilage-parity:abstract:end -->
+                    </div>
+                    <div class="mux-parity-panel mux-parity-panel--cartilage mux-parity-panel--responsive">
+                        <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/cartilage/cartilage-07-split-truth-table-by-b-mobile.png" width="832" height="464">
+                            <img src="/media/mux-algebra/cartilage/cartilage-07-split-truth-table-by-b.png" width="832" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of an AND truth table split into two A-selected branches and one final B-selected output.">
+                        </picture>
+                        <div class="mux-parity-raw-links" aria-label="Native Cartilage fabric PNGs">
+                            Native: <a href="/media/mux-algebra/cartilage/raw/07-split-truth-table-by-b.png" aria-label="Open wide native Cartilage fabric PNG for SPLIT BY B · AND 0001">wide PNG</a><span aria-hidden="true"> · </span><a href="/media/mux-algebra/cartilage/raw/07-split-truth-table-by-b-mobile.png" aria-label="Open mobile native Cartilage fabric PNG for SPLIT BY B · AND 0001">mobile PNG</a>
+                        </div>
+                        <div class="mux-parity-metrics mux-parity-metrics--responsive">
+                            <span aria-label="Wide: 7 by 3 tiles; 3 MUXes; 64 verified states"><strong>Wide:</strong> <code>7×3 tiles</code><span aria-hidden="true"> · </span><code>3 MUXes</code><span aria-hidden="true"> · </span><code>64 verified states</code></span>
+                            <span aria-label="Mobile: 7 by 3 tiles; 3 MUXes; 64 verified states"><strong>Mobile:</strong> <code>7×3 tiles</code><span aria-hidden="true"> · </span><code>3 MUXes</code><span aria-hidden="true"> · </span><code>64 verified states</code></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- mux-cartilage-parity:end -->
                 <figcaption>Each <code>B</code> column is one two-bit behavior of <code>A</code>, so each column needs only a two-bit source pointer.</figcaption>
             </figure>
-            <figure class="mux-figure mux-major" id="mux-config-word">
-                <picture>
-                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/08-config-word-mobile.svg">
-                    <img src="/media/mux-algebra/diagrams/08-config-word.svg" width="960" height="480" loading="lazy" decoding="async" alt="A four-bit configuration word split into C3 C2 for the B equals zero branch and C1 C0 for the B equals one branch">
-                </picture>
+            <figure class="mux-figure mux-major" id="mux-config-word" data-parity-id="08-config-word">
+                <!-- mux-cartilage-parity:start -->
+                <div class="mux-parity-panels mux-parity-panels--responsive">
+                    <div class="mux-parity-panel mux-parity-panel--abstract">
+                        <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                        <!-- mux-cartilage-parity:abstract:start -->
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/08-config-word-mobile.svg">
+                            <img src="/media/mux-algebra/diagrams/08-config-word.svg" width="960" height="480" loading="lazy" decoding="async" alt="A four-bit configuration word split into C3 C2 for the B equals zero branch and C1 C0 for the B equals one branch">
+                        </picture>
+                        <!-- mux-cartilage-parity:abstract:end -->
+                    </div>
+                    <div class="mux-parity-panel mux-parity-panel--cartilage mux-parity-panel--responsive">
+                        <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/cartilage/cartilage-08-config-word-mobile.png" width="872" height="2620">
+                            <img src="/media/mux-algebra/cartilage/cartilage-08-config-word.png" width="1600" height="1424" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering showing the four-bit 01|11 pointer word driving the complete wide selector network for XOR.">
+                        </picture>
+                        <div class="mux-parity-raw-links" aria-label="Native Cartilage fabric PNGs">
+                            Native: <a href="/media/mux-algebra/cartilage/raw/08-config-word.png" aria-label="Open wide native Cartilage fabric PNG for CONFIG 01|11 · XOR">wide PNG</a><span aria-hidden="true"> · </span><a href="/media/mux-algebra/cartilage/raw/08-config-word-mobile.png" aria-label="Open mobile native Cartilage fabric PNG for CONFIG 01|11 · XOR">mobile PNG</a>
+                        </div>
+                        <div class="mux-parity-metrics mux-parity-metrics--responsive">
+                            <span aria-label="Wide: 15 by 13 tiles; 8 MUXes; 64 verified states"><strong>Wide:</strong> <code>15×13 tiles</code><span aria-hidden="true"> · </span><code>8 MUXes</code><span aria-hidden="true"> · </span><code>64 verified states</code></span>
+                            <span aria-label="Mobile: 7 by 25 tiles; 8 MUXes; 64 verified states"><strong>Mobile:</strong> <code>7×25 tiles</code><span aria-hidden="true"> · </span><code>8 MUXes</code><span aria-hidden="true"> · </span><code>64 verified states</code></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- mux-cartilage-parity:end -->
                 <figcaption>The high pair addresses the <code>B=0</code> source. The low pair addresses the <code>B=1</code> source.</figcaption>
             </figure>
-            <figure class="mux-figure mux-major" id="mux-pointer-network">
-                <picture>
-                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/09-complete-configurable-network-mobile.svg">
-                    <img src="/media/mux-algebra/diagrams/09-complete-configurable-network.svg" width="1120" height="650" loading="lazy" decoding="async" alt="Clean block and circuit diagram of the complete source-pointer network: a bank of zero, A, one, and NOT A feeds two addressed 4-to-1 pickers and a final B-selected 2-to-1 MUX">
-                </picture>
+            <figure class="mux-figure mux-major" id="mux-pointer-network" data-parity-id="09-complete-configurable-network">
+                <!-- mux-cartilage-parity:start -->
+                <div class="mux-parity-panels mux-parity-panels--responsive">
+                    <div class="mux-parity-panel mux-parity-panel--abstract">
+                        <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                        <!-- mux-cartilage-parity:abstract:start -->
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/09-complete-configurable-network-mobile.svg">
+                            <img src="/media/mux-algebra/diagrams/09-complete-configurable-network.svg" width="1120" height="650" loading="lazy" decoding="async" alt="Clean block and circuit diagram of the complete source-pointer network: a bank of zero, A, one, and NOT A feeds two addressed 4-to-1 pickers and a final B-selected 2-to-1 MUX">
+                        </picture>
+                        <!-- mux-cartilage-parity:abstract:end -->
+                    </div>
+                    <div class="mux-parity-panel mux-parity-panel--cartilage mux-parity-panel--responsive">
+                        <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/cartilage/cartilage-09-complete-configurable-network-mobile.png" width="872" height="2620">
+                            <img src="/media/mux-algebra/cartilage/cartilage-09-complete-configurable-network.png" width="1600" height="1424" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of the complete eight-MUX 2020 pointer network configured as XOR, in a wide compact 15 by 13 tile route.">
+                        </picture>
+                        <div class="mux-parity-raw-links" aria-label="Native Cartilage fabric PNGs">
+                            Native: <a href="/media/mux-algebra/cartilage/raw/09-complete-configurable-network.png" aria-label="Open wide native Cartilage fabric PNG for POINTER 01|11 · XOR">wide PNG</a><span aria-hidden="true"> · </span><a href="/media/mux-algebra/cartilage/raw/09-complete-configurable-network-mobile.png" aria-label="Open mobile native Cartilage fabric PNG for POINTER 01|11 · XOR">mobile PNG</a>
+                        </div>
+                        <div class="mux-parity-metrics mux-parity-metrics--responsive">
+                            <span aria-label="Wide: 15 by 13 tiles; 8 MUXes; 64 verified states"><strong>Wide:</strong> <code>15×13 tiles</code><span aria-hidden="true"> · </span><code>8 MUXes</code><span aria-hidden="true"> · </span><code>64 verified states</code></span>
+                            <span aria-label="Mobile: 7 by 25 tiles; 8 MUXes; 64 verified states"><strong>Mobile:</strong> <code>7×25 tiles</code><span aria-hidden="true"> · </span><code>8 MUXes</code><span aria-hidden="true"> · </span><code>64 verified states</code></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- mux-cartilage-parity:end -->
                 <figcaption>Both addresses see the same four sources. <code>B</code> chooses which addressed branch reaches <code>Y</code>.</figcaption>
             </figure>
             <div class="mux-encoding-note">
@@ -409,28 +780,92 @@
                     <h3>When B=0, source 0 uses pointer 00</h3>
                     <p>The high pointer pair is <code>00</code>.</p>
                     <div class="mux-function-row">
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-0000-false.svg">
-                                <img src="/media/mux-algebra/diagrams/function-0000-false.svg" width="440" height="610" loading="lazy" decoding="async" alt="FALSE Boolean function tied directly to zero, with truth vector 0000 and pointer word 0000">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-0000-false">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-0000-false.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-0000-false.svg" width="440" height="610" loading="lazy" decoding="async" alt="FALSE Boolean function tied directly to zero, with truth vector 0000 and pointer word 0000">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-0000-false.png" aria-label="Open native Cartilage fabric PNG for FALSE">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-0000-false.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of FALSE, using one zero-constant tile.">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="1 by 1 tiles; 0 MUXes; 4 verified states"><code>1×1 tiles</code><span aria-hidden="true"> · </span><code>0 MUXes</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>FALSE is a direct constant: <code>Y=0</code>.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-0001-and.svg">
-                                <img src="/media/mux-algebra/diagrams/function-0001-and.svg" width="440" height="610" loading="lazy" decoding="async" alt="AND built with one MUX selected by B, D0 equal to zero, and D1 equal to A">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-0001-and">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-0001-and.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-0001-and.svg" width="440" height="610" loading="lazy" decoding="async" alt="AND built with one MUX selected by B, D0 equal to zero, and D1 equal to A">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-0001-and.png" aria-label="Open native Cartilage fabric PNG for AND">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-0001-and.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of AND, placed and routed as a compact one-MUX patch matching M(B,0,A).">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 4 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>AND: <code>B=0</code> forces zero; <code>B=1</code> passes <code>A</code>.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-0010-b.svg">
-                                <img src="/media/mux-algebra/diagrams/function-0010-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="Wire B connected directly to output Y, with truth vector 0101 and pointer word 0010">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-0010-b">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-0010-b.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-0010-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="Wire B connected directly to output Y, with truth vector 0101 and pointer word 0010">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-0010-b.png" aria-label="Open native Cartilage fabric PNG for WIRE B">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-0010-b.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of WIRE B, using a direct two-tile routed wire and no logical MUX.">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 1 tiles; 0 MUXes; 4 verified states"><code>2×1 tiles</code><span aria-hidden="true"> · </span><code>0 MUXes</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>WIRE B is direct: <code>Y=B</code>.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-0011-b-not-implies-a.svg">
-                                <img src="/media/mux-algebra/diagrams/function-0011-b-not-implies-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="B AND NOT A built with one MUX selected by A, D0 equal to B, and D1 equal to zero">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-0011-b-not-implies-a">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-0011-b-not-implies-a.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-0011-b-not-implies-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="B AND NOT A built with one MUX selected by A, D0 equal to B, and D1 equal to zero">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-0011-b-not-implies-a.png" aria-label="Open native Cartilage fabric PNG for B AND NOT A">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-0011-b-not-implies-a.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of B AND NOT A, placed and routed as a compact one-MUX patch matching M(A,B,0).">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 4 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption><code>B AND NOT A</code>, also <code>B ↛ A</code>: <code>A=0</code> passes <code>B</code>; <code>A=1</code> forces zero.</figcaption>
                         </figure>
                     </div>
@@ -440,28 +875,92 @@
                     <h3>When B=0, source A uses pointer 01</h3>
                     <p>The high pointer pair is <code>01</code>.</p>
                     <div class="mux-function-row">
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-0100-a-not-implies-b.svg">
-                                <img src="/media/mux-algebra/diagrams/function-0100-a-not-implies-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="A AND NOT B built with one MUX selected by B, D0 equal to A, and D1 equal to zero">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-0100-a-not-implies-b">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-0100-a-not-implies-b.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-0100-a-not-implies-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="A AND NOT B built with one MUX selected by B, D0 equal to A, and D1 equal to zero">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-0100-a-not-implies-b.png" aria-label="Open native Cartilage fabric PNG for A AND NOT B">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-0100-a-not-implies-b.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of A AND NOT B, placed and routed as a compact one-MUX patch matching M(B,A,0).">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 4 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption><code>A AND NOT B</code>, also <code>A ↛ B</code>: <code>B=0</code> passes <code>A</code>; <code>B=1</code> forces zero.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-0101-a.svg">
-                                <img src="/media/mux-algebra/diagrams/function-0101-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="Wire A connected directly to output Y, with truth vector 0011 and pointer word 0101">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-0101-a">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-0101-a.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-0101-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="Wire A connected directly to output Y, with truth vector 0011 and pointer word 0101">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-0101-a.png" aria-label="Open native Cartilage fabric PNG for WIRE A">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-0101-a.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of WIRE A, using a direct two-tile routed wire and no logical MUX.">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 1 tiles; 0 MUXes; 4 verified states"><code>2×1 tiles</code><span aria-hidden="true"> · </span><code>0 MUXes</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>WIRE A is direct: <code>Y=A</code>.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-0110-or.svg">
-                                <img src="/media/mux-algebra/diagrams/function-0110-or.svg" width="440" height="610" loading="lazy" decoding="async" alt="OR built with one MUX selected by B, D0 equal to A, and D1 equal to one">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-0110-or">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-0110-or.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-0110-or.svg" width="440" height="610" loading="lazy" decoding="async" alt="OR built with one MUX selected by B, D0 equal to A, and D1 equal to one">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-0110-or.png" aria-label="Open native Cartilage fabric PNG for OR">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-0110-or.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of OR, placed and routed as a compact one-MUX patch matching M(B,A,1).">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 4 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>OR: <code>B=0</code> passes <code>A</code>; <code>B=1</code> forces one.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-0111-xor.svg">
-                                <img src="/media/mux-algebra/diagrams/function-0111-xor.svg" width="440" height="610" loading="lazy" decoding="async" alt="XOR built with two MUXes: the first makes NOT A and the second, selected by B, chooses A or NOT A">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-0111-xor">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-0111-xor.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-0111-xor.svg" width="440" height="610" loading="lazy" decoding="async" alt="XOR built with two MUXes: the first makes NOT A and the second, selected by B, chooses A or NOT A">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-0111-xor.png" aria-label="Open native Cartilage fabric PNG for XOR">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-0111-xor.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of XOR, placed and routed as a compact shared-A two-MUX patch.">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="3 by 3 tiles; 2 MUXes; 4 verified states"><code>3×3 tiles</code><span aria-hidden="true"> · </span><code>2 MUXes</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>XOR: first make <code>NOT A</code>; then let <code>B=0</code> pass <code>A</code> and <code>B=1</code> pass <code>NOT A</code>.</figcaption>
                         </figure>
                     </div>
@@ -471,28 +970,92 @@
                     <h3>When B=0, source 1 uses pointer 10</h3>
                     <p>The high pointer pair is <code>10</code>.</p>
                     <div class="mux-function-row">
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-1000-not-b.svg">
-                                <img src="/media/mux-algebra/diagrams/function-1000-not-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="NOT B built with one MUX selected by B, D0 equal to one, and D1 equal to zero">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-1000-not-b">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-1000-not-b.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-1000-not-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="NOT B built with one MUX selected by B, D0 equal to one, and D1 equal to zero">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-1000-not-b.png" aria-label="Open native Cartilage fabric PNG for NOT B">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-1000-not-b.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of NOT B, placed and routed as a compact one-MUX patch matching M(B,1,0).">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 4 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>NOT B: <code>B</code> chooses the opposite constant.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-1001-b-implies-a.svg">
-                                <img src="/media/mux-algebra/diagrams/function-1001-b-implies-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="B implies A built with one MUX selected by B, D0 equal to one, and D1 equal to A">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-1001-b-implies-a">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-1001-b-implies-a.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-1001-b-implies-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="B implies A built with one MUX selected by B, D0 equal to one, and D1 equal to A">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-1001-b-implies-a.png" aria-label="Open native Cartilage fabric PNG for B IMPLIES A">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-1001-b-implies-a.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of B IMPLIES A, placed and routed as a compact one-MUX patch matching M(B,1,A).">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 4 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption><code>B → A</code>: when <code>B=0</code> the implication is true; when <code>B=1</code> it follows <code>A</code>.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-1010-true.svg">
-                                <img src="/media/mux-algebra/diagrams/function-1010-true.svg" width="440" height="610" loading="lazy" decoding="async" alt="TRUE Boolean function tied directly to one, with truth vector 1111 and pointer word 1010">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-1010-true">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-1010-true.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-1010-true.svg" width="440" height="610" loading="lazy" decoding="async" alt="TRUE Boolean function tied directly to one, with truth vector 1111 and pointer word 1010">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-1010-true.png" aria-label="Open native Cartilage fabric PNG for TRUE">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-1010-true.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of TRUE, using one one-constant tile.">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="1 by 1 tiles; 0 MUXes; 4 verified states"><code>1×1 tiles</code><span aria-hidden="true"> · </span><code>0 MUXes</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>TRUE is a direct constant: <code>Y=1</code>.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-1011-nand.svg">
-                                <img src="/media/mux-algebra/diagrams/function-1011-nand.svg" width="440" height="610" loading="lazy" decoding="async" alt="NAND built with two MUXes: the first makes NOT A and the second, selected by B, chooses one or NOT A">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-1011-nand">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-1011-nand.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-1011-nand.svg" width="440" height="610" loading="lazy" decoding="async" alt="NAND built with two MUXes: the first makes NOT A and the second, selected by B, chooses one or NOT A">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-1011-nand.png" aria-label="Open native Cartilage fabric PNG for NAND">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-1011-nand.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of NAND, placed and routed as a compact shared-A two-MUX patch.">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="3 by 3 tiles; 2 MUXes; 4 verified states"><code>3×3 tiles</code><span aria-hidden="true"> · </span><code>2 MUXes</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>NAND: <code>B=0</code> forces one; <code>B=1</code> passes <code>NOT A</code>.</figcaption>
                         </figure>
                     </div>
@@ -502,28 +1065,92 @@
                     <h3>When B=0, source NOT A uses pointer 11</h3>
                     <p>The high pointer pair is <code>11</code>.</p>
                     <div class="mux-function-row">
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-1100-nor.svg">
-                                <img src="/media/mux-algebra/diagrams/function-1100-nor.svg" width="440" height="610" loading="lazy" decoding="async" alt="NOR built with two MUXes: the first makes NOT A and the second, selected by B, chooses NOT A or zero">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-1100-nor">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-1100-nor.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-1100-nor.svg" width="440" height="610" loading="lazy" decoding="async" alt="NOR built with two MUXes: the first makes NOT A and the second, selected by B, chooses NOT A or zero">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-1100-nor.png" aria-label="Open native Cartilage fabric PNG for NOR">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-1100-nor.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of NOR, placed and routed as a compact shared-A two-MUX patch.">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="3 by 3 tiles; 2 MUXes; 4 verified states"><code>3×3 tiles</code><span aria-hidden="true"> · </span><code>2 MUXes</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>NOR: <code>B=0</code> passes <code>NOT A</code>; <code>B=1</code> forces zero.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-1101-xnor.svg">
-                                <img src="/media/mux-algebra/diagrams/function-1101-xnor.svg" width="440" height="610" loading="lazy" decoding="async" alt="XNOR built with two MUXes: the first makes NOT A and the second, selected by B, chooses NOT A or A">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-1101-xnor">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-1101-xnor.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-1101-xnor.svg" width="440" height="610" loading="lazy" decoding="async" alt="XNOR built with two MUXes: the first makes NOT A and the second, selected by B, chooses NOT A or A">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-1101-xnor.png" aria-label="Open native Cartilage fabric PNG for XNOR">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-1101-xnor.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of XNOR, placed and routed as a compact shared-A two-MUX patch.">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="3 by 3 tiles; 2 MUXes; 4 verified states"><code>3×3 tiles</code><span aria-hidden="true"> · </span><code>2 MUXes</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>XNOR: <code>B=0</code> passes <code>NOT A</code>; <code>B=1</code> passes <code>A</code>.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-1110-a-implies-b.svg">
-                                <img src="/media/mux-algebra/diagrams/function-1110-a-implies-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="A implies B built with one MUX selected by A, D0 equal to one, and D1 equal to B">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-1110-a-implies-b">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-1110-a-implies-b.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-1110-a-implies-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="A implies B built with one MUX selected by A, D0 equal to one, and D1 equal to B">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-1110-a-implies-b.png" aria-label="Open native Cartilage fabric PNG for A IMPLIES B">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-1110-a-implies-b.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of A IMPLIES B, placed and routed as a compact one-MUX patch matching M(A,1,B).">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 4 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption><code>A → B</code>: when <code>A=0</code> the implication is true; when <code>A=1</code> it follows <code>B</code>.</figcaption>
                         </figure>
-                        <figure class="mux-function-card">
-                            <a href="/media/mux-algebra/diagrams/function-1111-not-a.svg">
-                                <img src="/media/mux-algebra/diagrams/function-1111-not-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="NOT A built with one MUX selected by A, D0 equal to one, and D1 equal to zero">
-                            </a>
+                        <figure class="mux-function-card" data-parity-id="function-1111-not-a">
+                            <!-- mux-cartilage-parity:start -->
+                            <div class="mux-parity-panels">
+                                <div class="mux-parity-panel mux-parity-panel--abstract">
+                                    <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                                    <!-- mux-cartilage-parity:abstract:start -->
+                                    <a href="/media/mux-algebra/diagrams/function-1111-not-a.svg">
+                                        <img src="/media/mux-algebra/diagrams/function-1111-not-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="NOT A built with one MUX selected by A, D0 equal to one, and D1 equal to zero">
+                                    </a>
+                                    <!-- mux-cartilage-parity:abstract:end -->
+                                </div>
+                                <div class="mux-parity-panel mux-parity-panel--cartilage">
+                                    <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                                    <a href="/media/mux-algebra/cartilage/raw/function-1111-not-a.png" aria-label="Open native Cartilage fabric PNG for NOT A">
+                                        <img src="/media/mux-algebra/cartilage/cartilage-function-1111-not-a.png" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of NOT A, placed and routed as a compact one-MUX patch matching M(A,1,0).">
+                                    </a>
+                                    <div class="mux-parity-metrics" aria-label="2 by 3 tiles; 1 MUX; 4 verified states"><code>2×3 tiles</code><span aria-hidden="true"> · </span><code>1 MUX</code><span aria-hidden="true"> · </span><code>4 verified states</code></div>
+                                </div>
+                            </div>
+                            <!-- mux-cartilage-parity:end -->
                             <figcaption>NOT A: <code>A</code> chooses the opposite constant.</figcaption>
                         </figure>
                     </div>
@@ -534,18 +1161,52 @@
         <section id="mux-more-inputs">
             <h2>More Inputs Repeat The Same Move</h2>
             <p>For a third input, split the function once more. The two branches are now two-input functions from the catalog above. Repeating the split eventually reaches constants, so nested MUXes can express any Boolean function.</p>
-            <figure class="mux-figure mux-major">
-                <picture>
-                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/31-more-inputs-repeat-mobile.svg">
-                    <img src="/media/mux-algebra/diagrams/31-more-inputs-repeat.svg" width="960" height="520" loading="lazy" decoding="async" alt="A three-input Boolean function split by a C-selected MUX into F of A B zero and F of A B one">
-                </picture>
+            <figure class="mux-figure mux-major" data-parity-id="31-more-inputs-repeat">
+                <!-- mux-cartilage-parity:start -->
+                <div class="mux-parity-panels mux-parity-panels--responsive">
+                    <div class="mux-parity-panel mux-parity-panel--abstract">
+                        <span class="mux-parity-label" aria-hidden="true">Abstract diagram</span>
+                        <!-- mux-cartilage-parity:abstract:start -->
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/31-more-inputs-repeat-mobile.svg">
+                            <img src="/media/mux-algebra/diagrams/31-more-inputs-repeat.svg" width="960" height="520" loading="lazy" decoding="async" alt="A three-input Boolean function split by a C-selected MUX into F of A B zero and F of A B one">
+                        </picture>
+                        <!-- mux-cartilage-parity:abstract:end -->
+                    </div>
+                    <div class="mux-parity-panel mux-parity-panel--cartilage mux-parity-panel--responsive">
+                        <span class="mux-parity-label" aria-hidden="true">Cartilage fabric</span>
+                        <picture>
+                            <source media="(max-width: 920px)" srcset="/media/mux-algebra/cartilage/cartilage-31-more-inputs-repeat-mobile.png" width="872" height="2332">
+                            <img src="/media/mux-algebra/cartilage/cartilage-31-more-inputs-repeat.png" width="1408" height="1328" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric rendering of a seven-MUX three-input parity tree, showing how one more selector decomposes a three-input function into two two-input branches.">
+                        </picture>
+                        <div class="mux-parity-raw-links" aria-label="Native Cartilage fabric PNGs">
+                            Native: <a href="/media/mux-algebra/cartilage/raw/31-more-inputs-repeat.png" aria-label="Open wide native Cartilage fabric PNG for LUT3 PARITY · A XOR B XOR C">wide PNG</a><span aria-hidden="true"> · </span><a href="/media/mux-algebra/cartilage/raw/31-more-inputs-repeat-mobile.png" aria-label="Open mobile native Cartilage fabric PNG for LUT3 PARITY · A XOR B XOR C">mobile PNG</a>
+                        </div>
+                        <div class="mux-parity-metrics mux-parity-metrics--responsive">
+                            <span aria-label="Wide: 13 by 12 tiles; 7 MUXes; 8 verified states"><strong>Wide:</strong> <code>13×12 tiles</code><span aria-hidden="true"> · </span><code>7 MUXes</code><span aria-hidden="true"> · </span><code>8 verified states</code></span>
+                            <span aria-label="Mobile: 7 by 22 tiles; 7 MUXes; 8 verified states"><strong>Mobile:</strong> <code>7×22 tiles</code><span aria-hidden="true"> · </span><code>7 MUXes</code><span aria-hidden="true"> · </span><code>8 verified states</code></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- mux-cartilage-parity:end -->
                 <figcaption>A new input adds one more selection level; the rule does not change.</figcaption>
             </figure>
         </section>
 
+        <section id="mux-cartilage-evidence">
+            <h2>Actual Cartilage Render Evidence</h2>
+            <div class="mux-cartilage-evidence">
+                <p><strong>Coverage:</strong> all <code>34/34</code> generated teaching illustrations have a one-to-one Cartilage counterpart, including the five responsive mobile routes. The manifest records <code>606</code> passing shader-readback cases; each labeled image has a corresponding unlabelled native capture.</p>
+                <p><strong>Renderer provenance:</strong> Rendered by the canonical Cartilage Core WebGL1/GLSL engine at commit 48ff6e0; placed/routed states loaded with window.cartilage.loadState, advanced with window.cartilage.step, and read back with window.cartilage.readCell. Native 96 px/tile capture; no raster resizing.</p>
+                <p><strong>Stable reconfiguration root:</strong> every loaded 32×64 state seeds a reconfiguration-port root at <code>(0,0)</code>. All 2,048 cells are read back before and after each truth case; the audit requires zero cells in parent-pointer search and zero mutated parent fields. The temporary capture copy changes only native zoom and the parent initialization of the three host-injected boundary cells; the GLSL transition and renderer are unchanged.</p>
+                <p><strong>Evidence boundary:</strong> Direct placed/routed state loading verifies primitive application behavior and illustration parity; it is not serial reconfiguration-install evidence.</p>
+                <p><a href="/media/mux-algebra/cartilage/parity-manifest.json">Open the machine-readable capture, routing, truth-check, and SHA-256 manifest.</a></p>
+            </div>
+        </section>
+
         <section id="mux-originals">
             <h2>The Original 2020 Figures</h2>
-            <p>The diagrams above are clean teaching redraws. The source manuscript's Logisim figures remain here as the original functional evidence.</p>
+            <p>The paired abstract diagrams and Cartilage captures above are new teaching views. The five Logisim images below are the original 2020 functional evidence; as source captures, they are not part of the <code>34/34</code> generated-illustration parity count.</p>
             <figure class="mux-figure mux-original-small">
                 <a href="/media/mux-algebra/four-bit-configurable-mux-network.png">
                     <img src="/media/mux-algebra/four-bit-configurable-mux-network.png" width="418" height="300" loading="lazy" decoding="async" alt="Original 2020 Logisim configurable MUX network with A, B, ground, power, a four-bit configuration input, and output Y">

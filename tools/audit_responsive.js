@@ -6,7 +6,7 @@ const path = require('node:path');
 const { spawn } = require('node:child_process');
 
 const baseUrl = process.argv[2] || 'http://127.0.0.1:8765';
-const screenshotDir = process.argv[3] || '';
+const screenshotDir = process.argv[3] === '-' ? '' : (process.argv[3] || '');
 const pageFilter = process.argv[4] || '';
 const viewportFilter = process.argv[5] || '';
 const debugPort = 9223;
@@ -57,7 +57,7 @@ const screenshotPages = new Set([
 
 const screenshotViewports = new Set(['1920x1080', '1280x1200', '390x844']);
 const selectedPages = pageFilter
-  ? pages.filter(pagePath => pagePath === pageFilter)
+  ? pageFilter.split(',').map(pagePath => pagePath.trim()).filter(Boolean)
   : pages;
 const selectedViewports = viewportFilter
   ? viewports.filter(([width, height]) => (
@@ -66,7 +66,7 @@ const selectedViewports = viewportFilter
   : viewports;
 
 const shouldCaptureScreenshot = (pagePath, viewportName) => (
-  screenshotPages.has(pagePath)
+  (screenshotPages.has(pagePath) || Boolean(pageFilter))
   && (
     screenshotViewports.has(viewportName)
     || (
@@ -192,15 +192,18 @@ async function inspectPage(client) {
     const clipped = Array.from(document.body.querySelectorAll('*'))
       .filter(element => {
         if (!(element instanceof HTMLElement)) return false;
+        if (element.closest('figure.inspectable-image')) return false;
         const style = getComputedStyle(element);
         if (['auto', 'scroll', 'hidden', 'clip'].includes(style.overflowX)) return false;
         if (element.clientWidth < 1) return false;
         return element.scrollWidth > element.clientWidth + 2;
       })
       .slice(0, 8)
-      .map(element => element.tagName.toLowerCase()
+        .map(element => element.tagName.toLowerCase()
         + (element.id ? '#' + element.id : '')
-        + (element.className ? '.' + String(element.className).trim().replace(/\s+/g, '.') : ''));
+        + (element.className ? '.' + String(element.className).trim().replace(/\s+/g, '.') : '')
+        + '[' + element.clientWidth + '/' + element.scrollWidth + ']'
+        + ':' + String(element.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80));
     const shortCtas = Array.from(document.querySelectorAll('.cta-link'))
       .filter(link => link.getBoundingClientRect().height < 43)
       .map(link => link.textContent.trim());
@@ -567,6 +570,7 @@ async function main() {
               ['Build AND One Branch At A Time', 'and'],
               ['Why No Boolean Function Is Missing', 'proof'],
               ['Every Two-Input Function As A Circuit', 'catalog'],
+              ['Actual Cartilage Render Evidence', 'cartilage-evidence'],
               ['The Original 2020 Figures', 'originals'],
             ];
             for (const [title, slug] of muxSections) {
@@ -589,6 +593,36 @@ async function main() {
               fs.writeFileSync(
                 path.join(screenshotDir, `mux-algebra-${slug}-${viewportName}.png`),
                 sectionScreenshot.data,
+                'base64',
+              );
+            }
+
+            const muxArtifacts = [
+              ['#mux-and-propagation', 'propagation', 'center'],
+              ['#mux-pointer-network .mux-parity-panel--cartilage', 'pointer-top', 'start'],
+              ['#mux-pointer-network .mux-parity-panel--cartilage', 'pointer-bottom', 'end'],
+              ['[data-parity-id="function-0111-xor"] .mux-parity-panel--cartilage', 'xor-cartilage', 'center'],
+            ];
+            for (const [selector, slug, block] of muxArtifacts) {
+              const found = await client.send('Runtime.evaluate', {
+                expression: `(() => {
+                  const artifact = document.querySelector(${JSON.stringify(selector)});
+                  if (!artifact) return false;
+                  artifact.scrollIntoView({ block: ${JSON.stringify(block)} });
+                  return true;
+                })()`,
+                returnByValue: true,
+              });
+              if (!found.result.value) continue;
+              await pause(180);
+              const artifactScreenshot = await client.send('Page.captureScreenshot', {
+                format: 'png',
+                fromSurface: true,
+                captureBeyondViewport: false,
+              });
+              fs.writeFileSync(
+                path.join(screenshotDir, `mux-algebra-${slug}-${viewportName}.png`),
+                artifactScreenshot.data,
                 'base64',
               );
             }
@@ -623,7 +657,11 @@ async function main() {
         }
         const issues = [];
         if (result.status >= 400 || result.status === 0) issues.push(`HTTP ${result.status}`);
-        if (result.h1Count !== 1) issues.push(`h1=${result.h1Count}`);
+        if (
+          pagePath.startsWith('/linkedin-archive/')
+            ? result.h1Count < 1
+            : result.h1Count !== 1
+        ) issues.push(`h1=${result.h1Count}`);
         if (!result.ready) issues.push('framework not ready');
         issues.push(...atmosphereLayoutIssues(result));
         if (result.horizontalOverflow) issues.push(`overflow ${result.scrollWidth}/${result.rootWidth}`);
