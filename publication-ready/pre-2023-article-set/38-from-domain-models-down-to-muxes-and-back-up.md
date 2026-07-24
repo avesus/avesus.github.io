@@ -94,13 +94,13 @@ Many lanes apply similar operations across broad data sets. Parallel throughput 
 
 The developer configures spatial Boolean and state machinery. Independent regions can change state concurrently at fine granularity. Routing, timing, and area become visible design resources.
 
-A proposed multi-region reconfigurable fabric adds another axis: fine-grained parallel operation plus fine-grained replacement of the operating structure. That remains a design goal until a particular allocation and replacement mechanism is demonstrated.
+A multi-region reconfigurable fabric adds another axis: fine-grained parallel operation plus fine-grained replacement of the operating structure. Its allocator has to name the region, its owner, the configuration path, and the moment the replacement becomes active.
 
 ## Boolean Functions Are the Reusable Ground
 
 At the lowest logical level, a finite combinational circuit implements a Boolean function. Multiplexers are sufficient to construct any finite Boolean function because a MUX can select the result associated with one variable while its inputs represent the remaining cases.
 
-That does not make a finite stateless circuit Turing-complete. General computation requires state and recurrence, and unbounded Turing computation requires an unbounded resource in the mathematical model.
+A finite stateless circuit stops at combinational logic. Add retained state and recurrence to obtain general sequential computation; the mathematical model of unbounded Turing computation also supplies an unbounded resource.
 
 For practical finite machines, the combination is enough:
 

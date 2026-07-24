@@ -847,6 +847,100 @@ section.abstract.about-profile {
 	padding-left: 14px;
 }
 
+.miscellanies-index .sitemap-jumps {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem 0.9rem;
+	margin: 1.4rem 0 2.6rem;
+	padding: 0.8rem 0;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	font-family: 'Inconsolata', monospace;
+	font-size: 15px;
+	line-height: 1.25;
+}
+
+.miscellanies-index .sitemap-jumps a {
+	white-space: nowrap;
+}
+
+.miscellanies-list {
+	columns: 2 18rem;
+	column-gap: 2.2rem;
+	margin: 1rem 0 0;
+	padding-left: 1.2rem;
+	text-align: left;
+}
+
+.miscellanies-list li {
+	break-inside: avoid;
+	margin: 0 0 1rem;
+	line-height: 1.25;
+}
+
+.miscellanies-list span {
+	display: block;
+	margin-top: 0.18rem;
+	color: #444;
+	font-size: 0.88em;
+	line-height: 1.3;
+}
+
+.miscellany-article .table-scroll {
+	max-width: 100%;
+	margin: 1.5rem 0;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.miscellany-article table {
+	width: 100%;
+	min-width: 36rem;
+	border-collapse: collapse;
+	font-size: 0.88em;
+	line-height: 1.3;
+	text-align: left;
+}
+
+.miscellany-article th,
+.miscellany-article td {
+	padding: 0.55rem 0.65rem;
+	border: 1px solid #ccc;
+	vertical-align: top;
+}
+
+.miscellany-article th {
+	background: #f3f3f0;
+	font-family: 'Inconsolata', monospace;
+	font-weight: normal;
+}
+
+.display-math {
+	max-width: 100%;
+	overflow-x: auto;
+	font-family: 'Inconsolata', monospace;
+	font-size: 1.05em;
+	text-align: center;
+}
+
+.fraction {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: stretch;
+	vertical-align: middle;
+	line-height: 1.05;
+	text-align: center;
+}
+
+.fraction > span {
+	padding: 0 0.2em;
+}
+
+.fraction > span:first-child {
+	padding-bottom: 0.08em;
+	border-bottom: 1px solid currentColor;
+}
+
 nav.article-links {
 	margin-top: 3rem;
 }

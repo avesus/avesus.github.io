@@ -21,7 +21,7 @@ This is not a conspiracy. It is the ordinary effect of abstraction and outsourci
 
 The danger begins when a clean boundary becomes a false boundary—when I cannot see the cost, repair the thing, compare alternatives, or even identify which remote dependency performs the work.
 
-## “Local” Is a Physical Claim
+## Locality Has Several Addresses
 
 A program can execute on my phone while depending on a remote authentication service. A document can appear stored locally while essential fonts, scripts, or keys arrive from a server. A battery-powered device can consume energy generated from a grid whose sources vary by place and hour.
 
@@ -144,12 +144,12 @@ Then a local workshop should be able to build a compatible enclosure, test a rep
 
 That does not eliminate the original manufacturer. It gives the product a longer and more interesting life.
 
-## Make the Boundary Honest
+## Make the Boundary Legible
 
 Civilization depends on specialization. I do not want to personally raise every ingredient, generate every watt, host every service, or machine every component.
 
-I do want the boundary between my life and that infrastructure to remain honest.
+I want the boundary between my life and that infrastructure to remain legible.
 
-An honest boundary tells me what crosses it, what it costs, what fails, and what choices remain mine. It lets a skilled community reopen the box when the abstraction stops serving us.
+A legible boundary tells me what crosses it, what it costs, what fails, and what choices remain mine. It lets a skilled community reopen the box when the abstraction stops serving us.
 
 The goal is not to drag every hidden pipe into the living room. It is to own enough tools—and enough understanding—that the invisible world behind the product can still be questioned, repaired, and changed.

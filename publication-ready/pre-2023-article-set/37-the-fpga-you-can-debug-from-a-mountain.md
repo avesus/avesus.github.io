@@ -21,7 +21,7 @@ The mountain is not the technical requirement. It is a test of ownership.
 
 If the development system works only when I am physically attached to one workstation, logged into one vendor environment, and willing to treat the hardware as a black box between builds, then I do not quite own the instrument. A remote FPGA IDE should make the circuit’s state more tangible, not merely move the same opaque buttons into a browser.
 
-This is a design, not a claim that the whole system was completed. Its value lies in the boundaries it forces me to specify.
+I designed the workbench from the boundary inward: name the circuit, capture its running state, stop it locally, and bring home everything required to replay the exact transition.
 
 ## The Circuit Has Three Bodies
 
@@ -35,7 +35,7 @@ This is the circuit description: Boolean relations, state elements, clocks, port
 
 This is the configured hardware or exact emulator state at one moment. It includes register values, memories, pending inputs, and the clock or sampling phase.
 
-### The evidence body
+### The replay body
 
 This is the material required to reproduce an observation: design version, configuration, initial state, input sequence, transition count, expected values, and captured result.
 
@@ -47,7 +47,7 @@ The browser can provide an infinite canvas, waveforms, state diagrams, design ed
 
 GPU rendering suggested a particularly interesting emulator: encode many Boolean state elements in textures, evaluate local logic in parallel, and write the next state into a separate target. Desktop and mobile graphics devices expose different output widths and texture capabilities, so the mapping must be negotiated rather than assumed.
 
-The browser model is not evidence that the GPU and FPGA have identical timing. It is a deterministic laboratory for the semantics I choose to model.
+The browser gives me a deterministic laboratory for the semantics I choose to model. The GPU texture update and the FPGA are two execution targets with deliberately different timing models.
 
 The physical FPGA remains a separate target. Its clock distribution, routing delays, I/O standards, metastability boundaries, and synthesis results are not produced by a texture update.
 
@@ -79,7 +79,7 @@ The design may expose a halt bit, breakpoint condition, failed expectation, or c
 That creates two control planes:
 
 - the **local plane**, responsible for clocks, limits, watchdogs, and safe I/O;
-- the **remote plane**, responsible for editing, launching bounded runs, inspecting state, and retrieving evidence.
+- the **remote plane**, responsible for editing, launching bounded runs, inspecting state, and retrieving the complete run record.
 
 The remote interface must not offer an unbounded “write anything forever” channel by accident. A run should have a configuration identity, resource boundary, allowed ports, maximum duration, and explicit owner.
 
@@ -137,6 +137,6 @@ The IDE should therefore expose causal units:
 
 That view can make a small circuit more educational than a large benchmark.
 
-I do not want remote hardware because distance is fashionable. I want it because a well-designed remote boundary forces the circuit, its state, its owner, and its evidence to become explicit.
+Distance makes the design useful because a remote boundary forces the circuit, its state, its owner, and its run record to become explicit.
 
 If I can debug the FPGA from a mountain, I can also explain exactly what I brought with me.

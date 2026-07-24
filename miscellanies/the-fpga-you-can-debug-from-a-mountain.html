@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>The FPGA You Can Debug from a Mountain | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A design for a portable and remote FPGA workbench that preserves exact sequential state, inspectable transitions, local safety, and reproducible snapshots.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/the-fpga-you-can-debug-from-a-mountain.html">
+    <meta property="og:title" content="The FPGA You Can Debug from a Mountain">
+    <meta property="og:description" content="A design for a portable and remote FPGA workbench that preserves exact sequential state, inspectable transitions, local safety, and reproducible snapshots.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/the-fpga-you-can-debug-from-a-mountain.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/the-fpga-you-can-debug-from-a-mountain.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/the-fpga-you-can-debug-from-a-mountain.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The FPGA You Can Debug from a Mountain - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/the-fpga-you-can-debug-from-a-mountain.png">
+    <meta name="twitter:image:alt" content="The FPGA You Can Debug from a Mountain - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "The FPGA You Can Debug from a Mountain",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2020-02-04T06:17:57.917Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A design for a portable and remote FPGA workbench that preserves exact sequential state, inspectable transitions, local safety, and reproducible snapshots.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/the-fpga-you-can-debug-from-a-mountain.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">The FPGA You Can Debug from a Mountain</h1></header>
+    <address><time datetime="2020-02-04">Designed from February 4, 2020 through January 10, 2021</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
+        <p class="lead">A design for a portable and remote FPGA workbench that preserves exact sequential state, inspectable transitions, local safety, and reproducible snapshots.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>I want to edit a finite-state machine while sitting on a mountain, run it in my own FPGA cluster, stop it on the wrong transition, and carry the complete experiment home.</p>
+            <p>The mountain is not the technical requirement. It is a test of ownership.</p>
+            <p>If the development system works only when I am physically attached to one workstation, logged into one vendor environment, and willing to treat the hardware as a black box between builds, then I do not quite own the instrument. A remote FPGA IDE should make the circuit’s state more tangible, not merely move the same opaque buttons into a browser.</p>
+            <p>I designed the workbench from the boundary inward: name the circuit, capture its running state, stop it locally, and bring home everything required to replay the exact transition.</p>
+        </section>
+        <section>
+            <h2>The Circuit Has Three Bodies</h2>
+            <p>The workbench needs three related but distinct bodies.</p>
+            <h3>The design body</h3>
+            <p>This is the circuit description: Boolean relations, state elements, clocks, ports, and named finite-state transitions. It must be inspectable without running.</p>
+            <h3>The execution body</h3>
+            <p>This is the configured hardware or exact emulator state at one moment. It includes register values, memories, pending inputs, and the clock or sampling phase.</p>
+            <h3>The replay body</h3>
+            <p>This is the material required to reproduce an observation: design version, configuration, initial state, input sequence, transition count, expected values, and captured result.</p>
+            <p>A conventional “program” file is not enough. If I cannot reconstruct the execution body, I cannot reproduce the bug.</p>
+        </section>
+        <section>
+            <h2>The Browser Is a Workbench, Not the FPGA</h2>
+            <p>The browser can provide an infinite canvas, waveforms, state diagrams, design editing, and a portable control surface. It can also run a bounded emulator.</p>
+            <p>GPU rendering suggested a particularly interesting emulator: encode many Boolean state elements in textures, evaluate local logic in parallel, and write the next state into a separate target. Desktop and mobile graphics devices expose different output widths and texture capabilities, so the mapping must be negotiated rather than assumed.</p>
+            <p>The browser gives me a deterministic laboratory for the semantics I choose to model. The GPU texture update and the FPGA are two execution targets with deliberately different timing models.</p>
+            <p>The physical FPGA remains a separate target. Its clock distribution, routing delays, I/O standards, metastability boundaries, and synthesis results are not produced by a texture update.</p>
+            <p>Keeping these bodies separate lets each do useful work without impersonating the other.</p>
+        </section>
+        <section>
+            <h2>Sequential State Needs a Sampling Rule</h2>
+            <p>Combinational logic continuously relates current inputs to outputs. A D flip-flop samples an input at a defined event and retains the result.</p>
+            <p>In a parallel emulator, I can preserve that distinction with double buffering:</p>
+            <ol>
+                <li>Read every value from the current-state surface.</li>
+                <li>Calculate every next-state value from that same snapshot.</li>
+                <li>Write results to a different surface.</li>
+                <li>Swap the surfaces at the sampling boundary.</li>
+            </ol>
+            <p>No element may observe a neighbor’s newly written value during the same modeled edge. Otherwise evaluation order leaks into the circuit.</p>
+            <p>A larger apparent flip-flop can also be represented as a cycle of smaller pipeline stages, but only if the sampling and latency semantics are stated exactly. The emulator must not call every pipeline delay a physical D flip-flop. It is a model of a chosen temporal relation.</p>
+            <p>Glitches require another decision. A sampled synchronous model may intentionally ignore combinational transitions between edges. A timing experiment must represent delay and repeated settling steps. The IDE should name which mode is active rather than presenting both as “the circuit.”</p>
+        </section>
+        <section>
+            <h2>Stop Is Part of the Machine</h2>
+            <p>Remote execution needs a local stop path.</p>
+            <p>The design may expose a halt bit, breakpoint condition, failed expectation, or completed transaction. The wrapper must be able to stop issuing modeled or physical steps without relying on a network round trip. If connectivity disappears, the hardware should enter a bounded, known behavior.</p>
+            <p>That creates two control planes:</p>
+            <ul>
+                <li>the <strong>local plane</strong>, responsible for clocks, limits, watchdogs, and safe I/O;</li>
+                <li>the <strong>remote plane</strong>, responsible for editing, launching bounded runs, inspecting state, and retrieving the complete run record.</li>
+            </ul>
+            <p>The remote interface must not offer an unbounded “write anything forever” channel by accident. A run should have a configuration identity, resource boundary, allowed ports, maximum duration, and explicit owner.</p>
+            <p>The ability to debug from anywhere should not become the ability for anyone to reconfigure the device.</p>
+        </section>
+        <section>
+            <h2>Append-Only Experiments</h2>
+            <p>One early architecture used two storage streams. Read an experiment state from one device, process it in the FPGA, write the next state to another, swap roles, and repeat.</p>
+            <p>Writing complete successive states costs bandwidth, but it has a beautiful property: the experiment becomes append-only. I can inspect the state before and after a transition without asking the live machine to travel backward.</p>
+            <p>For large systems, full snapshots are too expensive. The same principle can use periodic snapshots plus an append-only event log:</p>
+            <pre><code class="language-text">snapshot N
++ input event
++ clock or sampling event
++ configuration change
++ observed assertion result
+= reproducible state N+1</code></pre>
+            <p>The IDE can move along that history, compare runs, and attach a failure to the exact transition that created it.</p>
+        </section>
+        <section>
+            <h2>A Mountain-Sized Debugging Session</h2>
+            <p>Imagine I carry a small device with switches, LEDs, and a local FPGA. The browser shows a state machine controlling a packet parser.</p>
+            <p>I load a bounded configuration. The local controller confirms its identity. I provide a recorded byte stream and an assertion: after the final byte, <code>packet_valid</code> must be high and <code>error</code> low.</p>
+            <p>The machine runs until the assertion fails. It stops locally. The browser retrieves:</p>
+            <ul>
+                <li>the prior state;</li>
+                <li>the input byte;</li>
+                <li>the transition selected;</li>
+                <li>the next state;</li>
+                <li>the outputs;</li>
+                <li>and the exact design version.</li>
+            </ul>
+            <p>I edit the transition rule, run the emulator against the same trace, then submit a new bounded hardware run. The mountain may have intermittent connectivity. The experiment remains coherent because execution and stopping do not depend on continuous remote control.</p>
+            <p>That is a portable instrument, not merely cloud compilation.</p>
+        </section>
+        <section>
+            <h2>Show Me Causality</h2>
+            <p>CPU, GPU, and FPGA performance comparisons often count unlike operations. A GPU texture update may process enormous width but require a dispatch and a global state swap. An FPGA counter may change locally on every clock. Neither number alone describes a useful workload.</p>
+            <p>The IDE should therefore expose causal units:</p>
+            <ul>
+                <li>which state elements changed;</li>
+                <li>which input and prior state permitted the change;</li>
+                <li>which clock or sampling event committed it;</li>
+                <li>which physical or modeled route carried the dependency;</li>
+                <li>and how long the bounded operation took.</li>
+            </ul>
+            <p>That view can make a small circuit more educational than a large benchmark.</p>
+            <p>Distance makes the design useful because a remote boundary forces the circuit, its state, its owner, and its run record to become explicit.</p>
+            <p>If I can debug the FPGA from a mountain, I can also explain exactly what I brought with me.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/reconstructing-a-shader-pipeline-on-an-ice40.html">Reconstructing a Shader Pipeline on an iCE40</a>
+        <p>Translate texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a tiny iCE40 pipeline.</p>
+        <p>Continue:</p>
+        <a href="/cartilage/">Cartilage: A Spatial Computing Learning Path</a>
+        <p>Build the substrate from one multiplexer upward through LUTs, wires, state, timing, and nested regions.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/the-cartilage-editor-and-seed-i-wanted-in-2021.html">The Cartilage Editor and Seed I Wanted in 2021</a>
+        <p>Turn a raw GPU texture and FPGA starter board into a spatial editor with saving, selection, labels, named ports, and deployment.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>A Computer That Boots by Growing Its Own Wires | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A blank spatial fabric grows configuration paths, regions, programs, and wires until keyboard commands have assembled a working computer.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/a-computer-that-boots-by-growing-its-own-wires.html">
+    <meta property="og:title" content="A Computer That Boots by Growing Its Own Wires">
+    <meta property="og:description" content="A blank spatial fabric grows configuration paths, regions, programs, and wires until keyboard commands have assembled a working computer.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/a-computer-that-boots-by-growing-its-own-wires.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/a-computer-that-boots-by-growing-its-own-wires.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/a-computer-that-boots-by-growing-its-own-wires.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A Computer That Boots by Growing Its Own Wires - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/a-computer-that-boots-by-growing-its-own-wires.png">
+    <meta name="twitter:image:alt" content="A Computer That Boots by Growing Its Own Wires - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "A Computer That Boots by Growing Its Own Wires",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2022-07-24T22:45:39.909Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A boot model for a blank spatial fabric where keyboard commands create configuration paths, allocate regions, install programs, and turn loose wire pairs into a working computer.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/a-computer-that-boots-by-growing-its-own-wires.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">A Computer That Boots by Growing Its Own Wires</h1></header>
+    <address><time datetime="2022-07-24">July 24 and September 18, 2022, with supporting architecture dated March 31 and July 19, 2022.</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
+        <p class="lead">A boot model for a blank spatial fabric where keyboard commands create configuration paths, allocate regions, install programs, and turn loose wire pairs into a working computer.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>Imagine receiving a computer with no operating system, no command line, and almost no fixed wiring. A keyboard and display are attached at the edge. A microSD port is available. Inside is a finite field of small reconfigurable cells.</p>
+            <p>To boot it, I do not load a conventional executable into a processor. I grow a path.</p>
+            <p>That is the magnificent part of the Cartilage boot idea. The first useful program is not an application. It is a parent-pointer rotator: a tiny behavior that lets an unclaimed cell search its neighbors for a configuration source. From one reachable cell, keyboard commands can build a route to the next cell, then the next, until configuration itself has enough wires to travel.</p>
+            <p>The local cell roles and streamed replacement supply the first moves. The autonomous boot protocol connects them into a machine that can grow its own configuration path from the edge.</p>
+        </section>
+        <section>
+            <h2>The Initial Condition</h2>
+            <p>At power-on, every cell begins in a constrained state. I describe the constraints as walls. A wall prevents ownership and configuration paths from leaking arbitrarily across the field while the machine is still undefined.</p>
+            <p>The cell beside the keyboard searches among its allowed parent directions. Holding a designated key freezes that search when the cell points toward the keyboard port. Now one cell has a definite root.</p>
+            <p>Reprogramming one cell is easy: the keyboard-facing path reaches it directly. Reprogramming two cells requires the first cell to become a route. It must remove the appropriate wall, let the adjacent cell settle on it as parent, and carry the next configuration record onward.</p>
+            <p>The machine grows by repeating that operation:</p>
+            <ol>
+                <li>establish a root-facing pointer;</li>
+                <li>open one controlled boundary;</li>
+                <li>extend the configuration path;</li>
+                <li>install a new cell role;</li>
+                <li>return completion toward the root.</li>
+            </ol>
+            <p>The path is not metadata painted over the machine. It is made from the same cells that later carry application values.</p>
+        </section>
+        <section>
+            <h2>Why Completion Must Travel Back</h2>
+            <p>A configuration record occupies real links for real cycles. The root needs to know when the record reached the intended leaf and when the route is ready for another operation.</p>
+            <p>In the early model, leaf cells retain an active parent-facing condition after installation. That condition can cause the adjacent cell to enter a reconfiguration-ready state. Completion then travels back through the tree until it reaches the root.</p>
+            <p>A formal transition table must define the exact cell protocol. Its central rule is an acknowledgement boundary: the root must distinguish “the new structure exists” from “bits are still somewhere in flight.”</p>
+            <p>This also exposes a race. If a boundary is removed while a neighboring cell is still rotating among possible parents, the resulting tree depends on timing rather than the requestor’s explicit choice. Allocation must therefore be mediated by a reconfiguration port or another controlled handshake. Geometry cannot be left to accidental phase.</p>
+        </section>
+        <section>
+            <h2>Free Space Is Already a Program</h2>
+            <p>It is tempting to call unused cells “nothing.” They are not nothing. They must be locatable, divisible, claimable, and capable of accepting a configuration stream.</p>
+            <p>I call that behavior an Unallocated Space Program.</p>
+            <p>A bootloader owns some unallocated space. When asked to create a program, it requests a region of a given size and an attachment point. The free-space logic identifies a suitable adjacent area, moves the ownership boundary, and presents a new local configuration port. The bootloader connects the external stream to that port. Only then can program code arrive.</p>
+            <p>The sequence is:</p>
+            <ol>
+                <li>request space;</li>
+                <li>establish ownership of a bounded region;</li>
+                <li>attach its configuration path;</li>
+                <li>stream a program description;</li>
+                <li>commit the installed roles;</li>
+                <li>connect its application ports.</li>
+            </ol>
+            <p>Deployment is therefore not “calling a function.” It is construction in space.</p>
+        </section>
+        <section>
+            <h2>A Program Can Be a Snapshot or a Generator</h2>
+            <p>The incoming description may come from several places. It can be a fixed image stored on microSD. It can be generated from parameters. It can be read from another running region as a snapshot that includes selected state.</p>
+            <p>I use <strong>program code</strong> for the deployable description and <strong>program</strong> for the installed structure. The distinction keeps a compact recipe separate from the finite resources currently embodying it.</p>
+            <p>A complex program can contain other programs. Creating it means subdividing free space, assigning the new subregions, and deciding which previously unallocated wire pairs become bandwidth between them.</p>
+            <p>Deleting a neighboring program reverses the process. Its cells are not annihilated. Ownership returns to a free-space region, and its connections are either released, preserved deliberately, or transferred.</p>
+        </section>
+        <section>
+            <h2>The Fundamental Object Is a Pair of Tips</h2>
+            <p>The high-level model eventually collapsed back into something beautifully physical: connected pairs of wire tips.</p>
+            <p>An object does not merely possess an abstract permission to communicate. It holds a tip. A tip can be connected to another tip, cut to create two new tips, passed to another owner, dropped, or retained while the object itself is reparented.</p>
+            <p>That makes a relation into a resource.</p>
+            <p>If I want two programs to communicate, some existing relation must let me introduce or transfer the new one. If I split one object into two, the split creates both new ownership pointers and a connection between the pieces. If I merge them later, ownership can collapse while a chosen connection remains.</p>
+            <p>Interfaces are not ghostly declarations. They are organized bunches of wires. Splitting an interface means distributing those wires. Merging interfaces means reassigning and reconnecting them. Typed names can help programs discover compatible tips, but the name is not the path.</p>
+        </section>
+        <section>
+            <h2>Keyboard, Display, and the First Useful Loop</h2>
+            <p>The root begins with only physical ports that cannot be wished into existence: keyboard input, display output, and perhaps microSD.</p>
+            <p>From the keyboard, I can install a multiplexer, connect it to an existing input, and route its output toward the display. I can create an inner region, expose one of its ports at the outer boundary, and feed it configuration. I can type a storage driver, save it, and then let the machine boot more of itself from the card.</p>
+            <p>That is the desired first loop:</p>
+            <p><strong>type → route → install → observe → save → boot farther</strong></p>
+            <p>The display is not decoration. It is the first witness that a route exists and a cell changed role. A slow, visible bootstrap is more valuable than a fast invisible failure.</p>
+        </section>
+        <section>
+            <h2>Finite Is Enough</h2>
+            <p>I once treated infinite scalability as part of the definition. It is not.</p>
+            <p>A useful fabric can be finite. Programs can be loaded from storage, unloaded, moved, and reconstructed. What matters is that the same operations work at every available scale: allocate, subdivide, attach, configure, connect, release.</p>
+            <p>The computer does not need an infinite field. It needs explicit control of the field it has.</p>
+            <p>Booting by growing wires makes that discipline unavoidable. Every new capability must arrive through a path that already exists, occupy cells that actually exist, and return a visible sign of completion. The first machine is tiny: a key, a cell, a wire, and a mark on a display. Everything larger is built by doing the same thing again.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/the-cartilage-editor-and-seed-i-wanted-in-2021.html">The Cartilage Editor and Seed I Wanted in 2021</a>
+        <p>Turn a raw GPU texture and FPGA starter board into a spatial editor with saving, selection, labels, named ports, and deployment.</p>
+        <p>Continue:</p>
+        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
+        <p>Continue from self-grown wires to the editor and simulator needed to build them interactively. Funding and contributors are welcome.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.html">Booting a Reconfigurable Fabric from Its Edge</a>
+        <p>An edge FPGA reads a microSD image, streams configuration into a neighboring fabric, and brings networking up after the machine exists.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

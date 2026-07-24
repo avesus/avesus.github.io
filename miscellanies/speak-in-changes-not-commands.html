@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Speak in Changes, Not Commands | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A voice-programming concept built around compact sound symbols and a language that describes changes to a visible model.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/speak-in-changes-not-commands.html">
+    <meta property="og:title" content="Speak in Changes, Not Commands">
+    <meta property="og:description" content="A voice-programming concept built around compact sound symbols and a language that describes changes to a visible model.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/speak-in-changes-not-commands.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/speak-in-changes-not-commands.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/speak-in-changes-not-commands.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Speak in Changes, Not Commands - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/speak-in-changes-not-commands.png">
+    <meta name="twitter:image:alt" content="Speak in Changes, Not Commands - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Speak in Changes, Not Commands",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2020-04-15T05:29:30.809Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A voice-programming concept built around compact sound symbols and a language that describes changes to a visible model.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/speak-in-changes-not-commands.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Speak in Changes, Not Commands</h1></header>
+    <address><time datetime="2020-04-15">April 15, 2020</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Software, state, interaction, and communication</p>
+        <p class="lead">A voice-programming concept built around compact sound symbols and a language that describes changes to a visible model.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>I want to write code by speaking, but I do not want to dictate punctuation.</p>
+            <p>Turning a conventional text language into audio is the least interesting version of voice programming. “Open parenthesis, quote, comma, close parenthesis” makes the mouth impersonate a keyboard. It inherits every constraint of a representation designed for eyes and fingers.</p>
+            <p>A spoken programming language should begin from the thing voice does well: describe change.</p>
+            <p>Pick this up. Put it there. Connect these. Repeat that motion. When this changes, move that. Keep the relationship but replace the object.</p>
+            <p>The program is not a paragraph of commands. It is a model being transformed while I talk.</p>
+        </section>
+        <section>
+            <h2>Give sound a visible shape</h2>
+            <p>Speech disappears as it is made. Code must remain inspectable.</p>
+            <p>My first sketch used dice-like marks as a compact visual representation of sound. A small symbol with a finite number of positions can show distinctions without forcing every sound through the alphabet. I keep the exact encoding open while holding one useful constraint: the visual form should be small enough to scan and explicit enough to correct.</p>
+            <p>Suppose a sound category took six bits. Five such categories would occupy thirty bits for a rough word-sized unit. At 150 spoken words per minute, that is about 75 raw bits per second before timing, boundaries, correction, and redundancy. Human speech carries much richer information than that crude calculation, but the exercise exposes the engineering question:</p>
+            <blockquote>
+                <p>What is the smallest representation that preserves the distinctions the programming language actually needs?</p>
+            </blockquote>
+            <p>The answer may not be phonetic transcription. A programming utterance can have a constrained grammar and a visible context. If the screen already shows three objects and I say “connect the red output to this input,” the model supplies information that the audio does not need to encode alone.</p>
+        </section>
+        <section>
+            <h2>The language of changes</h2>
+            <p>Most programming languages describe a construction that will later execute. A voice language can describe the editing operation directly.</p>
+            <p>Its primitive verbs might be:</p>
+            <ul>
+                <li><strong>pick</strong> — select a visible object, region, value, or relationship;</li>
+                <li><strong>put</strong> — move or instantiate the selected thing at a target;</li>
+                <li><strong>connect</strong> — establish a typed relationship;</li>
+                <li><strong>cut</strong> — remove a relationship without deleting both ends;</li>
+                <li><strong>replace</strong> — preserve a role while changing its implementation;</li>
+                <li><strong>repeat</strong> — turn the last transformation into a reusable operation;</li>
+                <li><strong>when</strong> — attach a transformation to a state change;</li>
+                <li><strong>show</strong> — reveal the current expansion or hidden state;</li>
+                <li><strong>undo</strong> — restore the previous model state.</li>
+            </ul>
+            <p>These are not shell commands. They operate on a structured world whose objects retain identity.</p>
+            <p>If I say, “Pick this counter, put four copies along the edge, connect each carry to the next clock,” the system should show the proposed change before committing it. I can point, speak, inspect, and accept.</p>
+        </section>
+        <section>
+            <h2>Reference by attention, not by pathname</h2>
+            <p>Voice becomes miserable when every reference requires a long unique name.</p>
+            <p>A visible editor already has attention:</p>
+            <ul>
+                <li>the object under the pointer;</li>
+                <li>the selected region;</li>
+                <li>the last created object;</li>
+                <li>the current parent;</li>
+                <li>the currently exposed ports;</li>
+                <li>the last failed connection.</li>
+            </ul>
+            <p>Spoken words can refine those references instead of replacing them. “This output,” “the previous counter,” and “all four children” are meaningful when the visual state makes their candidates explicit.</p>
+            <p>Ambiguity should remain visible. If two outputs match, the editor can highlight both and ask a short question. It should not silently guess and then congratulate itself for understanding natural language.</p>
+        </section>
+        <section>
+            <h2>Macros should be performed once</h2>
+            <p>“Pick it, put it” also suggests a programming method.</p>
+            <p>Perform a transformation once. The system records the semantic operations, not mouse coordinates or raw audio. Give the transformation a name. Apply it to another compatible structure.</p>
+            <p>A recorded macro might say:</p>
+            <ol>
+                <li>select a component exposing <code>data</code> and <code>valid</code>;</li>
+                <li>create a monitor beside it;</li>
+                <li>connect <code>data</code> to the monitor input;</li>
+                <li>connect <code>valid</code> to capture;</li>
+                <li>add the monitor to the current debug group.</li>
+            </ol>
+            <p>The next time I say “watch this port,” the model can propose that transformation. There are no fragile links to screen positions. The macro operates on roles and relationships.</p>
+        </section>
+        <section>
+            <h2>Correction is part of the syntax</h2>
+            <p>A voice interface must expect error.</p>
+            <p>It should preserve:</p>
+            <ul>
+                <li>the audio segment;</li>
+                <li>the recognized sound symbols;</li>
+                <li>the parsed transformation;</li>
+                <li>the affected model region;</li>
+                <li>the model state before the change.</li>
+            </ul>
+            <p>Then correction can happen at the right layer. I may fix one sound, choose another object, change the operation, or undo the entire transaction. The system should never make a destructive structural change merely because a recognizer produced a high-confidence word.</p>
+            <p>The safest rhythm is propose, show, commit. Routine reversible changes can eventually be committed faster, but the model must always know what changed and how to restore it.</p>
+        </section>
+        <section>
+            <h2>Voice should free the hands</h2>
+            <p>I do not want speech because keyboards are obsolete. Keyboards are excellent. Pointing is excellent. Direct manipulation is excellent.</p>
+            <p>Voice adds another channel. I can hold a probe, look at a circuit, and ask the editor to expose a state. I can describe repetition while the hands position an object. I can name an intention more quickly than I can navigate a menu.</p>
+            <p>The goal is not to make the computer obey more words.</p>
+            <p>The goal is to let a person express a structural change, see that change become explicit, and keep the resulting program as durable external memory.</p>
+            <p>Do not make my mouth type.</p>
+            <p>Let me speak in changes.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/when-meaning-bends-the-medium.html">When Meaning Bends the Medium</a>
+        <p>A design model in which semantic content can request layout, routing, transformation, and execution without gaining unlimited control over its host.</p>
+        <p>Continue:</p>
+        <a href="/human-computer-interaction-as-model-exchange.html">Human-Computer Interaction As Model Exchange</a>
+        <p>Continue with an interface model built around shared state, interpretation, and repair.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/where-does-an-information-system-live.html">Where Does an Information System Live?</a>
+        <p>An information system lives in the maintained correspondence among a problem, shared models, executable procedures, and coordinated human action.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

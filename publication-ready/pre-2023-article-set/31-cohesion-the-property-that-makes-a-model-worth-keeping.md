@@ -47,7 +47,7 @@ A repair order is:
 - an event in a machine’s history;
 - a cost charged to a customer;
 - a dependency for a shipment;
-- and evidence about a recurring failure.
+- and a record of a recurring failure.
 
 If I bury the order inside one privileged object hierarchy, every other question becomes a traversal or a copy. A relational model can preserve the order once and let several views select and join it. An object can still own the behavior that enforces a transition. Cohesion comes from choosing boundaries that match the invariants, not from loyalty to one programming style.
 
@@ -74,9 +74,9 @@ physical transition
 
 Cohesion means I can move along that chain without inventing a new universe at every boundary.
 
-## Four Tests for a Cohesive Model
+## Four Ways a Cohesive Model Works
 
-I use four practical tests.
+I look for four working properties.
 
 ### 1. It generates consequences
 
@@ -84,7 +84,7 @@ The model should tell me something I did not merely type into it. A scheduling m
 
 ### 2. It composes
 
-Two instances should combine without requiring me to reproduce their entire interiors. A component exposes ports. A table participates in a join. A process offers a protocol. Composition is evidence that the boundary carries real meaning.
+Two instances should combine without requiring me to reproduce their entire interiors. A component exposes ports. A table participates in a join. A process offers a protocol. Composition shows that the interface carries real meaning.
 
 ### 3. It discriminates
 
@@ -92,15 +92,15 @@ A model that accommodates every outcome predicts none. I need to know what obser
 
 ### 4. It can be revised locally
 
-New information should have an address. If learning one fact requires replacing every term, the model has no stable joints. If no evidence can modify it, the model is doctrine.
+New information should have an address. If learning one fact requires replacing every term, the model has no stable joints. If nothing from the world can modify it, the model is doctrine.
 
 These tests apply to scientific theories, software architectures, business plans, and personal explanations. The stakes differ; the discipline does not.
 
-## Cohesion Is Not Truth
+## Cohesion Needs Contact With the World
 
 A false story can be wonderfully cohesive. Conspiracy theories often compress chaotic events into a small cast with a single intention. Their emotional force comes partly from high apparent cohesion.
 
-The missing property is contact with discriminating evidence. When contrary observations become proof of a deeper concealment, the model protects its compression by sacrificing revisability.
+The missing property is contact with observations that can distinguish one explanation from another. When every contrary observation becomes another layer of concealment, the model protects its compression by sacrificing revisability.
 
 Truth also does not guarantee useful cohesion. A complete list of accurate measurements may be too large to guide action. We still need a model that selects relations appropriate to the question.
 
@@ -110,23 +110,23 @@ So I do not treat cohesion as a certificate. I treat it as one axis:
 useful model = cohesion + empirical contact + stated scope + revisability
 ```
 
-Different work weights these terms differently. A design sketch may begin with cohesion and seek evidence later. A deployed safety system needs all four before anyone trusts it.
+Different work weights these terms differently. A design sketch may begin with cohesion and seek measurements later. A deployed safety system needs all four working together.
 
-## The Stronger Claim About Souls
+## Soul as the Chooser of a New Relation
 
-My original claim was stranger than a method for cultivating luck.
+My original thought went farther than a method for cultivating luck.
 
-I speculated that a conscious mind can make a lucky choice that forces reality into greater cohesion, and that automatic evolution by itself cannot make that intentional jump. I used the word **soul** for the part of a person that can hold a relation that does not yet exist, prefer it, and spend real work making the world conform to it.
+I imagined a conscious mind making a lucky choice that pulls reality toward greater cohesion. I used the word **soul** for the part of a person that can hold a relation that does not yet exist, prefer it, and spend real work making the world conform to it.
 
-This is my metaphysical proposal, not an established result in biology, physics, or neuroscience. Evolution plainly produces intricate organization. The narrower distinction I am trying to draw is between retaining forms that happen to survive and deliberately choosing a model because it compresses several relations into one intelligible structure.
+I use that word metaphysically. Evolution plainly produces intricate organization. The distinction I am reaching for is between retaining forms that happen to survive and deliberately choosing a model because it compresses several relations into one intelligible structure.
 
 A circuit designer can see that separate control rules are instances of one state machine before the unified circuit exists. An architect can preserve a path that connects several human needs even when a locally cheaper plan would erase it. A mathematician can choose an unfamiliar representation because a hidden symmetry might become visible there. In each case, the cohesive structure first exists as a focused preference and only later as matter, notation, or behavior.
 
 That is where I place the soul in this model: not as a substitute for mechanism, but as the chooser that commits to one unrealized cohesion among many possible arrangements. The choice still needs muscles, tools, experiments, energy, and correction. Wanting a relation does not make it true.
 
-The speculation may be wrong. An evolutionary account may eventually explain every apparently lucky abstraction as variation and selection inside a nervous system. If “soul” changes no prediction and guides no choice, it adds no working power to the model. The claim matters only if it makes me look more precisely at the instant a possible relation becomes a chosen obligation.
+An evolutionary account may explain every apparently lucky abstraction as variation and selection inside a nervous system. I still value the word *soul* when it makes me look more precisely at the instant a possible relation becomes a chosen obligation.
 
-The practical search remains:
+In practice I look for cohesion by:
 
 - compare several representations of the same problem;
 - search for repeated relationships;
@@ -134,9 +134,9 @@ The practical search remains:
 - keep the failed representation long enough to understand why it failed;
 - and prefer a mechanism that explains several observations without becoming vague.
 
-On my hypothesis, these are not merely search tricks. They are ways a conscious chooser looks for an opportunity to increase cohesion deliberately.
+These are more than search tricks to me. They are ways a conscious chooser looks for an opportunity to increase cohesion deliberately.
 
-## The Model Should Give Something Back
+## A Cohesive Model Gives Something Back
 
 Abstraction is often described as hiding complexity. I want more from it.
 

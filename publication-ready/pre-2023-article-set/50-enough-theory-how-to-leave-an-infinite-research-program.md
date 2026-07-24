@@ -72,13 +72,11 @@ When I returned to Cartilage, I had not settled the optimal compute, latency, or
 
 That uncertainty could have justified another year of architecture in the abstract. Instead I accepted a liberating possibility: a first engine might run at one frame every twenty seconds.
 
-That can be fine.
+That can be fine when every slow frame computes the exact reactive and structural model I need, exposes every transition, and creates a baseline I can later measure and accelerate.
 
-It is not fine if slowness is used to hide that nothing works. It is fine when the engine computes the exact reactive and structural model I need, exposes every transition, and can later be measured and accelerated.
+Premature speed can harden the wrong semantics. A fast simulator that cannot express the intended allocation, dependency, state, or replacement behavior gives me attractive speed around the wrong machine.
 
-Premature speed can harden the wrong semantics. A fast simulator that cannot express the intended allocation, dependency, state, or replacement behavior produces attractive evidence about the wrong machine.
-
-The first instrument should make the model falsifiable:
+The first instrument should pin down the model:
 
 - explicit inputs;
 - explicit state;
@@ -108,11 +106,11 @@ Theory still matters. It tells me what should remain invariant across implementa
 
 But a useful theory eventually narrows action.
 
-If each new idea merely creates more equally plausible ideas, I do not yet have a theory that constrains the world. I have a generative language. That may be beautiful, but I should name it honestly.
+If each new idea merely creates more equally plausible ideas, I have a generative language rather than a theory that constrains the world. That language may be beautiful and still ask for a different kind of project.
 
 The transition from theory to building is the moment I ask:
 
-> What is the smallest artifact that would force one of these possibilities to lose?
+> What is the smallest artifact that would choose among these possibilities?
 
 Then I build that.
 

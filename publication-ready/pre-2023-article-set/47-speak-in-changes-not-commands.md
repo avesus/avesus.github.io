@@ -14,7 +14,7 @@ status: "publication-ready"
 
 I want to write code by speaking, but I do not want to dictate punctuation.
 
-Turning a conventional text language into audio is the least interesting version of voice programming. “Open parenthesis, quote, comma, close parenthesis” makes the mouth impersonate a keyboard. It preserves every weakness of a representation designed for eyes and fingers.
+Turning a conventional text language into audio is the least interesting version of voice programming. “Open parenthesis, quote, comma, close parenthesis” makes the mouth impersonate a keyboard. It inherits every constraint of a representation designed for eyes and fingers.
 
 A spoken programming language should begin from the thing voice does well: describe change.
 
@@ -26,7 +26,7 @@ The program is not a paragraph of commands. It is a model being transformed whil
 
 Speech disappears as it is made. Code must remain inspectable.
 
-My first sketch used dice-like marks as a compact visual representation of sound. A small symbol with a finite number of positions can show distinctions without forcing every sound through the alphabet. The exact encoding is not settled, but the constraint is useful: the visual form should be small enough to scan and explicit enough to correct.
+My first sketch used dice-like marks as a compact visual representation of sound. A small symbol with a finite number of positions can show distinctions without forcing every sound through the alphabet. I keep the exact encoding open while holding one useful constraint: the visual form should be small enough to scan and explicit enough to correct.
 
 Suppose a sound category took six bits. Five such categories would occupy thirty bits for a rough word-sized unit. At 150 spoken words per minute, that is about 75 raw bits per second before timing, boundaries, correction, and redundancy. Human speech carries much richer information than that crude calculation, but the exercise exposes the engineering question:
 

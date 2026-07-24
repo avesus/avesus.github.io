@@ -20,7 +20,7 @@ I begin with a deliberately severe postulate:
 
 **Distance does not exist. Connections do.**
 
-I do not offer that sentence as established physics. I use it as a construction rule. If I refuse to put a smooth space underneath the universe at the beginning, what must I build before anything resembling space, motion, light, or gravity can appear?
+I use that sentence as a construction rule. If I refuse to put a smooth space underneath the universe at the beginning, what must I build before anything resembling space, motion, light, or gravity can appear?
 
 The answer cannot be a static network whose nodes are secretly particles sitting at coordinates. Coordinates would smuggle distance back into the foundation. A node must instead represent an event: an interaction that happened. A physical thing is not one node. Its history is a chain or branching sequence of related events.
 
@@ -34,7 +34,7 @@ Classical diagrams draw a smooth worldline and place a particle at every point a
 
 My connections-first picture is jagged. One interaction produces a new event. That event can connect to later events. A trajectory is the large-scale pattern formed by those links.
 
-The jaggedness is not evidence that nature is digitally pixelated. It is a refusal to assume smoothness before deriving it. If many links form a stable statistical structure, smooth geometry may become an excellent approximation—just as a curve emerges from enough short segments without making each segment infinitesimal.
+The jaggedness need not mean that nature is digitally pixelated. It is a refusal to assume smoothness before deriving it. If many links form a stable statistical structure, smooth geometry may become an excellent approximation—just as a curve emerges from enough short segments without making each segment infinitesimal.
 
 This forces a difficult question: what gives successive links enough identity for us to call them one particle?
 
@@ -48,9 +48,7 @@ A connection takes part in a causal order. An event can depend on some events an
 
 If influence were instantaneous everywhere, every node could depend on every other node at once. Local structure would collapse. Finite propagation gives the universe a way to remain partially knowable and partially unfinished.
 
-The speed of light would not simply be the velocity of a special object crossing a pre-existing distance. It would be a limit on how causal relations can extend through the network. To deserve the name *relativity*, the resulting model must recover Lorentz invariance rather than privilege the graph’s construction order as a hidden absolute clock.
-
-That is a requirement, not a result I have obtained.
+The speed of light would not simply be the velocity of a special object crossing a pre-existing distance. It would be a limit on how causal relations can extend through the network. To grow into relativity, the model has to recover Lorentz invariance rather than privilege the graph’s construction order as a hidden absolute clock. That is where a beautiful causal picture must become mathematics.
 
 ## Straight Is a Derived Word
 
@@ -60,25 +58,25 @@ What we call inertial motion would be a path whose local continuation rule chang
 
 Gravity then cannot be “a force pulling a bead through empty space” in the primitive model. It must appear as a change in the available continuations, in the density or weighting of connections, or in the relationship between event history and local causal structure.
 
-I once imagined gravitons as literal points along a falling path. That picture is too naive to carry a physical claim. The useful part is the question underneath it: can a gradient that we describe geometrically be reconstructed from nothing but local interaction records and their allowed continuations?
+I once imagined gravitons as literal points along a falling path. I left that picture behind, but kept the question underneath it: can a gradient that we describe geometrically be reconstructed from nothing but local interaction records and their allowed continuations?
 
-The model must reproduce the equivalence principle and the tested predictions of general relativity before it earns any physical authority.
+The equivalence principle and the observed predictions of general relativity tell me exactly what such a reconstruction must preserve.
 
 ## Position and Momentum May Both Be Maps of Relations
 
 Hamiltonian mechanics offers a productive clue because it treats position and momentum as a paired description of state. Under canonical transformations, the same physics can be expressed using different coordinates in phase space.
 
-That does not prove space is emergent. It suggests that “where something is” may not deserve exclusive fundamental status. Locality might be expressible in a relational state space whose projection into ordinary position is only one useful view.
+Hamiltonian mechanics leaves the emergence of space open while showing me that “where something is” need not be the only fundamental view. Locality might be expressible in a relational state space whose projection into ordinary position is only one useful view.
 
 Velocity could emerge from the connection between events. Energy could emerge from the way local continuation possibilities are constrained or from the frequency of state change. Momentum could characterize the direction and persistence of a history through the graph.
 
-These are proposals for definitions. Each definition must eventually support equations, conserved quantities, and numerical tests.
+Those definitions become useful when they support equations, conserved quantities, and numerical experiments.
 
-## The Model Has to Survive Light
+## Put Light Through the Model
 
-Electromagnetism is where hand-waving relational pictures go to die.
+Electromagnetism gives the relational picture real work to do.
 
-A useful connections-first model must reproduce:
+A connections-first model has to produce:
 
 - Maxwell’s equations at the appropriate scale;
 - Coulomb behavior without instantaneous action at a distance;
@@ -89,11 +87,11 @@ A useful connections-first model must reproduce:
 - relativistic energy and momentum;
 - the quantum behavior of photons and charged matter.
 
-It must distinguish a virtual-particle bookkeeping device from an observable transmission. It must not explain every force as tiny pellets flying between objects.
+It must distinguish a virtual-particle bookkeeping device from an observable transmission. Forces cannot all collapse into a story about tiny pellets flying between objects.
 
 The same severity applies to quantum mechanics. If the graph is intended as a deeper model, it must account for interference, uncertainty relations, entanglement correlations, Bell-test results, spin and statistics, and the many-particle state. Merely attaching the word *quantum* to a network does no work.
 
-My earlier research questions reached toward quarks radiating, electron structure, retarded gravity, curved-spacetime electromagnetism, and the relation between particle histories and antiparticles. Those remain questions. A model that contradicts established measurements because it sounds geometrically satisfying is not a successful model.
+My earlier questions reached toward quarks radiating, electron structure, retarded gravity, curved-spacetime electromagnetism, and the relation between particle histories and antiparticles. I keep those questions attached to the measurements and equations they have to explain; geometric satisfaction alone is not enough.
 
 ## Why Three Dimensions?
 
@@ -105,11 +103,11 @@ A connections-first theory should ask a sharper question: which local graph rule
 
 Dimension should be an output of the simulation.
 
-## Black Holes Are the Hard Boundary
+## Black Holes Force the Deepest Question
 
 Black-hole evaporation tempts every causal theory with poetic shortcuts. One can imagine the future evaporation event connected to the black hole’s earlier existence, or information escaping through relations that do not resemble ordinary exterior distance.
 
-That is speculation. “Faster than light inside a singularity” is not an explanation, and the interior of a black hole cannot be treated as an ordinary medium with a hidden shortcut.
+The phrase “faster than light inside a singularity” gives me no mechanism, and the interior of a black hole cannot be treated as an ordinary medium with a hidden shortcut.
 
 The legitimate question is whether a causal graph can represent horizons, entanglement, evaporation, and information recovery without introducing connections that let exterior observers violate relativistic causality. Any answer has to meet the mathematics of black-hole thermodynamics and quantum field theory, not merely the drama of the paradox.
 
@@ -138,12 +136,12 @@ Then I want to ask:
 
 The projection must not control the graph. Otherwise I would be drawing ordinary space and calling it emergent.
 
-## A Postulate Worth Making Vulnerable
+## Build It So It Can Break
 
-“The universe is connections” is valuable only if I let it fail.
+“The universe is connections” becomes valuable when I turn it into a model that can break.
 
-It may turn out that connections require more primitive structure than I hoped. It may reproduce causal order but not quantum amplitudes, or geometry but not matter, or elegant pictures but no quantitative predictions.
+Connections may require more primitive structure than I hoped. A graph may produce causal order but not quantum amplitudes, geometry but not matter, or elegant pictures but no quantitative predictions.
 
-That is acceptable. The postulate still directs attention to something real: physics is learned through interactions, and every coordinate is operationally established through relations among clocks, signals, objects, and observers.
+Either way, the postulate directs attention to something real: physics is learned through interactions, and every coordinate is operationally established through relations among clocks, signals, objects, and observers.
 
 I want to know how far that fact can be pushed. I begin with connections, build events, demand finite causality, and refuse to assume the space I am trying to explain.

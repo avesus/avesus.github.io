@@ -6,7 +6,7 @@ original_dates:
   - "2021-09-23T18:27:13.856Z"
   - "2021-11-05T01:41:38.075Z"
   - "2022-05-18T22:25:50.242Z"
-description: "A speculative engineering framework for artificial cells whose material, switching, communication, and motion form one closed physical process."
+description: "An engineering path toward artificial cells whose material, switching, communication, and motion form one closed physical process."
 status: publication-ready
 ---
 
@@ -62,7 +62,7 @@ My first sketch proposed nickel spheres that carry current, move under controlle
 
 The second sketch removed the sphere. Imagine a one-atom-thick chain, initially bootstrapped by external atomic manipulation, then ask whether chains could assemble other assemblers while computing and moving.
 
-The timestamps mark a change in scale, not an experimental result. The first sketch can become a measurable bench mechanism. The second remains a research horizon until fabrication, power delivery, thermal stability, error control, and repeatable state transitions are demonstrated at intervening scales.
+Four hours moved the idea from a measurable bench mechanism to an atomic-scale horizon. The path between them runs through fabrication, power delivery, thermal stability, error control, and repeatable state transitions at every intervening scale.
 
 ## Can the Switch Also Be the Muscle?
 
@@ -80,7 +80,7 @@ But “conducting high current causes motion” is not a mechanism. The design m
 - the heat generated;
 - and the stable positions that represent logic.
 
-Hardware begins only after a current-density budget, field-and-force model, thermal model, stored-energy limit, and fault analysis exist. The first bench fixture must be current-limited, mechanically contained, instrumented, and operated within the ratings of every conductor, switch, and supply. Vacuum rotors, superconducting coils, exposed mains, and uncontained high-current conductors belong in equipped facilities with interlocks, shields, and trained supervision. Until those controls exist, the work remains calculation and simulation.
+I begin with a current-density budget, field-and-force model, thermal model, stored-energy limit, and fault analysis. The first bench fixture is current-limited, mechanically contained, instrumented, and operated within the ratings of every conductor, switch, and supply. Vacuum rotors, superconducting coils, exposed mains, and uncontained high-current conductors belong in equipped facilities with interlocks, shields, and trained supervision. Calculation and simulation lead the work until that facility and protection are in place.
 
 The valuable question survives: **Can one physical transition carry both a bit and a bond?**
 
@@ -92,13 +92,13 @@ Sometimes the answer may be yes; solenoids, motors, transformers, and switched m
 
 This is the kind of integration an artificial cell needs. Every dedicated subsystem consumes volume and connection count. A material that can serve as conductor, structural member, field element, thermal path, and fabrication barrier is interesting because one body may close several loops.
 
-The roles still need separate measurements. Sharing matter does not mean sharing specifications.
+Each role keeps its own measurement. Sharing matter does not merge the specifications.
 
 ## Titanium Nitride as a Candidate
 
 Titanium nitride is a concrete candidate for combining roles. In microelectronics, TiN thin films can conduct between active devices and metal contacts while also serving as diffusion barriers. Favorable films have been reported at approximately **25 µΩ·cm** electrical resistivity. That is conductive enough to investigate as a contact, shell, or barrier in an artificial cell, while its ceramic character offers a different mechanical and chemical envelope from an ordinary metal.
 
-The number is a candidate property, not a design constant. TiN resistivity changes with stoichiometry, phase, thickness, grain structure, impurities, deposition process, and temperature. Any actual stack therefore needs four-terminal resistance measurements in its fabricated geometry, separate contact-resistance measurements, thermal cycling, adhesion and stress characterization, and current-density testing. TiN earns several jobs only if the same specimen performs all of them.
+TiN resistivity changes with stoichiometry, phase, thickness, grain structure, impurities, deposition process, and temperature. I would measure the actual stack with four-terminal resistance in its fabricated geometry, separate contact resistance, thermal cycling, adhesion and stress characterization, and current-density testing. TiN earns several jobs only when the same specimen performs all of them.
 
 ## Current Is Not Electron Speed
 
@@ -130,9 +130,9 @@ Replication is harder. A template must cause an arrangement that can itself repe
 
 Water is attractive as a medium because it supports transport and many chemical interactions. It is not automatically a wire, fuel, scaffold, or error-correcting system. Each role needs a physical path.
 
-## A Research Program With Measurable Milestones
+## Build the Smallest Moving Cell First
 
-I would approach matter that computes and moves through milestones that cannot borrow success from one another:
+I would build matter that computes and moves one distinct mechanism at a time:
 
 1. Demonstrate a stable, reversible bond between two macroscopic cells.
 2. Encode two or more states in that bond.

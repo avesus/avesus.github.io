@@ -20,7 +20,7 @@ An event is a consumable.
 
 The speaker performs, the audience receives, everyone feels briefly connected, and the room dissolves. Even a good workshop can become a lesson purchased for an evening. People leave with inspiration and return to separate projects.
 
-A meeting is different. A meeting assumes there will be another meeting. It has insiders—not as a status hierarchy, but as people who inherit unfinished work. Participants arrive with evidence of what happened since last time. The room has memory.
+A meeting is different. A meeting assumes there will be another meeting. It has insiders—not as a status hierarchy, but as people who inherit unfinished work. Participants arrive carrying what changed since last time. The room has memory.
 
 I do not need another social network that makes technical people present themselves more efficiently. I want a mechanism that helps us make something together.
 

@@ -17,11 +17,11 @@ status: publication-ready
 
 *Developed from June 4, 2020 through August 3, 2022.*
 
-I have a spiritual postulate that I cannot prove and do not want to disguise as physics:
+I hold a spiritual postulate:
 
 **There is only one now. Reality is made from memory held in God.**
 
-The sentence is not a claim that a laboratory has measured divine storage. It is my way of asking why experience is always local and present even when thought can range over childhood, imagined futures, remote places, and entire alternative worlds.
+This is the language I use for a lived question: why is experience always local and present even when thought can range over childhood, imagined futures, remote places, and entire alternative worlds?
 
 I can remember many moments. I can anticipate many possibilities. I can attend to only a little of either. Yet whatever I attend to appears in one present act.
 
@@ -33,7 +33,7 @@ People do not perceive a complete universe. We build a workable locality.
 
 I look at one face, one line of code, one patch of sky. The rest remains available only as expectation, memory, instrument reading, or trust in another person’s report. Even when a network delivers events from around the planet, my mind receives them in a sequence shaped by limited bandwidth and choice.
 
-This suggests a relationship among locality, attention, and finite resources. I do not mean that human attention physically creates spacetime in the scientific sense. I mean that the world I can act upon is continually constructed from a bounded set of relations brought into one now.
+This suggests a relationship among locality, attention, and finite resources. Human attention does not need to manufacture spacetime for the relationship to matter: the world I can act upon is continually constructed from a bounded set of relations brought into one now.
 
 Attention chooses what becomes immediate. Memory supplies what is absent. Imagination offers what may never have existed.
 
@@ -43,11 +43,11 @@ The three are easy to confuse.
 
 A memory feels like a path back, but it is reconstructed in the present. Two people can remember one conversation differently. A person can answer the same question differently years later. Ordinary explanations—forgetting, reinterpretation, emotion, context, and suggestion—already account for much of this.
 
-My many-worlds imagination adds another picture: perhaps I meet versions of other people whose remembered histories do not exactly coincide with mine. I cannot demonstrate that interpretation, and I do not need it to notice the deeper fact. Continuity is never given to me as a complete record. It is produced now from imperfect traces.
+My many-worlds imagination adds another picture: perhaps I meet versions of other people whose remembered histories do not exactly coincide with mine. I keep that picture as imagination; the deeper fact does not depend on it. Continuity is never given to me as a complete record. It is produced now from imperfect traces.
 
 This raises a disturbing thought experiment. Imagine a physically congruent world containing gray matter arranged exactly as mine but inert—no experience behind it. What fact would distinguish the living continuity I know from that perfect arrangement?
 
-The thought does not prove a soul or refute materialism. It exposes the gap between an outside description of state and the inside fact of being present.
+The thought keeps open the gap between an outside description of state and the inside fact of being present.
 
 ## Possible Selves Do Not Share One Diary
 
@@ -64,17 +64,17 @@ I once treated important opportunities as a two-way struggle: win one, despair o
 
 Possibility becomes useful when it releases action, not when it turns into an infinite cosmology that prevents action.
 
-## Enough Theory
+## When Theory Became Too Much
 
 I spent years studying consciousness, many worlds, relational quantum mechanics, perception, minds, spirituality, and every bridge I could imagine between them. The work had a generative property: each answer could produce ten new unverifiable questions.
 
 Eventually I set much of it aside.
 
-That was not a declaration that the questions were foolish. It was an admission that a research program can become self-protecting. If every observation can be reinterpreted to preserve the theory, and every contradiction generates another invisible layer, the inquiry may never reach a condition under which it can fail.
+The questions were not foolish. They had simply become capable of generating another invisible layer around every contradiction, until inquiry protected itself from the world it was meant to explain.
 
 I needed to return to things that could answer back: circuits, drawings, programs, hardware, music, communication, and physical builds.
 
-“Enough theory” was not anti-intellectual. It was a boundary placed around my attention.
+“Enough theory” was how I returned my attention to work that could answer me.
 
 ## Soul Without Focus, Mind With Too Much
 
@@ -103,7 +103,7 @@ That is the paradox:
 
 **The working time machine belongs to the world I finally choose to leave unchanged.**
 
-I do not claim such a machine is physically possible. The machine is a spiritual instrument in the argument. It reveals that the desire to revise time can conceal a refusal to inhabit the only moment where action occurs.
+I use the machine here as a spiritual instrument rather than an engineering forecast. It reveals that the desire to revise time can conceal a refusal to inhabit the only moment where action occurs.
 
 Acceptance is not passivity. I can repair a relationship, build a device, oppose harm, or choose a new direction. I simply cannot act anywhere except now.
 

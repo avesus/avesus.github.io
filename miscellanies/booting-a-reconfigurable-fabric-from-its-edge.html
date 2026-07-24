@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Booting a Reconfigurable Fabric from Its Edge | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="An edge FPGA reads a microSD image, streams configuration into a neighboring fabric, and brings networking up after the machine exists.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.html">
+    <meta property="og:title" content="Booting a Reconfigurable Fabric from Its Edge">
+    <meta property="og:description" content="An edge FPGA reads a microSD image, streams configuration into a neighboring fabric, and brings networking up after the machine exists.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Booting a Reconfigurable Fabric from Its Edge - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.png">
+    <meta name="twitter:image:alt" content="Booting a Reconfigurable Fabric from Its Edge - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Booting a Reconfigurable Fabric from Its Edge",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2021-03-19T22:59:48.539Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A recoverable edge-boot architecture in which one small FPGA reads a microSD image, configures a neighboring fabric as a stream, and brings networking up only after the machine exists.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Booting a Reconfigurable Fabric from Its Edge</h1></header>
+    <address><time datetime="2021-03-19">Developed March 19–20, 2021.</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
+        <p class="lead">A recoverable edge-boot architecture in which one small FPGA reads a microSD image, configures a neighboring fabric as a stream, and brings networking up only after the machine exists.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>A reconfigurable fabric does not wake up as a computer. At power-on it is a collection of blank or minimally configured devices, power rails, clocks, links, and memories. Something must establish the first trustworthy path into it.</p>
+            <p>My answer was an edge module: one small boot FPGA attached to one side of the fabric, with a root flash, a microSD slot, local regulation, and a narrow downstream configuration connection.</p>
+            <p>The important decision was subtraction. The boot module would not also be the Ethernet module, the application processor, the user interface, and the permanent center of the machine. It would perform one irreducible job: create enough of the fabric that the rest of the machine could be installed.</p>
+        </section>
+        <section>
+            <h2>The Root Must Be Boring</h2>
+            <p>The root flash contains the smallest configuration that can read the card and speak the fabric’s configuration protocol. It should change rarely. Application images, networking logic, experiments, and recovery tools belong on removable or replaceable storage.</p>
+            <p>This separation gives the boot sequence a stable base:</p>
+            <ol>
+                <li>The FPGA configures itself from the root flash.</li>
+                <li>The root image initializes the microSD interface and local downstream link.</li>
+                <li>It reads a selected fabric image from the card.</li>
+                <li>It streams configuration into the neighboring fabric.</li>
+                <li>The newly formed fabric can install further modules, including Ethernet and flash-reprogramming logic.</li>
+            </ol>
+            <p>The root is not intelligent in the grand sense. It is dependable. That is more useful.</p>
+            <p>If the root flash becomes corrupted, an external programmer must still be able to restore it. Recovery cannot depend exclusively on the mechanism being recovered.</p>
+        </section>
+        <section>
+            <h2>Boot the Network Later</h2>
+            <p>It was tempting to place Ethernet on the boot module. I rejected that coupling.</p>
+            <p>Networking changes faster than the act of booting. Different deployments may want different PHYs, speeds, packet paths, or no network at all. If Ethernet is installed after the first fabric region exists, its logic can be updated with the rest of the system. The boot board remains small, while the network board becomes a replaceable peripheral of the fabric it serves.</p>
+            <p>The same argument applies to feature-specific flash controllers. The root needs enough output capability to create a flash reprogrammer elsewhere. It does not need every future programming interface permanently embedded.</p>
+            <p>This is a useful systems rule: the first program should establish the means to install the second program, not attempt to contain the whole future.</p>
+        </section>
+        <section>
+            <h2>The Image Is a Stream</h2>
+            <p>The downstream fabric is not loaded as one magical object. Configuration bits leave the microSD reader in order and cross a physical path in time.</p>
+            <p>That makes the boot image a protocol:</p>
+            <ul>
+                <li>identify a target or route;</li>
+                <li>deliver a bounded configuration record;</li>
+                <li>detect completion or error;</li>
+                <li>continue into dependent regions;</li>
+                <li>preserve a way back to the root.</li>
+            </ul>
+            <p>In a tree-shaped fabric, a configured parent can expose the path used to reach its children. The edge booter creates the first branch; that branch can create the next. Boot becomes a controlled expansion rather than a broadcast to every device.</p>
+            <p>The tree may eventually have several edge booters. That introduces real arbitration questions. Which booter owns an unconfigured region? Can two roots meet? Does a faster source take a larger territory? Those are protocol decisions, not facts supplied by the hardware. Multiple roots are useful only if ownership and conflict behavior are explicit.</p>
+        </section>
+        <section>
+            <h2>Recoverable Image Slots</h2>
+            <p>I wanted several candidate images on the card or local nonvolatile storage. A new image should be testable without destroying the last known bootable state.</p>
+            <p>A simple policy is enough:</p>
+            <ul>
+                <li>one protected recovery image;</li>
+                <li>one known-good operational image;</li>
+                <li>one candidate image;</li>
+                <li>a small record of which image booted successfully.</li>
+            </ul>
+            <p>The candidate becomes known-good only after the system reaches a defined checkpoint. Repeated failure returns to the protected image.</p>
+            <p>Flash erase and endurance still belong to the medium and its controller. The image-slot policy solves a different problem: updating a reconfigurable machine without gambling the only boot path.</p>
+        </section>
+        <section>
+            <h2>Clocking From the Actual Board</h2>
+            <p>I considered several oscillator frequencies associated with SD cards, Ethernet, and possible fabric speeds. Each frequency belongs to a particular device, board, and link budget.</p>
+            <p>The boot clock must satisfy three things:</p>
+            <ol>
+                <li>the selected FPGA and board can route it reliably;</li>
+                <li>the storage interface can derive the modes it needs;</li>
+                <li>the downstream protocol has timing margins across the actual connectors and traces.</li>
+            </ol>
+            <p>A PLL may derive faster internal clocks from a modest oscillator. An early prototype can also run much slower than the intended fabric. Boot time is secondary to a clean, measurable configuration path.</p>
+            <p>Power has the same discipline. The module may accept a convenient external rail and generate the FPGA core and I/O voltages locally, but exact values belong to the chosen parts and board. A parent fabric may know the power budget of its branches; it cannot “pump energy” into them without real regulators, current limits, connectors, and fault behavior.</p>
+        </section>
+        <section>
+            <h2>The Edge Is a Boundary, Not a Throne</h2>
+            <p>Placing the boot module at the edge makes the physical interface legible. It has one side facing the external world—power, card access, perhaps a debug header—and one side facing the fabric. It does not occupy the conceptual center of every computation that follows.</p>
+            <p>Once the fabric is alive, the booter can become just another program endpoint. It may continue serving storage, recovery, and image selection. It should not proxy all application traffic.</p>
+            <p>That distinction matters for scale. A root that must remain in every data path becomes a bottleneck. A root that establishes ownership and installs direct paths can become quiet after boot.</p>
+        </section>
+        <section>
+            <h2>The Order of Construction</h2>
+            <p>The first board turns the choices into numbers: component selection, card protocol, clock rate, rail current, connector integrity, image format, and multi-root arbitration all meet on the actual prototype.</p>
+            <p>The durable part is the order of construction:</p>
+            <ol>
+                <li>protect a tiny root;</li>
+                <li>read a richer image from replaceable storage;</li>
+                <li>grow a configuration path into the fabric;</li>
+                <li>install networking and other services as fabric programs;</li>
+                <li>keep recovery independent from the image under test.</li>
+            </ol>
+            <p>A blank array does not need a giant supervisor. It needs one trustworthy edge from which the rest of the computer can be built.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/a-computer-that-boots-by-growing-its-own-wires.html">A Computer That Boots by Growing Its Own Wires</a>
+        <p>A blank spatial fabric grows configuration paths, regions, programs, and wires until keyboard commands have assembled a working computer.</p>
+        <p>Continue:</p>
+        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
+        <p>Build deterministic startup, larger roots, safer claiming, and recovery from the edge inward. Funding and contributors are welcome.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/cartilage-the-architecture-that-rebuilt-itself.html">Cartilage: The Architecture That Rebuilt Itself</a>
+        <p>A first-person history of Cartilage, from event membranes and dynamic cores to ownership trees, spatial programs, wiring, and application-laid clocks.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

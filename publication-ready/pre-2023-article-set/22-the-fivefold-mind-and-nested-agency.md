@@ -18,7 +18,7 @@ status: publication-ready
 
 I use a fivefold picture of mind because the ordinary words—body, brain, mind, heart, soul, ego, intuition—collapse experiences that do not feel identical.
 
-This is not a neurological taxonomy. It is lived philosophy: a set of lenses for asking who is acting inside me, what kind of freedom that actor has, and what it costs the other layers to make one choice.
+I use it as lived philosophy rather than anatomy: a set of lenses for asking who is acting inside me, what kind of freedom that actor has, and what it costs the other layers to make one choice.
 
 The five are:
 
@@ -48,7 +48,7 @@ The relationship that fascinates me most is between immediate body and intuitive
 
 They form a loop around the more verbal mind. A sensation appears. An intuition gives it direction. The body relaxes or tightens in response. Only later does the ego supply a reason.
 
-This can feel like the soul calming the body. I accept that as a spiritual description of my experience. I do not treat it as proof that a separate entity has overridden neural tissue.
+This can feel like the soul calming the body. That spiritual description belongs to my experience; the practical loop is available whether another reader names it spiritually or neurologically.
 
 The practical lesson survives either interpretation. When the narrating mind is trapped, it may help to return attention to breath, posture, pressure, movement, temperature, and the quiet yes or no that appears before the argument.
 
@@ -60,7 +60,7 @@ The fivefold model prevents me from equating social smoothness with goodness.
 
 A polished ego can perform care while using another person. A frightened body can produce harshness around a loyal intention. A beautiful spiritual vocabulary can hide domination. A clumsy mind can serve a kind soul.
 
-This is not permission to ignore behavior. Other people encounter what I actually do, not the private goodness I claim underneath it. The point is that agency has layers, and durable change may require more than teaching the outer layer better phrases.
+Other people encounter what I actually do, not the private goodness I imagine underneath it. Agency has layers, and durable change may require more than teaching the outer layer better phrases.
 
 ## Choice Is Control
 
@@ -98,7 +98,7 @@ Soul, in this model, is broad participation. Mind is narrow selection.
 
 Without mind, the soul may remain an oceanic feeling that builds nothing. Without soul, the mind can optimize a goal until the goal loses meaning. Agency needs both: a direction wide enough to belong to life and a focus narrow enough to change one thing.
 
-The “outer intention” of the universe is not a measurable executive issuing orders. It is my name for everything my private plan does not control: other people, materials, history, weather, chance, and the consequences I failed to imagine.
+I call everything my private plan does not control “outer intention”: other people, materials, history, weather, chance, and the consequences I failed to imagine.
 
 A mature choice is an offer made to that larger field, not a command.
 
@@ -122,7 +122,7 @@ When I face a difficult choice, I can ask five separate questions:
 2. Which habit or old wound is asking to complete itself?
 3. What story is the ego protecting?
 4. What image or possibility appears when ordinary narration loosens?
-5. What does intuition say, and what evidence could correct it?
+5. What does intuition say, and what experience could change my reading of it?
 
 Then I ask the nested-agency question:
 

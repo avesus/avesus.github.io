@@ -4,7 +4,7 @@ slug: "a-brain-sized-machine-in-real-units"
 date: "2021-03-27T09:58:34.477Z"
 original_dates:
   - "2021-03-27T09:58:34.477Z"
-description: "A dimensional exercise that turns a claim about brain-scale computation into connections, update rates, memory, floor area, power, cooling, and routing."
+description: "A dimensional exercise that turns brain-scale computation into connections, update rates, memory, floor area, power, cooling, and routing."
 status: publication-ready
 ---
 
@@ -16,7 +16,7 @@ status: publication-ready
 
 Then the phrase falls apart. Powerful in what sense? How many independently changing relationships must the machine retain? How often do they change? How far must a signal travel? How much energy may one transition consume? Where does the heat leave? What does the machine do when one part changes while another is still receiving the previous state?
 
-I once tried to force the question into real units. The numerical assumptions were deliberately rough, and some comparisons were too literal. That failure became the useful result: a brain-sized machine is not primarily a large arithmetic engine. It is a physical communication problem with computation embedded throughout it.
+I once forced the question into real units. The worksheet was deliberately rough, and every conversion that broke exposed the same thing: a brain-sized machine is not primarily a large arithmetic engine. It is a physical communication problem with computation embedded throughout it.
 
 ## Begin With Relationships, Not FLOPS
 
@@ -28,7 +28,7 @@ Take two round assumptions: 88 billion neurons and 10,000 connections per neuron
 
 That is 880 trillion directed connection slots.
 
-This is not a count of independent biological synapses, a claim about human anatomy, or a conversion into logic gates. It is a scale marker. Even one bit of state per slot would occupy about 110 terabytes in decimal units. One byte per slot would require about 880 terabytes. Eight bytes of weight, delay, adaptation, or routing state would approach seven petabytes.
+I use this as a scale marker, not as a conversion between biological synapses and logic gates. Even one bit of state per slot would occupy about 110 terabytes in decimal units. One byte per slot would require about 880 terabytes. Eight bytes of weight, delay, adaptation, or routing state would approach seven petabytes.
 
 The range matters more than one dramatic total. Before simulating anything, the representation has already chosen whether the machine is a hundred-terabyte system or a multi-petabyte system.
 
@@ -64,7 +64,7 @@ If nine million cells form a 3,000-by-3,000 square, its four sides contain 12,00
 
 The worksheet therefore replaced the 3,000-device answer with 7,680 devices. At the recorded DigiKey price of $73,074.30 each, the two totals were about $220 million and $560 million respectively.
 
-Those figures are a dated calculator, not a current quote or a validated bill of materials. “Logic cell,” neural connection, transceiver bit, and delivered event are unlike units. The 20-million speed ratio assumes perfect time multiplexing. The perimeter model assumes a flat square with uniform traffic. Even the rounded sequence does not reproduce every final digit if recalculated from unrounded inputs.
+Treat those figures as a 2021 calculator. “Logic cell,” neural connection, transceiver bit, and delivered event are unlike units. The 20-million speed ratio assumes perfect time multiplexing. The perimeter model assumes a flat square with uniform traffic. Even the rounded sequence does not reproduce every final digit if recalculated from unrounded inputs.
 
 I keep the calculation because it exposes exactly where the fantasy depends on a conversion. Change the event rate, representation, locality, serialization, or device price, and the answer moves. Remove the boundary bandwidth, and the answer becomes meaningless.
 
@@ -107,7 +107,7 @@ It imagined a 30,000-by-30,000-pixel state surface updating 150,000 times per se
 
 It then used Summit as a system-scale check. Summit had almost 30,000 GPUs, so the worksheet called for 13 Summit-sized machines, about $4.3 billion at the recorded $325 million per system. Summit’s 250 petabytes of storage exceeded the worksheet’s 63-petabyte state estimate, but the sheet still judged one Summit far short of its desired update rate. It noted the then-planned Frontier figure of 1.5 exaFLOPS at $600 million and projected roughly 2.6 exaFLOPS and $1 billion for its own target.
 
-This comparison is not a benchmark. A texture update is not a synaptic event, a FLOP is not a connection delivery, and list prices do not produce a functioning facility. The useful result is the disagreement among rulers. A gate-count story, a pixel-update story, and a FLOP story can each produce a confident multibillion-dollar answer while measuring different machines.
+A texture update, a synaptic event, a FLOP, and a connection delivery measure different work, and list prices do not assemble a functioning facility. That disagreement among rulers is the point. A gate-count story, a pixel-update story, and a FLOP story can each produce a confident multibillion-dollar answer while describing different machines.
 
 ## Turn the Rack Into Part of the Algorithm
 
@@ -145,9 +145,9 @@ A later line allowed 13 watts per module, or 122 microwatts per logic cell. At t
 
 Routing produced another constraint. Dividing 7,500 perimeter bit positions by the worksheet’s 23-to-one pitch factor left 326 connections for a flex cable. If a one-centimeter edge physically held only 31 pads, serialization would need to approach 6 GHz to preserve the assumed rate.
 
-These numbers do not all close cleanly. The exact `2,093 × 2,093` field is 4.38 million modules, which explains the recorded $44 million; “four million” was only the coarse label. A module budget of 11.5 watts gives the 300-kilowatt rack, while 13 watts does not. A 13-by-13 array contains 169 racks, not the separately recorded 173 that yields 3,287 nineteen-unit server positions. “Rack” had also stretched into a five-meter service field that no longer resembled an ordinary 19-inch cabinet.
+Reconciling the worksheet exposes several mismatches. The exact `2,093 × 2,093` field is 4.38 million modules, which explains the recorded $44 million; “four million” was the coarse label. A module budget of 11.5 watts gives the 300-kilowatt rack, while 13 watts does not. A 13-by-13 array contains 169 racks, not the separately recorded 173 that yields 3,287 nineteen-unit server positions. “Rack” had also stretched into a five-meter service field that no longer resembled an ordinary 19-inch cabinet.
 
-Those failures belong in the result. They identify the interfaces that require a new architecture: module-to-module links, power distribution, service access, and the definition of a useful local operation.
+Each mismatch points to an interface that needs its own architecture: module-to-module links, power distribution, service access, and the definition of a useful local operation.
 
 ## Power Gives Every Abstraction a Price
 
@@ -157,11 +157,11 @@ At 52 megawatts, every hour consumes 52 megawatt-hours. The machine needs electr
 
 Conversely, an operation count that ignores data movement is not a power estimate. Moving a bit across a board, through a serializer, or between memory packages can cost more than the local Boolean operation it enables. “Compute efficiency” must include the route.
 
-This is one reason I remain interested in spatial and in-memory computation. The goal is not to claim equivalence to a brain. It is to ask whether state, switching, and communication can remain physically near one another, with hierarchy visible instead of hidden behind a uniform address space.
+This is one reason I remain interested in spatial and in-memory computation: state, switching, and communication can remain physically near one another, with hierarchy visible instead of hidden behind a uniform address space.
 
-## The Estimate Should Fail Productively
+## Make Every Assumption Earn Its Unit
 
-A useful back-of-the-envelope calculation does not decorate an ambition with a large number. It reveals which unknown dominates the design.
+A useful back-of-the-envelope calculation reveals which assumption dominates the design.
 
 For a brain-sized machine, I would now keep a ledger with at least these columns:
 
@@ -175,6 +175,6 @@ For a brain-sized machine, I would now keep a ledger with at least these columns
 | energy per transmitted bit | distance/link | joules | high |
 | recoverable failure rate | system design | failures/hour | high |
 
-The honest outcome may be that the biological comparison is too underspecified to guide hardware. That itself is progress. I can replace “build a brain” with a bounded target: simulate this network, at this event rate, with this precision, within this power and floor-area envelope.
+When the biological comparison is too underspecified to guide hardware, I replace “build a brain” with a concrete target: simulate this network, at this event rate, with this precision, within this power and floor-area envelope.
 
 The moment the machine has units, it becomes less magical and more interesting. The cables enter the theory. So do the power bars, the cooling loops, the floor, and the distance from one state change to the next.

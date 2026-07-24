@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Prohibit Action Upon Stale Data | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A user interface should not carry out a consequential action when the facts shown to the user are no longer the facts the system will act upon.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/prohibit-action-upon-stale-data.html">
+    <meta property="og:title" content="Prohibit Action Upon Stale Data">
+    <meta property="og:description" content="A user interface should not carry out a consequential action when the facts shown to the user are no longer the facts the system will act upon.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/prohibit-action-upon-stale-data.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/prohibit-action-upon-stale-data.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/prohibit-action-upon-stale-data.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Prohibit Action Upon Stale Data - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/prohibit-action-upon-stale-data.png">
+    <meta name="twitter:image:alt" content="Prohibit Action Upon Stale Data - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Prohibit Action Upon Stale Data",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2022-02-12T02:34:52.475Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A user interface should not carry out a consequential action when the facts shown to the user are no longer the facts the system will act upon.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/prohibit-action-upon-stale-data.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Prohibit Action Upon Stale Data</h1></header>
+    <address><time datetime="2022-02-12">Originally written February 12, 2022.</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Software, state, interaction, and communication</p>
+        <p class="lead">A user interface should not carry out a consequential action when the facts shown to the user are no longer the facts the system will act upon.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>A dangerous button is not dangerous because it is red. It is dangerous when the screen describes one world and the button acts upon another.</p>
+            <p>The rule I want is blunt:</p>
+            <blockquote>
+                <p>Prohibit action upon stale data.</p>
+            </blockquote>
+            <p>If I approve, delete, transfer, publish, merge, schedule, or reconfigure something, the system must know that I am acting on the state I actually saw. When that state has changed, my old intention cannot simply be carried forward as though nothing happened.</p>
+        </section>
+        <section>
+            <h2>The Screen Is Part of the Decision</h2>
+            <p>A user interface does more than collect commands. It supplies the facts from which a person decides what command to give.</p>
+            <p>Suppose I open an order and see:</p>
+            <ul>
+                <li>destination: Seattle;</li>
+                <li>quantity: 10;</li>
+                <li>price: $40;</li>
+                <li>delivery: Friday.</li>
+            </ul>
+            <p>I approve it. Between opening the page and pressing the button, another person changes the quantity to 1,000 and the destination to Miami. If the system applies my approval to the new order, it has not honored my decision. It has reused the physical gesture of clicking while discarding the information that made the click meaningful.</p>
+            <p>The same failure appears everywhere:</p>
+            <ul>
+                <li>deleting a file after someone replaced its contents;</li>
+                <li>sending a message to a recipient whose address changed;</li>
+                <li>approving a document after a new revision appeared;</li>
+                <li>paying an invoice after its amount changed;</li>
+                <li>applying a circuit configuration to a region that now has another owner;</li>
+                <li>revoking a permission after the visible member list became outdated;</li>
+                <li>publishing an edit over someone else's newer work.</li>
+            </ul>
+            <p>The user did not authorize “whatever happens to occupy this identifier later.” The user authorized an action on a particular observed version.</p>
+        </section>
+        <section>
+            <h2>Identity Needs a Revision</h2>
+            <p>An object identifier is not enough. The action must carry the revision that was displayed.</p>
+            <p>A simple request can say:</p>
+            <pre><code class="language-text">approve order 1842
+only if revision is 27</code></pre>
+            <p>The server compares revision 27 with the current revision. If the current order is still revision 27, it performs the action. If the order is now revision 28, it refuses and returns the new state.</p>
+            <p>This can be implemented with version numbers, content hashes, entity tags, transaction timestamps, immutable event positions, or another token that changes whenever relevant facts change. The representation matters less than the invariant:</p>
+            <p><strong>The action and the information used to choose it must refer to the same state.</strong></p>
+            <p>Not every internal change must invalidate every action. A corrected spelling in an internal note may not matter to approval. A changed price certainly does. A good system defines the action's dependency set: the fields, permissions, relationships, and policies whose changes require a new decision.</p>
+        </section>
+        <section>
+            <h2>Reconfirmation Must Show the Difference</h2>
+            <p>“Something changed. Try again” is safe but lazy.</p>
+            <p>When possible, the interface should show:</p>
+            <ul>
+                <li>what the user saw;</li>
+                <li>what is true now;</li>
+                <li>which differences matter to the requested action;</li>
+                <li>whether the original action is still available.</li>
+            </ul>
+            <p>The reconfirmation must not become a reflexive second click on an identical-looking dialog. If the system needs a fresh decision, it owes the person a visible reason.</p>
+            <p>For an edited document, show the intervening changes. For a payment, highlight the new amount or destination. For a deployment, show the changed target version and ownership. For a permission change, identify the policy that was modified.</p>
+            <p>Then ask again.</p>
+        </section>
+        <section>
+            <h2>A Confirmation Dialog Does Not Cure Staleness</h2>
+            <p>Many systems display “Are you sure?” immediately before a destructive action. That question often confirms nothing.</p>
+            <p>If the dialog was produced from stale data, pressing “Yes” only confirms the stale interpretation twice. A confirmation is useful when it restates the current consequential facts and binds the action to their revision. Otherwise it is decoration.</p>
+            <p>The correct sequence is:</p>
+            <ol>
+                <li>read the current state;</li>
+                <li>show the facts that matter;</li>
+                <li>record the revision shown;</li>
+                <li>accept the user's decision;</li>
+                <li>execute only if that revision still governs the action.</li>
+            </ol>
+            <p>There is always a tiny interval between steps four and five. That is why the final check belongs at the authority that commits the change, not only in browser code.</p>
+        </section>
+        <section>
+            <h2>Offline Work Makes the Rule More Important</h2>
+            <p>Offline software intentionally works with old snapshots. That does not make every offline action invalid. It means the system must distinguish preparation from commitment.</p>
+            <p>I can draft a message offline. I can plan an edit, select files, arrange a schedule, or prepare a configuration. When the network returns, the software must validate every assumption that matters before committing the consequential part.</p>
+            <p>Some changes merge naturally. Adding two independent comments may be safe. Incrementing a counter can be commutative. Editing different paragraphs may be reconcilable. Other changes are decisions about a whole state and must stop for review.</p>
+            <p>An offline queue should therefore hold more than verbs. It should hold:</p>
+            <ul>
+                <li>the intended operation;</li>
+                <li>the observed revision;</li>
+                <li>the facts the operation depended upon;</li>
+                <li>the identity and authority under which it was prepared;</li>
+                <li>an expiration rule;</li>
+                <li>a merge or conflict policy.</li>
+            </ul>
+            <p>“Replay everything later” is not a synchronization design.</p>
+        </section>
+        <section>
+            <h2>Permissions Also Become Stale</h2>
+            <p>Data is not the only thing that changes. Authority changes too.</p>
+            <p>A person may lose access while a page remains open. A role may be narrowed. A resource may move to another owner. A policy may begin requiring an additional approval.</p>
+            <p>The system must validate authorization at commit time. But authorization alone is not enough. If the user still has permission while the target has materially changed, the stale-data rule still applies.</p>
+            <p>Two separate questions must be answered:</p>
+            <ol>
+                <li>Is this person allowed to perform this action now?</li>
+                <li>Is this still the action they chose from the state they saw?</li>
+            </ol>
+        </section>
+        <section>
+            <h2>Not Every Button Must Stop</h2>
+            <p>The rule should protect meaning, not freeze the interface.</p>
+            <p>Refreshing a page, opening a panel, starting a search, or requesting a new preview can usually operate on current state without reconfirmation. Idempotent actions may be retried safely. Commutative operations may merge. A deliberately relative command—“add one item to whatever the current quantity is”—may be valid across revisions because its meaning explicitly refers to the current state.</p>
+            <p>The distinction should be designed, not guessed.</p>
+            <p>For each action, ask:</p>
+            <ul>
+                <li>What facts made the decision sensible?</li>
+                <li>Which changes would alter its meaning?</li>
+                <li>Can concurrent versions merge without surprise?</li>
+                <li>What is the cost of rejecting a safe action?</li>
+                <li>What is the cost of accepting a stale one?</li>
+            </ul>
+            <p>The stronger the consequence, the stronger the binding should be.</p>
+        </section>
+        <section>
+            <h2>Preserve the Decision, Not the Click</h2>
+            <p>Interfaces often treat user intent as a stream of events: click, tap, submit, drag. Those events are only the last millimeter of a longer act of reasoning.</p>
+            <p>The person looked at a model, understood it, and chose a change. If the model is no longer true, the gesture is no longer sufficient.</p>
+            <p>Prohibiting action upon stale data is not pessimism. It is respect for causality. A decision belongs to the facts that produced it. When the facts change, give the decision back to the person.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/definitions-that-can-fail-their-own-tests.html">Definitions That Can Fail Their Own Tests</a>
+        <p>People write hierarchical definitions and acceptance criteria; machines search for implementations that those definitions can test.</p>
+        <p>Continue:</p>
+        <a href="/human-computer-interaction-as-model-exchange.html">Human-Computer Interaction As Model Exchange</a>
+        <p>Continue with an interface model built around shared state, interpretation, and repair.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/a-statechart-that-remembers-how-it-was-changed.html">A Statechart That Remembers How It Was Changed</a>
+        <p>A dynamic statechart model that records editing and execution in one directed history and makes observed transitions explicit states.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

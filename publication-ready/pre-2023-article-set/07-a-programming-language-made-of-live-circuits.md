@@ -27,7 +27,7 @@ The primitive state element is a D flip-flop with an input and an output. I also
 
 Attached to each state input is a Boolean expression. It may be as simple as another state element’s output, or it may describe a combinational operation that fits within the intended clock period. Operations that need several cycles or too much area become subcircuits of their own.
 
-This resembles an FPGA logic cell, but it should not be confused with a literal commercial FPGA architecture. A real logic cell commonly combines a lookup table, optional storage, carry resources, and routing. I am defining an abstract language machine whose useful correspondence is that logic and retained state live together.
+This resembles an FPGA logic cell because logic and retained state live together. Commercial cells add their own lookup tables, carry resources, routing, and device-specific constraints; here I use the correspondence to define a compact language machine.
 
 The result is a circuit with named signals, explicit state, and explicit children. Wires are drawn when local and anonymous. A signal name can stand in for a visually inconvenient connection. Parallel words and serial streams can both travel through ports; their higher-level types may describe numbers, objects, matrices, strings, or framed packets. Those types describe how a circuit produces and consumes signals. They do not turn the live internal state of a circuit into an ordinary value.
 
@@ -72,7 +72,7 @@ Reading a configured circuit back through its port could also provide a stream t
 
 Every live child belongs to an enclosing circuit. I represent that relationship explicitly so the parent can direct the child’s allocation and configuration. At a low level, ownership must be realized by a routable physical mechanism rather than by an abstract pointer floating outside the machine.
 
-One possible implementation is a tree of configuration access paths. The parent can select a descendant, send configuration data down to it, and read configuration data back. Termination points make the access structure explicit even at leaves. This is a design direction, not a claim that a complete physical protocol or interpreter was already built in 2021.
+The 2021 design used a tree of configuration access paths. The parent selects a descendant, sends configuration data down to it, and reads configuration data back. Termination points make the access structure explicit even at leaves. That tree turns abstract ownership into a protocol that a physical interpreter can implement.
 
 The data plane and the configuration plane are distinct:
 
@@ -87,7 +87,7 @@ Dynamic instantiation creates a physical problem. New child rectangles need reso
 
 I call that changing connective region Cartilage.
 
-The image is a set of rectangular subcircuits with typed ports at known positions. Between them is a configurable routing fabric. A high-level request says which ports must connect; a routing process finds and installs a path through the available fabric. General placement and routing problems are computationally hard, so no useful implementation should promise instant global optimality. Hierarchy, bounded regions, incremental repair, and acceptable rather than perfect routes are practical ways to constrain the work.
+The image is a set of rectangular subcircuits with typed ports at known positions. Between them is a configurable routing fabric. A high-level request says which ports must connect; a routing process finds and installs a path through the available fabric. General placement and routing problems are computationally hard. Hierarchy, bounded regions, incremental repair, and acceptable rather than perfect routes keep that work local and tractable.
 
 The central idea is still strong: the wires between components form a component in their own right. They have state, consume area, and must be reconfigured when the object graph changes. Dynamic allocation in a circuit language is therefore not only memory management. It is live interconnect management.
 
@@ -107,8 +107,8 @@ It is **reactive**: a changed input automatically drives the relations that depe
 
 It is **dynamic**: an enclosing circuit can change the exact structure of a child through an explicit configuration interface.
 
-None of these requires pretending that software has become magic matter. Every relation must eventually be flip-flops, combinational logic, routing, protocol state, or a time-multiplexed algorithm when resources are scarce. The language is an attempt to keep those physical consequences visible all the way up.
+Every relation eventually becomes flip-flops, combinational logic, routing, protocol state, or a time-multiplexed algorithm when resources are scarce. The language keeps those physical consequences visible all the way up.
 
-The promise is not that I had already completed this language and its place-and-route engine. The promise is a coherent target: programs as live structures, instances that remain addressable while they run, types as compact construction streams, and reconfiguration as an ordinary operation performed through ownership.
+That gives me a coherent language to build toward: programs as live structures, instances that stay addressable while they run, types as compact construction streams, and reconfiguration as an ordinary operation performed through ownership.
 
 In such a system, programming is not telling a fixed machine what instruction comes next. It is continually deciding what machine should exist here now.

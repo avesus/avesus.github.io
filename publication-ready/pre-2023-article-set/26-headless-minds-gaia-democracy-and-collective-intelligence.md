@@ -17,19 +17,15 @@ Can a system think without one place where the thinking happens?
 
 A fungal network can alter flows of nutrients and signals across a landscape. An ecosystem changes atmospheric chemistry without convening a committee. A market coordinates production without one complete model of every participant. A democracy makes decisions no individual authored in full.
 
-Calling all of these systems *minds* would be too easy. Refusing the question because they have no head would be too easy too.
+I use the word *mind* carefully here. I want to know when memory, sensing, feedback, and coordinated action become more than a poetic resemblance to thought.
 
-I want a practical test for headless intelligence.
-
-## Gaia as a Question
+## How Gaia Thinks Without a Head
 
 The Gaia image treats planetary life as a system that helps maintain conditions under which life continues.
 
 I am drawn to the idea of collective knowledge and cognition at planetary scale: underground fungal networks, roots, microbes, animals, oceans, weather, and human institutions participating in an invisible web that profoundly changes Earth.
 
-The poetic version says the planet thinks.
-
-The scientific question is more disciplined. Does the coupled system have:
+The poetic version says the planet thinks. I can make that image concrete by asking what the coupled system actually does:
 
 - persistent memory;
 - sensing of relevant conditions;
@@ -39,9 +35,7 @@ The scientific question is more disciplined. Does the coupled system have:
 - boundaries that distinguish the system from its environment;
 - goals or attractors that are not merely projected by an observer?
 
-An ecosystem clearly has feedback and history. Whether those properties amount to cognition depends on the definition, and the definition must distinguish cognition from any dynamical system that settles into a stable pattern.
-
-Gaia is useful when it makes the criteria sharper, not when it converts reverence into a mechanism.
+An ecosystem clearly has feedback and history. To call that cognition, I also want a vocabulary that distinguishes adaptive collective activity from any dynamical system that settles into a stable pattern. Gaia then becomes a way to study planetary memory and coordination without reducing reverence to a substitute for mechanism.
 
 ## Democracy Has No Single Author
 
@@ -117,15 +111,13 @@ A headless system may have behavior without a self.
 
 The planet’s atmosphere can change through biological feedback without Gaia saying “I.” A democracy can pass a law without one consciousness experiencing the decision. A corporation can pursue a strategy even while every employee privately doubts it.
 
-I therefore separate three claims:
+I therefore separate three properties:
 
 1. the system produces coordinated effects;
 2. the system processes and retains information;
 3. the system has subjective experience.
 
-The first two can often be investigated. The third is much harder and should not be smuggled in through metaphor.
-
-Collective intelligence does not require a collective inner voice.
+The first two appear in observable organization and records. The third asks a different kind of question. Collective intelligence can coordinate, remember, and act without speaking through one collective inner voice.
 
 ## Accountability in a Headless System
 
@@ -159,6 +151,6 @@ The question is which structures make the collective capable of memory, correcti
 
 I want bureaucracy that remembers without ruling by inertia, democracy that aggregates without flattening, and anarchy that creates without treating everyone else as material.
 
-I want ecological intelligence understood through measurable feedback, and planetary reverence that does not pretend a metaphor is data.
+I want ecological intelligence understood through its feedback and memory, while planetary reverence keeps its full poetic and moral force.
 
 A headless mind is not less real because nobody sits at its center. It is more demanding. If there is no single thinker to save it, intelligence has to live in the connections among us.

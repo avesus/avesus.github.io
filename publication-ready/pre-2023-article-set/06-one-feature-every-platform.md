@@ -26,7 +26,7 @@ A real application eventually meets facilities that are not generic rectangles o
 
 The problem becomes sharper for a modern interface that deliberately participates in the character of its host system. A native view is not merely pixels. It carries state and often depends directly on system services. Abstracting it can be worthwhile, but the abstraction has a cost, and the most distinctive new platform capabilities are usually the least abstractable ones.
 
-This does not mean that every byte must be duplicated. Domain rules, protocol definitions, test vectors, data models, and carefully chosen libraries can often be shared. It also does not mean that React Native, Flutter, a web view, or another common layer can never be the right economic choice. The correction I would make to the strongest version of my 2021 argument is simple: separate implementations are not an absolute law. What is unavoidable is separate platform integration.
+Domain rules, protocol definitions, test vectors, data models, and carefully chosen libraries can often be shared. React Native, Flutter, a web view, or another common layer may also be the right economic choice. I would now state my 2021 argument this way: separate implementations are optional; separate platform integration is unavoidable.
 
 Pretending otherwise merely hides the work in adapters, wrappers, escape hatches, build systems, and bug reports.
 
@@ -66,7 +66,7 @@ Feature ownership works only if knowledge is allowed to move. An engineer who be
 
 Pairing, review, small cross-platform changes, shared debugging sessions, and explicit platform notes can turn narrow expertise into team expertise. The goal is not to make every engineer equally deep in five enormous ecosystems. The goal is to make it normal for the person responsible for a behavior to follow that behavior across boundaries, ask for help where needed, and leave the next person more capable.
 
-This is an organizational principle, not the same thing as microservices or microfrontends. Those are architectural patterns with their own tradeoffs. A feature team may work in a monolith, several services, multiple native clients, or all of the above. What matters is that the human division of work follows the product result more closely than the repository map.
+Feature ownership describes how people carry responsibility; microservices and microfrontends describe how software is divided. A feature team may work in a monolith, several services, multiple native clients, or all of the above. What matters is that the human division of work follows the product result more closely than the repository map.
 
 ## Use one contract, not one illusion
 

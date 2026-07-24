@@ -4,7 +4,7 @@ slug: "write-the-failures"
 date: "2021-01-30T00:50:52.169Z"
 original_dates:
   - "2021-01-30T00:50:52.169Z"
-description: "Success stories hide the search space; careful accounts of failed ideas show other builders what was tried, why it looked plausible, and where reality objected."
+description: "Success stories hide the search space; writing failed ideas shows other builders what was tried, why it looked plausible, and where reality objected."
 status: publication-ready
 ---
 
@@ -22,9 +22,9 @@ The useful map contains the wrong turns.
 
 Success includes judgment, work, timing, other people, available tools, and luck. Even when the work is excellent, the outcome is drawn from circumstances that may never repeat.
 
-If one company succeeds with a particular architecture, we cannot infer that the architecture caused the success. We have not seen the similar companies that chose it and failed, or the companies that succeeded for another reason despite it. The visible winner is one sample selected by the outcome.
+One company succeeding with a particular architecture cannot tell us that the architecture caused the success. The similar companies that chose it and failed are harder to see, as are the companies that succeeded for another reason despite it. The visible winner is one sample selected by the outcome.
 
-Failure is not automatically more scientific. A failed project can be confused, dishonest, or uninformative. But a well-described failure exposes constraints that success often leaves hidden.
+A failed project can be vague or uninformative. A well-described failure exposes constraints that success often leaves hidden.
 
 It tells us:
 
@@ -41,11 +41,11 @@ That is reusable knowledge.
 
 If I choose only questions whose answers are guaranteed, I am not protecting research. I am avoiding it.
 
-An experiment is valuable because more than one outcome is possible. A design exploration matters because the tradeoff is not already settled. A conjecture deserves attention because reality has not yet agreed to it.
+An experiment becomes valuable when more than one outcome is possible. A design exploration matters because reality still has a choice.
 
 This does not mean betting years on every dramatic thought. The discipline is to make the vulnerable part small enough to test.
 
-Instead of declaring that an entire new computer architecture will be faster, isolate one claimed advantage and build the smallest fair comparison. Instead of claiming that a new interface eliminates mistakes, identify one class of mistake and measure whether it changes. Instead of saying a physical theory explains everything, derive one result that could disagree with observation.
+Instead of betting an entire new computer architecture on speed, isolate one expected advantage and build the smallest fair comparison. Instead of promising that a new interface eliminates mistakes, identify one class of mistake and measure whether it changes. Instead of saying a physical theory explains everything, derive one result that could disagree with observation.
 
 The failure then becomes precise. A latency exceeded its budget. A mechanism required more state than expected. An assumption did not survive a counterexample. A signal could not be distinguished from noise. The user did not understand the boundary.
 
@@ -84,11 +84,11 @@ The explanation should not humiliate the earlier thinker, even when that thinker
 
 These are not interchangeable.
 
-An unfinished prototype does not refute its architecture. A broken build does not prove the algorithm is wrong. A result below a commercial threshold may still establish a physical effect. A beautiful mechanism that nobody needs can be technically successful and practically failed.
+An unfinished prototype tells us where construction stopped. A broken build points first to implementation. A result below a commercial threshold may still reveal a physical effect. A beautiful mechanism that nobody needs can work technically and still fail as a product.
 
 Name the layer that failed.
 
-This is especially important when publishing negative results. I should not upgrade frustration into evidence. If I did not reach the decisive experiment, the honest result is the obstacle itself.
+When I publish a negative result, I separate the obstacle from the decisive experiment. If the test stopped at the obstacle, that obstacle is what I report.
 
 ## Record the Small Surviving Pieces
 
@@ -96,9 +96,9 @@ Large ideas often fail without becoming worthless.
 
 A rejected architecture may contain a useful protocol. A slow prototype may reveal a better visual model. A failed fabrication method may produce an excellent cleaning procedure. A product nobody wanted may expose one interaction people love. An incorrect theory may ask the right measurement question.
 
-The temptation is to save the grand claim or discard everything. The better act is disassembly.
+The temptation is to save the whole idea or discard everything. The better act is disassembly.
 
-What remains true? What remains useful? What can be carried into another system without pretending the original project succeeded?
+Which parts worked? Which parts are useful? What can be carried into another system?
 
 This is how research compounds. Not as a museum of triumphant final forms, but as a workshop full of tested parts.
 
@@ -115,7 +115,7 @@ A strong account includes:
 - raw measurements when available;
 - alternative explanations;
 - changes attempted after the first failure;
-- the boundary of the conclusion.
+- the conditions under which the result applies.
 
 The goal is not ceremonial transparency. The goal is to prevent another person from spending a week reproducing an already understood dead end—or to let them notice the one condition under which their attempt may differ.
 

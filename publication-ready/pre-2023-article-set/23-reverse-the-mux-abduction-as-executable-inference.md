@@ -38,7 +38,7 @@ That is abduction in a finite Boolean world.
 
 ## Reversing a Relation, Not Time
 
-“Reverse” is dangerous language here. I am not claiming that the circuit physically runs backward or that an output signal travels into the past.
+I reverse the relation, not physical time. No output signal has to travel into the past.
 
 The Boolean relation has four variables. Forward evaluation supplies three and computes the fourth. Inverse inference supplies some other subset and asks which complete assignments satisfy the same relation.
 
@@ -87,7 +87,7 @@ An abductive engine needs a second layer that ranks explanations. Possible crite
 - robustness when measurements contain error;
 - simplicity of the resulting model.
 
-Bayesian inference supplies one principled ranking when probabilities are available. Search or learning can estimate which explanations have worked before. Formal logic can reject contradictions. None of those methods creates evidence that was not observed.
+Bayesian inference supplies one principled ranking when probabilities are available. Search or learning can estimate which explanations have worked before. Formal logic can reject contradictions. Each method works from the observations and preferences it is actually given.
 
 The clean architecture is:
 
@@ -117,19 +117,15 @@ Without that discipline, a lucky guess can be retold as foresight.
 
 ## What “Fifty Percent A and Fifty Percent B” Can Mean
 
-I once wrote the compressed phrase “50% of A + 50% of B” beside the idea of quantum speedup.
+I once wrote the compressed phrase “50% of A + 50% of B” beside the idea of quantum speedup. The phrase can describe a classical mixture, uncertainty over two hypotheses, an ensemble, or—with the correct mathematical machinery—a quantum superposition whose amplitudes and interference matter.
 
-By itself, that phrase establishes nothing quantum and no speedup. It can describe a classical mixture, uncertainty over two hypotheses, an ensemble, or—only with the correct mathematical machinery—a quantum superposition whose amplitudes and interference matter.
-
-For abductive inference, the honest classical interpretation is enough: two explanations may begin with equal prior weight. Evidence then changes the weights or rules one out.
+For abductive inference I need only the classical reading: two explanations may begin with equal prior weight. A new observation changes the weights or rules one out.
 
 Interference is not obtained by writing a percentage sign between alternatives.
 
 ## Neural Search Is an Optional Engine
 
-I also imagined a deep, recurrent, asynchronous, quantized, spiking network as an inference machine.
-
-That string of properties is not an architecture or result. It names design choices:
+I also imagined a deep, recurrent, asynchronous, quantized, spiking network as an inference machine. To turn that bundle into an architecture, each word needs a specific job:
 
 - deep: several representational layers;
 - recurrent: retained state and feedback;
@@ -147,11 +143,9 @@ There is also a philosophical layer I do not want to erase.
 
 A bold hypothesis changes the world a group inhabits. Once people coordinate around a model, they build instruments, institutions, software, and expectations that make some futures more likely. An information system can distribute a model so widely that thousands of people act as though it were already true.
 
-That is real world-making through coordinated behavior.
+That is real world-making through coordinated behavior. It acts through people, instruments, institutions, and software—not through thought alone selecting a quantum branch, activating time travel, or bending physical truth. Many-worlds, morphic resonance, and a photonic continuity field gave me images for thinking; coordinated action supplies the mechanism here.
 
-It is not evidence that thought alone selects a quantum branch, activates time travel, or bends physical truth. Many-worlds, morphic resonance, and a photonic continuity field were speculative images in my thinking, not mechanisms I established.
-
-The valuable warning is social: an abductive hypothesis can escape its provisional status. If enough people synchronize around it, the model begins producing observations shaped by the model itself.
+The valuable warning is social: an abductive hypothesis can harden into supposed fact. If enough people synchronize around it, the model begins producing observations shaped by the model itself.
 
 That makes falsifiable tests and recorded commitments morally important.
 
@@ -175,6 +169,6 @@ output:
 
 For a small circuit, brute-force enumeration is enough. For a larger one, a SAT solver, binary decision diagram, constraint engine, or hybrid learned search can reduce the work.
 
-The important thing is that the explanation remains connected to an executable relation. I can inspect why an assignment survives. I can add one observation and watch alternatives disappear. I can discover that the evidence is insufficient rather than forcing a story.
+The important thing is that the explanation remains connected to an executable relation. I can inspect why an assignment survives. I can add one observation and watch alternatives disappear. I can see when several stories still fit instead of forcing one.
 
 Abduction is bold because it creates possibilities. It becomes knowledge only when those possibilities accept the risk of being eliminated.

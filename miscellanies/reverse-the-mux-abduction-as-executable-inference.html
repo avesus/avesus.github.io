@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Reverse the MUX: Abduction as Executable Inference | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="Run a multiplexer relation backward from an observed output, enumerate compatible causes, and rank the surviving explanations.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/reverse-the-mux-abduction-as-executable-inference.html">
+    <meta property="og:title" content="Reverse the MUX: Abduction as Executable Inference">
+    <meta property="og:description" content="Run a multiplexer relation backward from an observed output, enumerate compatible causes, and rank the surviving explanations.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/reverse-the-mux-abduction-as-executable-inference.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/reverse-the-mux-abduction-as-executable-inference.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/reverse-the-mux-abduction-as-executable-inference.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Reverse the MUX: Abduction as Executable Inference - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/reverse-the-mux-abduction-as-executable-inference.png">
+    <meta name="twitter:image:alt" content="Reverse the MUX: Abduction as Executable Inference - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Reverse the MUX: Abduction as Executable Inference",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2022-02-08T05:02:26.913Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A finite, executable account of abduction: observe a multiplexer output, run its relation backward, enumerate compatible causes, and rank the surviving explanations without confusing inference with reversed physical time.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/reverse-the-mux-abduction-as-executable-inference.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Reverse the MUX: Abduction as Executable Inference</h1></header>
+    <address><time datetime="2022-02-08">Developed from February 8 through July 9, 2022.</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
+        <p class="lead">A finite, executable account of abduction: observe a multiplexer output, run its relation backward, enumerate compatible causes, and rank the surviving explanations without confusing inference with reversed physical time.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>Deduction runs a rule forward. Abduction asks what could have produced the result.</p>
+            <p>I wanted to make that distinction executable with the smallest useful circuit I know: a multiplexer.</p>
+            <p>A two-input MUX has data inputs <code>a</code> and <code>b</code>, a selector <code>s</code>, and output <code>y</code>:</p>
+            <pre><code class="language-text">y = (not s and a) or (s and b)</code></pre>
+            <p>Forward execution is ordinary:</p>
+            <ul>
+                <li>when <code>s = 0</code>, output <code>a</code>;</li>
+                <li>when <code>s = 1</code>, output <code>b</code>.</li>
+            </ul>
+            <p>Reverse the MUX and the question changes:</p>
+            <p><strong>Given an observed <code>y</code>, which assignments of <code>a</code>, <code>b</code>, and <code>s</code> remain possible?</strong></p>
+            <p>That is abduction in a finite Boolean world.</p>
+        </section>
+        <section>
+            <h2>Reversing a Relation, Not Time</h2>
+            <p>I reverse the relation, not physical time. No output signal has to travel into the past.</p>
+            <p>The Boolean relation has four variables. Forward evaluation supplies three and computes the fourth. Inverse inference supplies some other subset and asks which complete assignments satisfy the same relation.</p>
+            <p>For <code>y = 1</code>, the valid causes include:</p>
+            <div class="table-scroll" tabindex="0">
+                <table>
+                    <thead><tr>
+                        <th scope="col"><code>s</code></th>
+                        <th scope="col">Required selected input</th>
+                        <th scope="col">Unselected input</th>
+                    </tr></thead>
+                    <tbody>
+                        <tr>
+                            <td><code>0</code></td>
+                            <td><code>a = 1</code></td>
+                            <td><code>b</code> may be <code>0</code> or <code>1</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>1</code></td>
+                            <td><code>b = 1</code></td>
+                            <td><code>a</code> may be <code>0</code> or <code>1</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The observation does not identify one cause. It creates a constraint.</p>
+            <p>If I also observe <code>s = 0</code>, then <code>a = 1</code> follows, while <code>b</code> remains unconstrained. If I know <code>a = 0</code> and still observe <code>y = 1</code>, the selector must be <code>1</code> and <code>b</code> must be <code>1</code>.</p>
+            <p>Abduction is not arbitrary guessing. It is the generation of assignments that survive the known constraints.</p>
+        </section>
+        <section>
+            <h2>Broken Implication</h2>
+            <p>Ordinary implication encourages a one-way reading:</p>
+            <pre><code class="language-text">cause -&gt; effect</code></pre>
+            <p>Abduction deliberately “breaks” that arrow. It refuses to pretend that one effect names one cause.</p>
+            <p>If a rule says rain can make pavement wet, wet pavement does not prove rain. A sprinkler, a broken pipe, or a cleaning crew may also satisfy the observation. The reverse operation returns a set of possible worlds, not a verdict.</p>
+            <p>The MUX makes this humility impossible to avoid. A one-bit output usually leaves several one-bit explanations.</p>
+            <p>Larger Boolean circuits can be treated the same way. Fix observed outputs. Leave unknown inputs, internal states, or configuration bits symbolic. Solve for assignments that make the circuit consistent.</p>
+            <p>This is Boolean satisfiability with an explanatory purpose.</p>
+        </section>
+        <section>
+            <h2>From Possibilities to Explanations</h2>
+            <p>Constraint solving gives candidates. It does not tell me which candidate is useful.</p>
+            <p>An abductive engine needs a second layer that ranks explanations. Possible criteria include:</p>
+            <ul>
+                <li>prior probability;</li>
+                <li>number of assumptions;</li>
+                <li>cost of the implied mechanism;</li>
+                <li>compatibility with previous observations;</li>
+                <li>ability to predict an unobserved value;</li>
+                <li>robustness when measurements contain error;</li>
+                <li>simplicity of the resulting model.</li>
+            </ul>
+            <p>Bayesian inference supplies one principled ranking when probabilities are available. Search or learning can estimate which explanations have worked before. Formal logic can reject contradictions. Each method works from the observations and preferences it is actually given.</p>
+            <p>The clean architecture is:</p>
+            <ol>
+                <li><strong>generate</strong> all or many constraint-compatible causes;</li>
+                <li><strong>rank</strong> them using explicit preferences or probabilities;</li>
+                <li><strong>test</strong> the best distinctions with a new observation;</li>
+                <li><strong>revise</strong> when the test fails.</li>
+            </ol>
+            <p>Abduction proposes. Experiment separates.</p>
+        </section>
+        <section>
+            <h2>Prediction Is the Dual of Guessing</h2>
+            <p>Consider a simple game. I write a bit sequence, hide it, and ask another agent to write a matching sequence.</p>
+            <p>If the sequences match, I can say I predicted what the agent would write. The agent can say it guessed what I had already written. The same correlation receives two causal stories depending on which record I treat as prior and which actor I center.</p>
+            <p>This does not erase physical order. Timestamps, information access, and communication paths still matter. It does reveal that “prediction” and “guess” are roles assigned around a matching relation.</p>
+            <p>A good inference system should record those information boundaries:</p>
+            <ul>
+                <li>what existed before the decision;</li>
+                <li>what each agent could observe;</li>
+                <li>when the hypothesis was committed;</li>
+                <li>which result arrived later.</li>
+            </ul>
+            <p>Without that discipline, a lucky guess can be retold as foresight.</p>
+        </section>
+        <section>
+            <h2>What “Fifty Percent A and Fifty Percent B” Can Mean</h2>
+            <p>I once wrote the compressed phrase “50% of A + 50% of B” beside the idea of quantum speedup. The phrase can describe a classical mixture, uncertainty over two hypotheses, an ensemble, or—with the correct mathematical machinery—a quantum superposition whose amplitudes and interference matter.</p>
+            <p>For abductive inference I need only the classical reading: two explanations may begin with equal prior weight. A new observation changes the weights or rules one out.</p>
+            <p>Interference is not obtained by writing a percentage sign between alternatives.</p>
+        </section>
+        <section>
+            <h2>Neural Search Is an Optional Engine</h2>
+            <p>I also imagined a deep, recurrent, asynchronous, quantized, spiking network as an inference machine. To turn that bundle into an architecture, each word needs a specific job:</p>
+            <ul>
+                <li>deep: several representational layers;</li>
+                <li>recurrent: retained state and feedback;</li>
+                <li>asynchronous: local events rather than one global step;</li>
+                <li>quantized: bounded numeric state;</li>
+                <li>spiking: information carried partly by event timing.</li>
+            </ul>
+            <p>Such a network might learn to propose likely causes quickly. It still needs a constraint checker if the result must obey exact logic. A learned proposal mechanism and a symbolic verifier can complement one another: one searches the huge space; the other refuses impossible answers.</p>
+            <p>The MUX remains the ground truth for the tiny case.</p>
+        </section>
+        <section>
+            <h2>Abduction as World-Making</h2>
+            <p>There is also a philosophical layer I do not want to erase.</p>
+            <p>A bold hypothesis changes the world a group inhabits. Once people coordinate around a model, they build instruments, institutions, software, and expectations that make some futures more likely. An information system can distribute a model so widely that thousands of people act as though it were already true.</p>
+            <p>That is real world-making through coordinated behavior. It acts through people, instruments, institutions, and software—not through thought alone selecting a quantum branch, activating time travel, or bending physical truth. Many-worlds, morphic resonance, and a photonic continuity field gave me images for thinking; coordinated action supplies the mechanism here.</p>
+            <p>The valuable warning is social: an abductive hypothesis can harden into supposed fact. If enough people synchronize around it, the model begins producing observations shaped by the model itself.</p>
+            <p>That makes falsifiable tests and recorded commitments morally important.</p>
+        </section>
+        <section>
+            <h2>The Small Executable Core</h2>
+            <p>Reverse-the-MUX inference can be implemented without metaphysical machinery:</p>
+            <pre><code class="language-text">inputs:
+  known values and observed outputs
+
+process:
+  enumerate or symbolically solve assignments
+  retain assignments satisfying the circuit
+  rank retained assignments
+  choose a measurement that distinguishes them
+
+output:
+  possible causes, not one invented certainty</code></pre>
+            <p>For a small circuit, brute-force enumeration is enough. For a larger one, a SAT solver, binary decision diagram, constraint engine, or hybrid learned search can reduce the work.</p>
+            <p>The important thing is that the explanation remains connected to an executable relation. I can inspect why an assignment survives. I can add one observation and watch alternatives disappear. I can see when several stories still fit instead of forcing one.</p>
+            <p>Abduction is bold because it creates possibilities. It becomes knowledge only when those possibilities accept the risk of being eliminated.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.html">Logical Momentum: A State Needs a Direction, Not Just a Value</a>
+        <p>A design for computations that carry transition direction, completion, and release instead of representing every variable as a timeless value.</p>
+        <p>Continue:</p>
+        <a href="/mux-algebra.html">MUX Algebra</a>
+        <p>Use the complete gate catalog and its verified Cartilage counterparts before running the relation backward.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/from-domain-models-down-to-muxes-and-back-up.html">From Domain Models Down to MUXes—and Back Up</a>
+        <p>A walk from diverse domain models through simulation, control and datapath, Boolean relations, multiplexers, state, energy, and physical work.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

@@ -82,7 +82,7 @@ Latency matters. A chord selected on a beat must be formed before the strings ar
 
 Noise matters too. Solenoids clicking beside acoustic strings could overwhelm the instrument. Motors, latching mechanisms, shape-memory materials, pneumatic systems, or a redesigned string geometry each have different costs.
 
-The first prototype should not attempt six strings and twenty frets. It should prove one useful transition:
+The first prototype should begin with one useful transition that I can play, measure, and hear:
 
 1. two or three strings;
 2. a small set of chord shapes;

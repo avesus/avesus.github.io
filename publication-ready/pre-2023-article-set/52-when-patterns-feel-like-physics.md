@@ -16,9 +16,9 @@ Sometimes numbers begin looking back.
 
 The golden ratio appears beside a duration. A Mars light-time resembles the length of a video. Twenty minutes appears in meditation advice. A decimal becomes a repeating-looking binary pattern. Higgs and Planck scales seem to align around a familiar frequency.
 
-Each coincidence is weak. Together they can produce a physical sensation: there is a structure here, and I am almost touching it.
+Each coincidence is easy to find on its own. Together they can produce a physical sensation: there is a structure here, and I am almost touching it.
 
-I do not want to ridicule that sensation. Pattern recognition is how many real questions begin. I also do not want the sensation to certify its own answer.
+I keep that sensation intact because pattern recognition is how many real questions begin. Then I ask it to do more: carry units, name a mechanism, count the search, and predict something outside the pattern that first caught my attention.
 
 The interesting boundary is the moment a synchronicity becomes a physical hypothesis.
 
@@ -44,7 +44,7 @@ The resulting number was associated with a possible minimum photon energy, elect
 
 Written in a row, these feel charged. Durations cluster. Binary digits alternate. Ratios approach simple fractions. Human practice, planetary distance, and particle physics seem to echo.
 
-The page is honest about the experience. It is not yet a physical derivation.
+The notebook preserves the experience exactly as it arrived. The physical work begins by turning each association into a quantity, a unit, and a mechanism.
 
 ## A number without units is wearing a disguise
 
@@ -52,7 +52,7 @@ The first test is dimensional.
 
 The expression \((1+\varphi)/(60 \times 60)\) is dimensionless unless the two sixties represent explicit conversions and the starting quantity carries a unit. Photon energy is not a frequency by itself; it is \(E = hf\), where Planck’s constant supplies the conversion from inverse seconds to energy.
 
-If I claim a photon energy affects an electron through Higgs coupling, I need to specify:
+To connect a photon energy to an electron through Higgs coupling, the model needs:
 
 - the energy or frequency;
 - the interaction Hamiltonian or at least an effective model;
@@ -63,7 +63,7 @@ If I claim a photon energy affects an electron through Higgs coupling, I need to
 
 Units do not kill the idea. They force it to become one idea.
 
-A claimed equality among “distances” on logarithmic scale needs the same care. Which dimensionless ratios are being compared? Which reference scales were chosen? Would another choice make the symmetry disappear?
+An equality among “distances” on logarithmic scale begins by naming the dimensionless ratios and the reference scales. Then I can change the reference and see whether the symmetry survives.
 
 ## Patterns need a search budget
 
@@ -71,7 +71,7 @@ The second test is statistical.
 
 If I examine thousands of numbers—durations, wavelengths, constants, dates, binary representations, ratios, and unit systems—I will find striking relationships. The probability of one preselected match may be small while the probability of finding *some* match is large.
 
-So a serious pattern record needs a search budget:
+So I attach a search budget to the pattern record:
 
 1. What quantities did I examine?
 2. Which transformations were allowed?
@@ -80,9 +80,9 @@ So a serious pattern record needs a search budget:
 5. How many other candidate matches were discarded?
 6. Was the prediction written before the confirming observation?
 
-This does not reduce discovery to bureaucracy. It lets another person distinguish an unlikely prediction from an attractive result selected after exploration.
+The search budget preserves the discovery while letting another person distinguish an unlikely prediction from an attractive result selected after exploration.
 
-The strongest move is preregistration: use the pattern to predict a number or behavior not yet checked, freeze the procedure, and then look.
+The strongest move is preregistration: use the pattern to predict a new number or behavior, freeze the procedure, and then look.
 
 ## Binary beauty is representation-dependent
 
@@ -96,15 +96,15 @@ That suggests a useful question:
 
 If a model derives 693 from measured parameters and also predicts a binary-state transition tied to its bit pattern, the representation may matter. If the bit pattern appeared only after searching integers, it is an aesthetic clue.
 
-Aesthetic clues are allowed. They are not evidence until the mechanism needs them.
+Aesthetic clues become physically useful when the mechanism selects them independently.
 
 ## Synchronicity can still be studied
 
-The personal experience remains interesting even if the proposed physics fails.
+Whether or not the physical model survives, the personal experience opens another set of questions.
 
 Why do independent events feel connected at particular moments? How does attention change the population of noticed coincidences? What happens when a person starts recording both matches and nonmatches? Does emotional salience alter estimates of rarity? How often does a newly noticed number appear simply because attention has been tuned to it?
 
-Those questions can be tested without claiming the mind controls Mars or that a meditation duration sets photon energy.
+Those questions separate the study of attention from a physical model of Mars light-time or photon energy, so each can be investigated on its own terms.
 
 Keep a dated notebook. Before each day, write a small set of expected patterns. Record misses with the same care as hits. Ask another person to score descriptions without knowing which events felt significant. Compare the experienced strength of a coincidence with its frequency under a defined search procedure.
 
@@ -127,6 +127,4 @@ The discipline comes next:
 
 Some patterns will collapse. Some will become essays about attention. A few may open a useful physical question.
 
-The way to honor the feeling is not to announce that it proved the universe.
-
-It is to make the pattern strong enough to fail.
+The way to honor the feeling is to give it units, a mechanism, and a prediction—and give the pattern a real chance to become physics.

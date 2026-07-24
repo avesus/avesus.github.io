@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>The PCB You Can Actually Build at Home | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="How to design a home-buildable PCB around packages, layers, materials, and processes a small workshop can inspect, repair, and improve.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/the-pcb-you-can-actually-build-at-home.html">
+    <meta property="og:title" content="The PCB You Can Actually Build at Home">
+    <meta property="og:description" content="How to design a home-buildable PCB around packages, layers, materials, and processes a small workshop can inspect, repair, and improve.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/the-pcb-you-can-actually-build-at-home.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/the-pcb-you-can-actually-build-at-home.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/the-pcb-you-can-actually-build-at-home.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The PCB You Can Actually Build at Home - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/the-pcb-you-can-actually-build-at-home.png">
+    <meta name="twitter:image:alt" content="The PCB You Can Actually Build at Home - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "The PCB You Can Actually Build at Home",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2020-11-01T07:31:27.211Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "How to design a home-buildable PCB around packages, layers, materials, and processes a small workshop can inspect, repair, and improve.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/the-pcb-you-can-actually-build-at-home.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">The PCB You Can Actually Build at Home</h1></header>
+    <address><time datetime="2020-11-01">November 1, 2020, with experiments through June 24, 2022</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Building, education, community, and creative tools</p>
+        <p class="lead">How to design a home-buildable PCB around packages, layers, materials, and processes a small workshop can inspect, repair, and improve.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>The most important feature of a home-built circuit board is not minimum trace width. It is inspectability.</p>
+            <p>I can make an ambitious board that looks wonderful in a layout tool and has no realistic path through fabrication, assembly, inspection, repair, or learning. Or I can make a board whose limitations are visible enough that each failure tells me something.</p>
+            <p>That choice begins before routing. It begins with package, layer count, materials, tools, and the question I should have asked much earlier: when this does not work, how will I know why?</p>
+        </section>
+        <section>
+            <h2>BGA Hides the Joints I Need to See</h2>
+            <p>A ball-grid array is attractive because it can put many connections under a small package. Those same hidden connections make it a bad default for a small workshop.</p>
+            <p>Assembly is only part of the problem. Without suitable X-ray inspection, I cannot directly see bridges, voids, opens, or partially wetted balls. Escaping a dense BGA can require small vias, narrow traces, controlled fabrication, and several layers. Signals buried in that stack become harder to probe and repair.</p>
+            <p>The electrical story is more nuanced than “buried traces have high impedance.” Geometry, dielectric thickness, reference planes, trace dimensions, return paths, and transitions determine impedance and coupling. The practical point remains: a dense BGA pushes several variables out of the range I can comfortably inspect and change at home.</p>
+            <p>That does not make BGA bad. It makes it a package that should earn its place through a requirement I cannot meet otherwise.</p>
+        </section>
+        <section>
+            <h2>QFN is difficult in a useful way</h2>
+            <p>A QFN is still challenging. Its leads are small, and the exposed pad needs a controlled amount of solder and adequate heating. But the joint perimeter is accessible enough for optical inspection, continuity checks, rework, and learning.</p>
+            <p>For prototypes, I would rather place one difficult QFN on a small replaceable module than gamble the entire main board on it. The module can carry the local bypass capacitors that must remain close to the package. Larger connectors then expose power, ground, and signals to a board with less demanding geometry.</p>
+            <p>This is not free. Connectors add cost, inductance, resistance, area, and failure points. The module boundary should correspond to an actual inspection or replacement advantage.</p>
+            <p>Modularity is useful when it lets me unscrew one mistake.</p>
+        </section>
+        <section>
+            <h2>Conductive ink taught the right lesson</h2>
+            <p>Additive conductive ink looks perfect for very large, low-density experiments. Draw a route, modify it locally, and avoid removing most of a copper sheet.</p>
+            <p>I tried to use conductive ink at QFN scale. It was too brittle and mechanically unreliable. The experiment separated two very different achievements:</p>
+            <ul>
+                <li>conductive material can form a circuit;</li>
+                <li>a particular printed joint can survive assembly, handling, current, heat, and time.</li>
+            </ul>
+            <p>The first is easy. The second is engineering.</p>
+            <p>Conductive ink may still be excellent for large pads, disposable sensors, temporary jumpers, or geometries where flexibility and resistance are characterized. It is not automatically a substitute for soldered fine-pitch interconnect.</p>
+        </section>
+        <section>
+            <h2>One layer, two layers, and the via as a rivet</h2>
+            <p>A single copper layer is wonderfully legible. Every route is visible. There are no hidden plane transitions, and fabrication can be cheap.</p>
+            <p>Two layers often provide a better practical minimum. The second layer gives routes somewhere to cross, makes a continuous ground reference more plausible, and allows plated or mechanically reinforced holes. A via is electrical, but in a home process it can also become a small rivet joining two fragile surfaces.</p>
+            <p>More layers may be justified by density, power distribution, return paths, controlled impedance, or package escape. They should not be used to postpone understanding. Every added layer makes some part of the board less directly observable.</p>
+            <p>The goal is not the fewest layers. It is the fewest layers that allow the electrical paths to remain correct and the failure paths to remain discoverable.</p>
+        </section>
+        <section>
+            <h2>Let Each Process Trial Change the Recipe</h2>
+            <p>Several process ideas failed before they became a board.</p>
+            <p>Lacquer on copper did not behave as the reliable resist I wanted. Attempting to use transparency through glass did not solve the exposure problem. Removing large copper areas was slow and wasteful. Laser-cut masks produced unpleasant carbonized polymer residue. Each failure pointed toward a more specific requirement.</p>
+            <p>Thin copper should reduce the amount that must be removed, but it also becomes easier to damage. Polyimide is attractive for flexible circuits and high-temperature assembly, but it changes handling, adhesion, and via construction. A coverlay needs deliberate openings. A complete board process makes traces, reliable holes, and pads together.</p>
+            <p>A better experiment records:</p>
+            <ul>
+                <li>copper and substrate thickness;</li>
+                <li>cleaning and surface preparation;</li>
+                <li>resist or mask material;</li>
+                <li>exposure wavelength, distance, and time;</li>
+                <li>development and etch chemistry;</li>
+                <li>minimum repeatable trace and gap;</li>
+                <li>undercut;</li>
+                <li>adhesion;</li>
+                <li>via method;</li>
+                <li>soldering behavior;</li>
+                <li>photographs of failures, not only the best coupon.</li>
+            </ul>
+            <p>Home PCB work also requires ventilation, eye and skin protection, chemical compatibility, controlled laser materials, and proper waste handling. The ability to cut a material says nothing about the safety of breathing what the cut produces.</p>
+        </section>
+        <section>
+            <h2>Design for the tools that exist</h2>
+            <p>My small assembly kit tells the truth about my process: Kapton tape, a dental pick, flux-cleaning brushes, small scissors, low-lint swabs, tip-cleaning sponge, magnification, and accessible test points.</p>
+            <p>A board intended for that bench should respect it. Leave room around connectors. Put bypass capacitors where they can be assembled correctly. Expose rails and clocks. Mark pin 1. Provide a way to program or recover the device when its main firmware is broken. Prefer packages that can be inspected with the equipment actually present.</p>
+            <p>The most sophisticated board is not the one with the smallest features. It is the one whose design, fabrication, assembly, and diagnosis form one coherent process.</p>
+            <p>I want a PCB I can actually hold, understand, and improve—not a tiny monument to the capabilities of a factory I do not have.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/events-entertain-meetings-build.html">Events Entertain; Meetings Build</a>
+        <p>A proposal for recurring maker meetings organized around commitments, artifacts, negotiated activities, and work that continues after the room empties.</p>
+        <p>Continue:</p>
+        <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a>
+        <p>Continue from home-built boards to the fabrication tools makers still need.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/learn-electronics-by-building-one-whole-computer.html">Learn Electronics by Building One Whole Computer</a>
+        <p>A project-led electronics curriculum in which every new circuit becomes part of one computer the learner can eventually understand end to end.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

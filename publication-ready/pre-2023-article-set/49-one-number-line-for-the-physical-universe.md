@@ -111,7 +111,7 @@ Then each operation can answer two questions:
 
 For example, subtracting two nearly equal large binary32 values can destroy most meaningful digits even though neither value overflows. Multiplying a long sequence can accumulate relative error. Integrating tiny steps can lose increments when they fall below the spacing around a large state value.
 
-The range check is only the first gate.
+Range is only the first calculation.
 
 ## A scale-aware calculator
 

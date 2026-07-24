@@ -53,15 +53,15 @@ The loop can return. A response reaches me, I see my own idea from outside, and 
 
 ## Reality as Memory
 
-Here is the speculative belief behind my practical model. I cannot prove it, and I do not present it as physics:
+My practical model rests on a metaphysical belief:
 
 **Reality is made of memories of God, and there is only one now.**
 
-I mean that as a metaphysical claim, not a decorative metaphor. Matter, position, duration, and relation may be forms that divine memory gives to thought so it can persist, be compared, and generate more thought. A chair, moon, circuit, or tree is not merely *like* a stored record in this picture. It exists within the memory from which reality is made.
+I mean it metaphysically, not as a decorative metaphor. Matter, position, duration, and relation may be forms that divine memory gives to thought so it can persist, be compared, and generate more thought. A chair, moon, circuit, or tree is not merely *like* a stored record in this picture. It exists within the memory from which reality is made.
 
 Space lets memories have positions and relations. Time lets one state stand before or after another. Difference lets mind compare. The observable world becomes a place where thought can be recovered, reviewed, and made more cohesive instead of disappearing in the instant it occurs.
 
-This belief does not settle an experimental question. A claim about a circuit still needs a measurement, and a claim about nature still needs evidence that could prove it wrong. Metaphysics tells me why keeping and revisiting form might matter; it cannot substitute for the work by which physical claims earn trust.
+Metaphysics and experiment play different roles for me. A circuit still answers to measurement, and a physical model still has to meet the world. Metaphysics tells me why keeping and revisiting form might matter; experiment lets matter answer.
 
 It does sharpen a practical question:
 
@@ -77,7 +77,7 @@ My metaphysical picture also distinguishes soul from mind:
 
 **My soul wants the same as the universe, but it has no focus. My mind has focus, but it is squashed by outer intention when its will conflicts with it.**
 
-I mean these as parts of the speculation, not merely as metaphors for distraction. The soul participates in the direction of the whole without selecting one narrow operation. The mind selects: this boundary, this circuit, this sentence, this next act. Outer intention is the intention expressed by reality beyond my private will. It includes other minds, matter, history, chance, and consequences I did not imagine.
+The soul participates in the direction of the whole without selecting one narrow operation. The mind selects: this boundary, this circuit, this sentence, this next act. Outer intention is the intention expressed by reality beyond my private will. It includes other minds, matter, history, chance, and consequences I did not imagine.
 
 Focus is powerful because it excludes. To finish a circuit, I must stop considering most possible circuits. To write a sentence, I must choose these words and abandon others. But focus is not sovereignty. When the mind mistakes a narrow choice for command of the whole, the universe can squash the plan.
 
@@ -89,9 +89,7 @@ That is why I do not see publication as burial. A public form is a temporary cry
 
 There is a tempting analogy between evolution and publication.
 
-A living form is copied with variation. The environment “reads” the variation through survival and reproduction. Some structures persist and become material for later changes. No editor or conscious intention is required for biological evolution, so the analogy must not be mistaken for mechanism.
-
-Still, it reveals a useful pattern: preservation and change are partners. Perfect preservation cannot adapt. Pure change cannot accumulate.
+A living form is copied with variation. The environment “reads” the variation through survival and reproduction. Some structures persist and become material for later changes. Biological evolution needs no editor or conscious intention. I use the analogy for one pattern: preservation and change are partners. Perfect preservation cannot adapt. Pure change cannot accumulate.
 
 My own work needs both:
 
@@ -106,7 +104,7 @@ The record should be definite enough to disagree with. The process should be ali
 
 I mean this as more than the observation that experience happens in the present. In my metaphysical picture, the past is available as memory and the future as possibility, but they are not additional rooms with their own separate nows. Both become active in the one now where reality remembers, chooses, and changes.
 
-I cannot prove that claim. I can live its consequence: the one now is the receiving end of every channel through time.
+I live by its consequence: the one now is the receiving end of every channel through time.
 
 That gives me a responsibility when I send. A future reader will not automatically possess my context. They may be tired, hurried, skeptical, or living inside a problem I never imagined. The message needs handles: names, examples, boundaries, and enough of the rejected alternatives to reveal why the chosen shape exists.
 

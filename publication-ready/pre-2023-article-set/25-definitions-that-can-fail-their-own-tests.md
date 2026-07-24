@@ -5,7 +5,7 @@ date: "2020-11-08T23:07:08.056Z"
 original_dates:
   - "2020-11-08T23:07:08.056Z"
   - "2021-09-23T17:48:19.046Z"
-description: "A programming model in which people create hierarchical definitions and acceptance criteria, machines search for implementations, and every definition remains vulnerable to contradiction, ambiguity, and failed tests."
+description: "A programming model in which people create executable definitions, examples, and acceptance criteria while machines search the implementation space and return contradictions or counterexamples."
 status: publication-ready
 ---
 
@@ -47,7 +47,7 @@ The answers form a dependency graph. A high-level concept is refined into smalle
 
 This resembles unit-test-driven programming, but tests are not merely attached after a prose requirement. They are one executable face of the definition.
 
-## The Definition Must Be Allowed to Be Wrong
+## Let the Definition Answer Back
 
 A test normally fails an implementation. I also want tests that fail the definition.
 
@@ -138,7 +138,7 @@ Examples reveal intention faster than formal prose. They also invite accidental 
 
 For every positive example, I want a nearby negative one. For every boundary, I want a perturbation: if this input changes slightly, should the result remain the same? For every numeric threshold, I want cases on both sides. For every social criterion, I want to know whose judgment supplies the label and what disagreement looks like.
 
-A definition becomes stronger when it survives attempts to make it embarrass itself.
+A definition becomes useful when nearby examples, perturbations, and disagreements reveal exactly what it includes.
 
 ## Creativity Lives Above and Within the Tests
 
@@ -150,6 +150,6 @@ People can write definitions instead of implementations only if they remain will
 
 The machine should search deeply, show counterexamples, and implement the dull parts. The human contribution is not an oracle’s mysterious spark. It is the accountable act of saying:
 
-**This distinction matters. This example belongs. That one does not. Here is how my definition could prove me wrong.**
+**This distinction matters. This example belongs. That one does not. Here is the case that would make me revise the definition.**
 
 That last sentence is what turns a wish into a programmable idea.

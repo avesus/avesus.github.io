@@ -19,7 +19,7 @@ Not one enormous remote data center pretending to be weightless. Not a phone tha
 
 I call the idea EventEdge.
 
-It is partly an engineering proposal and partly design fiction. Some pieces can be built with ordinary networking and rugged devices. Others require serious work in aviation, energy storage, optical communication, weather tolerance, safety, and economics. The point of assembling them is not to pretend the whole machine already exists. It is to ask what personal computing would look like if locality and privacy were the first constraints.
+EventEdge joins an engineering proposal to design fiction. Ordinary networking and rugged devices form the near edge; aviation, energy storage, optical communication, weather tolerance, safety, and economics define the farther horizon. Put together, they let me design personal computing with locality and privacy as its first constraints.
 
 ## Begin with the device contract
 
@@ -50,13 +50,13 @@ At a large event, a campus, a park, or a temporary workshop, most useful traffic
 
 A local mesh could keep those services close while retaining a controlled bridge to the wider Internet. “No Internet” does not have to mean isolation. It can mean that the local system remains useful without the global network and crosses that boundary deliberately.
 
-The aerial part of the concept came from imagining hydrogen balloons carrying solar panels and compute nodes. That combination is not automatically practical. Hydrogen introduces fire risk. Balloons drift, age, leak, encounter storms, and occupy regulated airspace. Solar power is intermittent, and payload mass matters.
+The aerial part of the concept came from imagining hydrogen balloons carrying solar panels and compute nodes. Hydrogen introduces fire risk. Balloons drift, age, leak, encounter storms, and occupy regulated airspace. Solar power is intermittent, and payload mass matters.
 
 Those constraints are the design. A responsible feasibility study would compare tethered balloons, ordinary towers, rooftops, drones, temporary masts, and ground equipment before choosing a platform. The cloud may end up ten meters above the grass rather than invisible in the stratosphere. Locality matters more than the romance of altitude.
 
 ## Three machines for one process
 
-A node in the sky or on a mast is exposed. It can be reset by weather, radiation, a weak battery, a broken link, or an ordinary component failure.
+A node in the sky or on a mast is exposed. It can be reset by weather, radiation, a depleted battery, a broken link, or an ordinary component failure.
 
 My first response is simple redundancy: run three copies of an important process and compare their results. Triple execution is not magical protection. Identical software can repeat the same bug three times, and correlated failures can defeat voting. But independent replicas can make transient faults visible and let a service continue while one node is examined.
 
@@ -85,7 +85,7 @@ This is the practical version of a cloud that changes shape. Nodes arrive and le
 
 The far edge of the idea is an environment that can present images or sound without asking everyone to carry a large screen: phased light, localized acoustic fields, steerable projection, and remote viewpoints rendered as avatars.
 
-I do not claim that the atmosphere can presently become a private, high-resolution display on command. Nor do I want an invisible sensor system aimed at people who did not choose it. The compelling question is narrower: can a public place provide shared output while personal input remains explicit and private?
+The useful path begins with a narrower question: can a public place provide shared output while personal input remains explicit and private? Any display system should face outward as shared infrastructure, never inward as an invisible sensor aimed at people who did not choose it.
 
 That is worth exploring through conventional projection, directional audio, e-paper signs, augmented-reality optics, and opt-in devices long before exotic manipulation of air is considered.
 

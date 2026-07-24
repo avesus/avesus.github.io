@@ -22,7 +22,7 @@ This led me to a question: what architecture would make that correspondence expl
 
 Assume that each computational node retains the input levels it has observed and the output it last produced. It does not wait only for an edge with no context. It knows enough of its local past to decide whether a new write changes anything.
 
-This state can be used in ordinary CMOS; the idea does not depend on a future memristor. Stateful devices might eventually make such arrangements denser or more natural, but neither memristors nor asynchronous logic are inevitable. The architecture is a thought experiment that asks what becomes possible when retained state is cheap and ubiquitous.
+Ordinary CMOS can hold this state. Memristors or asynchronous logic may eventually make such arrangements denser or more natural, but the architecture begins with the simpler question: what becomes possible when retained state is cheap and ubiquitous?
 
 An agent in the fabric exposes a memory surface. Some bits may be physically local and some may be externalized through addresses. Attached to selected parts of that surface are pattern matchers:
 
@@ -60,7 +60,7 @@ An address alone should not grant universal read or write access. Each matcher n
 
 Object-capability references are a good fit. A capability names an object or memory surface and carries the authority to perform a bounded operation on it. A matcher can hold read capabilities for the parts of its predicate and write capabilities for its declared effects. Reconfiguring the matcher requires separate authority over the matcher’s own pattern and effect memory.
 
-Capabilities do not make an architecture “100 percent secure.” Correct capability discipline can sharply reduce ambient authority, but implementation errors, leakage, side channels, denial of service, and compromised endpoints remain. The useful property is narrower and stronger: authority is explicit and can be delegated without handing an agent a global address space.
+Capabilities make authority explicit and sharply reduce ambient access. They let one agent delegate a bounded operation without handing another agent a global address space. Implementation errors, leakage, side channels, denial of service, and compromised endpoints still belong to the security design around that capability system.
 
 This also clarifies subscription. An external component cannot simply announce, “I am listening to everything you do.” A relationship exists because the producer has a bounded route to a consumer-controlled input, or because both sides participate in installing that route with appropriate capabilities.
 
@@ -68,7 +68,7 @@ This also clarifies subscription. An external component cannot simply announce, 
 
 If state changes travel across physical links, any write can fail, arrive damaged, arrive late, or be duplicated. Noise and faults are not exceptions that can be wished away.
 
-Packets can carry error-detecting codes such as CRCs. Acknowledgements can confirm protocol-level receipt when an update must be transactional. Neither is magic: a CRC has a finite undetected-error probability, and an acknowledgement does not prove that every later consequence was correct. Sequence numbers, retries, idempotent operations, deadlines, and failure reporting may also be required.
+Packets can carry error-detecting codes such as CRCs. Acknowledgements can confirm protocol-level receipt when an update must be transactional. A CRC has a finite undetected-error probability, and an acknowledgement covers receipt rather than every downstream consequence. Sequence numbers, retries, idempotent operations, deadlines, and failure reporting complete the larger protocol.
 
 The subscription itself should have a time boundary. Instead of an unbounded `addListener()` whose lifetime becomes unclear, an agent can request changes for a defined future interval or a bounded batch. The contract can specify exact sampling instants, a deadline, or best-effort delivery before a time. This makes resource ownership and stale subscriptions visible.
 
@@ -88,7 +88,7 @@ The full set of predicate results may be encoded as a microcode address rather t
 
 I pushed the model further with a deliberately restrictive rule: one changed bit may have only one direct subscriber.
 
-Ordinary circuits use fan-out constantly, so this is not a claim that fan-out is unnecessary in practice. It is an experiment in making duplication explicit. If one value must reach two consumers, it first reaches a stateful relay, which then produces two separately owned changes in successive or parallel steps. Every branch has a place where the value is retained and a policy for when it propagates.
+I use fan-out-of-one as a deliberate stress test. Ordinary circuits rely on fan-out; here every duplication becomes explicit. If one value must reach two consumers, it first reaches a stateful relay, which then produces two separately owned changes in successive or parallel steps. Every branch has a place where the value is retained and a policy for when it propagates.
 
 With state everywhere, a logical memory location need not exist as a conventional stored bit until something subscribes to it. A write to a virtual location can mean, “deliver this change to the matcher currently bound here.” Local physical inputs of a multiplexer may therefore appear as addresses in another object’s virtual memory.
 
@@ -111,4 +111,4 @@ The architecture that emerges is neither a normal shared-memory machine nor a fi
 
 Its central metaphor is a wire extended through time. A physical route does not need to remain dedicated forever. An instruction, packet slot, or microcoded reaction can reuse it at a scheduled moment, while retained state at each end preserves the causal relationship between uses.
 
-This was not a completed processor or a proven performance result. It was a route toward a machine in which code, caching, routing, events, and reconfiguration are not separate afterthoughts. They are different views of one operation: establishing a connection, remembering what passed through it, and propagating only the changes that matter.
+I was sketching a processor around one operation: establish a connection, remember what passed through it, and propagate only the changes that matter. Code, caching, routing, events, and reconfiguration become different views of that operation instead of separate afterthoughts.

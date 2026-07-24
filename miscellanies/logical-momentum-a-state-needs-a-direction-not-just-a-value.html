@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Logical Momentum: A State Needs a Direction, Not Just a Value | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A design for computations that carry transition direction, completion, and release instead of representing every variable as a timeless value.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.html">
+    <meta property="og:title" content="Logical Momentum: A State Needs a Direction, Not Just a Value">
+    <meta property="og:description" content="A design for computations that carry transition direction, completion, and release instead of representing every variable as a timeless value.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Logical Momentum: A State Needs a Direction, Not Just a Value - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.png">
+    <meta name="twitter:image:alt" content="Logical Momentum: A State Needs a Direction, Not Just a Value - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Logical Momentum: A State Needs a Direction, Not Just a Value",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2022-03-25T00:05:00.894Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A design for computations that carry transition direction, completion, and release instead of representing every variable as a timeless value.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Logical Momentum: A State Needs a Direction, Not Just a Value</h1></header>
+    <address><time datetime="2022-03-25">March 25, 2022</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
+        <p class="lead">A design for computations that carry transition direction, completion, and release instead of representing every variable as a timeless value.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>Ordinary program state tells me where a variable is. It rarely tells me how the variable arrived.</p>
+            <p>A bit is zero or one. An integer is 17. A Boolean expression is false. These descriptions are enough for many calculations, but reactive systems keep forcing the missing question back into view: did the value just rise, just fall, remain stable, arrive late, or complete a transaction?</p>
+            <p>I call that missing information <strong>logical momentum</strong>.</p>
+            <p>I borrow the word <em>momentum</em> deliberately. Physical momentum has its own definition, units, and conservation rules; logical momentum names direction through state space so a program can respond to a transition without reconstructing its history elsewhere.</p>
+        </section>
+        <section>
+            <h2>One Snapshot Has No Direction</h2>
+            <p>Take a one-bit signal with current value <code>1</code>. From that snapshot alone I cannot tell whether it:</p>
+            <ul>
+                <li>changed from <code>0</code> to <code>1</code>;</li>
+                <li>remained <code>1</code>;</li>
+                <li>was initialized to <code>1</code>;</li>
+                <li>or arrived as part of an oscillation.</li>
+            </ul>
+            <p>The smallest useful representation is not one bit but a relation between observations:</p>
+            <div class="table-scroll" tabindex="0">
+                <table>
+                    <thead><tr>
+                        <th scope="col">Previous</th>
+                        <th scope="col">Current</th>
+                        <th scope="col">Transition</th>
+                    </tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>stable low</td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>rising</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>falling</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>stable high</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The extra state creates direction. In discrete mathematics this resembles a finite difference: current minus previous. In a digital circuit it may be an edge detector. In a protocol it may be a sequence number or a phase bit. The mechanism is familiar; the unusual move is to treat it as part of the value’s identity rather than incidental bookkeeping.</p>
+            <p>A temperature of 20 degrees reached while cooling is not operationally identical to 20 degrees reached while heating. A queue length of ten after a burst does not demand the same response as ten after steady drainage. A button held down is not a button newly pressed. Position alone is insufficient when the next action depends on trajectory.</p>
+        </section>
+        <section>
+            <h2>An Operation Is an Interaction</h2>
+            <p>Assignment syntax encourages a one-way story:</p>
+            <pre><code class="language-text">c = a + b</code></pre>
+            <p>It reads as if <code>a</code> and <code>b</code> cause <code>c</code>, after which the inputs remain timeless facts. But the relation itself is symmetric:</p>
+            <pre><code class="language-text">a + b = c</code></pre>
+            <p>Given <code>a</code> and <code>b</code>, I can solve for <code>c</code>. Given <code>a</code> and <code>c</code>, I can solve for <code>b</code>. Given <code>b</code> and <code>c</code>, I can solve for <code>a</code>. The arithmetic relation does not contain an intrinsic arrow; the execution schedule supplies one.</p>
+            <p>That suggests a different machine model. An operation is an interaction among ports. Values arrive with phase or validity state. The interaction fires when a permitted set is ready, produces the missing state, and then releases or acknowledges the values it consumed.</p>
+            <p>“Release” matters. In a streaming system, a value that has been used must become available to the next dependency or the next transaction. Completion is not merely another Boolean result. It is the moment at which ownership of storage, bandwidth, or attention can move.</p>
+            <p>This is already visible in handshake protocols. A producer raises valid. A consumer raises ready. Transfer occurs when both conditions coincide. Logical momentum asks whether that phase information belongs at the edge of the system only, or whether it should remain first-class throughout the language.</p>
+        </section>
+        <section>
+            <h2>Phase Is Often More Useful Than a Clock</h2>
+            <p>I first imagined a bit as never quite stationary: not merely <code>0</code> or <code>1</code>, but a state participating in a cycle. Digital values can remain stable indefinitely, and not every computation is an oscillator. What I wanted from the image was phase.</p>
+            <p>A recurring process can distinguish the same visible value at different points in a cycle. A two-phase protocol may encode “request changed” and “acknowledgment caught up” without a pulse that risks being missed. A ring can preserve ordering by the location of a token. An event stream can distinguish the first <code>1</code> from the thousandth <code>1</code> even though the payload bits are identical.</p>
+            <p>Frequency can also carry meaning, but frequency and energy are not synonyms. Faster switching generally changes physical energy use in real hardware, while a language-level frequency is only a rate until a physical implementation gives it voltage, capacitance, current, and loss.</p>
+        </section>
+        <section>
+            <h2>A Concrete Example: A Reusable Adder</h2>
+            <p>Imagine an adder connected to two producers and one consumer. A conventional combinational adder continuously reflects the sum of its current inputs. That is perfect when the surrounding circuit controls timing.</p>
+            <p>Now imagine the same adder as an autonomous streaming component. It needs more than <code>a</code>, <code>b</code>, and <code>c</code>:</p>
+            <ol>
+                <li>It must know whether each input belongs to the current transaction.</li>
+                <li>It must avoid combining a new <code>a</code> with an old <code>b</code>.</li>
+                <li>It must retain the result until the consumer accepts it.</li>
+                <li>It must signal when the input storage can be reused.</li>
+            </ol>
+            <p>Those states form the logical momentum of the operation. They say where the transaction is going and which transitions are legal next.</p>
+            <p>The payload equation remains <code>a + b = c</code>. The momentum layer supplies the temporal contract:</p>
+            <pre><code class="language-text">empty -&gt; collecting -&gt; complete -&gt; offered -&gt; accepted -&gt; empty</code></pre>
+            <p>This is a finite-state machine, but naming it as momentum changes the design question. Instead of treating control as machinery wrapped around “the real value,” I can ask whether value and transition contract should travel together.</p>
+        </section>
+        <section>
+            <h2>Reversibility Needs More Than Inversion</h2>
+            <p>It is tempting to call such a machine reversible. That word needs care. Recovering an input from an equation is not the same as logically reversible computation, and logical reversibility is not automatically thermodynamic reversibility.</p>
+            <p>Still, retaining trajectory can prevent needless information loss. If an operation preserves which branch fired, which version was consumed, and which state preceded the result, a later process can reconstruct more than it could from the payload alone.</p>
+            <p>The practical question is not “Have I defeated irreversibility?” It is:</p>
+            <blockquote>
+                <p>What is the smallest transition record that lets the system undo, patch, replay, or redirect a computation without guessing?</p>
+            </blockquote>
+            <p>That record might be one phase bit. It might be a version number, a token, a previous state, or an explicit inverse operation. Different domains require different momentum.</p>
+        </section>
+        <section>
+            <h2>Put Logical Momentum to Work</h2>
+            <p>I would compare two implementations of the same reactive graph:</p>
+            <ul>
+                <li>one with ordinary values plus separate control machinery;</li>
+                <li>one whose values carry explicit transition and completion state.</li>
+            </ul>
+            <p>The comparison should count storage, wires, invalid intermediate combinations, recovery behavior, and the clarity of composition. A mere renaming of finite-state machines buys nothing. Local, replayable, composable transactions would make logical momentum a useful part of the language.</p>
+            <p>A state is not always a point. Sometimes it is an arrow whose head happens to be resting on a point. Computers become easier to reason about when they remember the arrow.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/an-instruction-is-a-wire-reused-in-time.html">An Instruction Is a Wire Reused in Time</a>
+        <p>A speculative event-fabric architecture where stateful pattern matchers react to changed bits and instructions schedule connections through time.</p>
+        <p>Continue:</p>
+        <a href="/cartilage/">Cartilage: A Spatial Computing Learning Path</a>
+        <p>Build the substrate from one multiplexer upward through LUTs, wires, state, timing, and nested regions.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/reverse-the-mux-abduction-as-executable-inference.html">Reverse the MUX: Abduction as Executable Inference</a>
+        <p>Run a multiplexer relation backward from an observed output, enumerate compatible causes, and rank the surviving explanations.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

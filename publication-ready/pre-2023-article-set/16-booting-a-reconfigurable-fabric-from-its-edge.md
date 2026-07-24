@@ -74,11 +74,11 @@ A simple policy is enough:
 
 The candidate becomes known-good only after the system reaches a defined checkpoint. Repeated failure returns to the protected image.
 
-This is not wear leveling by itself. Real flash media have their own erase and endurance behavior, and a microSD controller hides much of it. The architectural point is independent: updating a reconfigurable machine must not make experimentation equivalent to gambling the only boot path.
+Flash erase and endurance still belong to the medium and its controller. The image-slot policy solves a different problem: updating a reconfigurable machine without gambling the only boot path.
 
-## Clocking Without Pretending
+## Clocking From the Actual Board
 
-I considered several oscillator frequencies associated with SD cards, Ethernet, and possible fabric speeds. None of those numbers is a universal answer.
+I considered several oscillator frequencies associated with SD cards, Ethernet, and possible fabric speeds. Each frequency belongs to a particular device, board, and link budget.
 
 The boot clock must satisfy three things:
 
@@ -92,7 +92,7 @@ Power has the same discipline. The module may accept a convenient external rail 
 
 ## The Edge Is a Boundary, Not a Throne
 
-Placing the boot module at the edge makes the physical interface honest. It has one side facing the external world—power, card access, perhaps a debug header—and one side facing the fabric. It does not occupy the conceptual center of every computation that follows.
+Placing the boot module at the edge makes the physical interface legible. It has one side facing the external world—power, card access, perhaps a debug header—and one side facing the fabric. It does not occupy the conceptual center of every computation that follows.
 
 Once the fabric is alive, the booter can become just another program endpoint. It may continue serving storage, recovery, and image selection. It should not proxy all application traffic.
 
@@ -100,7 +100,7 @@ That distinction matters for scale. A root that must remain in every data path b
 
 ## The Order of Construction
 
-The first board still has to earn its numbers. Component choice, card protocol, clock rate, rail current, connector integrity, image format, and multi-root arbitration must all be built and measured on the actual prototype.
+The first board turns the choices into numbers: component selection, card protocol, clock rate, rail current, connector integrity, image format, and multi-root arbitration all meet on the actual prototype.
 
 The durable part is the order of construction:
 

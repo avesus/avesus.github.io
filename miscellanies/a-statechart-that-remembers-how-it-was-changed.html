@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>A Statechart That Remembers How It Was Changed | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A dynamic statechart model that records editing and execution in one directed history and makes observed transitions explicit states.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/a-statechart-that-remembers-how-it-was-changed.html">
+    <meta property="og:title" content="A Statechart That Remembers How It Was Changed">
+    <meta property="og:description" content="A dynamic statechart model that records editing and execution in one directed history and makes observed transitions explicit states.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/a-statechart-that-remembers-how-it-was-changed.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/a-statechart-that-remembers-how-it-was-changed.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/a-statechart-that-remembers-how-it-was-changed.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A Statechart That Remembers How It Was Changed - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/a-statechart-that-remembers-how-it-was-changed.png">
+    <meta name="twitter:image:alt" content="A Statechart That Remembers How It Was Changed - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "A Statechart That Remembers How It Was Changed",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2020-06-11T19:05:28.188Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A dynamic statechart model that records editing and execution in one directed history and makes observed transitions explicit states.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/a-statechart-that-remembers-how-it-was-changed.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">A Statechart That Remembers How It Was Changed</h1></header>
+    <address><time datetime="2020-06-11">First developed June 11, 2020, with the observable-state model extended January 18, 2021.</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Software, state, interaction, and communication</p>
+        <p class="lead">A dynamic statechart model that records editing and execution in one directed history and makes observed transitions explicit states.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>A normal statechart tells me what states and transitions exist. A trace tells me what happened during one execution. An editor’s undo history tells me how the diagram itself changed. I want one model that can connect all three.</p>
+            <p>Begin with an empty canvas. Add a state. Refine it into substates. Merge two structures. Create a transition. Activate the machine. Move from one active state to another. Let a subsystem respond to a transition by adding structure beneath a previously unrefined state.</p>
+            <p>Each of those operations changes the statechart, but conventional tools usually divide them into unrelated worlds: document edits, runtime events, debugger records, and application effects. My proposal is to preserve them in a directed history. The statechart remembers not only where it went, but how it became the machine that was able to go there.</p>
+        </section>
+        <section>
+            <h2>Structure and execution share a history</h2>
+            <p>The history begins with a root revision representing an empty chart. Every edit produces a new node connected to the revision from which it was made. Execution also produces nodes: initialization, activation, transition selection, entry, exit, and the resulting active configuration.</p>
+            <p>This history need not be a single line. Two edits can branch from the same revision. A later operation can merge compatible branches. An execution can point to the exact structural revision it used, so a runtime trace is never separated from the definition that gave it meaning.</p>
+            <p>That distinction matters when the chart is dynamic. A subsystem may observe that a coarse state has been entered and refine it by introducing child states. Another subsystem may add a transition or instantiate a previously absent region. The next active configuration then belongs to a new structural revision. The edit is not an invisible side effect; it is part of the causal record.</p>
+            <p>I store that history efficiently through structural sharing: unchanged nodes persist, while each revision records only its operation or difference. The directed-history model is semantic: every change has a predecessor, an identity, and a place in the same causal structure as execution.</p>
+        </section>
+        <section>
+            <h2>The active configuration is an invariant I choose</h2>
+            <p>For a live, nonterminated chart, I require an explicit active configuration. “Idle” is still a state if idleness is behavior the system can occupy. This avoids a vague interval in which the machine exists but has no representable condition.</p>
+            <p>One-hot encoding provides a useful physical picture for a flat deterministic state machine: one state bit is active, and a transition moves that activity token to another bit. The number of active bits is conserved.</p>
+            <p>That picture needs a qualification. A hierarchical statechart may have an active ancestor and descendant at the same time, and orthogonal regions may contain several active leaf states. Such a chart is not globally one-hot. It can still use one-hot encodings within individual exclusive regions, while the complete active configuration is the product of those regional choices.</p>
+            <p>Dynamic editing can also change the number of regions or active substates. I think of that as a local flow of activity: introducing, removing, or refining structure changes where active tokens are allowed to exist. This is a bookkeeping invariant rather than conservation of physical energy, and it makes structural change precise.</p>
+        </section>
+        <section>
+            <h2>A transition can become a state</h2>
+            <p>Most diagrams draw a transition as an arrow assumed to happen atomically. That is enough when nobody needs to observe or delay it. But a transition effect may itself have a lifecycle. Other components may subscribe to it, and the departing state may need to complete exit work before the target may finish entering.</p>
+            <p>In that case I promote the transition from ink between states into an explicit intermediate state.</p>
+            <p>Suppose state <code>A</code> transitions to state <code>B</code>. In the compact form, the active configuration changes atomically from <code>A</code> to <code>B</code>. In the expanded form, activity moves from <code>A</code> into a transition instance and then unconditionally into <code>B</code>. That intermediate instance can activate effects and notify subscribers. Its identity also makes the transition visible in the history graph.</p>
+            <p>An unobserved, instantaneous arrow can stay atomic. I promote it into an explicit transition state when something observes the interval or when work can delay it. The extra state exists because its lifecycle adds real power.</p>
+            <p>The same transition pattern can serve several origin-target pairs when it represents a shared predicate or effect, but those relationships must remain unambiguous. A reusable predicate is not permission to lose the identity of the transition that actually fired.</p>
+        </section>
+        <section>
+            <h2>Entry and exit are processes</h2>
+            <p>Complex states do not simply blink from absent to present. I use a five-part lifecycle:</p>
+            <ol>
+                <li><strong>Exited.</strong> The state is inactive and eligible to enter.</li>
+                <li><strong>Entering.</strong> An entry transition is active. Internal initialization or a cascade of entry effects may still be running, so exit stays disabled.</li>
+                <li><strong>Entered.</strong> The state is established. Internal microstates may continue to develop, and enabled exit transitions may now be selected.</li>
+                <li><strong>Exiting.</strong> Exit has been committed. The state no longer activates dependent systems as an entered state, but cleanup may delay transfer into the selected exit transition.</li>
+                <li><strong>Exited again.</strong> Activity has left, and an observed exit transition may briefly carry it toward the next state.</li>
+            </ol>
+            <p>Once an exit is committed, I do not allow it to be silently canceled. The state may delay completion while required exit work finishes, but eventually it transfers activity to the requesting transition. This makes effects composable: subscribers can distinguish “an exit was requested,” “the state is leaving,” and “the state has left.”</p>
+            <p>There are other valid statechart semantics, including run-to-completion steps that collapse several microsteps into one observable macrostep. My model is useful when those microsteps matter and therefore deserve representation.</p>
+        </section>
+        <section>
+            <h2>Observe previous and next state directly</h2>
+            <p>By January 2021, I had a simpler way to describe a state-change event. A component that reacts to change depends on both the old state and the new state. Other components can be allowed to observe those two sampled values directly instead of receiving an artificial event with the same information repackaged.</p>
+            <p>Every observable state therefore has a previous sample and a next sample for the current reaction step. A transition predicate may ask:</p>
+            <pre><code class="language-text">previous == Entering
+next == Entered</code></pre>
+            <p>That pair is the event. It says exactly which boundary was crossed.</p>
+            <p>For external observers, the transition bar itself can also be visible when it has been promoted into an explicit state. The public surface of a component then includes stable states and any transition intervals that the component promises observers may depend upon. Internal microstates remain hidden unless intentionally exposed.</p>
+            <p>This previous/next model has a cost: observable state must retain or make available its prior sample. But it removes ambiguity about when a change is sampled and avoids inventing a separate event system detached from state.</p>
+        </section>
+        <section>
+            <h2>A chart I can edit while it lives</h2>
+            <p>The complete model is more involved than a conventional diagram, and that is precisely the point. It must represent:</p>
+            <ul>
+                <li>structural revisions and their branches;</li>
+                <li>the active configuration associated with each execution step;</li>
+                <li>dynamic refinement and removal of states;</li>
+                <li>transition instances when somebody observes them;</li>
+                <li>entry and exit lifecycles;</li>
+                <li>and previous/next samples for reactive dependents.</li>
+            </ul>
+            <p>At the lowest level, these semantics can be realized with explicit storage elements and combinational connections. The directed history may live in software, persistent data structures, or another circuit; the logical model does not demand one physical encoding.</p>
+            <p>What it does demand is accountability. If the chart changes while running, I can ask who changed it, from which revision, in response to which active state, and what execution followed. Editing is no longer outside the machine. Execution is no longer detached from the definition. Both become traversable parts of one history.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/prohibit-action-upon-stale-data.html">Prohibit Action Upon Stale Data</a>
+        <p>A user interface should not carry out a consequential action when the facts shown to the user are no longer the facts the system will act upon.</p>
+        <p>Continue:</p>
+        <a href="/human-computer-interaction-as-model-exchange.html">Human-Computer Interaction As Model Exchange</a>
+        <p>Continue with an interface model built around shared state, interpretation, and repair.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/model-the-world-around-the-state-machine.html">Model the World Around the State Machine</a>
+        <p>Design hierarchical statecharts by modeling the medium and subsystem states together, then choosing meaningful world-level macrostates.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

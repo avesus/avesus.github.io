@@ -4,7 +4,7 @@ slug: "the-indo-austronesian-hypothesis"
 date: "2022-01-17T06:37:06.682Z"
 original_dates:
   - "2022-01-17T06:37:06.682Z"
-description: "A provocative list of Indo-European and Austronesian resemblances becomes a falsifiable test only after lexical provenance, regular correspondences, and the freedom to find coincidences are all counted."
+description: "An Indo-European and Austronesian comparison list becomes a testable research program through lexical provenance, regular sound correspondences, held-out predictions, and controls for coincidence."
 status: "publication-ready"
 ---
 
@@ -12,47 +12,49 @@ status: "publication-ready"
 
 *January 17, 2022*
 
-I want to put a dangerous linguistic idea into a form that can be tested.
+I want to put a dangerous linguistic idea into a form that comparative linguists can work with.
 
-The proposal is that the Indo-European and Austronesian language families may share a remote common ancestor. A resemblance between two words proves almost nothing. Languages contain short words, human mouths reuse a limited set of sounds, meanings drift, and a person who searches long enough can discover coincidences.
+The proposal is that the Indo-European and Austronesian language families may share a remote common ancestor. Similar words are plentiful: languages contain short words, human mouths reuse a limited set of sounds, meanings drift, and a long search produces coincidences.
 
-But refusing to write down a pattern because it may be coincidence guarantees that it will never receive a proper test. The useful act is to expose the candidate data, state the transformations I think I see, and specify what would make the proposal fail.
+The path forward is finite. Publish the seed list, establish every reconstruction inside its own family, derive candidate correspondences, and use those correspondences to predict material that was held back. Writing down the pattern gives the comparative method something exact to correct, extend, or reject.
 
-## The 2022 comparison list—and its first failures
+## Check the 2022 Comparison List Against the Dictionaries
 
 These are the comparisons that first attracted my attention:
 
-| Proposed meaning | Indo-European-side form as written | Austronesian-side form as written | Initial audit |
+| Proposed meaning | Indo-European-side form as written | Austronesian-side form as written | Working reading |
 |---|---|---|---|
-| three | *treys | *telu | Both sides have recognizable lexical support; relationship unproved |
-| hand / five | *ronk | *lima | Reject as written |
-| flow | *ser | *qalur | Search lead only |
-| skin | *skend | *qanic | Search lead only |
-| walk / foot | *stembh | *qaqay | Search lead only |
-| smoke / ash | *smew | *qabu | Search lead only |
-| watch / day | *serw | *qalayaw | Search lead only |
-| salt | *sal | *qasira | Search lead only |
-| talk / mouth | *bhas | *baqbaq | Search lead only |
-| bow | *bhewgh | *busur | Search lead only |
-| give birth / woman | *bher | *bay | Search lead only |
-| two | *dwoh₁ | *dusa | Search lead only |
-| sky / upward | *dyews | *daya | Search lead only |
-| river / lake | *danu | *danaw | Search lead only |
-| tongue | *dn̥ǵʰwéh₂ | *dilaq | Reject the gloss as written |
-| wide | *delh₁ | *dempad | Search lead only |
-| I | *eǵoh₂ | *aku | Search lead only |
-| think | *men | *nemnem | Search lead only |
-| name | *h₁nómn̥ | Proto-Polynesian *hingoa | Late-level comparison, not PAN evidence |
+| three | *treys | *telu | Both forms have dictionary trails; test the correspondence |
+| hand / five | *ronk | *lima | Remove this row as written |
+| flow | *ser | *qalur | Attach exact reconstructions and reflexes |
+| skin | *skend | *qanic | Attach exact reconstructions and reflexes |
+| walk / foot | *stembh | *qaqay | Attach exact reconstructions and reflexes |
+| smoke / ash | *smew | *qabu | Attach exact reconstructions and reflexes |
+| watch / day | *serw | *qalayaw | Attach exact reconstructions and reflexes |
+| salt | *sal | *qasira | Attach exact reconstructions and reflexes |
+| talk / mouth | *bhas | *baqbaq | Attach exact reconstructions and reflexes |
+| bow | *bhewgh | *busur | Attach exact reconstructions and reflexes |
+| give birth / woman | *bher | *bay | Attach exact reconstructions and reflexes |
+| two | *dwoh₁ | *dusa | Attach exact reconstructions and reflexes |
+| sky / upward | *dyews | *daya | Attach exact reconstructions and reflexes |
+| river / lake | *danu | *danaw | Attach exact reconstructions and reflexes |
+| tongue | *dn̥ǵʰwéh₂ | *dilaq | Keep *dilaq as “lick” and rebuild the semantic route |
+| wide | *delh₁ | *dempad | Attach exact reconstructions and reflexes |
+| I | *eǵoh₂ | *aku | Attach exact reconstructions and reflexes |
+| think | *men | *nemnem | Attach exact reconstructions and reflexes |
+| name | *h₁nómn̥ | Proto-Polynesian *hingoa | Compare at the Proto-Polynesian level only |
 
-The asterisks in this table reproduce the notation of the proposal. They do not certify that every string is a published reconstruction at the claimed proto-language level.
+The asterisks reproduce the notation of the original proposal. Each row now needs its exact published source and proto-language level beside it.
 
-That warning became concrete as soon as I checked modern comparative lexicons. The Indo-European Lexicon’s set for “hand” does not contain *ronk*. The Austronesian Comparative Dictionary distinguishes PAN *lima, “five,” from PAN *qalima, “hand.” The original hand/five row therefore cannot be counted as evidence merely by letting one gloss slide into the other. The same dictionary gives PAN *dilaq as “to lick,” not “tongue.” That semantic relationship may suggest where the comparison came from, but it does not license the gloss printed in the original list.
+Checking modern comparative lexicons immediately changed the list. The Indo-European Lexicon’s set for “hand” does not contain \*ronk. The Austronesian Comparative Dictionary distinguishes PAN \*lima, “five,” from PAN \*qalima, “hand.” The original hand/five row slides between two glosses and leaves the comparison as written. The same dictionary gives PAN \*dilaq as “to lick,” rather than “tongue.” That semantic relationship may explain where the comparison came from, but it requires a separately documented route before it can reenter the table.
 
-I am keeping those failed rows visible because deleting them would make the proposal look cleaner than the search that produced it. The remaining rows are leads, not evidence, until both forms acquire citations, proto-language levels, daughter-language reflexes, and within-family derivations. The “name” comparison is explicitly Proto-Polynesian, a far later node than Proto-Austronesian, so it cannot quietly stand in for family-wide antiquity.
+I am keeping the corrected rows visible because they teach me how to rebuild the rest. Every surviving pair gets citations, proto-language levels, daughter-language reflexes, and within-family derivations. The “name” comparison is explicitly Proto-Polynesian, a far later node than Proto-Austronesian, so I keep it at that level instead of silently moving it deeper in time.
 
-The table’s value is that it turns a feeling into a finite object another person can inspect—and lets the object lose pieces.
+The table turns a feeling into a finite object another person can inspect, reproduce, and improve.
 
-## The first gate is lexical provenance
+It also changes how I search. I begin with a fixed concept, retrieve the published reconstructions from each family’s own reference works, follow their daughter reflexes, and only then compare the forms across families. A semantic bridge such as “lick” to “tongue” becomes its own historical argument instead of a quiet substitution inside a row.
+
+## Start Inside Each Language Family
 
 Before comparing two families, each side must be valid inside its own family.
 
@@ -65,7 +67,7 @@ For every row I need a record containing:
 - the attested or reconstructed meaning, without a convenient rewrite;
 - known loans, competing etymologies, and disputed analyses.
 
-This is not clerical preparation. It is the first experiment. A form reconstructed only for Proto-Polynesian cannot be promoted to Proto-Austronesian because the older label makes a long-range comparison more dramatic. A root glossed “lick” cannot become “tongue” without a separately argued semantic history. A resemblance built from a nonexistent form is not weak evidence; it is no evidence.
+This is the first experiment. A form reconstructed only for Proto-Polynesian stays at that level. A root glossed “lick” can reach “tongue” only through a separately argued semantic history. A nonexistent reconstruction leaves nothing to compare.
 
 The Austronesian Comparative Dictionary is especially useful because it distinguishes several reconstruction levels and separates canonical comparisons, near comparisons, loans, and chance look-alikes. That is exactly the discipline this proposal needs. The list should shrink before it grows.
 
@@ -80,11 +82,13 @@ The correspondences I originally suspected are:
 
 A real historical relationship would not merely generate similar-looking words. It would generate repeated, conditioned sound correspondences. A sound should change in a regular way depending on its position, neighboring sounds, stress, and the history of the daughter languages.
 
-Calling *s : q* a “sound law” at this stage would be premature. I selected the pairing after seeing the list, and several of the forms used to support it have not passed the lexical-provenance gate. For now it is a rule to test, not a result.
+I write *s : q* as a candidate correspondence because I selected it after seeing the seed list. It now has to earn generality across sourced forms and new material.
 
-That means the strongest next step is not collecting more attractive pairs. It is attempting to break the proposed rules.
+I therefore search systematically for the places where each proposed correspondence breaks instead of collecting another page of attractive pairs.
 
-For every claimed *s : q* match, I need to ask:
+The resulting correspondence table should be conditioned by sound environment: initial, medial, or final position; neighboring vowels and consonants; stress; and the chronology of changes already established within each daughter family. One symbol pair repeated without those conditions is a visual pattern. A conditioned system can begin making new lexical predictions.
+
+For every candidate *s : q* match, I ask:
 
 1. How many words with the same sound environment do not match?
 2. Does *s* correspond to several unrelated Austronesian sounds whenever convenient?
@@ -95,13 +99,11 @@ For every claimed *s : q* match, I need to ask:
 
 The hypothesis becomes interesting only when the rules predict comparisons I did not use to invent them.
 
-## Why my first probability is not enough
+## Count the Search, Not Just the Match
 
-I originally tried to estimate the chance of obtaining seven apparent *s : q* matches from short roots. That calculation produced an attractively small number.
+I originally estimated the chance of obtaining seven apparent *s : q* matches from short roots. The calculation produced an attractively small number because it treated the correspondence as though I had selected it before looking.
 
-It is not a valid significance test.
-
-The correspondence was selected after looking at the words. Multiple possible sound pairings were available. Meanings were allowed to drift. Candidate roots could be included or omitted. The words are not statistically independent, and reconstructed phoneme inventories are not uniform bags from which consonants are drawn at random.
+In the actual search, multiple sound pairings were available. Meanings could drift. Candidate roots could enter or leave the list. The words are statistically related, and reconstructed phoneme inventories are structured systems rather than uniform bags of consonants.
 
 This is the multiple-search problem: the probability of one predeclared pattern can be small while the probability of finding *some* interesting pattern after trying many patterns is large.
 
@@ -114,11 +116,11 @@ A better test needs a procedure fixed before examining the held-out data:
 5. Penalize semantic flexibility and one-off exceptions.
 6. Repeat the analysis under competing reconstructions.
 
-The question is not whether one handmade probability looks impressive. It is whether the proposed relationship predicts withheld structure better than chance and better than alternative explanations.
+The useful comparison is whether the proposed relationship predicts withheld structure better than unrelated family pairs and better than alternative explanations.
 
-## What would count as evidence
+## What a Family Relationship Should Predict
 
-Vocabulary alone is vulnerable to coincidence and borrowing. A deeper relationship should leave several kinds of traces:
+Vocabulary alone is vulnerable to coincidence and borrowing. A relationship reaching back beyond both families should predict several kinds of traces:
 
 - a system of regular sound changes;
 - shared morphology that is difficult to borrow;
@@ -127,21 +129,17 @@ Vocabulary alone is vulnerable to coincidence and borrowing. A deeper relationsh
 - a chronology and migration path compatible with archaeology and population history;
 - improvements in prediction when the two families are modeled together.
 
-Negative evidence matters too. If the sound laws collapse outside the selected pairs, if grammatical systems show no corresponding structure, or if the apparent similarities occur just as often among unrelated controls, the hypothesis should lose.
-
-That would not make the exercise embarrassing. It would make it complete.
+Controls complete the test. If the sound correspondences collapse outside the selected pairs, grammatical systems add no matching structure, or unrelated family pairs score just as well, the procedure has answered the question.
 
 ## A proposal is an invitation
 
-Most conjectures are wrong. That is not an argument against making them explicit. A wrong proposal with a clear dataset and a falsifiable procedure can still reveal a better question, a bad statistical habit, or a neglected comparison.
+A conjecture becomes useful when it generates work another person can repeat. A clear dataset and a fixed procedure can reveal a better question, a bad statistical habit, or a neglected comparison regardless of where this particular family tree ends.
 
-The present list does not establish an Indo-Austronesian family. Its current verdict is more severe and more useful: the lexical audit has already rejected at least two comparisons as written, the proposed correspondences were discovered rather than predicted, and no held-out grammatical or lexical data has yet been explained.
+The list now has a concrete job. Two rows leave the seed set as written. The candidate correspondences came from that same seed set, so the next lexical and grammatical material stays untouched until the rules are frozen. That sequence gives specialists something much better than a resemblance between *three* and *telu*: a comparison they can run through the machinery of historical linguistics.
 
-I am not asking a reader to accept a hidden ancient superfamily because *three* resembles *telu*. I am asking whether the surviving comparisons contain enough regularity to survive the machinery of historical linguistics.
+The list is here. The candidate correspondences are here. The corrections are part of the route.
 
-The list is here. The tentative sound laws are here. The weaknesses are no longer concealed by enthusiasm.
-
-Now the idea can meet experts—and, more importantly, it can lose.
+Now the idea can meet experts and become a real comparative-linguistics project.
 
 ## Further reading
 

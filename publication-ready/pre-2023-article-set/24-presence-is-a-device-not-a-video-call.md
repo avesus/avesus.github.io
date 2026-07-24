@@ -5,7 +5,7 @@ date: "2019-04-14T06:29:38.327Z"
 original_dates:
   - "2019-04-14T06:29:38.327Z"
   - "2020-08-10T00:56:15.530Z"
-description: "A physical-telepresence concept built around dedicated attention, tangible remote action, local autonomy, safety boundaries, long-lived modular hardware, and an always-available window rather than another app."
+description: "A physical-telepresence concept built around dedicated attention, tangible remote action, local autonomy, long-lived modular hardware, and an always-available window rather than another app."
 status: publication-ready
 ---
 
@@ -33,17 +33,17 @@ Imagine asking for a piano keyboard. A local machine unfolds or projects a playa
 
 That is not a video of a piano. It is a temporary device whose state can be shared.
 
-The ultimate claytronics vision—matter that can reassemble into arbitrary forms—remains far beyond this practical starting point. A useful product should earn each physical degree of freedom instead of selling the final fantasy first.
+The ultimate claytronics vision is matter that can reassemble into arbitrary forms. I begin with one useful physical degree of freedom at a time and let each device earn the next.
 
-## Remote Action Needs Local Judgment
+## Latency Changes the Meaning of Touch
 
-Latency places a hard boundary around touch.
+Latency changes what remote touch can safely mean.
 
 Even across Earth, a round trip takes time. Through congested networks it takes more. For distant robots, continuous joystick control becomes unstable or exhausting. The remote system needs local autonomy: hold balance, avoid collisions, respect force limits, and complete a small action without waiting for every correction.
 
-That does not require a machine to predict my fingers before I decide to move them.
+The machine does not need to predict my fingers before I decide to move them.
 
-An earlier version of this idea imagined continuously modeling the user so aggressively that the remote device could anticipate intent. That would turn presence into surveillance. A better boundary is explicit:
+An earlier version of this idea imagined continuously modeling the user so aggressively that the remote device could anticipate intent. That would turn presence into surveillance. I prefer explicit rules:
 
 - infer only what is needed for the current action;
 - perform inference locally when possible;
@@ -134,4 +134,4 @@ Sometimes the answer really is a camera and microphone. Sometimes it is a movabl
 
 I still love the wild destination: remote reality entering the room as something I can touch. The path to it is not one universal morphing robot and not a model that watches me continuously.
 
-It is a sequence of honest devices. Each one gives a remote relationship one new physical verb, keeps that verb safe, and earns a place in the room.
+It is a sequence of purpose-built devices. Each one gives a remote relationship one new physical verb, keeps that verb safe, and earns a place in the room.

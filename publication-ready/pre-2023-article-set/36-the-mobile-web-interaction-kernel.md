@@ -24,7 +24,7 @@ I wanted a small interaction kernel: one explicit layer that owns the rules for 
 
 A page is naturally scrollable content. Its primary operation is reading. An application has persistent controls, internal work surfaces, live state, and actions whose location should not jump merely because browser chrome changed.
 
-The distinction should not erase the web. Semantic HTML, URLs, native controls, text selection, keyboard access, and browser history are valuable. The goal is not to replace the platform with a canvas. It is to decide which surface owns which behavior.
+I keep the web’s own strengths—semantic HTML, URLs, native controls, text selection, keyboard access, and browser history—then decide which surface owns each application behavior.
 
 For an application shell, I want one root container to know:
 
@@ -49,7 +49,7 @@ card.receiveResult(value)
 
 The method validates the value, updates the state, and requests a render. The rendering step derives the visible structure from that state.
 
-This is not an argument against functional programming or for one sacred object system. It is an argument for locating responsibility. I should be able to answer:
+The programming style can be functional, object-oriented, or mixed. What matters is locating responsibility. I should be able to answer:
 
 - Who owns this state?
 - Which methods may change it?
@@ -105,7 +105,7 @@ In 2017 I considered capturing touch events, disabling document scrolling, fixin
 
 The durable principle is narrower: **one layer must arbitrate a gesture**. Native scrolling should be preferred where it satisfies the contract. Custom handling should be bounded to surfaces that truly need it, with ordinary DOM content and input behavior retained wherever possible.
 
-The kernel should not fight the browser by default. It should know when the application’s interaction model requires an explicit boundary.
+The browser owns the default behavior. The kernel intervenes only where the application’s interaction model requires explicit arbitration.
 
 ## Layout Is a Conversation Between Containers
 
@@ -120,7 +120,7 @@ On the web, CSS flexbox and grid can perform much of this work. JavaScript shoul
 - this command surface must remain reachable when the keyboard opens;
 - this region may become a separate route on a small screen.
 
-The result is not “layout in JavaScript.” It is a clear negotiation between semantic component requirements and the browser’s layout engine.
+The result is a clear negotiation between semantic component requirements and the browser’s layout engine, with JavaScript carrying only the application facts CSS cannot express.
 
 ## A Dashboard Walkthrough
 
@@ -141,11 +141,7 @@ Every step has an owner and can be logged.
 
 ## Small, Opinionated, Permeable
 
-An interaction kernel should be opinionated about transitions and modest about territory.
-
-It should not make every website look like a native application. It should not replace links, forms, or browser history. It should not declare one programming paradigm suitable for every team.
-
-It should make a hard class of applications manageable by providing:
+An interaction kernel should be opinionated about transitions and modest about territory. Ordinary documents remain documents; links, forms, and browser history remain native. The kernel concentrates on the hard class of applications that need:
 
 - explicit state ownership;
 - constructor-time composition;

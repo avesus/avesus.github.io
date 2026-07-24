@@ -8,10 +8,10 @@ The current site began around teaching WebGL/GPGPU and shader-based computation 
 
 Future changes should help the site answer these questions quickly:
 
-- What has Brian actually built or proven?
-- Why does each result matter?
-- What can another researcher, engineer, or builder reuse?
-- What is already complete, what is a live demo, and what still needs publication?
+- What useful idea, construction, experience, or working object does this page give the reader?
+- Why does it matter, and how can the reader understand, use, or build on it?
+- What concrete example, diagram, source, or artifact makes the idea easier to carry away?
+- What is the natural next page for someone who wants to continue?
 
 ## Publishing Model
 
@@ -37,6 +37,12 @@ Do not create generic "About" navigation by default. An about-like page must ans
 
 Keep meta-language, planning assumptions, and disambiguation notes in `AGENTS.md`. Public-facing content should be concrete and reader-facing.
 
+## Public Voice
+
+Public articles are Brian speaking directly to the reader. Never introduce an outside evaluator or organize prose around claim, evidence, status, tradeoff, known versus unknown, or proven versus unproven. Apply technical fact checks silently. State a limitation only in the local sentence where omitting it would materially mislead the reader; do not turn limitations into recurring headings, verdicts, or an article-wide frame.
+
+Technical disambiguation notes are internal fact-checking material. Preserve their factual distinctions without reproducing their audit vocabulary or taxonomy in public prose.
+
 The site still needs a scalable theory for how readers move from bottom-of-article next links to index pages. Do not assume this is solved. Treat article endings, suggested next reads, and index-page discovery as an open design problem.
 
 ## Core Research And Invention Areas
@@ -55,7 +61,7 @@ Use these as the current IA seeds. They are not final navigation labels yet, but
 10. Smart-dust substrate ideas using ordinary-fab-compatible through-wafer dicing into micrometer-scale modules plus conformal SiO2 coating, enabling adjacent capacitive and inductively coupled actuation, power, clock, and data transfer without conventional post-packaging. Example reference for the dicing direction: `https://imapsource.org/article/56056-wafer-dicing-using-dry-etching-on-standard-tapes-and-frames.pdf`.
 11. SDR/radio work: a 1-pin fully digital SDR receiver frontend, plus a 1-pin resonant-tank transmitter driven by a fully digital SDM Weaver modulator in Verilog. There are crude PCB prototypes, some videos of receiving FM radio, and a root image `backdrop_rf.jpeg` that belongs to the transmitter experiment and its wrapper article.
 
-## Technical Disambiguation Notes
+## Technical Disambiguation Notes (Internal Fact-Checking Only)
 
 - Do not flatten Cartilage into "MUX fabric." Cartilage is about locally coherent regions of allocated cells/tiles. A neighboring daughter region can belong to a parent region through a special tile temporarily programmed as a reconfiguration port. The port side allows SPI-style streaming of a new multi-tile bitstream that completely replaces the daughter region's cell roles, including intersections, wires, MUXes, zero and one constants, and other reconfiguration-port roles.
 - The canonical Cartilage demo is `cellular-automata-2019/cartilage3.html`, because it demonstrates nested instantiation.
@@ -105,7 +111,7 @@ Use `backdrop_rf.jpeg` for the one-pin quadrature/SDM transmitter wrapper or a p
 - Prefer future shared presentation through wrappers, manifests, build steps, or a lightweight reusable layer over hand-editing every artifact.
 - When adding branded headers, images, reusable footers, or cross-page navigation, design the mechanism first with the user.
 - Keep the site handmade, precise, and research-forward. Do not turn it into a generic startup landing page.
-- Distinguish clearly between completed building blocks, proofs, live demos, educational notes, unpublished reports, and future TODOs.
+- Keep completed building blocks, live demonstrations, educational notes, unpublished material, and future work accurately named in internal reasoning. Do not turn those distinctions into a recurring public status taxonomy.
 - Use the existing austere print-aware style as a real part of the site's identity, not accidental ugliness.
 
 ## Current Codebase Notes
@@ -123,7 +129,7 @@ Use `backdrop_rf.jpeg` for the one-pin quadrature/SDM transmitter wrapper or a p
 - Make small, reversible changes unless the user has agreed to a broader cleanup.
 - Before broad IA or visual redesign work, inspect the actual content and propose a staged plan.
 - Protect the user's experimental voice. Clean typos and broken markup, but do not sand away the oddness that makes the work legible as invention.
-- When adding new public-facing pages, explain significance before implementation details: result, why it matters, status, reuse path, demo/artifact links, and future work.
+- When adding a public-facing page, lead with the useful idea, construction, or experience; develop it through concrete examples; show how the reader can understand, use, or build on it; and link the natural continuation. Status and future-work structures belong only on pages explicitly intended as progress trackers.
 - Keep generated or archived shader files out of routine mechanical sweeps when possible.
 - For the next site cleanup, prioritize article records, end-of-article next-read decisions, emergent index articles, wrappers around preserved demos, a compact routing homepage, and reusable presentation infrastructure for branded header, footer, and navigation.
 - For searchability, every new article should have a descriptive title, meta description, canonical URL, Open Graph basics, internal links from at least one existing page, and a `sitemap.xml` entry. Use structured data where it fits the content type.

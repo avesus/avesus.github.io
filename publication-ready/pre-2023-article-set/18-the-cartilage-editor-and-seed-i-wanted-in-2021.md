@@ -5,7 +5,7 @@ date: "2021-08-20T16:06:48.584Z"
 original_dates:
   - "2021-08-20T16:06:48.584Z"
   - "2021-10-15T06:50:30.100Z"
-description: "A design for turning a raw GPU texture and reconfigurable FPGA starter board into a spatial editor with state capture, save, selection, labels, named ports, deployment, and honest debugging."
+description: "A design for turning a raw GPU texture and reconfigurable FPGA starter board into a spatial editor with state capture, save, selection, labels, named ports, deployment, and reversible debugging."
 status: publication-ready
 ---
 
@@ -13,31 +13,31 @@ status: publication-ready
 
 *Developed August 20 and October 15, 2021.*
 
-The first Cartilage fabric lived in a texture. Its cell state was visible if I knew how to decode colors and bits, but it was not yet a place where another person could comfortably build.
+The first Cartilage fabric lived in a texture. I could decode its colors and bits, but another person needed an editor before that moving field could become a place to build.
 
 I wanted two things at once:
 
 1. an editor that treated circuits as spatial, living structures rather than static files;
 2. a small hardware seed that made the same structures tangible.
 
-The editor mattered more than polish. Without save, selection, labels, state inspection, and a trustworthy deployment boundary, the fabric remained my private mental instrument. A reader could watch it move and still have no way to form a program of their own.
+The editor mattered more than polish. Save, selection, labels, state inspection, and an explicit deployment boundary turn the fabric from my private mental instrument into something another person can use to form a program.
 
-## Two Modes, Two Honest Promises
+## Two Modes, Two Useful Contracts
 
 I divided the editor into simple and expert modes.
 
 Simple mode would expose a small, regular substrate. A builder could place logic, connect ports, run it, pause it, and inspect selected state without first learning every timing and routing detail. Pipelining would be systematic. The interface could present propagation as spatial movement while retaining a definite update model underneath.
 
-Expert mode would expose the compromises.
+Expert mode would expose the resource decisions.
 
 It would let a builder decide which state elements need permanent monitoring logic and which can be inspected by temporarily loading a diagnostic image. It would show where capture circuitry was inserted, which memories were readable, what initialization would be required after inspection, and what timing assumption made the result valid.
 
-The modes are not “toy” and “real.” They are two contracts:
+Both modes are real. They offer two contracts:
 
 - simple mode spends resources to make behavior regular;
 - expert mode returns control of those resources to the builder.
 
-An old target imagined very high fully pipelined clock rates. That number was an aspiration, not a measured result. The editor should display achieved timing from the actual build, not convert desire into a badge.
+My early sketch aimed at very high fully pipelined clock rates. The editor should display timing from the actual build, so each target becomes a number tied to a circuit rather than a badge.
 
 ## Save the Machine, Not Only the Drawing
 
@@ -72,7 +72,7 @@ The editor must decide:
 - where timing and placement constraints live;
 - what happens to references outside the selection.
 
-That makes copy-and-paste an architectural test. If the system cannot say what crosses a selection boundary, it does not yet know what a component is.
+That makes copy-and-paste an architectural operation. What crosses the selection boundary defines the component: internal connections stay inside, crossing wires become ports, and external references acquire an explicit policy.
 
 I also wanted temporary access to earlier saved files. A builder could open one beside the current design, select a useful region, and paste it into the working machine without replacing everything else.
 
@@ -102,7 +102,7 @@ The first embeds readout circuitry in the normal image. A builder chooses a stat
 
 The second pauses the application, captures what must survive, loads a diagnostic image that can read memories or registers, extracts the result, and restores the original image and state.
 
-The second strategy trades interruption and complexity for lower permanent overhead. It is only trustworthy if capture and restoration are defined. Combinational feedback, asynchronous inputs, external side effects, and clock-domain boundaries can make a casual pause-and-restore incorrect.
+The second strategy trades interruption and complexity for lower permanent overhead. It works when capture and restoration are defined. Combinational feedback, asynchronous inputs, external side effects, and clock-domain boundaries all need an explicit pause-and-restore rule.
 
 The editor should therefore describe exactly what it captured. “Debug state” is not one universal substance.
 

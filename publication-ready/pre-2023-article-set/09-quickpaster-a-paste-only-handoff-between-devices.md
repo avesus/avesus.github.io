@@ -87,18 +87,11 @@ A user can also create a new isolated session at any time. That produces a fresh
 
 “No content ever stored” should be understood precisely: the relay does not persist the pasted payload as a history or offline queue. A live relay necessarily handles the payload in transit, and each receiving browser holds the current text in memory. If refresh must restore a value, some state must exist somewhere; the strictest no-persistence version therefore cannot guarantee restoration after every participant and relay session has disappeared.
 
-## Security is part of the boundary
+## Security belongs in the design
 
 No registration does not mean no security problem. A URL that grants access can leak through browser history, logs, screenshots, referrers, extensions, or accidental sharing. Text can contain passwords, tokens, private conversations, and executable markup.
 
-A personal text-only experiment should say what it does not establish:
-
-- no claim of suitability for secrets;
-- no claim of end-to-end encryption;
-- no protection against a compromised browser or leaked pairing URL;
-- no large-scale traffic handling;
-- no video, files, or images;
-- and no durable recovery.
+The first version is for ordinary, non-secret plain text exchanged among a few active browser windows. Pairing URLs provide the route, while transport security protects that route in transit. End-to-end encryption would be a separate protocol. A leaked URL or compromised browser can expose the text. The deliberately small service also omits large-scale traffic handling, video, files, images, and durable recovery.
 
 If QuickPaster became a public service, it would need authenticated pairing, transport security, rate limits, origin protections, payload limits, expiry, careful rendering as text rather than HTML, and a documented retention policy. Those are not decorative features. They determine whether the service is safe to use.
 

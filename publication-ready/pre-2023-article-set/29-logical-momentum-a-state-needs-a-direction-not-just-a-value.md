@@ -4,7 +4,7 @@ slug: "logical-momentum-a-state-needs-a-direction-not-just-a-value"
 date: "2022-03-25T00:05:00.894Z"
 original_dates:
   - "2022-03-25T00:05:00.894Z"
-description: "A design hypothesis for computations that retain transition direction, completion, and release instead of representing every variable as a timeless value."
+description: "A design for computations that carry transition direction, completion, and release instead of representing every variable as a timeless value."
 status: publication-ready
 ---
 
@@ -18,7 +18,7 @@ A bit is zero or one. An integer is 17. A Boolean expression is false. These des
 
 I call that missing information **logical momentum**.
 
-This is a computational design hypothesis, not a new law of physics. Physical momentum has a precise definition, units, and conservation rules. Logical momentum is a proposal to make direction through state space explicit so that a program can respond to a transition without reconstructing its history elsewhere.
+I borrow the word *momentum* deliberately. Physical momentum has its own definition, units, and conservation rules; logical momentum names direction through state space so a program can respond to a transition without reconstructing its history elsewhere.
 
 ## One Snapshot Has No Direction
 
@@ -66,13 +66,11 @@ This is already visible in handshake protocols. A producer raises valid. A consu
 
 ## Phase Is Often More Useful Than a Clock
 
-I first imagined a bit as never quite stationary: not merely `0` or `1`, but a state participating in a cycle. That image is too strong if treated literally. Digital values can remain stable indefinitely, and not every computation is an oscillator.
-
-The useful part is phase.
+I first imagined a bit as never quite stationary: not merely `0` or `1`, but a state participating in a cycle. Digital values can remain stable indefinitely, and not every computation is an oscillator. What I wanted from the image was phase.
 
 A recurring process can distinguish the same visible value at different points in a cycle. A two-phase protocol may encode “request changed” and “acknowledgment caught up” without a pulse that risks being missed. A ring can preserve ordering by the location of a token. An event stream can distinguish the first `1` from the thousandth `1` even though the payload bits are identical.
 
-Frequency can also carry meaning, but it must not be confused with energy by analogy alone. Faster switching generally changes physical energy use in real hardware, yet a language-level frequency is merely a rate until it is mapped to a physical implementation. The mapping is a testable engineering question, not a metaphysical shortcut.
+Frequency can also carry meaning, but frequency and energy are not synonyms. Faster switching generally changes physical energy use in real hardware, while a language-level frequency is only a rate until a physical implementation gives it voltage, capacitance, current, and loss.
 
 ## A Concrete Example: A Reusable Adder
 
@@ -107,13 +105,13 @@ The practical question is not “Have I defeated irreversibility?” It is:
 
 That record might be one phase bit. It might be a version number, a token, a previous state, or an explicit inverse operation. Different domains require different momentum.
 
-## What Would Prove the Idea Useful?
+## Put Logical Momentum to Work
 
-Logical momentum earns its name only if it simplifies a real system. A fair test would compare two implementations of the same reactive graph:
+I would compare two implementations of the same reactive graph:
 
 - one with ordinary values plus separate control machinery;
 - one whose values carry explicit transition and completion state.
 
-The comparison should count storage, wires, invalid intermediate combinations, recovery behavior, and the clarity of composition. If momentum merely renames the finite-state machines without reducing errors or structure, the idea has failed. If it makes transactions local, replayable, and composable, it has found a job.
+The comparison should count storage, wires, invalid intermediate combinations, recovery behavior, and the clarity of composition. A mere renaming of finite-state machines buys nothing. Local, replayable, composable transactions would make logical momentum a useful part of the language.
 
 A state is not always a point. Sometimes it is an arrow whose head happens to be resting on a point. Computers become easier to reason about when they remember the arrow.

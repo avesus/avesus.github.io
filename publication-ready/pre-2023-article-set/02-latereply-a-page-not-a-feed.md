@@ -70,7 +70,7 @@ The page remains the center. Files and screen sharing help two people establish 
 
 The deeper objection behind LateReply was my frustration with a world organized around instant service. Speed is useful when the problem is urgent or mechanical. It is not automatically humane.
 
-When every communication is measured by response time, a person is encouraged to acknowledge before understanding, answer before thinking, and remain interruptible as evidence of care. That reverses the meaning of respect. The quickest reply may be the one that cost the least attention.
+When every communication is measured by response time, a person is encouraged to acknowledge before understanding, answer before thinking, and treat constant availability as care. That reverses the meaning of respect. The quickest reply may be the one that cost the least attention.
 
 People with control over their time often take time to give a matter proper consideration. Everyone else is trained to signal availability immediately. I wanted an object that gave the slower behavior a visible form.
 

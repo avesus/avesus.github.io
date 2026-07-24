@@ -27,7 +27,7 @@ This history need not be a single line. Two edits can branch from the same revis
 
 That distinction matters when the chart is dynamic. A subsystem may observe that a coarse state has been entered and refine it by introducing child states. Another subsystem may add a transition or instantiate a previously absent region. The next active configuration then belongs to a new structural revision. The edit is not an invisible side effect; it is part of the causal record.
 
-I am not proposing that every implementation must copy a whole graph after each change. Structural sharing can retain unchanged nodes and store only the operation or difference. The directed-history model is semantic: every change has a predecessor, an identity, and a place in the same causal structure as execution.
+I store that history efficiently through structural sharing: unchanged nodes persist, while each revision records only its operation or difference. The directed-history model is semantic: every change has a predecessor, an identity, and a place in the same causal structure as execution.
 
 ## The active configuration is an invariant I choose
 
@@ -37,7 +37,7 @@ One-hot encoding provides a useful physical picture for a flat deterministic sta
 
 That picture needs a qualification. A hierarchical statechart may have an active ancestor and descendant at the same time, and orthogonal regions may contain several active leaf states. Such a chart is not globally one-hot. It can still use one-hot encodings within individual exclusive regions, while the complete active configuration is the product of those regional choices.
 
-Dynamic editing can also change the number of regions or active substates. I think of that as a local flow of activity: introducing, removing, or refining structure changes where active tokens are allowed to exist. It is not literal conservation of physical energy. It is a bookkeeping invariant that helps make structural change precise.
+Dynamic editing can also change the number of regions or active substates. I think of that as a local flow of activity: introducing, removing, or refining structure changes where active tokens are allowed to exist. This is a bookkeeping invariant rather than conservation of physical energy, and it makes structural change precise.
 
 ## A transition can become a state
 
@@ -47,7 +47,7 @@ In that case I promote the transition from ink between states into an explicit i
 
 Suppose state `A` transitions to state `B`. In the compact form, the active configuration changes atomically from `A` to `B`. In the expanded form, activity moves from `A` into a transition instance and then unconditionally into `B`. That intermediate instance can activate effects and notify subscribers. Its identity also makes the transition visible in the history graph.
 
-This is not a claim that every arrow should always consume an extra clock or become a permanent state node. If nothing observes the interval and no work can delay it, atomic execution remains the simpler semantics. The explicit transition state exists when its observability or lifecycle adds real power.
+An unobserved, instantaneous arrow can stay atomic. I promote it into an explicit transition state when something observes the interval or when work can delay it. The extra state exists because its lifecycle adds real power.
 
 The same transition pattern can serve several origin-target pairs when it represents a shared predicate or effect, but those relationships must remain unambiguous. A reusable predicate is not permission to lose the identity of the transition that actually fired.
 
@@ -56,7 +56,7 @@ The same transition pattern can serve several origin-target pairs when it repres
 Complex states do not simply blink from absent to present. I use a five-part lifecycle:
 
 1. **Exited.** The state is inactive and eligible to enter.
-2. **Entering.** An entry transition is active. Internal initialization or a cascade of entry effects may still be running, so exit is not yet allowed.
+2. **Entering.** An entry transition is active. Internal initialization or a cascade of entry effects may still be running, so exit stays disabled.
 3. **Entered.** The state is established. Internal microstates may continue to develop, and enabled exit transitions may now be selected.
 4. **Exiting.** Exit has been committed. The state no longer activates dependent systems as an entered state, but cleanup may delay transfer into the selected exit transition.
 5. **Exited again.** Activity has left, and an observed exit transition may briefly carry it toward the next state.

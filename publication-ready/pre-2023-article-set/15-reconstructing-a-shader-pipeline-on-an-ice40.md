@@ -4,7 +4,7 @@ slug: "reconstructing-a-shader-pipeline-on-an-ice40"
 date: "2020-01-25T23:45:55.282Z"
 original_dates:
   - "2020-01-25T23:45:55.282Z"
-description: "A concrete thought experiment in translating texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a tiny iCE40 FPGA and external SRAM."
+description: "A concrete reconstruction plan for translating texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a tiny iCE40 FPGA and external SRAM."
 status: publication-ready
 ---
 
@@ -16,13 +16,13 @@ A fragment shader is a wonderfully strange computer. I give it coordinates, let 
 
 I wanted to turn that hidden machine inside out.
 
-The target was deliberately small: an iCE40HX1K-class FPGA, a modest display, and external SRAM. I was not trying to reproduce a modern GPU. I was asking a sharper question: what is the smallest honest hardware pipeline that can perform the recognizable work of a shader?
+The target was deliberately small: an iCE40HX1K-class FPGA, a modest display, and external SRAM. I wanted the smallest hardware pipeline that could perform the recognizable work of a shader, with every hidden GPU convenience made visible.
 
 ## Begin With the Cell, Not the Screen
 
 The display I was considering had 176 by 220 physical pixels. Dividing it into blocks of 8 by 8 pixels produces roughly 22 by 27 computational cells. That is small enough to reason about one cell at a time and large enough to show a field evolving.
 
-An 8-by-8 block can also carry more information than one ordinary intensity value. A pattern across 64 binary pixels can encode a large state word. That does **not** create impossible optical contrast; the display still has the contrast and brightness its hardware provides. It creates representational depth if software or a reader interprets the pattern as a code. The distinction matters. A spatial code is not a brighter black or a darker white.
+An 8-by-8 block can also carry more information than one ordinary intensity value. A pattern across 64 binary pixels can encode a large state word while the display keeps its ordinary physical contrast and brightness. The extra depth is representational: software or a reader interprets the spatial pattern as a code rather than a brighter black or darker white.
 
 That immediately suggests two paths:
 
@@ -43,9 +43,9 @@ The internal memory budget gives useful landmarks:
 - Two 32-bit floating-point-like values also consume eight bytes, so one 32-kilobyte SRAM can hold a 64-by-64 two-value field.
 - Ten 32-kilobyte SRAMs provide 320 kilobytes in total: about 202 by 202 cells at eight bytes per cell, or 143 by 143 cells at sixteen bytes per cell.
 
-Those are storage capacities, not performance guarantees. Addressing ten memories, meeting timing, sharing buses, and sustaining simultaneous reads and writes are separate circuit problems.
+Those numbers describe storage capacity. Performance comes from the circuit that addresses ten memories, shares buses, meets timing, and sustains simultaneous reads and writes.
 
-At 100 MHz, an ideal eight-bit SRAM port moves 100 megabytes per second before protocol, turnaround, or control overhead. My working target was 28 megabytes per second. That was enough to force a serious streaming design without pretending the board had GPU-class bandwidth.
+At 100 MHz, an ideal eight-bit SRAM port moves 100 megabytes per second before protocol, turnaround, or control overhead. My working target was 28 megabytes per second. That was enough to force a serious streaming design within the bandwidth of the small board.
 
 ## What the GLSL Surface Was Really Saying
 
@@ -84,7 +84,7 @@ The intended build path used the open iCE40 flow: synthesize the Verilog, place 
 
 Synthesis tells me whether the description maps into available logic. Placement and routing tell me whether the paths fit and meet the requested timing. Packing creates the actual device image. Programming finally turns the proposed machine into a physical one.
 
-Until I run that final loop and take measurements, bandwidth and clock rates remain targets. The machine becomes real when synthesis, timing, programming, and measurement all agree.
+Bandwidth and clock rate become physical numbers only after the complete loop runs: synthesis, timing, programming, and measurement on the board. Before that loop, they guide the design as targets.
 
 ## Why Reconstruct It?
 
@@ -101,4 +101,4 @@ The exercise reveals which parts are essential:
 
 Once those parts are visible, I can change them. I can replace floating point with a representation suited to the model. I can expose the state on a display. I can attach a real sensor stream instead of a texture. I can decide that one stage deserves dedicated logic while another should remain serialized.
 
-The little iCE40 does not imitate the whole graphics processor. It reconstructs one honest path through it. That is enough to turn “a shader runs everywhere” from a software incantation into a machine I can draw, synthesize, time, and eventually hold in my hand.
+The little iCE40 reconstructs one visible path through the graphics processor. That is enough to turn “a shader runs everywhere” from a software incantation into a machine I can draw, synthesize, time, and eventually hold in my hand.

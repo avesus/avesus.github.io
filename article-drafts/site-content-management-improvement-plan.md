@@ -2,7 +2,7 @@
 
 ## Goal
 
-Move the site toward artifact-first publishing: each important piece of work gets a standalone article or artifact wrapper that states the engineering claim, shows the evidence, names the tradeoff, and sends the reader to the next useful page.
+Move the site toward reader-first publishing. Each important piece of work should become a standalone article that gives the reader the idea, construction, experience, or usable artifact directly in Brian's voice and leads naturally to the next useful page.
 
 This is a content plan, not an HTML/JS implementation plan.
 
@@ -20,11 +20,13 @@ These drafts should become the source material for later public HTML pages and s
 
 ## Article System Rules
 
-- Lead with the artifact.
-- State the engineering claim.
-- Show the evidence.
-- Name the tradeoff.
-- Put myth, metaphor, and personal significance after the artifact has earned reader trust.
+- Lead with the idea, construction, experience, or artifact the reader came for.
+- Write as Brian speaking directly to the reader.
+- Develop the article through concrete explanations, examples, diagrams, and usable artifacts.
+- Treat measurements and source material as part of the explanation, not as a claim-and-evidence audit.
+- State a limitation only where omitting it would create a materially false impression.
+- Keep status assessment, proof boundaries, weaknesses, unknowns, and publication bookkeeping in internal notes.
+- Let personal significance appear wherever it helps the reader understand why the work matters.
 - Use visible dates, not visible vanity bylines.
 - Keep machine-readable author/citation metadata where it helps DOI, SEO, or scholarly tools.
 - Point internal links to article pages first and raw assets second.
@@ -39,7 +41,7 @@ Convert the existing homepage raw `.circ` link into a real article/wrapper page.
 
 ### Tiny Transformer
 
-Convert the homepage external PR link into a site article that explains the training artifact, links the PR and raw script, records the model shape, and describes the sample behavior without overclaiming.
+Convert the homepage external PR link into a site article that explains the training artifact, links the PR and raw script, records the model shape, and lets the reader see what the sample does.
 
 ### Cartilage
 
@@ -53,9 +55,9 @@ Polish the current page so it reads as an engineering paper bridge, not only a m
 
 Turn the archive into a demo index with screenshot thumbnails and one-sentence explanations for each demo. Add standard navigation and point the strongest next read to the Cartilage wrapper.
 
-## Evidence And Asset Needs
+## Illustration And Companion Material
 
-- Multiplier: timing diagram, waveform, Verilog port, LUT count, Fmax, and FPGA timing later.
+- Multiplier: timing diagram, waveform, Verilog port, and implementation measurements where they help a reader build or compare the circuit.
 - Transformer: dataset/tokenizer explanation, loss curve if available, and optional short sample excerpt.
 - Cartilage: screenshot or short animation, clean region/port diagram, and concise tile-role explanation.
 - Boolean: figures or diagrams from the paper if they can be adapted for web.
@@ -85,4 +87,3 @@ Private Markdown packets in `article-drafts/` should not be added to `sitemap.xm
 - Cellular automata archive packet exists.
 
 The next implementation pass should turn these packets into public HTML only after the article text and assets are reviewed.
-

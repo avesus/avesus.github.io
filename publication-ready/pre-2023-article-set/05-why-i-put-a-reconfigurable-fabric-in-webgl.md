@@ -17,9 +17,9 @@ status: publication-ready
 
 I put a reconfigurable computing fabric in WebGL because I needed to see whether the fabric's rules could produce a programmable machine before I could justify building the machine.
 
-The goal was not to make a GPU imitate an FPGA efficiently. It was to give a custom architecture a body I could run, inspect, edit, and animate while the silicon did not yet exist.
+I needed to give a custom architecture a body I could run, inspect, edit, and animate before committing it to silicon. Efficiently imitating an FPGA on a GPU was beside the point.
 
-That difference matters. A simulator can test whether a proposed state representation and local update rule are coherent. It cannot establish the area, timing, power, signal integrity, or practical routing behavior of a fabricated chip.
+The simulator let me exercise the state representation and local update rule directly. Area, timing, power, signal integrity, and physical routing belong to the later implementation in RTL and hardware.
 
 WebGL was the shortest route from an architectural idea to a visible field of working cells.
 
@@ -84,7 +84,7 @@ At this layer, the “program” is close to a bitstream over a spatial ownershi
 
 The high layer would describe circuits in human terms: names, blocks, input and output variables, instantiation, placement constraints, and connections. A future placer and router could lower that description into the cell configuration.
 
-I had not built a general high-level compiler merely by drawing the simulator. Keeping the layers separate made the missing work visible. A hand-constructed configuration can prove a local mechanism without proving that arbitrary Verilog can be placed and installed automatically.
+The low layer was already concrete enough to configure by hand. The high layer called for a compiler, placer, and router that could lower named blocks and connections into those cell roles. Keeping the two layers separate let me develop the local mechanism without confusing hand placement with automatic installation of arbitrary Verilog.
 
 ## Copies and updates need a moment
 
@@ -92,23 +92,23 @@ Dynamic reconfiguration raises a harder question than drawing a new shape: when 
 
 One simple simulation answer is to pause the clock while reading or rewriting a region. Another is double buffering: collect a snapshot or replacement separately, then apply it at a coordinated step. A configuration request can propagate through a deterministic local tree; if route depths are known, the system can calculate when the farthest leaf has received it.
 
-I also considered time-tagged updates in which distributed subcircuits receive a future application moment. That remained a conjectural mechanism. Real implementations would have to address clock error, communication delay, metastability, partial failure, and the cost of distributing time. A browser buffer swap does not solve those physical problems.
+I also considered time-tagged updates in which distributed subcircuits receive a future application moment. Such a mechanism must account for clock error, communication delay, metastability, partial failure, and the cost of distributing time. The browser buffer swap helped define the desired semantics; hardware would have to supply the physical synchronization.
 
 What the simulation can do is make the semantic choice explicit. Either readers see an old region or a new region at a defined step, or the architecture deliberately exposes intermediate reconfiguration states. Hiding that distinction behind a visual edit would make the model easier to demo and harder to trust.
 
-## What the GPU experiment taught me not to claim
+## What the GPU experiment was for
 
-By September 2021 I was blunt about the limitations.
+By September 2021, the purpose of the experiment was clear.
 
 Simulating logic out of individual multiplexer-like cells on a GPU is inefficient. Routing detailed circuits by hand becomes a nightmare. The shader already has a powerful arithmetic and data-parallel instruction set; using thousands of shader operations to reproduce primitive gates is not a sensible way to obtain ordinary GPU performance.
 
 If the problem is simply to compute on a GPU, write the shader directly.
 
-The fabric simulator served a different purpose. It tested a proposed scalable structure for circuit-like computation and reconfiguration. It forced me to represent local ownership, configuration, state, and boundaries precisely enough for the model to move.
+The fabric simulator served a different purpose. It gave a proposed structure for circuit-like computation and reconfiguration a running body. It forced me to represent local ownership, configuration, state, and boundaries precisely enough for the model to move.
 
 It also showed that a purely visual “flow” picture was insufficient for large designs. Hardware needs explicit timing and state semantics. A Verilog-like model remained necessary for reasoning about clocked behavior, even if the installation environment around each static module was dynamic.
 
-I had initially imagined eliminating event-driven or lazy processing in favor of a uniform synchronous update. That choice makes the simulation simple and regular, but it is a choice, not a universal principle. Uniform full-field updates waste work when little changes. Event-driven approaches add scheduling complexity but may be far more efficient for sparse activity. The correct mechanism depends on what the model is meant to establish.
+I had initially imagined eliminating event-driven or lazy processing in favor of a uniform synchronous update. That choice makes the simulation simple and regular. It also wastes work when little changes. Event-driven approaches add scheduling complexity but may be far more efficient for sparse activity. The useful mechanism depends on the behavior I need to study.
 
 ## Scalability before speed
 
@@ -121,8 +121,8 @@ That is why a slow browser demonstration could still be valuable. It could answe
 - Can the installed roles be replaced coherently?
 - Can the same visual model expose both circuit behavior and its configuration structure?
 
-It could not answer how fast a chip would run or how many physical cells would fit. Those answers require RTL, synthesis, place-and-route, and ultimately hardware measurements.
+Chip speed and physical cell capacity enter at the next layer: RTL, synthesis, place-and-route, and hardware measurement.
 
-Putting the fabric in WebGL was therefore neither a shortcut to silicon nor a claim that the GPU was the final machine. It was a way to make an unbuilt machine concrete enough to criticize.
+Putting the fabric in WebGL made an unbuilt machine concrete enough to run, inspect, and improve before I committed its rules to silicon.
 
 I could watch the state swap. I could see the boxes and ports. I could attempt an application before inventing its syntax. And, just as importantly, I could discover which beautiful architectural statements became awkward the moment every bit needed a place to go.

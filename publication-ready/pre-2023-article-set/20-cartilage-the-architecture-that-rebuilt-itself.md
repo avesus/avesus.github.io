@@ -29,7 +29,7 @@ original_dates:
   - "2022-07-19T01:35:56.683Z"
   - "2022-09-18T21:22:00.309Z"
   - "2022-10-17T02:26:21.111Z"
-description: "A first-person design history of Cartilage, from event membranes and dynamic cores to ownership trees, local reconfiguration ports, spatial programs, honest emulation, bootstrapped wiring, and application-laid clocks."
+description: "A first-person design history of Cartilage, from event membranes and dynamic cores to ownership trees, local reconfiguration ports, spatial programs, inspectable emulation, bootstrapped wiring, and application-laid clocks."
 status: publication-ready
 ---
 
@@ -216,7 +216,7 @@ I also recognized **unallocated space** as a program. Empty territory still need
 
 The object-oriented metaphor now became literal enough to be useful. A program owns one value: its own state. A composite coordinates constituent programs without copying all their private state into one giant record. Ownership can move. Connections can be authorized separately from the data they carry.
 
-I also explored “logical momentum”: the idea that a value may need transition history or phase, not only its present bit pattern. That thought did not become a proven new computer architecture. Its useful residue is ordinary and important: state transitions have direction, dependencies have completion, and replacing a live program may require more than copying one static snapshot.
+I also explored “logical momentum”: the idea that a value may need transition history or phase, not only its present bit pattern. What stayed with me is ordinary and important: state transitions have direction, dependencies have completion, and replacing a live program may require more than copying one static snapshot.
 
 ## Four Layers of a Spatial Computer
 
@@ -233,19 +233,19 @@ At the same time, the architecture separated into four layers:
 3. the allocator and routing interpreter;
 4. the textual or graphical language used to compose running structures.
 
-I have built the bounded cell roles, ownership paths, serial configuration, and installed behavior in browser models and later RTL. The general allocator, compiler, and arbitrary dynamic placer are the next layer.
+The bounded browser models and later RTL gave me working cell roles, ownership paths, serial configuration, and installed behavior. They also made the next construction obvious: the general allocator, compiler, and dynamic placer.
 
-## The Emulator Must Be Honest Before It Is Fast
+## Build the Emulator for Understanding
 
-I had already built GPU experiments, but speed was seducing the design.
+I had already built GPU experiments, but speed was beginning to dictate the design.
 
-For an architectural emulator, I wanted explicit wires, MUXes, retained state, propagation, clocks or handshakes, stimulus, expected results, snapshots, and replacement. A slow JavaScript model that tells me exactly which step occurred is more valuable than a fast shader whose synchronization assumptions I cannot explain.
+For an architectural emulator, I wanted explicit wires, MUXes, retained state, propagation, clocks or handshakes, stimulus, expected results, snapshots, and replacement. A slow JavaScript model that shows me exactly which step occurred is more valuable than a fast shader that conceals its synchronization.
 
 The browser instrument would combine text and geometry. A test could supply stimulus and expectations. A builder could pause, inspect, copy a subregion, initialize selected state, and observe whether replacement occurred on the intended boundary.
 
 Only after the cell and protocol stabilized would GPU acceleration become the correct optimization.
 
-That distinction remains essential. The browser texture model is a host-stepped simulation. A hardware description can model a continuous combinational application plane with configuration changes on explicit local edges. Agreement on one bounded case is valuable; it does not make their execution models identical.
+The browser texture model remains a host-stepped simulation. A hardware description can model a continuous combinational application plane with configuration changes on explicit local edges. They can perform the same bounded transaction while keeping those execution models distinct.
 
 ## Most of the Computer Is Wire
 
@@ -257,7 +257,7 @@ Configuration storage and ownership routing also cost space. Reading structure b
 
 This pushed me toward wire-like cells with compact special roles, shared intersections, and application-defined timing where possible. It also made two dimensions attractive for explicit allocation. The third dimension is not free empty capacity; real machines need it for power delivery, heat removal, long-distance links, packaging, and specialized devices.
 
-Two-dimensional computation is not a universal theorem. It is a discipline: make placement visible, reserve physical depth for the infrastructure flat diagrams omit, and admit when an algorithm chooses a more complicated topology.
+I use two dimensions as a discipline: make placement visible, reserve physical depth for the infrastructure flat diagrams omit, and let an algorithm choose a more complicated topology when it genuinely needs one.
 
 ## Let the Application Lay Its Own Clock
 
@@ -283,15 +283,15 @@ This thought removed the last unnecessary membranes. The interpreter did not man
 
 That was the language collapsing back onto the cell fabric in the best possible way.
 
-## What Rebuilt Itself, and What Remains
+## What Cartilage Became
 
 Cartilage changed from membranes to wires, from fixed cores to regions, from event serialization to direct managed connections, from magical instantiation to streamed deployment, from “empty” cells to active free space, and from global clocks to explicit local timing.
 
 The design became more exact and the machine became better.
 
-In the bounded case I built, a homogeneous finite fabric represents local roles, routes, constants, selectors, ownership direction, and configuration ports. A serial stream replaces roles inside a daughter region, and an application observes the installed result. Independent browser and hardware descriptions check the same transaction while retaining different execution semantics.
+In the machine I built, a homogeneous finite fabric represents local roles, routes, constants, selectors, ownership direction, and configuration ports. A serial stream replaces roles inside a daughter region, and an application observes the installed result. Browser and hardware descriptions perform the same bounded transaction while retaining different execution semantics.
 
-Next I want to carry that mechanism into the larger dream:
+Now I want to carry that mechanism into the larger dream:
 
 - general placement and reclamation;
 - live migration with state;

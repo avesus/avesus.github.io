@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Cartilage: The Architecture That Rebuilt Itself | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A first-person history of Cartilage, from event membranes and dynamic cores to ownership trees, spatial programs, wiring, and application-laid clocks.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/cartilage-the-architecture-that-rebuilt-itself.html">
+    <meta property="og:title" content="Cartilage: The Architecture That Rebuilt Itself">
+    <meta property="og:description" content="A first-person history of Cartilage, from event membranes and dynamic cores to ownership trees, spatial programs, wiring, and application-laid clocks.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/cartilage-the-architecture-that-rebuilt-itself.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/cartilage-the-architecture-that-rebuilt-itself.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/cartilage-the-architecture-that-rebuilt-itself.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Cartilage: The Architecture That Rebuilt Itself - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/cartilage-the-architecture-that-rebuilt-itself.png">
+    <meta name="twitter:image:alt" content="Cartilage: The Architecture That Rebuilt Itself - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Cartilage: The Architecture That Rebuilt Itself",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2020-02-23T19:17:53.518Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A first-person design history of Cartilage, from event membranes and dynamic cores to ownership trees, local reconfiguration ports, spatial programs, inspectable emulation, bootstrapped wiring, and application-laid clocks.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/cartilage-the-architecture-that-rebuilt-itself.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Cartilage: The Architecture That Rebuilt Itself</h1></header>
+    <address><time datetime="2020-02-23">Developed in dated stages from February 23, 2020 through October 17, 2022.</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
+        <p class="lead">A first-person design history of Cartilage, from event membranes and dynamic cores to ownership trees, local reconfiguration ports, spatial programs, inspectable emulation, bootstrapped wiring, and application-laid clocks.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>Cartilage did not arrive as one finished architecture. It repeatedly replaced its own explanation.</p>
+            <p>I began with cells that exposed events through membranes. I moved through hybrid cores, hierarchical partitioners, cytoskeletons, dynamically allocated FPGA regions, graphical languages, tiny MUX cells, zones, wire tips, free-space programs, and clocks installed by applications. Every version tried to answer the same demand:</p>
+            <p><strong>How can a running computer change its own structure without hiding where the resources, state, and connections went?</strong></p>
+            <p>That question survived. Many of my answers did not.</p>
+        </section>
+        <section>
+            <h2>February 2020: The Event Membrane</h2>
+            <p>The first model was almost biological. A cell contained subcells. Events inside the cell had to reach a surface visible to siblings and parents. The membrane encoded internal events, attached enough identity to distinguish their sources, and broadcast the result.</p>
+            <p>This exposed a geometric limit immediately. Volume grows faster than surface. A large enclosure can contain more simultaneous events than its boundary can faithfully expose. If every internal event must be serialized through one membrane, hierarchy becomes a bottleneck.</p>
+            <p>That was not a small implementation problem. It was a warning about abstraction itself. A parent cannot remain the permanent data path for everything its children do.</p>
+            <p>The useful part of the membrane survived as a control boundary. The assumption that all communication should pass through it did not.</p>
+        </section>
+        <section>
+            <h2>May 2020: Cores Became Temporary</h2>
+            <p>I next imagined a machine whose cores were not permanent.</p>
+            <p>Conventional processors divide work among a fixed set of increasingly capable cores. My hybrid-core idea inverted that. A higher-level partitioner would claim a region, choose what kind of core or datapath should occupy it, connect that region to others, and release or repartition it when the task changed.</p>
+            <p>This was meant to use space and time together. A powerful general core is useful, but it also has inertia: silicon devoted to features the current task does not need. A dynamically typed hardware region could become a narrow accelerator, a control machine, a vector of repeated operations, or a communication structure.</p>
+            <p>I called the programming direction fine-grained dynamic reconfiguration: a textual and graphical language in which reconfiguration was a first-class operation rather than a deployment ritual outside the program.</p>
+            <p>The ambition was correct. The word <em>core</em> was already too CPU-shaped.</p>
+        </section>
+        <section>
+            <h2>September 2020: Ownership Entered the Lattice</h2>
+            <p>The decisive step was to make resource ownership local and physical.</p>
+            <p>I had a known lattice of neighboring cells. Each cell could point toward a parent. Those pointers formed an overlay tree. A specially programmed cell could serve as a local reconfiguration port, accepting a serial configuration stream for the region below it.</p>
+            <p>Now reconfiguration had an address that was not a global memory number. It had a path through owned neighbors.</p>
+            <p>A parent could transfer part of its resource pool to a child. The child could attach the new region at a known perimeter location, stream in a multiplier or another program, connect its ports, and begin using it. Release reversed the ownership change.</p>
+            <p>This gave me a practical definition of three words I had been using too casually:</p>
+            <ul>
+                <li><strong>general-purpose</strong> means reprogrammable and repurposable;</li>
+                <li><strong>performance</strong> means useful work can occupy many resources in parallel with controlled latency;</li>
+                <li><strong>scalability</strong> means the hierarchy manages larger structures without one global controller becoming proportionally more complicated.</li>
+            </ul>
+            <p>The mechanism worth building was concrete and local: cells, ownership pointers, configuration paths, and transferable regions. Performance would come from the particular circuits those regions embodied and from the quality of placement, routing, and scheduling.</p>
+        </section>
+        <section>
+            <h2>Eighty-Nine Bits and a Breakthrough</h2>
+            <p>Once the ownership tree existed, I could count a cell instead of praising it.</p>
+            <p>One two-layer model gave each site access to twelve neighbors and four local multiplexers. Each multiplexer had three selected sources. A source could be zero, one, or one of four multiplexer outputs from any of twelve neighbors: fifty possibilities, requiring six selection bits.</p>
+            <p>The first complete budget was:</p>
+            <pre><code class="language-text">4 multiplexers × 3 inputs × 6 selection bits = 72 bits
+4 retained multiplexer states                    =  4 bits
+reconfiguration-role flag                        =  1 bit
+3 ownership-tree pointers × 4 bits               = 12 bits
+                                                   -------
+                                                     89 bits</code></pre>
+            <p>In compact form, the budget was <code>72 + 4 + 1 + 12 = 89</code> bits. The shorthand was twenty-two configuration and state bits per multiplexer, with one bit left over at cell level. More important than the quotient was the feeling of the total: ownership, routing, logic, and reconfiguration had finally entered the same finite record.</p>
+            <p>The number was not sacred. A reduced flat hexagonal test had six neighbors and two multiplexers. Zero, one, or either output from six neighbors produced fourteen source choices. Six four-bit input selectors used twenty-four bits; two retained states, one reconfiguration flag, and three three-bit tree pointers brought the reduced cell to thirty-six bits: <code>24 + 2 + 1 + 9 = 36</code>.</p>
+            <p>The comparison exposed the real trade: topology changes the address width, number of local functions, crossing options, and ownership cost. “Small cell” is not an adjective. It is an addition.</p>
+        </section>
+        <section>
+            <h2>The Compiler Was Part of the Runtime</h2>
+            <p>The ownership mechanism forced a new view of compilation.</p>
+            <p>On a processor, machine instructions select behavior from hardware already present. In an FPGA, a bitstream describes a circuit that the fabric will embody. In Cartilage, the running system also needs a description of how to claim a region, install structure, connect it, and later replace or release it.</p>
+            <p>Code is compact because it can describe repeated construction. One recipe can instantiate a thousand similar regions without storing a thousand copies of every symbolic fact. A running instance, by contrast, includes identity, current state, placement, and ownership.</p>
+            <p>That distinction made “code is data” feel incomplete. Code can be stored as data, but its power is generative: it unfolds structure in a destination that did not previously contain that instance.</p>
+            <p>I wanted a dynamic compiler whose path was visible:</p>
+            <p><strong>description → placement and routing → configuration stream → installed instance</strong></p>
+            <p>The compiler did not have to live outside the machine. Parts of it could themselves be circuits installed in the fabric.</p>
+        </section>
+        <section>
+            <h2>October 2020: The Cytoskeleton</h2>
+            <p>The biological metaphor returned as a switching structure.</p>
+            <p>Each containing region had an internal network connecting its subregions. I called it a cytoskeleton. It multiplexed messages from the outer boundary toward a selected child and serialized child responses back outward. It could also transfer parts of itself when ownership changed.</p>
+            <p>This clarified the control plane but repeated the old membrane problem if used for every conversation. Serial control is acceptable for construction. It is disastrous as the only path for high-bandwidth application traffic.</p>
+            <p>The correction was simple and durable:</p>
+            <p><strong>A parent manages connections; it does not proxy every message.</strong></p>
+            <p>Once two constituents are connected, their data should travel through a direct managed path. Encapsulation defines authority and visibility. It should not force all bandwidth through the owner.</p>
+        </section>
+        <section>
+            <h2>Alice, Bob, Carol, and a New Multiplier</h2>
+            <p>The abstract words finally turned into a transaction.</p>
+            <p>Alice is the program that needs a new child. Bob owns Alice. Carol is another child of Bob and Alice’s immediate geometric neighbor. The new multiplier does not exist yet.</p>
+            <p>Alice decides that her present state requires more compute and asks Bob for space. Bob asks Carol what she can yield along their shared edge. Carol identifies a region and its perimeter coordinates. Bob passes that offer to Alice, and the local ownership pointers in the offered cells are redirected toward her.</p>
+            <p>Alice extends her switching fabric to the new edge and asks Bob for the multiplier’s program description. Bob finds the provider of that description. The configuration stream passes through Alice to the new region. When installation completes, the formerly unallocated or Carol-owned cells have become Alice’s new multiplier, and Alice can connect to it directly.</p>
+            <p>The less personable version used exact illustrative dimensions. A mid-level program needed a 50-by-70 multiplier region but owned only part of the necessary space. It asked its upstream owner for a missing 50-by-20 strip and named acceptable perimeter attachments. The upstream resource pool redirected ownership pointers in a suitable area. The child extended its tree into that area, built the needed communication route, requested the full multiplier description, and streamed it into the completed 50-by-70 region.</p>
+            <p>The exact dimensions were illustrative. The protocol was the result:</p>
+            <ol>
+                <li>negotiate size and attachment;</li>
+                <li>transfer ownership;</li>
+                <li>expose a configuration path;</li>
+                <li>deliver a program description;</li>
+                <li>install and acknowledge;</li>
+                <li>connect application ports.</li>
+            </ol>
+            <p>Reconfiguration was no longer “the FPGA changes.” It was a conversation among owners over finite geometry.</p>
+        </section>
+        <section>
+            <h2>January 2021: The Cell Would Not Stay Final</h2>
+            <p>I repeatedly tried to compress the elementary cell into a perfect small record.</p>
+            <p>One version had four roles: empty, MUX, crossing, and reconfiguration port. Another included explicit zero and one constants. Parent direction needed a few bits. MUX orientation and input selection needed more. A crossing might need retained state. A LUT-based version traded compact special cases for a more regular truth table.</p>
+            <p>I wrote “final model” and then rejected it inside the same page.</p>
+            <p>That was healthy. The cell encoding should follow the operations the architecture needs, not the desire to announce finality.</p>
+            <p>The persistent operations were:</p>
+            <ul>
+                <li>carry a signal;</li>
+                <li>select among neighbors or constants;</li>
+                <li>let routes cross or share local structure;</li>
+                <li>retain state when required;</li>
+                <li>point toward an owner;</li>
+                <li>accept a bounded configuration stream.</li>
+            </ul>
+            <p>The exact bit count remained an engineering choice.</p>
+        </section>
+        <section>
+            <h2>Seven Fields, One Machine</h2>
+            <p>The encodings kept changing, but seven logical fields survived beneath them:</p>
+            <ol>
+                <li>a <strong>role</strong> such as wire, selector, crossing, state element, or reconfiguration port;</li>
+                <li>a <strong>function or source selection</strong> describing what local inputs do;</li>
+                <li>an <strong>orientation</strong> that maps that function onto physical neighbors;</li>
+                <li><strong>retained state</strong> for a latch, flip-flop, crossing, or staged update;</li>
+                <li>an <strong>initialization or reset condition</strong> that says how the state becomes valid;</li>
+                <li>a <strong>parent direction</strong> locating the cell inside the ownership tree;</li>
+                <li>a <strong>configuration condition</strong> saying when and how the cell accepts replacement.</li>
+            </ol>
+            <p>An implementation can overlap or derive some of these instead of storing seven independent fields. A role can imply reset behavior. Orientation can be folded into source selectors. A wall can be the default condition from which a reconfiguration port emerges. The point is not a seven-field ABI. The point is that one cell record has to answer logic, geometry, time, ownership, and change together.</p>
+        </section>
+        <section>
+            <h2>Time Became Previous and Next</h2>
+            <p>The GPU emulator made another hidden assumption visible. A synchronous-looking update uses an old field to produce a new field. The simulator must retain both.</p>
+            <p>I explored representing a flip-flop as a sampling event in a deeply pipelined Boolean network. A cyclic network of smaller retained stages could stand in for a larger sampled state. That could make glitches and propagation visible rather than replacing a circuit with one ideal equation.</p>
+            <p>The reactive model likewise required both previous and next values. An observer should not receive a magical “change event” detached from state. It should be able to distinguish what was established, what is being installed, and when the new state becomes visible.</p>
+            <p>This eventually became the commit boundary in the bounded Cartilage mechanism: configuration records arrive over time, then an apply event makes the installed roles current.</p>
+        </section>
+        <section>
+            <h2>March 2022: Deployment, Not Invocation</h2>
+            <p>By 2022 I had better names.</p>
+            <p>A deployable description is <strong>program code</strong>. Its installed embodiment is a <strong>program</strong>. A running program can sometimes be captured as a snapshot and streamed elsewhere, while a generator or parameterized recipe can produce a fresh description.</p>
+            <p>I also recognized <strong>unallocated space</strong> as a program. Empty territory still needs behavior: it must answer allocation requests, subdivide itself, expose a configuration port, and return resources when a child is released.</p>
+            <p>The object-oriented metaphor now became literal enough to be useful. A program owns one value: its own state. A composite coordinates constituent programs without copying all their private state into one giant record. Ownership can move. Connections can be authorized separately from the data they carry.</p>
+            <p>I also explored “logical momentum”: the idea that a value may need transition history or phase, not only its present bit pattern. What stayed with me is ordinary and important: state transitions have direction, dependencies have completion, and replacing a live program may require more than copying one static snapshot.</p>
+        </section>
+        <section>
+            <h2>Four Layers of a Spatial Computer</h2>
+            <p>As the regions became larger, I needed geometry words.</p>
+            <p>A <strong>zone</strong> is an owned set of cells. A <strong>border</strong> is the closed contour separating adjacent zones. A <strong>segment</strong> is a locally simple portion of that border. Ports occupy places along borders; their location affects available bandwidth.</p>
+            <p>The border is not necessarily stored as a permanent vector curve. It can be rediscovered by surveying the ownership tree. If a neighboring zone subdivides, my program does not automatically receive a global geometric update. It learns the new adjacency when a protocol requires that knowledge.</p>
+            <p>At the same time, the architecture separated into four layers:</p>
+            <ol>
+                <li>the physical array;</li>
+                <li>the low-level distributed configuration and ownership processes;</li>
+                <li>the allocator and routing interpreter;</li>
+                <li>the textual or graphical language used to compose running structures.</li>
+            </ol>
+            <p>The bounded browser models and later RTL gave me working cell roles, ownership paths, serial configuration, and installed behavior. They also made the next construction obvious: the general allocator, compiler, and dynamic placer.</p>
+        </section>
+        <section>
+            <h2>Build the Emulator for Understanding</h2>
+            <p>I had already built GPU experiments, but speed was beginning to dictate the design.</p>
+            <p>For an architectural emulator, I wanted explicit wires, MUXes, retained state, propagation, clocks or handshakes, stimulus, expected results, snapshots, and replacement. A slow JavaScript model that shows me exactly which step occurred is more valuable than a fast shader that conceals its synchronization.</p>
+            <p>The browser instrument would combine text and geometry. A test could supply stimulus and expectations. A builder could pause, inspect, copy a subregion, initialize selected state, and observe whether replacement occurred on the intended boundary.</p>
+            <p>Only after the cell and protocol stabilized would GPU acceleration become the correct optimization.</p>
+            <p>The browser texture model remains a host-stepped simulation. A hardware description can model a continuous combinational application plane with configuration changes on explicit local edges. They can perform the same bounded transaction while keeping those execution models distinct.</p>
+        </section>
+        <section>
+            <h2>Most of the Computer Is Wire</h2>
+            <p>By May 2022 the physical priority became impossible to ignore.</p>
+            <p>Most large circuits are not dense islands of clever logic. They are routes connecting sparse useful operations. A fine-grained fabric that spends too many bits and transistors giving every cell a large LUT may be optimizing the minority case.</p>
+            <p>Configuration storage and ownership routing also cost space. Reading structure back costs more. Synchronous replacement may require staging state or a counter. Every “simple cell” acquires obligations until it is no longer simple.</p>
+            <p>This pushed me toward wire-like cells with compact special roles, shared intersections, and application-defined timing where possible. It also made two dimensions attractive for explicit allocation. The third dimension is not free empty capacity; real machines need it for power delivery, heat removal, long-distance links, packaging, and specialized devices.</p>
+            <p>I use two dimensions as a discipline: make placement visible, reserve physical depth for the infrastructure flat diagrams omit, and let an algorithm choose a more complicated topology when it genuinely needs one.</p>
+        </section>
+        <section>
+            <h2>Let the Application Lay Its Own Clock</h2>
+            <p>I kept trying to remove the universal clock.</p>
+            <p>One design passed clock tokens hierarchically, with local regions changing roles as tokens moved. Another treated CPU and GPU blocks as hard IP controlled from a reconfigurable fabric. Later I considered application-laid oscillators and clock networks, closer to a globally asynchronous, locally synchronous machine.</p>
+            <p>The strongest version of the idea is not “clocks are unnecessary.” It is:</p>
+            <p><strong>Clocking is part of the installed architecture and should not be mistaken for free background reality.</strong></p>
+            <p>A region may use a local oscillator, handshake, token, or sampled update. Crossing into another region requires an explicit protocol. A ring oscillator in one LUT is easy to sketch and difficult to sign off across voltage, temperature, process variation, feedback rules, and downstream timing.</p>
+            <p>The model earns freedom from one global clock only by making local timing more explicit.</p>
+        </section>
+        <section>
+            <h2>July 2022: Boot From a Keyboard</h2>
+            <p>I wanted the first encounter to be magnificent.</p>
+            <p>Attach a keyboard and display to a nearly blank fabric. Freeze the first cell’s parent pointer toward the keyboard. Reprogram it into a route. Reach the next cell. Extend the tree. Type a storage driver. Save it. Boot farther from the card.</p>
+            <p>This thought removed the last unnecessary membranes. The interpreter did not manipulate abstract objects floating above the fabric. It manipulated bunches of wires and cables. A high-level operation mattered only when it could be reduced to routing, retaining, configuring, or releasing those finite connections.</p>
+            <p>That was the language collapsing back onto the cell fabric in the best possible way.</p>
+        </section>
+        <section>
+            <h2>What Cartilage Became</h2>
+            <p>Cartilage changed from membranes to wires, from fixed cores to regions, from event serialization to direct managed connections, from magical instantiation to streamed deployment, from “empty” cells to active free space, and from global clocks to explicit local timing.</p>
+            <p>The design became more exact and the machine became better.</p>
+            <p>In the machine I built, a homogeneous finite fabric represents local roles, routes, constants, selectors, ownership direction, and configuration ports. A serial stream replaces roles inside a daughter region, and an application observes the installed result. Browser and hardware descriptions perform the same bounded transaction while retaining different execution semantics.</p>
+            <p>Now I want to carry that mechanism into the larger dream:</p>
+            <ul>
+                <li>general placement and reclamation;</li>
+                <li>live migration with state;</li>
+                <li>scalable port discovery and connection routing;</li>
+                <li>compilers that emit spatial deployment transactions;</li>
+                <li>useful programs large enough to test the hierarchy;</li>
+                <li>physical timing, power, and silicon behavior.</li>
+            </ul>
+            <p>Cartilage is not powerful because it has found a magic cell. It is powerful as a question I refuse to let software avoid:</p>
+            <p>When a program changes itself, <strong>which place changes, who owns that place, how does the new description arrive, when does it become current, and where do the old state and connections go?</strong></p>
+            <p>The architecture kept rebuilding itself because every vague answer eventually became a wire I had to draw.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.html">Booting a Reconfigurable Fabric from Its Edge</a>
+        <p>An edge FPGA reads a microSD image, streams configuration into a neighboring fabric, and brings networking up after the machine exists.</p>
+        <p>Continue:</p>
+        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
+        <p>The architecture now has a public work program for the renderer, ownership, recovery, and simulator. Funding and contributors are welcome.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.html">Why I Put a Reconfigurable Fabric in WebGL</a>
+        <p>Why WebGL became a fast, visual laboratory for testing the local state and reconfiguration rules of a custom spatial fabric.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

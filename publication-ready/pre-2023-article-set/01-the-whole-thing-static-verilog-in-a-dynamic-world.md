@@ -24,7 +24,7 @@ The short version is simple:
 
 > Keep the module static. Make placement, ownership, connection, and replacement dynamic.
 
-This is an architectural proposition, not a claim that an ordinary Verilog toolchain already performs the entire process automatically. In 2021 I had the model and a direction for its execution environment. A general compiler, placer, router, physical chip, and measured implementation remained separate engineering work.
+That realization put each piece of the system in its proper place. Verilog describes the static module. A compiler translates it for the fabric. A placer and router give it a physical region and connections. The fabric owns the running population and replaces modules when the larger machine changes. In 2021, that division let me work directly on the execution environment while giving every later tool a defined job and interface.
 
 ## The problem was never only syntax
 
@@ -63,7 +63,7 @@ The circuit description remains static. The installed population of modules is d
 
 Software object hierarchies usually describe logical membership. Hardware resource managers separately track memory, processors, devices, and communication. I wanted the membership relation and the resource relation to become the same local fact.
 
-A daughter belongs to a parent because adjacent cells encode that relationship. The parent can provide configuration and I/O at their boundary. Reparenting changes how a region participates in the larger machine. This does not automatically reproduce every property of object-oriented programming, but it gives physical meaning to containment, allocation, and replacement.
+A daughter belongs to a parent because adjacent cells encode that relationship. The parent can provide configuration and I/O at their boundary. Reparenting changes how a region participates in the larger machine. This gives physical meaning to containment, allocation, and replacement without forcing the fabric to imitate every convention of object-oriented programming.
 
 That matters for autonomous systems. A reasoning agent should not have to redesign a multiplier, memory, or communication block transistor by transistor each time it needs one. It should be able to select a known circuit, allocate a region, connect its ports, and later replace or release it. The agent manipulates reliable building blocks while still changing the structure of its own computational body.
 
@@ -84,7 +84,7 @@ Claytronics imagines programmable matter assembled from small robotic modules, o
 
 That is not a failure of the model. A useful body is not a data center compressed into a sculpture. Computation has to coexist with the work that keeps the body present in the world.
 
-The same local reconfiguration idea could let one catom run a static circuit while asking an adjacent catom to install a different static circuit. In a sufficiently regular assembly, many short neighbor links could provide substantial aggregate bandwidth. My early hope that even a single signal between each pair might sometimes be enough was a conjecture, not a universal wiring result; adequacy depends on clock rate, protocol overhead, topology, workload, and fault tolerance.
+The same local reconfiguration idea could let one catom run a static circuit while asking an adjacent catom to install a different static circuit. In a sufficiently regular assembly, many short neighbor links could provide substantial aggregate bandwidth. I wondered how far even one signal between each pair could go. The answer depends on clock rate, protocol overhead, topology, workload, and fault tolerance, which makes the neighbor interface a concrete design question instead of an article of faith.
 
 Still, locality changes the design question. Instead of demanding a wide global bus, I can ask what a small repeated neighbor interface can support when communication and configuration are distributed across the body.
 
@@ -96,6 +96,6 @@ The larger machine becomes dynamic by treating those definite structures as repl
 
 This separation is useful precisely because it preserves something solid at each level. Inside a module, ordinary circuit reasoning applies. At the boundary, ports and ownership are explicit. Above it, a parent can compose modules and replace them. The hierarchy can continue without requiring every level to understand the transistor-level details below it.
 
-In 2020 I thought Cartilage was only a proof of concept for reconfiguration trees and that the real invention still had to be a new language. By September 2021, I understood the reversal: the reconfiguration fabric was the language's dynamic part. Static Verilog could be the vocabulary of the pieces.
+In 2020 I treated Cartilage as a small model of reconfiguration trees and kept looking elsewhere for the real language. By September 2021, I understood the reversal: the reconfiguration fabric was the language's dynamic part. Static Verilog could be the vocabulary of the pieces.
 
 The whole thing was not a clever syntax after all. It was a world in which a static circuit could be born, connected, given a place, and replaced.

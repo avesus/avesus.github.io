@@ -46,7 +46,7 @@ owner --may configure--> region
 
 The visual grammar can remain uniform while the semantics stay precise.
 
-## Knowledge Is Not Yet Computation
+## From Knowledge to Computation
 
 A knowledge graph is useful because it makes dependencies visible. A mathematical definition may depend on earlier definitions. A conclusion may depend on premises. A design decision may depend on physical limits.
 
@@ -57,7 +57,7 @@ Traversing those arrows can answer questions:
 - What uses this definition?
 - Which parts of a design depend on this component?
 
-That is already valuable. It does not mean every conceptual relationship can be synthesized into Verilog.
+That is already valuable. Synthesis begins where a conceptual relationship acquires an executable rule.
 
 Compilation begins only when the graph supplies operational meaning. A statement such as “mass relates to energy” is not a circuit specification. A graph that defines bit widths, functions, state, update order, and interfaces can be.
 
@@ -154,11 +154,11 @@ This is appealing, but it is not freedom from timing closure.
 
 Every register still has setup, hold, clock, reset, and skew requirements. Every additional stage adds latency and state. Feedback loops need an explicit number of delays. Two paths that must meet may require balancing. An asynchronous version exchanges the global clock for local handshake and completion obligations.
 
-The honest claim is narrower and more useful: local pipelining can turn distance into explicit latency. It makes the cost of a long arrow visible as stored intermediate state.
+Local pipelining turns distance into explicit latency. It makes the cost of a long arrow visible as stored intermediate state.
 
 That is exactly the kind of fact Arrows should preserve.
 
-## One Drawing, Several Honest Interpretations
+## One Drawing, Several Working Interpretations
 
 I want the tool to let a person begin with a clean graph and progressively make it executable:
 
@@ -174,7 +174,7 @@ The high-level graph should not disappear. It remains the explanation. The lower
 
 Some subgraphs may compile to ordinary software. Some may become Verilog. Some may remain human knowledge that guides the executable pieces without pretending to be executable itself.
 
-That mixture is not a failure of unification. It is the only honest kind.
+That mixture is the point of unification: each layer keeps its own semantics while sharing one visible graph.
 
 ## The Arrow Is a Promise
 

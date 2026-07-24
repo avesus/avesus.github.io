@@ -20,7 +20,7 @@ A component has internal structure. A statechart describes behavior over time. T
 
 My practical method is to model not only the participants but also the medium through which they interact. I then account for the combined state space and group it into macrostates that matter to the system's behavior.
 
-This is not a demand to enumerate an astronomical Cartesian product. It is a way to remember what the abstraction must cover before compressing it.
+The point is to see what the Cartesian product contains before compressing it. I can then choose the distinctions that matter without trying to enumerate an astronomical state space.
 
 ## State belongs to everything that can differ
 
@@ -85,7 +85,7 @@ For example, **request in transit** may include:
 
 - the client waiting;
 - the medium carrying or buffering the request;
-- the server not yet handling it.
+- the server waiting to handle it.
 
 The same server state may appear inside several world macrostates. The same is true of the client and medium. That is not duplication of the real components. It is the consequence of organizing the description around world behavior rather than component ownership.
 
@@ -93,7 +93,7 @@ The same server state may appear inside several world macrostates. The same is t
 
 My original notes used “invariant” too loosely. The complete set of states a system could enter is not, by itself, an invariant.
 
-An invariant is a property intended to hold across the relevant reachable states or transitions. “At most one owner controls this actuator” can be an invariant. “A reply is never delivered before its request” can be an invariant. The set of reachable states is a different concept, even though we often study it in order to prove or refute an invariant.
+An invariant is a property intended to hold across the relevant reachable states or transitions. “At most one owner controls this actuator” can be an invariant. “A reply is never delivered before its request” can be an invariant. The set of reachable states is a different concept, even though exploring it is how we test whether an invariant holds.
 
 State explosion and invariant violation must also be separated:
 
@@ -135,6 +135,6 @@ Here again, the medium cannot be omitted. Once communication is represented as s
 
 The raw product state is too large to write down for most interesting systems. The goal is not to draw it. The goal is to respect it.
 
-I begin by imagining \(A\), \(M\), and \(B\) together. I ask what each can know, what can be observed, where information waits, and which combinations change the meaning of the whole. Then I partition that combined space into a small number of macrostates with honest transitions between them.
+I begin by imagining \(A\), \(M\), and \(B\) together. I ask what each can know, what can be observed, where information waits, and which combinations change the meaning of the whole. Then I partition that combined space into a small number of macrostates with explicit transitions between them.
 
 That is the shift that made hierarchical statecharts practical for me. Do not begin with a diagram of boxes owned by components. Begin with the interacting world, include the medium, and decide which differences in that world deserve names.

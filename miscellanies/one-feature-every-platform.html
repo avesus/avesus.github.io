@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>One Feature, Every Platform | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="Why cross-platform product teams should own features end to end while treating each operating system as a real, native integration target.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/one-feature-every-platform.html">
+    <meta property="og:title" content="One Feature, Every Platform">
+    <meta property="og:description" content="Why cross-platform product teams should own features end to end while treating each operating system as a real, native integration target.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/one-feature-every-platform.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/one-feature-every-platform.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/one-feature-every-platform.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="One Feature, Every Platform - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/one-feature-every-platform.png">
+    <meta name="twitter:image:alt" content="One Feature, Every Platform - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "One Feature, Every Platform",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2021-12-17T13:29:19.538Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "Why cross-platform product teams should own features end to end while treating each operating system as a real, native integration target.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/one-feature-every-platform.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">One Feature, Every Platform</h1></header>
+    <address><time datetime="2021-12-17">Originally written December 17, 2021.</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Software, state, interaction, and communication</p>
+        <p class="lead">Why cross-platform product teams should own features end to end while treating each operating system as a real, native integration target.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>The most useful unit of cross-platform development is not the platform. It is the feature.</p>
+            <p>If a product runs on iOS, Android, Windows, macOS, and Linux, the natural organizational temptation is to create five client teams. Each team becomes fluent in its operating system, owns its repository, and receives feature requests from somewhere above. That arrangement looks tidy, but it distributes responsibility for one user-visible behavior across five queues. The feature no longer has one owner. It becomes a negotiation.</p>
+            <p>I prefer the opposite division: give a feature to one engineer or one small team, and let that team carry it through every supported platform and every relevant layer. The implementation may be different on each platform. The responsibility should remain whole.</p>
+        </section>
+        <section>
+            <h2>Native differences are product facts</h2>
+            <p>Cross-platform frameworks are useful, but they do not abolish operating systems.</p>
+            <p>A real application eventually meets facilities that are not generic rectangles on a screen: text input, accessibility, drag and drop, window management, background execution, notifications, file access, cameras, media sessions, secure storage, share sheets, system settings, and platform-specific animation or transition behavior. These facilities have different lifecycles, permissions, failure modes, and conventions. Even when a framework exposes a common API, the product still has to be tested against the native behavior beneath that API.</p>
+            <p>The problem becomes sharper for a modern interface that deliberately participates in the character of its host system. A native view is not merely pixels. It carries state and often depends directly on system services. Abstracting it can be worthwhile, but the abstraction has a cost, and the most distinctive new platform capabilities are usually the least abstractable ones.</p>
+            <p>Domain rules, protocol definitions, test vectors, data models, and carefully chosen libraries can often be shared. React Native, Flutter, a web view, or another common layer may also be the right economic choice. I would now state my 2021 argument this way: separate implementations are optional; separate platform integration is unavoidable.</p>
+            <p>Pretending otherwise merely hides the work in adapters, wrappers, escape hatches, build systems, and bug reports.</p>
+        </section>
+        <section>
+            <h2>A universal renderer moves the boundary</h2>
+            <p>Another approach is to own every pixel through OpenGL, Vulkan, Metal, Direct3D, WebGL, HTML, SVG, or a custom rendering engine. This can produce fast, animated, visually consistent interfaces. It can also be the correct choice for a game, a design tool, a visualization system, or a product whose visual language matters more than platform convention.</p>
+            <p>But a universal renderer does not make the surrounding operating system disappear. It moves the boundary. The team must now build or integrate text shaping, input, focus, accessibility semantics, native menus, clipboard behavior, high-DPI rendering, assistive technology support, power management, and many other details. A sufficiently ambitious custom UI begins to resemble an engine of its own.</p>
+            <p>The important question is therefore not, “Can one toolkit draw this on every screen?” It is, “Which behavior should be shared, and where do we deliberately join each platform?”</p>
+            <p>That question has no framework-independent answer. It must be answered feature by feature.</p>
+        </section>
+        <section>
+            <h2>Feature ownership prevents parity from becoming theater</h2>
+            <p>Suppose a product is adding document scanning. A platform-silo organization might send the camera work to two mobile teams, upload work to a service team, review UI to a web team, and export behavior to desktop teams. Each group can complete its local ticket while the feature as a whole remains inconsistent.</p>
+            <p>A feature-oriented team instead owns the complete promise:</p>
+            <ul>
+                <li>how capture begins on each device;</li>
+                <li>which native camera and permission APIs are used;</li>
+                <li>how failures are presented;</li>
+                <li>what processing occurs locally or remotely;</li>
+                <li>how results synchronize;</li>
+                <li>how accessibility works;</li>
+                <li>and what “the same feature” actually means when the devices are different.</li>
+            </ul>
+            <p>The code does not have to look the same. The user-visible contract does.</p>
+            <p>This is why “write once, run everywhere” is often the wrong management promise. Every platform still needs integration and testing. Many failures occur precisely at the seams: mismatched lifecycle rules, subtly different types, asynchronous callbacks crossing language boundaries, incomplete wrappers, and operating-system upgrades that change assumptions.</p>
+            <p>A shared codebase can reduce duplication. It cannot replace platform accountability.</p>
+        </section>
+        <section>
+            <h2>Grow engineers across the stack</h2>
+            <p>Feature ownership works only if knowledge is allowed to move. An engineer who begins in Xcode should not be permanently confined to iOS, and an Android or Windows specialist should not become a human API gateway for everyone else. Specialists remain valuable, but their knowledge should raise the capability of the whole feature team.</p>
+            <p>Pairing, review, small cross-platform changes, shared debugging sessions, and explicit platform notes can turn narrow expertise into team expertise. The goal is not to make every engineer equally deep in five enormous ecosystems. The goal is to make it normal for the person responsible for a behavior to follow that behavior across boundaries, ask for help where needed, and leave the next person more capable.</p>
+            <p>Feature ownership describes how people carry responsibility; microservices and microfrontends describe how software is divided. A feature team may work in a monolith, several services, multiple native clients, or all of the above. What matters is that the human division of work follows the product result more closely than the repository map.</p>
+        </section>
+        <section>
+            <h2>Use one contract, not one illusion</h2>
+            <p>The durable cross-platform strategy I advocate is:</p>
+            <ol>
+                <li>Define a feature contract in terms of user behavior and data.</li>
+                <li>Decide explicitly which logic is safe and valuable to share.</li>
+                <li>Implement native integration where each platform demands it.</li>
+                <li>Keep one feature owner or one feature team accountable across all targets.</li>
+                <li>Test on every platform; do not treat compilation through a common framework as parity.</li>
+                <li>Feed platform knowledge back into the team instead of building permanent silos.</li>
+            </ol>
+            <p>Sometimes this yields separate native codebases. Sometimes it yields a shared core with native shells. Sometimes a cross-platform UI framework carries most of the product and a few native modules carry the exceptions. The architecture can vary without weakening the principle.</p>
+            <p>The false economy is to optimize first for the fewest code files and only later discover that nobody owns the complete experience. I would rather duplicate a modest amount of code than duplicate responsibility, arguments, and partially compatible behavior.</p>
+            <p>One feature should have one coherent promise. The same people should be able to trace that promise through every platform on which it appears.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/what-old-computers-got-right.html">What Old Computers Got Right</a>
+        <p>A computer should preserve the user's work, invite physical extension, explain itself completely, and make programming available the moment it turns on.</p>
+        <p>Continue:</p>
+        <a href="/human-computer-interaction-as-model-exchange.html">Human-Computer Interaction As Model Exchange</a>
+        <p>Continue with an interface model built around shared state, interpretation, and repair.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/the-mobile-web-interaction-kernel.html">The Mobile Web Interaction Kernel</a>
+        <p>A small architecture for mobile web applications that makes state, composition, layout, touch, focus, scrolling, and rendering explicit.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

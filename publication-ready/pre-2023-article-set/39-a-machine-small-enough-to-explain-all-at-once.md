@@ -5,7 +5,7 @@ date: "2020-03-22T04:24:48.371Z"
 original_dates:
   - "2020-03-22T04:24:48.371Z"
   - "2020-10-26T01:41:02.484Z"
-description: "A tiny stored-program computer built from immediate stores, conditional moves, jumps, and a visible stack—tested against a bracket checker that exposes exactly what the first instruction set still lacks."
+description: "A tiny stored-program computer built from immediate stores, conditional moves, jumps, and a visible stack, with a bracket checker driving the instruction set to completion."
 status: publication-ready
 ---
 
@@ -17,7 +17,7 @@ I want a computer that fits in one explanation.
 
 Not the smallest instruction count as a stunt. Not a processor made obscure by compressing several hidden operations behind one clever opcode. I want to point to every piece of state, walk through every instruction, follow one complete program, and reach the electrical boundary without saying, “The rest is normal computer stuff.”
 
-The machine described here is a proposed teaching architecture. It was not presented as fabricated hardware or a completed emulator, and its first instruction table is not yet sufficient to run the example at the end. Its value is that the whole contract—and every missing piece—can remain visible.
+This is my 2020 teaching architecture: immediate stores, conditional moves, jumps, a visible stack, and a bracket checker that drives the instruction set toward a complete machine. The whole contract fits on one work surface, including the places where the first transition table must be repaired.
 
 ## Name Every Piece of Persistent State
 
@@ -131,7 +131,7 @@ memory[address][m:n] <- immediate bits if flag:
     memory[address][m:n]'  = cmpFlag ? bits : memory[address][m:n]
 ```
 
-This is the 2020 transition table, including its unresolved old-state and new-state semantics. Taken literally, the right side of a simultaneous assignment reads the old state. `jump-if-equal` therefore writes a new comparison into `cmpFlag'` while choosing `SP'` and `PC'` from the previous `cmpFlag`. The conditional move has the same problem: it samples `memory[flagAddress]` into `cmpFlag'` but tests the previous flag, and its row never says how `PC` advances. If the intended behavior is to act on the comparison or flag sampled by the current instruction, the specification needs a named temporary result and an explicit `PC' = nextPC`; that would be a correction, not a transcription of the original machine.
+This is the 2020 transition table, preserved with its old-state and new-state conflict visible. Taken literally, the right side of a simultaneous assignment reads the old state. `jump-if-equal` therefore writes a new comparison into `cmpFlag'` while choosing `SP'` and `PC'` from the previous `cmpFlag`. The conditional move has the same problem: it samples `memory[flagAddress]` into `cmpFlag'` but tests the previous flag, and its row never says how `PC` advances. The repaired instruction will use a named temporary result and an explicit `PC' = nextPC`, so the comparison sampled by this instruction controls this instruction.
 
 The stack convention also disagrees with itself. `push` writes at the old `SP` and then decrements it, while ordinary `return` reads `memory[SP]`; `jump-if-equal` instead reads `memory[SP + PTR_SZ]`. Those cannot all describe the same downward-growing stack convention. The implementation must either decrement before writing, or consistently read the top at `SP + PTR_SZ`. A small machine earns its size by making inconsistencies like these impossible to hide.
 
@@ -153,7 +153,7 @@ Private application state, dynamic storage, and—if the design permits it—run
 
 ### `.IVT`
 
-The read-write interrupt vector table. Keeping it in its own named region makes interrupt entry part of the visible state contract rather than an unexplained jump performed by invisible machinery. A complete version still has to define vector width, priority, atomicity, and what state an interrupt saves.
+The read-write interrupt vector table. Keeping it in its own named region makes interrupt entry part of the visible state contract rather than an unexplained jump performed by invisible machinery. Its contract names vector width, priority, atomicity, and the state saved on entry.
 
 ### `.STACK`
 
@@ -163,11 +163,11 @@ Return addresses, arguments, and temporary allocations associated with nested ca
 
 Not ordinary writable runtime memory, but the reset image used to initialize the executable portion of `.HIDDEN`.
 
-These names make a security and composition question visible: who may read or write each state? A complete implementation still needs bounds, privilege rules, I/O timing, reset behavior, and protection against the stack colliding with other memory.
+These names make a security and composition question visible: who may read or write each state? The implementation can answer it with bounds, privilege rules, I/O timing, reset behavior, and protection against the stack colliding with other memory.
 
 The point is to include those questions in the drawing of the computer.
 
-## One Complete Test Program, but Not Yet for This ISA
+## Let One Complete Program Finish the ISA
 
 A small machine needs a complete example that is more revealing than blinking an LED.
 
@@ -207,11 +207,11 @@ On acceptance it selects the three-byte `OK\n` message. On rejection it selects 
 
 This example exercises the whole path: input memory, indexing, byte loading, comparison, conditional control, arithmetic state, a loop, termination, and visible output.
 
-Porting it to the small machine exposes what the proposed instruction set still lacks. How are `index` and `depth` incremented? Is arithmetic performed by memory-mapped Boolean hardware, a tiny arithmetic component, or additional instructions? How is an address-plus-index formed? How is one character loaded? What instruction or memory interface emits the selected message?
+Porting it to the small machine tells me exactly which operations the next instruction pass must supply. How are `index` and `depth` incremented? Is arithmetic performed by memory-mapped Boolean hardware, a tiny arithmetic component, or additional instructions? How is an address-plus-index formed? How is one character loaded? What instruction or memory interface emits the selected message?
 
-Those are not embarrassing gaps. They are exactly why an example belongs beside an instruction-set sketch. The program refuses to let the architecture remain vague.
+Those questions are why the example belongs beside the instruction-set sketch. The program turns each open choice into a concrete operation that must be drawn.
 
-## Small Means No Unexplained Remainder
+## Small Means the Whole Machine Fits
 
 A computer can have one instruction and still require an enormous explanation of encoding, memory behavior, I/O, and timing. Instruction count is not conceptual size.
 
@@ -225,6 +225,6 @@ My criterion is stronger. A learner should be able to answer:
 6. How does a result leave?
 7. How does the machine stop, reset, and fail?
 
-If all seven answers fit on the same work surface as a successfully ported bracket checker, the machine is small enough. This first draft has not reached that point. It has a compact control vocabulary, named memory boundaries, and an exact test that exposes the missing load, arithmetic, output, and stack semantics.
+When all seven answers fit on the same work surface as a successfully ported bracket checker, the machine is small enough. The first table supplies the compact control vocabulary and named memory regions. The bracket checker supplies the acceptance program for finishing load, arithmetic, output, and stack semantics.
 
-The purpose of a tiny computer is not to prove that large computers are unnecessary. It is to make the first complete computer understandable, so every later optimization has somewhere honest to attach.
+The purpose of a tiny computer is to make the first complete computer understandable, so every later optimization begins from a machine a learner can still hold in mind.

@@ -25,7 +25,7 @@ A value changes here. A callback runs there. A thousand listeners observe “at 
 
 The physical machine does.
 
-My central claim is modest and stubborn:
+My starting point is modest and stubborn:
 
 **Causality in a computer occupies geometry.**
 
@@ -68,7 +68,7 @@ The shape of communication limits the shape of composition.
 
 Boolean functions can be logically irreversible. An AND gate maps several input combinations to the same output, so the output alone does not reveal the inputs.
 
-It is too strong to conclude that Boolean logic is physically unreal or that information is literally destroyed at the instant of the abstract operation. A physical implementation retains and dissipates state through charges, fields, heat, control circuitry, and its environment. Erasing information has thermodynamic consequences.
+The abstract operation alone does not tell us where the distinctions went. A physical implementation retains and dissipates state through charges, fields, heat, control circuitry, and its environment. Erasing information has thermodynamic consequences.
 
 The useful architectural lesson is that discarded distinctions go somewhere.
 
@@ -131,13 +131,13 @@ Likewise, event-driven execution does not remove causality. It changes where wai
 
 This is why stale data is so dangerous. A value can remain locally available after the geometry, ownership, permission, or source state that justified it has changed.
 
-Reactive programming becomes honest when dependencies have paths, versions, completion rules, and owners.
+Reactive programming becomes physical when dependencies have paths, versions, completion rules, and owners.
 
 ## Two Dimensions Are a Discipline
 
 For Cartilage I chose to make allocation visible in two dimensions.
 
-The choice was not a proof that every computation belongs on a flat sheet. It was a way to stop treating space as infinite. A region has area. A port occupies part of a border. A route consumes cells. A new instance must fit somewhere.
+I chose a flat sheet to stop treating space as infinite, while leaving more complicated topology available to algorithms that need it. A region has area. A port occupies part of a border. A route consumes cells. A new instance must fit somewhere.
 
 The third dimension is then reserved for realities a logic diagram usually ignores:
 
@@ -185,8 +185,8 @@ For any proposed computation, I now ask:
 9. What power, cooling, and I/O does the structure require?
 10. How does the model change when nodes move or fail?
 
-These questions do not demand that every software engineer place transistors by hand. They demand that an architecture provide truthful answers somewhere.
+These questions do not demand that every software engineer place transistors by hand. They ask an architecture to provide concrete answers somewhere.
 
 The beautiful thing about physical causality is that it cannot be persuaded by a diagram. A signal either has a path or it does not. A state either survives replacement or it does not. Two events either meet under a defined protocol or “simultaneous” is only prose.
 
-Geometry is where the machine tells the truth.
+Geometry is where the diagram becomes a machine.

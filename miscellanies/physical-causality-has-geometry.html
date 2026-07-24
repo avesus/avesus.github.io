@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Physical Causality Has Geometry | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="State transitions, bandwidth, clocks, ownership, topology, power, cooling, and allocation all inherit geometry and finite propagation.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/physical-causality-has-geometry.html">
+    <meta property="og:title" content="Physical Causality Has Geometry">
+    <meta property="og:description" content="State transitions, bandwidth, clocks, ownership, topology, power, cooling, and allocation all inherit geometry and finite propagation.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/physical-causality-has-geometry.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/physical-causality-has-geometry.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/physical-causality-has-geometry.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Physical Causality Has Geometry - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/physical-causality-has-geometry.png">
+    <meta name="twitter:image:alt" content="Physical Causality Has Geometry - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Physical Causality Has Geometry",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2020-02-21T03:46:42.722Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A physical-computing argument that state transitions, arbitration, bandwidth, clocks, ownership, topology discovery, power, cooling, and resource allocation all inherit geometry and finite propagation.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/physical-causality-has-geometry.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Physical Causality Has Geometry</h1></header>
+    <address><time datetime="2020-02-21">Developed from February 21, 2020 through June 7, 2022.</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
+        <p class="lead">A physical-computing argument that state transitions, arbitration, bandwidth, clocks, ownership, topology discovery, power, cooling, and resource allocation all inherit geometry and finite propagation.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>Software diagrams train us to draw arrows of any length.</p>
+            <p>A value changes here. A callback runs there. A thousand listeners observe “at the same time.” A new worker appears. A service moves. The drawing does not become heavier, hotter, slower, or more crowded.</p>
+            <p>The physical machine does.</p>
+            <p>My starting point is modest and stubborn:</p>
+            <p><strong>Causality in a computer occupies geometry.</strong></p>
+            <p>State transitions happen in finite structures. Signals propagate over paths. Arbitration requires a place where alternatives meet. Memory and computation require owned material. Power, cooling, and long-distance I/O compete with logic for the same machine.</p>
+            <p>Geometry is not an implementation detail added after the program is understood. It helps decide what the program can mean.</p>
+        </section>
+        <section>
+            <h2>An Event Has a Neighborhood</h2>
+            <p>Consider a state machine embedded in a lattice. If each cell has twelve immediate neighbors, an atomic transition can directly involve only those local directions and the cell’s own state. A wider decision requires information from farther away.</p>
+            <p>That wider decision takes longer.</p>
+            <p>The point is not that twelve is a universal number. It came from a particular geometric model. The general rule is that fan-in and decision radius are linked. If a central arbiter must distinguish events from a larger region, signals must reach it, be retained long enough to compare, and return a result.</p>
+            <p>“Simultaneous” therefore needs a boundary. Two inputs are simultaneous relative to a sampling window, handshake, clock edge, or ordering protocol. The machine does not receive a metaphysical set containing every event that happened anywhere at once.</p>
+            <p>A fast local state machine can choose among nearby transitions. A globally coordinated state change pays for distance.</p>
+        </section>
+        <section>
+            <h2>Surface Limits the Interior</h2>
+            <p>A three-dimensional region grows in volume faster than it grows in surface area. The amount of logic inside can increase faster than the number of independent wires entering its boundary.</p>
+            <p>That creates an architectural constraint. Deep computation can run on data already inside, but fresh external information and outgoing results must cross the surface.</p>
+            <p>Several strategies follow:</p>
+            <ul>
+                <li>reuse data locally;</li>
+                <li>pipeline communication through the volume;</li>
+                <li>compress or aggregate events;</li>
+                <li>distribute decisions instead of centralizing them;</li>
+                <li>increase boundary area through tiling or hierarchy;</li>
+                <li>accept that some internal work cannot communicate externally at full rate.</li>
+            </ul>
+            <p>A parent abstraction faces the same problem. It cannot expose every internal event through one tiny interface without serialization. Encapsulation saves reasoning only if constituents can also have direct, managed data paths.</p>
+            <p>The shape of communication limits the shape of composition.</p>
+        </section>
+        <section>
+            <h2>Information Is Not Magically Destroyed</h2>
+            <p>Boolean functions can be logically irreversible. An AND gate maps several input combinations to the same output, so the output alone does not reveal the inputs.</p>
+            <p>The abstract operation alone does not tell us where the distinctions went. A physical implementation retains and dissipates state through charges, fields, heat, control circuitry, and its environment. Erasing information has thermodynamic consequences.</p>
+            <p>The useful architectural lesson is that discarded distinctions go somewhere.</p>
+            <p>A reversible computation preserves enough state to reconstruct earlier values. An ordinary pipeline may overwrite them, emit heat, or leave traces in storage and timing. If a live region will be patched or migrated, the designer must decide which distinctions need to survive: application state, in-flight messages, dependency completion, clock phase, or only a clean reset condition.</p>
+            <p>Geometry tells us where that surviving information can be kept and how it can leave.</p>
+        </section>
+        <section>
+            <h2>A Pipeline Is Stored Motion</h2>
+            <p>Pipelining is often described as a speed trick. Physically, it assigns intermediate state to places along a route.</p>
+            <p>A value “in flight” is not nowhere. It is held by a register, latch, buffer, wire charge, queue entry, or protocol state. Several values can occupy different stages because the machine has reserved different positions for them.</p>
+            <p>This makes a pipeline a form of delay memory.</p>
+            <p>Turning a path early can strand the deeper stages beyond the turn. Keeping every route equally deep can improve regularity but spend unnecessary space. Packet switching, systolic arrays, stream processors, and spatial circuits all make different bargains among route length, buffering, reuse, and control.</p>
+            <p>The bargain is geometric before it becomes a performance graph.</p>
+        </section>
+        <section>
+            <h2>Clock Skew Is Mostly Engineering—and Sometimes Relativity</h2>
+            <p>On an ordinary board or chip, clock skew is dominated by path delay, buffering, loading, process variation, voltage, temperature, jitter, and routing. Engineers balance clock trees, constrain paths, use synchronizers, and verify timing margins.</p>
+            <p>Relativity enters at sufficiently precise and widely distributed scales, such as satellite navigation and clocks separated by gravitational potential. It does not excuse a poorly routed FPGA clock.</p>
+            <p>The larger insight remains. There is no universal physical “now” delivered for free to every node.</p>
+            <p>For separate clock regions, a globally asynchronous, locally synchronous design may use handshakes, synchronizers, asynchronous FIFOs, source-synchronous links, timestamps, or explicit event protocols. Buffers do not compensate for every possible timing error; they handle bounded rate and phase differences under stated assumptions.</p>
+            <p>The clock boundary is part of the program’s physical contract.</p>
+        </section>
+        <section>
+            <h2>A Moving Computer Must Discover Itself</h2>
+            <p>Geometry becomes dynamic when nodes move.</p>
+            <p>A distributed machine can measure link latency and throughput, discover neighbors, traverse network boundaries, form a tree, distribute code, delegate work, and transfer ownership. A local experiment can begin with several processes and WebSocket-like links. A physical version can add GPS time, inertial sensing, constraints, and neighbor ranging.</p>
+            <p>No chip thereby knows its exact four-position in the universe. Each node maintains an estimate with uncertainty.</p>
+            <p>The useful state includes:</p>
+            <ul>
+                <li>local clock and drift estimate;</li>
+                <li>observed neighbors;</li>
+                <li>link delay and capacity;</li>
+                <li>position and velocity estimate when sensors support them;</li>
+                <li>ownership relation;</li>
+                <li>last confirmed topology version.</li>
+            </ul>
+            <p>The network’s “shape” is then a time-dependent model assembled from partial observations. Global topology is never received instantaneously. By the time a map is complete, some edges may already have changed.</p>
+            <p>Algorithms must act on dated geometry.</p>
+        </section>
+        <section>
+            <h2>Pull Reactivity Is an Illusion</h2>
+            <p>In software, a pull-reactive value appears to compute only when requested. Physically, something has to retain dependency information, notice invalidation, perform the request, or recompute the value.</p>
+            <p>The work may be delayed. It is not absent.</p>
+            <p>Likewise, event-driven execution does not remove causality. It changes where waiting state lives. A queue, scheduler, handshake, or dormant circuit holds the unfinished relation until another event completes it.</p>
+            <p>This is why stale data is so dangerous. A value can remain locally available after the geometry, ownership, permission, or source state that justified it has changed.</p>
+            <p>Reactive programming becomes physical when dependencies have paths, versions, completion rules, and owners.</p>
+        </section>
+        <section>
+            <h2>Two Dimensions Are a Discipline</h2>
+            <p>For Cartilage I chose to make allocation visible in two dimensions.</p>
+            <p>I chose a flat sheet to stop treating space as infinite, while leaving more complicated topology available to algorithms that need it. A region has area. A port occupies part of a border. A route consumes cells. A new instance must fit somewhere.</p>
+            <p>The third dimension is then reserved for realities a logic diagram usually ignores:</p>
+            <ul>
+                <li>power distribution;</li>
+                <li>heat removal;</li>
+                <li>packaging and mechanical support;</li>
+                <li>long-distance or high-bandwidth links;</li>
+                <li>specialized sensors, memories, processors, and analog devices.</li>
+            </ul>
+            <p>A 2.5-dimensional structure can use crossings, multiple layers, or defects where algorithms justify them. The default remains inspectable enough that a programmer can see what allocation means.</p>
+            <p>Resource management becomes geometry with names.</p>
+        </section>
+        <section>
+            <h2>Scale Requires New Work</h2>
+            <p>One cannot fill the universe with a final tiny processor and assume the architecture is complete.</p>
+            <p>Every new scale introduces work:</p>
+            <ul>
+                <li>local links become long links;</li>
+                <li>clock assumptions become protocol assumptions;</li>
+                <li>heat paths lengthen;</li>
+                <li>failures become common rather than exceptional;</li>
+                <li>ownership crosses organizations;</li>
+                <li>topology changes during observation;</li>
+                <li>surfaces constrain interiors;</li>
+                <li>maintenance and replacement become part of computation.</li>
+            </ul>
+            <p>A device that works as one cell does not automatically work as a continent of cells.</p>
+            <p>I appreciate size because size refuses abstraction’s lies.</p>
+        </section>
+        <section>
+            <h2>A Physical Causality Checklist</h2>
+            <p>For any proposed computation, I now ask:</p>
+            <ol>
+                <li>Where is each state retained?</li>
+                <li>Which physical path carries each dependency?</li>
+                <li>What defines completion?</li>
+                <li>Which events may race?</li>
+                <li>Where does arbitration occur?</li>
+                <li>Which clock or handshake governs the boundary?</li>
+                <li>How old may an observation be?</li>
+                <li>Who owns the route and the destination?</li>
+                <li>What power, cooling, and I/O does the structure require?</li>
+                <li>How does the model change when nodes move or fail?</li>
+            </ol>
+            <p>These questions do not demand that every software engineer place transistors by hand. They ask an architecture to provide concrete answers somewhere.</p>
+            <p>The beautiful thing about physical causality is that it cannot be persuaded by a diagram. A signal either has a path or it does not. A state either survives replacement or it does not. Two events either meet under a defined protocol or “simultaneous” is only prose.</p>
+            <p>Geometry is where the diagram becomes a machine.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/a-brain-sized-machine-in-real-units.html">A Brain-Sized Machine in Real Units</a>
+        <p>A dimensional exercise that turns brain-scale computation into connections, update rates, memory, floor area, power, cooling, and routing.</p>
+        <p>Continue:</p>
+        <a href="/cartilage/">Cartilage: A Spatial Computing Learning Path</a>
+        <p>Build the substrate from one multiplexer upward through LUTs, wires, state, timing, and nested regions.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/reconstructing-a-shader-pipeline-on-an-ice40.html">Reconstructing a Shader Pipeline on an iCE40</a>
+        <p>Translate texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a tiny iCE40 pipeline.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

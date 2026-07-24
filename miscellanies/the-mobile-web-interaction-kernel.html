@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>The Mobile Web Interaction Kernel | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A small architecture for mobile web applications that makes state, composition, layout, touch, focus, scrolling, and rendering explicit.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/the-mobile-web-interaction-kernel.html">
+    <meta property="og:title" content="The Mobile Web Interaction Kernel">
+    <meta property="og:description" content="A small architecture for mobile web applications that makes state, composition, layout, touch, focus, scrolling, and rendering explicit.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/the-mobile-web-interaction-kernel.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/the-mobile-web-interaction-kernel.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/the-mobile-web-interaction-kernel.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The Mobile Web Interaction Kernel - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/the-mobile-web-interaction-kernel.png">
+    <meta name="twitter:image:alt" content="The Mobile Web Interaction Kernel - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "The Mobile Web Interaction Kernel",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2017-07-20T17:48:41.731Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A small architecture for mobile web applications that makes state, composition, layout, touch, focus, scrolling, and rendering explicit.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/the-mobile-web-interaction-kernel.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">The Mobile Web Interaction Kernel</h1></header>
+    <address><time datetime="2017-07-20">July 20, 2017</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Software, state, interaction, and communication</p>
+        <p class="lead">A small architecture for mobile web applications that makes state, composition, layout, touch, focus, scrolling, and rendering explicit.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>A mobile web application is not merely a document viewed through a smaller rectangle.</p>
+            <p>The rectangle moves. Browser controls appear and disappear. A software keyboard changes the usable height. Touch begins as pointing, may become scrolling, and can end outside the element that received it. Focus moves independently of the finger. A dashboard may update while the user is dragging it.</p>
+            <p>If every widget improvises its own answer to these events, the application becomes a collection of almost-compatible physical laws.</p>
+            <p>I wanted a small interaction kernel: one explicit layer that owns the rules for state changes, composition, layout, touch, focus, scrolling, and rendering. Widgets would remain ordinary objects. The browser would remain a browser. The kernel would make the difficult transitions visible instead of scattering them through callbacks and CSS accidents.</p>
+        </section>
+        <section>
+            <h2>Start With an Application, Not a Page</h2>
+            <p>A page is naturally scrollable content. Its primary operation is reading. An application has persistent controls, internal work surfaces, live state, and actions whose location should not jump merely because browser chrome changed.</p>
+            <p>I keep the web’s own strengths—semantic HTML, URLs, native controls, text selection, keyboard access, and browser history—then decide which surface owns each application behavior.</p>
+            <p>For an application shell, I want one root container to know:</p>
+            <ul>
+                <li>the currently usable viewport;</li>
+                <li>the focused element and keyboard state;</li>
+                <li>the active pointer or touch sequence;</li>
+                <li>which child owns a scroll gesture;</li>
+                <li>which regions are fixed and which may move;</li>
+                <li>and which model transition requires a visual update.</li>
+            </ul>
+            <p>That root becomes the interaction kernel.</p>
+        </section>
+        <section>
+            <h2>State Changes Should Have Names</h2>
+            <p>I prefer explicit setters and actions over invisible mutation.</p>
+            <p>Suppose a dashboard card has <code>expanded</code>, <code>loading</code>, and <code>result</code> state. A network response should not reach through the DOM and adjust classes directly. It should invoke a state transition:</p>
+            <pre><code class="language-text">card.receiveResult(value)</code></pre>
+            <p>The method validates the value, updates the state, and requests a render. The rendering step derives the visible structure from that state.</p>
+            <p>The programming style can be functional, object-oriented, or mixed. What matters is locating responsibility. I should be able to answer:</p>
+            <ul>
+                <li>Who owns this state?</li>
+                <li>Which methods may change it?</li>
+                <li>Which event caused the change?</li>
+                <li>When is the view expected to catch up?</li>
+            </ul>
+            <p>An event-action design keeps that path inspectable. There is no magical binding hidden inside a field. The model emits a notification; the controller decides what it means; the view is updated at a defined boundary.</p>
+        </section>
+        <section>
+            <h2>Construct Children Once, Render Them Many Times</h2>
+            <p>A component tree becomes fragile when every render silently creates a new conceptual object graph.</p>
+            <p>I want construction to establish long-lived relationships:</p>
+            <ol>
+                <li>The parent receives dependencies.</li>
+                <li>It creates or receives its child components.</li>
+                <li>It delegates the specific actions the parent owns.</li>
+                <li>Rendering describes the current visible structure without redefining the ownership graph.</li>
+            </ol>
+            <p>JavaScript’s prototype mechanism can support that delegation, although composition does not require inheritance. A child may expose <code>onSelect</code>, and the parent supplies the action that translates selection into a domain change. The child need not know the parent’s entire model.</p>
+            <p>This makes reuse concrete. I can lift the child into another application by giving it a different action and the same narrow contract.</p>
+        </section>
+        <section>
+            <h2>Patch the View, Not the Architecture</h2>
+            <p>A small virtual-DOM engine can efficiently compare two view descriptions and patch the browser DOM. That is useful machinery. It should not become the architecture.</p>
+            <p>The component owns state and behavior. The view description is a projection. Diffing decides which DOM operations are required to make the projection visible.</p>
+            <p>This distinction prevents a common confusion: because the view is regenerated, everything must be stateless. It need not be. A scroll container has position and velocity. An editor has selection and composition state. A live instrument has a current sample and capture mode. The state belongs somewhere explicit even if the DOM projection is cheap to rebuild.</p>
+            <p>Rendering should also be scheduled. Several setters during one action can produce one patch rather than a cascade of intermediate layouts. The kernel can batch work at a frame boundary while preserving the order of model transitions.</p>
+        </section>
+        <section>
+            <h2>Scrolling Is a State Machine</h2>
+            <p>Scrolling on a mobile device involves more than changing <code>scrollTop</code>.</p>
+            <p>A gesture may pass through these states:</p>
+            <pre><code class="language-text">idle
+-&gt; possible tap
+-&gt; drag claimed by one axis/container
+-&gt; moving
+-&gt; released with velocity
+-&gt; decelerating
+-&gt; stopped</code></pre>
+            <p>Focus changes, nested containers, edge resistance, browser gestures, and content updates can alter that path.</p>
+            <p>In 2017 I considered capturing touch events, disabling document scrolling, fixing the application to the viewport, and simulating scroll behavior inside controlled containers. That can create stable application geometry, but it also assumes responsibility for accessibility, keyboard navigation, text interaction, momentum, platform conventions, and browser evolution.</p>
+            <p>The durable principle is narrower: <strong>one layer must arbitrate a gesture</strong>. Native scrolling should be preferred where it satisfies the contract. Custom handling should be bounded to surfaces that truly need it, with ordinary DOM content and input behavior retained wherever possible.</p>
+            <p>The browser owns the default behavior. The kernel intervenes only where the application’s interaction model requires explicit arbitration.</p>
+        </section>
+        <section>
+            <h2>Layout Is a Conversation Between Containers</h2>
+            <p>CSS is powerful, but a complex application sometimes needs components to react to measured container changes, not only global viewport breakpoints.</p>
+            <p>A Qt-inspired layout model treats a container as an allocator. It knows available space, minimum and preferred child sizes, stretch rules, and orientation. It assigns rectangles, then children lay out their interiors.</p>
+            <p>On the web, CSS flexbox and grid can perform much of this work. JavaScript should not recompute what CSS already expresses well. The kernel’s job is to carry the remaining application-specific facts:</p>
+            <ul>
+                <li>this panel can collapse;</li>
+                <li>this chart needs a minimum inspectable width;</li>
+                <li>this command surface must remain reachable when the keyboard opens;</li>
+                <li>this region may become a separate route on a small screen.</li>
+            </ul>
+            <p>The result is a clear negotiation between semantic component requirements and the browser’s layout engine, with JavaScript carrying only the application facts CSS cannot express.</p>
+        </section>
+        <section>
+            <h2>A Dashboard Walkthrough</h2>
+            <p>Imagine a maintenance dashboard with a list of machines, a selected-machine panel, and a live chart.</p>
+            <p>On a wide display, the list and panel share the screen. On a narrow phone, selection changes the active surface. The chart updates without replacing the selection. A drag inside the chart belongs to inspection; a drag in the list belongs to scrolling. Opening a note field raises the software keyboard, but the save action remains reachable.</p>
+            <p>The kernel handles the transitions:</p>
+            <ol>
+                <li>A pointer sequence is offered to the deepest eligible surface.</li>
+                <li>That surface claims or declines the gesture.</li>
+                <li>An action updates owned state.</li>
+                <li>Layout responds to the new viewport or active surface.</li>
+                <li>A scheduled render patches only the changed projection.</li>
+                <li>Focus is restored deliberately rather than left as a side effect.</li>
+            </ol>
+            <p>Every step has an owner and can be logged.</p>
+        </section>
+        <section>
+            <h2>Small, Opinionated, Permeable</h2>
+            <p>An interaction kernel should be opinionated about transitions and modest about territory. Ordinary documents remain documents; links, forms, and browser history remain native. The kernel concentrates on the hard class of applications that need:</p>
+            <ul>
+                <li>explicit state ownership;</li>
+                <li>constructor-time composition;</li>
+                <li>event-to-action routing;</li>
+                <li>scheduled view patching;</li>
+                <li>gesture arbitration;</li>
+                <li>viewport and focus state;</li>
+                <li>and container-aware layout contracts.</li>
+            </ul>
+            <p>The best kernel is small enough that I can explain why every part exists. Its speed comes partly from size, but its real value is architectural: when the phone does something surprising, there is one place where the surprise becomes a state transition instead of a superstition.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/one-feature-every-platform.html">One Feature, Every Platform</a>
+        <p>Why cross-platform product teams should own features end to end while treating each operating system as a real, native integration target.</p>
+        <p>Continue:</p>
+        <a href="/human-computer-interaction-as-model-exchange.html">Human-Computer Interaction As Model Exchange</a>
+        <p>Continue with an interface model built around shared state, interpretation, and repair.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/presence-is-a-device-not-a-video-call.html">Presence Is a Device, Not a Video Call</a>
+        <p>A physical telepresence device for dedicated attention, tangible remote action, local autonomy, safety, and an always-available window.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

@@ -34,7 +34,7 @@ Good sales work identifies possibilities that are absent from the buyer’s curr
 - a reason not to buy the larger system;
 - or a new question that changes the decision entirely.
 
-This is not a license to manufacture anxiety. An unwanted possibility must be connected to an observable condition. A claimed benefit must survive comparison with doing nothing. The buyer should leave with a better model even when the answer is no.
+Tie every possibility to something the buyer can observe. Compare the benefit with doing nothing. The buyer should leave with a better model even when the answer is no.
 
 If the conversation only works while one party remains confused, it is not successful sales. It is dependency production.
 
@@ -42,9 +42,9 @@ If the conversation only works while one party remains confused, it is not succe
 
 The myth of marketing is that its purpose is attention. Attention is merely an opening in time. It says nothing about what crosses the opening.
 
-The durable product of marketing is a relationship in which messages can be interpreted. Before I can evaluate an unfamiliar invention, I need context: what problem it addresses, what kind of evidence its maker considers persuasive, what has failed, what remains uncertain, and what the maker will do when the product does not fit.
+The durable product of marketing is a relationship in which messages can be interpreted. Before I can use an unfamiliar invention, I need context: what problem it addresses, how it works, where it fits, what a working example looks like, and how its maker helps me choose.
 
-Trust is not a warm visual style or a stream of confident claims. It is the accumulated accuracy of many small predictions:
+Trust grows from the accumulated accuracy of many small predictions, not from a warm visual style or a stream of confident promises:
 
 - the description matched the thing;
 - the limitation was stated before it became my problem;
@@ -53,7 +53,7 @@ Trust is not a warm visual style or a stream of confident claims. It is the accu
 - the system behaved the same after the demonstration;
 - the promised answer arrived.
 
-Marketing can establish this network before a purchase. Articles, diagrams, examples, and honest demonstrations let people inspect how I think. They also let the wrong customer leave early. That is not lost attention. It is a successful routing decision.
+Marketing can establish this network before a purchase. Articles, diagrams, examples, and working demonstrations let people inspect how I think. They also let the wrong customer leave early. That is not lost attention. It is a successful routing decision.
 
 ## Money Lets People Give Without Forcing
 
@@ -79,9 +79,9 @@ This gives me a practical test for a software product: if the server vanished to
 
 Commercial language often asks us to choose between selfishness and altruism. Real cooperation is messier. A person can help somebody and enjoy being the helper. A company can solve a real problem and want to survive. Suspicion of every benefit makes cooperation impossible; blindness to incentives makes it fragile.
 
-People therefore build informal altruism detectors. We watch whether generosity disappears when it is not visible. We compare the claim with the cost carried by the claimant. We notice whether a recommendation still stands when it reduces the sale.
+People therefore notice whether generosity disappears when nobody is watching, whether actions carry any cost, and whether a recommendation still stands when it reduces the sale.
 
-Trust grows when self-interest and delivered value point in the same direction. The goal is not to prove that the seller has no ego. The goal is to make the relationship work without requiring sainthood from either party.
+Trust grows when self-interest and delivered value point in the same direction. The relationship should work without requiring sainthood from either party.
 
 ## Consumption Is Not the Ending
 

@@ -127,7 +127,7 @@ Design a small board for one known subsystem rather than immediately laying out 
 
 Process knowledge matters here. Photolithography, etching, laser cutting, and home fabrication should be treated as experiments with materials, ventilation, protective equipment, waste handling, and measurable limits—not as shortcuts around safe practice.
 
-## The final test is explanation
+## Finish by Following One Action
 
 The computer is finished when the learner can follow an action.
 

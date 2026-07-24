@@ -18,7 +18,7 @@ Words sit on a page. Records sit in a database. Messages sit in packets. Program
 
 But what if the meaning of the content tells the medium how to bend, where to walk, and what transformation must happen next?
 
-That question connects typography, user interfaces, protocols, and physical computation. It does not require the medium to “understand” meaning as a person does. It requires an explicit language in which semantic roles have physical consequences.
+That question connects typography, user interfaces, protocols, and physical computation. Here, meaning is an explicit role whose consequences the medium knows how to carry.
 
 ## Meaning Already Moves Pages
 
@@ -36,7 +36,7 @@ A table asks for aligned dimensions. A footnote asks to remain connected to a re
 
 Semantic markup is therefore not merely descriptive. It is a set of requests to the medium.
 
-The mistake is to hard-code the resulting shape too early. “This is a heading” can survive a phone, printed page, audio reader, and search index. “Make these words 28 pixels tall and place them 42 pixels from the left edge” cannot.
+Keep the role separate from its first shape. “This is a heading” can survive a phone, printed page, audio reader, and search index. “Make these words 28 pixels tall and place them 42 pixels from the left edge” cannot.
 
 Meaning gives the medium room to choose a fitting embodiment.
 
@@ -114,7 +114,7 @@ What symbols and structures arrived?
 
 ### Semantic role
 
-What kind of thing do they claim to represent: heading, date, command, measurement, circuit, promise?
+What kind of thing do they represent: heading, date, command, measurement, circuit, promise?
 
 ### Requested consequence
 

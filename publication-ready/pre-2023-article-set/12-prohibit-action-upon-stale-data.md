@@ -60,7 +60,7 @@ The server compares revision 27 with the current revision. If the current order 
 
 This can be implemented with version numbers, content hashes, entity tags, transaction timestamps, immutable event positions, or another token that changes whenever relevant facts change. The representation matters less than the invariant:
 
-**The action and the evidence used to choose it must refer to the same state.**
+**The action and the information used to choose it must refer to the same state.**
 
 Not every internal change must invalidate every action. A corrected spelling in an internal note may not matter to approval. A changed price certainly does. A good system defines the action's dependency set: the fields, permissions, relationships, and policies whose changes require a new decision.
 

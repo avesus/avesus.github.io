@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Write the Failures | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="Failed ideas reveal the search space: what looked plausible, what reality changed, and what another builder can carry into the next attempt.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/write-the-failures.html">
+    <meta property="og:title" content="Write the Failures">
+    <meta property="og:description" content="Failed ideas reveal the search space: what looked plausible, what reality changed, and what another builder can carry into the next attempt.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/write-the-failures.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/write-the-failures.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/write-the-failures.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Write the Failures - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/write-the-failures.png">
+    <meta name="twitter:image:alt" content="Write the Failures - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Write the Failures",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2021-01-30T00:50:52.169Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "Success stories hide the search space; writing failed ideas shows other builders what was tried, why it looked plausible, and where reality objected.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/write-the-failures.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Write the Failures</h1></header>
+    <address><time datetime="2021-01-30">Originally written January 30, 2021.</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Models, physics, mind, society, and culture</p>
+        <p class="lead">Success stories hide the search space; writing failed ideas shows other builders what was tried, why it looked plausible, and where reality objected.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>Most people are not spectacularly successful, so most people do not write about failure. That is exactly backward.</p>
+            <p>A polished success story compresses years of wandering into a clean line: I had an idea, overcame adversity, made several wise decisions, and arrived. The story may be encouraging. It is usually a terrible map.</p>
+            <p>The useful map contains the wrong turns.</p>
+        </section>
+        <section>
+            <h2>Success Is a Biased Sample</h2>
+            <p>Success includes judgment, work, timing, other people, available tools, and luck. Even when the work is excellent, the outcome is drawn from circumstances that may never repeat.</p>
+            <p>One company succeeding with a particular architecture cannot tell us that the architecture caused the success. The similar companies that chose it and failed are harder to see, as are the companies that succeeded for another reason despite it. The visible winner is one sample selected by the outcome.</p>
+            <p>A failed project can be vague or uninformative. A well-described failure exposes constraints that success often leaves hidden.</p>
+            <p>It tells us:</p>
+            <ul>
+                <li>what someone believed before trying;</li>
+                <li>why the belief was plausible;</li>
+                <li>what was actually attempted;</li>
+                <li>which observation contradicted the expectation;</li>
+                <li>which parts still worked;</li>
+                <li>what would have to change for another attempt to make sense.</li>
+            </ul>
+            <p>That is reusable knowledge.</p>
+        </section>
+        <section>
+            <h2>Research Should Risk Being Wrong</h2>
+            <p>If I choose only questions whose answers are guaranteed, I am not protecting research. I am avoiding it.</p>
+            <p>An experiment becomes valuable when more than one outcome is possible. A design exploration matters because reality still has a choice.</p>
+            <p>This does not mean betting years on every dramatic thought. The discipline is to make the vulnerable part small enough to test.</p>
+            <p>Instead of betting an entire new computer architecture on speed, isolate one expected advantage and build the smallest fair comparison. Instead of promising that a new interface eliminates mistakes, identify one class of mistake and measure whether it changes. Instead of saying a physical theory explains everything, derive one result that could disagree with observation.</p>
+            <p>The failure then becomes precise. A latency exceeded its budget. A mechanism required more state than expected. An assumption did not survive a counterexample. A signal could not be distinguished from noise. The user did not understand the boundary.</p>
+            <p>Specific failure teaches. Grand disappointment does not.</p>
+        </section>
+        <section>
+            <h2>Preserve Why the Bad Idea Looked Good</h2>
+            <p>It is easy to make an old mistake look foolish after learning the answer. That erases the most transferable part.</p>
+            <p>A useful failure account reconstructs the original attraction. Perhaps the design reduced one kind of complexity while silently moving it into routing. Perhaps a beautiful abstraction assumed perfect synchronization. Perhaps a material had ideal electrical properties but was too brittle at the required scale. Perhaps an algorithm looked linear because the expensive preparation step was omitted.</p>
+            <p>If readers cannot see why an intelligent person tried it, they cannot recognize the same structure when it returns under another name.</p>
+            <p>I want the failed idea presented at its strongest:</p>
+            <ol>
+                <li>Here was the problem.</li>
+                <li>Here was the mechanism I believed could solve it.</li>
+                <li>Here were the assumptions.</li>
+                <li>Here was the prediction.</li>
+                <li>Here was the test.</li>
+                <li>Here is where the result diverged.</li>
+            </ol>
+            <p>The explanation should not humiliate the earlier thinker, even when that thinker is me.</p>
+        </section>
+        <section>
+            <h2>Separate Failure from Absence</h2>
+            <p>“It did not work” can mean several different things:</p>
+            <ul>
+                <li>the mechanism was contradicted;</li>
+                <li>the implementation contained a bug;</li>
+                <li>the test could not distinguish outcomes;</li>
+                <li>the available tools were insufficient;</li>
+                <li>the cost exceeded the value;</li>
+                <li>the project stopped before reaching a test;</li>
+                <li>the result worked but solved the wrong problem.</li>
+            </ul>
+            <p>These are not interchangeable.</p>
+            <p>An unfinished prototype tells us where construction stopped. A broken build points first to implementation. A result below a commercial threshold may still reveal a physical effect. A beautiful mechanism that nobody needs can work technically and still fail as a product.</p>
+            <p>Name the layer that failed.</p>
+            <p>When I publish a negative result, I separate the obstacle from the decisive experiment. If the test stopped at the obstacle, that obstacle is what I report.</p>
+        </section>
+        <section>
+            <h2>Record the Small Surviving Pieces</h2>
+            <p>Large ideas often fail without becoming worthless.</p>
+            <p>A rejected architecture may contain a useful protocol. A slow prototype may reveal a better visual model. A failed fabrication method may produce an excellent cleaning procedure. A product nobody wanted may expose one interaction people love. An incorrect theory may ask the right measurement question.</p>
+            <p>The temptation is to save the whole idea or discard everything. The better act is disassembly.</p>
+            <p>Which parts worked? Which parts are useful? What can be carried into another system?</p>
+            <p>This is how research compounds. Not as a museum of triumphant final forms, but as a workshop full of tested parts.</p>
+        </section>
+        <section>
+            <h2>A Failure Deserves Enough Detail to Be Avoided</h2>
+            <p>Warning people that something failed is not enough. They need enough information to determine whether their situation is genuinely the same.</p>
+            <p>A strong account includes:</p>
+            <ul>
+                <li>the date and version;</li>
+                <li>relevant hardware, software, materials, or environmental conditions;</li>
+                <li>the exact procedure;</li>
+                <li>expected and observed behavior;</li>
+                <li>raw measurements when available;</li>
+                <li>alternative explanations;</li>
+                <li>changes attempted after the first failure;</li>
+                <li>the conditions under which the result applies.</li>
+            </ul>
+            <p>The goal is not ceremonial transparency. The goal is to prevent another person from spending a week reproducing an already understood dead end—or to let them notice the one condition under which their attempt may differ.</p>
+        </section>
+        <section>
+            <h2>Failure Is the Work</h2>
+            <p>Success is rare partly because the search space is large. A person who reports only the final route conceals the size and shape of that space.</p>
+            <p>I would rather read the notebook of falls:</p>
+            <ul>
+                <li>the elegant model that broke under one counterexample;</li>
+                <li>the board that could not be assembled reliably;</li>
+                <li>the optimization that moved the bottleneck;</li>
+                <li>the interface that protected users from the wrong danger;</li>
+                <li>the prediction that reality refused.</li>
+            </ul>
+            <p>These stories do not tell people to stop trying. They let people begin from a later point.</p>
+            <p>Research is not a performance of being right. It is an organized way to become less wrong. Write the failures, and the fall becomes part of the road instead of a hole everyone must discover alone.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/the-indo-austronesian-hypothesis.html">The Indo-Austronesian Hypothesis</a>
+        <p>Turn Indo-European and Austronesian resemblances into a test using provenance, regular correspondences, and coincidence rates.</p>
+        <p>Continue:</p>
+        <a href="/general-architecture-of-computation.html">Structure, State, And Structural Change</a>
+        <p>Return to the common machinery underneath models, programs, and physical computation.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/the-system-of-catch-22-plausible-deniability-as-architecture.html">The System of Catch-22: Plausible Deniability as Architecture</a>
+        <p>How institutions trap people between law, loyalty, secrecy, and responsibility—and how to build a protected route out.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

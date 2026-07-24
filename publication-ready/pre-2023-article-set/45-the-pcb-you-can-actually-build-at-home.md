@@ -5,7 +5,7 @@ date: "2020-11-01T07:31:27.211Z"
 original_dates:
   - "2020-11-01T07:31:27.211Z"
   - "2022-06-24T02:24:52.023Z"
-description: "A practical boundary between ambitious PCB design and the materials, packages, processes, and failures a small workshop can genuinely inspect."
+description: "How to design a home-buildable PCB around packages, layers, materials, and processes a small workshop can inspect, repair, and improve."
 status: "publication-ready"
 ---
 
@@ -19,7 +19,7 @@ I can make an ambitious board that looks wonderful in a layout tool and has no r
 
 That choice begins before routing. It begins with package, layer count, materials, tools, and the question I should have asked much earlier: when this does not work, how will I know why?
 
-## BGA hides the decisive evidence
+## BGA Hides the Joints I Need to See
 
 A ball-grid array is attractive because it can put many connections under a small package. Those same hidden connections make it a bad default for a small workshop.
 
@@ -43,7 +43,7 @@ Modularity is useful when it lets me unscrew one mistake.
 
 Additive conductive ink looks perfect for very large, low-density experiments. Draw a route, modify it locally, and avoid removing most of a copper sheet.
 
-I tried to use conductive ink at QFN scale. It was too brittle and mechanically unreliable. That failure matters because it separates two different claims:
+I tried to use conductive ink at QFN scale. It was too brittle and mechanically unreliable. The experiment separated two very different achievements:
 
 - conductive material can form a circuit;
 - a particular printed joint can survive assembly, handling, current, heat, and time.
@@ -62,13 +62,13 @@ More layers may be justified by density, power distribution, return paths, contr
 
 The goal is not the fewest layers. It is the fewest layers that allow the electrical paths to remain correct and the failure paths to remain discoverable.
 
-## My home-process failures
+## Let Each Process Trial Change the Recipe
 
 Several process ideas failed before they became a board.
 
 Lacquer on copper did not behave as the reliable resist I wanted. Attempting to use transparency through glass did not solve the exposure problem. Removing large copper areas was slow and wasteful. Laser-cut masks produced unpleasant carbonized polymer residue. Each failure pointed toward a more specific requirement.
 
-Thin copper should reduce the amount that must be removed, but it also becomes easier to damage. Polyimide is attractive for flexible circuits and high-temperature assembly, but it changes handling, adhesion, and via construction. A coverlay needs deliberate openings. A process that makes traces but cannot make reliable holes and pads is not yet a board process.
+Thin copper should reduce the amount that must be removed, but it also becomes easier to damage. Polyimide is attractive for flexible circuits and high-temperature assembly, but it changes handling, adhesion, and via construction. A coverlay needs deliberate openings. A complete board process makes traces, reliable holes, and pads together.
 
 A better experiment records:
 
@@ -84,7 +84,7 @@ A better experiment records:
 - soldering behavior;
 - photographs of failures, not only the best coupon.
 
-Home PCB work also requires ventilation, eye and skin protection, chemical compatibility, controlled laser materials, and proper waste handling. “I can cut it” is not evidence that I should breathe what cutting produces.
+Home PCB work also requires ventilation, eye and skin protection, chemical compatibility, controlled laser materials, and proper waste handling. The ability to cut a material says nothing about the safety of breathing what the cut produces.
 
 ## Design for the tools that exist
 

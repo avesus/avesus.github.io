@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>A Machine Small Enough to Explain All at Once | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="Build a tiny stored-program computer from stores, moves, jumps, and a visible stack, then test it with a bracket checker.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/a-machine-small-enough-to-explain-all-at-once.html">
+    <meta property="og:title" content="A Machine Small Enough to Explain All at Once">
+    <meta property="og:description" content="Build a tiny stored-program computer from stores, moves, jumps, and a visible stack, then test it with a bracket checker.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/a-machine-small-enough-to-explain-all-at-once.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/a-machine-small-enough-to-explain-all-at-once.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/a-machine-small-enough-to-explain-all-at-once.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A Machine Small Enough to Explain All at Once - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/a-machine-small-enough-to-explain-all-at-once.png">
+    <meta name="twitter:image:alt" content="A Machine Small Enough to Explain All at Once - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "A Machine Small Enough to Explain All at Once",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2020-03-22T04:24:48.371Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A tiny stored-program computer built from immediate stores, conditional moves, jumps, and a visible stack, with a bracket checker driving the instruction set to completion.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/a-machine-small-enough-to-explain-all-at-once.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">A Machine Small Enough to Explain All at Once</h1></header>
+    <address><time datetime="2020-03-22">March 22 and October 26, 2020</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
+        <p class="lead">A tiny stored-program computer built from immediate stores, conditional moves, jumps, and a visible stack, with a bracket checker driving the instruction set to completion.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>I want a computer that fits in one explanation.</p>
+            <p>Not the smallest instruction count as a stunt. Not a processor made obscure by compressing several hidden operations behind one clever opcode. I want to point to every piece of state, walk through every instruction, follow one complete program, and reach the electrical boundary without saying, “The rest is normal computer stuff.”</p>
+            <p>This is my 2020 teaching architecture: immediate stores, conditional moves, jumps, a visible stack, and a bracket checker that drives the instruction set toward a complete machine. The whole contract fits on one work surface, including the places where the first transition table must be repaired.</p>
+        </section>
+        <section>
+            <h2>Name Every Piece of Persistent State</h2>
+            <p>The processor needs very little internal state:</p>
+            <ul>
+                <li><strong>PC</strong>, the program counter;</li>
+                <li><strong>SP</strong>, the stack pointer;</li>
+                <li><strong>comparison flag</strong>, one bit remembered for a conditional branch;</li>
+                <li>and memory visible through explicit regions.</li>
+            </ul>
+            <p>The stack contains return addresses, arguments, and temporary storage. Most application variables live in memory rather than a large register file. Instructions carry immediate addresses and small immediate values directly.</p>
+            <p>This is not necessarily fast or compact in bytes. It is compact in concepts. The cost of an operation is easy to see because the machine cannot hide it among dozens of addressing modes.</p>
+        </section>
+        <section>
+            <h2>Three Kinds of Move</h2>
+            <p>The useful core is a family of stores.</p>
+            <h3>Store a pointer-sized immediate</h3>
+            <p>Write a full address-sized value into a named memory location. This initializes pointers, counters, and other machine words.</p>
+            <pre><code class="language-text">memory[destination] &lt;- immediate_word</code></pre>
+            <h3>Store a few immediate bits</h3>
+            <p>Write one or several bits into part of a memory word. This is useful for Boolean state, small selectors, and control fields.</p>
+            <pre><code class="language-text">memory[destination][bit_range] &lt;- immediate_bits</code></pre>
+            <h3>Store a few bits conditionally</h3>
+            <p>Perform the small store only when a one-bit condition read from memory is true.</p>
+            <pre><code class="language-text">if memory[condition_bit] == 1:
+    memory[destination][bit_range] &lt;- immediate_bits</code></pre>
+            <p>The conditional move is deliberately narrow. It makes predication visible. A program can form decisions by writing selected state rather than branching around every tiny action.</p>
+            <p>These operations do not replace general data movement by themselves. A practical implementation must define how values calculated elsewhere enter memory and how addresses are formed. The proposed vocabulary focuses on configuration-like code in which many useful changes are immediate control values.</p>
+        </section>
+        <section>
+            <h2>Jumps, Calls, and Returns</h2>
+            <p>Control flow needs a direct jump and conditional forms.</p>
+            <ul>
+                <li><strong>jump</strong> loads an immediate target into the PC;</li>
+                <li><strong>jump-if-false</strong> selects the target when the remembered comparison flag is zero;</li>
+                <li><strong>jump-if-equal</strong> combines a memory comparison with a branch useful for small predicate routines.</li>
+            </ul>
+            <p>The equality instruction deserves careful specification. It must state which width is compared, when the comparison flag changes, and whether stack correction occurs before or after the target is chosen. A “small” instruction with ambiguous sequencing is larger than a verbose instruction with a precise state table.</p>
+            <p>Subroutines add:</p>
+            <ul>
+                <li><strong>push immediate</strong>, placing one machine word on the stack;</li>
+                <li><strong>call</strong>, pushing the following PC and jumping to a target;</li>
+                <li><strong>return</strong>, restoring the PC;</li>
+                <li><strong>return-and-drop</strong>, restoring the PC while releasing argument space.</li>
+            </ul>
+            <p>Finally, <strong>sleep</strong> stops instruction issue until an external condition resumes the machine.</p>
+            <p>The instruction set is tiny enough that each instruction can be written as simultaneous next-state assignments to PC, SP, memory, and the comparison flag.</p>
+            <p>Here is that table in a cleaned-up notation. A prime means next state; every assignment on one line happens as one state transition. <code>nextPC</code> is the address following the current instruction.</p>
+            <pre><code class="language-text">push value:
+    memory[SP]' = value
+    SP'         = SP - PTR_SZ
+    PC'         = nextPC
+
+call target:
+    memory[SP]' = nextPC
+    SP'         = SP - PTR_SZ
+    PC'         = target
+
+return:
+    SP'         = SP + PTR_SZ
+    PC'         = memory[SP]
+
+return drop:
+    SP'         = SP + drop
+    PC'         = memory[SP]
+
+jump target:
+    PC'         = target
+
+jump-if-false target:
+    PC'         = cmpFlag == 0 ? target : nextPC
+
+jump-if-equal address, value, drop:
+    cmpFlag'    = memory[address] == value
+    SP'         = cmpFlag == 0 ? SP : SP + drop
+    PC'         = cmpFlag == 1 ? memory[SP + PTR_SZ] : nextPC
+
+memory[address] &lt;- immediate pointer:
+    memory[address]' = value
+    PC'              = nextPC
+
+memory[address][m:n] &lt;- immediate bits:
+    memory[address][m:n]' = bits
+    PC'                   = nextPC
+
+memory[address][m:n] &lt;- immediate bits if flag:
+    cmpFlag'               = memory[flagAddress]
+    memory[address][m:n]'  = cmpFlag ? bits : memory[address][m:n]</code></pre>
+            <p>This is the 2020 transition table, preserved with its old-state and new-state conflict visible. Taken literally, the right side of a simultaneous assignment reads the old state. <code>jump-if-equal</code> therefore writes a new comparison into <code>cmpFlag'</code> while choosing <code>SP'</code> and <code>PC'</code> from the previous <code>cmpFlag</code>. The conditional move has the same problem: it samples <code>memory[flagAddress]</code> into <code>cmpFlag'</code> but tests the previous flag, and its row never says how <code>PC</code> advances. The repaired instruction will use a named temporary result and an explicit <code>PC' = nextPC</code>, so the comparison sampled by this instruction controls this instruction.</p>
+            <p>The stack convention also disagrees with itself. <code>push</code> writes at the old <code>SP</code> and then decrements it, while ordinary <code>return</code> reads <code>memory[SP]</code>; <code>jump-if-equal</code> instead reads <code>memory[SP + PTR_SZ]</code>. Those cannot all describe the same downward-growing stack convention. The implementation must either decrement before writing, or consistently read the top at <code>SP + PTR_SZ</code>. A small machine earns its size by making inconsistencies like these impossible to hide.</p>
+        </section>
+        <section>
+            <h2>Memory Is Also an Interface</h2>
+            <p>I divide memory by responsibility rather than pretending every address is equivalent.</p>
+            <h3><code>.THEIR</code></h3>
+            <p>Read-only state arriving from outside: sampled and deglitched inputs, device status, or messages accepted by an interface.</p>
+            <h3><code>.VISIBLE</code></h3>
+            <p>Application state intentionally exposed to the outside: latched outputs, public status, and values another machine may inspect.</p>
+            <h3><code>.HIDDEN</code></h3>
+            <p>Private application state, dynamic storage, and—if the design permits it—runtime-modifiable instructions.</p>
+            <h3><code>.IVT</code></h3>
+            <p>The read-write interrupt vector table. Keeping it in its own named region makes interrupt entry part of the visible state contract rather than an unexplained jump performed by invisible machinery. Its contract names vector width, priority, atomicity, and the state saved on entry.</p>
+            <h3><code>.STACK</code></h3>
+            <p>Return addresses, arguments, and temporary allocations associated with nested calls.</p>
+            <h3><code>.CODE</code></h3>
+            <p>Not ordinary writable runtime memory, but the reset image used to initialize the executable portion of <code>.HIDDEN</code>.</p>
+            <p>These names make a security and composition question visible: who may read or write each state? The implementation can answer it with bounds, privilege rules, I/O timing, reset behavior, and protection against the stack colliding with other memory.</p>
+            <p>The point is to include those questions in the drawing of the computer.</p>
+        </section>
+        <section>
+            <h2>Let One Complete Program Finish the ISA</h2>
+            <p>A small machine needs a complete example that is more revealing than blinking an LED.</p>
+            <p>The program I chose was a complete assembly routine for a conventional register machine. It takes a zero-terminated string containing <code>[</code> and <code>]</code> and prints <code>OK</code> only when every closing bracket has a preceding unmatched opening bracket and the final number of openings equals the number of closings. Its four registers have explicit jobs: <code>r0</code> points to the input, <code>r1</code> is the index, <code>r2</code> holds the current byte, and <code>r3</code> is the depth.</p>
+            <p>The algorithm is:</p>
+            <pre><code class="language-text">index = 0
+depth = 0
+
+repeat:
+    character = input[index]
+
+    if character is end:
+        accept only if depth == 0
+
+    if character == '[':
+        depth = depth + 1
+
+    if character == ']':
+        depth = depth - 1
+        if depth &lt; 0:
+            reject
+
+    index = index + 1</code></pre>
+            <p>Two failure modes must remain separate.</p>
+            <pre><code class="language-text">&quot;][&quot;   -&gt; depth becomes negative: reject immediately
+&quot;[[&quot;   -&gt; depth stays positive at end: reject then</code></pre>
+            <p>On acceptance it selects the three-byte <code>OK\n</code> message. On rejection it selects the seven-byte <code>NOT OK\n</code> message. It then performs a write of the chosen message to standard output. That final operation matters: a teaching program is not complete if its “result” remains trapped in an unexplained register.</p>
+            <p>This example exercises the whole path: input memory, indexing, byte loading, comparison, conditional control, arithmetic state, a loop, termination, and visible output.</p>
+            <p>Porting it to the small machine tells me exactly which operations the next instruction pass must supply. How are <code>index</code> and <code>depth</code> incremented? Is arithmetic performed by memory-mapped Boolean hardware, a tiny arithmetic component, or additional instructions? How is an address-plus-index formed? How is one character loaded? What instruction or memory interface emits the selected message?</p>
+            <p>Those questions are why the example belongs beside the instruction-set sketch. The program turns each open choice into a concrete operation that must be drawn.</p>
+        </section>
+        <section>
+            <h2>Small Means the Whole Machine Fits</h2>
+            <p>A computer can have one instruction and still require an enormous explanation of encoding, memory behavior, I/O, and timing. Instruction count is not conceptual size.</p>
+            <p>My criterion is stronger. A learner should be able to answer:</p>
+            <ol>
+                <li>What state exists before an instruction?</li>
+                <li>Which parts may the instruction read?</li>
+                <li>Which next-state values does it produce?</li>
+                <li>When do those values become visible?</li>
+                <li>How does outside information enter?</li>
+                <li>How does a result leave?</li>
+                <li>How does the machine stop, reset, and fail?</li>
+            </ol>
+            <p>When all seven answers fit on the same work surface as a successfully ported bracket checker, the machine is small enough. The first table supplies the compact control vocabulary and named memory regions. The bracket checker supplies the acceptance program for finishing load, arithmetic, output, and stack semantics.</p>
+            <p>The purpose of a tiny computer is to make the first complete computer understandable, so every later optimization begins from a machine a learner can still hold in mind.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/from-domain-models-down-to-muxes-and-back-up.html">From Domain Models Down to MUXes—and Back Up</a>
+        <p>A walk from diverse domain models through simulation, control and datapath, Boolean relations, multiplexers, state, energy, and physical work.</p>
+        <p>Continue:</p>
+        <a href="/cartilage/">Cartilage: A Spatial Computing Learning Path</a>
+        <p>Build the substrate from one multiplexer upward through LUTs, wires, state, timing, and nested regions.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/matter-that-computes-and-moves.html">Matter That Computes and Moves</a>
+        <p>An engineering path toward artificial cells whose material, switching, communication, and motion form one closed physical process.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

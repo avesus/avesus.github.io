@@ -21,7 +21,7 @@ To boot it, I do not load a conventional executable into a processor. I grow a p
 
 That is the magnificent part of the Cartilage boot idea. The first useful program is not an application. It is a parent-pointer rotator: a tiny behavior that lets an unclaimed cell search its neighbors for a configuration source. From one reachable cell, keyboard commands can build a route to the next cell, then the next, until configuration itself has enough wires to travel.
 
-I have built bounded versions of the local cell roles and streamed replacement. The autonomous boot protocol is the next machine I want to make real.
+The local cell roles and streamed replacement supply the first moves. The autonomous boot protocol connects them into a machine that can grow its own configuration path from the edge.
 
 ## The Initial Condition
 
@@ -47,7 +47,7 @@ A configuration record occupies real links for real cycles. The root needs to kn
 
 In the early model, leaf cells retain an active parent-facing condition after installation. That condition can cause the adjacent cell to enter a reconfiguration-ready state. Completion then travels back through the tree until it reaches the root.
 
-The exact cell protocol needs a formal transition table. The deeper rule is already clear: configuration must have an acknowledgement boundary. Without one, the root cannot distinguish “the new structure exists” from “bits are still somewhere in flight.”
+A formal transition table must define the exact cell protocol. Its central rule is an acknowledgement boundary: the root must distinguish “the new structure exists” from “bits are still somewhere in flight.”
 
 This also exposes a race. If a boundary is removed while a neighboring cell is still rotating among possible parents, the resulting tree depends on timing rather than the requestor’s explicit choice. Allocation must therefore be mediated by a reconfiguration port or another controlled handshake. Geometry cannot be left to accidental phase.
 
@@ -110,6 +110,6 @@ I once treated infinite scalability as part of the definition. It is not.
 
 A useful fabric can be finite. Programs can be loaded from storage, unloaded, moved, and reconstructed. What matters is that the same operations work at every available scale: allocate, subdivide, attach, configure, connect, release.
 
-The computer does not need an infinite field. It needs honest control of the field it has.
+The computer does not need an infinite field. It needs explicit control of the field it has.
 
-Booting by growing wires makes that honesty unavoidable. Every new capability must arrive through a path that already exists, claim cells that actually exist, and return a visible sign of completion. The first machine is tiny: a key, a cell, a wire, and a mark on a display. Everything larger is built by doing the same thing again.
+Booting by growing wires makes that discipline unavoidable. Every new capability must arrive through a path that already exists, occupy cells that actually exist, and return a visible sign of completion. The first machine is tiny: a key, a cell, a wire, and a mark on a display. Everything larger is built by doing the same thing again.

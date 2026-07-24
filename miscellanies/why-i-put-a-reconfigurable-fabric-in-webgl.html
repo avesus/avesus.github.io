@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Why I Put a Reconfigurable Fabric in WebGL | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="Why WebGL became a fast, visual laboratory for testing the local state and reconfiguration rules of a custom spatial fabric.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.html">
+    <meta property="og:title" content="Why I Put a Reconfigurable Fabric in WebGL">
+    <meta property="og:description" content="Why WebGL became a fast, visual laboratory for testing the local state and reconfiguration rules of a custom spatial fabric.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Why I Put a Reconfigurable Fabric in WebGL - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.png">
+    <meta name="twitter:image:alt" content="Why I Put a Reconfigurable Fabric in WebGL - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Why I Put a Reconfigurable Fabric in WebGL",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2021-03-26T02:31:22.646Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "WebGL gave me a fast, visual way to test the local state and reconfiguration rules of a custom fabric before a chip existed—and exposed exactly where simulation stopped being hardware.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Why I Put a Reconfigurable Fabric in WebGL</h1></header>
+    <address><time datetime="2021-03-26">March 26, 2021</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
+        <p class="lead">WebGL gave me a fast, visual way to test the local state and reconfiguration rules of a custom fabric before a chip existed—and exposed exactly where simulation stopped being hardware.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>I put a reconfigurable computing fabric in WebGL because I needed to see whether the fabric's rules could produce a programmable machine before I could justify building the machine.</p>
+            <p>I needed to give a custom architecture a body I could run, inspect, edit, and animate before committing it to silicon. Efficiently imitating an FPGA on a GPU was beside the point.</p>
+            <p>The simulator let me exercise the state representation and local update rule directly. Area, timing, power, signal integrity, and physical routing belong to the later implementation in RTL and hardware.</p>
+            <p>WebGL was the shortest route from an architectural idea to a visible field of working cells.</p>
+        </section>
+        <section>
+            <h2>Three possible prototypes</h2>
+            <p>In 2021 I was considering three directions.</p>
+            <p>The first was to assemble a system from existing FPGAs and maintain a library of precompiled “bitstreamlets.” That could demonstrate remotely loaded hardware functions, but it would inherit the architecture, tools, packaging, and configuration limits of other people's devices. It also implied substantial server, certification, and deployment work before testing the thing I cared about most.</p>
+            <p>The second was to emulate the custom fabric itself. It would be slower than silicon, but it could expose the actual cell rules, local ownership pointers, configuration streams, and region behavior I wanted to evaluate.</p>
+            <p>The third was to fabricate the physical chip.</p>
+            <p>The physical chip was the destination, not a sensible first experiment. The emulator was the useful middle. It was close enough to the proposed architecture to challenge the model and cheap enough to change while the requirements were still moving.</p>
+        </section>
+        <section>
+            <h2>Start with an application-shaped example</h2>
+            <p>I was also stuck on the idea that I needed a complete programming language before I could show the architecture.</p>
+            <p>My way out was to permit myself to pretend.</p>
+            <p>Write an application-shaped example first. Let an external user action create a fragment. Put that fragment into a region. Run it as if the dynamic installation path existed. Animate what happened. Once a concrete example worked, I could ask what language constructs generalized from it.</p>
+            <p>This reverses the temptation to design syntax in a vacuum. The example supplies pressure. It reveals which operations are actually needed: make a region, connect ports, install a configuration, preserve state, replace a child, inspect a wire, save a design.</p>
+            <p>I imagined rectangular enclosures with fixed port points along their edges. A person, including a child learning how circuits compose, could create a block and run more code inside the same visual environment. The boxes were not the architecture by themselves. They were a legible way to expose ownership and connection.</p>
+        </section>
+        <section>
+            <h2>Why WebGL fit the cell model</h2>
+            <p>The proposed fabric was locally regular. Each cell had compact state and updated according to nearby state. That shape maps naturally onto texture-based GPU computation.</p>
+            <p>In the browser model, JavaScript could manage the interface, abstract resources, and dynamic instantiation. WebGL shaders could apply the cell update across a rectangular texture. One texture held the current state; another received the next state. Swapping the two buffers represented one host-stepped clock.</p>
+            <p>That is a synchronous simulation technique, not a hardware clock. Every simulated step occurs because the host draws the update pass and swaps state buffers. It is particularly useful for deterministic, parallel experiments in which each output cell reads a bounded neighborhood from the previous step.</p>
+            <p>The browser also collapsed several practical layers into one place:</p>
+            <ul>
+                <li>the editor and visualization;</li>
+                <li>the simulator;</li>
+                <li>persistent local design data;</li>
+                <li>a shareable page address;</li>
+                <li>ordinary JavaScript controls around the shader model.</li>
+            </ul>
+            <p>I considered browser storage for compact circuit descriptions and state. I did not need a server merely to preserve a small experiment, although browser storage quotas and persistence behavior vary and should never be treated as a fixed architectural guarantee.</p>
+            <p>At that time, WebGL was the broadly deployed browser path for this kind of raw GPGPU work. Today WebGPU offers a more direct compute model where available, but the reason for the WebGL choice remains historically useful: it let me build parallel state updates from first principles in an ordinary browser tab.</p>
+        </section>
+        <section>
+            <h2>Two interpretation layers</h2>
+            <p>The simulator suggested two different layers that should not be confused.</p>
+            <p>The low layer described the fabric itself:</p>
+            <ul>
+                <li>neighbor-relative ownership pointers;</li>
+                <li>compact per-cell roles;</li>
+                <li>serial configuration entering through a local port;</li>
+                <li>state propagation and buffer swapping;</li>
+                <li>bounded regions of arbitrary shape;</li>
+                <li>visible wires and configuration paths.</li>
+            </ul>
+            <p>At this layer, the “program” is close to a bitstream over a spatial ownership tree. Editing means assigning roles and relationships to cells.</p>
+            <p>The high layer would describe circuits in human terms: names, blocks, input and output variables, instantiation, placement constraints, and connections. A future placer and router could lower that description into the cell configuration.</p>
+            <p>The low layer was already concrete enough to configure by hand. The high layer called for a compiler, placer, and router that could lower named blocks and connections into those cell roles. Keeping the two layers separate let me develop the local mechanism without confusing hand placement with automatic installation of arbitrary Verilog.</p>
+        </section>
+        <section>
+            <h2>Copies and updates need a moment</h2>
+            <p>Dynamic reconfiguration raises a harder question than drawing a new shape: when does the new state become real?</p>
+            <p>One simple simulation answer is to pause the clock while reading or rewriting a region. Another is double buffering: collect a snapshot or replacement separately, then apply it at a coordinated step. A configuration request can propagate through a deterministic local tree; if route depths are known, the system can calculate when the farthest leaf has received it.</p>
+            <p>I also considered time-tagged updates in which distributed subcircuits receive a future application moment. Such a mechanism must account for clock error, communication delay, metastability, partial failure, and the cost of distributing time. The browser buffer swap helped define the desired semantics; hardware would have to supply the physical synchronization.</p>
+            <p>What the simulation can do is make the semantic choice explicit. Either readers see an old region or a new region at a defined step, or the architecture deliberately exposes intermediate reconfiguration states. Hiding that distinction behind a visual edit would make the model easier to demo and harder to trust.</p>
+        </section>
+        <section>
+            <h2>What the GPU experiment was for</h2>
+            <p>By September 2021, the purpose of the experiment was clear.</p>
+            <p>Simulating logic out of individual multiplexer-like cells on a GPU is inefficient. Routing detailed circuits by hand becomes a nightmare. The shader already has a powerful arithmetic and data-parallel instruction set; using thousands of shader operations to reproduce primitive gates is not a sensible way to obtain ordinary GPU performance.</p>
+            <p>If the problem is simply to compute on a GPU, write the shader directly.</p>
+            <p>The fabric simulator served a different purpose. It gave a proposed structure for circuit-like computation and reconfiguration a running body. It forced me to represent local ownership, configuration, state, and boundaries precisely enough for the model to move.</p>
+            <p>It also showed that a purely visual “flow” picture was insufficient for large designs. Hardware needs explicit timing and state semantics. A Verilog-like model remained necessary for reasoning about clocked behavior, even if the installation environment around each static module was dynamic.</p>
+            <p>I had initially imagined eliminating event-driven or lazy processing in favor of a uniform synchronous update. That choice makes the simulation simple and regular. It also wastes work when little changes. Event-driven approaches add scheduling complexity but may be far more efficient for sparse activity. The useful mechanism depends on the behavior I need to study.</p>
+        </section>
+        <section>
+            <h2>Scalability before speed</h2>
+            <p>The WebGL prototype was optimized for conceptual scalability, not execution speed. I wanted repeated local rules, explicit region boundaries, and a model that could grow without replacing its basic vocabulary.</p>
+            <p>That is why a slow browser demonstration could still be valuable. It could answer questions such as:</p>
+            <ul>
+                <li>Can a region own another region through local state?</li>
+                <li>Can configuration enter through a bounded local port?</li>
+                <li>Can the installed roles be replaced coherently?</li>
+                <li>Can the same visual model expose both circuit behavior and its configuration structure?</li>
+            </ul>
+            <p>Chip speed and physical cell capacity enter at the next layer: RTL, synthesis, place-and-route, and hardware measurement.</p>
+            <p>Putting the fabric in WebGL made an unbuilt machine concrete enough to run, inspect, and improve before I committed its rules to silicon.</p>
+            <p>I could watch the state swap. I could see the boxes and ports. I could attempt an application before inventing its syntax. And, just as importantly, I could discover which beautiful architectural statements became awkward the moment every bit needed a place to go.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/cartilage-the-architecture-that-rebuilt-itself.html">Cartilage: The Architecture That Rebuilt Itself</a>
+        <p>A first-person history of Cartilage, from event membranes and dynamic cores to ownership trees, spatial programs, wiring, and application-laid clocks.</p>
+        <p>Continue:</p>
+        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
+        <p>Turn the WebGL fabric laboratory into an ergonomic simulator and construction environment. Funding and contributors are welcome.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/the-whole-thing-static-verilog-in-a-dynamic-world.html">The Whole Thing: Static Verilog in a Dynamic World</a>
+        <p>Static circuit descriptions become a dynamic language when a spatial fabric can install, connect, own, and replace them while it runs.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

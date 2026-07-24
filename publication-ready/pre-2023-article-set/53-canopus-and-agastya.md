@@ -20,7 +20,7 @@ In India, Canopus is Agastya.
 
 That identity joins an astronomical object with a sage whose stories repeatedly move south: crossing the Vindhya Mountains, entering southern landscapes, carrying knowledge, and becoming deeply embedded in Tamil religious, medical, and literary traditions.
 
-I do not think the star is merely a label pasted onto a person, or the person merely a primitive explanation of the star. The interesting object is the relationship among visibility, travel, season, navigation, story, and memory.
+The star and the sage become most interesting together, through the relationship among visibility, travel, season, navigation, story, and memory.
 
 ## A star that teaches latitude
 
@@ -32,7 +32,7 @@ That makes it more than a bright point. It can mark a transition.
 
 The first visible appearance of a star near dawn after a period of solar invisibility is its heliacal rising. Indian astronomical traditions calculated and observed the rising and setting of Agastya-Canopus, and later texts treated those appearances as both technical and culturally meaningful events. The star’s low northern visibility and stronger southern presence give the journey of Agastya an astronomical geometry.
 
-This does not prove that every story about the sage encodes a star chart. It gives the stories a physical axis: north to south, hidden to visible, obstruction to passage.
+That geometry gives the stories a physical axis: north to south, hidden to visible, obstruction to passage. Each story can then be read beside the sky without being flattened into a star chart.
 
 ## The sage who crosses the mountain
 
@@ -50,7 +50,7 @@ Stories can preserve several kinds of truth simultaneously:
 - an observation about the southern sky;
 - a moral or spiritual account of humility, passage, and settlement.
 
-The danger is deciding too quickly that one layer explains all the others. The value lies in testing where the layers actually align.
+Keep the layers together long enough to see where migration, astronomy, ritual, and moral narrative genuinely align.
 
 ## Rising, water, and season
 
@@ -58,7 +58,7 @@ Agastya-Canopus has also been associated with water and seasonal change.
 
 A star’s heliacal rising occurs within a local calendar of weather, agriculture, sailing, and ritual. When a recurring celestial event appears near a recurring environmental transition, the star can become a reliable public marker long before the physical causes of weather are understood.
 
-This does not mean the star causes the waters to calm or become clean. It means celestial regularity can organize terrestrial expectation.
+The relationship is calendrical rather than causal: celestial regularity organizes terrestrial expectation.
 
 A careful study would compare:
 
@@ -75,11 +75,11 @@ The sky supplies a clock. Culture decides what the clock means.
 
 Agastya is not confined to astronomy. Tamil traditions connect the sage with Siddha knowledge, medicine, and language.
 
-It would be easy to make a grand claim that one celestial doctrine generated all these fields. The sources do not justify that shortcut.
+I follow how the name Agastya became a carrier of authority across different practices. Did an attribution invoke antiquity, southern identity, revealed knowledge, lineage, or unity between observation and the body? Did different communities mean the same Agastya?
 
-A better question is how the name Agastya became a carrier of authority across different practices. Was the attribution a claim of antiquity, southern identity, revealed knowledge, lineage, or unity between observation and the body? Did different communities mean the same Agastya?
+Traditional attribution and securely dated authorship answer different historical questions. Medical works bearing Agastya’s name belong to a layered textual and institutional history, and the modern identity of Siddha medicine was itself actively argued and organized in colonial-era Tamil society. The productive question becomes: “When, by whom, and for what purpose was this knowledge placed in Agastya’s lineage?”
 
-Traditional attribution is not the same thing as a securely dated authorship. Medical works bearing Agastya’s name belong to a layered textual and institutional history, and the modern identity of Siddha medicine was itself actively argued and organized in colonial-era Tamil society. That does not make the attribution empty. It changes the historical question from “Did one ancient person invent this system?” to “When, by whom, and for what purpose was this knowledge placed in Agastya’s lineage?”
+An astronomical name, a literary sage, and an attributed medical author can travel together without beginning at the same historical moment. Each appearance has a place, language, genre, audience, and date. Mapping those appearances shows how the Agastya lineage gathered new work while continuing to point south.
 
 The star provides a powerful organizing image: knowledge arriving from a direction, visible only from a position, embodied in a guide.
 
@@ -93,7 +93,9 @@ To navigate, a community must remember which star matters, when it appears, what
 
 Agastya therefore suggests a larger definition of navigation: the preservation of a relationship among sky, land, body, season, and destination.
 
-The scientific reconstruction should remain exact. Calculate visibility. Date the texts cautiously. Distinguish a late commentary from an early observation. Avoid turning every journey into precession or every myth into encoded measurement.
+The reconstruction becomes strongest when I calculate visibility, date the texts cautiously, distinguish a late commentary from an early observation, and compare each proposed association with the sky at the relevant latitude and period.
+
+Computed heliacal risings can be compared with the observation windows described by texts and calendars. Regional traditions can then be placed beside latitude, horizon conditions, monsoon timing, and the slow effect of precession. The result is a map of relationships among sky and culture rather than one explanation imposed on every story.
 
 Precision makes the cultural meaning stronger because it reveals which associations survive contact with the sky.
 
@@ -105,7 +107,7 @@ Agastya existed in traditions far richer than one astronomical identification.
 
 Yet when they are joined, each becomes easier to remember. The star acquires a traveler, a teacher, and a southern home. The sage acquires a fixed brilliance that appears differently depending on where the observer stands.
 
-That is the question I want to pursue: not whether myth is secretly astronomy, but how an astronomical relationship becomes durable human knowledge.
+I want to trace how an astronomical relationship becomes durable human knowledge.
 
 Look south. The star is low, bright, and difficult to ignore.
 

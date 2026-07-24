@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Model the World Around the State Machine | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="Design hierarchical statecharts by modeling the medium and subsystem states together, then choosing meaningful world-level macrostates.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/miscellanies/model-the-world-around-the-state-machine.html">
+    <meta property="og:title" content="Model the World Around the State Machine">
+    <meta property="og:description" content="Design hierarchical statecharts by modeling the medium and subsystem states together, then choosing meaningful world-level macrostates.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/miscellanies/model-the-world-around-the-state-machine.html">
+    <meta property="article:published_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-24">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/miscellanies/model-the-world-around-the-state-machine.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/miscellanies/model-the-world-around-the-state-machine.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Model the World Around the State Machine - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/miscellanies/model-the-world-around-the-state-machine.png">
+    <meta name="twitter:image:alt" content="Model the World Around the State Machine - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Model the World Around the State Machine",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2020-03-18T05:10:59.705Z",
+            "datePublished": "2026-07-24",
+            "dateModified": "2026-07-24",
+            "description": "A practical way to design hierarchical statecharts: include the interaction medium, reason about the product of subsystem states, and then choose meaningful world-level macrostates.",
+            "mainEntityOfPage": "https://greenforest.io/miscellanies/model-the-world-around-the-state-machine.html",
+            "isPartOf": {
+                "@type": "CollectionPage",
+                "name": "Miscellanies",
+                "url": "https://greenforest.io/miscellanies/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured miscellany-article">
+    <header><h1 class="page-title">Model the World Around the State Machine</h1></header>
+    <address><time datetime="2020-03-18">March 18, 2020</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Software, state, interaction, and communication</p>
+        <p class="lead">A practical way to design hierarchical statecharts: include the interaction medium, reason about the product of subsystem states, and then choose meaningful world-level macrostates.</p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>Hierarchical statecharts became easier for me when I stopped asking, “What states does this component have?” and asked a larger question:</p>
+            <blockquote>
+                <p>What states can the whole interacting world be in?</p>
+            </blockquote>
+            <p>A component has internal structure. A statechart describes behavior over time. The difficulty is not that statecharts cannot represent structure; Harel statecharts explicitly provide hierarchy and orthogonal, concurrent regions. The difficulty is learning how to move from a collection of structural parts to a useful behavioral partition of their combined life.</p>
+            <p>My practical method is to model not only the participants but also the medium through which they interact. I then account for the combined state space and group it into macrostates that matter to the system's behavior.</p>
+            <p>The point is to see what the Cartesian product contains before compressing it. I can then choose the distinctions that matter without trying to enumerate an astronomical state space.</p>
+        </section>
+        <section>
+            <h2>State belongs to everything that can differ</h2>
+            <p>Suppose a system <span class="math">A</span> can be in one of several configurations. At any moment it has a current state, even if we have not written down every detail of that state. We can decompose <span class="math">A</span> into smaller stateful parts, but decomposition does not make state disappear; it changes the level at which we describe it.</p>
+            <p>Now add another system, <span class="math">B</span>. The combined state is not “the state of <span class="math">A</span> or the state of <span class="math">B</span>.” It contains both:</p>
+            <p class="display-math" role="math">S<sub>A,B</sub> = S<sub>A</sub> × S<sub>B</sub></p>
+            <p>If <span class="math">A</span> has three relevant states and <span class="math">B</span> has four, their unconstrained product contains twelve combinations. Physical rules and business rules may make some combinations unreachable or forbidden, but that restriction is an additional fact. It should not be smuggled into one component's diagram without explanation.</p>
+            <p>Real systems also communicate. That means <span class="math">A</span> and <span class="math">B</span> are not the complete cast.</p>
+        </section>
+        <section>
+            <h2>The medium is a participant</h2>
+            <p>Let <span class="math">A'</span> be an observable part of <span class="math">A</span>'s state. Let <span class="math">M</span> be the interaction medium between <span class="math">A</span> and <span class="math">B</span>. The medium might be a wire, queue, network, shared memory, protocol, person, or physical environment.</p>
+            <p>When <span class="math">A'</span> changes, <span class="math">M</span> may change. The medium may encode the observation, buffer it, route it, delay it, combine it with something else, lose it, or reject it. Eventually an observable part <span class="math">M'</span> may change where <span class="math">B</span> can notice.</p>
+            <p>The behavioral chain is therefore not:</p>
+            <p class="display-math" role="math">A → B</p>
+            <p>It is:</p>
+            <p class="display-math" role="math">A' → M → M' → B</p>
+            <p>Even this notation is only a dependency sketch. It does not imply that every change in <span class="math">A'</span> reaches <span class="math">B</span>, or that <span class="math">B</span> must react visibly when it does.</p>
+            <p><span class="math">B</span> may ignore the observation. It may record it internally without changing its output. It may react only when another condition also holds. A robust model must leave room for those possibilities.</p>
+            <p>Once the medium is explicit, the world state becomes:</p>
+            <p class="display-math" role="math">S<sub>W</sub> = S<sub>A</sub> × S<sub>M</sub> × S<sub>B</sub></p>
+            <p>That product is the raw space from which useful behavioral macrostates are chosen.</p>
+        </section>
+        <section>
+            <h2>Start with the product, then compress it</h2>
+            <p>State explosion is real: the number of combined configurations grows multiplicatively as concurrent components are added. Statecharts help manage that problem through hierarchy, concurrency, and selective abstraction. They do not require drawing every product state as a separate box.</p>
+            <p>My modeling approach is a disciplined thought experiment:</p>
+            <ol>
+                <li>Identify the stateful participants.</li>
+                <li>Include the interaction media as participants.</li>
+                <li>Ask which combinations of their states are possible, reachable, forbidden, or irrelevant.</li>
+                <li>Group the combinations that share the same important behavior into world-level macrostates.</li>
+                <li>Define transitions between those macrostates.</li>
+                <li>Open each macrostate only as far as needed to explain its internal concurrent behavior.</li>
+            </ol>
+            <p>For a request protocol, the macrostates might be <strong>idle</strong>, <strong>request in transit</strong>, <strong>request being handled</strong>, <strong>reply in transit</strong>, and <strong>failed</strong>. Those are not states of the client alone, server alone, or network alone. Each names a meaningful region of the combined product.</p>
+            <p>For example, <strong>request in transit</strong> may include:</p>
+            <ul>
+                <li>the client waiting;</li>
+                <li>the medium carrying or buffering the request;</li>
+                <li>the server waiting to handle it.</li>
+            </ul>
+            <p>The same server state may appear inside several world macrostates. The same is true of the client and medium. That is not duplication of the real components. It is the consequence of organizing the description around world behavior rather than component ownership.</p>
+        </section>
+        <section>
+            <h2>Invariants are properties, not inventories</h2>
+            <p>My original notes used “invariant” too loosely. The complete set of states a system could enter is not, by itself, an invariant.</p>
+            <p>An invariant is a property intended to hold across the relevant reachable states or transitions. “At most one owner controls this actuator” can be an invariant. “A reply is never delivered before its request” can be an invariant. The set of reachable states is a different concept, even though exploring it is how we test whether an invariant holds.</p>
+            <p>State explosion and invariant violation must also be separated:</p>
+            <ul>
+                <li><strong>State explosion</strong> is the growth of the combined state space.</li>
+                <li><strong>An invariant violation</strong> is a reachable state or transition that breaks a required property.</li>
+                <li><strong>An unanticipated combination</strong> is a combination the designer failed to consider. It may violate an invariant, reveal that the stated invariant was incomplete, or simply be harmless.</li>
+            </ul>
+            <p>These problems interact. A huge state space makes omissions more likely and exhaustive checking harder. But a large product is not itself a failure, and an invariant violation is not defined by surprise.</p>
+            <p>This correction strengthens the practical method. Once the world-level macrostates are visible, I can attach explicit safety and liveness properties to them instead of relying on an intuition that the diagram “looks complete.”</p>
+        </section>
+        <section>
+            <h2>Failure belongs inside the world model</h2>
+            <p>Complex systems eventually enter states their happy-path diagrams omitted. In a mission-critical design, “unexpected” cannot mean “outside the model and therefore someone else's problem.”</p>
+            <p>The interaction medium is often where the omitted state hides: a message is duplicated, a queue is full, a wire is disconnected, an observation arrives late, or two parties disagree about which transition happened. If the medium is absent from the statechart, those failures appear magical.</p>
+            <p>Making the medium stateful creates places to express detection and recovery. The world may transition into a handled degraded macrostate. A subsystem may isolate a damaged region, retry an idempotent action, reconstruct state from a durable record, or stop safely.</p>
+            <p>No diagram guarantees robustness. Exhaustive detection may be infeasible, especially when components expose only partial state. But the model can say what information is observable, which invariant was threatened, and what recovery preserves.</p>
+        </section>
+        <section>
+            <h2>Parent transitions need explicit semantics</h2>
+            <p>I also objected to designs in which a child state silently blocks a transition that the enclosing macrostate appears to promise. That objection should not be confused with a formal rule that statechart exits are always unconditional. In ordinary statechart semantics, transitions may have triggers and guards, and exiting a composite state exits its active descendants according to the chosen semantics.</p>
+            <p>My design preference is narrower: a world-level transition should not depend on an invisible child condition. If a guard matters, promote the relevant fact into the macrostate's contract or make the blocked case visible.</p>
+            <p>This resembles good interface design. The parent need not expose every child detail, but it must expose every child detail that changes whether the parent's advertised behavior is available.</p>
+        </section>
+        <section>
+            <h2>Distribution is possible, not automatic</h2>
+            <p>Statecharts are attractive for large systems because regions can often be assigned to different computational resources. Explicit events, hierarchy, and concurrent regions provide natural boundaries.</p>
+            <p>But a diagram is not automatically an infinitely scalable distributed implementation. Distribution adds ordering, latency, synchronization, failure, and ownership questions. A partition works only if the event semantics and the required invariants survive those physical facts.</p>
+            <p>Here again, the medium cannot be omitted. Once communication is represented as state, the cost of distribution becomes part of the model rather than an invisible implementation detail.</p>
+        </section>
+        <section>
+            <h2>The useful act is choosing the macrostates</h2>
+            <p>The raw product state is too large to write down for most interesting systems. The goal is not to draw it. The goal is to respect it.</p>
+            <p>I begin by imagining <span class="math">A</span>, <span class="math">M</span>, and <span class="math">B</span> together. I ask what each can know, what can be observed, where information waits, and which combinations change the meaning of the whole. Then I partition that combined space into a small number of macrostates with explicit transitions between them.</p>
+            <p>That is the shift that made hierarchical statecharts practical for me. Do not begin with a diagram of boxes owned by components. Begin with the interacting world, include the medium, and decide which differences in that world deserve names.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Read next:</p>
+        <a href="/miscellanies/a-statechart-that-remembers-how-it-was-changed.html">A Statechart That Remembers How It Was Changed</a>
+        <p>A dynamic statechart model that records editing and execution in one directed history and makes observed transitions explicit states.</p>
+        <p>Continue:</p>
+        <a href="/human-computer-interaction-as-model-exchange.html">Human-Computer Interaction As Model Exchange</a>
+        <p>Continue with an interface model built around shared state, interpretation, and repair.</p>
+        <p>Nearby:</p>
+        <a href="/miscellanies/eventedge-a-privacy-first-cloud-over-the-park.html">EventEdge: A Privacy-First Cloud Over the Park</a>
+        <p>A design for local public-space computing, resilient aerial infrastructure, and personal devices that do not watch their owners.</p>
+        <a href="/miscellanies/">Browse all 53 Miscellanies</a>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>
