@@ -527,6 +527,117 @@ figcaption {
 	text-transform: uppercase;
 }
 
+.linkedin-original-citation {
+	margin-top: 2rem;
+	text-align: left;
+	-webkit-hyphens: none;
+	hyphens: none;
+}
+
+.linkedin-original-citation h2:before {
+	content: none;
+	counter-increment: none;
+}
+
+.linkedin-original-metadata,
+.linkedin-original-status,
+.linkedin-original-comment-metadata {
+	text-align: left;
+}
+
+.linkedin-verbatim-copy {
+	box-sizing: border-box;
+	margin: 1rem 0;
+	padding: 1rem 1.1rem;
+	border-left: 3px solid #520;
+	background: #faf8f2;
+}
+
+.linkedin-verbatim-text {
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	text-align: left;
+}
+
+.linkedin-original-comments {
+	margin-top: 2.25rem;
+}
+
+.linkedin-original-comment {
+	margin: 1.5rem 0 0;
+	padding: 1.5rem 0 0;
+	border-top: 1px solid #d7d7d7;
+}
+
+.linkedin-original-comment .linkedin-verbatim-copy {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.linkedin-original-media {
+	margin-top: 2rem;
+	text-align: left;
+}
+
+.linkedin-original-media-grid,
+.linkedin-original-comment-media {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 30rem));
+	justify-content: start;
+	gap: 1rem;
+	margin: 1rem 0;
+}
+
+.linkedin-original-media-item {
+	box-sizing: border-box;
+	min-width: 0;
+	margin: 0;
+	padding: 0.65rem;
+	border: 1px solid #d7d7d7;
+	background: #fff;
+}
+
+.linkedin-original-media-item > a:first-child {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+figure.linkedin-original-media-item.inspectable-image.inspectable-image--fit img {
+	display: block;
+	width: auto;
+	max-width: 100%;
+	max-height: min(32rem, 70vh);
+	height: auto;
+	border: 1px solid #ccc;
+	background: #f8f8f8;
+	object-fit: contain;
+}
+
+.linkedin-original-media-item figcaption {
+	margin-top: 0.65rem;
+	font-style: normal;
+	text-align: left;
+}
+
+.linkedin-original-comment-media {
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 24rem));
+}
+
+.linkedin-original-media-note,
+.linkedin-image-only-comment {
+	text-align: left;
+}
+
+body:has(.linkedin-original-citation) a {
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
+.linkedin-preserved-version {
+	margin-top: 2.5rem;
+}
+
 .traction-panel {
 	text-align: left;
 }

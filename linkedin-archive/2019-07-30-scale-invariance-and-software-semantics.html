@@ -6,11 +6,11 @@
     <title>Scale Invariance and Software Semantics</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="The Universe is made out of the same finite set of infinitely repeating structural patterns scaled to different sizes. Scale invariance is important concept...">
+    <meta name="description" content="A software-semantics note about abstraction levels, leaky boundaries, scale, and when lower-level structure should or should not control the operating surface.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2019-07-30-scale-invariance-and-software-semantics.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Scale Invariance and Software Semantics">
-    <meta property="og:description" content="The Universe is made out of the same finite set of infinitely repeating structural patterns scaled to different sizes. Scale invariance is important concept...">
+    <meta property="og:description" content="A software-semantics note about abstraction levels, leaky boundaries, scale, and when lower-level structure should or should not control the operating surface.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2019-07-30-scale-invariance-and-software-semantics.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -44,7 +44,7 @@
                                 },
                                 "datePublished": "2019-07-30",
                                 "dateModified": "2026-07-09",
-                                "description": "The Universe is made out of the same finite set of infinitely repeating structural patterns scaled to different sizes. Scale invariance is important concept...",
+                                "description": "A software-semantics note about abstraction levels, leaky boundaries, scale, and when lower-level structure should or should not control the operating surface.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2019-07-30-scale-invariance-and-software-semantics.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,7 +89,36 @@
     <header>Scale Invariance and Software Semantics</header>
     <address>July 30, 2019</address>
 
+    <!-- linkedin-original:start -->
+    <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6561946711747633152" data-linkedin-activity="6561946711747633152" data-linkedin-source="activity:6561946711747633152">
+        <h2 id="linkedin-original-6561946711747633152">Originally posted on LinkedIn</h2>
+        <p class="linkedin-original-metadata"><strong>Brian Greenforest</strong> &middot; <time datetime="2019-07-30T12:33:31.155Z">Tuesday, July 30, 2019 at 5:33:31 AM PDT</time> <span>(2019-07-30 12:33:31 UTC)</span></p>
+        <p><a href="https://www.linkedin.com/feed/update/urn:li:activity:6561946711747633152/" target="_blank" rel="noopener">Open the original LinkedIn post</a> &middot; LinkedIn activity 6561946711747633152</p>
+        <p class="linkedin-original-status"><strong>LinkedIn status when archived:</strong> Visible to anyone on or off LinkedIn.</p>
+        <blockquote class="linkedin-verbatim-copy">
+            <div class="linkedin-verbatim-text" data-source-sha256="7e57ddb119a1d1dfbc497a8c39ebf2762b400ea1d464534451bba2a5c1d4808a">The Universe is made out of the same finite set of infinitely repeating structural patterns scaled to different sizes. Scale invariance is important concept to understand the idea of semantics in software engineering. Knowledge of the internal structure of lower levels of abstraction helps to predict bigger system behaviour, but is not required to build and operate it. Of course, all abstractions are leaky, but any system is finitely simple. Complexity can't exist in physical space, only in the minds of confused engineers and scientists (and even there, it has to be arranged in the physical space of their minds, repeating the same structures in fractals of knowledge representation).
+
+Just let the lower levels be there, no need (and no chance) to use them efficiently from the higher levels.
+
+And it is okay.
+
+Relax.
+
+Close your eyes.
+
+Take a deep breath.
+
+The Universe is finite but scales infinitely in both directions of size. And so your software does.</div>
+        </blockquote>
+    </section>
+
+    <div class="status-box linkedin-preserved-version" role="note">
+        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
+    </div>
+    <!-- linkedin-original:end -->
+
     <section class="abstract">
+        <p>Software semantics depends on layers that hide detail without pretending lower levels do not exist. A useful abstraction keeps the operating surface small while preserving enough structure to predict failures at the boundary.</p>
         <div class="status-box">
             <p><span class="status-label">LinkedIn post</span>Posted 2019-07-30.</p>
         </div>
@@ -97,14 +126,15 @@
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>The Universe is made out of the same finite set of infinitely repeating structural patterns scaled to different sizes. Scale invariance is important concept to understand the idea of semantics in software engineering. Knowledge of the internal structure of lower levels of abstraction helps to predict bigger system behaviour, but is not required to build and operate it. Of course, all abstractions are leaky, but any system is finitely simple. Complexity can't exist in physical space, only in the minds of confused engineers and scientists (and even there, it has to be arranged in the physical space of their minds, repeating the same structures in fractals of knowledge representation).</p>
-            <p>Just let the lower levels be there, no need (and no chance) to use them efficiently from the higher levels.</p>
-            <p>And it is okay.</p>
-            <p>Relax.</p>
-            <p>Close your eyes.</p>
-            <p>Take a deep breath.</p>
-            <p>The Universe is finite but scales infinitely in both directions of size. And so your software does.</p>
+            <h1>Abstraction Levels</h1>
+            <p>A higher-level interface is useful when it gives the programmer a smaller surface to reason about. It does not make the lower levels disappear. Memory layout, scheduling, network behavior, storage, and physical limits can still leak through when a system is pushed hard enough.</p>
+            <p>The practical skill is knowing which lower-level facts matter at the level where the work is being done. Too much exposure makes the abstraction useless. Too little exposure makes failures look arbitrary.</p>
+        </section>
+
+        <section>
+            <h1>Scale And Semantics</h1>
+            <p>Scale changes which details are visible. A local function call, a process boundary, a database transaction, and a distributed workflow can describe similar intent while carrying different timing, failure, and ownership costs.</p>
+            <p>Good semantics do not require every layer to be operated from every other layer. They require the boundary to preserve the facts that affect correctness.</p>
         </section>
 
     </main>

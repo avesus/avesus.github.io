@@ -89,6 +89,60 @@
     <header>Cellular Automata Across FPGA Chains</header>
     <address>June 4, 2021</address>
 
+    <!-- linkedin-original:start -->
+    <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6806422838334111744" data-linkedin-activity="6806422838334111744" data-linkedin-source="activity:6806422838334111744">
+        <h2 id="linkedin-original-6806422838334111744">Originally posted on LinkedIn</h2>
+        <p class="linkedin-original-metadata"><strong>Brian Greenforest</strong> &middot; <time datetime="2021-06-04T03:34:21.880Z">Thursday, June 3, 2021 at 8:34:21 PM PDT</time> <span>(2021-06-04 03:34:21 UTC)</span></p>
+        <p><a href="https://www.linkedin.com/feed/update/urn:li:activity:6806422838334111744/" target="_blank" rel="noopener">Open the original LinkedIn post</a> &middot; LinkedIn activity 6806422838334111744</p>
+        <p class="linkedin-original-status"><strong>LinkedIn status when archived:</strong> Visible to anyone on or off LinkedIn.</p>
+        <blockquote class="linkedin-verbatim-copy">
+            <div class="linkedin-verbatim-text" data-source-sha256="6b7446e000d01ac1788e34dca545e9745d7a48643162d6e151be53418887993e">I made a simple estimate: it seems we're not doing cellular automata for a wrong reason. A fully pipelined FPGA chain, even at 16 nm node at 891 MHz has cell-to-cell latency over an array of 100 FPGAs (spanning over 3 meters) of just 0.113 milliseconds! Clocked pipelined signal travels at 95,000 kilometers per hour, which is more than enough for fast reaction time complex compute! So what a big deal supporting all these &quot;span-N&quot; wires and &quot;fat tree&quot; supercompute architectures?! Let's get back to mesh again?.. Please, let me know in the comments below \/ \/ \/ if I got it wrong. Seems that Intel 4 melting core with full pipeline has stopped the trend. Let's get it back on track, and redesign all our FPGAs, never worrying about timing closure ever again?
+
+#networktopology #supercomputing #latency #fpgas</div>
+        </blockquote>
+        <section class="linkedin-original-comments" aria-labelledby="linkedin-comments-6806422838334111744">
+            <h2 id="linkedin-comments-6806422838334111744">Comments added by Brian Greenforest on LinkedIn</h2>
+            <p>These 3 comments were also preserved verbatim from Brian Greenforest&rsquo;s LinkedIn data export or the public post page.</p>
+            <article class="linkedin-original-comment" data-comment-number="1">
+                <p class="linkedin-original-comment-metadata"><strong>Comment 1</strong> &middot; <time datetime="2021-06-04T04:52:21.000Z">Thursday, June 3, 2021 at 9:52:21 PM PDT</time> <span>(2021-06-04 04:52:21 UTC)</span></p>
+
+            <blockquote class="linkedin-verbatim-copy">
+                <div class="linkedin-verbatim-text" data-source-sha256="f01319231b6cf9ddef29912a409939d3a7494a07d6a3d04a07f99b2a11e61a66">I agree, but I am not sure (simply never ran a successful Muller element stuff) that these are as fast and energy efficient for high-performance computing (not for energy-saving eventing/spiking).
+
+I love the idea of async, and experimented with it a lot, but it always ends up demanding so many transistors and package pads!</div>
+            </blockquote>
+                <p><a href="https://www.linkedin.com/feed/update/urn%3Ali%3Aactivity%3A6806422838334111744" target="_blank" rel="noopener">View the LinkedIn post</a></p>
+            </article>
+            <article class="linkedin-original-comment" data-comment-number="2">
+                <p class="linkedin-original-comment-metadata"><strong>Comment 2</strong> &middot; <time datetime="2021-06-04T14:51:34.000Z">Friday, June 4, 2021 at 7:51:34 AM PDT</time> <span>(2021-06-04 14:51:34 UTC)</span></p>
+
+            <blockquote class="linkedin-verbatim-copy">
+                <div class="linkedin-verbatim-text" data-source-sha256="67fd3d6baf8acbcd0c767d84fb33bc0c5c923d1524ab70bac03be197aea3b60f">Tanj, may I ask you for a specific &quot;any to any&quot; algorithm as a pilot for experiments with mesh architecture vs. fat tree? I feel it's heuristic and based on assumptions rather than on a proven math—simply due to the fact that mathematicians assume either existing ordinary fixed mesh circuits (not self-reconfigurable FPGAs), or von Neumann nodes...
+
+I badly need to try that proof on innovative parallel architectures, but I HAVE NO IDEA WHAT TO RUN 😹
+
+Any algorithm suggestions ARE VERY WELCOME! 😍👍🥳</div>
+            </blockquote>
+                <p><a href="https://www.linkedin.com/feed/update/urn%3Ali%3Aactivity%3A6806422838334111744" target="_blank" rel="noopener">View the LinkedIn post</a></p>
+            </article>
+            <article class="linkedin-original-comment" data-comment-number="3">
+                <p class="linkedin-original-comment-metadata"><strong>Comment 3</strong> &middot; <time datetime="2021-06-04T16:27:23.000Z">Friday, June 4, 2021 at 9:27:23 AM PDT</time> <span>(2021-06-04 16:27:23 UTC)</span></p>
+
+            <blockquote class="linkedin-verbatim-copy">
+                <div class="linkedin-verbatim-text" data-source-sha256="e048f50eec82aab0dcb73c706f5e9ad41cf5b173acc2b4dd8ba62907671210da">Tanj Bennett I need a specific customer-problem related algorithm, not at the stage HOW we solve their problem (applying randomization is a way to solve the problem, there might be a better way).
+
+I don't know ANYTHING about computational problems in the field. If you have good friends who use computations to solve real problems, please, share my anxiety with them—I'll listen them for hours!</div>
+            </blockquote>
+                <p><a href="https://www.linkedin.com/feed/update/urn%3Ali%3Aactivity%3A6806422838334111744" target="_blank" rel="noopener">View the LinkedIn post</a></p>
+            </article>
+        </section>
+    </section>
+
+    <div class="status-box linkedin-preserved-version" role="note">
+        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
+    </div>
+    <!-- linkedin-original:end -->
+
     <section class="abstract">
         <p>The original estimate used a fully pipelined FPGA chain: 100 devices over roughly 3 meters, clocked at 891 MHz, with an estimated traversal latency of about 0.113 milliseconds.</p>
         <p>The useful question is whether cellular automata and mesh-style computation can use local timing and repeated structure instead of paying for wide global interconnect everywhere.</p>

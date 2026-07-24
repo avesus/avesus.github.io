@@ -89,6 +89,63 @@
     <header>Reactive Programming Implies Distributed Systems</header>
     <address>April 27, 2022</address>
 
+    <!-- linkedin-original:start -->
+    <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6924897691604836352" data-linkedin-activity="6924897691604836352" data-linkedin-source="activity:6924897691604836352">
+        <h2 id="linkedin-original-6924897691604836352">Originally posted on LinkedIn</h2>
+        <p class="linkedin-original-metadata"><strong>Brian Greenforest</strong> &middot; <time datetime="2022-04-27T01:51:08.056Z">Tuesday, April 26, 2022 at 6:51:08 PM PDT</time> <span>(2022-04-27 01:51:08 UTC)</span></p>
+        <p><a href="https://www.linkedin.com/feed/update/urn:li:activity:6924897691604836352/" target="_blank" rel="noopener">Open the original LinkedIn post</a> &middot; LinkedIn activity 6924897691604836352</p>
+        <p class="linkedin-original-status"><strong>LinkedIn status when archived:</strong> Edited · Visible to anyone on or off LinkedIn.</p>
+        <blockquote class="linkedin-verbatim-copy">
+            <div class="linkedin-verbatim-text" data-source-sha256="857fa20a7eaa00232cbd6f12ce69a0a96f8056758a3957e394af2cb98dc3c541">I want to share with you my recent thought that came on a walk just a minute ago...
+
+It's for software developers and computer science engineers. It's about reactive programming.
+
+I think, reactive programming implies concurrent programming: many things can happen simultaneously at more than one location in your source code. That's an easy thing to agree with.
+
+Then, concurrent programming demands those multiple things to happen at those multiple places somehow. One way is multi-tasking on a single core. Another is to replace those computation updates with autonomous processes.
+
+An autonomous process is simply a thread or a program that runs on one core (or migrates between different cores as in Kevin Cameron's design of wandering threads, closer to relevant data).
+
+We can call the multi-processing programming a parallel programming, shall we?
+
+After that, I only need to mention that self-modifying code with dynamic types is a must for self-consistent type instantiation support in reactive programming.
+
+So, reactive programming is a parallel (at least, concurrent!) programming in disguise with self-modifying dynamic types, otherwise you're missing the point of its computer-scientific consistency.
+
+Indeed, any parallel programming is orthogonal to distributed programming, and distributed programming adds reliability and liveliness concerns, but given the development of modern networks, and multipath alllocation of bandwidth, and other clever tricks to keep distributed systems coherent, we may assume (or even explicitly model!) the interconnectivity relations between PARTS of ONE LARGE DISTRIBUTED PROGRAM.
+
+And that's the model of computation Cartilage hardware implements natively, without any OS support (it is a hardware operating system).
+
+Okay, what I'm trying to point out to is that for many, reactive programming, Matlab/Labview &quot;Lego blocks&quot; composition, is the only way to manage immense complexity of large systems. We thought that parallel programming is MUCH HARDER than ordinary, single-threaded one, but it turns out it's the opposite.
+
+In Cartilage, one process represents one reactive variable, or one reactive operation upon related reactive variables.
+
+You can stretch an &quot;entanglement&quot; link upon creation of an object inside of a bigger membrane, and maintain that link, while passing that object far away: you don't ever have to use the reactive objects as classes with methods and instance variables; it's perfectly fine to treat them as pure functions for those who PREFER pure functional programming with only computed transient state.
+
+Everything becomes possible, including hierarchical state machines (Harel), and distributed state machines (idle states). There are many ways you can design your distributed massively scalable applications on Cartilage, but the biggest kicker of WHY we doing this design is to make the FINAL CHIP.
+
+Today's chip shortage makes it extremely hard to procure an appropriate device, and forces many of us to wait...</div>
+        </blockquote>
+        <section class="linkedin-original-comments" aria-labelledby="linkedin-comments-6924897691604836352">
+            <h2 id="linkedin-comments-6924897691604836352">Comments added by Brian Greenforest on LinkedIn</h2>
+            <p>This comment was also preserved verbatim from Brian Greenforest&rsquo;s LinkedIn data export or the public post page.</p>
+            <article class="linkedin-original-comment" data-comment-number="1">
+                <p class="linkedin-original-comment-metadata"><strong>Comment 1</strong> &middot; <time datetime="2022-04-27T01:58:36.000Z">Tuesday, April 26, 2022 at 6:58:36 PM PDT</time> <span>(2022-04-27 01:58:36 UTC)</span></p>
+
+            <blockquote class="linkedin-verbatim-copy">
+                <div class="linkedin-verbatim-text" data-source-sha256="960689cef04621ce240d18935fc49c9bd785a36271734cd58a613ebc0f39f3ec">For those of you interested in Kevin Cameron's wandering threads idea, here's the link:
+https://contest.techbriefs.com/2018/entries/electronics-sensors-iot/9076</div>
+            </blockquote>
+                <p><a href="https://www.linkedin.com/feed/update/urn%3Ali%3Aactivity%3A6924897691604836352" target="_blank" rel="noopener">View the LinkedIn post</a></p>
+            </article>
+        </section>
+    </section>
+
+    <div class="status-box linkedin-preserved-version" role="note">
+        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
+    </div>
+    <!-- linkedin-original:end -->
+
     <section class="abstract">
         <p>Reactive variables do not stay local for long. Once state changes over time, depends on other state, crosses boundaries, and triggers other work, the program begins to carry distributed-system problems.</p>
         <p>The article is about that transition: reactivity is not only a UI convenience or a local dataflow trick once updates have ownership, timing, fanout, ordering, and failure behavior.</p>

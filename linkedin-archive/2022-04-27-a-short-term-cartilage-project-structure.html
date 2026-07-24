@@ -89,6 +89,30 @@
     <header>Cartilage Project Structure, 2022</header>
     <address>April 27, 2022</address>
 
+    <!-- linkedin-original:start -->
+    <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6925162336206929921" data-linkedin-activity="6925162336206929921" data-linkedin-source="activity:6925162336206929921">
+        <h2 id="linkedin-original-6925162336206929921">Originally posted on LinkedIn</h2>
+        <p class="linkedin-original-metadata"><strong>Brian Greenforest</strong> &middot; <time datetime="2022-04-27T19:22:44.246Z">Wednesday, April 27, 2022 at 12:22:44 PM PDT</time> <span>(2022-04-27 19:22:44 UTC)</span></p>
+        <p><a href="https://www.linkedin.com/feed/update/urn:li:activity:6925162336206929921/" target="_blank" rel="noopener">Open the original LinkedIn post</a> &middot; LinkedIn activity 6925162336206929921</p>
+        <p class="linkedin-original-status"><strong>LinkedIn status when archived:</strong> Visible to Brian’s connections.</p>
+        <blockquote class="linkedin-verbatim-copy">
+            <div class="linkedin-verbatim-text" data-source-sha256="88e32e2ff90ead3cfb3ccf6cabb6efe7bb0a9e75f1efec736c126fe8d68376f5">The following are projects (in the order of laser-sharp short term focus) we are working on (volunteer's help appreciated; early co-founder opportunities for creation of an invention that will be called &quot;XXI century's Manhattan Project&quot;).
+
+1. Emulation of arbitrary FPGA element size to pick the optimal number of D flip-flops, multiplexer networks, LUTs, and optimal SerDes bandwith for inter-node communication. An early prototype was written in GLSL and contained only 1 reconfigurable multiplexer as a unique hyper-fine-grained switching fabric. Turns out, we needed to control adjacent FPGA configurations in every node, and it need much more than one multiplexer, otherwise it's a waste of reconfiguration support circuits. No need to compute next state fast, because only physical chips can run the model fast and efficiently. The selection research is in works right now (I wish I had less ADHD), and it's a JavaScript Node.js app, emulating a small array of interconnected FPGAs controlled by special control plane overlay network we codename &quot;Sinew&quot;.
+
+2. Manufacturing of physical prototypes using stock FPGAs. We ran out of available chips. Were using flex PCB design that allows to cut compute fabric with scissors (iCE40LP384-SG32). Another was a high-bandwidth FIFO-rich iCE40HX1K-TQ144 (a nice scalable modular PCB design has been made; but these chips had disappeared as well).
+
+3. Zones-managing virtual machine we codename &quot;Cartilage&quot;. It runs on top of the emulator, or the stock FPGAs prototype, or the optimal element physical chip. It allows to implement reactive programming with automatic ports route management and contained objects instantiations, and dynamic types creation at run-time.
+
+4. Distributed massively parallel programming language syntax. Didn't touch yet, but it seems in a close reach (perhaps this year, even!)</div>
+        </blockquote>
+    </section>
+
+    <div class="status-box linkedin-preserved-version" role="note">
+        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
+    </div>
+    <!-- linkedin-original:end -->
+
     <section class="abstract">
         <div class="status-box">
             <p><span class="status-label">Project-structure note</span>Originally posted 2022-04-27; rewritten here around concrete Cartilage work packages.</p>

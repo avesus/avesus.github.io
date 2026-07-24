@@ -89,6 +89,58 @@
     <header>Loss Functions in LLMs and Embedding Models</header>
     <address>January 10, 2024</address>
 
+    <!-- linkedin-original:start -->
+    <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7150963925310750721" data-linkedin-activity="7150963925310750721" data-linkedin-source="activity:7150963925310750721">
+        <h2 id="linkedin-original-7150963925310750721">Originally posted on LinkedIn</h2>
+        <p class="linkedin-original-metadata"><strong>Brian Greenforest</strong> &middot; <time datetime="2024-01-10T21:37:38.279Z">Wednesday, January 10, 2024 at 1:37:38 PM PST</time> <span>(2024-01-10 21:37:38 UTC)</span></p>
+        <p><a href="https://www.linkedin.com/feed/update/urn:li:activity:7150963925310750721/" target="_blank" rel="noopener">Open the original LinkedIn post</a> &middot; LinkedIn activity 7150963925310750721</p>
+        <p class="linkedin-original-status"><strong>LinkedIn status when archived:</strong> Only visible to members of Artificial Intelligence | Deep Learning | Machine Learning.</p>
+        <blockquote class="linkedin-verbatim-copy">
+            <div class="linkedin-verbatim-text" data-source-sha256="39baacfdc5b301fe3024b72fb3b3677dbb20c9141b8580dc21aacdb0674b0aab">The choice of loss function is a significant difference between training a generative language model (LLM - Language Model) and training a vector search embedding model, like the one used in the &quot;Retrieve&quot; phase of the RAG architecture.
+
+In the case of generative language models, the objective is often to maximize the likelihood of generating the next token in a sequence, given the context. This is typically done using maximum likelihood estimation (MLE) or related objectives.
+
+On the other hand, for vector search embedding models designed for information retrieval tasks, the loss function is tailored to encourage the model to learn representations that place similar documents closer together in the vector space. This is crucial for efficient retrieval during the retrieval phase.
+
+Commonly used loss functions include:
+
+* Contrastive Loss:
+This loss function encourages similar documents to have similar representations and dissimilar documents to have dissimilar representations. It often involves pulling positive pairs (similar documents) closer together in the embedding space while pushing negative pairs (dissimilar documents) apart.
+
+* Triplet Loss:
+Triplet loss is another popular choice. It involves selecting a triplet of examples: an anchor (a query or prompt), a positive example (a relevant document), and a negative example (an irrelevant document). The model is then trained to minimize the distance between the anchor and the positive example while maximizing the distance between the anchor and the negative example.
+
+* Ranking-based Losses:
+Various ranking-based losses are used to explicitly capture the notion of relevance. These losses penalize models when the rank order of relevant documents is lower than that of irrelevant documents.
+
+These loss functions guide the training process to learn embeddings that capture semantic similarity or relevance between documents. The ultimate goal is to create a vector space where similar documents are close together, facilitating efficient retrieval during the subsequent information retrieval phase.
+
+This is in contrast to generative language models, where the focus is on generating coherent and contextually appropriate sequences of tokens.
+
+#RAG
+#embedding
+#vectorsearch
+#semanticsearch
+#ai
+#mlops</div>
+        </blockquote>
+        <section class="linkedin-original-media" aria-labelledby="linkedin-media-7150963925310750721" data-asset-count="1">
+            <h2 id="linkedin-media-7150963925310750721">Original LinkedIn media</h2>
+            <div class="linkedin-original-media-grid" data-media-count="1">
+            <figure class="linkedin-original-media-item inspectable-image inspectable-image--fit linkedin-original-media-photo" data-linkedin-media-kind="photo">
+                <a href="/linkedin-archive/media/original-posts/7150963925310750721-photo-1.jpg" aria-label="Open the saved full-resolution image"><img src="/linkedin-archive/media/original-posts/7150963925310750721-photo-1.jpg" alt="Image attached to Brian Greenforest’s public twin of the selected LinkedIn group post" loading="lazy" decoding="async"></a>
+                <figcaption>Photo attached to the original LinkedIn post. <a href="/linkedin-archive/media/original-posts/7150963925310750721-photo-1.jpg">Open the saved full-resolution image.</a></figcaption>
+            </figure>
+            </div>
+        <p class="linkedin-original-media-note"><strong>Media source note:</strong> The selected group post is guest-gated. This is the authentic attached image from Brian Greenforest’s public twin post, published 10.959 seconds earlier with the same full text.</p>
+        </section>
+    </section>
+
+    <div class="status-box linkedin-preserved-version" role="note">
+        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
+    </div>
+    <!-- linkedin-original:end -->
+
     <section class="abstract">
         <div class="status-box">
             <p><span class="status-label">LinkedIn post</span>Posted 2024-01-10.</p>

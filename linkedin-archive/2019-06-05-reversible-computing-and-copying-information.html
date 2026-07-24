@@ -6,11 +6,11 @@
     <title>Reversible Computing and Copying Information</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Thoughts on reversible computing... Copy of information is required to avoid re-computation of sub-branches of logic expressions. Everyone knows how the cache...">
+    <meta name="description" content="A reversible-computing note about copying, caching, recomputation, and the physical cost of erasing state in a finite machine.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2019-06-05-reversible-computing-and-copying-information.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Reversible Computing and Copying Information">
-    <meta property="og:description" content="Thoughts on reversible computing... Copy of information is required to avoid re-computation of sub-branches of logic expressions. Everyone knows how the cache...">
+    <meta property="og:description" content="A reversible-computing note about copying, caching, recomputation, and the physical cost of erasing state in a finite machine.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2019-06-05-reversible-computing-and-copying-information.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -44,7 +44,7 @@
                                 },
                                 "datePublished": "2019-06-05",
                                 "dateModified": "2026-07-09",
-                                "description": "Thoughts on reversible computing... Copy of information is required to avoid re-computation of sub-branches of logic expressions. Everyone knows how the cache...",
+                                "description": "A reversible-computing note about copying, caching, recomputation, and the physical cost of erasing state in a finite machine.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2019-06-05-reversible-computing-and-copying-information.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,7 +89,30 @@
     <header>Reversible Computing and Copying Information</header>
     <address>June 5, 2019</address>
 
+    <!-- linkedin-original:start -->
+    <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6542124072942338048" data-linkedin-activity="6542124072942338048" data-linkedin-source="activity:6542124072942338048">
+        <h2 id="linkedin-original-6542124072942338048">Originally posted on LinkedIn</h2>
+        <p class="linkedin-original-metadata"><strong>Brian Greenforest</strong> &middot; <time datetime="2019-06-05T19:45:25.777Z">Wednesday, June 5, 2019 at 12:45:25 PM PDT</time> <span>(2019-06-05 19:45:25 UTC)</span></p>
+        <p><a href="https://www.linkedin.com/feed/update/urn:li:activity:6542124072942338048/" target="_blank" rel="noopener">Open the original LinkedIn post</a> &middot; LinkedIn activity 6542124072942338048</p>
+        <p class="linkedin-original-status"><strong>LinkedIn status when archived:</strong> Visible to anyone on or off LinkedIn.</p>
+        <blockquote class="linkedin-verbatim-copy">
+            <div class="linkedin-verbatim-text" data-source-sha256="5eade5fdd39ea1913f38d458a8b56dccfa3d67c5fc5eaea6e925e252ca8e1d5e">Thoughts on reversible computing...
+
+Copy of information is required to avoid re-computation of sub-branches of logic expressions. Everyone knows how the cache concept does dramatically improve performance.
+
+The tricky thing about the copy concept is that it does require the erasure of information (not just scrambling), because the state space must come from somewhere in a fixed volume computer—physically.
+
+What are your thoughts on this, dear fellow computer science researchers?</div>
+        </blockquote>
+    </section>
+
+    <div class="status-box linkedin-preserved-version" role="note">
+        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
+    </div>
+    <!-- linkedin-original:end -->
+
     <section class="abstract">
+        <p>Caching avoids recomputation by keeping intermediate values available. Reversible computing makes the other side of that bargain visible: copied information has to be accounted for, cleaned up, or uncomputed.</p>
         <div class="status-box">
             <p><span class="status-label">LinkedIn post</span>Posted 2019-06-05.</p>
         </div>
@@ -97,11 +120,15 @@
 
     <main>
         <section>
-            <h1>Original Post</h1>
-            <p>Thoughts on reversible computing...</p>
-            <p>Copy of information is required to avoid re-computation of sub-branches of logic expressions. Everyone knows how the cache concept does dramatically improve performance.</p>
-            <p>The tricky thing about the copy concept is that it does require the erasure of information (not just scrambling), because the state space must come from somewhere in a fixed volume computer—physically.</p>
-            <p>What are your thoughts on this, dear fellow computer science researchers?</p>
+            <h1>The Copy Cost</h1>
+            <p>Ordinary machines use copies constantly. A cached value can save work by preventing a branch of a computation from being recomputed. That is useful, but it is not physically neutral: the machine must allocate state, preserve it, overwrite it, or erase it.</p>
+            <p>In reversible computing, that bookkeeping becomes part of the design problem. If an intermediate result is copied for later use, the circuit also needs a path for cleaning up temporary state without throwing away information that still matters.</p>
+        </section>
+
+        <section>
+            <h1>The Engineering Question</h1>
+            <p>The useful comparison is storage versus recomputation. A saved value costs area, memory, energy, fanout, and later cleanup. Recomputing can be expensive too, but it may avoid carrying extra state through the rest of the circuit.</p>
+            <p>A reversible design has to decide where copied information belongs, how long it should live, and whether it can be uncomputed cleanly after the dependent work is finished.</p>
         </section>
 
     </main>

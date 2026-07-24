@@ -1,0 +1,1445 @@
+{
+  "schema_version": 3,
+  "source": "Media embedded in the featured article element of each public LinkedIn post and Brian-authored comment media; generic Open Graph fallback cards are excluded.",
+  "article_count": 135,
+  "pages_with_media": 54,
+  "asset_count": 56,
+  "pages_with_comment_media": 6,
+  "comment_asset_count": 7,
+  "pages_without_media": 81,
+  "entries": [
+    {
+      "id": "7467626598100430848",
+      "slug": "2026-06-02-merchant-values-and-honest-exchange",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7459067591492489216",
+      "slug": "2026-05-10-discrete-photon-reconnection-graphs",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7459067591492489216/",
+      "assets": [
+        {
+          "kind": "document",
+          "file": "media/original-posts/7459067591492489216-document.pdf",
+          "title": "What If Reality Is a Discrete Photon Graph?",
+          "total_pages": 14,
+          "sha256": "14aff725d192db0a88cdcd3464b2000913a8d7b80533deaa440bcb6409e1f7e3",
+          "bytes": 86606,
+          "thumbnail": {
+            "kind": "document_thumbnail",
+            "file": "media/original-posts/7459067591492489216-document-cover.jpg",
+            "alt": "First page of What If Reality Is a Discrete Photon Graph?",
+            "sha256": "0f30d680ac92cfd82cd45990f61cbca9773fcf2ef9919ebf283262b0e3f3c549",
+            "bytes": 32373
+          }
+        }
+      ]
+    },
+    {
+      "id": "7454393732444868608",
+      "slug": "2026-04-27-the-missing-maker-fab",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7454393732444868608/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7454393732444868608-photo-1.jpg",
+          "alt": "The inaccessible fab: a crude PCB home-etched but with vias in the center, 3D printed stopper and measuring, drill bits, soldering around, but behind a blue inaccessible clean room sits The Wafer... out of reach for an ordinary maker :-(",
+          "sha256": "1f90205acc8683c485f234c10dd2296ff0aa02695246d505d4b6fc9839af98c6",
+          "bytes": 85178
+        }
+      ],
+      "comment_assets": [
+        {
+          "comment_id": "7456183812452954112",
+          "date": "2026-05-02 03:32:30",
+          "text": "Never use your fingerprint for MFA. Makes it more fake at proofs of reality. Use proof of stake, proof of humanity, proof of the knowledge of history, proof of TRUTH. Indeed someone can steal your prints and impersonate you: if anyone ever does here is my proof that I've being framed:",
+          "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7454393732444868608/",
+          "source_note": "Image attached to Brian Greenforest’s comment on the original LinkedIn post.",
+          "kind": "comment_image",
+          "file": "media/original-posts/7454393732444868608-comment-7456183812452954112.png",
+          "alt": "Image attached to Brian Greenforest's LinkedIn comment: Never use your fingerprint for MFA. Makes it more fake at proofs of reality. Use proof of stake, proof of humanity, proof of the knowledge of history, proof of TRUTH. Indeed someone can steal your prints and impersonate you: if anyone ever does here is my proof that I've being framed:",
+          "sha256": "efc3aa9938284415453dee10c0e5910e38b2ec5d39988ddcfd24d131e355450f",
+          "bytes": 395010
+        }
+      ]
+    },
+    {
+      "id": "7453311971057356800",
+      "slug": "2026-04-24-this-is-not-slop-it-is-translation",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7453308053090897920",
+      "slug": "2026-04-24-how-much-radio-do-you-actually-need",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7453252285146546176",
+      "slug": "2026-04-24-an-fm-receiver-with-one-fpga-input-pin",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7453252285146546176/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7453252285146546176-photo-1.jpg",
+          "alt": "diagram, schematic",
+          "sha256": "cc6e964c75a4333ee88547c1f2b450ccd89957b956163c1f64fdc6d5a59419b5",
+          "bytes": 153225
+        }
+      ]
+    },
+    {
+      "id": "7450019838695047168",
+      "slug": "2026-04-15-magnetic-paramp-and-second-harmonic-saturable-core-downconverter",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7435720226823897089",
+      "slug": "2026-03-06-correctness-emerges-by-acting",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7435720226823897089/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7435720226823897089-photo-1.jpg",
+          "alt": "text, letter",
+          "sha256": "571342278450ff9857ddce119381b41beb8cee2e5940aa86466ce242e224ad10",
+          "bytes": 115436
+        }
+      ]
+    },
+    {
+      "id": "7432317954232586241",
+      "slug": "2026-02-25-why-i-need-this-instrument",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7432317954232586241/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7432317954232586241-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "e492b2b563168a563d927e198f081de8905b544ee746d0aac39f327a392f9463",
+          "bytes": 150139
+        }
+      ]
+    },
+    {
+      "id": "7423445182991495168",
+      "slug": "2026-01-31-the-physical-mux-tile-alphabet",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7423445182991495168/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7423445182991495168-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "df751783650bb7df3e3338e2e8d2853530ade2b2df1153ead1c9890d4d5cf600",
+          "bytes": 82528
+        }
+      ],
+      "comment_assets": [
+        {
+          "comment_id": "7423446314849337345",
+          "date": "2026-01-31 19:25:22",
+          "text": "Next step redesign the whole thing indeed 😅",
+          "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7423445182991495168/",
+          "source_note": "Image attached to Brian Greenforest’s comment on the original LinkedIn post.",
+          "kind": "comment_image",
+          "file": "media/original-posts/7423445182991495168-comment-7423446314849337345.png",
+          "alt": "Image attached to Brian Greenforest's LinkedIn comment: Next step redesign the whole thing indeed 😅",
+          "sha256": "ae1cc6453ae6358143a8119932379cf5a6811e2328821eb457c2d6f0d63a5704",
+          "bytes": 492679
+        }
+      ]
+    },
+    {
+      "id": "7411950504282341376",
+      "slug": "2025-12-31-chain-of-thought-reasoning-may-be-a-mistake",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7389654803477565441",
+      "slug": "2025-10-30-ai-does-not-repeal-no-free-lunch",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7363388235273687042",
+      "slug": "2025-08-19-cheap-pixelless-textures-with-2d-sdfs",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7363388235273687042/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7363388235273687042-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "45bca94db00234f2c1640ee2bc5569f216941e665883d4a05be679b1c50c1180",
+          "bytes": 39079
+        }
+      ]
+    },
+    {
+      "id": "7344924266917711872",
+      "slug": "2025-06-29-floating-point-hardware-from-pixar-to-ai-chips",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7344924266917711872/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7344924266917711872-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "52e77391123bd7c3fae9704ae19f7e68fbccf0f1e917c303c9c3602a5686999e",
+          "bytes": 119359
+        }
+      ]
+    },
+    {
+      "id": "7336414482144948225",
+      "slug": "2025-06-05-nano-core-logic-at-the-kt-limit",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7153437004209246208",
+      "slug": "2024-01-17-teach-microelectronics-in-maker-spaces",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7153437004209246208/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7153437004209246208-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "92060d675aad24a22e18646a0d77ea668064dc0668aafc26b6117891fd9fc12a",
+          "bytes": 212821
+        }
+      ]
+    },
+    {
+      "id": "7153229812667453442",
+      "slug": "2024-01-17-dinov2-salad-superglue-and-the-dustbin-question",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7153229812667453442/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/7153229812667453442-link_thumbnail-1.jpg",
+          "alt": "Optimal Transport Aggregation for Visual Place Recognition",
+          "sha256": "b20e9e560d1810c21b88aed39fbfddcc05d8b2df0dd6ba347e016574b5d721fb",
+          "bytes": 13651
+        }
+      ]
+    },
+    {
+      "id": "7151791401909780482",
+      "slug": "2024-01-13-the-closed-photolithography-compute-cycle",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7150963925310750721",
+      "slug": "2024-01-10-loss-functions-in-llms-and-embedding-models",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7150963879345356800/",
+      "source_note": "The selected group post is guest-gated. This is the authentic attached image from Brian Greenforest’s public twin post, published 10.959 seconds earlier with the same full text.",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7150963925310750721-photo-1.jpg",
+          "alt": "Image attached to Brian Greenforest’s public twin of the selected LinkedIn group post",
+          "sha256": "ea0079fb36ea3f7bb49bc9580c0848b3cfe1142f4ff83a2c6e129bc53b5bd60f",
+          "bytes": 149260
+        }
+      ]
+    },
+    {
+      "id": "7150899172584386560",
+      "slug": "2024-01-10-training-a-tiny-llama-from-scratch",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7150899172584386560/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7150899172584386560-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "f339e59ce851a5136bbe9a212ec129f8d2409553dd9522c8ad3c6b1258bc8692",
+          "bytes": 146016
+        }
+      ]
+    },
+    {
+      "id": "7147788827493904385",
+      "slug": "2024-01-02-rag-as-a-rewrite-or-repeat-discipline",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7147788827493904385/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7147788827493904385-photo-1.jpg",
+          "alt": "diagram",
+          "sha256": "0b1c60b3bbc13daed66b36ff017464d56d3e0753f5c6681d287ae98e34cb5e45",
+          "bytes": 60425
+        }
+      ]
+    },
+    {
+      "id": "7138756414642024448",
+      "slug": "2023-12-08-remembering-carl-hewitt",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7138756414642024448/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7138756414642024448-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "43dec8b8bd4bcc7d0835b1ac482f890d18ddfc8a550d86493778d77977c0970f",
+          "bytes": 65598
+        }
+      ],
+      "comment_assets": [
+        {
+          "comment_id": "7138595572822810624",
+          "date": "2023-12-07 18:30:13",
+          "text": "Newton started the line",
+          "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7138756414642024448/",
+          "source_note": "Image attached to Brian Greenforest’s comment on the original LinkedIn post.",
+          "kind": "comment_image",
+          "file": "media/original-posts/7138756414642024448-comment-7138595572822810624.jpg",
+          "alt": "Image attached to Brian Greenforest's LinkedIn comment: Newton started the line",
+          "sha256": "57addf64fbe44da98cd4cf5237a5f82341ab911a2ba6fecc71af684aa27a62c5",
+          "bytes": 22592
+        },
+        {
+          "comment_id": "7138596019935604736",
+          "date": "2023-12-07 18:31:59",
+          "text": "And within 16 handshakes from Newton, I knew Hewitt. Meet you mentor. Get initiated.",
+          "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7138756414642024448/",
+          "source_note": "Image attached to Brian Greenforest’s comment on the original LinkedIn post.",
+          "kind": "comment_image",
+          "file": "media/original-posts/7138756414642024448-comment-7138596019935604736.jpg",
+          "alt": "Image attached to Brian Greenforest's LinkedIn comment: And within 16 handshakes from Newton, I knew Hewitt. Meet you mentor. Get initiated.",
+          "sha256": "d9c1c07a836d053a107b127577c29fc41bf58ab2e5e2f61963c50778447100f5",
+          "bytes": 73368
+        }
+      ]
+    },
+    {
+      "id": "7135418069195116545",
+      "slug": "2023-11-29-ai-arithmetic-on-chips",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7135418069195116545/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7135418069195116545-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "e9d06dbcf2fd6033c12b12f9865fe4553c0697240ce337046ebb57e99de67cea",
+          "bytes": 135362
+        },
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7135418069195116545-photo-2.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "86ebad8ef5fea65c09b91054e50ce4dfcec2d3490b527aeeaaad8094fdc0b3a0",
+          "bytes": 326718
+        }
+      ]
+    },
+    {
+      "id": "7128430023149027328",
+      "slug": "2023-11-09-learn-how-chips-multiply-and-add",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7125730558772457472",
+      "slug": "2023-11-02-why-open-sourcing-asic-fma-is-hard",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7122990780222251008",
+      "slug": "2023-10-25-the-long-mathematical-path-to-transformers",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7122990780222251008/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7122990780222251008-photo-1.gif",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "35a2b12729b02d28dfca79972acdd3dee94b138b6c02bd3c6152b9c9398e78ae",
+          "bytes": 1158556
+        }
+      ]
+    },
+    {
+      "id": "7122652775242481664",
+      "slug": "2023-10-24-hessian-free-methods-did-not-vanish",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7122652775242481664/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/7122652775242481664-link_thumbnail-1.jpg",
+          "alt": "ADAHESSIAN: An Adaptive Second Order Optimizer for Machine Learning",
+          "sha256": "b20e9e560d1810c21b88aed39fbfddcc05d8b2df0dd6ba347e016574b5d721fb",
+          "bytes": 13651
+        }
+      ]
+    },
+    {
+      "id": "7122455491036811264",
+      "slug": "2023-10-24-many-worlds-and-the-discrete-photon-field-fabric",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7121209800775929856",
+      "slug": "2023-10-20-binarized-weights-as-a-scaling-breakthrough",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7121209800775929856/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/7121209800775929856-link_thumbnail-1.jpg",
+          "alt": "BinaryConnect: Training Deep Neural Networks with binary weights during propagations",
+          "sha256": "b20e9e560d1810c21b88aed39fbfddcc05d8b2df0dd6ba347e016574b5d721fb",
+          "bytes": 13651
+        }
+      ]
+    },
+    {
+      "id": "7110044633677631490",
+      "slug": "2023-09-19-cross-entropy-intuition",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7102715324570992640",
+      "slug": "2023-08-30-autoregression-nonlinear-processes-and-embedding",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7102450930406621184",
+      "slug": "2023-08-30-functions-prediction-and-autoregression",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7100573860130955265",
+      "slug": "2023-08-24-optimizer-history-around-attention-and-adamw",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7100573860130955265/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/7100573860130955265-link_thumbnail-1.jpg",
+          "alt": "From the MachineLearning community on Reddit: [D] Next-gen optimizer",
+          "sha256": "21ece91f7e02e21f191a6f0cdf19eaf8ca5a800907e160da8272c1e4b126af9e",
+          "bytes": 67874
+        }
+      ],
+      "comment_assets": [
+        {
+          "comment_id": "7100577351360512000",
+          "date": "2023-08-24 20:39:22",
+          "text": "",
+          "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7100573860130955265/",
+          "source_note": "Image attached to Brian Greenforest’s comment on the original LinkedIn post.",
+          "kind": "comment_image",
+          "file": "media/original-posts/7100573860130955265-comment-7100577351360512000.png",
+          "alt": "Image-only comment added by Brian Greenforest on LinkedIn",
+          "sha256": "a45d8b77aa5c18ed30b5c85083efa0b8186bc7f6b8105edd3defa2a28a965006",
+          "bytes": 81425
+        }
+      ]
+    },
+    {
+      "id": "7098186252893487104",
+      "slug": "2023-08-18-probit-argmax-logit-and-neural-networks",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7098186252893487104/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7098186252893487104-photo-1.jpg",
+          "alt": "text",
+          "sha256": "90fd35faf45d7573e006b6a7bc2e11a12d55ae6b11264c59d388894122a75595",
+          "bytes": 191187
+        }
+      ]
+    },
+    {
+      "id": "7095872866386145280",
+      "slug": "2023-08-11-nvidia-gpus-are-not-universal-computers",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7095872866386145280/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7095872866386145280-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "2d1624699d51455714d00d60cce4424ad6b035214e104bb085d58ead1c148585",
+          "bytes": 46762
+        }
+      ]
+    },
+    {
+      "id": "7092240205918728192",
+      "slug": "2023-08-01-hilbert-space-operators-as-statistical-models",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7090564154377326592",
+      "slug": "2023-07-28-lattice-regularization-and-measurement-tensors",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7090564154377326592/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7090564154377326592-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "e310ed83584f9b35d791355e12c379867cefa372e38450a1674ec6ce73372d32",
+          "bytes": 243488
+        },
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7090564154377326592-photo-2.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "63103279bae84691724d270954d3605a88b7b7f856676b23ccbe7165b24e3a54",
+          "bytes": 228392
+        }
+      ]
+    },
+    {
+      "id": "7089362236011409408",
+      "slug": "2023-07-24-a-draft-theory-of-discrete-photons",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7089362236011409408/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7089362236011409408-photo-1.jpg",
+          "alt": "text, letter",
+          "sha256": "e8f8eac2ae48cab60958f23bdfb5eae94d70e20be24425010164fc52a53ae594",
+          "bytes": 208539
+        }
+      ]
+    },
+    {
+      "id": "7088013924096245760",
+      "slug": "2023-07-21-attention-dynamic-weights-and-mutual-information",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7081450563757903872",
+      "slug": "2023-07-03-predictive-patterns-are-not-meaning",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7081450563757903872/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/7081450563757903872-link_thumbnail-1.jpg",
+          "alt": "ChatGPT Is a Bullshit Generator Waging Class War",
+          "sha256": "129bdf853f517fabfd65aae4561325571ba48d832b71b03ec19c71f482a8a40e",
+          "bytes": 45421
+        }
+      ]
+    },
+    {
+      "id": "7079985214311067648",
+      "slug": "2023-06-29-a-second-law-after-moore",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7079985214311067648/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7079985214311067648-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "2bf713e0584eb97953d0c0dd6af43653d271975a01a27b74104cd8c20f7d9482",
+          "bytes": 77821
+        }
+      ],
+      "comment_assets": [
+        {
+          "comment_id": "7079990605157724160",
+          "date": "2023-06-29 01:15:00",
+          "text": "Apparenlty,",
+          "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7079985214311067648/",
+          "source_note": "Image attached to Brian Greenforest’s comment on the original LinkedIn post.",
+          "kind": "comment_image",
+          "file": "media/original-posts/7079985214311067648-comment-7079990605157724160.jpg",
+          "alt": "Image attached to Brian Greenforest's LinkedIn comment: Apparenlty,",
+          "sha256": "94dce586da6517ca13256cf2514072cbb9f2f506b87fb37f7de21c1ea691fc93",
+          "bytes": 23383
+        }
+      ]
+    },
+    {
+      "id": "7079146835960889344",
+      "slug": "2023-06-26-rights-for-ai-and-hardware-democratization",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7078083792799748096",
+      "slug": "2023-06-23-shadertoy-as-an-asic-simulator-path",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7078083792799748096/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7078083792799748096-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "a8f0aeb97b5b072e36b925d8e75ff576bcf91abd2a56e30a6e22597924239412",
+          "bytes": 48717
+        }
+      ]
+    },
+    {
+      "id": "7077400287887441922",
+      "slug": "2023-06-21-reversible-computation-and-biological-efficiency",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7077400287887441922/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/7077400287887441922-link_thumbnail-1.jpg",
+          "alt": "Energy Savings with Quantum Computing – Fact or Fiction?",
+          "sha256": "a62dd891078ef0a309e1a9db41f409a94d4d85281e27ce1c849c6ff8c04fe420",
+          "bytes": 37629
+        }
+      ]
+    },
+    {
+      "id": "7058581859403780096",
+      "slug": "2023-04-30-burning-i-o-and-melting-the-core",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7058581859403780096/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/7058581859403780096-link_thumbnail-1.jpg",
+          "alt": "New Standards Push Co-Packaged Optics",
+          "sha256": "4d0ecd523cb1a653543fee0597ffff9628829c3ae673a3e5beceabcaa993954c",
+          "bytes": 47944
+        }
+      ]
+    },
+    {
+      "id": "7053957730402803712",
+      "slug": "2023-04-18-intrinsic-metrics-and-mutual-information",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7050998531863547904",
+      "slug": "2023-04-10-llms-reinforcement-learning-and-physical-world-models",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7049426057304674304",
+      "slug": "2023-04-05-adhd-data-processing-and-application-architecture",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7045809045051478016",
+      "slug": "2023-03-26-transformers-as-mathematical-optimization",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7045455274496704512",
+      "slug": "2023-03-25-explaining-cartilage-by-comparison-with-hadoop",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7044419589471944705",
+      "slug": "2023-03-22-fpgas-claytronics-and-reactive-programming",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7043718701258313728",
+      "slug": "2023-03-20-public-work-should-be-open",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7043718701258313728/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/7043718701258313728-link_thumbnail-1.jpg",
+          "alt": "Stanford Scientists Pretty Much Cloned OpenAI",
+          "sha256": "77ba58b7384919d621087865c9bb668d3ec8f082a6171755e319605fba2d227d",
+          "bytes": 65085
+        }
+      ]
+    },
+    {
+      "id": "7042934035156795392",
+      "slug": "2023-03-18-ai-is-mathematics",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7040471075121491968",
+      "slug": "2023-03-11-predictive-models-are-control-theory",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7026058605468532736",
+      "slug": "2023-01-31-entanglement-pure-states-mixed-states-and-superposition",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "7016631557213863936",
+      "slug": "2023-01-05-let-me-make-a-chip-at-home",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7016631557213863936/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/7016631557213863936-photo-1.jpg",
+          "alt": "Repair is a RIGHT. Molon labe.",
+          "sha256": "2cbfbf7d6ac1d1cf1e8429ecf97159fe74495c5520f05a9d4488b4a4b4e3eb0a",
+          "bytes": 99994
+        }
+      ]
+    },
+    {
+      "id": "7011538882437545984",
+      "slug": "2022-12-22-software-developers-are-the-cybersecurity-frontline",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:7011538882437545984/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/7011538882437545984-link_thumbnail-1.jpg",
+          "alt": "AI assistants help developers produce code that",
+          "sha256": "5bdcce269ef608bdfb1bc8c81ae4c6f26e4cbce77392a3a2adf56d297fdef050",
+          "bytes": 49343
+        }
+      ]
+    },
+    {
+      "id": "6984595234248691712",
+      "slug": "2022-10-08-vlsi-questions-for-reactive-programming",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6955542843121684480",
+      "slug": "2022-07-20-rocks-photons-and-spacetime-motion",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6955542843121684480/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6955542843121684480-link_thumbnail-1.jpg",
+          "alt": "Space-Time the Cause of Gravity?",
+          "sha256": "4802668596acc45e511f9eb2102838bfad119ff1419eafe24d5c5cbc5665a5d4",
+          "bytes": 24377
+        }
+      ]
+    },
+    {
+      "id": "6950536443169558528",
+      "slug": "2022-07-06-my-why-is-tinkerer-scale-control-circuitry",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6950530303903891456",
+      "slug": "2022-07-06-searching-for-a-tinkerer-replacement-for-silicon",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6930692618993500160",
+      "slug": "2022-05-13-opencl-kernels-and-the-final-chip",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6930415265725771776",
+      "slug": "2022-05-12-verilog-allocation-and-dynamic-languages",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6930415265725771776/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6930415265725771776-link_thumbnail-1.jpg",
+          "alt": "Is there anything cooler than an FPGA?",
+          "sha256": "96d61715d4580dec863cccbcd6698e6cde2a080f473ab13b5f7248cbe6a8aa3b",
+          "bytes": 50012
+        }
+      ]
+    },
+    {
+      "id": "6930322593442934784",
+      "slug": "2022-05-12-who-is-solving-parallel-source-code",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6930322593442934784/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6930322593442934784-link_thumbnail-1.jpg",
+          "alt": "NCCL: High-Speed Inter-GPU Communication for Large-Scale Training S31880 | GTC Digital April 2021 | NVIDIA On-Demand",
+          "sha256": "1b2c56b2d7a650b25c5fdfe8bbacc916971d23b9b343b5d66d556240b8c7de9b",
+          "bytes": 37075
+        }
+      ]
+    },
+    {
+      "id": "6930220193507917824",
+      "slug": "2022-05-11-when-one-fpga-is-not-enough",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6928125248680710144",
+      "slug": "2022-05-05-cartilage-transputers-and-cellmatrix",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6928125248680710144/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/6928125248680710144-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "9399036afc3f16024975e7bd821b0295e32f0c76d415536a7c3af8e9e1aa4fbc",
+          "bytes": 130683
+        }
+      ]
+    },
+    {
+      "id": "6928078625506230272",
+      "slug": "2022-05-05-fpgas-as-reactive-parallel-beauty",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6928078625506230272/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6928078625506230272-link_thumbnail-1.jpg",
+          "alt": "AMD to Fuse FPGA AI Engines Onto EPYC Processors, Arrives in 2023",
+          "sha256": "1034e6c153c33a061e65af497e58d26bd7c7c9a42549c176a5a8ae0d8e45bc3c",
+          "bytes": 65061
+        }
+      ]
+    },
+    {
+      "id": "6926583190195253248",
+      "slug": "2022-05-01-a-shader-for-nano-fpga-fabric",
+      "status": "saved",
+      "source_page": "https://www.youtube.com/watch?v=irna23iEQBA",
+      "source_note": "Current thumbnail from the video URL recorded in Brian Greenforest’s LinkedIn export.",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6926583190195253248-link_thumbnail-1.jpg",
+          "alt": "MUX cellular video thumbnail",
+          "sha256": "bcc6e3357ed137529945dfb654f100874d2b68319c3797be5d38adf33d391461",
+          "bytes": 34973
+        }
+      ]
+    },
+    {
+      "id": "6925359943529246720",
+      "slug": "2022-04-28-movie-inspirations-for-programmable-matter",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6925174188265668608",
+      "slug": "2022-04-27-elementary-computation-is-a-switching-operation",
+      "status": "none",
+      "reason": "The featured post is not available in the public LinkedIn page."
+    },
+    {
+      "id": "6925162336206929921",
+      "slug": "2022-04-27-a-short-term-cartilage-project-structure",
+      "status": "none",
+      "reason": "The featured post is not available in the public LinkedIn page."
+    },
+    {
+      "id": "6925040601075785728",
+      "slug": "2022-04-27-what-cartilage-is-and-is-not",
+      "status": "saved",
+      "source_page": "https://www.youtube.com/watch?v=H8eP99neOVs",
+      "source_note": "Current thumbnail from the video URL recorded in Brian Greenforest’s LinkedIn export.",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6925040601075785728-link_thumbnail-1.jpg",
+          "alt": "“Focusing is about saying no” — Steve Jobs video thumbnail",
+          "sha256": "a48582221bd711693b9b3a2c0d513675e0e5840f60573eb955287f20c2345e99",
+          "bytes": 18278
+        }
+      ]
+    },
+    {
+      "id": "6924897691604836352",
+      "slug": "2022-04-27-reactive-programming-implies-distributed-systems",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6924785759598116864",
+      "slug": "2022-04-26-migrating-from-dsl-languages-to-erlang-like-parallelism",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6924785759598116864/",
+      "assets": [
+        {
+          "kind": "document",
+          "file": "media/original-posts/6924785759598116864-document.pdf",
+          "title": "Ruby to Elixir",
+          "total_pages": 3,
+          "sha256": "63c2605611d965e499540fa31e50e3b5afe31dfdb673120e3445532c6b3a8173",
+          "bytes": 1100827,
+          "thumbnail": {
+            "kind": "document_thumbnail",
+            "file": "media/original-posts/6924785759598116864-document-cover.jpg",
+            "alt": "First page of Ruby to Elixir",
+            "sha256": "180adcd5ad8580b222fe4861700e5e534f8afb55e35b584b2b99943a112aaa1b",
+            "bytes": 49753
+          }
+        }
+      ]
+    },
+    {
+      "id": "6924782161485058048",
+      "slug": "2022-04-26-adopting-a-new-massively-parallel-language",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6924782161485058048/",
+      "assets": [
+        {
+          "kind": "document",
+          "file": "media/original-posts/6924782161485058048-document.pdf",
+          "title": "Adoption of Erlang and Elixir",
+          "total_pages": 29,
+          "sha256": "7bcbee5a9e55488f409501cc0e276af515ef04df08a19a027d960ce0851679db",
+          "bytes": 668649,
+          "thumbnail": {
+            "kind": "document_thumbnail",
+            "file": "media/original-posts/6924782161485058048-document-cover.jpg",
+            "alt": "First page of Adoption of Erlang and Elixir",
+            "sha256": "107d0474f3e2f44ec2fbe3c909ef7d409919138d4032762c468d72b7531c3c7f",
+            "bytes": 18412
+          }
+        }
+      ]
+    },
+    {
+      "id": "6922964896301162496",
+      "slug": "2022-04-21-legacy-cloud-infrastructure-and-reprogrammable-fpgas",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6922960356663332864",
+      "slug": "2022-04-21-compiling-backend-code-to-a-colder-chip",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6922960356663332864/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6922960356663332864-link_thumbnail-1.jpg",
+          "alt": "Cloud Compiling",
+          "sha256": "8401d038c3de6929b0de2d75aa8fb4efb48c83c9ad255305a90a67cb367d5fa5",
+          "bytes": 24449
+        }
+      ]
+    },
+    {
+      "id": "6921909505588957184",
+      "slug": "2022-04-18-verilog-as-a-programming-language",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6921674729401577472",
+      "slug": "2022-04-18-hilbert-13-and-neural-networks",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6921674729401577472/",
+      "assets": [
+        {
+          "kind": "video_poster",
+          "file": "media/original-posts/6921674729401577472-video_poster-1.jpg",
+          "alt": "Poster frame from the video attached to the original LinkedIn post",
+          "sha256": "ed451b3a99dd2232497f20b4b41c64740782ebfaa18649fb4fcc2a47d7eb33ca",
+          "bytes": 13757
+        }
+      ]
+    },
+    {
+      "id": "6919899109243973633",
+      "slug": "2022-04-13-focus-on-people-models-and-thought",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6919879488684118016",
+      "slug": "2022-04-13-machine-learning-plus-quantum",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6919879488684118016/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6919879488684118016-link_thumbnail-1.jpg",
+          "alt": "Quantinuum Enhances The World’s First Quantum Natural Language Processing Toolkit Making It Even More Powerful",
+          "sha256": "0f7b0889bbf9fc336007862a7a0cc06ba381edcaa6ba0d71aa3c1b0aae408f2c",
+          "bytes": 46526
+        }
+      ]
+    },
+    {
+      "id": "6917299061574287360",
+      "slug": "2022-04-06-three-levels-of-a-new-programming-system",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6915055370902138880",
+      "slug": "2022-03-30-the-von-neumann-bottleneck-is-still-here",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6912529959706124288",
+      "slug": "2022-03-23-a-critique-of-fail-fast",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6908887401133936640",
+      "slug": "2022-03-13-quantum-darwinism-and-the-dust-grain",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6908887401133936640/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6908887401133936640-link_thumbnail-1.jpg",
+          "alt": "Quantum Darwinism, an Idea to Explain Objective Reality, Passes First Tests",
+          "sha256": "97e92b4f22f5a5cf5902d220957990b6b99b6d03e0a685333b1e431b268f7bb7",
+          "bytes": 56675
+        }
+      ]
+    },
+    {
+      "id": "6908155008638967808",
+      "slug": "2022-03-11-disseminated-thought-can-be-improved",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6891101456376692736",
+      "slug": "2022-01-23-a-tsmc-asml-consortium-for-distributed-fabs",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6889090016199491584",
+      "slug": "2022-01-18-induction-deduction-abduction-and-ml",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6889090016199491584/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6889090016199491584-link_thumbnail-1.jpg",
+          "alt": "The Myth of Artificial Intelligence: Why Computers Can’t Think the Way We Do",
+          "sha256": "7eb0621e76298935876fddafa5c2af6aa8e84234226378be56d18b3f1ba24697",
+          "bytes": 16487
+        }
+      ]
+    },
+    {
+      "id": "6889073086180798464",
+      "slug": "2022-01-18-anesthetics-cells-and-consciousness",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6884081435469340672",
+      "slug": "2022-01-04-superdeterminism-many-worlds-and-quantum-luck",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6874472713285644288",
+      "slug": "2021-12-08-chip-capacity-as-ddos-style-distribution",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6873840010903339008",
+      "slug": "2021-12-07-three-polarizers-and-acausal-reality",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6872631701567344640",
+      "slug": "2021-12-03-grow-the-silicon-ingot-for-trust",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6872631701567344640/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/6872631701567344640-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "0a0e66f66f9e663ed113e3ce032769bb5a7a916e9426fcd832ea0fa37df42813",
+          "bytes": 116703
+        }
+      ]
+    },
+    {
+      "id": "6866104004804530176",
+      "slug": "2021-11-15-technology-education-instead-of-technology-secrecy",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6865089414914277376",
+      "slug": "2021-11-13-leaks-secrets-and-technology-for-humanity",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6859230617821954048",
+      "slug": "2021-10-27-web-3-0-already-happened",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6859230617821954048/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6859230617821954048-link_thumbnail-1.jpg",
+          "alt": "Investing in Friends With Benefits (a DAO) - Andreessen Horowitz",
+          "sha256": "c7106c86e49c7be5f156bc4159f2fbc5a5cb3c817384aaa4ac970ab25643a529",
+          "bytes": 33356
+        }
+      ]
+    },
+    {
+      "id": "6815886955151204352",
+      "slug": "2021-06-30-turing-von-neumann-boole-and-faggin",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6813227486244143104",
+      "slug": "2021-06-22-an-fpga-cloud-for-shared-designs",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6813227486244143104/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6813227486244143104-link_thumbnail-1.png",
+          "alt": "Brian Greenforest | FPGA Systems, WebGL & Cartilage",
+          "sha256": "d81dc20705db679f5ca59b7fca1fbfb54cee72229c58ed0f17d373f657173594",
+          "bytes": 48880
+        }
+      ]
+    },
+    {
+      "id": "6811701791533740032",
+      "slug": "2021-06-18-the-isa-as-an-api-you-cannot-extend",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6811497465783701505",
+      "slug": "2021-06-18-cpus-solve-a-narrow-class-of-problems",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6811474430057943040",
+      "slug": "2021-06-18-mini-fpgas-inside-fpgas",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6811466108625924097",
+      "slug": "2021-06-18-boolean-logic-is-everything",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6806422838334111744",
+      "slug": "2021-06-04-cellular-automata-across-fpga-chains",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6803490069710815232",
+      "slug": "2021-05-27-conventional-code-as-a-sequential-mess",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6803490069710815232/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/6803490069710815232-photo-1.jpg",
+          "alt": "diagram",
+          "sha256": "96ec7265aaee547b868f0009a737a1625c651eee1fc5c26ad5b3a400c59aaec3",
+          "bytes": 123018
+        }
+      ]
+    },
+    {
+      "id": "6792572656123305984",
+      "slug": "2021-04-26-binary-decision-diagrams-and-mux-networks",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6792572656123305984/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/6792572656123305984-photo-1.jpg",
+          "alt": "table",
+          "sha256": "bb056d5e58a878e064b296fce7824598fb6418c0a16df5ef6b9c2befad7a43bb",
+          "bytes": 94869
+        }
+      ]
+    },
+    {
+      "id": "6792370914316185600",
+      "slug": "2021-04-26-geometric-algebra-as-strict-types",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6789785646673338368",
+      "slug": "2021-04-19-the-end-of-the-hackers-era",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6789607143206191104",
+      "slug": "2021-04-18-open-hardware-ip-cores-are-coming",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6789607143206191104/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/6789607143206191104-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "91a35db6f7371e8b3990b4c62c1e1d8e982a013d023415fed3ccb681e46c349a",
+          "bytes": 5756
+        }
+      ]
+    },
+    {
+      "id": "6789600515404783617",
+      "slug": "2021-04-18-moore-law-grand-finale",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6789429527421558784",
+      "slug": "2021-04-18-a-physical-constraints-aware-programming-language",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6776049361370591232",
+      "slug": "2021-03-12-energy-paths-beyond-gasoline",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6776011311001276418",
+      "slug": "2021-03-12-a-portable-power-source-would-change-transportation",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6775913482845077504",
+      "slug": "2021-03-11-the-non-electric-energy-market",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6751964144129462273",
+      "slug": "2021-01-04-research-engineers-need-roles",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6730577963085107200",
+      "slug": "2020-11-06-ftl-communications-as-a-research-program",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6730577963085107200/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6730577963085107200-link_thumbnail-1.png",
+          "alt": "Faster than Light in Our Model of Physics: Some Preliminary Thoughts",
+          "sha256": "3f01b83f11193780e1d7cb1c4cf2d27fb75cec5b6a87080d614404c63e719936",
+          "bytes": 28036
+        }
+      ]
+    },
+    {
+      "id": "6728533817285574656",
+      "slug": "2020-11-01-closed-circuit-designs-are-binary-blobs",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6728533817285574656/",
+      "assets": [
+        {
+          "kind": "photo",
+          "file": "media/original-posts/6728533817285574656-photo-1.jpg",
+          "alt": "Media shown with Brian Greenforest's original LinkedIn post",
+          "sha256": "faa13d58c564e1b5c69fe9a996e615097dafca203e898ab2ee92662be772f933",
+          "bytes": 11089
+        }
+      ]
+    },
+    {
+      "id": "6725213048711331840",
+      "slug": "2020-10-23-diy-bga-and-solderless-multilayer-pcb-tests",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6723732436871708672",
+      "slug": "2020-10-18-the-difficulty-of-tiny-pcbs-at-home",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6721478095737643008",
+      "slug": "2020-10-12-code-and-circuits-in-4d-spacetime",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6706367553402474496",
+      "slug": "2020-09-01-a-warning-about-constructive-foundations",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6706364999486590976",
+      "slug": "2020-09-01-lie-algebras-from-algebraic-structures",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6690625133100572672",
+      "slug": "2020-07-19-single-argument-functions-and-abstraction",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6678349493370527745",
+      "slug": "2020-06-15-quaternions-and-completeness",
+      "status": "saved",
+      "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6678349493370527745/",
+      "assets": [
+        {
+          "kind": "link_thumbnail",
+          "file": "media/original-posts/6678349493370527745-link_thumbnail-1.png",
+          "alt": "Continuous slice functional calculus in quaternionic Hilbert spaces",
+          "sha256": "8eca41db5873adc72700006735d61c3fb7e15e2e3d82e52f9a9825e55cb4ca61",
+          "bytes": 5152
+        }
+      ]
+    },
+    {
+      "id": "6668014727395975168",
+      "slug": "2020-05-18-classical-mechanics-is-still-fundamental",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6667941682060914688",
+      "slug": "2020-05-18-do-not-skip-variational-calculus",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6661343430163206144",
+      "slug": "2020-04-29-measure-theory-as-a-prerequisite",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6566541356708306944",
+      "slug": "2019-08-12-life-on-earth-and-computational-permutations",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6561946711747633152",
+      "slug": "2019-07-30-scale-invariance-and-software-semantics",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6554225491195371520",
+      "slug": "2019-07-09-distributed-reactive-programming-for-claytronics",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6542124072942338048",
+      "slug": "2019-06-05-reversible-computing-and-copying-information",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6526692293943136256",
+      "slug": "2019-04-24-geometric-algebra-and-matrix-multiplication",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6526526954395570177",
+      "slug": "2019-04-23-live-offline-dualism-in-software",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6524292885188349952",
+      "slug": "2019-04-17-a-surviving-observer-model-of-computation",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    },
+    {
+      "id": "6501900903703027712",
+      "slug": "2019-02-14-a-cellular-automaton-model-of-computation",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media.",
+      "comment_assets": [
+        {
+          "comment_id": "6502095492527255552",
+          "date": "2019-02-15 08:46:08",
+          "text": "NOR logic gate",
+          "source_page": "https://www.linkedin.com/feed/update/urn:li:activity:6501900903703027712/",
+          "source_note": "Image attached to Brian Greenforest’s comment on the original LinkedIn post.",
+          "kind": "comment_image",
+          "file": "media/original-posts/6501900903703027712-comment-6502095492527255552.png",
+          "alt": "Image attached to Brian Greenforest's LinkedIn comment: NOR logic gate",
+          "sha256": "1bc11370723a0222470b7a1de056ca227a58c42dfe1e631a70f25e79b0ed1cc3",
+          "bytes": 25617
+        }
+      ]
+    },
+    {
+      "id": "6460888101307973632",
+      "slug": "2018-10-24-a-breakthrough-in-simpler-computation",
+      "status": "none",
+      "reason": "The original LinkedIn post has no attached or linked media."
+    }
+  ]
+}
