@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Learn FPGA And Verilog From First Principles | Greenforest I/O</title>
+    <meta name="description" content="A seven-chapter, hands-on FPGA and Verilog course: Boolean logic, FPGA fabric, simulation, testbenches, constraints, a counter lab, Yosys, nextpnr, and a real board flow.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/fpga-verilog/">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:title" content="Learn FPGA And Verilog From First Principles">
+    <meta property="og:description" content="Seven substantial chapters connect Boolean logic, Verilog, simulation, place-and-route, bitstreams, and physical FPGA pins.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://greenforest.io/fpga-verilog/">
+    <!-- greenforest:preview-source:fpga-verilog/diagrams/course-map.svg -->
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/fpga-verilog/index.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/fpga-verilog/index.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Learn FPGA And Verilog From First Principles - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-verilog/index.png">
+    <meta name="twitter:image:alt" content="Learn FPGA And Verilog From First Principles - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "All Things, All The Time: FPGA And Verilog From First Principles",
+            "url": "https://greenforest.io/fpga-verilog/",
+            "description": "A seven-chapter course from Boolean logic and FPGA architecture through Verilog simulation, project structure, a counter recreation, and an open iCE40 board flow.",
+            "datePublished": "2026-07-23",
+            "dateModified": "2026-07-23",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "hasPart": [
+                {"@type": "TechArticle", "position": 1, "name": "What An FPGA Is", "url": "https://greenforest.io/fpga-verilog/what-is-an-fpga.html"},
+                {"@type": "TechArticle", "position": 2, "name": "Inside An FPGA", "url": "https://greenforest.io/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html"},
+                {"@type": "TechArticle", "position": 3, "name": "An FPGA Learning Roadmap", "url": "https://greenforest.io/fpga-verilog/fpga-learning-roadmap.html"},
+                {"@type": "TechArticle", "position": 4, "name": "Build A Small Verilog Workbench", "url": "https://greenforest.io/fpga-verilog/verilog-workbench-iverilog-gtkwave.html"},
+                {"@type": "TechArticle", "position": 5, "name": "Anatomy Of A Verilog Project", "url": "https://greenforest.io/fpga-verilog/verilog-modules-testbenches-constraints.html"},
+                {"@type": "TechArticle", "position": 6, "name": "Recreate A CD4029B Counter", "url": "https://greenforest.io/fpga-verilog/cd4029b-counter-verilog.html"},
+                {"@type": "TechArticle", "position": 7, "name": "Put Verilog On An FPGA", "url": "https://greenforest.io/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html"}
+            ]
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">All Things, All The Time: FPGA And Verilog From First Principles</h1></header>
+    <address>July 23, 2026</address>
+
+    <!-- Source ownership: original curriculum paragraph 1 and the course-map role. -->
+    <section class="abstract">
+        <p><span class="eyebrow">Seven-chapter course · logic to pins</span></p>
+        <p class="lead">An FPGA lets many pieces of a digital machine exist and react at once. This course makes that sentence physical.</p>
+        <p>Start with Boolean functions and clocked state. Look inside the programmable fabric. Write a small Verilog design, make a testbench prove what it does, distinguish simulation from implementation, then follow the design through synthesis, place-and-route, a bitstream, and a board.</p>
+        <p>This is a careful publication of my original “All Things, All the Time” curriculum. The material has been divided by concept instead of compressed into a summary: each source idea has one home, repeated links have been consolidated, old tool instructions are preserved as historical context, and the explanations and labs have been expanded where the manuscript only left a prompt.</p>
+        <div class="cta-row" role="group" aria-label="Start or inspect the FPGA and Verilog course">
+            <a class="cta-link" href="what-is-an-fpga.html">Begin chapter 1</a>
+            <a class="cta-link" href="verilog-workbench-iverilog-gtkwave.html">Set up the workbench</a>
+            <a class="cta-link" href="cd4029b-counter-verilog.html">Build the counter</a>
+        </div>
+    </section>
+
+    <figure class="concept-diagram">
+        <a href="diagrams/course-map.svg">
+            <img src="diagrams/course-map.svg" width="1200" height="675" loading="eager" decoding="async" alt="Seven-step FPGA and Verilog course map from the FPGA mental model through a programmed physical board">
+        </a>
+        <figcaption>Original Greenforest I/O course map. Each numbered step owns a different question, so the course can elaborate without teaching the same thing twice.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>Take The Chapters In Order</h2>
+            <div class="chapter-grid">
+                <article class="chapter-card">
+                    <p><span class="chapter-number">Chapter 1</span><span class="chapter-status available">Available</span></p>
+                    <h3><a href="what-is-an-fpga.html">What An FPGA Is</a></h3>
+                    <p>Separate fixed ASIC wiring from field configuration, follow the two implementation flows, and build a sound model of concurrent logic plus clocked state.</p>
+                </article>
+                <article class="chapter-card">
+                    <p><span class="chapter-number">Chapter 2</span><span class="chapter-status available">Available</span></p>
+                    <h3><a href="fpga-architecture-luts-flip-flops-routing.html">Inside An FPGA</a></h3>
+                    <p>Zoom from a two-dimensional fabric to a vendor-specific logic block, then into LUTs, flip-flops, local routing, and global interconnect.</p>
+                </article>
+                <article class="chapter-card">
+                    <p><span class="chapter-number">Chapter 3</span><span class="chapter-status available">Available</span></p>
+                    <h3><a href="fpga-learning-roadmap.html">An FPGA Learning Roadmap</a></h3>
+                    <p>Order Boolean logic, Logisim, HDL syntax, simulation, physical I/O, CMOS depth, and ASIC work without confusing one layer for another.</p>
+                </article>
+                <article class="chapter-card">
+                    <p><span class="chapter-number">Chapter 4</span><span class="chapter-status available">Available</span></p>
+                    <h3><a href="verilog-workbench-iverilog-gtkwave.html">Build A Small Verilog Workbench</a></h3>
+                    <p>Install a compact Ubuntu toolset, compile and run the included counter, inspect a VCD waveform, and use Verilator when C++ integration is the better boundary.</p>
+                </article>
+                <article class="chapter-card">
+                    <p><span class="chapter-number">Chapter 5</span><span class="chapter-status available">Available</span></p>
+                    <h3><a href="verilog-modules-testbenches-constraints.html">Anatomy Of A Verilog Project</a></h3>
+                    <p>Understand source files, module hierarchy, the selected top, the design-under-test, testbench stimulus and checks, and board constraints.</p>
+                </article>
+                <article class="chapter-card">
+                    <p><span class="chapter-number">Chapter 6</span><span class="chapter-status available">Available</span></p>
+                    <h3><a href="cd4029b-counter-verilog.html">Recreate A CD4029B Counter</a></h3>
+                    <p>Turn a real counter datasheet into an executable behavioral contract, then grow from the included four-bit lab into preset, direction, decade, and cascade behavior.</p>
+                </article>
+                <article class="chapter-card capability-card-wide">
+                    <p><span class="chapter-number">Chapter 7</span><span class="chapter-status available">Available</span></p>
+                    <h3><a href="yosys-nextpnr-icestorm-alchitry-cu.html">Put Verilog On An FPGA</a></h3>
+                    <p>Use a pinned open tool bundle or inspect the individual Yosys, nextpnr, and IceStorm stages. See exactly where the netlist, constraints, placed design, packed bitstream, loader, and board enter—and how the original Alchitry Cu instructions fit as historical provenance.</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>What You Will Produce</h2>
+            <div class="article-fact-table" role="table" aria-label="Course outputs">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Mental model</div><div role="cell">A precise distinction among source code, concurrent hardware, stored state, a technology-mapped netlist, routing, and configuration</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Simulation artifact</div><div role="cell">A compiled counter testbench, self-checking results, and a VCD waveform you can inspect in GTKWave</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Implementation trail</div><div role="cell">The ordered iCE40 flow from Verilog through Yosys JSON, nextpnr ASC, IceStorm BIN, and a board loader</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Next architecture</div><div role="cell">Enough conventional FPGA footing to approach the separate <a href="/cartilage/">Cartilage learning path</a> without mistaking Cartilage for an ordinary LUT fabric</div></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Two Rules Keep The Course Honest</h2>
+            <p><strong>Simulation and hardware answer different questions.</strong> A testbench can prove functional claims about the model. It does not assign a package pin, close timing, establish signal integrity, or demonstrate a physical board. The course keeps those evidence layers separate.</p>
+            <p><strong>An analogy is a temporary handle.</strong> SQL, publish/subscribe, software I/O, an Arduino loop, and reactive programming each illuminate one part of HDL thinking. None is the machine itself. Verilog describes concurrent hardware processes; statements inside a procedural block still execute according to the language’s ordering rules.</p>
+        </section>
+
+        <section class="reader-note">
+            <h2>About The Source And The Refresh</h2>
+            <p>The original manuscript mixed foundational explanations, a topic list, setup notes, language questions, a first-circuit proposal, and a quoted 2022 Alchitry Cu walkthrough. This edition keeps those ideas but gives each one an explicit destination.</p>
+            <p>The old walkthrough is linked and credited in chapter 7, then replaced by a current, independently written route. That preserves provenance without silently republishing somebody else’s prose or asking a beginner to compile years of tool history before they can blink an LED.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Begin the FPGA and Verilog course">
+        <p>Start:</p>
+        <a href="what-is-an-fpga.html">Chapter 1: What An FPGA Is</a>
+        <p>Begin with the difference between committing metal at a fab and selecting existing FPGA logic and routes in the field.</p>
+        <p>More:</p>
+        <a href="/fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
+        <p>See the larger public evidence trail across RF, Ethernet RTL, configuration transport, arithmetic, tangible logic, and Cartilage.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

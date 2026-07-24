@@ -43,7 +43,7 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-05-12",
-                                "dateModified": "2026-07-09",
+                                "dateModified": "2026-07-23",
                                 "description": "A hardware/software allocation note: Verilog reserves resources before runtime, while dynamic languages allocate objects, fields, and references while the program runs.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-12-verilog-allocation-and-dynamic-languages.html",
                                 "isPartOf": {
@@ -102,6 +102,7 @@
             <h1>The Allocation Boundary</h1>
             <p>Verilog makes hardware resources explicit before runtime. LUTs, registers, memories, wires, and module instances have to exist in the design before a clock ever runs.</p>
             <p>That is powerful because the resulting machine has real spatial structure. It is also restrictive: once the fabric is full, a new behavior cannot appear the way a dynamic language can allocate another object or attach another field.</p>
+            <p><a href="/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">See where LUTs, registers, wires, and routed module connections live inside an FPGA</a> before carrying that fixed-resource model into dynamic allocation.</p>
         </section>
 
         <section>

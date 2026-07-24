@@ -14,7 +14,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/serial_multiplier/">
     <meta property="article:published_time" content="2025-07-26">
-    <meta property="article:modified_time" content="2026-07-22">
+    <meta property="article:modified_time" content="2026-07-23">
         <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:serial_multiplier/mul.png -->
@@ -40,7 +40,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2025-07-26",
-            "dateModified": "2026-07-22",
+            "dateModified": "2026-07-23",
             "image": "https://greenforest.io/serial_multiplier/mul.png",
             "description": "A positive-number Logisim bit-serial multiplier: the rendered artifact is 8x8 to 8 bits, LSB-first, with one output bit per clock after fill and no drain gap between operand words.",
             "mainEntityOfPage": "https://greenforest.io/serial_multiplier/",
@@ -145,6 +145,7 @@ Output (+3 clocks): p0 ... p7 | p'0 ... p'7
         <section>
             <h2>Next Measurement</h2>
             <p>The useful next comparison is a Verilog implementation measured on the same FPGA target against inferred <code>*</code> and hard-multiplier implementations: LUT count, Fmax, timing report, waveform capture, and placement behavior.</p>
+            <p>The course chapter on <a href="/fpga-verilog/verilog-modules-testbenches-constraints.html">Verilog modules, testbenches, and constraints</a> supplies the project boundary needed to make that comparison, and the <a href="/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html">open iCE40 flow</a> carries the result from RTL to a board bitstream.</p>
         </section>
     </main>
 

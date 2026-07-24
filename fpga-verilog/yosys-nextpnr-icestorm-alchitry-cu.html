@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Put Verilog On An FPGA: Yosys, nextpnr, IceStorm, Alchitry</title>
+    <meta name="description" content="Take verified Verilog through Yosys synthesis, nextpnr placement and routing, IceStorm bitstream packing, and Alchitry loading, with board-revision checks and a historical 2022 route.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:title" content="Put Verilog On An FPGA">
+    <meta property="og:description" content="Chapter 7: follow the artifact chain from selected top through Yosys, nextpnr, IceStorm, a binary bitstream, an Alchitry loader, and physical LEDs.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html">
+    <meta property="article:published_time" content="2026-07-23">
+    <!-- greenforest:preview-source:fpga-verilog/diagrams/verilog-to-bitstream.svg -->
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Put Verilog On An FPGA - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.png">
+    <meta name="twitter:image:alt" content="Put Verilog On An FPGA - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Put Verilog On An FPGA: Yosys, nextpnr, IceStorm, And Alchitry Cu",
+            "datePublished": "2026-07-23",
+            "dateModified": "2026-07-23",
+            "description": "A current and inspectable iCE40 implementation path, with exact artifact boundaries and a separately labeled historical Alchitry Cu source-build route.",
+            "image": "https://greenforest.io/fpga-verilog/diagrams/verilog-to-bitstream.svg",
+            "mainEntityOfPage": "https://greenforest.io/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html",
+            "isPartOf": {"@type": "CollectionPage", "name": "FPGA And Verilog From First Principles", "url": "https://greenforest.io/fpga-verilog/"},
+            "author": {"@type": "Person", "name": "Brian Greenforest"}
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Put Verilog On An FPGA</h1></header>
+    <address>July 23, 2026</address>
+
+    <!-- Source ownership: original curriculum paragraphs 107-146. The Cody Snider-derived prose is replaced with original prose while preserving attribution, ideas, and command history. -->
+    <section class="abstract">
+        <p><span class="eyebrow">FPGA + Verilog · Chapter 7 of 7</span></p>
+        <p class="lead">Simulation asks whether your model behaves. Implementation asks whether a particular FPGA can be configured to realize it.</p>
+        <p>This chapter follows both paths without collapsing them: Verilog plus a testbench goes through Icarus, checks, and a VCD; the selected hardware top goes through Yosys, nextpnr, IceStorm’s <code>icepack</code>, a binary bitstream, and a board loader.</p>
+        <p>The Alchitry Cu is a useful iCE40 target, but “Cu” now spans an original legacy board and a Cu V2. Select and record the exact revision before choosing a package, constraints file, reset polarity, LED polarity, or loader target.</p>
+        <p><a class="cta-link" href="/fpga-verilog/">See the complete seven-chapter course</a></p>
+    </section>
+
+    <figure class="concept-diagram">
+        <a href="diagrams/verilog-to-bitstream.svg">
+            <img src="diagrams/verilog-to-bitstream.svg" width="1200" height="675" loading="eager" decoding="async" alt="Two Verilog paths: simulation through Icarus Verilog, VCD, GTKWave, and checks; implementation through Yosys, a JSON netlist, nextpnr, icepack, a binary bitstream, a loader, and an FPGA">
+        </a>
+        <figcaption>Original Greenforest I/O diagram. One source language leads to two forms of evidence. This chapter follows the lower implementation path one artifact at a time.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>Historical Starting Point And Acknowledgement</h2>
+            <div class="reader-note">
+                <p>The handwritten curriculum’s Alchitry section began with Cody Snider’s <a href="https://codingwithcody.com/2022/02/28/alchitry-cu-getting-started/" target="_blank" rel="noopener">“Getting Started with Alchitry CU”</a>. The manuscript labels it “Written on February 27th, 2022”; the published URL is dated February 28. Cody described the difficult path from unboxing through a binary LED counter on Debian 11 and Linux Mint 20, using open-source tools built from source.</p>
+                <p>That post is the historical trail behind this chapter, and Cody remains visibly credited. His prose is not reproduced here. Tool releases, board support, Alchitry Labs, installation practice, and the Cu product line have changed, so the main walkthrough below is independently written for the current course. The complete 2022 command sequence is preserved later as a dated appendix, not presented as today’s default.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>First Identify The Board You Actually Have</h2>
+            <p>Alchitry’s current site places the original Cu under legacy boards. It documents a Lattice iCE40 HX FPGA, a 100 MHz oscillator, eight general-purpose LEDs, a reset button, and USB-C configuration. The separate Cu V2 product page specifies an <code>iCE40HX8K-CB132</code>, the same visible number of LEDs and oscillator frequency, plus its own schematic and control-header details.</p>
+            <p>Similar feature lists do not make board files interchangeable. Before building, record:</p>
+            <ul>
+                <li>the silkscreened product and revision;</li>
+                <li>the FPGA device and package from the matching schematic or board definition;</li>
+                <li>the oscillator, reset, and LED package pins;</li>
+                <li>whether reset and LEDs are active high or active low;</li>
+                <li>the exact PCF or Alchitry board definition used; and</li>
+                <li>the loader and USB path that detects this board.</li>
+            </ul>
+            <p>Do not fix a pin mismatch by trying random PCF files until one appears to blink. The constraint file is part of the design’s physical contract.</p>
+        </section>
+
+        <section>
+            <h2>The Current Short Path: Alchitry Labs V2</h2>
+            <p>Alchitry currently recommends <a href="https://alchitry.com/alchitry-labs/" target="_blank" rel="noopener">Alchitry Labs V2</a> across Windows, Linux, and macOS. For a Cu, its settings expose <strong>Cu Toolchain → Yosys (Open Source)</strong>, and the installation includes the Alchitry Loader for sending a third-party <code>.bin</code> file to the board.</p>
+            <ol>
+                <li>Install a named stable Alchitry Labs V2 release and record that release.</li>
+                <li>Connect the board with a known data-capable USB cable and verify that the loader identifies it before debugging HDL.</li>
+                <li>Create the smallest board project for the exact Cu revision.</li>
+                <li>Select the Yosys open-source Cu toolchain.</li>
+                <li>Build and load a one-LED or divided-counter smoke test.</li>
+                <li>Only after board detection, pin mapping, build, and loading work should you substitute the course counter.</li>
+            </ol>
+            <p>Alchitry’s current starter curriculum is centered on Lucid. This remains a Verilog course. Use Alchitry’s current project flow to prove the board and loader, but verify the Verilog design independently with Icarus or Verilator. Do not assume the IDE’s interactive simulator provides the same Verilog support as its builder or language-interoperability path.</p>
+            <p>The current first-party references are <a href="https://alchitry.com/tutorials/introduction/getting-started/" target="_blank" rel="noopener">Getting Started</a>, <a href="https://alchitry.com/tutorials/starter/your-first-fpga-project/" target="_blank" rel="noopener">Your First FPGA Project</a>, the <a href="https://alchitry.com/boards/cu/" target="_blank" rel="noopener">original Cu page</a>, and the <a href="https://shop.alchitry.com/products/alchitry-cu-v2" target="_blank" rel="noopener">Cu V2 page</a>.</p>
+        </section>
+
+        <section>
+            <h2>The Inspectable Path: Pin An Open Toolchain</h2>
+            <p>When you want to see every artifact instead of delegating the build to an IDE, use a named <a href="https://github.com/YosysHQ/oss-cad-suite-build" target="_blank" rel="noopener">OSS CAD Suite</a> release or another pinned package of Yosys, nextpnr, and Project IceStorm. Yosys’s installation guidance identifies OSS CAD Suite as the easiest binary route.</p>
+            <p>Do not write “latest” in the lab record. Save the release name and version outputs:</p>
+            <pre><code class="language-shell">yosys -V
+nextpnr-ice40 --version
+icepack -h 2&gt;&amp;1 | head
+iverilog -V</code></pre>
+            <p>The point of pinning is not ceremony. A course should be able to explain which parser, device database, packer, and placer produced a result.</p>
+        </section>
+
+        <section>
+            <h2>Wrap The Verified Counter For Human-Speed LEDs</h2>
+            <p>A 100 MHz board clock changes far too quickly for a person to see every four-bit update. Reuse the parameterized counter as a wider divider, then expose a slow slice to the LEDs:</p>
+            <pre><code class="language-verilog">module board_top (
+    input  wire       clock_100mhz,
+    input  wire       reset_n,
+    output wire [7:0] led
+);
+    wire [26:0] divider;
+
+    counter #(.WIDTH(27)) counter_for_humans (
+        .clk   (clock_100mhz),
+        .reset (~reset_n),
+        .count (divider)
+    );
+
+    assign led = divider[26:19];
+endmodule</code></pre>
+            <p>This wrapper is a template, not a claim about polarity. If the matching schematic says the LEDs are active low, invert the assignment. If the reset button is active high, remove the inversion. Keep the reusable counter unchanged; put board-specific facts at the board boundary.</p>
+            <p>The expected observation is an eight-bit binary pattern advancing slowly enough to see. A photograph of lit LEDs proves power and one state. A short video or timed observation showing the binary sequence proves more. A build log plus exact source, PCF, tool versions, and bitstream hash makes the result reproducible.</p>
+        </section>
+
+        <section>
+            <h2>Yosys: RTL To An iCE40 Technology Netlist</h2>
+            <p>Yosys reads the selected Verilog sources, elaborates the hierarchy, checks the chosen top, synthesizes the logic, and maps it toward iCE40 resources. In this example it writes a JSON netlist for nextpnr:</p>
+            <pre><code class="language-shell">mkdir -p build
+yosys -p '
+  read_verilog counter.v board_top.v
+  synth_ice40 -top board_top -json build/board_top.json
+'</code></pre>
+            <p>JSON is an interchange artifact in this flow, not the universal meaning of “Yosys output.” Inspect the synthesis log for the selected top, inferred registers, resource counts, and warnings about undriven or optimized-away ports. The official <a href="https://yosyshq.readthedocs.io/projects/yosys/en/latest/cmd/synth_ice40.html" target="_blank" rel="noopener"><code>synth_ice40</code> documentation</a> defines the device-oriented synthesis step.</p>
+        </section>
+
+        <section>
+            <h2>nextpnr: Place, Route, And Check The Target Frequency</h2>
+            <p>nextpnr consumes the netlist, device and package selection, and board constraints. It chooses physical cells and programmable routes, then reports whether the resulting timing meets the requested frequency.</p>
+            <p>For a Cu V2 whose matching documentation confirms <code>iCE40HX8K-CB132</code>, the command shape is:</p>
+            <pre><code class="language-shell">nextpnr-ice40 \
+  --hx8k \
+  --package cb132 \
+  --json build/board_top.json \
+  --pcf path/to/the-matching-cu-v2.pcf \
+  --asc build/board_top.asc \
+  --freq 100</code></pre>
+            <p>Replace the PCF path only with a file verified against that board revision. For the original Cu, re-confirm device, package, and pin map instead of inheriting the Cu V2 line. The <code>--freq 100</code> requirement describes the 100 MHz input domain; do not delete it merely to turn a timing failure into a green build.</p>
+            <p>The output <code>.asc</code> is an IceStorm ASCII configuration representation. It is not yet the binary file the loader expects.</p>
+        </section>
+
+        <section>
+            <h2>IceStorm: Pack The Configuration Bitstream</h2>
+            <p>Project IceStorm documents iCE40 configuration and provides the chip databases and tools used by the open flow. <code>icepack</code> converts nextpnr’s ASCII configuration into the binary bitstream:</p>
+            <pre><code class="language-shell">icepack build/board_top.asc build/board_top.bin
+sha256sum build/board_top.bin</code></pre>
+            <p>This is the missing step when a shorthand description says “nextpnr converts JSON into the FPGA format.” The complete chain has separate synthesis, place-and-route, and packing artifacts. Board pin assignments come from the PCF; IceStorm is not a generic catalog of board properties.</p>
+            <p>The official references are the <a href="https://github.com/YosysHQ/nextpnr" target="_blank" rel="noopener">nextpnr iCE40 example flow</a> and the <a href="https://prjicestorm.readthedocs.io/en/latest/overview.html" target="_blank" rel="noopener">Project IceStorm overview</a>.</p>
+        </section>
+
+        <section>
+            <h2>Load The Binary And Observe A Contract</h2>
+            <p>Open the Alchitry Loader included with Alchitry Labs, select the detected board, and load <code>build/board_top.bin</code>. The exact user-interface label and command-line entry point are release-specific; record the loader version and board identity instead of copying a stale invocation.</p>
+            <p>The board check is not merely “upload returned zero.” Confirm:</p>
+            <ol>
+                <li>The loader identifies the expected board over USB.</li>
+                <li>The build log identifies the expected FPGA and package.</li>
+                <li>The PCF binds the clock, reset, and each used LED to documented pins.</li>
+                <li>The counter leaves reset and shows an ordered binary progression.</li>
+                <li>A second load of a deliberately different LED mapping changes the observed hardware, demonstrating that the intended bitstream reached the device.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Troubleshoot By Artifact Boundary</h2>
+            <div class="article-fact-table" role="table" aria-label="Troubleshooting the Alchitry open-source FPGA flow by stage">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">No board in loader</div><div role="cell">Check a data-capable USB cable, power, exact board support, OS device visibility, and Linux udev or group permissions before touching Verilog.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Yosys removes the design</div><div role="cell">Confirm the selected top, top-level outputs, reset polarity, and that the LED path depends on live state.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">nextpnr rejects pins</div><div role="cell">Confirm FPGA, package, PCF revision, exact top-level port spelling, bus-index syntax, and whether a pin is legal for the requested I/O use.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Timing fails</div><div role="cell">Read the critical-path report. Fix the path, pipeline it, or state a justified lower requirement; do not confuse bitstream generation with timing closure.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Upload succeeds, LEDs do not move</div><div role="cell">Check reset and LED polarity, selected divider bits, oscillator pin, and whether wrapper ports match the PCF.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Another machine behaves differently</div><div role="cell">Compare recorded tool releases, <code>PATH</code>, source commit, PCF hash, build commands, and bitstream hash.</div></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>The 2022 Build-From-Source Route, Preserved As History</h2>
+            <p>Cody Snider’s original route addressed a real 2022 problem: open-source Alchitry Cu instructions were scattered, and Debian 11 or Linux Mint 20 users often compiled Yosys, IceStorm, and nextpnr themselves. The manuscript retained that dependency list and command sequence. It remains below so none of the technical trail disappears.</p>
+            <p><strong>Do not use these unpinned commands as the default current installation.</strong> They clone moving branches, install into the host, and were written for a dated OS context. A reproducible source build must add tested commit hashes, a named OS image, and current upstream build instructions.</p>
+
+            <h3>Historical dependency set</h3>
+            <pre><code class="language-shell">sudo apt-get install build-essential clang bison flex libreadline-dev \
+gawk tcl-dev libffi-dev git mercurial graphviz \
+xdot pkg-config python python3 libftdi-dev gperf \
+libboost-program-options-dev autoconf libgmp-dev \
+cmake python3-dev libboost-all-dev libeigen3-dev</code></pre>
+
+            <h3>Historical Yosys source build</h3>
+            <pre><code class="language-shell">git clone https://github.com/YosysHQ/yosys.git yosys
+cd yosys
+make -j$(nproc)
+sudo make install</code></pre>
+            <p>Its role was and remains synthesis: convert the selected Verilog hierarchy into a netlist suitable for the following iCE40 implementation tools. JSON was the chosen interchange in this tutorial, not the definition of Yosys.</p>
+
+            <h3>Historical Project IceStorm source build</h3>
+            <pre><code class="language-shell">git clone https://github.com/YosysHQ/icestorm.git icestorm
+cd icestorm
+make -j$(nproc)
+sudo make install</code></pre>
+            <p>IceStorm supplies iCE40 device configuration knowledge and tools including <code>icepack</code>. Board-specific pins still come from matching constraints.</p>
+
+            <h3>Historical nextpnr source build</h3>
+            <pre><code class="language-shell">git clone https://github.com/YosysHQ/nextpnr nextpnr
+cd nextpnr
+cmake -DARCH=ice40 -DCMAKE_INSTALL_PREFIX=/usr/local .
+make -j$(nproc)
+sudo make install</code></pre>
+            <p>nextpnr performs placement and routing—the P and R in its name—and converts the synthesized logical graph into a legal physical iCE40 configuration representation.</p>
+
+            <h3>Historical LED-counter tutorial and upload</h3>
+            <p>Cody’s 2022 sequence then cloned his <a href="https://github.com/codysnider/alchitry-cu-tutorial" target="_blank" rel="noopener">Alchitry Cu tutorial repository</a>, built the on-board LED counter without requiring the I/O expansion board, noted that the expansion could remain attached without interfering, connected the Cu, and uploaded it:</p>
+            <pre><code class="language-shell">git clone https://github.com/codysnider/alchitry-cu-tutorial.git alchitry_tutorial
+cd alchitry_tutorial
+make clean &amp;&amp; make all
+make upload</code></pre>
+            <p>The manuscript used the SSH clone form <code>git@github.com:codysnider/alchitry-cu-tutorial.git</code>, which assumes a configured GitHub SSH key. The HTTPS form above is the lower-friction historical equivalent for a beginner. Neither command makes the repository current for Cu V2; inspect its board files and targets before attempting to use it.</p>
+        </section>
+
+        <section>
+            <h2>Exit Check</h2>
+            <p>The hardware chapter is complete when the simulation still passes, Yosys reports the intended top and resource mapping, nextpnr uses the exact device, package, PCF, and stated clock requirement, <code>icepack</code> produces a hashed binary, the loader identifies the exact board, and the LEDs demonstrate the expected sequence. “The command finished” is not the acceptance criterion; the artifact chain and physical observation are.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Complete the FPGA and Verilog course">
+        <p>Next:</p>
+        <a href="/fpga-verilog/">Return To All Things All The Time</a>
+        <p>Review the course map and choose the simulation-only, physical-board, or deeper CMOS path.</p>
+        <p>More:</p>
+        <a href="/cartilage/">Continue Into Cartilage</a>
+        <p>Move from a conventional FPGA implementation flow into locally coherent spatial regions, visible routing, state, timing, and runtime reconfiguration.</p>
+    </nav>
+</body>
+
+</html>

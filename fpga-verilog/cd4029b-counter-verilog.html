@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Recreate A CD4029B Counter In Verilog: Datasheet To Tests</title>
+    <meta name="description" content="Read the TI CD4029B datasheet as a behavioral contract, implement binary and decade up/down counting, derive tests, and learn arrays, loops, tasks, functions, and assertions.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/fpga-verilog/cd4029b-counter-verilog.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:title" content="Recreate A CD4029B Counter In Verilog">
+    <meta property="og:description" content="Chapter 6: turn a real CMOS counter datasheet into an interface, clocked state transitions, and tests that can reject a wrong implementation.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/fpga-verilog/cd4029b-counter-verilog.html">
+    <meta property="article:published_time" content="2026-07-23">
+    <!-- greenforest:preview-source:fpga-verilog/diagrams/cd4029b-functional-model.svg -->
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/fpga-verilog/cd4029b-counter-verilog.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/fpga-verilog/cd4029b-counter-verilog.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Recreate A CD4029B Counter In Verilog - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-verilog/cd4029b-counter-verilog.png">
+    <meta name="twitter:image:alt" content="Recreate A CD4029B Counter In Verilog - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Recreate A CD4029B Counter In Verilog: From Datasheet To Tests",
+            "datePublished": "2026-07-23",
+            "dateModified": "2026-07-23",
+            "description": "A functional HDL recreation exercise covering binary and decade up/down counting, preset behavior, carry, self-checking tests, arrays, loops, tasks, functions, and assertions.",
+            "image": "https://greenforest.io/fpga-verilog/diagrams/cd4029b-functional-model.svg",
+            "mainEntityOfPage": "https://greenforest.io/fpga-verilog/cd4029b-counter-verilog.html",
+            "isPartOf": {"@type": "CollectionPage", "name": "FPGA And Verilog From First Principles", "url": "https://greenforest.io/fpga-verilog/"},
+            "author": {"@type": "Person", "name": "Brian Greenforest"}
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Recreate A CD4029B Counter In Verilog</h1></header>
+    <address>July 23, 2026</address>
+
+    <!-- Source ownership: original curriculum paragraphs 82-106, excluding the language reference consolidated in chapter 5. -->
+    <section class="abstract">
+        <p><span class="eyebrow">FPGA + Verilog · Chapter 6 of 7</span></p>
+        <p class="lead">A datasheet is a set of claims. Turn those claims into an interface, state transitions, and tests that can reject a wrong implementation.</p>
+        <p>The CD4029B is a four-stage presettable binary-or-decade up/down counter with carry for cascading. Recreating its useful digital behavior is better than inventing another unconstrained first circuit because the source of truth already exists outside our code.</p>
+        <p>This is a functional HDL recreation for learning. It does not claim transistor-level, voltage, propagation-delay, input-threshold, or package equivalence to the physical CMOS part.</p>
+        <div class="cta-row">
+            <a class="cta-link" href="https://www.ti.com/lit/gpn/cd4029b" target="_blank" rel="noopener">TI CD4029B datasheet</a>
+            <a class="cta-link" href="labs/counter/counter.v">Start from the simple counter</a>
+            <a class="cta-link" href="labs/cd4029b/cd4029b_counter.v">Download the recreation</a>
+            <a class="cta-link" href="labs/language-shapes/arrays_and_checks.sv">Arrays and checks lab</a>
+        </div>
+    </section>
+
+    <figure class="concept-diagram">
+        <a href="diagrams/cd4029b-functional-model.svg">
+            <img src="diagrams/cd4029b-functional-model.svg" width="1200" height="675" loading="eager" decoding="async" alt="Functional block diagram of a four-bit presettable up-down binary-or-decade counter with clock, control inputs, state outputs, and carry">
+        </a>
+        <figcaption>Original Greenforest I/O functional model. It names externally observable roles before choosing an HDL implementation.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>Begin With The Part’s Behavioral Contract</h2>
+            <p>The <a href="https://www.ti.com/lit/gpn/cd4029b" target="_blank" rel="noopener">Texas Instruments datasheet</a> names the CD4029B a CMOS presettable up/down counter. Its digital behavior contains six ideas that deserve separate tests:</p>
+            <ol>
+                <li>It holds a four-bit state and exposes that state as four buffered outputs.</li>
+                <li>It selects binary counting or BCD-decade counting.</li>
+                <li>It selects up or down.</li>
+                <li>It advances on a positive clock transition only when counting is enabled.</li>
+                <li>Preset enable loads four jam inputs independently of the ordinary count step.</li>
+                <li>An active-low carry output identifies the terminal state for cascading when carry-in permits counting.</li>
+            </ol>
+            <p>The physical pin names are slightly hostile to software intuition. <code>CARRY IN</code> is low when counting is enabled, so it also acts as an active-low clock enable. <code>BINARY/DECADE</code> is high for binary and low for decade. <code>UP/DOWN</code> is high for up and low for down. <code>PRESET ENABLE</code> is high when jam inputs are loaded.</p>
+            <div class="article-fact-table" role="table" aria-label="CD4029B control behavior">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Preset enable = 1</div><div role="cell">Load the four jam-input bits. The physical part specifies an asynchronous preset path.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Carry in = 1</div><div role="cell">Inhibit advancement; hold the count when preset is not active.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Carry in = 0, up = 1</div><div role="cell">Advance on the rising edge; wrap 15→0 in binary or 9→0 in decade.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Carry in = 0, up = 0</div><div role="cell">Retreat on the rising edge; wrap 0→15 in binary or 0→9 in decade.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Carry out</div><div role="cell">Normally high; low at the selected mode’s maximum while counting up, or at zero while counting down, when carry-in is low.</div></div>
+            </div>
+            <p>That table is already more useful than a paragraph that says “make a CMOS counter.” Each row can become stimulus plus an expectation.</p>
+        </section>
+
+        <section>
+            <h2>Decide What “Recreate” Means Before Writing RTL</h2>
+            <p>The physical CD4029B can asynchronously transfer jam-input data into its count when preset enable is high. A portable FPGA flip-flop usually offers a clocked data input and a limited set of asynchronous controls, often reset or set—not an arbitrary four-bit asynchronous data load.</p>
+            <p>Therefore keep two contracts visible:</p>
+            <ul>
+                <li><strong>Reference behavior for simulation:</strong> model the datasheet’s control truth, including asynchronous preset, and use it as an oracle when exact pin behavior matters.</li>
+                <li><strong>Portable FPGA implementation:</strong> make the jam load synchronous to the rising edge. Preserve binary/decade, up/down, enable, terminal count, and wrap behavior while naming the preset difference explicitly.</li>
+            </ul>
+            <p>Silently changing asynchronous preset into synchronous load would be a bad recreation. Naming the adaptation teaches a more important lesson: an HDL port is a contract, and the target fabric constrains which contracts map cleanly.</p>
+        </section>
+
+        <section>
+            <h2>Write The FPGA-Portable Counter</h2>
+            <p>The simple counter from chapter 4 supplies the clocked-state skeleton. Expand it with mode, direction, enable, jam data, and a synchronous load:</p>
+            <pre><code class="language-verilog">module cd4029b_counter (
+    input  wire       clk,
+    input  wire       load,
+    input  wire       enable,
+    input  wire       binary_mode,
+    input  wire       up,
+    input  wire [3:0] jam,
+    output reg  [3:0] q,
+    output wire       carry_out_n
+);
+    wire [3:0] maximum = binary_mode ? 4'd15 : 4'd9;
+    wire terminal = up ? (q == maximum) : (q == 4'd0);
+
+    assign carry_out_n = ~(enable &amp;&amp; terminal);
+
+    always @(posedge clk) begin
+        if (load) begin
+            q &lt;= jam;
+        end else if (enable) begin
+            if (up)
+                q &lt;= terminal ? 4'd0 : q + 1'b1;
+            else
+                q &lt;= terminal ? maximum : q - 1'b1;
+        end
+    end
+endmodule</code></pre>
+            <p>The names are intentionally FPGA-friendly. <code>enable</code> is the logical inverse of the part’s active-low carry-in or clock-enable input. <code>binary_mode</code> is the positive form of the binary/decade selection. <code>load</code> is synchronous and must not be advertised as an exact replacement for the physical preset path.</p>
+            <p>In decade mode, constrain tests and normal use to valid BCD states zero through nine. The physical part allows jam inputs, but behavior from invalid decade states is not something to invent from intuition; derive it from the detailed device logic if an application needs it.</p>
+            <p>The complete runnable pair is <a href="labs/cd4029b/cd4029b_counter.v"><code>cd4029b_counter.v</code></a> plus <a href="labs/cd4029b/cd4029b_counter_tb.v"><code>cd4029b_counter_tb.v</code></a>. Its <a href="labs/cd4029b/Makefile"><code>Makefile</code></a> and <a href="labs/cd4029b/README.md"><code>README.md</code></a> keep the compile command and acceptance message beside the source.</p>
+        </section>
+
+        <figure class="concept-diagram">
+            <a href="diagrams/counter-waveform.svg">
+                <img src="diagrams/counter-waveform.svg" width="1200" height="675" loading="lazy" decoding="async" alt="Waveform showing a four-bit counter held at zero by reset and advancing on five rising clock edges after reset is released">
+            </a>
+            <figcaption>Original Greenforest I/O waveform for the smaller included counter lab. The CD4029B recreation adds more controls, but the same edge-and-observation discipline remains.</figcaption>
+        </figure>
+
+        <section>
+            <h2>Turn The Datasheet Into Test Vectors</h2>
+            <p>Do not begin by staring at a waveform. Begin with claims that name starting state, controls, event, and expected result:</p>
+            <div class="article-fact-table" role="table" aria-label="Acceptance vectors for the CD4029B-inspired counter">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Load</div><div role="cell">With <code>jam=5</code> and <code>load=1</code>, the next rising edge must produce five.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Hold</div><div role="cell">With <code>enable=0</code>, repeated rising edges must preserve the loaded value.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Binary up</div><div role="cell">14→15→0; carry-out is low while the enabled counter is at 15 and up is selected.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Binary down</div><div role="cell">1→0→15; carry-out is low while the enabled counter is at zero and down is selected.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Decade up</div><div role="cell">8→9→0; no state 10 appears.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Decade down</div><div role="cell">1→0→9; no state 15 appears.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Mode boundary</div><div role="cell">Run binary and decade boundary tests independently so a hard-coded four-bit wrap cannot masquerade as full support.</div></div>
+            </div>
+            <p>A task can remove clock-driving repetition without hiding expectations:</p>
+            <pre><code class="language-verilog">task tick;
+    begin
+        @(negedge clk);
+        @(posedge clk);
+        #1;
+    end
+endtask
+
+task expect_q;
+    input [3:0] expected;
+    begin
+        if (q !== expected)
+            $fatal(1, "expected q=%0d, observed q=%0d", expected, q);
+    end
+endtask</code></pre>
+            <p>The one-time-unit delay is not decorative. A nonblocking assignment schedules the register update after the active region of the clock event. Sample after that update or use clocking constructs designed for race-free verification.</p>
+        </section>
+
+        <section>
+            <h2>Assertions Make The Acceptance Test Executable</h2>
+            <p>An assertion is the executable form of “this must be true here.” For a small Icarus-compatible testbench, an immediate check plus <code>$fatal</code> is enough:</p>
+            <pre><code class="language-verilog">if (binary_mode == 1'b0 &amp;&amp; q &gt; 4'd9)
+    $fatal(1, "invalid decade state: %0d", q);</code></pre>
+            <p>SystemVerilog also has concurrent assertions for temporal properties, but simulator support and invocation flags matter. Begin with checks the chosen tool demonstrably runs. Then expand to properties such as “if enabled in binary-up mode at 15, the next sampled state is zero.”</p>
+            <p>The manuscript’s repeated USC language link is consolidated in <a href="verilog-modules-testbenches-constraints.html#language-reference">chapter 5</a>. This chapter owns assertion practice instead of repeating that external PDF a third time.</p>
+        </section>
+
+        <figure class="concept-diagram">
+            <a href="diagrams/arrays-loops-checks.svg">
+                <img src="diagrams/arrays-loops-checks.svg" width="1200" height="675" loading="lazy" decoding="async" alt="Packed eight-bit vector and an unpacked array of four words, followed by a constant-bound loop expanded into four lanes and an assertion checking a result">
+            </a>
+            <figcaption>Original Greenforest I/O diagram. Shape is part of the language and often part of the hardware; a loop and an assertion have different jobs.</figcaption>
+        </figure>
+
+        <section>
+            <h2>Packed Vectors And Unpacked Arrays Are Different Shapes</h2>
+            <p>The handwritten “Verilog subtleties” list points repeatedly at arrays and indexing because tiny punctuation changes the type:</p>
+            <pre><code class="language-systemverilog">logic [7:0] byte_value;       // one packed eight-bit vector
+logic [7:0] memory [0:3];    // four unpacked elements, each an eight-bit vector</code></pre>
+            <p>In the first declaration, <code>byte_value[7]</code> selects one bit. In the second, <code>memory[2]</code> selects a byte and <code>memory[2][7]</code> selects one bit of that byte. The packed range is written before the name; the unpacked range follows the name.</p>
+            <p>Range direction is also real. <code>[7:0]</code> and <code>[0:7]</code> each contain eight bits, but their left and right indices differ. Do not assume that a bus, file format, or module boundary shares your preferred direction. State the mapping and test a non-symmetric pattern so reversed bits cannot pass unnoticed.</p>
+            <p>Whole-array assignment and multidimensional ports are much better supported in SystemVerilog than in older Verilog, but support still differs among simulator versions and synthesis tools. A construct accepted by one simulator is not automatically portable synthesizable hardware. Compile the <a href="labs/language-shapes/arrays_and_checks.sv">supplied arrays-and-checks lab</a> with the exact simulator and synthesizer versions you intend to use.</p>
+        </section>
+
+        <section>
+            <h2>A For Loop Can Mean Repeated Hardware</h2>
+            <p>The language-shapes lab computes the parity of four bytes:</p>
+            <pre><code class="language-systemverilog">always_comb begin
+    for (int lane = 0; lane &lt; 4; lane++) begin
+        parity[lane] = ^memory[lane];
+    end
+end</code></pre>
+            <p>In simulation, the procedural loop executes according to HDL scheduling. In synthesis, the fixed bound allows the tool to elaborate four parity lanes. It is not a CPU loop that borrows one parity unit four times unless you explicitly describe a clocked controller and shared resource.</p>
+            <p>When Icarus reports a baffling loop or array error, reduce the problem before blaming the algorithm: confirm <code>-g2012</code>, confirm that the file is parsed as SystemVerilog, move declarations to syntax the installed version supports, and isolate a minimal example. Tool mode and language revision are part of the experiment.</p>
+        </section>
+
+        <section>
+            <h2>Tasks, Functions, And Loops Solve Different Problems</h2>
+            <p>A function returns a value and is useful for a calculation such as a reference next-state function. A task can perform a sequence of testbench actions, consume simulation time, and update several outputs; <code>tick</code> and <code>expect_q</code> are examples. A generate loop creates or conditions structural instances during elaboration. A procedural loop repeats statements inside one process.</p>
+            <p>Those categories overlap in surface syntax but not in intent. Keep synthesizable functions free of timing controls. Keep timed testbench tasks outside the design. Keep loop bounds static when you expect repeated combinational hardware. Confirm the supported subset in both simulator and synthesizer.</p>
+        </section>
+
+        <section>
+            <h2>The Domain Language From Source To Board</h2>
+            <div class="article-fact-table" role="table" aria-label="FPGA implementation vocabulary in artifact order">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Verilog module</div><div role="cell">A named hardware-design unit with ports, declarations, behavior or structure, and optional child instances.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Netlist</div><div role="cell">A graph of cells and connections produced or consumed by a design tool. It may be generic or device-specific.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Technology mapping</div><div role="cell">Rewrite generic logic into resources the target provides—such as LUTs, carry cells, memories, and flip-flops.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Place and route</div><div role="cell">Choose physical resource locations and legal programmable connections, then analyze whether paths meet target timing.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Bitstream</div><div role="cell">The device-specific configuration result emitted after implementation and packing—not a “compiled <code>.v</code> module” and not a portable executable.</div></div>
+            </div>
+            <p>The sequence is: source and selected top → synthesis and netlist → technology mapping → placement and routing with board constraints → configuration packing → bitstream → loader. Chapter 7 makes every artifact in that chain concrete.</p>
+        </section>
+
+        <section>
+            <h2>The Manuscript’s Reference Trail, Reorganized</h2>
+            <p>The original curriculum stored several useful questions as bare links. They are retained by topic instead of scattered through the course:</p>
+            <ul>
+                <li><a href="https://stackoverflow.com/questions/13904794/assert-statement-in-verilog" target="_blank" rel="noopener">Assertion syntax and simulator practice</a>—use official language and tool documentation for final authority.</li>
+                <li><a href="https://stackoverflow.com/questions/31292211/multi-dimensional-array-assignment-in-verilog-without-loop?rq=1" target="_blank" rel="noopener">Whole multidimensional-array assignment</a>—a prompt to check SystemVerilog mode and tool support.</li>
+                <li><a href="https://www.edaboard.com/threads/why-does-this-array-indexing-not-work-in-verilog.265842/" target="_blank" rel="noopener">An array-indexing failure case</a> and <a href="https://stackoverflow.com/questions/18067571/indexing-vectors-and-arrays-with" target="_blank" rel="noopener">vector and array indexing</a>—both lead back to packed versus unpacked shape and declared range direction.</li>
+                <li><a href="https://stackoverflow.com/questions/49456057/incomprehensible-for-loop-icarus-verilog" target="_blank" rel="noopener">An Icarus <code>for</code>-loop issue</a>—a reminder to record parser mode and version before diagnosing semantics.</li>
+                <li><a href="http://cse.iitkgp.ac.in/~debdeep/deb/course/papers/TasksnFunctions.pdf" target="_blank" rel="noopener">Tasks and functions reading</a>—historical course material behind the manuscript’s note.</li>
+                <li><a href="http://www.cs.nthu.edu.tw/~tcwang/4120-spring03/lec2.pdf" target="_blank" rel="noopener">NTHU Verilog lecture (PDF)</a>—another historical reference retained from the handwritten source.</li>
+            </ul>
+            <p>Community answers are useful records of edge cases, not language standards. Keep the runnable local example and selected tool version beside every conclusion drawn from them.</p>
+        </section>
+
+        <section>
+            <h2>Acceptance Check</h2>
+            <p>The recreation is complete only when binary up, binary down, decade up, decade down, load, hold, both wrap boundaries, and carry polarity are self-checking; the waveform shows no invalid decade state; and the documentation states clearly that the FPGA-portable load is synchronous while the physical part’s preset path is asynchronous.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue the FPGA and Verilog course">
+        <p>Next:</p>
+        <a href="yosys-nextpnr-icestorm-alchitry-cu.html">Chapter 7: Put Verilog On An FPGA</a>
+        <p>Carry a verified design through technology mapping, placement, routing, bitstream packing, and an Alchitry loader.</p>
+        <p>Course:</p>
+        <a href="/fpga-verilog/">FPGA And Verilog From First Principles</a>
+        <p>Return to the complete seven-chapter path.</p>
+    </nav>
+</body>
+
+</html>

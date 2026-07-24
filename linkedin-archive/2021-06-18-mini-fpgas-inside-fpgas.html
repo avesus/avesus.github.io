@@ -43,7 +43,7 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2021-06-18",
-                                "dateModified": "2026-07-10",
+                                "dateModified": "2026-07-23",
                                 "description": "A reconfigurable-fabric note: small programmable regions inside a larger FPGA can carry local configuration, control, and custom datapaths without CPU cores.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-18-mini-fpgas-inside-fpgas.html",
                                 "isPartOf": {
@@ -112,6 +112,7 @@
         <section>
             <h1>Useful Scope</h1>
             <p>Nested fabric spends FPGA resources to create a programmable substrate inside another programmable substrate. It earns that cost when local reconfiguration is simpler than rebuilding the whole design or embedding a processor where a small circuit would do.</p>
+            <p>Before the nested-fabric step, <a href="/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">start with the conventional FPGA architecture chapter</a>: LUTs, flip-flops, logic blocks, switchboxes, and interconnect make the costs named here concrete.</p>
             <p>The current concrete reference is <a href="/cartilage-core.html">Cartilage Core</a>. Its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> publishes a local-cell SystemVerilog fabric and exact serial installation, but does not yet provide FPGA synthesis, placement, timing, area, or power results.</p>
         </section>
 

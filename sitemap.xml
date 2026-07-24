@@ -22,23 +22,55 @@
   </url>
   <url>
     <loc>https://greenforest.io/faq.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/proof-and-artifacts.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/fpga-systems.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/fpga-verilog/</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/fpga-verilog/what-is-an-fpga.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/fpga-verilog/fpga-learning-roadmap.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/fpga-verilog/verilog-workbench-iverilog-gtkwave.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/fpga-verilog/verilog-modules-testbenches-constraints.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/fpga-verilog/cd4029b-counter-verilog.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html</loc>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/one-pin-quadrature-sdm-transmitter.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/ethernet-udp-ice40-reprogrammer.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/physical-mux-tiles/</loc>
@@ -122,7 +154,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/how-much-radio-do-you-actually-need.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/writing-assistance-and-published-work.html</loc>
@@ -134,7 +166,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/serial_multiplier/</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/four-layer-tiny-transformer-training-run.html</loc>
@@ -311,7 +343,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2023-11-09-learn-how-chips-multiply-and-add.html</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html</loc>
@@ -467,7 +499,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-12-verilog-allocation-and-dynamic-languages.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-12-who-is-solving-parallel-source-code.html</loc>
@@ -483,7 +515,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-05-fpgas-as-reactive-parallel-beauty.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-01-a-shader-for-nano-fpga-fabric.html</loc>
@@ -527,7 +559,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-18-verilog-as-a-programming-language.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-18-hilbert-13-and-neural-networks.html</loc>
@@ -619,7 +651,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2021-06-18-mini-fpgas-inside-fpgas.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2021-06-18-boolean-logic-is-everything.html</loc>

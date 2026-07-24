@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Inside An FPGA: LUTs, Flip-Flops, Logic Blocks, Routing</title>
+    <meta name="description" content="Zoom from a repeated FPGA fabric into logic blocks, lookup tables, flip-flops, switch matrices, routing, I/O, memories, and hard blocks.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:title" content="Inside An FPGA: LUTs, Flip-Flops, And Routing">
+    <meta property="og:description" content="Chapter 2: zoom from the programmable array into one logic block, its switchbox, LUTs, and registers.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">
+    <meta property="article:published_time" content="2026-07-23">
+    <!-- greenforest:preview-source:fpga-verilog/diagrams/fpga-fabric-anatomy.svg -->
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:fpga-verilog/media/manuscript-logic-array.png -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/fpga-verilog/fpga-architecture-luts-flip-flops-routing.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/fpga-verilog/fpga-architecture-luts-flip-flops-routing.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Inside An FPGA: LUTs, Flip-Flops, And Routing - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-verilog/fpga-architecture-luts-flip-flops-routing.png">
+    <meta name="twitter:image:alt" content="Inside An FPGA: LUTs, Flip-Flops, And Routing - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Inside An FPGA: Logic Blocks, LUTs, Flip-Flops, And Routing",
+            "datePublished": "2026-07-23",
+            "dateModified": "2026-07-23",
+            "description": "A layered view of repeated FPGA logic, configurable interconnect, lookup tables, registers, I/O, memories, and hard blocks.",
+            "image": "https://greenforest.io/fpga-verilog/diagrams/fpga-fabric-anatomy.svg",
+            "mainEntityOfPage": "https://greenforest.io/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html",
+            "isPartOf": {"@type": "CollectionPage", "name": "FPGA And Verilog From First Principles", "url": "https://greenforest.io/fpga-verilog/"},
+            "author": {"@type": "Person", "name": "Brian Greenforest"}
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Inside An FPGA: Logic Blocks, LUTs, Flip-Flops, And Routing</h1></header>
+    <address>July 23, 2026</address>
+
+    <!-- Source ownership: original curriculum paragraphs 20-29. -->
+    <section class="abstract">
+        <p><span class="eyebrow">FPGA + Verilog · Chapter 2 of 7</span></p>
+        <p class="lead">An FPGA looks regular from far away and richly connected when you zoom in.</p>
+        <p>The repeated tiles are the part beginners notice first, but the configurable interconnect is just as important as the logic. A bitstream turns LUTs, registers, routing switches, I/O cells, memories, and hard blocks into one placed circuit.</p>
+        <p><a class="cta-link" href="/fpga-verilog/">See the complete seven-chapter course</a></p>
+    </section>
+
+    <figure class="inspectable-image inspectable-image--fit">
+        <a href="media/manuscript-logic-array.png">
+            <img src="media/manuscript-logic-array.png" width="1520" height="708" loading="eager" decoding="async" alt="Wide grid of repeated blue FPGA logic tiles separated by yellow interconnect columns">
+        </a>
+        <figcaption>One of the author’s original curriculum illustrations: repeated logic regions sit inside a mesh of programmable interconnect. The visual repetition is real; the exact tile contents and names vary by device family.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>The Logic Array: Repetition Plus Exceptions</h2>
+            <p>At the heart of a conventional FPGA is a large array of “copy-pasted” programmable logic. Repetition makes the chip manufacturable and gives implementation tools many candidate sites for a design. A small Boolean function may fit almost anywhere; a larger datapath can spread across many neighboring sites.</p>
+            <p>The repeated array is not the whole device. Around and among it are I/O banks, block memories, arithmetic or DSP units, clock networks, configuration logic, and sometimes high-speed transceivers or processor cores. These hard resources are not interchangeable with a generic LUT, and their positions make the fabric deliberately nonuniform.</p>
+            <p>A useful top-level inventory is:</p>
+            <ul>
+                <li><strong>programmable logic</strong> for small Boolean functions and local state;</li>
+                <li><strong>configurable interconnect</strong> that carries signals among resources;</li>
+                <li><strong>I/O</strong> that connects named top-level ports to package pins and electrical standards;</li>
+                <li><strong>memory, arithmetic, clocking, and other hard blocks</strong> for structures that would be wasteful or slow to rebuild entirely from LUTs; and</li>
+                <li><strong>configuration state</strong> that tells all of those resources what role to play.</li>
+            </ul>
+            <p>Intel’s <a href="https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/2024-1/fpga-architecture-overview.html" target="_blank" rel="noopener">FPGA architecture overview</a> is one first-party example of these categories. It is an example, not a universal die plan.</p>
+        </section>
+
+        <figure class="concept-diagram">
+            <a href="diagrams/fpga-fabric-anatomy.svg">
+                <img src="diagrams/fpga-fabric-anatomy.svg" width="1200" height="675" loading="lazy" decoding="async" alt="FPGA fabric anatomy diagram zooming from repeated blocks into a logic array block with a switchbox and logic elements containing LUTs and flip-flops">
+            </a>
+            <figcaption>Original Greenforest I/O teaching diagram: logic blocks provide small programmable functions and registers; switch matrices and routing tracks connect them to one another and to larger resources.</figcaption>
+        </figure>
+
+        <section>
+            <h2>One Block, Several Dialects</h2>
+            <p>The curriculum calls a repeated region a <strong>logic array block</strong>, or LAB, and the smaller parts inside it <strong>logic elements</strong>, or LEs. Those are useful words, but they come from particular vendor families. Intel devices use terms such as LAB and ALM; AMD devices use CLB, slice, LUT, and flip-flop; Lattice families commonly expose logic cells or slices built around LUT/register pairs. Even within one vendor, generations differ.</p>
+            <div class="article-fact-table" role="table" aria-label="Common FPGA logic-group vocabulary">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Vendor-neutral idea</div><div role="cell">A repeated block containing programmable Boolean logic, local registers, carry or control resources, and connections to routing</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Intel vocabulary</div><div role="cell">LABs group logic resources; family documentation may describe LEs or ALMs inside them</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">AMD vocabulary</div><div role="cell">CLBs contain slices, LUTs, registers, carry logic, and local routing in family-specific arrangements</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lattice vocabulary</div><div role="cell">Logic cells or slices combine LUT and register resources, again with family-specific grouping and routing</div></div>
+            </div>
+            <p>Do not memorize the words as if they specify a universal size. A LAB is not reliably “one byte” of Boolean trees, and eight bits are not an architectural unit across FPGA families. Read the target device’s architecture manual when resource counts, carry chains, shared controls, and packing rules matter.</p>
+        </section>
+
+        <figure class="inspectable-image inspectable-image--fit">
+            <a href="media/manuscript-array-to-lab.png">
+                <img src="media/manuscript-array-to-lab.png" width="2037" height="1282" loading="lazy" decoding="async" alt="Author diagram zooming from an FPGA tile array through a highlighted block into LUT and flip-flop logic around a switchbox">
+            </a>
+            <figcaption>The author’s second original illustration zooms through the hierarchy. At full size, a switchbox sits at the center, logic elements surround it, and the broader grid supplies row and column paths. Treat the arrangement as a teaching picture, not a floorplan for every FPGA.</figcaption>
+        </figure>
+
+        <section>
+            <h2>The Switchbox Is Part Of The Computation</h2>
+            <p>A logic block does not become useful merely because it can compute a function. Its inputs must come from somewhere, and its outputs must reach something else. Configurable switches select connections among local wires, neighboring blocks, longer row or column tracks, I/O, memories, and other resources.</p>
+            <p>“Switchbox” is a good visual name, but an FPGA routing network has several scales. Short local connections make nearby producer-consumer paths cheap. Longer wires cross larger regions. Dedicated networks carry clocks, resets, enables, or carry signals under special rules. The architecture offers a finite graph; place-and-route finds legal sites and paths through that graph.</p>
+            <p>This is why two logically equivalent RTL descriptions can produce different timing or resource use. The Boolean equations are only part of the physical problem. Where a function is placed, how its signals are routed, how many switch points they traverse, and which scarce special resources they consume all affect the built circuit.</p>
+        </section>
+
+        <section>
+            <h2>A LUT Stores A Small Truth Table</h2>
+            <p>A lookup table, or <strong>LUT</strong>, implements a small Boolean function. For a LUT with <code>k</code> inputs, configuration bits store the output for each of the <code>2^k</code> possible input combinations. During operation, the input bits select one stored result.</p>
+            <p>That does not mean synthesis literally preserves every expression as a truth table written by the designer. The tools simplify logic, share or duplicate terms, recognize arithmetic and multiplexing structures, and map the result into the device’s available LUT shapes. A function larger than one LUT is decomposed across several LUTs and routing paths.</p>
+            <p>LUTs are general, but not always the best implementation. A carry chain can implement arithmetic more efficiently than ordinary routing. A block RAM can store data more densely than a bank of LUTs. A DSP block can perform multiplication or accumulation faster and with less general fabric. Good RTL leaves room for the tool to infer the right resource, while deliberate architecture makes that inference inspectable.</p>
+        </section>
+
+        <section>
+            <h2>The Register Makes A Result Persist</h2>
+            <p>Many logic elements place a flip-flop beside the LUT. The LUT can compute a combinational result; the register can capture a selected result at a clock edge and hold it. Local multiplexers may choose a direct combinational output, a registered output, a carry result, or another family-specific path.</p>
+            <p>This physical pairing supports the <a href="what-is-an-fpga.html#a-d-flip-flop-separates-now-from-next">“D is next; Q is current” model</a> from the previous chapter. It also makes pipelining practical: one region computes part of a result, nearby registers hold that stage, and the next region continues on the following cycle.</p>
+            <p>Registers are not free and routing is not limitless, but this repeated LUT/register structure is why an FPGA can hold many small state machines and pipelines at once. The bitstream determines which resources are active and how they are joined; the clock and inputs then drive the configured circuit.</p>
+        </section>
+
+        <section>
+            <h2>Read Architecture Drawings At The Right Scale</h2>
+            <p>An architecture drawing can answer three different questions:</p>
+            <ol>
+                <li><strong>Chip scale:</strong> where are logic, memory, DSP, I/O, clocking, and hard subsystems?</li>
+                <li><strong>Block scale:</strong> what does one repeated logic group contain, and which controls or carry resources are shared?</li>
+                <li><strong>Element scale:</strong> how do a LUT, register, local multiplexers, and dedicated paths connect?</li>
+            </ol>
+            <p>Do not infer transistor-level detail from a block diagram or assume a teaching graphic is a literal die map. Use it to form a question, then confirm the answer in the family architecture manual and tool reports.</p>
+            <p>For a concrete family view, <a href="https://www.rapidwright.io/docs/FPGA_Architecture.html" target="_blank" rel="noopener">RapidWright’s FPGA Architecture Basics</a> explains AMD/Xilinx Series 7 resources and terminology. It is the full reference promised by the original curriculum’s “find more details here” note, scoped to the family it actually describes.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue the FPGA and Verilog course">
+        <p>Next:</p>
+        <a href="fpga-learning-roadmap.html">Chapter 3: An FPGA Learning Roadmap</a>
+        <p>Put Boolean logic, Logisim, HDL, simulation, real I/O, CMOS, and ASIC work into a sequence you can actually follow.</p>
+        <p>Course:</p>
+        <a href="/fpga-verilog/">FPGA And Verilog From First Principles</a>
+        <p>Return to the complete seven-chapter path.</p>
+    </nav>
+</body>
+
+</html>

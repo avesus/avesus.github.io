@@ -39,7 +39,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-04-22",
-            "dateModified": "2026-07-22",
+            "dateModified": "2026-07-23",
             "image": "https://greenforest.io/one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png",
             "description": "A one-pin FPGA FM receiver using an LVDS input threshold, DDR sampling, DDS-controlled XOR mixing, Weaver-style recombination, integrate-and-dump filtering, cross-product FM recovery, and sigma-delta audio.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
@@ -228,6 +228,9 @@
 
         <section>
             <h2>The Verilog Follow-Up</h2>
+            <div class="reader-note">
+                <p>New to this build vocabulary? <a href="/fpga-verilog/">Follow the FPGA and Verilog course</a> through modules, constraints, Yosys, nextpnr, IceStorm, and bitstreams, then return to this receiver's unusual RF signal path.</p>
+            </div>
             <p>The added source snapshot is now in <a href="one-pin-RF/README.md">one-pin-RF/README.md</a>. The selected receiver file for this article is <a href="one-pin-RF/fm_radio_demo_2026/fm_radio_nov15.sv">fm_radio_demo_2026/fm_radio_nov15.sv</a>, because <a href="one-pin-RF/fm_radio_demo_2026/build.sh">build.sh</a> is wired to synthesize that file for an iCE40 UP5K build. The nearby <code>fm_radio_2026_pin_4_3.sv</code> file is a near-identical retuned variant, not the build target.</p>
             <p>The intended build path is explicit: Yosys reads the SystemVerilog, nextpnr targets UP5K SG48 with the pin constraints, IceStorm packs the bitstream, and <code>dfu-util</code> downloads it. The archived source currently uses an unresolved identifier <code>n</code> in both sample-shift ranges, and <code>build.sh</code> supplies no definition. This page therefore treats it as the selected historical source snapshot, not as a freshly reproduced build; that typo or missing definition and a clean build log must be resolved before claiming source-level reproducibility.</p>
             <pre><code>read_verilog -sv ./fm_radio_nov15.sv
