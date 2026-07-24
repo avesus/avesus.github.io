@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>What Hides Under the Clock? | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A path from hand-wired logic and impatient FPGA experiments to clocks, state, pipelines, metastability, clock-domain crossings, and GALS design.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/what-hides-under-the-clock.html">
+    <meta property="og:title" content="What Hides Under the Clock?">
+    <meta property="og:description" content="Why the clock is not the computation, why removing it does not remove time, and what disciplined digital design puts underneath it.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/what-hides-under-the-clock.html">
+    <meta property="article:published_time" content="2021-04-11T19:27:45.300Z">
+    <meta property="article:modified_time" content="2026-07-23">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/what-hides-under-the-clock.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/what-hides-under-the-clock.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="What Hides Under the Clock? - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/what-hides-under-the-clock.png">
+    <meta name="twitter:image:alt" content="What Hides Under the Clock? - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "What Hides Under the Clock?",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2021-04-11T19:27:45.300Z",
+            "datePublished": "2021-04-11",
+            "dateModified": "2026-07-23",
+            "description": "A path from hand-wired logic and impatient FPGA experiments to clocks, state, pipelines, metastability, clock-domain crossings, and GALS design.",
+            "mainEntityOfPage": "https://greenforest.io/what-hides-under-the-clock.html",
+            "proficiencyLevel": "Intermediate",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">What Hides Under the Clock?</h1></header>
+    <address><time datetime="2021-04-11">April 11, 2021</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Digital design</p>
+        <p class="lead">I spent years trying to escape the clock. The escape taught me what the clock had been doing for me.</p>
+        <p>Feedback, recursion, asynchronous events, metastability, timing closure, clock-domain crossings: the words make digital design sound like several unrelated professions. Underneath them is one physical problem. State changes in real places, signals take time to travel between those places, and a useful machine must decide when a received change is safe to use.</p>
+        <p>This is the path by which I stopped seeing sequential logic as an irritating low-level convention and started seeing it as a beautifully disciplined way to compose computation.</p>
+        <p>The result is a design method I wish my younger self had been handed: how to orchestrate the machine so work gets done, and how to leave the next design team a path they do not have to rediscover from scratch.</p>
+    </section>
+
+    <main>
+        <section>
+            <h2>I Started With Wire</h2>
+            <p>In the 1990s I soldered transistors and integrated circuits, drew large circuit diagrams on A1 sheets, etched printed circuit boards, and often skipped the board entirely by wiring components directly to one another.</p>
+            <p>NAND gates, comparators, multiplexers, counters, and Schmitt triggers looked like arrangements of smaller switches. I did not think there was anything mystical inside them. I was right about that.</p>
+            <p>Then I learned programming and discovered the phrase <em>model of computation</em>. Suddenly there were Turing machines, actors, cellular automata, lambda calculus, SKI combinators, interaction nets, processes, threads, recursion, functional programs, reactive programs, and distributed systems. I spent the next twenty years looking for the important difference among them.</p>
+            <p>I was especially drawn to models that compute in many places and can accept new arguments while earlier arguments are still in flight. I wanted to escape the habit of imagining one fixed-size register and one line of source code advancing at a time. I wanted code and data to occupy space together and do useful work there.</p>
+            <p>The difference was not where I first looked. The models provide different disciplines for arranging state, dependencies, and work. The physical machine still has to move signals, hold state, choose among alternatives, and let one event affect the next.</p>
+        </section>
+
+        <section>
+            <h2>The Magic Wand That Pulled Me Back</h2>
+            <p>A friend was building a persistence-of-vision light wand for outdoor performances. Raspberry Pi and Arduino experiments did not give him the sensor-to-light timing he wanted, so he moved the design to an Artix-7 FPGA and documented it in Verilog.</p>
+            <p>I had understood the general idea of an FPGA without having used one. I bought the same Arty board and LED strip, installed Vivado on Debian, followed the project, and made the strip work.</p>
+            <p>Then I got distracted in the most productive possible way.</p>
+            <p>I found the Lattice IceStick and its iCE40HX1K. The open IceStorm work made the configuration format tangible. I read the bitstream documentation, changed place-and-route code, bought several tiny iCE40LP384 parts, and learned to solder QFN packages with hot air. Later, with a microscope and enough patience, I learned to do some of that work with an iron.</p>
+            <p>My software-developer reflex was immediate: change something, run it, see the result. Waiting through a long tool cycle felt intolerable. The Arty board had Ethernet, so I wrote enough ARP and UDP logic to send a new image from my laptop and reprogram an adjacent iCE40. That experiment eventually became the <a href="/ethernet-udp-ice40-reprogrammer.html">Ethernet-to-iCE40 reprogrammer</a>.</p>
+        </section>
+
+        <section>
+            <h2>Fifty Pages Of Verilog</h2>
+            <p>I printed roughly fifty pages of my Verilog and read them away from the editor. The code seemed to say everything twice. Software had trained me to look for calls and assignments: one event happens, then another. The circuit was different. Its equations were continuously sensitive to levels, while its registers accepted new state on edges.</p>
+            <p>I wanted to blame the language. Instead I printed David Harel's 1987 report on statecharts, went somewhere without Internet, and absorbed it between mountain views and hikes. When I came home, I studied Altera's guidance on one-hot finite-state machines. One-hot encoding trades more flip-flops for simpler state decoding and transition logic, which can improve timing on many LUT-rich FPGA architectures. It is not automatically best, but the trade finally made the apparent redundancy legible.</p>
+            <p>That was difficult for the software architect in me. I had spent years discussing object-oriented, functional, distributed, event-driven, streaming, and domain-driven designs. A Don Quixote inside me declared a sacred war against the ugly global-clock windmill.</p>
+        </section>
+
+        <section>
+            <h2>Removing The Clock Does Not Remove Time</h2>
+            <p>I tried asynchronous control and hand-made edge detection. The circuits became harder to reason about. Inputs from outside a local timing domain could still change at unfortunate moments. Feedback could still race. A signal could still arrive after another signal that had been launched later by a different path.</p>
+            <p>The clock had not created those problems. It had given a region of the circuit an agreement about when state was allowed to change.</p>
+            <p>A synchronous region divides the work:</p>
+            <ol>
+                <li>Registers hold the current state.</li>
+                <li>Combinational logic derives candidate next state and outputs.</li>
+                <li>Physical paths are given time to settle.</li>
+                <li>A clock edge commits the next state together.</li>
+            </ol>
+            <p>The agreement is local, not magical. The clock itself travels through a physical distribution network. Its arrival differs across the chip. Data paths have minimum and maximum delays. Setup and hold requirements define the safe window around the receiving edge. Timing closure is the work of making the agreement true for the placed and routed circuit, not merely true in an ideal schematic.</p>
+        </section>
+
+        <section>
+            <h2>The Outer World Does Not Share Your Edge</h2>
+            <p>A pushbutton, radio comparator, network link, sensor, or neighboring clock domain does not promise to change neatly between two edges of your local clock. Sampling such a signal can place a receiving flip-flop near its decision threshold. The result may take longer than expected to resolve. That is metastability: not a Boolean third value that software can test, but a physical uncertainty in when the output becomes safely interpretable.</p>
+            <p>For a single slowly changing control bit, a synchronizer chain gives the first register time to resolve before the second register's value reaches sensitive logic. It reduces risk; it does not repeal physics. For a multi-bit value or a stream, independently synchronizing the bits can assemble a word that never existed. Handshakes, Gray-coded pointers, asynchronous FIFOs, and explicit protocols preserve the relationship among the bits.</p>
+            <p>The useful rule is simple: a clock boundary is a communication boundary. Treat it as an interface, not as a wire that happens to be inconvenient.</p>
+            <p>The <a href="/cartilage/clock-event-reset-distribution.html">clock, event, and reset article</a> develops the register-level pattern. The <a href="/cartilage/clock-regions-and-timing-closure.html">clock-region article</a> follows the same idea into placement, skew, and timing closure.</p>
+        </section>
+
+        <section>
+            <h2>Globally Asynchronous, Locally Synchronous</h2>
+            <p>General relativity had already taught me not to expect one universal time coordinate. Distributed software had already taught me that network delay varies. I was still trying to make one digital-design doctrine cover every scale.</p>
+            <p>Daniel Chapiro's work on globally asynchronous, locally synchronous systems gave the pieces their proper size. A local region may use a clock because the physical extent and timing can be engineered. Separate regions communicate through boundaries that admit delay, buffering, and independent progress.</p>
+            <p>GALS is not a trick for pretending the whole machine is synchronous. It is permission to keep the enormous practical value of synchronous design without claiming a global edge that all physical components observe identically.</p>
+            <pre><code>local state A -- protocol / buffer -- local state B
+     clock A                           clock B</code></pre>
+            <p>Inside each island, timing is a design constraint. Between islands, causality is carried by a protocol.</p>
+        </section>
+
+        <section>
+            <h2>Why Pipelines Feel Like Reactivity</h2>
+            <p>A pipeline can accept a new input before the previous input has reached the end. Each stage performs a bounded transformation and passes registered state onward. The stages are simultaneously busy with different arguments.</p>
+            <p>This is why FPGA computation can feel both massively parallel and naturally reactive. The structure is present in space. Its registers remember progress. New values propagate because the wiring already expresses the dependencies. No instruction pointer has to revisit every operator to ask whether it should run.</p>
+            <p>Control and datapath remain distinct because they answer different questions. The datapath says what values can be transformed and carried. Control says which transformations, captures, and transfers are valid now. Statecharts and one-hot machines can make control legible; pipelined arithmetic can make data movement continuous. The two are partners, not rival religions.</p>
+            <p>My practical recipe became a nested hierarchy of pipelined, buffered DSP datapaths, with soft custom-instruction CPU cores placed where sequential control or irregular work fits better, and Boolean circuits plus explicit protocols connecting the pieces. It is not one universal architecture. It is a way to let each kind of work occupy the structure that suits it without forcing every value through one instruction stream.</p>
+        </section>
+
+        <section>
+            <h2>Finite State Eventually Comes Home</h2>
+            <p>A tiny maximum-length linear-feedback shift register made the finite-state lesson visible to me. Four flip-flops and one XOR can walk through a long, apparently irregular sequence before returning to its starting state.</p>
+            <p>The stronger jolt came later. I built a tiny single-instruction processor whose program fit in a very small RAM and could modify its own code. Then I exhaustively ran the instruction combinations that fit. However strange the intermediate behavior looked, the complete RAM state eventually recurred.</p>
+            <p>The broader statement is precise. A closed, deterministic machine with a finite number of possible states must eventually revisit a state. Once it does, the same deterministic future repeats from that point. The machine may have a transient prefix before the cycle; its cycle may be impractically long; an open system may keep receiving new information. But a finite closed deterministic state graph cannot create an endless sequence of never-repeated states.</p>
+            <p>That does not make every algorithm a Gray counter, and it does not make useful computation trivial. It makes state capacity and external input impossible to ignore. Apparent novelty inside a finite machine comes from a long trajectory, a changing environment, randomness, or information entering through an interface.</p>
+            <p>This also changed how I read process calculi and functional reactive systems. Push versus pull is not a metaphysical choice; it is an engineering decision about where state waits, which dependency initiates work, and how far a change must travel. Boolean circuits supply the decisions. Stored state supplies the history. An extensible supply of both is what lets a finite construction grow into a general computer; the <a href="/boolean-algebra-is-all-that-is-required.html">multiplexer construction</a> develops that argument directly.</p>
+        </section>
+
+        <section>
+            <h2>The Jewel Under The Clock</h2>
+            <p>The clock is not the computation. It is a local treaty about when stored state changes. Under that treaty are the real participants: switches, paths, delays, registers, feedback, protocols, and the physical boundary of each timing region.</p>
+            <p>I began by wiring gates without appreciating the model. Then programming buried the gates under twenty years of abstractions. FPGA work brought me back to the same switches with better questions.</p>
+            <p>The abstractions did not disappear. They became physical. Non-tail recursion needs activation state somewhere. A process communicates across a boundary. A reactive dependency becomes wiring or scheduling. A concurrent pipeline occupies several places at once. An asynchronous neighbor needs a protocol. Once those facts are visible, the clock stops looking like a prison. It becomes one very effective instrument in the orchestra.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Next:</p>
+        <a href="/general-architecture-of-computation.html">The General Architecture Of Computation</a>
+        <p>Continue from clocked state into the larger distinction between computational structure, runtime state, and structural change.</p>
+        <p>More:</p>
+        <a href="/fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
+        <p>Put clocks and state beside the working radio, Ethernet, arithmetic, and reconfiguration articles.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

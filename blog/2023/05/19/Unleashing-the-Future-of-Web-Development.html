@@ -37,7 +37,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2023-05-19",
-            "dateModified": "2026-07-09",
+            "dateModified": "2026-07-23",
             "description": "A frontend/backend architecture note: the backend returns page-shaped business state for the screen the user is on, including data, permissions, available actions, and workflow context.",
             "mainEntityOfPage": "https://greenforest.io/blog/2023/05/19/Unleashing-the-Future-of-Web-Development.html",
             "publisher": {
@@ -49,65 +49,62 @@
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
-    <header>Frontend/Backend Page-State Architecture</header>
+<body class="article-structured">
+    <header><h1 class="page-title">Frontend/Backend Page-State Architecture</h1></header>
     <address>May 19, 2023</address>
 
     <section class="abstract">
-        <p>The backend should be able to answer the screen the user is actually on.</p>
+        <p class="eyebrow">Page-shaped business state</p>
+        <p class="lead">The backend should be able to answer the screen the user is actually on.</p>
         <p>This note describes a single-page frontend backed by page-shaped business state: current data, permissions, available actions, navigation targets, and workflow context returned together instead of reconstructed from scattered generic resources.</p>
-        <div class="status-box">
-            <p><span class="status-label">Architecture note</span>Originally posted as a 2023 project-status update; rewritten here around the actual system pattern.</p>
-            <p><strong>Included:</strong> Vue/Quasar/Vue-router frontend context, JSON backend responses, page-state requests, an order-list screen example, permissions, actions, workflow context, and where the pattern should not be used.</p>
-            <p><strong>Boundary:</strong> this is an architecture note, not a finished framework or a replacement for stable external APIs.</p>
-        </div>
     </section>
 
     <main>
         <section>
-            <h1>The Problem</h1>
+            <h2>The Problem</h2>
             <p>Modern frontend applications are good at interaction: transitions, drawers, validation, routing, and local UI state. The backend usually still owns the business rules, data joins, permissions, and workflow rules.</p>
             <p>The awkward part is the gap between them. A frontend can end up rebuilding one screen from many resource calls, local cache merges, permission checks, and inferred available actions. The screen may look modern while the business state behind it becomes scattered and easy to stale.</p>
         </section>
 
         <section>
-            <h1>Page-Shaped Business State</h1>
+            <h2>Page-Shaped Business State</h2>
             <p>The alternative in this note is not backend-rendered HTML. The frontend still renders the interface with Vue, Quasar, and Vue-router. The backend sends JSON.</p>
             <p>The difference is the shape of the request and response. The frontend tells the backend which page, panel, list, detail view, or workflow step it needs. The backend returns one coherent state packet for that visible screen.</p>
+            <p><a href="/the-url-is-a-camera.html">The URL Is A Camera</a> gives this pattern its wider geometry: the path names the matter, authenticated authority selects a legitimate viewpoint, and the backend projects the business world that belongs in that view.</p>
         </section>
 
         <section>
-            <h1>Order List Example</h1>
+            <h2>Order List Example</h2>
             <p>For an order-list screen, the page-state response can carry the rows to show, the selected filters, pagination, user-visible status labels, permission flags, available actions, detail-panel links, and warnings that affect the next user action.</p>
             <p>The frontend does not have to discover all of that by stitching together generic order resources, user resources, permission resources, and action endpoints. It receives the business state for the screen and renders it.</p>
         </section>
 
         <section>
-            <h1>Backend Responsibility</h1>
+            <h2>Backend Responsibility</h2>
             <p>The backend owns the parts that should not be guessed in the browser: authorization, workflow rules, current availability of actions, joins across business data, and the state transition rules behind buttons or links.</p>
             <p>That does not make the backend a template renderer. It makes the backend responsible for returning the business shape the frontend is allowed to show now.</p>
         </section>
 
         <section>
-            <h1>Frontend Responsibility</h1>
+            <h2>Frontend Responsibility</h2>
             <p>The frontend owns rendering, interaction, transitions, layout, local form editing, and the ergonomics of moving between views. It should not have to rediscover business rules by coordinating a pile of unrelated responses.</p>
             <p>This keeps the frontend expressive without forcing it to become a second backend written in browser code.</p>
         </section>
 
         <section>
-            <h1>Failure Mode Avoided</h1>
+            <h2>Failure Mode Avoided</h2>
             <p>The failure mode is a screen assembled from too many partial truths: cached data from one request, permission state from another, current workflow state from a third, and available actions inferred from stale local assumptions.</p>
             <p>A page-state response reduces that class of bug by making the backend answer one question: what can this user see and do on this screen right now?</p>
         </section>
 
         <section>
-            <h1>Where Not To Use It</h1>
+            <h2>Where Not To Use It</h2>
             <p>This pattern is a poor fit for public integration APIs where external callers need stable resource contracts. It is also a poor fit when many independent clients need the same reusable entity model, or when the client must work offline for long periods and reconcile changes later.</p>
             <p>It fits best when the product workflow matters more than a generic resource ceremony: internal tools, business dashboards, operational screens, admin panels, approval flows, and systems where permissions and available actions are central to the page.</p>
         </section>
 
         <section>
-            <h1>Original Motivation</h1>
+            <h2>Original Motivation</h2>
             <p>The original 2023 comparison was to PHP only in one limited sense: old server pages could ask for exactly the data the page needed. The useful part was direct access to page-specific business state, not mixing SQL and HTML or returning to server-rendered interfaces.</p>
             <p>The cleaned-up architecture keeps the modern frontend and gives the backend a better job: answer the current screen with the data and actions that belong to that screen.</p>
         </section>

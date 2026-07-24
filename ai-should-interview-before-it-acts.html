@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>AI Should Interview Before It Acts | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="An interview-first design for AI agents: ask what a person actually needs, compare their probable future situations, and recommend only after the goal is understood.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/ai-should-interview-before-it-acts.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:title" content="AI Should Interview Before It Acts">
+    <meta property="og:description" content="Ask, listen, compare probable futures, and only then recommend. A 2020 design for agents that discover the real problem before taking action.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/ai-should-interview-before-it-acts.html">
+    <meta property="article:published_time" content="2020-07-31T01:32:58.356Z">
+    <meta property="article:modified_time" content="2026-07-23">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:image" content="https://greenforest.io/social-previews/ai-should-interview-before-it-acts.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/ai-should-interview-before-it-acts.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="AI Should Interview Before It Acts - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/ai-should-interview-before-it-acts.png">
+    <meta name="twitter:image:alt" content="AI Should Interview Before It Acts - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "AI Should Interview Before It Acts",
+            "description": "An interview-first design for AI agents: ask what a person actually needs, compare their probable future situations, and recommend only after the goal is understood.",
+            "dateCreated": "2020-07-26T06:27:49.328Z",
+            "datePublished": "2020-07-31T01:32:58.356Z",
+            "dateModified": "2026-07-23",
+            "mainEntityOfPage": "https://greenforest.io/ai-should-interview-before-it-acts.html",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            },
+            "about": [
+                "Artificial intelligence",
+                "Interviewing",
+                "Recommendation systems",
+                "Requirements gathering",
+                "Decision support"
+            ]
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">AI Should Interview Before It Acts</h1></header>
+    <address>
+        Developed <time datetime="2020-07-26T06:27:49.328Z">July 26, 2020</time>
+        and <time datetime="2020-07-31T01:32:58.356Z">July 31, 2020</time>.
+        Updated <time datetime="2026-07-23">July 23, 2026</time>.
+    </address>
+
+    <section class="abstract">
+        <p class="eyebrow">Interview-first agents</p>
+        <p class="lead">The hardest part of helping someone is rarely producing an answer. It is discovering which problem that particular person is actually trying to solve.</p>
+        <p>An agent should ask questions, listen, imagine several probable futures, and compare how the person fares in each one. Only then has it earned the right to recommend a product, a plan, a job, a course, or any other action.</p>
+        <p>I do not want machines to bury people under more new stuff. I want machines to become better at finding the problem beneath the request.</p>
+    </section>
+
+    <main>
+        <section>
+            <h2>The Goal Does Not Arrive From Nowhere</h2>
+            <p>Language models can help draft requirements from plain English. Planning systems can search through actions under competing objectives. An agent or execution system can carry out a selected sequence. Those capabilities are useful, but they begin after the most important decision has already been made: what is the goal?</p>
+            <p>In business, the difficult question is usually not how to make a proposal. It is what the client wants, what they can actually use, what they are afraid of losing, and which constraint has not yet been spoken. Marketing can define a population. Sales can offer a product line. Neither automatically reveals the life of the person sitting across the table.</p>
+            <p>The fastest way to solve a problem is to know exactly what the problem is. That sounds obvious. It is also the step most automated systems hurry past.</p>
+        </section>
+
+        <section>
+            <h2>Interviewing Is Part Of The Machine</h2>
+            <p>A good interviewer does not merely collect form fields. They notice hesitation, ask a smaller question, check whether they understood, and let the answer change the next question. Podcast hosts, journalists, consultants, teachers, coaches, and good salespeople practice this loop until it feels conversational. Underneath the social ease is a serious information-gathering process.</p>
+            <p>The machine version should also be a loop:</p>
+            <ol>
+                <li>Ask what the person is trying to change.</li>
+                <li>Listen for goals, limits, history, skills, obligations, and uncertainty.</li>
+                <li>Repeat the understanding in concrete terms and invite correction.</li>
+                <li>Construct more than one plausible next situation.</li>
+                <li>Explain the benefits, costs, risks, and unknowns in each situation.</li>
+                <li>Ask again before choosing or acting.</li>
+            </ol>
+            <p>A conversation is not decoration around the recommendation. It is how the recommendation becomes about this person rather than the average person in a dataset.</p>
+        </section>
+
+        <section>
+            <h2>Compare The Person, Not The Things</h2>
+            <p>Utility discussions become confused when they try to rank two things as though one object were simply good and another bad. A thing is not universally good for a consumer. A person may be better off with that thing, in a specific situation, than the same person would be without it.</p>
+            <p>That changes what the agent has to model. It must compare a person in state A with that person in state B. What can they do in each state? What do they want? What becomes easier? What new burden appears? What is reversible? Which outcome depends on a guess?</p>
+            <p>I call that comparison <em>betterness</em>. It is not one magic score. It is an exposed comparison among possible experiences, including the parts that do not collapse honestly into one number.</p>
+            <p>Wanting and being able are different. A promotion may be attractive and still destroy the time needed to care for someone. A powerful tool may be useless when it does not fit the existing work. A cheap product may become expensive when it demands attention every day. The state surrounding the choice belongs in the choice.</p>
+        </section>
+
+        <section>
+            <h2>Run Branches Before Spending A Life</h2>
+            <p>People already imagine branches. Psychologists use <em>mentalization</em> for interpreting our own and other people’s mental states. Engineers can borrow that attention to perspective while running alternative future simulations. Physics supplies the wonderfully excessive image of many worlds. For an agent, the practical requirement is simpler: do not pretend there is only one future.</p>
+            <p>The agent can construct a few probable continuations from the conversation. In one branch the person buys the product. In another they keep the present arrangement. In a third they solve the underlying problem without buying anything. Each branch carries assumptions, consequences, and uncertainty that the person can inspect.</p>
+            <p>The purpose is not to predict a life with false precision. It is to make hidden consequences discussable before the decision closes them off.</p>
+        </section>
+
+        <section>
+            <h2>Sales Is Only One Instance</h2>
+            <p>The original product idea began with sales because sales makes the missing interview painfully visible. A salesperson should not be imprisoned inside one organization's catalog. They can develop genuine mastery across many niches, with a visible progression of skills, and help a client see a problem before matching it to any supplier.</p>
+            <p>The same platform can support several roles:</p>
+            <ul>
+                <li><strong>Media makers and broadcasters</strong> can interview people until a problem becomes understandable to an audience, then carry useful follow-up questions into the next conversation.</li>
+                <li><strong>Consultants and searchers</strong> can discover the requirement before searching for a solution.</li>
+                <li><strong>Deliverers</strong> can treat fulfillment as part of the promised future, not as a separate afterthought.</li>
+                <li><strong>Personal and organizational coaches</strong> can connect goals with priorities, effort, resources, present work, and unfinished tasks.</li>
+                <li><strong>Hiring and placement systems</strong> can reason from a person's actual history and skills instead of matching isolated keywords.</li>
+                <li><strong>Teachers, trainers, examiners, and certifiers</strong> can treat education as resource management across time, attention, practice, evidence, and opportunity.</li>
+            </ul>
+            <p>These roles do not need one giant marketplace. They need the same small discipline: understand before prescribing.</p>
+        </section>
+
+        <section>
+            <h2>Caring Cannot Mean Manipulation</h2>
+            <p>Being an entrepreneur taught me how easily a system can confuse caring about a person with caring about conversion. An interview-first agent becomes dangerous if the interview merely discovers a more precise lever for persuasion.</p>
+            <p>The person must control the goal. They must be able to inspect and correct what the agent believes. Uncertainty must stay visible. Private answers should be collected only when needed and retained only with permission. A recommendation should name conflicts of interest. Refusal and silence must remain valid outcomes.</p>
+            <p>If the best branch is “do not buy anything,” a system serving the person has to be able to say it.</p>
+        </section>
+
+        <section>
+            <h2>The Capability I Still Want</h2>
+            <p>I want machines to ask questions, listen, and imagine our most probable good and bad experiences with us. I want them to help reveal problems that are difficult to state, compare futures without hiding the tradeoffs, and return control to the person who has to live in the chosen branch.</p>
+            <p>That is a more demanding goal than fluent conversation. It is also more useful.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue from AI Should Interview Before It Acts">
+        <p>Next:</p>
+        <a href="/linkedin-archive/2025-10-30-ai-does-not-repeal-no-free-lunch.html">AI Does Not Repeal No Free Lunch</a>
+        <p>Continue from discovering the real requirement to the limits that still govern AI-assisted work and verification.</p>
+        <p>More:</p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>Inspect a small language model as a concrete mechanism, with its shape, command, loss history, and generated behavior kept together.</p>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Reactive Model Composition: Programs, Ownership, and Channels | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A composition model for reactive systems in which programs own private state, deploy other programs, and manage direct channels without proxying every constituent flow.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/reactive-model-composition.html">
+    <meta property="og:title" content="Reactive Model Composition">
+    <meta property="og:description" content="Programs compose programs by allocating space, installing behavior, and managing connections while private state stays private.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/reactive-model-composition.html">
+    <meta property="article:published_time" content="2022-03-07T05:41:30.934Z">
+    <meta property="article:modified_time" content="2026-07-23">
+    <link rel="icon" href="/favicon.ico">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/reactive-model-composition.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/reactive-model-composition.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Reactive Model Composition - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/reactive-model-composition.png">
+    <meta name="twitter:image:alt" content="Reactive Model Composition - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Reactive Model Composition: Programs, Ownership, and Channels",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "dateCreated": "2022-03-07T05:41:30.934Z",
+            "datePublished": "2022-03-07",
+            "dateModified": "2026-07-23",
+            "description": "A composition model for reactive systems in which programs own private state, deploy other programs, and manage direct channels without proxying every constituent flow.",
+            "mainEntityOfPage": "https://greenforest.io/reactive-model-composition.html",
+            "proficiencyLevel": "Advanced",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Reactive Model Composition</h1></header>
+    <address><time datetime="2022-03-07">March 7, 2022</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Reactive systems and reconfigurable computation</p>
+        <p class="lead">Composition is not a picture of nested boxes. It is authority over space, state, installation, and connections.</p>
+        <p>A reactive system becomes difficult when every component can rewrite every other component, or when one central owner must relay every message exchanged by its children. My more physical model gives each program private state, assigns composition decisions to an owning agent, installs behavior through finite channels, and then lets constituent programs communicate over direct managed connections.</p>
+    </section>
+
+    <main>
+        <section>
+            <h2>The Container Is the Composing Agent</h2>
+            <p>Whenever pieces become one larger thing, somebody or something decides how they fit. In a document tree, a parent chooses where child regions appear. In a circuit, an owning region chooses which resources belong to a subcircuit and how its ports connect. In a distributed application, an orchestrator allocates processes and establishes routes.</p>
+            <p>That decision-maker is the composing agent.</p>
+            <p>The composing agent does not have to perform the work of every constituent. It controls the composition facts it owns: membership, placement, attachment, replacement, and release. Once two constituents have a connection, their ordinary exchange can be peer to peer.</p>
+            <p>This distinction prevents a common mistake. Composition authority and data-path authority are not the same thing. The program allowed to connect two streams does not need to sit forever in the middle of those streams.</p>
+        </section>
+
+        <section>
+            <h2>One Composition Fact Needs One Owner</h2>
+            <p>Several composers can exist in one system. They do not even need to form one clean global hierarchy. What they cannot safely do is make independent, conflicting decisions about the same port, region, or connection without a protocol that orders those decisions.</p>
+            <p>If two agents can simultaneously decide what occupies the same space, the result is not rich decentralization. It is an unresolved write conflict.</p>
+            <p>Ownership makes the conflict local and answerable:</p>
+            <ul>
+                <li>Who may allocate this region?</li>
+                <li>Who may install a new program here?</li>
+                <li>Who may expose or connect this port?</li>
+                <li>Who may cut, redirect, or release the connection?</li>
+                <li>When does transferred authority take effect?</li>
+            </ul>
+            <p>A system can transfer ownership, subdivide it, or represent it with a tree. The essential point is that every mutation has an authorized origin and a defined completion moment.</p>
+        </section>
+
+        <section>
+            <h2>Composition Arrives as a Stream</h2>
+            <p>A physical channel cannot deliver an entire new structure at once. It delivers a sequence of symbols in time. Even a wide bus has finite width. Even a shared-memory update reaches different storage elements through finite circuitry.</p>
+            <p>The composition channel is therefore a stream of small changes: allocate, describe, connect, initialize, commit, release. A receiver may collect several changes in private staging state and make them visible together, but the collection itself still arrived piece by piece.</p>
+            <p>This makes transaction boundaries important. While a replacement is arriving, the old program may still be active. The new description must not leak into the application plane as a half-old, half-new structure. Installation needs a completion condition and an apply step.</p>
+            <p>In Cartilage I make this distinction concrete. A bounded child region receives configuration records through a local reconfiguration port. The records are collected through the region’s ownership route, and an apply event installs the new cell roles. Configuration is not a magical rewrite from outside the model; it is traffic carried and retained by the same kind of cells that later perform the application computation.</p>
+        </section>
+
+        <section>
+            <h2>Placeholders Are Ownership Boundaries</h2>
+            <p>User-interface systems expose the same problem in softer material. A parent view may determine the frame around a child while the child owns the contents inside that frame.</p>
+            <p>The parent should describe the structure it owns and leave an attachment place for the child. Updating the parent must not silently replace the child’s private subtree. The placeholder is not an empty visual trick. It marks a resource boundary.</p>
+            <p>This is where a fully unrolled virtual tree becomes expensive and misleading. If every parent repeatedly reproduces a complete description of all descendants, descriptions grow with the runtime structure and ownership becomes fuzzy. A small local change can cause a large tree to be regenerated only so a patcher can rediscover that most of it stayed the same.</p>
+            <p>A compositional description can stay smaller by carrying types, parameters, identities, and attachment points. Constituents then maintain their own state and update through their own channels. The larger view is assembled from independently owned regions rather than recopied as one giant value.</p>
+        </section>
+
+        <section>
+            <h2>Private State Is a Program</h2>
+            <p>In this model, “value” does not have to mean a passive record that another machine interprets. A value can contain state, Boolean structure, and the ability to respond to incoming signals. It is an active program.</p>
+            <p>The program’s internal value remains private. Other programs do not obtain it by reaching through the boundary and reading arbitrary fields. They learn what the program chooses to communicate. They send messages, receive messages, and build their own internal models of one another.</p>
+            <p>This is more general than observable properties and callbacks. A one-bit channel can carry a language over time. With framing and a shared protocol, a narrow connection can describe structures far larger than one bit. The channel does not expose the whole state surface. It carries a conversation from which each side updates private state.</p>
+            <p>Reactive propagation then has an ordinary meaning: when a private state changes, relevant conversations follow. Connected programs do not need a global caller to walk the whole system and ask every value whether it is now stale.</p>
+        </section>
+
+        <section>
+            <h2>Code, Deployment, Program</h2>
+            <p>Three terms separate a description from its use:</p>
+            <dl>
+                <dt><strong>Program code</strong></dt>
+                <dd>A complete streamable description sufficient to initialize one program’s structure and state.</dd>
+
+                <dt><strong>Deployment</strong></dt>
+                <dd>The process of carrying that description to an allocated place and installing it there.</dd>
+
+                <dt><strong>Program</strong></dt>
+                <dd>The installed active instance with private state and communication channels.</dd>
+            </dl>
+            <p>A program can be produced from a fixed snapshot, generated from parameters, or copied from a captured state. The constructor is not a remote invocation of a disembodied class. It is a deployment operation that consumes channel capacity, space, and time.</p>
+            <p>A composite program represents a distributed value by coordinating constituent programs. It does not need to flatten their private state into one record. Its own state includes the composition facts: which constituents exist, which resources they occupy, and how their channels are connected.</p>
+        </section>
+
+        <section>
+            <h2>Unallocated Space Is Not Nothing</h2>
+            <p>Space that can accept a program already has behavior. It must be locatable. It must receive an allocation request. It must establish a configuration path, collect a deployment stream, decide when installation is complete, and yield control to the new program.</p>
+            <p>That makes unallocated space a program too.</p>
+            <p>A minimal deployment conversation looks like this:</p>
+            <ol>
+                <li>An owner requests enough adjacent space for a new program.</li>
+                <li>The space manager identifies a bounded region and an attachment point.</li>
+                <li>The owner establishes a configuration route to that region.</li>
+                <li>The code stream travels through the route into staging state.</li>
+                <li>The region reports that the complete description has arrived.</li>
+                <li>An apply event installs the new roles and initial state.</li>
+                <li>The owner connects the new program’s application channels.</li>
+            </ol>
+            <p>I have built the bounded case in Cartilage: installation through a child-owned local port. The next layer is a general allocator that can find arbitrary space, transfer ownership, relocate ports, and reconnect a live program. I want that layer built from the same explicit operations rather than smuggled into the word “instantiate.”</p>
+        </section>
+
+        <section>
+            <h2>One Bit Is Enough to Talk, Not Enough to Carry Everything</h2>
+            <p>A narrow channel is sufficient for arbitrarily rich descriptions given enough time. It does not follow that one shared narrow channel is a sensible path for every data flow in a large composition.</p>
+            <p>Imagine an owning program with many constituents. If every message between every pair must enter the owner, be decoded, be addressed again, and leave through the same one-bit opening, the owner becomes a serialization machine. Internal parallelism collapses onto one contested route. Faster serializers can raise the ceiling, but they do not remove the topology.</p>
+            <pre><code>bad:
+A --\
+B --- owner / relay --- external peers
+C --/
+
+better:
+owner establishes A &lt;--&gt; B
+owner establishes B &lt;--&gt; C
+application traffic follows those direct channels</code></pre>
+            <p>Encapsulation should protect authority and private state. It should not force the owner to proxy all constituent bandwidth. The scalable rule is simple:</p>
+            <p><strong>Manage connections. Do not relay every conversation.</strong></p>
+            <p>This is as relevant to servers and accelerators as it is to a reconfigurable fabric. A control plane may allocate endpoints and authorize a path while a data plane carries the high-volume stream directly.</p>
+        </section>
+
+        <section>
+            <h2>How Cartilage Makes the Model Physical</h2>
+            <p>Cartilage is my homogeneous two-dimensional fabric. A finite cell record selects a working role such as wire, constant, crossing, multiplexer, or reconfiguration port. Additional state identifies local ownership and carries the configuration transaction.</p>
+            <p>A parent region can maintain a bounded daughter region through a port that belongs to the daughter’s ownership tree. A serial configuration stream changes the daughter’s actual cell roles. The result is not an object drawn over a circuit. It is a new circuit installed into the same substrate.</p>
+            <p>The <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation article and live machine</a> let you watch the spatial idea happen. <a href="/cartilage-core.html">Cartilage Core</a> follows one installation in both a compact browser model and an independent SystemVerilog model. The <a href="/boolean-algebra-is-all-that-is-required.html">Boolean construction</a> gives the formal route through finite owned regions, local ports, installation, commit, and release.</p>
+            <p>The next layer is placement, reclamation, arbitrary connection routing, live migration, and general program generation. Each one must become an algorithm carried by the fabric, with its state and authority visible in the same model as the circuit it changes.</p>
+        </section>
+
+        <section>
+            <h2>Rules for a Reactive Composer</h2>
+            <ol>
+                <li>Give each mutable composition fact an explicit owner.</li>
+                <li>Keep constituent state private; communicate through defined channels.</li>
+                <li>Represent installation as a finite stream with completion and apply phases.</li>
+                <li>Make attachment points first-class resources.</li>
+                <li>Treat unallocated space as an active participant in allocation.</li>
+                <li>Separate the control path that establishes a connection from the data path that uses it.</li>
+                <li>Do not regenerate or proxy structure that another program already owns.</li>
+                <li>Measure channel contention before declaring a narrow interface elegant.</li>
+            </ol>
+            <p>The result is not object-oriented software poured into hardware. It is a common language for composition wherever state has a place, change takes time, and one active structure creates another.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Next:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Runtime Instantiation in Space</a>
+        <p>See a bounded daughter region, local reconfiguration port, ownership tree, and streamed replacement in the browser artifact.</p>
+        <p>More:</p>
+        <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
+        <p>Read the finite construction behind owned regions, installed roles, local configuration, commit, and release.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Structure, State, and Structural Change | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A general architecture of computation built from three distinct things: computational structure, runtime state, and the mechanisms that construct or reconfigure structure.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/general-architecture-of-computation.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:title" content="Structure, State, and Structural Change">
+    <meta property="og:description" content="Code, running state, and the machine carrying them are not the same thing. Separating them makes CPUs, FPGAs, distributed systems, and reconfigurable fabrics easier to understand.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/general-architecture-of-computation.html">
+    <meta property="article:published_time" content="2020-08-16T23:41:22.978Z">
+    <meta property="article:modified_time" content="2026-07-23">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:image" content="https://greenforest.io/social-previews/general-architecture-of-computation.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/general-architecture-of-computation.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Structure, State, and Structural Change - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/general-architecture-of-computation.png">
+    <meta name="twitter:image:alt" content="Structure, State, and Structural Change - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Structure, State, and Structural Change",
+            "alternativeHeadline": "A General Architecture of Computation",
+            "description": "A general architecture of computation built from three distinct things: computational structure, runtime state, and the mechanisms that construct or reconfigure structure.",
+            "dateCreated": "2020-04-28T07:16:10.042Z",
+            "datePublished": "2020-08-16T23:41:22.978Z",
+            "dateModified": "2026-07-23",
+            "mainEntityOfPage": "https://greenforest.io/general-architecture-of-computation.html",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            },
+            "about": [
+                "Computer architecture",
+                "Computational structure",
+                "Runtime state",
+                "Field-programmable gate arrays",
+                "Reconfigurable computing",
+                "Distributed systems"
+            ]
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Structure, State, and Structural Change</h1></header>
+    <address>
+        Developed <time datetime="2020-04-28T07:16:10.042Z">April 28, 2020</time>,
+        <time datetime="2020-08-15T23:34:43.654Z">August 15, 2020</time>,
+        and <time datetime="2020-08-16T23:41:22.978Z">August 16, 2020</time>.
+        Updated <time datetime="2026-07-23">July 23, 2026</time>.
+    </address>
+
+    <section class="abstract">
+        <p class="eyebrow">A general architecture of computation</p>
+        <p class="lead">Construction. Building. Instantiation. Assembly. Manufacture. Production. Development. Design.</p>
+        <p>Those words belong in computer architecture. Code, the running state of a computation, and the physical or logical structure carrying it are related, but they are not the same thing.</p>
+        <p>I use three views to keep them separate: <strong>structure</strong>, <strong>runtime state</strong>, and <strong>structural change</strong>. The distinction connects programming languages, processors, FPGAs, networks, and locally reconfigurable fabrics without pretending that they are one machine.</p>
+    </section>
+
+    <main>
+        <section>
+            <h2>A Program Is Not The Machine While It Runs</h2>
+            <p>Forget computer programs for a minute and look one level closer to the atoms. A powered circuit can be present and ready without performing the operation we care about. The structure exists. Computation happens when signals and stored state change through that structure.</p>
+            <p>Code is data with an unusual job. It is a symbolic plan that an interpreter, compiler, processor, or configuration mechanism uses to select, schedule, or construct behavior from available resources. Calling it a blueprint is imperfect but useful: the drawing of a car is not the car, and a function sitting in storage is not the event of executing it.</p>
+            <p>A programming language is therefore a symbolic tool for the brain. It lets us fix logic, mathematics, facts, rules, behaviors, simulations, and estimates in an executable form instead of carrying every step in memory. It is an external memory that can be tested. It gives us a canvas where knowledge can run and contradict us.</p>
+            <p>The canvas still needs a machine. A source file may describe millions of possible executions, but an actual execution occupies devices, memory, wires, time, energy, and communication paths. The description and its realization must meet somewhere.</p>
+        </section>
+
+        <section>
+            <h2>The Small Act: Controlled Selection And Propagation</h2>
+            <p>At the elementary digital level, one useful act is controlled selection:</p>
+            <pre><code>d = a ? b : c;</code></pre>
+            <p>The control <code>a</code> does not become the result. It chooses whether <code>b</code> or <code>c</code> can influence <code>d</code>. In hardware this is a 2:1 multiplexer. Trees of such choices, supplied with constants and input signals, can realize any combinational Boolean function.</p>
+            <p>Selection is not the whole physical story. An output must settle. Charge and electromagnetic state change in transistors and interconnect. Loads must be driven. Noise margins, delay, fan-out, and energy matter. Computation is not a switch symbol on paper; it is the controlled propagation that the built circuit makes possible.</p>
+            <p>Everything in the world can carry information for an observer. Far fewer things can serve as reliable automatic switches. Automation begins when a physical system repeatedly recognizes a condition and changes a path or state without someone manually reconnecting it each time.</p>
+            <p>This does not require the switch itself to be an agent. Agency supplies or adopts goals. Control is the mechanism that helps pursue them. Keeping those ideas separate prevents a useful automatic mechanism from being mistaken for a mind.</p>
+        </section>
+
+        <section>
+            <h2>There Is No Abstract Append In Physical Memory</h2>
+            <p>Programming languages let us write <code>list.push(x)</code> as though a new place appears at the end of a list. Physical memory does something less magical. The runtime uses capacity that was reserved earlier, or it finds another finite region, transfers ownership, copies what must survive, updates references, and releases the old region when it is safe.</p>
+            <p>The abstraction is valuable. The resources beneath it do not stop having location. Allocation always means that some bounded storage and some path to it become responsible for new state.</p>
+            <p>A tree offers a wonderfully literal example. Carbon from the air becomes part of a leaf only where the tree can build that leaf. If no suitable spatial region exists, the leaf does not grow there. Matter, energy, transport, and structure meet in one place. A computer's parts are different, but they inherit the same refusal of physical reality to append into nowhere.</p>
+            <p>This is not an argument against abstraction. It is an argument for knowing which promise an abstraction makes about the resources beneath it.</p>
+        </section>
+
+        <section>
+            <h2>Three Views Of A Computation</h2>
+            <p>A system becomes much easier to reason about when its description answers three different questions.</p>
+            <div class="article-fact-table" role="table" aria-label="Three views of a computation">
+                <div class="article-fact-row" role="row">
+                    <div class="article-fact-key" role="cell">Structure</div>
+                    <div role="cell">What components, operations, communication paths, and boundaries exist, and how are they connected?</div>
+                </div>
+                <div class="article-fact-row" role="row">
+                    <div class="article-fact-key" role="cell">Runtime state</div>
+                    <div role="cell">Which values are present now, where are they retained or moving, and which earlier events do they represent?</div>
+                </div>
+                <div class="article-fact-row" role="row">
+                    <div class="article-fact-key" role="cell">Structural change</div>
+                    <div role="cell">Which mechanism can create, replace, reconnect, resize, move, or retire parts of the structure?</div>
+                </div>
+            </div>
+            <p>Many diagrams accidentally mix all three. A box may mean a physical device, a software instance, a function that could be called, or one invocation currently in flight. An arrow may mean a permanent wire, a possible call, a message already sent, or permission to communicate. The diagram looks complete while the machine remains ambiguous.</p>
+            <p>The remedy is not more boxes. It is deciding which of the three questions the diagram answers.</p>
+        </section>
+
+        <section>
+            <h2>Physical Structure Sets The Operating Envelope</h2>
+            <p>A physical computation occupies a finite volume for a finite time. Within that envelope, devices need space, signals need time to propagate and settle, stored state needs a physical medium, and heat must leave. Packaging, power delivery, cooling, repair, and fabrication yield can limit a system before the Boolean expression does.</p>
+            <p>Two constraints recur at almost every scale:</p>
+            <ol>
+                <li><strong>Switching and propagation time:</strong> how quickly a device and its interconnect can produce a usable next state under the required voltage, load, process, and temperature.</li>
+                <li><strong>Communication capacity across boundaries:</strong> how much information can cross a package edge, board connector, rack network, clock-domain boundary, memory interface, or other physical boundary within the required time and energy.</li>
+            </ol>
+            <p>There is no single universal clock limit, and bandwidth is not determined by surface area alone. Technology, encoding, geometry, signal integrity, cooling, and topology all participate. The enduring point is that useful work inside a region must be fed, synchronized, observed, and sometimes repaired through finite interfaces.</p>
+            <p>A small chip can use dense metal interconnect that cannot simply continue through an arbitrarily large three-dimensional computer. Stacked devices accumulate thermal and mechanical problems. Buried components become difficult to test and replace. A data center has aisles, power conversion, cables, switches, cooling equipment, and people because a computer at that scale is also a building.</p>
+            <p>From those facts we can derive a useful architectural sketch: available switching and storage inside each region, plus the latency and throughput of the boundaries joining regions. That sketch is more honest than counting operations while treating movement as free.</p>
+        </section>
+
+        <section>
+            <h2>Logical Structure Gives The Parts Meaning</h2>
+            <p>Physical structure tells us what exists. Logical structure tells us which role each available resource is serving.</p>
+            <p>On a processor, machine instructions select behavior from an already built collection of registers, decoders, arithmetic units, caches, and interconnect. A compiled function is logical structure distributed over those physical resources and over time. On a specialized accelerator, the logical and physical shapes may match more closely because a datapath is built for a narrower role.</p>
+            <p>Hierarchy makes either case manageable. A subsystem exposes a boundary, accepts inputs, produces outputs, and hides internal decisions that its neighbors do not need to know. A larger component can then connect several such subsystems without reproducing their interiors.</p>
+            <p>Sensors and actuators complicate the medium but not the need for a boundary. A camera converts light into electrical state. A radio crosses between electromagnetic fields and samples. A network stack turns timed electrical or optical changes into frames and messages. Digital systems can encode these exchanges as bit streams; the physical world itself does not become nothing but bits.</p>
+        </section>
+
+        <section>
+            <h2>Data And Control Share The Channel</h2>
+            <p>Hardware designers often distinguish data from control. Data carries the values being transformed. Control says when a value is valid, where it should go, whether a buffer can accept it, which operation applies, or when a transaction begins and ends.</p>
+            <p>The distinction is a role, not a different substance. The same wire, packet field, or stored bit can be data at one boundary and control at another. Some protocols put control on separate signals. Others encode it beside payloads or infer it from timing.</p>
+            <p>Together, data and control make communication unfold over time. An interface is not only a list of types; it is a protocol describing which changes are meaningful, in what order, and under whose clock or handshake. Connecting two subsystems therefore means more than drawing an arrow. Their assumptions about validity, capacity, ordering, backpressure, reset, and failure have to meet.</p>
+            <p>This is one reason distributed systems do not deserve to be treated as an exotic branch of computation. Once a design crosses an independent clock, process, device, or administrative boundary, communication becomes part of the computation's structure.</p>
+        </section>
+
+        <section>
+            <h2>Runtime State Is The Computation In Flight</h2>
+            <p>Structure alone describes possibilities. Runtime state tells us which possibility is active now.</p>
+            <p>In a combinational network, current inputs and intermediate electrical states determine the settling output. Add latches, flip-flops, SRAM, or other storage and the network can retain consequences of earlier events. Feedback through storage creates sequential behavior: counters, protocols, state machines, pipelines, and processors.</p>
+            <p>A useful hardware graph therefore contains selection, logic, routes, and places where a past value is deliberately retained. Multiplexer networks can express Boolean choice. Storage separates one step from the next. Clocks or event handshakes decide when a retained value becomes the new visible state.</p>
+            <p>Pipelining is not merely a performance trick. It assigns state to intermediate positions so several inputs can occupy different stages of the same structure at once. Memory holds values that cannot or need not remain beside every operation. A constant wired into the circuit is structure; a constant held in configuration storage or memory is long-lived state. The placement is an architectural choice.</p>
+            <p>Large systems often contain locally synchronous regions joined asynchronously or through explicit clock-domain crossings. The broad GALS idea—globally asynchronous, locally synchronous—is useful because it admits that one universal clock is neither necessary nor always practical. The boundary protocol, not wishful timing, carries state safely between regions.</p>
+        </section>
+
+        <section>
+            <h2>Structural Change Is The Fun Part</h2>
+            <p>Now ask a different question: who can change the graph?</p>
+            <p>Ordinary software creates objects, processes, queues, files, and virtual connections. Physically, a CPU or GPU remains mostly the same circuit while instructions schedule and select its resources over time. The program changes logical ownership and state far more often than it changes the silicon topology.</p>
+            <p>An FPGA exposes another layer. Configuration bits select lookup-table contents, routing paths, I/O behavior, and other resources inside a fixed physical fabric. Loading a bitstream changes the logical circuit realized by that fabric. Devices that support partial reconfiguration can replace a bounded region while other regions continue to operate, subject to strict interface and timing rules.</p>
+            <p>People and robots can change physical structure more literally: plug in another board, replace a failed module, move a cable, assemble a new machine, or add a rack. Migration changes both structure and runtime state when a live service must carry its history into a new home.</p>
+            <p>These operations all deserve explicit language. “Create” must eventually mean which existing resources become owned by the new instance. “Connect” must name a path and protocol. “Move” must say how state survives. “Replace” must define the boundary that remains stable while the interior changes.</p>
+            <p>Temporal reuse and spatial construction are two ends of a design choice. A processor can reuse one arithmetic unit across many instructions. A parallel circuit can place several units side by side. Vectorization, threading, pipelining, and hardware generation decide where work unfolds in time and where it unfolds in space.</p>
+        </section>
+
+        <section>
+            <h2>Identity And Ownership Make Hierarchy Real</h2>
+            <p>A type, class, template, or hardware module describes a possible structure. An instance has identity. Even when the instance is virtual rather than a dedicated patch of silicon, the running system must retain enough state to say which instance owns which memory, waits on which messages, and may change which resources.</p>
+            <p>Hierarchy is not indentation. A parent boundary allocates a region or set of resources, gives a child a controlled interface, and retains a way to replace or release it. That is the connection to my work on <a href="/reactive-model-composition.html">homogeneous reconfigurable fabrics</a>: if local cells can become routes, selectors, constants, state, or configuration ports, then grouping and ownership become operations in the fabric itself.</p>
+            <p>The claim is not that every software object should become hardware. The useful claim is that construction, identity, state, communication, and replacement have physical consequences even when a language hides them.</p>
+        </section>
+
+        <section>
+            <h2>A Reading Method For Real Systems</h2>
+            <p>When I meet an unfamiliar system, I now ask three passes of questions.</p>
+            <ol>
+                <li><strong>Structure:</strong> What has been built? Where are the boundaries? Which paths and operations exist?</li>
+                <li><strong>State:</strong> What is present now? Where can it wait? Which history must survive the next event?</li>
+                <li><strong>Structural change:</strong> What can be created, reconnected, resized, upgraded, migrated, or destroyed, and who has authority to do it?</li>
+            </ol>
+            <p>The same questions can illuminate a circuit, a software service, a data center, or even an organization, but the analogy must not erase their different physics and incentives. In each case the questions force vague architecture words back toward mechanisms that can be inspected.</p>
+            <p>That is the general architecture I was looking for: not one diagram that declares everything connected, but a disciplined account of what exists, what is happening inside it, and what can change its shape.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue from Structure, State, and Structural Change">
+        <p>Next:</p>
+        <a href="/linkedin-archive/2021-04-18-a-physical-constraints-aware-programming-language.html">A Physical-Constraints-Aware Programming Language</a>
+        <p>Carry placement, ownership, latency, and device boundaries from architectural questions into the programming model.</p>
+        <p>More:</p>
+        <a href="/cartilage/">The Complete Cartilage Learning Path</a>
+        <p>Follow structure, state, local wiring, timing, composition, and bounded reconfiguration through a concrete fabric.</p>
+    </nav>
+</body>
+
+</html>

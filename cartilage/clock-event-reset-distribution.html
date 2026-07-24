@@ -34,7 +34,7 @@
             "@type": "TechArticle",
             "headline": "Clock, Event, and Reset Distribution: Trees, H-Trees, and Grids",
             "datePublished": "2026-07-22",
-            "dateModified": "2026-07-22",
+            "dateModified": "2026-07-23",
             "description": "Buffer trees, H-trees, grids, clock regions, local roots, leaves, skew, and reset release as physical distribution problems.",
             "image": "https://greenforest.io/cartilage/clock-event-reset-distribution.svg",
             "mainEntityOfPage": "https://greenforest.io/cartilage/clock-event-reset-distribution.html",
@@ -74,6 +74,7 @@
             <h2>One Edge, Many Arrival Times</h2>
             <p>A source sees wire capacitance, buffer inputs, register clock pins, reset pins, and other loads. The network has resistance and capacitance; buffers have delay; branches are not perfectly matched; routing detours around occupied resources; and process, voltage, and temperature shift the result.</p>
             <p>The difference between arrival times at two destinations is skew. A clocked system must include that difference in setup and hold analysis. An event network must define whether destinations are allowed to observe different cycles. A reset network must control when state becomes active after reset is released.</p>
+            <p><a href="/what-hides-under-the-clock.html">What Hides Under The Clock?</a> tells the longer story of why I tried to escape synchronous design, what failed, and how clock boundaries became communication boundaries in my own work.</p>
         </section>
 
         <section>

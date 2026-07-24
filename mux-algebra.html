@@ -13,7 +13,7 @@
     <meta property="og:description" content="See every two-input Boolean function as both an exact MUX circuit and a placed, routed Cartilage fabric patch.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/mux-algebra.html">
-    <meta property="article:published_time" content="2026-07-23">
+    <meta property="article:published_time" content="2020-03-22T17:10:23.959Z">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:media/mux-algebra/mux-algebra-xor-card.png -->
     <meta property="og:site_name" content="Greenforest I/O">
@@ -34,9 +34,14 @@
             "@type": "TechArticle",
             "headline": "MUX Algebra: Every Two-Input Logic Gate From MUXes",
             "description": "A visual 2020 construction of all 16 two-input Boolean functions, pairing exact 2:1 MUX diagrams with placed, routed, and shader-verified Cartilage fabric patches.",
-            "dateCreated": "2020",
-            "datePublished": "2026-07-23",
+            "dateCreated": "2020-03-22T17:10:23.959Z",
+            "datePublished": "2020-03-22",
             "dateModified": "2026-07-23",
+            "additionalProperty": {
+                "@type": "PropertyValue",
+                "name": "Transistor-level LUT2 follow-up",
+                "value": "2020-03-23T06:24:03.564Z"
+            },
             "mainEntityOfPage": "https://greenforest.io/mux-algebra.html",
             "image": "https://greenforest.io/media/mux-algebra/mux-algebra-xor-card.png",
             "author": {
@@ -395,7 +400,7 @@
 <body class="article-structured mux-algebra-visual">
     <header><h1 class="page-title">MUX Algebra</h1></header>
     <address>
-        <time datetime="2020">Written in 2020</time><br>
+        Written <time datetime="2020-03-22T17:10:23.959Z">March 22, 2020</time>, with the transistor-level follow-up added <time datetime="2020-03-23T06:24:03.564Z">March 23, 2020</time><br>
         <time datetime="2026-07-23">Visual web edition July 23, 2026</time>
     </address>
 
@@ -1194,19 +1199,19 @@
         </section>
 
         <section id="mux-cartilage-evidence">
-            <h2>Actual Cartilage Render Evidence</h2>
+            <h2>The Same Circuits Running In Cartilage</h2>
             <div class="mux-cartilage-evidence">
-                <p><strong>Coverage:</strong> all <code>34/34</code> generated teaching illustrations have a one-to-one Cartilage counterpart, including the five responsive mobile routes. The manifest records <code>606</code> passing shader-readback cases; each labeled image has a corresponding unlabelled native capture.</p>
-                <p><strong>Renderer provenance:</strong> Rendered by the canonical Cartilage Core WebGL1/GLSL engine at commit 48ff6e0; placed/routed states loaded with window.cartilage.loadState, advanced with window.cartilage.step, and read back with window.cartilage.readCell. Native 96 px/tile capture; no raster resizing.</p>
-                <p><strong>Stable reconfiguration root:</strong> every loaded 32×64 state seeds a reconfiguration-port root at <code>(0,0)</code>. All 2,048 cells are read back before and after each truth case; the audit requires zero cells in parent-pointer search and zero mutated parent fields. The temporary capture copy changes only native zoom and the parent initialization of the three host-injected boundary cells; the GLSL transition and renderer are unchanged.</p>
-                <p><strong>Evidence boundary:</strong> Direct placed/routed state loading verifies primitive application behavior and illustration parity; it is not serial reconfiguration-install evidence.</p>
-                <p><a href="/media/mux-algebra/cartilage/parity-manifest.json">Open the machine-readable capture, routing, truth-check, and SHA-256 manifest.</a></p>
+                <p>All <code>34/34</code> generated teaching illustrations have a one-to-one Cartilage counterpart, including the five responsive mobile routes. The shader-readback run covers <code>606</code> passing cases, and every labeled image has an unlabelled native capture beside it.</p>
+                <p>I rendered them with the Cartilage Core WebGL1/GLSL engine at commit <code>48ff6e0</code>. Each placed and routed state is loaded with <code>window.cartilage.loadState</code>, advanced with <code>window.cartilage.step</code>, and read back with <code>window.cartilage.readCell</code> at a native 96 pixels per tile.</p>
+                <p>Every 32×64 state begins with a reconfiguration-port root at <code>(0,0)</code>. The check reads all 2,048 cells before and after every truth-table case and rejects parent-pointer search or a changed parent field. Only native zoom and the initialization of three host-injected boundary cells differ in the temporary capture copy; the GLSL transition and renderer stay the same.</p>
+                <p>This run checks the application behavior of circuits already placed in the fabric. Carrying the same cells through the serial reconfiguration-install path is a separate operation.</p>
+                <p><a href="/media/mux-algebra/cartilage/parity-manifest.json">Open the capture, routing, truth-check, and SHA-256 manifest.</a></p>
             </div>
         </section>
 
         <section id="mux-originals">
             <h2>The Original 2020 Figures</h2>
-            <p>The paired abstract diagrams and Cartilage captures above are new teaching views. The five Logisim images below are the original 2020 functional evidence; as source captures, they are not part of the <code>34/34</code> generated-illustration parity count.</p>
+            <p>The paired abstract diagrams and Cartilage captures above are new teaching views. I drew the five Logisim circuits below in 2020, so they stand outside the <code>34/34</code> generated-illustration count.</p>
             <figure class="mux-figure mux-original-small">
                 <a href="/media/mux-algebra/four-bit-configurable-mux-network.png">
                     <img src="/media/mux-algebra/four-bit-configurable-mux-network.png" width="418" height="300" loading="lazy" decoding="async" alt="Original 2020 Logisim configurable MUX network with A, B, ground, power, a four-bit configuration input, and output Y">
@@ -1240,12 +1245,8 @@
                 </figure>
             </div>
 
-            <div class="mux-source-note">
-                <p><strong>Date:</strong> the manuscript identifies 2020 but gives no month or day, so none has been invented.</p>
-                <p><strong>Web edition:</strong> variable names were normalized to <code>A</code> and <code>B</code>; the manuscript's inconsistent implication directions were replaced by the truth-table-correct labels <code>A → B</code> and <code>B → A</code>.</p>
-                <p><strong>Evidence boundary:</strong> the Logisim images show the functional selector network. They are not a transistor layout, extracted circuit, or powered-hardware measurement.</p>
-            </div>
-            <p>The manuscript calls its configurable circuit a “16 CMOS transistor” LUT2 and describes two selectors as six-transistor MUXes. That is the proposal in the note, not a universal device count: the total depends on MUX topology, complemented-selector generation, source sharing, loading, and output drive.</p>
+            <p>I wrote the MUX-algebra construction on March 22, 2020, and added the transistor-level LUT2 follow-up on March 23. For this visual edition I standardized the variable names as <code>A</code> and <code>B</code> and corrected the two implication labels against their truth tables.</p>
+            <p>The Logisim circuits show the functional selector network. They are not a transistor layout, extracted circuit, or powered-hardware measurement. My original “16 CMOS transistor” LUT2 count assumed a particular selector arrangement; the real total depends on MUX topology, complemented-selector generation, source sharing, loading, and output drive.</p>
 
             <details class="mux-programmer">
                 <summary>Exact executable definition</summary>

@@ -33,6 +33,10 @@
     <lastmod>2026-07-23</lastmod>
   </url>
   <url>
+    <loc>https://greenforest.io/what-hides-under-the-clock.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
     <loc>https://greenforest.io/fpga-verilog/</loc>
     <lastmod>2026-07-23</lastmod>
   </url>
@@ -77,6 +81,14 @@
     <lastmod>2026-07-23</lastmod>
   </url>
   <url>
+    <loc>https://greenforest.io/general-architecture-of-computation.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/computation-is-indirect-control.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
     <loc>https://greenforest.io/mux-algebra.html</loc>
     <lastmod>2026-07-23</lastmod>
   </url>
@@ -110,7 +122,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/clock-event-reset-distribution.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/statecharts-and-one-hot-fsms.html</loc>
@@ -126,7 +138,11 @@
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/nested-components-and-composition.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/reactive-model-composition.html</loc>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/webgl-glsl-computing.html</loc>
@@ -161,6 +177,10 @@
     <lastmod>2026-07-11</lastmod>
   </url>
   <url>
+    <loc>https://greenforest.io/ai-should-interview-before-it-acts.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
     <loc>https://greenforest.io/boolean-algebra-is-all-that-is-required.html</loc>
     <lastmod>2026-07-23</lastmod>
   </url>
@@ -185,8 +205,16 @@
     <lastmod>2026-07-22</lastmod>
   </url>
   <url>
+    <loc>https://greenforest.io/human-computer-interaction-as-model-exchange.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/the-url-is-a-camera.html</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
     <loc>https://greenforest.io/blog/2023/05/19/Unleashing-the-Future-of-Web-Development.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/</loc>
@@ -194,7 +222,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/history.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/scaffolding.html</loc>
@@ -206,6 +234,10 @@
   </url>
   <url>
     <loc>https://greenforest.io/from-the-ground-up/logic/</loc>
+    <lastmod>2026-07-23</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/gravity-through-contradiction.html</loc>
     <lastmod>2026-07-23</lastmod>
   </url>
   <url>
@@ -743,7 +775,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2020-05-18-classical-mechanics-is-still-fundamental.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2020-05-18-do-not-skip-variational-calculus.html</loc>
@@ -775,7 +807,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2019-04-23-live-offline-dualism-in-software.html</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-07-23</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2019-04-17-a-surviving-observer-model-of-computation.html</loc>

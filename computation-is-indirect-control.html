@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>The Switch: Computation as Indirect Control | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A physical and playful explanation of computation as indirect control: one signal moves a boundary that chooses which other signal can pass.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/computation-is-indirect-control.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:title" content="The Switch: Computation as Indirect Control">
+    <meta property="og:description" content="One flow chooses another. Meet the movable gate, the multiplexer, and the cow whose tiny nudge changes which stream can pass.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/computation-is-indirect-control.html">
+    <meta property="article:published_time" content="2020-09-06T05:13:55.339Z">
+    <meta property="article:modified_time" content="2026-07-23">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:image" content="https://greenforest.io/social-previews/computation-is-indirect-control.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/computation-is-indirect-control.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The Switch: Computation as Indirect Control - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/computation-is-indirect-control.png">
+    <meta name="twitter:image:alt" content="The Switch: Computation as Indirect Control - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "The Switch: Computation as Indirect Control",
+            "description": "A physical and playful explanation of computation as indirect control: one signal moves a boundary that chooses which other signal can pass.",
+            "dateCreated": "2020-09-05T03:34:08.379Z",
+            "datePublished": "2020-09-06T05:13:55.339Z",
+            "dateModified": "2026-07-23",
+            "mainEntityOfPage": "https://greenforest.io/computation-is-indirect-control.html",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            },
+            "about": [
+                "Computation",
+                "Multiplexers",
+                "Switching",
+                "Boolean logic",
+                "Indirect control"
+            ]
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">The Switch: Computation as Indirect Control</h1></header>
+    <address>
+        Developed <time datetime="2020-09-05T03:34:08.379Z">September 5, 2020</time>
+        and <time datetime="2020-09-06T05:13:55.339Z">September 6, 2020</time>.
+        Updated <time datetime="2026-07-23">July 23, 2026</time>.
+    </address>
+
+    <section class="abstract">
+        <p class="eyebrow">Computation from first principles</p>
+        <p class="lead">I have thought about what computation is for most of my life. Under all the code, algorithms, interfaces, modules, and machines, I kept looking for the smallest act that still feels like the magic.</p>
+        <p>My answer is <strong>indirect control</strong>: one signal does not become the answer. It changes a boundary so that another signal can become the answer.</p>
+        <p>The programming form is if-then-else. The circuit form is a multiplexer. The main character is a switch—and, for one slightly ridiculous minute, a cow.</p>
+    </section>
+
+    <main>
+        <section>
+            <h2>The Question Beneath The Profession</h2>
+            <p>Computation is everywhere. People depend on it for communication, work, medicine, transport, science, and the ordinary organization of a day. It may help us extend healthy life and understand intelligence, but those results will not arrive merely because computers are powerful.</p>
+            <p>I started writing programs in 1994. By 2020 I had spent twenty-six years surrounded by source code, input data, execution, results, algorithms, interfaces, and modules. The concepts multiply so quickly that the elementary act can disappear beneath the profession built around it.</p>
+            <p>I wanted to find computation's main character. Not the CPU, because a CPU is already a large constructed machine. Not code, because code can sit untouched in storage. Not data, because data can exist without being transformed.</p>
+            <p>The main character is the thing that lets one event choose what another event will do.</p>
+        </section>
+
+        <section>
+            <h2>First Build A Channel</h2>
+            <p>Imagine a rigid channel carrying a flow. Its shape decides where the flow can go. That is hardwired control: the boundary was placed earlier, and the stream follows it.</p>
+            <p>Now use a mechanical or fluidic model: make one piece of the boundary movable. It can settle into either of two positions. A separate control flow pushes it from one stable position to the other. The control flow does not need to become part of the selected stream. It changes the route available to that stream.</p>
+            <p>At least two influences meet:</p>
+            <ul>
+                <li>the values or flows that might be allowed through, and</li>
+                <li>the control that moves the boundary between them.</li>
+            </ul>
+            <p>This is the subtle step. The flow acts on the gate; the gate acts on a different flow. A small cause changes which larger cause can continue.</p>
+        </section>
+
+        <section>
+            <h2>The Same Move In Code</h2>
+            <p>The automatic program can be almost embarrassingly small:</p>
+            <pre><code>result = chooseRight ? rightValue : leftValue;</code></pre>
+            <p><code>chooseRight</code> determines control. When it changes, the expression chooses a different branch. But the control value is not normally what the expression returns. The result is one of the two values on the other side of the choice.</p>
+            <pre aria-label="A selector chooses one of two data streams"><code>leftValue  ──┐
+             ├── selected value
+rightValue ──┘
+        ▲
+        │
+   chooseRight</code></pre>
+            <p>That is indirection. A pointer has the same flavor: its value is useful because it chooses where another value will be found. Delegation has the same flavor when a high-level signal selects which prepared person or process acts next. The analogy does not make an organization a transistor, but it exposes the common shape of the choice.</p>
+        </section>
+
+        <section>
+            <h2>Now Bring In The Cows</h2>
+            <p>Our hero has waited beside the gate through an eternity of stillness. Nothing changes. Cows keep coming from the left, some black, some white, carrying a stream of zeroes and ones past the checkpoint. The hero does not judge the cows. The gate is open to the left, so the left stream passes.</p>
+            <p>Then a different cow arrives on the control path. This one carries just enough energy to nudge the hero and move the wall into its other stable position.</p>
+            <p>The left passage closes. The right passage opens. Now an entirely different stream of black and white cows passes through the same exit, producing a different sequence of answers downstream.</p>
+            <p>The control cow did not have to carry those answers. It changed which herd could carry them. That is the trick.</p>
+        </section>
+
+        <section>
+            <h2>The Hero Has Three Jobs</h2>
+            <p>A physical switch has to do more than look like an if-then-else symbol.</p>
+            <ol>
+                <li><strong>Recognize a usable control condition.</strong> A transistor responds continuously along a transfer curve; a relay, mechanical gate, or fluidic device has its own physical response. The surrounding design establishes ranges that later stages can read reliably as one control state or another.</li>
+                <li><strong>Change the usable transfer path.</strong> The control alters conductivity, position, pressure, magnetization, or some other property that determines which signal can reach the output.</li>
+                <li><strong>Settle into a usable state.</strong> The device must stop switching, drive its load, tolerate noise, and remain stable long enough for the next stage to read it.</li>
+            </ol>
+            <p>The small control can govern a noticeable downstream effect because the selected path carries energy from its own signal source. A passive selector does not necessarily provide power gain. When the circuit must restore levels or amplify, active devices draw the required energy from a supply. The control governs that available flow instead of personally carrying it.</p>
+        </section>
+
+        <section>
+            <h2>Switching Is Not Free</h2>
+            <p>I once wanted the hero to balance between hilltops so gravity would return all the motion and flipping would be almost free. Real switches are less obliging. Moving charge, changing fields, overcoming friction, and driving a load consume energy. Some reversible or adiabatic designs can recover part of that energy, but reliability, speed, leakage, and control still have costs.</p>
+            <p>A selector is also not adequately described as one normally open contact and one normally closed contact. Those terms belong to particular relay and switch arrangements. A 2:1 multiplexer is the logical behavior: for either control state, one input is selected and the other is rejected. Different technologies realize that behavior differently.</p>
+            <p>These corrections make the character better. Our hero is not magical because physics was suspended. The magic is that physics supplies a repeatable mechanism whose small control action changes a larger information-bearing path.</p>
+        </section>
+
+        <section>
+            <h2>From One Choice To A Network</h2>
+            <p>One selector chooses between two values. Connect selectors into trees and each control pattern can choose among more values. Feed constants and variables into the leaves and the tree can express Boolean functions. Add feedback and explicit storage, and earlier choices can affect later ones.</p>
+            <p>This is why if-then-else feels more fundamental to me than the CPU. The CPU is an extraordinary arrangement of selection, state, arithmetic, timing, and routing. It is not required as the starting primitive.</p>
+            <p>The statement also has a boundary. A complete computer needs more than selection. Signals must be restored and distributed. State must survive between events. Timing and causality must be controlled. Inputs and outputs must meet the physical world. Energy and heat must be handled. The selector is the main character, not the entire cast.</p>
+        </section>
+
+        <section>
+            <h2>Why I Keep Returning To The Switch</h2>
+            <p>Understanding this small act does not automatically explain a brain, guarantee artificial intelligence, or solve every profession. It does something more honest: it makes the bottom of a digital explanation tangible.</p>
+            <p>A control value chooses another value. A movable boundary chooses another flow. A multiplexer chooses another signal. Larger Boolean networks repeat the same move until the accumulation looks like arithmetic, memory, protocol, graphics, or a program.</p>
+            <p>That is enough magic for me. One flow chooses another, and a machine begins.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue from The Switch: Computation as Indirect Control">
+        <p>Next:</p>
+        <a href="/mux-algebra.html">MUX Algebra: Every Two-Input Logic Gate From MUXes</a>
+        <p>Turn the single selector into an exact construction of all sixteen two-input Boolean functions.</p>
+        <p>More:</p>
+        <a href="/physical-mux-tiles/">Physical MUX Tiles</a>
+        <p>Make selection, constants, routes, intersections, and orientation tangible as a small physical-computing alphabet.</p>
+    </nav>
+</body>
+
+</html>
