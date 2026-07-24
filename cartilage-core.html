@@ -33,7 +33,7 @@
             "@type": "TechArticle",
             "headline": "Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog",
             "datePublished": "2026-07-10",
-            "dateModified": "2026-07-11",
+            "dateModified": "2026-07-23",
             "image": "https://greenforest.io/cartilage-core/cartilage-core-and-late.png",
             "description": "A nearest-neighbor reconfigurable computing fabric with a WebGL model, SystemVerilog RTL, Verilator checks, and one exact 252-bit 6x6 installation.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-core.html",
@@ -109,6 +109,7 @@
             <pre><code>36 records x 7 bits = 252 payload bits
 252 payload bits + 1 apply pulse = one complete installation</code></pre>
             <p>The ownership tree is traversed in postorder. Descendants receive their records before the root. The port is owned by the region it configures, so the root record arrives last and replaces the port role with ordinary application logic. The checked image uses an interior MUX and constants to realize AND.</p>
+            <p><a href="/mux-algebra.html">MUX Algebra</a> shows why that selector-plus-constants construction realizes AND and how the same local choice form covers the other 15 two-input Boolean functions.</p>
             <p>The example proves that root-port replacement. It does not yet relocate a new port and perform a second full installation through that relocated ingress.</p>
         </section>
 

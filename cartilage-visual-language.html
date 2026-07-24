@@ -37,7 +37,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-22",
+            "dateModified": "2026-07-23",
             "image": "https://greenforest.io/cartilage-fabric-13x13-glsl-body-type-sea-labels-none-body-labels-0.png",
             "description": "A visual decoder for the 32 Cartilage cell-role codes: reconfiguration port, cross, constants, wire orientations, and the six MUX modes in four orientations.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-visual-language.html",
@@ -100,6 +100,7 @@
             <h2>How The 32 Codes Are Packed</h2>
             <p>The renderer stores the visible role as two fields: <code>orientation</code> is two bits, and <code>mode</code> is three bits. The natural body-type code is <code>orientation + 4 * mode</code>, giving codes <code>0</code> through <code>31</code>.</p>
             <p>Mode <code>0</code> is special: its four orientations mean port, cross, constant zero, and constant one. Mode <code>1</code> is a wire. Modes <code>2</code> through <code>7</code> are the six MUX behaviors, each rotated into four render orientations.</p>
+            <p>All 24 oriented MUX roles implement the same local selector operation over different neighboring inputs. <a href="/mux-algebra.html">MUX Algebra</a> develops that operation as conditional notation and a complete two-input truth-function table before Cartilage adds spatial rotation and routing.</p>
             <p>The suffixes <code>L</code>, <code>T</code>, <code>B</code>, and <code>R</code> name the rendered orientation. Read them as local tile orientation labels, not as a global coordinate system.</p>
         </section>
 

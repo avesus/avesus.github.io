@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="850" viewBox="0 0 440 850" role="img" aria-labelledby="title desc">
+  <title id="title">Mobile view of a universal two-input lookup table made from three multiplexers</title>
+  <desc id="desc">Four stored truth bits feed two A-selected multiplexers. A final B-selected multiplexer chooses their result.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="440" height="850"/>
+
+  <text class="label" x="20" y="40">Any truth table: three MUXes</text>
+  <text class="body" x="20" y="78">First choose by A; then choose by B.</text>
+  <rect class="panel" x="14" y="100" width="412" height="720" rx="18"/>
+  <text class="small" x="22" y="130">B=0 column</text>
+  <rect class="chip" x="22" y="168" width="98" height="32" rx="8"/>
+  <rect class="chip" x="22" y="202" width="98" height="32" rx="8"/>
+  <text class="code-small center" x="71" y="191">C00</text>
+  <text class="code-small center" x="71" y="225">C10</text>
+
+  <path class="mux" d="M 150 136 L 250 160 L 250 242 L 150 266 Z"/>
+  <path class="wire" d="M 120 184 H 150"/>
+  <path class="wire" d="M 120 218 H 150"/>
+  <path class="wire" d="M 250 201 H 298"/>
+  <path class="wire" d="M 200 324 V 274"/>
+  <text class="code-small right" x="108" y="192"></text>
+  <text class="code-small right" x="108" y="226"></text>
+  <text class="tiny" x="164" y="170">D0 / S=0</text>
+  <text class="tiny" x="164" y="250">D1 / S=1</text>
+  <text class="code-small center" x="200" y="209">MUX</text>
+  <text class="code" x="218" y="318">A</text>
+  <text class="code" x="312" y="209"></text>
+  <rect class="choice" x="298" y="174" width="120" height="58" rx="10"/>
+  <text class="code-small center" x="358" y="211">branch 0</text>
+  <text class="small" x="22" y="314">B=1 column</text>
+  <rect class="chip" x="22" y="352" width="98" height="32" rx="8"/>
+  <rect class="chip" x="22" y="386" width="98" height="32" rx="8"/>
+  <text class="code-small center" x="71" y="375">C01</text>
+  <text class="code-small center" x="71" y="409">C11</text>
+
+  <path class="mux" d="M 150 320 L 250 344 L 250 426 L 150 450 Z"/>
+  <path class="wire" d="M 120 368 H 150"/>
+  <path class="wire" d="M 120 402 H 150"/>
+  <path class="wire" d="M 250 385 H 298"/>
+  <path class="wire" d="M 200 508 V 458"/>
+  <text class="code-small right" x="108" y="376"></text>
+  <text class="code-small right" x="108" y="410"></text>
+  <text class="tiny" x="164" y="354">D0 / S=0</text>
+  <text class="tiny" x="164" y="434">D1 / S=1</text>
+  <text class="code-small center" x="200" y="393">MUX</text>
+  <text class="code" x="218" y="502">A</text>
+  <text class="code" x="312" y="393"></text>
+  <rect class="choice" x="298" y="358" width="120" height="58" rx="10"/>
+  <text class="code-small center" x="358" y="395">branch 1</text>
+  <text class="small center" x="220" y="532">Feed the two results into one final MUX.</text>
+  <rect class="chip" x="22" y="582" width="112" height="32" rx="8"/>
+  <rect class="chip" x="22" y="626" width="112" height="32" rx="8"/>
+  <text class="code-small center" x="78" y="605">branch 0</text>
+  <text class="code-small center" x="78" y="649">branch 1</text>
+
+  <path class="mux" d="M 164 550 L 274 574 L 274 666 L 164 690 Z"/>
+  <path class="wire" d="M 134 598 H 164"/>
+  <path class="wire" d="M 134 642 H 164"/>
+  <path class="wire" d="M 274 620 H 328"/>
+  <path class="wire" d="M 219 748 V 698"/>
+  <text class="code-small right" x="122" y="606"></text>
+  <text class="code-small right" x="122" y="650"></text>
+  <text class="tiny" x="178" y="584">D0 / S=0</text>
+  <text class="tiny" x="178" y="674">D1 / S=1</text>
+  <text class="code-small center" x="219" y="628">MUX</text>
+  <text class="code" x="237" y="742">B</text>
+  <text class="code" x="342" y="628"></text>
+  <rect class="choice" x="328" y="591" width="90" height="58" rx="10"/>
+  <text class="label center" x="373" y="629">Y</text>
+  <text class="code-small center" x="220" y="774">Y = B ? M(A,C01,C11)</text>
+  <text class="code-small center" x="220" y="804">: M(A,C00,C10)</text>
+</svg>

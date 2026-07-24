@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="610" viewBox="0 0 440 610" role="img" aria-labelledby="title desc">
+  <title id="title">TRUE built from multiplexers</title>
+  <desc id="desc">Y = 1. The output is tied to one. The smallest circuit uses 0 multiplexers. Its 2020 pointer word is 1010 and its truth vector is 1111.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="440" height="610"/>
+
+  <style>
+    .tiny { font-size: 20px; }
+    .code-small { font-size: 21px; }
+  </style>
+  <text class="heading" x="20" y="40">TRUE</text>
+  <text class="code-small right" x="420" y="38">0 MUXes</text>
+  <text class="label" x="20" y="78">Y = 1</text>
+
+  <rect class="panel" x="10" y="122" width="420" height="428" rx="18"/>
+
+  <rect class="chip" x="78" y="212" width="142" height="72" rx="14"/>
+  <text class="label center" x="149" y="258">1</text>
+  <path class="wire" d="M 220 248 H 352"/>
+  <text class="code" x="364" y="256">Y</text>
+  <text class="body center" x="220" y="344">Direct wire; no MUX is needed.</text>
+
+  <rect class="truth-on" x="22" y="396" width="192" height="62" rx="10"/>
+  <text class="small center" x="118" y="419" style="fill:#ffffff">A=0  B=0</text>
+  <text class="label center" x="118" y="448" style="fill:#ffffff">Y=1</text>
+  <rect class="truth-on" x="224" y="396" width="192" height="62" rx="10"/>
+  <text class="small center" x="320" y="419" style="fill:#ffffff">A=0  B=1</text>
+  <text class="label center" x="320" y="448" style="fill:#ffffff">Y=1</text>
+  <rect class="truth-on" x="22" y="468" width="192" height="62" rx="10"/>
+  <text class="small center" x="118" y="491" style="fill:#ffffff">A=1  B=0</text>
+  <text class="label center" x="118" y="520" style="fill:#ffffff">Y=1</text>
+  <rect class="truth-on" x="224" y="468" width="192" height="62" rx="10"/>
+  <text class="small center" x="320" y="491" style="fill:#ffffff">A=1  B=1</text>
+  <text class="label center" x="320" y="520" style="fill:#ffffff">Y=1</text>
+  <text class="code-small" x="20" y="590">pointer 10 | 10</text>
+  <text class="small right" x="420" y="590">truth 1111</text>
+</svg>

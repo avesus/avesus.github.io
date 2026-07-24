@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="360" viewBox="0 0 440 360" role="img" aria-labelledby="title desc">
+  <title id="title">MUX selection with S equal to 1</title>
+  <desc id="desc">A 2-to-1 multiplexer with selector S equal to 1. The D1 path is active and reaches output Y.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="440" height="360"/>
+
+  <text class="heading" x="22" y="46">S=1: choose D1</text>
+  <rect class="panel" x="14" y="66" width="412" height="270" rx="18"/>
+
+  <path class="mux" d="M 150 108 L 260 132 L 260 224 L 150 248 Z"/>
+  <path class="wire" d="M 120 156 H 150"/>
+  <path class="wire" d="M 120 200 H 150"/>
+  <path class="wire" d="M 260 178 H 308"/>
+  <path class="wire" d="M 205 306 V 256"/>
+  <text class="code-small right" x="108" y="164">D0</text>
+  <text class="code-small right" x="108" y="208">D1</text>
+  <text class="tiny" x="164" y="142">D0 / S=0</text>
+  <text class="tiny" x="164" y="232">D1 / S=1</text>
+  <text class="code-small center" x="205" y="186">MUX</text>
+  <text class="code" x="223" y="300">S=1</text>
+  <text class="code" x="322" y="186">D1</text>
+  <path class="wire-inactive" d="M 116 156 H 150"/>
+  <path class="wire-active" d="M 116 200 H 150 L 260 178 H 308"/>
+  <rect class="chip" x="22" y="136" width="94" height="40" rx="10"/>
+  <rect class="chip" x="22" y="180" width="94" height="40" rx="10"/>
+  <text class="code center" x="69" y="164">D0</text>
+  <text class="code center" x="69" y="208">D1</text>
+  <rect class="choice" x="308" y="144" width="102" height="68" rx="13"/>
+  <text class="code-small center" x="359" y="185">Y=D1</text>
+
+</svg>

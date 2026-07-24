@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="430" viewBox="0 0 440 430" role="img" aria-labelledby="title desc">
+  <title id="title">AND: B=1 branch</title>
+  <desc id="desc">AND: B=1 branch. With B equal to 1, outputs over A are 0 and 1, selecting source A with pointer 01.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="440" height="430"/>
+
+  <text class="heading" x="20" y="44">AND: B=1 branch</text>
+  <rect class="panel" x="14" y="68" width="412" height="326" rx="18"/>
+  <text class="label" x="34" y="116">Hold B=1</text>
+  <rect class="chip" x="34" y="142" width="176" height="58" rx="11"/>
+  <rect class="chip" x="34" y="216" width="176" height="58" rx="11"/>
+  <text class="body center" x="122" y="179">A=0 -> Y=0</text>
+  <text class="body center" x="122" y="253">A=1 -> Y=1</text>
+  <path class="wire" d="M 220 171 H 252 M 220 245 H 252 M 252 171 V 245 H 278"/>
+  <rect class="choice" x="278" y="156" width="130" height="104" rx="14"/>
+  <text class="label center" x="343" y="199">A</text>
+  <text class="code-small center" x="343" y="235">pointer 01</text>
+  <text class="body center" x="220" y="354">B=1 makes AND follow A.</text>
+</svg>

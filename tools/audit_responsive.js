@@ -7,6 +7,8 @@ const { spawn } = require('node:child_process');
 
 const baseUrl = process.argv[2] || 'http://127.0.0.1:8765';
 const screenshotDir = process.argv[3] || '';
+const pageFilter = process.argv[4] || '';
+const viewportFilter = process.argv[5] || '';
 const debugPort = 9223;
 
 const pages = [
@@ -17,6 +19,7 @@ const pages = [
   '/how-much-radio-do-you-actually-need.html',
   '/ethernet-udp-ice40-reprogrammer.html',
   '/physical-mux-tiles/',
+  '/mux-algebra.html',
   '/proof-and-artifacts.html',
   '/technology-research-and-consulting.html',
   '/cartilage/',
@@ -48,10 +51,19 @@ const screenshotPages = new Set([
   '/how-much-radio-do-you-actually-need.html',
   '/ethernet-udp-ice40-reprogrammer.html',
   '/physical-mux-tiles/',
+  '/mux-algebra.html',
   '/cartilage-visual-language.html',
 ]);
 
 const screenshotViewports = new Set(['1920x1080', '1280x1200', '390x844']);
+const selectedPages = pageFilter
+  ? pages.filter(pagePath => pagePath === pageFilter)
+  : pages;
+const selectedViewports = viewportFilter
+  ? viewports.filter(([width, height]) => (
+    viewportFilter.split(',').includes(`${width}x${height}`)
+  ))
+  : viewports;
 
 const shouldCaptureScreenshot = (pagePath, viewportName) => (
   screenshotPages.has(pagePath)
@@ -442,7 +454,7 @@ async function main() {
     await client.send('Page.enable');
     await client.send('Runtime.enable');
 
-    for (const [width, height] of viewports) {
+    for (const [width, height] of selectedViewports) {
       const mobileViewport = width <= 440;
       await client.send('Emulation.setDeviceMetricsOverride', {
         width,
@@ -457,7 +469,7 @@ async function main() {
         maxTouchPoints: mobileViewport ? 5 : 1,
       });
 
-      for (const pagePath of pages) {
+      for (const pagePath of selectedPages) {
         combinations += 1;
         await client.send('Page.navigate', { url: new URL(pagePath, baseUrl).href });
         await waitForDocument(client);
@@ -543,6 +555,43 @@ async function main() {
               sectionScreenshot.data,
               'base64',
             );
+          }
+
+          if (
+            pagePath === '/mux-algebra.html'
+            && (viewportName === '390x844' || viewportName === '1920x1080')
+          ) {
+            const muxSections = [
+              ['The Only MUX Rule', 'rule'],
+              ['Constants Create The Four Possible Sources', 'sources'],
+              ['Build AND One Branch At A Time', 'and'],
+              ['Why No Boolean Function Is Missing', 'proof'],
+              ['Every Two-Input Function As A Circuit', 'catalog'],
+              ['The Original 2020 Figures', 'originals'],
+            ];
+            for (const [title, slug] of muxSections) {
+              await client.send('Runtime.evaluate', {
+                expression: `(() => {
+                  const heading = Array.from(document.querySelectorAll('h2'))
+                    .find(element => element.textContent.trim() === ${JSON.stringify(title)});
+                  if (heading) {
+                    heading.scrollIntoView({ block: 'start' });
+                    window.scrollBy(0, -16);
+                  }
+                })()`,
+              });
+              await pause(180);
+              const sectionScreenshot = await client.send('Page.captureScreenshot', {
+                format: 'png',
+                fromSurface: true,
+                captureBeyondViewport: false,
+              });
+              fs.writeFileSync(
+                path.join(screenshotDir, `mux-algebra-${slug}-${viewportName}.png`),
+                sectionScreenshot.data,
+                'base64',
+              );
+            }
           }
 
           if (pagePath === '/one-pin-quadrature-sdm-transmitter.html' && viewportName === '390x844') {
@@ -748,7 +797,7 @@ async function main() {
     }
   }
 
-  console.log(`pages=${pages.length} viewports=${viewports.length} combinations=${combinations}`);
+  console.log(`pages=${selectedPages.length} viewports=${selectedViewports.length} combinations=${combinations}`);
   console.log(`auxiliary=${auxiliaryChecks}`);
   console.log(`failures=${failures.length}`);
   failures.forEach(failure => console.log(`FAIL: ${failure}`));

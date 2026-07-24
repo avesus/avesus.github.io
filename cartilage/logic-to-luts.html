@@ -34,7 +34,7 @@
             "@type": "TechArticle",
             "headline": "From Logisim and Multiplexers to LUT1-LUT6",
             "datePublished": "2026-07-22",
-            "dateModified": "2026-07-22",
+            "dateModified": "2026-07-23",
             "description": "A visible construction of lookup tables from a 2:1 multiplexer, connected to LUT4 and LUT6 FPGA logic.",
             "image": "https://greenforest.io/cartilage/logic-to-luts.svg",
             "mainEntityOfPage": "https://greenforest.io/cartilage/logic-to-luts.html",
@@ -119,6 +119,7 @@
                 </div>
             </div>
             <p>You can draw LUT2 as a two-level multiplexer tree: one select bit chooses within each pair, and the second chooses between the pair results. LUT3 adds another level. The truth-table definition is stable even when a particular FPGA implements, packs, or shares the physical resources differently.</p>
+            <p>The 2020 article <a href="/mux-algebra.html">MUX Algebra</a> works through this same LUT2 tree as nested conditional notation, enumerates all 16 two-input Boolean functions, and gives a compact four-bit source-pointer encoding.</p>
         </section>
 
         <section>

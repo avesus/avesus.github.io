@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">A three-input function split by selector C</title>
+  <desc id="desc">A multiplexer selected by C chooses between the two-input functions F of A and B when C is zero or one. Repeating the split reaches constants.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="960" height="520"/>
+
+  <text class="title" x="48" y="62">More inputs repeat the same choice</text>
+  <rect class="panel" x="48" y="100" width="864" height="370" rx="20"/>
+  <rect class="choice" x="350" y="142" width="260" height="86" rx="14"/>
+  <text class="label center" x="480" y="195">F(A, B, C)</text>
+  <path class="wire" d="M 480 230 V 278 M 480 278 L 250 340 M 480 278 L 710 340"/>
+  <text class="code center" x="480" y="270">select C</text>
+  <rect class="chip" x="104" y="340" width="292" height="82" rx="14"/>
+  <rect class="chip" x="564" y="340" width="292" height="82" rx="14"/>
+  <text class="label center" x="250" y="389">F(A, B, 0)</text>
+  <text class="label center" x="710" y="389">F(A, B, 1)</text>
+  <text class="small center" x="250" y="450">one two-input MUX circuit</text>
+  <text class="small center" x="710" y="450">one two-input MUX circuit</text>
+  <text class="code center" x="480" y="504">F(A,B,C) = C ? F(A,B,1) : F(A,B,0)</text>
+</svg>

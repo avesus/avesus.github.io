@@ -37,7 +37,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-23",
             "image": "https://greenforest.io/cartilage-full-adder-islands/cartilage-full-adder-islands.png",
             "description": "A Cartilage visual placement sketch for a full-adder function, with B, A, and Cin routed into local MUX islands and SUM/CARRY routed to the edge.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-full-adder-islands.html",
@@ -90,6 +90,7 @@ P     = A ? notB : B
 notP  = P ? 0 : 1
 SUM   = Cin ? notP : P
 CARRY = P ? Cin : A</code></pre>
+            <p>These are <a href="/mux-algebra.html">MUX Algebra</a> expressions: every conditional is one selector, and nesting the selectors builds the full-adder function.</p>
             <p>Equivalently, <code>P</code> is <code>A xor B</code>, <code>SUM</code> is <code>Cin xor P</code>, and <code>CARRY</code> is <code>(A and B) or (Cin and (A xor B))</code>.</p>
         </section>
 

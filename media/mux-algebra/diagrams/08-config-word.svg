@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" role="img" aria-labelledby="title desc">
+  <title id="title">A four-bit configuration word split into two source addresses</title>
+  <desc id="desc">Bits C3 and C2 choose the B equals zero branch. Bits C1 and C0 choose the B equals one branch. B selects which branch reaches Y.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="960" height="480"/>
+
+  <text class="title" x="48" y="62">The four bits are two source addresses</text>
+  <rect class="panel" x="48" y="102" width="864" height="330" rx="20"/>
+  <text class="label" x="92" y="172">CONFIG</text>
+  <rect class="choice" x="270" y="124" width="240" height="92" rx="14"/>
+  <rect class="choice" x="532" y="124" width="240" height="92" rx="14"/>
+  <text class="code center" x="390" y="181">C3 C2</text>
+  <text class="code center" x="652" y="181">C1 C0</text>
+  <path class="wire" d="M 390 218 V 286"/>
+  <path class="wire" d="M 652 218 V 286"/>
+  <rect class="chip" x="258" y="286" width="264" height="92" rx="14"/>
+  <rect class="chip" x="520" y="286" width="264" height="92" rx="14"/>
+  <text class="label center" x="390" y="328">B=0 branch</text>
+  <text class="small center" x="390" y="360">choose 0, A, 1, or NOT A</text>
+  <text class="label center" x="652" y="328">B=1 branch</text>
+  <text class="small center" x="652" y="360">choose 0, A, 1, or NOT A</text>
+  <text class="code center" x="480" y="418">Y = B ? SRC[C1:C0] : SRC[C3:C2]</text>
+</svg>

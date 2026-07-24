@@ -37,7 +37,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-23",
             "image": "https://greenforest.io/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png",
             "description": "A Cartilage visual placement sketch for a 4-bit conditional incrementer: OUT = ENABLE ? (IN + 1) : IN.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-pc-stepper-islands.html",
@@ -97,6 +97,7 @@ C[0]     = ENABLE</code></pre>
             <pre><code>notIN[i] = IN[i] ? 0 : 1
 OUT[i]   = C[i] ? notIN[i] : IN[i]
 C[i + 1] = IN[i] ? C[i] : 0</code></pre>
+            <p><a href="/mux-algebra.html">MUX Algebra</a> explains the selector form used by each inversion, output toggle, and carry island.</p>
             <p>The repeated structure is the point of the render. It is easier to inspect than a single adder because the four slices show the same local rule repeated with a visible carry chain.</p>
         </section>
 

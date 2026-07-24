@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="410" viewBox="0 0 440 410" role="img" aria-labelledby="title desc">
+  <title id="title">Pointer 10 selects 1</title>
+  <desc id="desc">A multiplexer with selector A, data zero 1, and data one 1. Its output is 1.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="440" height="410"/>
+
+  <text class="heading" x="20" y="44">Pointer 10 -> 1</text>
+  <text class="code-small right" x="420" y="76">M(A, 1, 1)</text>
+  <rect class="panel" x="14" y="94" width="412" height="292" rx="18"/>
+
+  <path class="mux" d="M 150 132 L 260 156 L 260 248 L 150 272 Z"/>
+  <path class="wire" d="M 120 180 H 150"/>
+  <path class="wire" d="M 120 224 H 150"/>
+  <path class="wire" d="M 260 202 H 284"/>
+  <path class="wire" d="M 205 330 V 280"/>
+  <text class="code-small right" x="108" y="188">1</text>
+  <text class="code-small right" x="108" y="232">1</text>
+  <text class="tiny" x="164" y="166">D0 / S=0</text>
+  <text class="tiny" x="164" y="256">D1 / S=1</text>
+  <text class="code-small center" x="205" y="210">MUX</text>
+  <text class="code" x="223" y="324">A</text>
+  <text class="code" x="298" y="210"></text>
+  <rect class="chip" x="22" y="160" width="94" height="40" rx="10"/>
+  <rect class="chip" x="22" y="204" width="94" height="40" rx="10"/>
+  <text class="code center" x="69" y="188">1</text>
+  <text class="code center" x="69" y="232">1</text>
+  <text class="body" x="300" y="155">A=0 -> 1</text>
+  <text class="body" x="300" y="205">A=1 -> 1</text>
+  <line x1="300" y1="228" x2="410" y2="228" stroke="#aebdb6" stroke-width="2"/>
+  <text class="label" x="300" y="270">Y=1</text>
+  <text class="body center" x="220" y="356">Always one.</text>
+</svg>

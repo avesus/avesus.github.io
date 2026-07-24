@@ -24,6 +24,7 @@ PILLARS = {
     "fpga-systems.html",
     "ethernet-udp-ice40-reprogrammer.html",
     "physical-mux-tiles/index.html",
+    "mux-algebra.html",
     "webgl-glsl-computing.html",
     "cartilage/index.html",
     "cartilage/logic-to-luts.html",

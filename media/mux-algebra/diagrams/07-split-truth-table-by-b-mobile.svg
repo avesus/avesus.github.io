@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="760" viewBox="0 0 440 760" role="img" aria-labelledby="title desc">
+  <title id="title">Split any two-input truth table into two columns selected by B</title>
+  <desc id="desc">A mobile layout showing B equals zero and B equals one truth-table columns and the four possible source pointer mappings.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="440" height="760"/>
+
+  <text class="heading" x="20" y="42">Split the truth table by B</text>
+  <text class="body" x="20" y="78">Each column is one behavior of A.</text>
+  <rect class="panel" x="14" y="100" width="412" height="214" rx="18"/>
+  <text class="label center" x="150" y="142">B=0</text>
+  <text class="label center" x="330" y="142">B=1</text>
+  <text class="body" x="30" y="202">A=0</text>
+  <text class="body" x="30" y="267">A=1</text>
+  <rect class="choice" x="106" y="158" width="88" height="132" rx="12"/>
+  <rect class="choice" x="286" y="158" width="88" height="132" rx="12"/>
+  <text class="code center" x="150" y="207">Y00</text>
+  <text class="code center" x="150" y="266">Y10</text>
+  <text class="code center" x="330" y="207">Y01</text>
+  <text class="code center" x="330" y="266">Y11</text>
+  <text class="body center" x="220" y="344">A column has only four possible patterns:</text>
+
+  <rect class="chip" x="20" y="358" width="400" height="62" rx="10"/>
+  <text class="code-small" x="38" y="385">outputs 00</text>
+  <text class="body" x="38" y="409">0 -> pointer 00</text>
+  <rect class="chip" x="20" y="436" width="400" height="62" rx="10"/>
+  <text class="code-small" x="38" y="463">outputs 01</text>
+  <text class="body" x="38" y="487">A -> pointer 01</text>
+  <rect class="chip" x="20" y="514" width="400" height="62" rx="10"/>
+  <text class="code-small" x="38" y="541">outputs 11</text>
+  <text class="body" x="38" y="565">1 -> pointer 10</text>
+  <rect class="chip" x="20" y="592" width="400" height="62" rx="10"/>
+  <text class="code-small" x="38" y="619">outputs 10</text>
+  <text class="body" x="38" y="643">NOT A -> pointer 11</text>
+  <text class="small center" x="220" y="702">The 2020 pointer order is deliberate.</text>
+  <text class="small center" x="220" y="731">It is not a four-bit truth vector.</text>
+</svg>

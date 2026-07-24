@@ -37,7 +37,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-23",
             "image": "https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png",
             "description": "A Cartilage mux-lanes debug fixture with boundary inputs, local mux behavior, 160 fabric cycles, and passing edge-surface output checks.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-verified-mux-lanes.html",
@@ -87,6 +87,7 @@
             <pre><code>OUT0 = SEL0 ? T0 : F0
 OUT1 = SEL1 ? T1 : F1
 OUT2 = SEL2 ? T2 : F2</code></pre>
+            <p>This is the base form developed in <a href="/mux-algebra.html">MUX Algebra</a>. Nesting it grows one selector into a LUT2 or a larger decision tree.</p>
             <p>The three lanes are independent. The value of the example is not arithmetic depth; it is that the inputs and outputs cross the fabric boundary through the external transaction path and are checked against the manifest.</p>
         </section>
 

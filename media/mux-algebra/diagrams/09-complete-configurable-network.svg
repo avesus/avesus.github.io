@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="650" viewBox="0 0 1120 650" role="img" aria-labelledby="title desc">
+  <title id="title">Complete configurable multiplexer network from the 2020 manuscript</title>
+  <desc id="desc">Four sources feed two addressed four-to-one selectors. B selects between their results with a final two-to-one multiplexer.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="1120" height="650"/>
+
+  <text class="title" x="48" y="62">The complete configurable MUX network</text>
+  <text class="body" x="50" y="102">One source bank, two addresses, one final choice.</text>
+  <rect class="panel" x="34" y="126" width="1052" height="474" rx="20"/>
+  <text class="heading center" x="166" y="174">Sources</text>
+  <rect class="chip" x="62" y="198" width="208" height="62" rx="10"/>
+  <rect class="chip" x="62" y="274" width="208" height="62" rx="10"/>
+  <rect class="chip" x="62" y="350" width="208" height="62" rx="10"/>
+  <rect class="chip" x="62" y="426" width="208" height="62" rx="10"/>
+  <text class="code center" x="166" y="238">00 -> 0</text>
+  <text class="code center" x="166" y="314">01 -> A</text>
+  <text class="code center" x="166" y="390">10 -> 1</text>
+  <text class="code center" x="166" y="466">11 -> NOT A</text>
+  <text class="tiny center" x="166" y="526">NOT A = M(A, 1, 0)</text>
+  <path d="M 286 253 H 350 L 372 276 L 350 299 H 286 Z" fill="#e7ece8" stroke="#235f68" stroke-width="2"/>
+  <path d="M 286 427 H 350 L 372 450 L 350 473 H 286 Z" fill="#e7ece8" stroke="#235f68" stroke-width="2"/>
+  <text class="tiny center" x="325" y="282">4 wires</text>
+  <text class="tiny center" x="325" y="456">4 wires</text>
+  <path class="mux" d="M 360 196 L 526 222 L 526 330 L 360 356 Z"/>
+  <path class="mux" d="M 360 370 L 526 396 L 526 504 L 360 530 Z"/>
+  <text class="code-small center" x="443" y="284">4:1 PICK</text>
+  <text class="code-small center" x="443" y="458">4:1 PICK</text>
+  <text class="tiny center" x="443" y="312">0  A  1  NOT A</text>
+  <text class="tiny center" x="443" y="486">0  A  1  NOT A</text>
+  <path class="wire" d="M 443 166 V 208"/>
+  <path class="wire" d="M 443 518 V 550"/>
+  <text class="code center" x="443" y="158">C3:C2</text>
+  <text class="code center" x="443" y="582">C1:C0</text>
+  <path class="wire" d="M 526 276 H 660 V 280 H 690"/>
+  <path class="wire" d="M 526 450 H 640 V 400 H 690"/>
+  <text class="small" x="548" y="250">branch for B=0</text>
+  <text class="small" x="548" y="480">branch for B=1</text>
+  <path class="mux" d="M 690 230 L 870 256 L 870 424 L 690 450 Z"/>
+  <text class="code center" x="780" y="348">2:1 MUX</text>
+  <path class="wire" d="M 780 520 V 442"/>
+  <text class="code center" x="780" y="562">B</text>
+  <path class="wire" d="M 870 340 H 1020"/>
+  <rect class="choice" x="970" y="298" width="92" height="84" rx="14"/>
+  <text class="label center" x="1016" y="350">Y</text>
+  <text class="code center" x="560" y="626">Y = B ? SRC[C1:C0] : SRC[C3:C2]</text>
+</svg>

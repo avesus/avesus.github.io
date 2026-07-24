@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700" viewBox="0 0 960 700" role="img" aria-labelledby="title desc">
+  <title id="title">Split any two-input truth table into two columns selected by B</title>
+  <desc id="desc">A truth table is split into its B equals zero and B equals one columns. Each two-bit column is zero, A, one, or NOT A and maps to a two-bit pointer.</desc>
+  <style>
+    .paper { fill: #fbfaf5; }
+    .panel { fill: #ffffff; stroke: #aebdb6; stroke-width: 2; }
+    .ink { fill: #132b25; }
+    .muted { fill: #5d6d67; }
+    .wire { fill: none; stroke: #132b25; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-active { fill: none; stroke: #087a45; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-inactive { fill: none; stroke: #97a39f; stroke-width: 4; stroke-dasharray: 12 10; stroke-linecap: round; }
+    .mux { fill: #eef5f1; stroke: #132b25; stroke-width: 4; }
+    .chip { fill: #fff; stroke: #aebdb6; stroke-width: 2; }
+    .choice { fill: #fff7e9; stroke: #9a5516; stroke-width: 2; }
+    .truth-on { fill: #087a45; }
+    .truth-off { fill: #e2e7e4; }
+    .title { font: 700 42px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .heading { font: 700 32px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .label { font: 600 28px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .body { font: 24px "Segoe UI", Arial, sans-serif; fill: #132b25; }
+    .small { font: 21px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .tiny { font: 18px "Segoe UI", Arial, sans-serif; fill: #5d6d67; }
+    .code { font: 600 24px Consolas, "Courier New", monospace; fill: #132b25; }
+    .code-small { font: 600 20px Consolas, "Courier New", monospace; fill: #132b25; }
+    .center { text-anchor: middle; }
+    .right { text-anchor: end; }
+  </style>
+  <rect class="paper" width="960" height="700"/>
+
+  <text class="title" x="48" y="62">Split any truth table by B</text>
+  <text class="body" x="50" y="104">Each column is one behavior of A.</text>
+  <rect class="panel" x="48" y="136" width="864" height="190" rx="18"/>
+  <text class="heading center" x="270" y="184">B=0</text>
+  <text class="heading center" x="690" y="184">B=1</text>
+  <text class="label" x="80" y="238">A=0</text>
+  <text class="label" x="80" y="292">A=1</text>
+  <rect class="choice" x="192" y="202" width="156" height="112" rx="14"/>
+  <rect class="choice" x="612" y="202" width="156" height="112" rx="14"/>
+  <text class="code center" x="270" y="245">Y00</text>
+  <text class="code center" x="270" y="292">Y10</text>
+  <text class="code center" x="690" y="245">Y01</text>
+  <text class="code center" x="690" y="292">Y11</text>
+  <text class="body center" x="480" y="365">A two-bit column can only be one of these four:</text>
+
+  <rect class="chip" x="110" y="352" width="740" height="52" rx="10"/>
+  <text class="code" x="142" y="387">outputs 00</text>
+  <text class="body" x="385" y="387">source 0</text>
+  <text class="code" x="665" y="387">pointer 00</text>
+  <rect class="chip" x="110" y="414" width="740" height="52" rx="10"/>
+  <text class="code" x="142" y="449">outputs 01</text>
+  <text class="body" x="385" y="449">source A</text>
+  <text class="code" x="665" y="449">pointer 01</text>
+  <rect class="chip" x="110" y="476" width="740" height="52" rx="10"/>
+  <text class="code" x="142" y="511">outputs 11</text>
+  <text class="body" x="385" y="511">source 1</text>
+  <text class="code" x="665" y="511">pointer 10</text>
+  <rect class="chip" x="110" y="538" width="740" height="52" rx="10"/>
+  <text class="code" x="142" y="573">outputs 10</text>
+  <text class="body" x="385" y="573">source NOT A</text>
+  <text class="code" x="665" y="573">pointer 11</text>
+  <text class="small center" x="480" y="666">Pointer order follows the 2020 manuscript; it is not ordinary binary truth-table order.</text>
+</svg>

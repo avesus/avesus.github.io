@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>MUX Algebra: Every Two-Input Logic Gate From MUXes | Greenforest I/O</title>
+    <meta name="description" content="A visual 2020 construction of all 16 two-input Boolean functions using exact 2:1 MUX circuits, the inputs A and B, and constants zero and one.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/mux-algebra.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:title" content="MUX Algebra: Every Two-Input Logic Gate From MUXes">
+    <meta property="og:description" content="See every two-input Boolean function built from exact 2:1 multiplexer circuits, inputs, and constants.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/mux-algebra.html">
+    <meta property="article:published_time" content="2026-07-23">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:media/mux-algebra/mux-algebra-xor-card.png -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/mux-algebra.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/mux-algebra.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="MUX Algebra: Every Two-Input Logic Gate From MUXes - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/mux-algebra.png">
+    <meta name="twitter:image:alt" content="MUX Algebra: Every Two-Input Logic Gate From MUXes - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "MUX Algebra: Every Two-Input Logic Gate From MUXes",
+            "description": "A visual 2020 construction of all 16 two-input Boolean functions using exact 2:1 MUX circuits, the inputs A and B, and constants zero and one.",
+            "dateCreated": "2020",
+            "datePublished": "2026-07-23",
+            "dateModified": "2026-07-23",
+            "mainEntityOfPage": "https://greenforest.io/mux-algebra.html",
+            "image": "https://greenforest.io/media/mux-algebra/mux-algebra-xor-card.png",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            },
+            "about": [
+                "Multiplexers",
+                "Boolean algebra",
+                "Logic gates",
+                "Lookup tables",
+                "Shannon decomposition"
+            ]
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        body.mux-algebra-visual section,
+        body.mux-algebra-visual figcaption {
+            text-align: left;
+            -webkit-hyphens: none;
+            hyphens: none;
+        }
+
+        body.mux-algebra-visual section {
+            margin-bottom: 2.25rem;
+        }
+
+        body.mux-algebra-visual section.abstract {
+            width: auto;
+            margin-bottom: 1.2rem;
+            font-size: 22px;
+        }
+
+        body.mux-algebra-visual main > section > h2 {
+            margin-bottom: 0.65rem;
+        }
+
+        .mux-deck {
+            margin: 0.4rem 0 0.8rem;
+            font-family: "Spectral", serif;
+            font-size: 28px;
+            line-height: 1.22;
+        }
+
+        .mux-opening {
+            margin: 0;
+            line-height: 1.45;
+        }
+
+        .mux-rule {
+            margin: 0.8rem 0 1rem;
+            padding: 0.65rem 0.8rem;
+            border-left: 4px solid #087a45;
+            background: #faf8f2;
+            font-family: "Inconsolata", monospace;
+            font-size: 20px;
+            line-height: 1.35;
+        }
+
+        .mux-grid {
+            display: grid;
+            gap: 16px;
+            margin: 1rem 0;
+        }
+
+        .mux-grid--2,
+        .mux-function-row {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .mux-figure {
+            min-width: 0;
+            margin: 0;
+        }
+
+        .mux-figure picture,
+        .mux-figure a {
+            display: block;
+        }
+
+        .mux-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #aebdb6;
+            background: #fbfaf5;
+        }
+
+        .mux-figure figcaption {
+            margin-top: 0.45rem;
+            font-size: 17px;
+            font-style: normal;
+            line-height: 1.35;
+        }
+
+        .mux-major {
+            margin: 1.25rem 0;
+        }
+
+        .mux-example-card {
+            max-width: 440px;
+            margin: 1rem auto;
+        }
+
+        .mux-catalog-group {
+            margin: 2rem 0 2.6rem;
+        }
+
+        .mux-catalog-group h3 {
+            margin: 0 0 0.35rem;
+            font-family: "Spectral", serif;
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        .mux-catalog-group > p {
+            margin-top: 0;
+        }
+
+        .mux-function-row {
+            display: grid;
+            gap: 18px;
+        }
+
+        .mux-function-card {
+            margin: 0;
+        }
+
+        .mux-function-card img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #aebdb6;
+            background: #fbfaf5;
+        }
+
+        .mux-function-card figcaption {
+            margin: 0.4rem 0 0;
+            min-height: 2.7em;
+            font-size: 17px;
+            font-style: normal;
+            line-height: 1.35;
+        }
+
+        .mux-encoding-note {
+            padding: 0.75rem 0.9rem;
+            border: 1px solid #c4cec9;
+            background: #f6f8f6;
+        }
+
+        .mux-encoding-note p {
+            margin: 0.35rem 0;
+        }
+
+        .mux-original-small {
+            max-width: 418px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .mux-source-note {
+            margin: 1rem 0;
+            padding: 0.75rem 0.9rem;
+            border-left: 3px solid #520;
+            background: #faf8f2;
+        }
+
+        .mux-source-note p {
+            margin: 0.35rem 0;
+        }
+
+        .mux-programmer {
+            margin: 1.2rem 0;
+            border: 1px solid #c7ceca;
+            background: #fff;
+        }
+
+        .mux-programmer summary {
+            padding: 0.7rem 0.8rem;
+            cursor: pointer;
+            font-family: "Inconsolata", monospace;
+            font-weight: bold;
+        }
+
+        .mux-programmer pre {
+            margin: 0;
+            padding: 0.8rem;
+            border-top: 1px solid #c7ceca;
+            font-size: 16px;
+        }
+
+        @media screen and (min-width: 921px) {
+            body.mux-algebra-visual {
+                padding-right: 100px;
+                padding-left: 100px;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            .mux-grid--2,
+            .mux-function-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .mux-function-card figcaption {
+                min-height: 0;
+            }
+        }
+
+        @media screen and (max-width: 640px) {
+            .mux-deck {
+                font-size: 24px;
+            }
+
+            body.mux-algebra-visual section.abstract {
+                font-size: 20px;
+            }
+
+            body.mux-algebra-visual section {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="article-structured mux-algebra-visual">
+    <header><h1 class="page-title">MUX Algebra</h1></header>
+    <address>
+        <time datetime="2020">Written in 2020</time><br>
+        <time datetime="2026-07-23">Visual web edition July 23, 2026</time>
+    </address>
+
+    <section class="abstract">
+        <p class="mux-deck">Build every two-input logic gate from selectors, inputs, and constants.</p>
+        <p class="mux-opening">A MUX chooses one wire. From <code>0</code>, <code>1</code>, <code>A</code>, and <code>NOT A</code>, one more choice by <code>B</code> produces every Boolean function of <code>A</code> and <code>B</code>.</p>
+    </section>
+
+    <main>
+        <section id="mux-rule">
+            <h2>The Only MUX Rule</h2>
+            <p class="mux-rule">M(S, D0, D1) = S ? D1 : D0</p>
+            <div class="mux-grid mux-grid--2">
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/diagrams/01-mux-selects-d0.svg">
+                        <img src="/media/mux-algebra/diagrams/01-mux-selects-d0.svg" width="440" height="360" loading="eager" decoding="async" alt="A 2-to-1 multiplexer with selector S equal to zero; the solid selected route connects D0 to output Y while D1 is dashed">
+                    </a>
+                    <figcaption><code>S=0</code> connects <code>D0</code> to <code>Y</code>.</figcaption>
+                </figure>
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/diagrams/02-mux-selects-d1.svg">
+                        <img src="/media/mux-algebra/diagrams/02-mux-selects-d1.svg" width="440" height="360" loading="eager" decoding="async" alt="A 2-to-1 multiplexer with selector S equal to one; the solid selected route connects D1 to output Y while D0 is dashed">
+                    </a>
+                    <figcaption><code>S=1</code> connects <code>D1</code> to <code>Y</code>.</figcaption>
+                </figure>
+            </div>
+            <p>The selector does not calculate a value. It connects exactly one input path to the output.</p>
+        </section>
+
+        <section id="mux-sources">
+            <h2>Constants Create The Four Possible Sources</h2>
+            <p>Once <code>A</code> is the only live input, its output can behave in only four ways. Each picture below uses the same MUX geometry and gives that behavior a two-bit pointer.</p>
+            <div class="mux-grid mux-grid--2">
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/diagrams/03-source-00-zero.svg">
+                        <img src="/media/mux-algebra/diagrams/03-source-00-zero.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 00 represented by a multiplexer selected by A with both data inputs tied to zero, producing constant zero">
+                    </a>
+                    <figcaption><code>00</code>: tie both data inputs to zero. The result is always <code>0</code>.</figcaption>
+                </figure>
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/diagrams/04-source-01-a.svg">
+                        <img src="/media/mux-algebra/diagrams/04-source-01-a.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 01 represented by a multiplexer selected by A with D0 tied to zero and D1 tied to one, producing A">
+                    </a>
+                    <figcaption><code>01</code>: choose between zero and one with <code>A</code>. The result follows <code>A</code>.</figcaption>
+                </figure>
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/diagrams/05-source-10-one.svg">
+                        <img src="/media/mux-algebra/diagrams/05-source-10-one.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 10 represented by a multiplexer selected by A with both data inputs tied to one, producing constant one">
+                    </a>
+                    <figcaption><code>10</code>: tie both data inputs to one. The result is always <code>1</code>.</figcaption>
+                </figure>
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/diagrams/06-source-11-not-a.svg">
+                        <img src="/media/mux-algebra/diagrams/06-source-11-not-a.svg" width="440" height="410" loading="eager" decoding="async" alt="Pointer 11 represented by a multiplexer selected by A with D0 tied to one and D1 tied to zero, producing NOT A">
+                    </a>
+                    <figcaption><code>11</code>: choose the opposite constant with <code>A</code>. The result is <code>NOT A</code>.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="mux-and">
+            <h2>Build AND One Branch At A Time</h2>
+            <p>Freeze <code>B</code>, and ask what the output must do as <code>A</code> changes. The answer for each value of <code>B</code> is one of the four source pictures above.</p>
+            <div class="mux-grid mux-grid--2">
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/diagrams/10-and-when-b-zero.svg">
+                        <img src="/media/mux-algebra/diagrams/10-and-when-b-zero.svg" width="440" height="430" loading="lazy" decoding="async" alt="AND with B fixed at zero; both values of A produce zero, so the branch selects source zero with pointer 00">
+                    </a>
+                    <figcaption>When <code>B=0</code>, AND must be zero for both values of <code>A</code>. Choose source <code>0</code>.</figcaption>
+                </figure>
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/diagrams/11-and-when-b-one.svg">
+                        <img src="/media/mux-algebra/diagrams/11-and-when-b-one.svg" width="440" height="430" loading="lazy" decoding="async" alt="AND with B fixed at one; the output follows A, so the branch selects source A with pointer 01">
+                    </a>
+                    <figcaption>When <code>B=1</code>, AND follows <code>A</code>. Choose source <code>A</code>.</figcaption>
+                </figure>
+            </div>
+            <figure class="mux-figure mux-example-card">
+                <a href="/media/mux-algebra/diagrams/function-0001-and.svg">
+                    <img src="/media/mux-algebra/diagrams/function-0001-and.svg" width="440" height="610" loading="lazy" decoding="async" alt="A minimal AND circuit: one multiplexer selected by B with D0 equal to zero and D1 equal to A, plus all four truth-table outputs">
+                </a>
+                <figcaption><code>B=0</code> forces zero; <code>B=1</code> passes <code>A</code>. Only <code>A=1, B=1</code> produces one.</figcaption>
+            </figure>
+            <p class="mux-rule">AND = M(B, 0, A) &nbsp;&nbsp; pointer word 00|01 = 0001</p>
+        </section>
+
+        <section id="mux-proof">
+            <h2>Why No Boolean Function Is Missing</h2>
+            <h3>Direct truth-bit construction</h3>
+            <p>Store the four truth-table outputs as <code>C00</code>, <code>C10</code>, <code>C01</code>, and <code>C11</code>. Two MUXes choose by <code>A</code>; a third chooses the correct column by <code>B</code>. Because the four stored bits can contain any pattern, this tree realizes all 16 two-input functions.</p>
+            <figure class="mux-figure mux-major" id="mux-lut2-tree">
+                <picture>
+                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/09a-universal-lut2-tree-mobile.svg">
+                    <img src="/media/mux-algebra/diagrams/09a-universal-lut2-tree.svg" width="960" height="620" loading="lazy" decoding="async" alt="A universal LUT2 tree made from three 2-to-1 multiplexers and four stored truth bits; A selects within each B column and B selects the column">
+                </picture>
+                <figcaption>Three nested 2:1 MUXes select one of four stored truth bits. This is the direct LUT2 construction.</figcaption>
+            </figure>
+
+            <h3>The 2020 source-pointer construction</h3>
+            <p>The manuscript uses a different four-bit encoding. It notices that each fixed-<code>B</code> column is exactly one of <code>0</code>, <code>A</code>, <code>1</code>, or <code>NOT A</code>, then stores two source addresses instead of four direct truth bits.</p>
+            <figure class="mux-figure mux-major" id="mux-truth-columns">
+                <picture>
+                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/07-split-truth-table-by-b-mobile.svg">
+                    <img src="/media/mux-algebra/diagrams/07-split-truth-table-by-b.svg" width="960" height="700" loading="lazy" decoding="async" alt="A two-input truth table split into B equals zero and B equals one columns; each two-bit column maps to source zero, A, one, or NOT A and its manuscript pointer code">
+                </picture>
+                <figcaption>Each <code>B</code> column is one two-bit behavior of <code>A</code>, so each column needs only a two-bit source pointer.</figcaption>
+            </figure>
+            <figure class="mux-figure mux-major" id="mux-config-word">
+                <picture>
+                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/08-config-word-mobile.svg">
+                    <img src="/media/mux-algebra/diagrams/08-config-word.svg" width="960" height="480" loading="lazy" decoding="async" alt="A four-bit configuration word split into C3 C2 for the B equals zero branch and C1 C0 for the B equals one branch">
+                </picture>
+                <figcaption>The high pair addresses the <code>B=0</code> source. The low pair addresses the <code>B=1</code> source.</figcaption>
+            </figure>
+            <figure class="mux-figure mux-major" id="mux-pointer-network">
+                <picture>
+                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/09-complete-configurable-network-mobile.svg">
+                    <img src="/media/mux-algebra/diagrams/09-complete-configurable-network.svg" width="1120" height="650" loading="lazy" decoding="async" alt="Clean block and circuit diagram of the complete source-pointer network: a bank of zero, A, one, and NOT A feeds two addressed 4-to-1 pickers and a final B-selected 2-to-1 MUX">
+                </picture>
+                <figcaption>Both addresses see the same four sources. <code>B</code> chooses which addressed branch reaches <code>Y</code>.</figcaption>
+            </figure>
+            <div class="mux-encoding-note">
+                <p><strong>Do not mix the encodings.</strong> A truth vector lists four outputs in the visible order <code>A0B0, A0B1, A1B0, A1B1</code>. The 2020 pointer word contains two source addresses in the order <code>B=0 | B=1</code>.</p>
+                <p>For example, XOR has truth vector <code>0110</code> but pointer word <code>01|11 = 0111</code>.</p>
+            </div>
+        </section>
+
+        <section id="mux-catalog">
+            <h2>Every Two-Input Function As A Circuit</h2>
+            <p>Each card shows the smallest 2:1 MUX wiring, the four visible truth outputs, and the 2020 pointer word. Constants and direct wires count as zero MUXes. XOR, XNOR, NAND, and NOR need two; the other nontrivial functions need one.</p>
+
+            <div class="mux-catalog">
+                <div class="mux-catalog-group">
+                    <h3>When B=0, source 0 uses pointer 00</h3>
+                    <p>The high pointer pair is <code>00</code>.</p>
+                    <div class="mux-function-row">
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-0000-false.svg">
+                                <img src="/media/mux-algebra/diagrams/function-0000-false.svg" width="440" height="610" loading="lazy" decoding="async" alt="FALSE Boolean function tied directly to zero, with truth vector 0000 and pointer word 0000">
+                            </a>
+                            <figcaption>FALSE is a direct constant: <code>Y=0</code>.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-0001-and.svg">
+                                <img src="/media/mux-algebra/diagrams/function-0001-and.svg" width="440" height="610" loading="lazy" decoding="async" alt="AND built with one MUX selected by B, D0 equal to zero, and D1 equal to A">
+                            </a>
+                            <figcaption>AND: <code>B=0</code> forces zero; <code>B=1</code> passes <code>A</code>.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-0010-b.svg">
+                                <img src="/media/mux-algebra/diagrams/function-0010-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="Wire B connected directly to output Y, with truth vector 0101 and pointer word 0010">
+                            </a>
+                            <figcaption>WIRE B is direct: <code>Y=B</code>.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-0011-b-not-implies-a.svg">
+                                <img src="/media/mux-algebra/diagrams/function-0011-b-not-implies-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="B AND NOT A built with one MUX selected by A, D0 equal to B, and D1 equal to zero">
+                            </a>
+                            <figcaption><code>B AND NOT A</code>, also <code>B ↛ A</code>: <code>A=0</code> passes <code>B</code>; <code>A=1</code> forces zero.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="mux-catalog-group">
+                    <h3>When B=0, source A uses pointer 01</h3>
+                    <p>The high pointer pair is <code>01</code>.</p>
+                    <div class="mux-function-row">
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-0100-a-not-implies-b.svg">
+                                <img src="/media/mux-algebra/diagrams/function-0100-a-not-implies-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="A AND NOT B built with one MUX selected by B, D0 equal to A, and D1 equal to zero">
+                            </a>
+                            <figcaption><code>A AND NOT B</code>, also <code>A ↛ B</code>: <code>B=0</code> passes <code>A</code>; <code>B=1</code> forces zero.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-0101-a.svg">
+                                <img src="/media/mux-algebra/diagrams/function-0101-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="Wire A connected directly to output Y, with truth vector 0011 and pointer word 0101">
+                            </a>
+                            <figcaption>WIRE A is direct: <code>Y=A</code>.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-0110-or.svg">
+                                <img src="/media/mux-algebra/diagrams/function-0110-or.svg" width="440" height="610" loading="lazy" decoding="async" alt="OR built with one MUX selected by B, D0 equal to A, and D1 equal to one">
+                            </a>
+                            <figcaption>OR: <code>B=0</code> passes <code>A</code>; <code>B=1</code> forces one.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-0111-xor.svg">
+                                <img src="/media/mux-algebra/diagrams/function-0111-xor.svg" width="440" height="610" loading="lazy" decoding="async" alt="XOR built with two MUXes: the first makes NOT A and the second, selected by B, chooses A or NOT A">
+                            </a>
+                            <figcaption>XOR: first make <code>NOT A</code>; then let <code>B=0</code> pass <code>A</code> and <code>B=1</code> pass <code>NOT A</code>.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="mux-catalog-group">
+                    <h3>When B=0, source 1 uses pointer 10</h3>
+                    <p>The high pointer pair is <code>10</code>.</p>
+                    <div class="mux-function-row">
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-1000-not-b.svg">
+                                <img src="/media/mux-algebra/diagrams/function-1000-not-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="NOT B built with one MUX selected by B, D0 equal to one, and D1 equal to zero">
+                            </a>
+                            <figcaption>NOT B: <code>B</code> chooses the opposite constant.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-1001-b-implies-a.svg">
+                                <img src="/media/mux-algebra/diagrams/function-1001-b-implies-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="B implies A built with one MUX selected by B, D0 equal to one, and D1 equal to A">
+                            </a>
+                            <figcaption><code>B → A</code>: when <code>B=0</code> the implication is true; when <code>B=1</code> it follows <code>A</code>.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-1010-true.svg">
+                                <img src="/media/mux-algebra/diagrams/function-1010-true.svg" width="440" height="610" loading="lazy" decoding="async" alt="TRUE Boolean function tied directly to one, with truth vector 1111 and pointer word 1010">
+                            </a>
+                            <figcaption>TRUE is a direct constant: <code>Y=1</code>.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-1011-nand.svg">
+                                <img src="/media/mux-algebra/diagrams/function-1011-nand.svg" width="440" height="610" loading="lazy" decoding="async" alt="NAND built with two MUXes: the first makes NOT A and the second, selected by B, chooses one or NOT A">
+                            </a>
+                            <figcaption>NAND: <code>B=0</code> forces one; <code>B=1</code> passes <code>NOT A</code>.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="mux-catalog-group">
+                    <h3>When B=0, source NOT A uses pointer 11</h3>
+                    <p>The high pointer pair is <code>11</code>.</p>
+                    <div class="mux-function-row">
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-1100-nor.svg">
+                                <img src="/media/mux-algebra/diagrams/function-1100-nor.svg" width="440" height="610" loading="lazy" decoding="async" alt="NOR built with two MUXes: the first makes NOT A and the second, selected by B, chooses NOT A or zero">
+                            </a>
+                            <figcaption>NOR: <code>B=0</code> passes <code>NOT A</code>; <code>B=1</code> forces zero.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-1101-xnor.svg">
+                                <img src="/media/mux-algebra/diagrams/function-1101-xnor.svg" width="440" height="610" loading="lazy" decoding="async" alt="XNOR built with two MUXes: the first makes NOT A and the second, selected by B, chooses NOT A or A">
+                            </a>
+                            <figcaption>XNOR: <code>B=0</code> passes <code>NOT A</code>; <code>B=1</code> passes <code>A</code>.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-1110-a-implies-b.svg">
+                                <img src="/media/mux-algebra/diagrams/function-1110-a-implies-b.svg" width="440" height="610" loading="lazy" decoding="async" alt="A implies B built with one MUX selected by A, D0 equal to one, and D1 equal to B">
+                            </a>
+                            <figcaption><code>A → B</code>: when <code>A=0</code> the implication is true; when <code>A=1</code> it follows <code>B</code>.</figcaption>
+                        </figure>
+                        <figure class="mux-function-card">
+                            <a href="/media/mux-algebra/diagrams/function-1111-not-a.svg">
+                                <img src="/media/mux-algebra/diagrams/function-1111-not-a.svg" width="440" height="610" loading="lazy" decoding="async" alt="NOT A built with one MUX selected by A, D0 equal to one, and D1 equal to zero">
+                            </a>
+                            <figcaption>NOT A: <code>A</code> chooses the opposite constant.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mux-more-inputs">
+            <h2>More Inputs Repeat The Same Move</h2>
+            <p>For a third input, split the function once more. The two branches are now two-input functions from the catalog above. Repeating the split eventually reaches constants, so nested MUXes can express any Boolean function.</p>
+            <figure class="mux-figure mux-major">
+                <picture>
+                    <source media="(max-width: 920px)" srcset="/media/mux-algebra/diagrams/31-more-inputs-repeat-mobile.svg">
+                    <img src="/media/mux-algebra/diagrams/31-more-inputs-repeat.svg" width="960" height="520" loading="lazy" decoding="async" alt="A three-input Boolean function split by a C-selected MUX into F of A B zero and F of A B one">
+                </picture>
+                <figcaption>A new input adds one more selection level; the rule does not change.</figcaption>
+            </figure>
+        </section>
+
+        <section id="mux-originals">
+            <h2>The Original 2020 Figures</h2>
+            <p>The diagrams above are clean teaching redraws. The source manuscript's Logisim figures remain here as the original functional evidence.</p>
+            <figure class="mux-figure mux-original-small">
+                <a href="/media/mux-algebra/four-bit-configurable-mux-network.png">
+                    <img src="/media/mux-algebra/four-bit-configurable-mux-network.png" width="418" height="300" loading="lazy" decoding="async" alt="Original 2020 Logisim configurable MUX network with A, B, ground, power, a four-bit configuration input, and output Y">
+                </a>
+                <figcaption>Original configurable network: the four-bit word controls the two branch meanings, and <code>B</code> selects the final branch.</figcaption>
+            </figure>
+            <div class="mux-grid mux-grid--2 mux-archive-grid">
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/boolean-function-grid-s0-0-s1-0.png">
+                        <img src="/media/mux-algebra/boolean-function-grid-s0-0-s1-0.png" width="778" height="785" loading="lazy" decoding="async" alt="Original 2020 Logisim grid of Boolean functions with S0 equal to zero and S1 equal to zero">
+                    </a>
+                    <figcaption>Original state: <code>S0=0, S1=0</code>.</figcaption>
+                </figure>
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/boolean-function-grid-s0-1-s1-0.png">
+                        <img src="/media/mux-algebra/boolean-function-grid-s0-1-s1-0.png" width="778" height="785" loading="lazy" decoding="async" alt="Original 2020 Logisim grid of Boolean functions with S0 equal to one and S1 equal to zero">
+                    </a>
+                    <figcaption>Original state: <code>S0=1, S1=0</code>.</figcaption>
+                </figure>
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/boolean-function-grid-s0-0-s1-1.png">
+                        <img src="/media/mux-algebra/boolean-function-grid-s0-0-s1-1.png" width="778" height="785" loading="lazy" decoding="async" alt="Original 2020 Logisim grid of Boolean functions with S0 equal to zero and S1 equal to one">
+                    </a>
+                    <figcaption>Original state: <code>S0=0, S1=1</code>.</figcaption>
+                </figure>
+                <figure class="mux-figure">
+                    <a href="/media/mux-algebra/boolean-function-grid-s0-1-s1-1.png">
+                        <img src="/media/mux-algebra/boolean-function-grid-s0-1-s1-1.png" width="778" height="785" loading="lazy" decoding="async" alt="Original 2020 Logisim grid of Boolean functions with S0 equal to one and S1 equal to one">
+                    </a>
+                    <figcaption>Original state: <code>S0=1, S1=1</code>.</figcaption>
+                </figure>
+            </div>
+
+            <div class="mux-source-note">
+                <p><strong>Date:</strong> the manuscript identifies 2020 but gives no month or day, so none has been invented.</p>
+                <p><strong>Web edition:</strong> variable names were normalized to <code>A</code> and <code>B</code>; the manuscript's inconsistent implication directions were replaced by the truth-table-correct labels <code>A → B</code> and <code>B → A</code>.</p>
+                <p><strong>Evidence boundary:</strong> the Logisim images show the functional selector network. They are not a transistor layout, extracted circuit, or powered-hardware measurement.</p>
+            </div>
+            <p>The manuscript calls its configurable circuit a “16 CMOS transistor” LUT2 and describes two selectors as six-transistor MUXes. That is the proposal in the note, not a universal device count: the total depends on MUX topology, complemented-selector generation, source sharing, loading, and output drive.</p>
+
+            <details class="mux-programmer">
+                <summary>Exact executable definition</summary>
+                <pre><code>function muxAlgebra(a, b, config) {
+    const sources = [0, a, 1, Number(!a)];
+    const pointer = b ? (config &amp; 0b11) : (config &gt;&gt; 2);
+    return sources[pointer];
+}
+
+muxAlgebra(1, 1, 0b0001); // AND  -> 1
+muxAlgebra(1, 1, 0b0111); // XOR  -> 0</code></pre>
+            </details>
+        </section>
+
+        <section id="mux-connections">
+            <h2>Where This Construction Leads</h2>
+            <p>The <a href="/cartilage/logic-to-luts.html">Logisim-to-LUT learning path</a> grows this exact selection rule from LUT1 through LUT6 and connects it to Lattice and AMD/Xilinx FPGA primitives. The <a href="/physical-mux-tiles/">physical MUX tiles</a> make the selector, constants, routes, intersections, and orientation tangible. <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a> extends the same completeness argument into storage, configuration transport, ownership, and an extensible fabric.</p>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue from MUX Algebra">
+        <p>Next:</p>
+        <a href="/cartilage/logic-to-luts.html">From Logisim And Multiplexers To LUT1-LUT6</a>
+        <p>Grow the two-input selector into stored lookup tables and real FPGA logic.</p>
+        <p>More:</p>
+        <a href="/cartilage/">The Complete Cartilage Learning Path</a>
+        <p>Continue from local Boolean choice through drive, timing, state, wires, composition, and runtime region replacement.</p>
+    </nav>
+</body>
+
+</html>
