@@ -1859,6 +1859,116 @@ dt {
 	}
 }
 
+body.subsidiary-problem-map main {
+	max-width: 900px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+body.subsidiary-problem-map [data-problem-map] {
+	max-width: 820px;
+	margin: 0 auto;
+	text-align: left;
+	text-transform: none;
+}
+
+body.subsidiary-problem-map [data-problem-map] .problem-thesis {
+	margin-top: 2.2rem;
+	font-size: clamp(23px, 3vw, 31px);
+	line-height: 1.25;
+}
+
+body.subsidiary-problem-map [data-problem-map] .problem-future-plan,
+body.subsidiary-problem-map [data-problem-map] .problem-cross-layer {
+	max-width: 720px;
+	font-size: 20px;
+	line-height: 1.5;
+}
+
+body.subsidiary-problem-map [data-problem-map] .problem-prefix {
+	margin: 2.2rem 0 3.5rem;
+	padding: 0.85rem 1rem;
+	border-left: 4px solid #416b55;
+	background: rgba(236, 243, 238, 0.88);
+	font-style: italic;
+}
+
+body.subsidiary-problem-map main > section[data-problem-map] > h2 {
+	margin: 3.8rem 0 1.2rem;
+	padding: 1rem 1.15rem;
+	border-left: 6px solid #315744;
+	background: rgba(227, 237, 231, 0.94);
+	font-size: clamp(28px, 4vw, 38px);
+	line-height: 1.15;
+	scroll-margin-top: 1rem;
+}
+
+body.subsidiary-problem-map main > section[data-problem-map] > h2::before {
+	content: none !important;
+	counter-increment: none !important;
+}
+
+body.subsidiary-problem-map [data-problem-map] .subsidiary-orientation {
+	margin: 0 0 2.4rem;
+	padding: 0 1rem 1.35rem;
+	border-bottom: 1px solid rgba(49, 87, 68, 0.3);
+	font-size: 20px;
+	line-height: 1.48;
+}
+
+body.subsidiary-problem-map [data-problem-map] h3 {
+	margin: 2.8rem 0 0.8rem;
+	font-family: 'Spectral', serif;
+	font-size: clamp(22px, 3vw, 27px);
+	font-weight: 600;
+	line-height: 1.25;
+	scroll-margin-top: 1rem;
+}
+
+body.subsidiary-problem-map [data-problem-map] ul {
+	margin: 0 0 2.5rem;
+	padding-left: 1.55rem;
+}
+
+body.subsidiary-problem-map [data-problem-map] li {
+	margin: 0.72rem 0;
+	padding-left: 0.25rem;
+	line-height: 1.48;
+	break-inside: avoid;
+}
+
+body.subsidiary-problem-map [data-problem-map] li::marker {
+	color: #315744;
+}
+
+@media screen and (max-width: 640px) {
+	body.subsidiary-problem-map [data-problem-map] .problem-thesis {
+		margin-top: 1.4rem;
+		font-size: 24px;
+	}
+
+	body.subsidiary-problem-map [data-problem-map] .problem-future-plan,
+	body.subsidiary-problem-map [data-problem-map] .problem-cross-layer,
+	body.subsidiary-problem-map [data-problem-map] .subsidiary-orientation {
+		font-size: 18px;
+	}
+
+	body.subsidiary-problem-map main > section[data-problem-map] > h2 {
+		margin-top: 3rem;
+		padding: 0.85rem 0.9rem;
+		font-size: 29px;
+	}
+
+	body.subsidiary-problem-map [data-problem-map] h3 {
+		margin-top: 2.2rem;
+		font-size: 23px;
+	}
+
+	body.subsidiary-problem-map [data-problem-map] ul {
+		padding-left: 1.25rem;
+	}
+}
+
 
 `;
 

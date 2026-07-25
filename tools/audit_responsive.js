@@ -21,6 +21,7 @@ const pages = [
   '/physical-mux-tiles/',
   '/mux-algebra.html',
   '/cartilage-reconfigurable-computing-roadmap.html',
+  '/210-problems-we-have-learned-to-call-normal.html',
   '/proof-and-artifacts.html',
   '/technology-research-and-consulting.html',
   '/cartilage/',
@@ -54,6 +55,7 @@ const screenshotPages = new Set([
   '/physical-mux-tiles/',
   '/mux-algebra.html',
   '/cartilage-reconfigurable-computing-roadmap.html',
+  '/210-problems-we-have-learned-to-call-normal.html',
   '/cartilage-visual-language.html',
 ]);
 
@@ -77,6 +79,26 @@ const shouldCaptureScreenshot = (pagePath, viewportName) => (
     )
   )
 );
+
+const subsidiaryProblemSource = path.join(
+  __dirname,
+  '..',
+  'publication-ready',
+  '210-problems-we-have-learned-to-call-normal.md',
+);
+const expectedSubsidiaryProblemRecords = fs.existsSync(subsidiaryProblemSource)
+  ? fs.readFileSync(subsidiaryProblemSource, 'utf8')
+    .replace(/\r\n/g, '\n')
+    .trimEnd()
+    .split('\n')
+    .filter(Boolean)
+    .map(line => {
+      if (/^\d+\. /.test(line)) return { role: 'h2', text: line };
+      if (/^Segment \d[A-Z]: /.test(line)) return { role: 'h3', text: line };
+      if (line.startsWith('* ')) return { role: 'li', text: line.slice(2) };
+      return { role: 'p', text: line };
+    })
+  : [];
 
 const pause = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
@@ -209,6 +231,47 @@ async function inspectPage(client) {
     const shortCtas = Array.from(document.querySelectorAll('.cta-link'))
       .filter(link => link.getBoundingClientRect().height < 43)
       .map(link => link.textContent.trim());
+    const verbatimWrapper = document.querySelector('[data-problem-map]');
+    const verbatimNodes = verbatimWrapper
+      ? Array.from(verbatimWrapper.querySelectorAll('p,h2,h3,li'))
+      : [];
+    const verbatimProblems = verbatimWrapper
+      ? {
+        records: verbatimNodes.map(element => ({
+          role: element.tagName.toLowerCase(),
+          text: element.textContent.trim(),
+        })),
+        hidden: verbatimNodes
+          .filter(element => {
+            const style = getComputedStyle(element);
+            const bounds = element.getBoundingClientRect();
+            return (
+              style.display === 'none'
+              || style.visibility === 'hidden'
+              || Number(style.opacity) === 0
+              || bounds.width < 1
+              || bounds.height < 1
+            );
+          })
+          .map(element => element.tagName.toLowerCase() + ':' + element.textContent.trim().slice(0, 80)),
+        transformed: verbatimNodes
+          .filter(element => getComputedStyle(element).textTransform !== 'none')
+          .map(element => element.tagName.toLowerCase() + ':' + getComputedStyle(element).textTransform),
+        pseudoText: verbatimNodes
+          .map(element => ({
+            element,
+            before: getComputedStyle(element, '::before').content,
+            after: getComputedStyle(element, '::after').content,
+          }))
+          .filter(item => !['none', 'normal', '""'].includes(item.before)
+            || !['none', 'normal', '""'].includes(item.after))
+          .map(item => (
+            item.element.tagName.toLowerCase()
+            + ':' + item.before + '/' + item.after
+            + ':' + item.element.textContent.trim().slice(0, 80)
+          )),
+      }
+      : null;
     const navigation = performance.getEntriesByType('navigation')[0];
     return {
       status: navigation && navigation.responseStatus || 0,
@@ -234,6 +297,7 @@ async function inspectPage(client) {
       badImages,
       clipped,
       shortCtas,
+      verbatimProblems,
     };
   })()`;
   const response = await client.send('Runtime.evaluate', {
@@ -669,6 +733,58 @@ async function main() {
             }
           }
 
+          if (
+            pagePath === '/210-problems-we-have-learned-to-call-normal.html'
+            && (viewportName === '390x844' || viewportName === '1280x1200')
+          ) {
+            const problemSections = [
+              ['1. Capability-native agency', 'agency'],
+              ['2. Live reconfigurable physical computation', 'reconfigurable'],
+              ['3. Minimal-apparatus physical intelligence', 'physical-intelligence'],
+            ];
+            for (const [title, slug] of problemSections) {
+              await client.send('Runtime.evaluate', {
+                expression: `(() => {
+                  const heading = Array.from(document.querySelectorAll('[data-problem-map] h2'))
+                    .find(element => element.textContent.trim() === ${JSON.stringify(title)});
+                  if (heading) {
+                    heading.scrollIntoView({ block: 'start' });
+                    window.scrollBy(0, -16);
+                  }
+                })()`,
+              });
+              await pause(120);
+              const sectionScreenshot = await client.send('Page.captureScreenshot', {
+                format: 'png',
+                fromSurface: true,
+                captureBeyondViewport: false,
+              });
+              fs.writeFileSync(
+                path.join(screenshotDir, `subsidiary-problems-${slug}-${viewportName}.png`),
+                sectionScreenshot.data,
+                'base64',
+              );
+            }
+
+            await client.send('Runtime.evaluate', {
+              expression: `(() => {
+                const navigation = document.querySelector('nav.article-links');
+                if (navigation) navigation.scrollIntoView({ block: 'end' });
+              })()`,
+            });
+            await pause(120);
+            const endingScreenshot = await client.send('Page.captureScreenshot', {
+              format: 'png',
+              fromSurface: true,
+              captureBeyondViewport: false,
+            });
+            fs.writeFileSync(
+              path.join(screenshotDir, `subsidiary-problems-ending-${viewportName}.png`),
+              endingScreenshot.data,
+              'base64',
+            );
+          }
+
           if (pagePath === '/one-pin-quadrature-sdm-transmitter.html' && viewportName === '390x844') {
             const transmitterSections = [
               ['Four Carrier Phases', 'one-pin-transmitter-phases-390x844.png'],
@@ -709,6 +825,34 @@ async function main() {
         if (result.badImages.length) issues.push(`missing images: ${result.badImages.join(', ')}`);
         if (result.clipped.length) issues.push(`clipped: ${result.clipped.join(', ')}`);
         if (result.shortCtas.length) issues.push(`short CTAs: ${result.shortCtas.join(', ')}`);
+        if (pagePath === '/210-problems-we-have-learned-to-call-normal.html') {
+          if (!result.verbatimProblems) {
+            issues.push('edited problem-map wrapper missing');
+          } else {
+            const actualRecords = result.verbatimProblems.records;
+            if (actualRecords.length !== expectedSubsidiaryProblemRecords.length) {
+              issues.push(
+                `problem-map records ${actualRecords.length}/${expectedSubsidiaryProblemRecords.length}`,
+              );
+            } else {
+              const mismatch = actualRecords.findIndex((record, index) => (
+                record.role !== expectedSubsidiaryProblemRecords[index].role
+                || record.text.normalize('NFC')
+                  !== expectedSubsidiaryProblemRecords[index].text.normalize('NFC')
+              ));
+              if (mismatch !== -1) issues.push(`problem-map record mismatch ${mismatch + 1}`);
+            }
+            if (result.verbatimProblems.hidden.length) {
+              issues.push(`hidden problem-map nodes: ${result.verbatimProblems.hidden.join(', ')}`);
+            }
+            if (result.verbatimProblems.transformed.length) {
+              issues.push(`transformed problem-map nodes: ${result.verbatimProblems.transformed.join(', ')}`);
+            }
+            if (result.verbatimProblems.pseudoText.length) {
+              issues.push(`problem-map pseudo text: ${result.verbatimProblems.pseudoText.join(', ')}`);
+            }
+          }
+        }
         if (issues.length) failures.push(`${width}x${height} ${pagePath}: ${issues.join('; ')}`);
       }
     }
