@@ -1,72 +1,144 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1800" height="760" viewBox="0 0 1800 760" role="img" aria-labelledby="title desc">
-  <title id="title">Exact causal path through the v10 one-pin QPSK transmitter</title>
-  <desc id="desc">PRBS16 QPSK becomes a complex lane waveform, two signed one-bit sigma-delta streams, a whole-word 7.5 megahertz phase rotation, selection among four 216 megahertz phases, a pMOS-switched N16 output, the resonant tank, a three decibel pad, and the RTL-SDR receiver.</desc>
+  <title id="title">How the one-pin FPGA Weaver transmitter combines I and Q</title>
+  <desc id="desc">A compact causal diagram of four quadrature mixers followed by a phase-domain summator. Complex QPSK enters signed one-bit I and sign-inverted Q sigma-delta modulators. The first mixer pair performs a 7.5 megahertz swap-and-invert quadrature conversion and produces two one-bit intermediate signals. Those signals control a four-state selector that realizes the two 216 megahertz carrier mixers and their sum on N16. The pin switches high or high impedance into a tuned resonant tank. At the wanted frequency the quadrature paths reinforce; at the conjugate frequency they cancel.</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#44616f"/></marker>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#10242e" flood-opacity=".12"/></filter>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbfcfc"/>
+      <stop offset="1" stop-color="#f3f8fa"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1479b8"/>
+      <stop offset=".56" stop-color="#008c72"/>
+      <stop offset="1" stop-color="#e86d00"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#44616f"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#1479b8"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#008c72"/>
+    </marker>
+    <marker id="arrowRose" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#c03f70"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#10242e" flood-opacity=".11"/>
+    </filter>
     <style>
-      .t{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#132630}.h{font-size:31px;font-weight:750}.s{font-size:22px}.n{font-size:19px;fill:#526873}.box{rx:24;filter:url(#shadow);stroke-width:3}.a{stroke:#44616f;stroke-width:5;fill:none;marker-end:url(#arrow)}.chip{fill:#eaf5fb;stroke:#1479b8}.logic{fill:#e9f7f3;stroke:#008c72}.clock{fill:#fff4e8;stroke:#e86d00}.pin{fill:#fbeaf1;stroke:#c03f70}.matter{fill:#f4f0ff;stroke:#7257b5}.instrument{fill:#edf1f4;stroke:#526873}
+      .t{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#132630}.headline{font-size:29px;font-weight:760}.subhead{font-size:18px;fill:#526873}.stage{font-size:22px;font-weight:740}.body{font-size:18px}.small{font-size:16px;fill:#526873}.micro{font-size:14px;fill:#526873}.box{rx:22;filter:url(#shadow);stroke-width:3}.path{stroke:#44616f;stroke-width:5;fill:none;marker-end:url(#arrow)}.input{fill:#eaf5fb;stroke:#1479b8}.logic{fill:#e9f7f3;stroke:#008c72}.clock{fill:#fff4e8;stroke:#e86d00}.pin{fill:#fbeaf1;stroke:#c03f70}.matter{fill:#f4f0ff;stroke:#7257b5}.pill{rx:15;stroke-width:2}.wanted{fill:#edf9f5;stroke:#008c72}.image{fill:#fdf2f6;stroke:#c03f70}.phase{fill:#fffaf4;stroke:#e8a56a}.rule{stroke:#d5e0e5;stroke-width:2}.phasorI{stroke:#1479b8;stroke-width:8;fill:none;marker-end:url(#arrowBlue)}.phasorQ{stroke:#008c72;stroke-width:8;fill:none;marker-end:url(#arrowGreen)}.phasorCancel{stroke:#c03f70;stroke-width:8;fill:none;marker-end:url(#arrowRose)}
     </style>
   </defs>
-  <rect width="1800" height="760" fill="#fbfcfc"/>
-  <text x="70" y="72" class="t h">The complete complex signal is formed before one FPGA pad touches the tank</text>
-  <text x="70" y="112" class="t n">Measured v10 path · one FPGA-native PRBS16 QPSK lane · no external DAC or quadrature mixer at the RF boundary</text>
 
-  <rect x="55" y="205" width="210" height="190" class="box chip"/>
-  <text x="160" y="260" text-anchor="middle" class="t h">PRBS16</text>
-  <text x="160" y="301" text-anchor="middle" class="t s">seed 0x1D2B</text>
-  <text x="160" y="340" text-anchor="middle" class="t s">lane 62 → QPSK</text>
+  <rect width="1800" height="760" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1800" height="8" fill="url(#signal)"/>
+  <text x="50" y="57" class="t headline">Four quadrature mixers feed one phase-domain summator</text>
+  <text x="50" y="91" class="t subhead">Two baseband I/Q sigma-delta streams mix at IF; two one-bit results select the summed state of two 216 MHz mixers on one RF pin.</text>
 
-  <path d="M265 300H325" class="a"/>
-  <rect x="325" y="205" width="235" height="190" class="box logic"/>
-  <text x="442" y="254" text-anchor="middle" class="t h">Complex lane</text>
-  <text x="442" y="298" text-anchor="middle" class="t s">32 phase samples</text>
-  <text x="442" y="338" text-anchor="middle" class="t s">signed I and Q</text>
+  <!-- Complex baseband -->
+  <rect x="50" y="170" width="178" height="208" class="box input"/>
+  <text x="139" y="216" text-anchor="middle" class="t stage">I + jQ</text>
+  <path d="M83 267c16-24 32-24 48 0s32 24 48 0" stroke="#1479b8" stroke-width="5" fill="none"/>
+  <path d="M83 306c16 24 32 24 48 0s32-24 48 0" stroke="#008c72" stroke-width="5" fill="none"/>
+  <text x="139" y="344" text-anchor="middle" class="t small">QPSK baseband</text>
 
-  <path d="M560 300H620" class="a"/>
-  <rect x="620" y="205" width="235" height="190" class="box logic"/>
-  <text x="737" y="254" text-anchor="middle" class="t h">Two SDMs</text>
-  <text x="737" y="298" text-anchor="middle" class="t s">signed first order</text>
-  <text x="737" y="338" text-anchor="middle" class="t s">I bit + Q bit</text>
+  <path d="M228 274H278" class="path"/>
 
-  <path d="M855 300H915" class="a"/>
-  <rect x="915" y="205" width="235" height="190" class="box clock"/>
-  <text x="1032" y="250" text-anchor="middle" class="t h">+7.5 MHz</text>
-  <text x="1032" y="294" text-anchor="middle" class="t s">whole-word rotation</text>
-  <text x="1032" y="336" text-anchor="middle" class="t s">Gray quadrant DDS</text>
+  <!-- Signed one-bit SDMs -->
+  <rect x="278" y="170" width="245" height="208" class="box logic"/>
+  <text x="400" y="210" text-anchor="middle" class="t stage">Signed I / Q&#8242; SDMs</text>
+  <text x="310" y="256" class="t body">I</text>
+  <path d="M338 249h32v-18h25v36h25v-36h25v18h38" stroke="#1479b8" stroke-width="5" fill="none"/>
+  <circle cx="485" cy="249" r="12" fill="#1479b8"/>
+  <text x="485" y="255" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#fff">1</text>
+  <text x="304" y="316" class="t body">Q&#8242;</text>
+  <path d="M338 309h28v18h27v-36h27v36h27v-18h36" stroke="#008c72" stroke-width="5" fill="none"/>
+  <circle cx="485" cy="309" r="12" fill="#008c72"/>
+  <text x="485" y="315" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#fff">1</text>
+  <text x="400" y="352" text-anchor="middle" class="t small">Q&#8242; = &#8722;Q in Physical27</text>
 
-  <path d="M1150 300H1210" class="a"/>
-  <rect x="1210" y="205" width="235" height="190" class="box clock"/>
-  <text x="1327" y="250" text-anchor="middle" class="t h">Four phases</text>
-  <text x="1327" y="294" text-anchor="middle" class="t s">216 MHz PLL</text>
-  <text x="1327" y="336" text-anchor="middle" class="t s">0° · 90° · 180° · 270°</text>
+  <path d="M523 274H573" class="path"/>
 
-  <path d="M1445 300H1505" class="a"/>
-  <rect x="1505" y="205" width="240" height="190" class="box pin"/>
-  <text x="1625" y="250" text-anchor="middle" class="t h">N16</text>
-  <text x="1625" y="294" text-anchor="middle" class="t s">pMOS switch</text>
-  <text x="1625" y="336" text-anchor="middle" class="t s">high / high-Z</text>
+  <!-- First quadrature translation -->
+  <rect x="573" y="150" width="302" height="248" class="box clock"/>
+  <text x="724" y="191" text-anchor="middle" class="t stage">First mixer pair</text>
+  <text x="724" y="220" text-anchor="middle" class="t small">+7.5 MHz quadrature IF</text>
+  <line x1="602" y1="238" x2="846" y2="238" class="rule"/>
+  <text x="615" y="270" class="t small">0&#176;</text><text x="696" y="270" class="t body">( I, Q&#8242; )</text>
+  <text x="615" y="303" class="t small">90&#176;</text><text x="696" y="303" class="t body">( Q&#8242;, &#8722;I )</text>
+  <text x="615" y="336" class="t small">180&#176;</text><text x="696" y="336" class="t body">( &#8722;I, &#8722;Q&#8242; )</text>
+  <text x="615" y="369" class="t small">270&#176;</text><text x="696" y="369" class="t body">( &#8722;Q&#8242;, I )</text>
 
-  <path d="M1625 395V470H1240" class="a"/>
-  <rect x="1020" y="470" width="220" height="160" class="box matter"/>
-  <text x="1130" y="527" text-anchor="middle" class="t h">Resonant tank</text>
-  <text x="1130" y="571" text-anchor="middle" class="t s">measured loaded Q</text>
+  <path d="M875 274H914" class="path"/>
 
-  <path d="M1020 550H935" class="a"/>
-  <rect x="735" y="470" width="200" height="160" class="box matter"/>
-  <text x="835" y="527" text-anchor="middle" class="t h">3 dB pad</text>
-  <text x="835" y="571" text-anchor="middle" class="t s">receiver input</text>
+  <!-- Two one-bit intermediate mixer results -->
+  <rect x="914" y="230" width="120" height="88" class="pill logic"/>
+  <text x="974" y="264" text-anchor="middle" class="t stage">rfI / rfQ</text>
+  <text x="974" y="292" text-anchor="middle" class="t micro">two 1-bit results</text>
 
-  <path d="M735 550H650" class="a"/>
-  <rect x="380" y="470" width="270" height="160" class="box instrument"/>
-  <text x="515" y="527" text-anchor="middle" class="t h">RTL-SDR Blog V4</text>
-  <text x="515" y="571" text-anchor="middle" class="t s">2.4 MS/s complex I/Q</text>
+  <path d="M1034 274H1073" class="path"/>
 
-  <path d="M380 550H295" class="a"/>
-  <rect x="55" y="470" width="240" height="160" class="box instrument"/>
-  <text x="175" y="523" text-anchor="middle" class="t h">Receiver</text>
-  <text x="175" y="566" text-anchor="middle" class="t s">carrier + timing</text>
-  <text x="175" y="598" text-anchor="middle" class="t s">symbol decisions</text>
+  <!-- Four-state selector performing the phase-domain sum -->
+  <rect x="1073" y="150" width="305" height="248" class="box clock"/>
+  <text x="1225" y="190" text-anchor="middle" class="t stage">4-state selector</text>
+  <text x="1225" y="218" text-anchor="middle" class="t small">phase-domain summator</text>
+  <rect x="1100" y="241" width="54" height="38" class="pill phase"/><text x="1127" y="266" text-anchor="middle" class="t body">0&#176;</text>
+  <rect x="1165" y="241" width="54" height="38" class="pill phase"/><text x="1192" y="266" text-anchor="middle" class="t body">90&#176;</text>
+  <rect x="1230" y="241" width="58" height="38" class="pill phase"/><text x="1259" y="266" text-anchor="middle" class="t body">180&#176;</text>
+  <rect x="1299" y="241" width="58" height="38" class="pill phase"/><text x="1328" y="266" text-anchor="middle" class="t body">270&#176;</text>
+  <path d="M1127 279v24l98 58 103-58v-24M1192 279v49M1259 279v49" stroke="#e86d00" stroke-width="3" fill="none"/>
+  <path d="M1160 315H1290L1225 365Z" fill="#fff" stroke="#e86d00" stroke-width="3"/>
+  <text x="1225" y="344" text-anchor="middle" class="t small">sum state</text>
+  <text x="1225" y="385" text-anchor="middle" class="t micro">one summed RF phase leaves</text>
 
-  <text x="70" y="704" class="t n">The tank is part of the transmitter. The RTL-SDR begins only after the nominal 3 dB pad.</text>
+  <path d="M1378 274H1420" class="path"/>
+
+  <!-- Physical pin -->
+  <rect x="1420" y="190" width="137" height="168" class="box pin"/>
+  <text x="1488" y="233" text-anchor="middle" class="t stage">N16</text>
+  <path d="M1453 281h28m14 0h29M1481 252v58M1495 262v38" stroke="#c03f70" stroke-width="5" fill="none"/>
+  <text x="1488" y="329" text-anchor="middle" class="t micro">high / high-Z</text>
+
+  <path d="M1557 274H1602" class="path"/>
+
+  <!-- Tuned tank -->
+  <rect x="1602" y="170" width="158" height="208" class="box matter"/>
+  <text x="1681" y="211" text-anchor="middle" class="t stage">Tuned tank</text>
+  <path d="M1628 272c0-20 18-20 18 0s18 20 18 0 18-20 18 0 18 20 18 0 18-20 18 0" stroke="#7257b5" stroke-width="5" fill="none"/>
+  <line x1="1643" y1="310" x2="1719" y2="310" stroke="#7257b5" stroke-width="5"/>
+  <line x1="1656" y1="322" x2="1706" y2="322" stroke="#7257b5" stroke-width="5"/>
+  <text x="1681" y="352" text-anchor="middle" class="t micro">switching &#8594; RF</text>
+
+  <!-- The key architectural collapse -->
+  <path d="M1078 426H1372" stroke="#e86d00" stroke-width="3"/>
+  <path d="M1078 418v16M1372 418v16" stroke="#e86d00" stroke-width="3"/>
+  <text x="1225" y="455" text-anchor="middle" class="t body" font-weight="700">four states = two RF mixers + &#931;</text>
+  <text x="1225" y="480" text-anchor="middle" class="t micro">rfI / rfQ address one algebraically summed carrier state</text>
+
+  <!-- Frequency consequences -->
+  <rect x="50" y="518" width="820" height="184" class="box wanted"/>
+  <text x="80" y="554" class="t stage">WANTED &#183; LO + IF</text>
+  <text x="80" y="583" class="t small">the two quadrature paths arrive with the same sign</text>
+  <text x="100" y="641" class="t body" fill="#1479b8">I</text>
+  <path d="M130 634H286" class="phasorI"/>
+  <text x="336" y="641" class="t body" fill="#008c72">Q</text>
+  <path d="M366 634H522" class="phasorQ"/>
+  <text x="570" y="643" class="t headline" fill="#008c72">+</text>
+  <path d="M622 634H782" stroke="#008c72" stroke-width="8" fill="none" marker-end="url(#arrowGreen)"/>
+  <text x="702" y="681" text-anchor="middle" class="t small" fill="#008c72">I/Q reinforce</text>
+
+  <rect x="930" y="518" width="830" height="184" class="box image"/>
+  <text x="960" y="554" class="t stage">CONJUGATE &#183; LO &#8722; IF</text>
+  <text x="960" y="583" class="t small">the same quadrature relation reverses one path</text>
+  <text x="1010" y="641" class="t body" fill="#1479b8">I</text>
+  <path d="M1040 634H1196" class="phasorI"/>
+  <text x="1430" y="641" class="t body" fill="#c03f70">Q</text>
+  <path d="M1410 634H1254" class="phasorCancel"/>
+  <circle cx="1225" cy="634" r="21" fill="#fff" stroke="#c03f70" stroke-width="4"/>
+  <path d="M1215 624l20 20m0-20l-20 20" stroke="#c03f70" stroke-width="4"/>
+  <text x="1578" y="641" text-anchor="middle" class="t body" font-weight="700" fill="#c03f70">I/Q cancel</text>
+  <text x="1578" y="674" text-anchor="middle" class="t micro">ideally zero</text>
+
+  <text x="50" y="738" class="t micro">The tank is part of the transmitter: N16 supplies a one-pin high/high-impedance switching boundary; resonance supplies the RF waveform.</text>
 </svg>

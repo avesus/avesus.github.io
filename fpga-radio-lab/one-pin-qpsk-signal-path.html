@@ -4,37 +4,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Inside My One-Pin FPGA QPSK Signal Path | Greenforest I/O</title>
+    <title>How My One-Pin FPGA Weaver Transmitter Combines I and Q | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="An iCE40 turns FPGA-native PRBS16 QPSK into signed one-bit I/Q streams, rotates the complete phase word by 7.5 MHz, selects four 216 MHz phases, and switches N16 into a resonant tank.">
+    <meta name="description" content="My iCE40 Weaver transmitter implements four quadrature mixers followed by a phase-domain summator. Two baseband I/Q sigma-delta streams undergo the first conversion; their two one-bit results control a four-state selector that realizes the two 216 MHz mixers and their sum on one RF pin.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/fpga-radio-lab/one-pin-qpsk-signal-path.html">
     <link rel="stylesheet" href="/fpga-radio-lab/radio-lab.css">
-    <meta property="og:title" content="Inside My One-Pin FPGA QPSK Signal Path">
-    <meta property="og:description" content="PRBS state becomes a signed complex lane, two one-bit SDM streams, one of four 216 MHz phases, and finally high/high-impedance switching at N16 into a resonant tank.">
+    <meta property="og:title" content="How My One-Pin FPGA Weaver Transmitter Combines I and Q">
+    <meta property="og:description" content="Four quadrature mixers produce two one-bit intermediate signals that control a four-state selector; the selector performs the phase-domain sum on N16.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/fpga-radio-lab/one-pin-qpsk-signal-path.html">
     <meta property="article:published_time" content="2026-07-27">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:fpga-radio-lab/media/physical27-live-datapath.png -->
+    <!-- greenforest:preview-source:fpga-radio-lab/media/target-and-conjugate-image.png -->
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:image" content="https://greenforest.io/social-previews/fpga-radio-lab/one-pin-qpsk-signal-path.png">
     <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/fpga-radio-lab/one-pin-qpsk-signal-path.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Inside My One-Pin FPGA QPSK Signal Path - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="How My One-Pin FPGA Weaver Transmitter Combines I and Q - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-radio-lab/one-pin-qpsk-signal-path.png">
-    <meta name="twitter:image:alt" content="Inside My One-Pin FPGA QPSK Signal Path - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="How My One-Pin FPGA Weaver Transmitter Combines I and Q - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "Inside My One-Pin FPGA QPSK Signal Path",
+            "headline": "How My One-Pin FPGA Weaver Transmitter Combines I and Q",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest",
@@ -42,8 +42,8 @@
             },
             "datePublished": "2026-07-27",
             "dateModified": "2026-07-27",
-            "image": "https://greenforest.io/fpga-radio-lab/media/physical27-live-datapath.png",
-            "description": "The measured v10 FPGA transmitter from its exact PRBS16 QPSK lane through signed one-bit I/Q sigma-delta streams, whole-word 7.5 MHz rotation, four 216 MHz phases, N16, and the resonant tank.",
+            "image": "https://greenforest.io/fpga-radio-lab/media/target-and-conjugate-image.png",
+            "description": "The active one-pin FPGA Weaver path implements four quadrature mixers followed by a phase-domain summator that places their RF sum on N16.",
             "mainEntityOfPage": "https://greenforest.io/fpga-radio-lab/one-pin-qpsk-signal-path.html",
             "proficiencyLevel": "Advanced",
             "publisher": {
@@ -57,30 +57,45 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">Inside My One-Pin FPGA QPSK Signal Path</h1></header>
+    <header><h1 class="page-title">How My One-Pin FPGA Weaver Transmitter Combines I and Q</h1></header>
     <address>July 27, 2026</address>
 
     <section class="abstract">
-        <p class="eyebrow">FPGA radio · exact signal path</p>
-        <p class="lead">My Physical27 transmitter begins with sixteen bits of PRBS state and ends with N16 alternately driving high or releasing into a resonant tank. Between those points, the iCE40 builds a signed complex QPSK lane, converts I and Q into two one-bit sigma-delta streams, rotates the complete two-bit word by +7.5 MHz, and uses that word to choose one of four 216 MHz clock phases.</p>
-        <p>The RF pin never produces an analog voltage proportional to I or Q, and it never actively drives low. It switches between high and high impedance. The resonant network supplies the narrowband physical behavior that a phase-switched digital pad cannot supply by itself.</p>
+        <p class="eyebrow">One-pin Weaver radio · exact signal path</p>
+        <p class="lead">My Physical27 transmitter is four quadrature mixers followed by a phase-domain summator. Two baseband streams—SDM(I) and SDM(−Q)—undergo the first +7.5 MHz quadrature Weaver conversion. The resulting two one-bit signals control a four-state selector that realizes the two 216 MHz carrier mixers and their sum on N16.</p>
+        <p>The phase-domain summator emits one RF phase, not separate analog I and Q voltages. N16 switches that result high or high impedance, and the resonant network turns the timed charge impulses into the narrowband waveform.</p>
 
-        <div class="hitl-stats" aria-label="V10 signal path constants">
-            <div class="hitl-stat"><strong>0x1D2B</strong><span>PRBS16 initial state</span></div>
-            <div class="hitl-stat"><strong>3,295.898</strong><span>QPSK symbols per second</span></div>
-            <div class="hitl-stat"><strong>+7.5 MHz</strong><span>whole-word rotation</span></div>
-            <div class="hitl-stat"><strong>N16</strong><span>one programmable RF output</span></div>
+        <div class="hitl-stats" aria-label="Physical Weaver path constants">
+            <div class="hitl-stat"><strong>4 mixers</strong><span>two quadrature pairs</span></div>
+            <div class="hitl-stat"><strong>2 × 1 bit</strong><span>intermediate I/Q signals</span></div>
+            <div class="hitl-stat"><strong>4 states</strong><span>final RF selector</span></div>
+            <div class="hitl-stat"><strong>1 pin</strong><span>phase-domain sum</span></div>
         </div>
 
         <figure class="inspectable-image">
             <a href="/fpga-radio-lab/media/one-pin-signal-path.svg">
-                <img src="/fpga-radio-lab/media/one-pin-signal-path.svg" width="1800" height="760" decoding="async" fetchpriority="high" alt="Signal path from FPGA-native PRBS16 QPSK through a complex lane, signed I and Q sigma-delta modulators, whole-word 7.5 megahertz rotation, four 216 megahertz phases, N16, and a resonant tank">
+                <img src="/fpga-radio-lab/media/one-pin-signal-path.svg" width="1800" height="760" decoding="async" fetchpriority="high" alt="Physical27 Weaver path with two baseband I/Q sigma-delta streams, a first quadrature mixer pair, two one-bit intermediate signals, and a four-state selector that performs the phase-domain sum of the two 216 megahertz carrier mixers on N16">
             </a>
-            <figcaption>The exact v10 transformation. The only programmable RF output is N16; the FPGA still needs power, ground, a reference clock, configuration, and telemetry, and the transmitter still needs its tank.</figcaption>
+            <figcaption>The active v10 Weaver transformation: four quadrature mixers followed by a phase-domain summator that puts their final sum on one RF pin.</figcaption>
         </figure>
     </section>
 
     <main>
+        <section>
+            <h2>Four Quadrature Mixers Feed One Phase-Domain Summator</h2>
+            <p>A Weaver transmitter contains two quadrature mixer pairs: the first converts baseband I/Q to an intermediate frequency, and the second converts those two results to RF. That is four mixer products. My RTL realizes their signs as coordinated one-bit rotations instead of four standalone multiplier blocks.</p>
+            <p>Let Q′ denote the selected Q polarity; Physical27 uses <code>Q′ = −Q</code>. For each +7.5 MHz quadrant, the first mixer pair produces <code>(I,Q′)</code>, <code>(Q′,−I)</code>, <code>(−I,−Q′)</code>, or <code>(−Q′,I)</code>. These two one-bit intermediate signals control the four-state selector. Each selector state performs the phase-domain sum of the second two mixer products at 216 MHz.</p>
+            <p>Using the sign convention that reinforces the upper branch, the continuous-time equivalent is <code>I1 = I·cos(IF) − Q′·sin(IF)</code>, <code>Q1 = I·sin(IF) + Q′·cos(IF)</code>, and <code>s = I1·cos(LO) − Q1·sin(LO)</code>. Expanding the products leaves <code>I·cos(LO+IF) − Q′·sin(LO+IF)</code>; the LO−IF cross-products cancel.</p>
+            <p>For Physical27, the 216 MHz carrier, +7.5 MHz whole-word rotation, and +62.5 kHz lane rotation place the wanted signal at 223.5625 MHz. The corresponding true RF conjugate image lies at 208.4375 MHz. The complete physical path measured the wanted lane 29.44 dB above that image.</p>
+
+            <figure class="inspectable-image inspectable-image--fit">
+                <a href="/fpga-radio-lab/media/target-and-conjugate-image.png">
+                    <img src="/fpga-radio-lab/media/target-and-conjugate-image.png" width="1771" height="966" loading="lazy" decoding="async" alt="Measured wanted 223.5625 megahertz lane and true 208.4375 megahertz conjugate image with a 29.44 decibel complete-path ratio">
+                </a>
+                <figcaption>The narrow Physical27/28 wanted and true-image tunings. The tank, cable, pad, tuner, receiver response, and time between sequential captures remain in the 29.44 dB ratio.</figcaption>
+            </figure>
+        </section>
+
         <section>
             <h2>Lane 62 Turns One PRBS State Into a Complex Vector</h2>
             <p>I generate the payload in the FPGA. The 16-bit register starts at <code>0x1D2B</code>. At each symbol advance, its new low bit is <code>p15 ^ p13 ^ p12 ^ p10</code>:</p>
@@ -122,7 +137,7 @@ wire signed [18:0] corrected_d =
         </section>
 
         <section>
-            <h2>The +7.5 MHz DDS Rotates the Complete Two-Bit Word</h2>
+            <h2>The +7.5 MHz DDS Implements the First Mixer Pair</h2>
             <p>A 216 MHz phase accumulator advances by 5 modulo 144. Its frequency is therefore <code>216 MHz × 5 / 144 = 7.5 MHz</code>. Thresholds at 36, 72, and 108 divide that accumulator into four equal quadrants.</p>
             <p>Each quadrant permutes or inverts both SDM bits together:</p>
 
@@ -138,13 +153,13 @@ wire signed [18:0] corrected_d =
                 </table>
             </div>
 
-            <p>This is a whole-word rotation. I do not multiply I and Q in separate time slots and hope their phase bookkeeping still agrees later. One DDS quadrant transforms the complete two-bit state on every 216 MHz edge. Physical27 leaves the later optional 90° selector rotation disabled.</p>
+            <p>This whole-word rotation is the first quadrature mixer pair. I do not process I and Q in separate time slots and hope their phase bookkeeping still agrees later. One DDS quadrant transforms the complete two-bit state on every 216 MHz edge. Physical27 leaves the later optional 90° summator rotation disabled.</p>
             <p>The arithmetic also makes the target frequency easy to follow: lane 62 contributes +62.5 kHz, the common DDS contributes +7.5 MHz, and the four-phase PLL supplies the nominal 216 MHz carrier. Their sum is the 223.5625 MHz wanted lane.</p>
         </section>
 
         <section>
-            <h2>Two Bits Select Four Real 216 MHz Phases</h2>
-            <p>The iCE40 PLL produces nominal 216 MHz outputs separated by 90°. Their inversions supply the other two phases. The retained selector maps the two-bit word directly onto those clocks:</p>
+            <h2>The Phase-Domain Summator Realizes Two 216 MHz Mixers and Their Sum</h2>
+            <p>The iCE40 PLL produces nominal 216 MHz outputs separated by 90°. Their inversions supply the other two phases. The four-state selector maps the two intermediate bits directly onto those clocks:</p>
 
             <pre class="code-scroll"><code>wire p1 =  pll_216mhz_i;
 wire p2 =  pll_216mhz_90_i;
@@ -154,9 +169,9 @@ assign modulated_rf_o = selector_i_i
     ? (selector_q_i ? p1 : p4)
     : (selector_q_i ? p2 : p3);</code></pre>
 
-            <p><code>11</code> selects 0°, <code>01</code> selects 90°, <code>00</code> selects 180°, and <code>10</code> selects 270°. The output at this stage is already a phase-switched RF clock. An external quadrature mixer is not waiting downstream to combine baseband I and Q.</p>
+            <p><code>11</code> selects 0°, <code>01</code> selects 90°, <code>00</code> selects 180°, and <code>10</code> selects 270°. Each state equals the algebraic sum of the two 216 MHz carrier-mixer products for that input pair. The selector is therefore the phase-domain summator, and its one output is already the combined RF signal.</p>
             <p>The top level derives both PLL phases from the 12 MHz board reference and also divides the in-phase output to make the 108 MHz lane clock. The Physical27 timing declarations used 216.03 MHz for the fast domain; the completed HX8K route reached 244.20 MHz on that constraint.</p>
-            <p><a href="/fpga-radio-lab/source/one-pin-qpsk-v10/rtl/gf_multichannel_3mhz_tx.sv">Read the retained four-phase selector</a> at lines 423–437, and <a href="/fpga-radio-lab/source/one-pin-qpsk-v10/rtl/gf_one_shot_mpsse_telemetry_top.sv">read the PLL and telemetry top</a> at lines 140–176.</p>
+            <p><a href="/fpga-radio-lab/source/one-pin-qpsk-v10/rtl/gf_multichannel_3mhz_tx.sv">Read the four-state selector that performs the phase-domain sum</a> at lines 423–437, and <a href="/fpga-radio-lab/source/one-pin-qpsk-v10/rtl/gf_one_shot_mpsse_telemetry_top.sv">read the PLL and telemetry top</a> at lines 140–176.</p>
         </section>
 
         <section>
@@ -191,7 +206,8 @@ assign modulated_rf_o = selector_i_i
         <section>
             <h2>The Tank Completes the RF Waveform</h2>
             <p>A high/high-impedance square switching sequence contains sharp edges and many frequency components. The tank accepts those impulses, stores energy in its electric and magnetic fields, and favors a narrow region around its resonance. The physical output is therefore a collaboration between RTL timing and resonant matter.</p>
-            <p>Five NanoVNA sweeps placed the median S21 maximum at 220.782991 MHz and the upper half-power crossing at 223.718667 MHz. The 223.5625 MHz QPSK lane sits 156.167 kHz inside that upper crossing, where interpolated median S21 was about −23.22 dB at the existing calibration plane.</p>
+            <p>Five NanoVNA sweeps placed the median S21 maximum at 220.783 MHz and the upper half-power crossing at 223.719 MHz. The 223.5625 MHz QPSK lane sits about 156 kHz inside that upper crossing, where interpolated median S21 was about −23.22 dB at the existing calibration plane.</p>
+            <p>A separate five-repeat 50–300 MHz sweep covered both Weaver products. Its coarse complex interpolation made S21 about 7.95 dB higher at the 223.5625 MHz wanted lane than at the 208.4375 MHz image, so the tuned network clearly favored the wanted frequency. The NanoVNA and SDR used different instruments and reference planes; subtracting that preference from 29.44 dB would not isolate the digital Weaver cancellation.</p>
 
             <figure class="inspectable-image">
                 <a href="/fpga-radio-lab/media/tank-passband.png">
@@ -200,7 +216,7 @@ assign modulated_rf_o = selector_i_i
                 <figcaption>The tank measured five times, with the final target marked. <a href="/fpga-radio-lab/data/tank-s21-five-repeats.csv">Download the plotted complex-transfer values</a>.</figcaption>
             </figure>
 
-            <p>That local S21 measurement does not give calibrated RF power at N16 or at the tank output. Pad loss, loading, cable behavior, coupling, and instrument calibration remain separate quantities. The same limitation is physical: removing or substantially changing the tank changes the transmitter.</p>
+            <p>That local S21 measurement does not give calibrated RF power at N16 or at the tank output. The earlier tank sketch notes about −15 dBm beside a 7.5 kΩ coupling value, but it does not name its load, reference plane, or instrument settings; July used a different frequency and recorded coupling value. Removing or substantially changing the tank changes the transmitter.</p>
         </section>
 
         <section>
@@ -209,39 +225,39 @@ assign modulated_rf_o = selector_i_i
 
             <figure class="inspectable-image">
                 <a href="/fpga-radio-lab/media/physical27-live-datapath.png">
-                    <img src="/fpga-radio-lab/media/physical27-live-datapath.png" width="1771" height="1097" loading="lazy" decoding="async" alt="Ordered Physical27 FPGA telemetry snapshots containing pre-sigma-delta I and Q, I and Q sigma-delta bits, DDS quadrant, and four-phase selector state">
+                    <img src="/fpga-radio-lab/media/physical27-live-datapath.png" width="1771" height="1097" loading="lazy" decoding="async" alt="Ordered Physical27 FPGA telemetry snapshots containing pre-sigma-delta I and Q, I and Q sigma-delta bits, first-mixer DDS quadrant, and phase-domain summator state">
                 </a>
-                <figcaption>One hundred twenty ordered snapshots from the actual Physical27 burst: signed pre-SDM I/Q, both one-bit SDM outputs, DDS quadrant, and final four-phase selection. <a href="/fpga-radio-lab/data/physical27-telemetry-snapshots.csv">Download the plotted snapshots</a>.</figcaption>
+                <figcaption>One hundred twenty ordered snapshots from the actual Physical27 burst: signed pre-SDM I/Q, both one-bit SDM outputs, first-mixer DDS quadrant, and phase-domain summator state. <a href="/fpga-radio-lab/data/physical27-telemetry-snapshots.csv">Download the plotted snapshots</a>.</figcaption>
             </figure>
 
-            <p>The horizontal axis is retained USB snapshot order. It is not nanoseconds and not a sample-synchronous 216 MHz logic-analyzer trace. USB transport skips enormous numbers of FPGA clocks between records. The plot can connect real internal states in causal order, but it cannot measure RF-edge timing, PLL phase error, or setup and hold behavior at N16.</p>
+            <p>The horizontal axis follows USB snapshot order. It is not nanoseconds and not a sample-synchronous 216 MHz logic-analyzer trace. USB transport skips enormous numbers of FPGA clocks between records. The plot can connect real internal states in causal order, but it cannot measure RF-edge timing, PLL phase error, or setup and hold behavior at N16.</p>
         </section>
 
         <section>
-            <h2>What I Kept From <code>mod_apr20.sv</code>, and What I Rebuilt</h2>
-            <p>I kept the part that made the original transmitter unusual: two one-bit complex controls select among four real clock phases, and that selected clock drives the output-enable input of a pMOS-only FPGA pad. I rebuilt the frontend so it could carry a finite, internally generated digital message and name the state actually applied to the pin.</p>
+            <h2>What I Kept From the April 2025 <code>mod_apr20.sv</code>, and What I Rebuilt</h2>
+            <p>I kept the part that made the original transmitter unusual: four quadrature mixers terminate in a phase-domain summator whose two one-bit controls select the final RF state on a pMOS-only FPGA pad. I rebuilt the baseband and IF implementation so it could carry a finite, internally generated digital message and name the state actually applied to the pin.</p>
 
             <div class="code-scroll">
                 <table>
-                    <thead><tr><th>Stage</th><th><code>mod_apr20.sv</code></th><th>Physical27 v10</th></tr></thead>
+                    <thead><tr><th>Stage</th><th>April 2025 <code>mod_apr20.sv</code></th><th>Physical27 v10</th></tr></thead>
                     <tbody>
                         <tr><td>Complex source</td><td>Opposing 32-bit sawtooths</td><td>PRBS16 QPSK on a signed 32-phase lane</td></tr>
                         <tr><td>One-bit conversion</td><td>Two threshold accumulators</td><td>Two signed first-order SDMs with one consistent decision and feedback value</td></tr>
-                        <tr><td>Frequency translation</td><td>Independent XORs with adjacent Johnson-counter taps</td><td>One +7.5 MHz quadrant rotates the complete two-bit word</td></tr>
-                        <tr><td>RF selection</td><td>Four PLL phases selected by two bits</td><td>The same essential four-phase selector</td></tr>
+                        <tr><td>First mixer pair</td><td>Adjacent phases of a Johnson counter used specifically as the quadrature IF oscillator</td><td>One +7.5 MHz quadrant rotates the complete two-bit word</td></tr>
+                        <tr><td>Phase-domain summator</td><td><code>rfI</code>/<code>rfQ</code> select the summed state of two 216 MHz mixers</td><td>The same four-state RF summation</td></tr>
                         <tr><td>Pad behavior</td><td>Constant high data with phase-controlled output enable</td><td>The same high/high-impedance pMOS boundary, now behind PLL/reset and one-shot gates</td></tr>
                         <tr><td>Internal observation</td><td>No applied-symbol epoch</td><td>Direct symbol, epoch, I/Q, SDM, DDS, selector, and physical-enable telemetry</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <p>The two files are semantically related, not equivalent builds. The preserved source’s sawtooth and Johnson path is visible at lines 653–725; its four-phase selection is at lines 711–736; and its pMOS <code>SB_IO</code> is at lines 479–493. V10 replaces the modulation path while deliberately retaining the selector and physical boundary.</p>
-            <p><a href="/one-pin-RF/ptc_nov21/mod_apr20.sv">Read the preserved <code>mod_apr20.sv</code></a> beside the <a href="/fpga-radio-lab/source/one-pin-qpsk-v10/rtl/gf_multichannel_3mhz_tx_lean.sv">active v10 channelizer and modulation RTL</a>.</p>
+            <p>The April 2025 source and v10 are architecturally related, not equivalent builds. The baseband SDMs and IF mixer pair are visible at lines 653–725; the phase-domain summator is at lines 711–736; and the pMOS <code>SB_IO</code> is at lines 479–493. V10 replaces the baseband and IF implementation while keeping the four-mixer architecture, summator, and physical boundary.</p>
+            <p><a href="/one-pin-RF/ptc_nov21/mod_apr20.sv">Read the April 2025 <code>mod_apr20.sv</code></a> beside the <a href="/fpga-radio-lab/source/one-pin-qpsk-v10/rtl/gf_multichannel_3mhz_tx_lean.sv">active v10 channelizer and modulation RTL</a>.</p>
         </section>
 
         <section>
             <h2>Build the Same V10 Logic</h2>
-            <p>The retained build uses Yosys 0.52, nextpnr-ice40 0.7-1+b2, IceStorm <code>icepack</code>, an iCE40HX8K in the CT256 package, and nextpnr seed 1. It reads the same six SystemVerilog files in the same order, applies the Physical27 parameters, checks the 12, 30, 108, and 216.03 MHz domains, and packs the routed design.</p>
+            <p>The Physical27 build uses Yosys 0.52, nextpnr-ice40 0.7-1+b2, IceStorm <code>icepack</code>, an iCE40HX8K in the CT256 package, and nextpnr seed 1. It reads the same six SystemVerilog files in the same order, applies the Physical27 parameters, checks the 12, 30, 108, and 216.03 MHz domains, and packs the routed design.</p>
             <p>From the source directory, the complete command is:</p>
 
             <pre class="code-scroll"><code>bash scripts/build-v10.sh</code></pre>
@@ -263,13 +279,13 @@ assign modulated_rf_o = selector_i_i
                 </article>
                 <article class="download-card">
                     <h3>Signal engine</h3>
-                    <p>PRBS lane, 32-point complex waveform, moving sum, signed SDMs, whole-word rotation, and retained selector.</p>
+                    <p>PRBS lane, 32-point complex waveform, moving sum, signed SDMs, first mixer pair, and phase-domain summator.</p>
                     <a class="primary-download" href="/fpga-radio-lab/source/one-pin-qpsk-v10/rtl/gf_multichannel_3mhz_tx_lean.sv">Open the active RTL</a>
                     <p><a href="/fpga-radio-lab/source/one-pin-qpsk-v10/rtl/generated/gf_tank_preemphasis_authoritative_q111.svh">Generated tank constants</a></p>
                 </article>
                 <article class="download-card">
                     <h3>Source terms</h3>
-                    <p>The files compile with the stated toolchain into the retained routed implementation. I have not granted a separate reuse license.</p>
+                    <p>The files compile with the stated toolchain into the Physical27 routed implementation. I have not granted a separate reuse license.</p>
                     <a class="primary-download" href="/fpga-radio-lab/source/one-pin-qpsk-v10/SOURCE-NOTICE.md">Read the source notice</a>
                 </article>
             </div>
@@ -281,9 +297,9 @@ assign modulated_rf_o = selector_i_i
         <a href="/fpga-radio-lab/received-qpsk.html">How 8,592 QPSK Bits Came Back Through the Tank</a>
         <p>Continue from N16 and the resonant network through the independently clocked receiver, carrier recovery, directly observed symbol mask, and finite error count.</p>
         <p>Technical branches:</p>
-        <a href="/fpga-radio-hardware-in-the-loop.html">The Complete FPGA Radio Hardware-in-the-Loop Laboratory</a>
+        <a href="/fpga-radio-hardware-in-the-loop.html">The July Physical Weaver Measurements</a>
         <a href="/fpga-radio-lab/measurement-loop.html">The Control Loop From RTL Change to Physical RF</a>
-        <a href="/one-pin-quadrature-sdm-transmitter.html">The Preserved One-Pin Quadrature/SDM Transmitter</a>
+        <a href="/one-pin-quadrature-sdm-transmitter.html">The April 2025 One-Pin Weaver RTL</a>
         <a href="/fpga-systems.html">FPGA Systems</a>
         <a href="/">Back to greenforest.io</a>
     </nav>

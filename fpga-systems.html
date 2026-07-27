@@ -57,7 +57,7 @@
         <p>That means pin-level signal behavior, protocol parsing, clocking, arithmetic schedules, configuration transport, device primitives, open toolchains, and the Linux or browser surface used to inspect the machine.</p>
         <div class="cta-row" role="group" aria-label="Explore Brian Greenforest's FPGA systems">
             <a class="cta-link" href="how-much-radio-do-you-actually-need.html">RF receiver</a>
-            <a class="cta-link" href="fpga-radio-hardware-in-the-loop.html">HITL radio lab</a>
+            <a class="cta-link" href="fpga-radio-hardware-in-the-loop.html">One-pin Weaver TX</a>
             <a class="cta-link" href="ethernet-udp-ice40-reprogrammer.html">Ethernet reprogrammer</a>
             <a class="cta-link" href="physical-mux-tiles/">Physical MUX tiles</a>
             <a class="cta-link" href="/fpga-verilog/">Learn FPGA And Verilog</a>
@@ -67,16 +67,16 @@
 
     <figure class="inspectable-image inspectable-image--fit">
         <a href="fpga-radio-hardware-in-the-loop.html">
-            <img src="fpga-radio-lab/media/hx8k-board.jpg" width="1280" height="720" loading="eager" decoding="async" alt="The actual iCE40 HX8K board used for the one-pin FPGA QPSK transmitter">
+            <img src="fpga-radio-lab/media/wideband-weaver-triad-july26.png" width="3060" height="1700" loading="eager" decoding="async" alt="Measured wanted upper sideband, true conjugate image, and physical carrier from the one-pin FPGA Weaver transmitter">
         </a>
-        <figcaption>FPGA-native QPSK crossed one switched N16 output, a hand-built resonant tank, and an independently clocked RTL-SDR while the laboratory rebuilt and watched each physical change.</figcaption>
+        <figcaption>Two signed one-bit I/Q streams select among four physical 216 MHz phases, collapse a Weaver upconversion onto N16, and excite a hand-built resonant tank.</figcaption>
     </figure>
 
     <main>
         <section>
             <h2>The Work Is The Boundary Between Blocks</h2>
             <p>An FPGA is not merely a place to translate software into gates. It is where electrical behavior, clocks, packet structure, state, routing, and configuration meet. I work directly at those joins.</p>
-            <p>The public record spans Lattice iCE40 and Xilinx 7-series hardware, Verilog and SystemVerilog, vendor primitives, Yosys-based toolchains, raw network framing, RF threshold crossings, and reconfiguration of one FPGA by another. The projects below are the evidence, not a generic list of skills.</p>
+            <p>I cross Lattice iCE40 and Xilinx 7-series hardware, Verilog and SystemVerilog, vendor primitives, Yosys-based toolchains, raw network framing, RF threshold crossings, and direct reconfiguration of one FPGA by another.</p>
             <p>If these projects are your first encounter with FPGAs, begin with <a href="/fpga-verilog/">All Things All The Time: FPGA And Verilog From First Principles</a>. It builds the machine from Boolean logic, LUTs, flip-flops, Verilog, simulation, synthesis, placement, routing, and a programmed board.</p>
         </section>
 
@@ -92,11 +92,11 @@
                 </article>
 
                 <article class="capability-card">
-                    <a href="fpga-radio-hardware-in-the-loop.html"><img src="fpga-radio-lab/media/physical27-constellation.png" width="1204" height="1065" loading="lazy" decoding="async" alt="Received constellation of 4296 held-out QPSK symbols sent through the one-pin FPGA transmitter and resonant tank"></a>
+                    <a href="fpga-radio-hardware-in-the-loop.html"><img src="fpga-radio-lab/media/wideband-weaver-triad-july26.png" width="3060" height="1700" loading="lazy" decoding="async" alt="Physical Weaver triad showing the flat wanted band, true conjugate image, and 216 megahertz carrier"></a>
                     <p class="eyebrow">RF transmit · hardware in the loop</p>
-                    <h3><a href="fpga-radio-hardware-in-the-loop.html">One-Pin FPGA QPSK Through a Physical Tank</a></h3>
-                    <p>The HX8K generates PRBS16 QPSK, sigma-delta modulates signed I and Q, rotates the complete phase word, and selects among four 216 MHz phases before one switched pad reaches the tank. The final burst returned 8,592 checked bits with no observed errors.</p>
-                    <p><a href="one-pin-quadrature-sdm-transmitter.html">Trace the original quadrature/SDM architecture</a></p>
+                    <h3><a href="fpga-radio-hardware-in-the-loop.html">One-Pin FPGA Weaver Transmitter</a></h3>
+                    <p>The HX8K implements four quadrature mixers followed by a phase-domain summator. Two baseband I/Q sigma-delta streams undergo the first conversion; their two one-bit results control a four-state selector that realizes the two 216 MHz carrier mixers and their sum on N16. Physical measurements resolve the square wanted band, carrier, tuned-tank response, and true conjugate image.</p>
+                    <p><a href="one-pin-quadrature-sdm-transmitter.html">Trace the April 2025 one-pin Weaver RTL</a></p>
                 </article>
 
                 <article class="capability-card">

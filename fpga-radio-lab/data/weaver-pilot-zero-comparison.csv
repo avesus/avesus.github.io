@@ -1,0 +1,3 @@
+key,pilot_code,carrier_hz_receiver_clock_relative,lo_excess_db_relative,desired_excess_db_relative,image_excess_db_relative,lo_relative_to_desired_db,desired_over_image_db,exact_rail_fraction
+pilot24,24,222750125.72018746,-28.452988669009788,-23.870388449415177,-42.65043818053924,-4.582600219594609,18.78004973112406,0.0
+pilot0,0,222750148.9914575,-51.86433336990555,-23.860278134677454,-42.73477339613645,-28.0040552352281,18.874495261458993,0.0

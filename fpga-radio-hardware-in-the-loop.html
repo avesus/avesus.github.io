@@ -4,37 +4,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>I Built a Hardware-in-the-Loop Laboratory Around a One-Pin FPGA Radio | Greenforest I/O</title>
+    <title>My One-Pin FPGA Weaver Transmitter: Four Quadrature Mixers and a Phase-Domain Summator | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="Brian Greenforest's July 25–26 FPGA radio laboratory joined RTL, volatile iCE40 programming, live datapath telemetry, a resonant tank, NanoVNA sweeps, RTL-SDR captures, QPSK recovery, and response-driven experiments in one physical loop.">
+    <meta name="description" content="I built a one-pin FPGA Weaver transmitter with four quadrature mixers followed by a phase-domain summator. Two baseband I/Q sigma-delta streams undergo the first conversion; a four-state selector realizes the two 216 MHz mixers and their sum on one RF pin.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/fpga-radio-hardware-in-the-loop.html">
     <link rel="stylesheet" href="/fpga-radio-lab/radio-lab.css">
-    <meta property="og:title" content="I Built a Hardware-in-the-Loop Laboratory Around a One-Pin FPGA Radio">
-    <meta property="og:description" content="A two-day physical loop rebuilt an iCE40 transmitter, watched its live logic, measured the tank and RF path, rejected attractive failures, and recovered 8,592 held-out QPSK bits.">
+    <meta property="og:title" content="My One-Pin FPGA Weaver Transmitter: Four Quadrature Mixers and a Phase-Domain Summator">
+    <meta property="og:description" content="Two one-bit intermediate signals control a four-state selector that performs the phase-domain sum of the second 216 MHz mixer pair on one RF pin. The wanted lane measured 29.44 dB above its conjugate image across the complete path.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/fpga-radio-hardware-in-the-loop.html">
     <meta property="article:published_time" content="2026-07-27">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:fpga-radio-lab/media/hx8k-board.jpg -->
+    <!-- greenforest:preview-source:fpga-radio-lab/media/target-and-conjugate-image.png -->
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:image" content="https://greenforest.io/social-previews/fpga-radio-hardware-in-the-loop.png">
     <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/fpga-radio-hardware-in-the-loop.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="I Built a Hardware-in-the-Loop Laboratory Around a One-Pin FPGA Radio - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="My One-Pin FPGA Weaver Transmitter: Four Quadrature Mixers and a Phase-Domain Summator - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-radio-hardware-in-the-loop.png">
-    <meta name="twitter:image:alt" content="I Built a Hardware-in-the-Loop Laboratory Around a One-Pin FPGA Radio - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="My One-Pin FPGA Weaver Transmitter: Four Quadrature Mixers and a Phase-Domain Summator - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "I Built a Hardware-in-the-Loop Laboratory Around a One-Pin FPGA Radio",
+            "headline": "My One-Pin FPGA Weaver Transmitter: Four Quadrature Mixers and a Phase-Domain Summator",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest",
@@ -42,8 +42,8 @@
             },
             "datePublished": "2026-07-27",
             "dateModified": "2026-07-27",
-            "image": "https://greenforest.io/fpga-radio-lab/media/hx8k-board.jpg",
-            "description": "A July 25–26 FPGA radio laboratory joined RTL, volatile iCE40 programming, live datapath telemetry, a resonant tank, NanoVNA sweeps, RTL-SDR captures, QPSK recovery, and response-driven experiments in one physical loop.",
+            "image": "https://greenforest.io/fpga-radio-lab/media/wideband-weaver-triad-july26.png",
+            "description": "A one-pin FPGA Weaver transmitter implements four quadrature mixers followed by a phase-domain summator. Two baseband I/Q sigma-delta streams undergo the first conversion; a four-state selector realizes the two 216 MHz mixers and their sum on one RF pin.",
             "mainEntityOfPage": "https://greenforest.io/fpga-radio-hardware-in-the-loop.html",
             "proficiencyLevel": "Advanced",
             "publisher": {
@@ -57,42 +57,103 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">I Built a Hardware-in-the-Loop Laboratory Around a One-Pin FPGA Radio</h1></header>
+    <header><h1 class="page-title">My One-Pin FPGA Weaver Transmitter: Four Quadrature Mixers and a Phase-Domain Summator</h1></header>
     <address>July 27, 2026</address>
 
     <section class="abstract">
-        <p class="eyebrow">FPGA radio · physical feedback</p>
-        <p class="lead">On July 25 and 26, I joined an iCE40 FPGA, one switched RF output, a hand-built resonant tank, a NanoVNA, an RTL-SDR, direct logic telemetry, and response-driven experiment control into one laboratory loop.</p>
-        <p>The final three-second burst generated PRBS16 QPSK inside the FPGA. After the signal crossed N16, the tank, and a nominal 3 dB pad, the independently clocked receiver recovered 4,296 directly observed held-out symbols—8,592 bits—with no observed errors. Carrier-tracked RMS EVM was 2.0696%.</p>
+        <p class="eyebrow">One-pin Weaver radio · physical I/Q combination</p>
+        <p class="lead">My transmitter is four quadrature mixers followed by a phase-domain summator. Two baseband I/Q sigma-delta streams undergo the first Weaver conversion. The resulting two one-bit signals control a four-state selector that realizes the two 216 MHz carrier mixers and their sum on one RF pin. N16 then excites a hand-built resonant tank.</p>
+        <p>At the wanted frequency, the I and Q products reinforce. At the conjugate frequency, they oppose. On July 26 the complete tank-to-receiver path placed a 223.5625 MHz wanted lane 29.44 dB above its 208.4375 MHz true conjugate image. A wider 500 kHz upper-sideband run produced the rectangular spectrum I wanted, with only 1.14 dB of level spread across its flat core.</p>
 
-        <div class="hitl-stats" aria-label="Final physical run at a glance">
-            <div class="hitl-stat"><strong>8,592</strong><span>held-out bits checked</span></div>
-            <div class="hitl-stat"><strong>0</strong><span>observed bit errors</span></div>
-            <div class="hitl-stat"><strong>2.0696%</strong><span>carrier-tracked RMS EVM</span></div>
-            <div class="hitl-stat"><strong>6.5918 kb/s</strong><span>gross physical bit rate</span></div>
+        <div class="hitl-stats" aria-label="Weaver transmitter measurements at a glance">
+            <div class="hitl-stat"><strong>29.44 dB</strong><span>wanted / true image, complete path</span></div>
+            <div class="hitl-stat"><strong>35.2</strong><span>measured loaded tank Q</span></div>
+            <div class="hitl-stat"><strong>1.14 dB</strong><span>500 kHz flat-core spread</span></div>
+            <div class="hitl-stat"><strong>1 pin</strong><span>final programmable RF output</span></div>
         </div>
 
-        <figure class="inspectable-image inspectable-image--fit">
-            <a href="/fpga-radio-lab/media/hx8k-board.jpg">
-                <img src="/fpga-radio-lab/media/hx8k-board.jpg" width="1280" height="720" decoding="async" fetchpriority="high" alt="Privacy-cropped photograph of the actual Lattice iCE40 HX8K breakout board used by the one-pin FPGA radio transmitter">
+        <figure class="inspectable-image">
+            <a href="/fpga-radio-lab/media/wideband-weaver-triad-july26.png">
+                <img src="/fpga-radio-lab/media/wideband-weaver-triad-july26.png" width="3060" height="1700" decoding="async" fetchpriority="high" alt="Three genuine receiver views of the July 26 one-pin Weaver transmitter: the square upper sideband, the 208.5 megahertz true conjugate image region, and the 216 megahertz four-phase carrier">
             </a>
-            <figcaption>The physical transmitter begins on this iCE40 HX8K breakout board. N16 is the only FPGA output used by the RF path; power, configuration, telemetry, ground, the tank, and the receiver still exist around it.</figcaption>
+            <figcaption>The July 26 Weaver triad: the square 223.25–223.75 MHz upper sideband, the 208.5 MHz true conjugate-image region, and the 216 MHz physical carrier. This wideband triad measured 20.28 dB raw wanted/image separation; the separate narrow-lane pair measured 29.44 dB and appears below. Levels are receiver-relative, not dBm. <a href="/fpga-radio-lab/data/wideband-weaver-triad-july26.csv">Download the plotted spectra</a>.</figcaption>
         </figure>
     </section>
 
     <main>
         <section>
-            <h2>The Signal Leaves the FPGA in a Different Form</h2>
-            <p>A conventional quadrature transmitter often ends its digital work at a pair of DACs. Analog I and Q then enter an external mixer. I moved that boundary. The complete complex signal is already encoded before it reaches the FPGA pad.</p>
-            <p>The v10 path begins with an FPGA-native PRBS16 QPSK sequence. A 32-phase complex lane produces signed I and Q values. Two first-order sigma-delta modulators reduce those values to one bit each. A common Gray-coded DDS rotates the complete two-bit word by +7.5 MHz. The final selector chooses among the PLL’s 0°, 90°, 180°, and 270° states at 216 MHz. The pMOS side of N16 then switches high or high-impedance into the resonant network.</p>
-            <p>There is no external DAC or quadrature mixer at that boundary. The tank is not an afterthought that cleans up an otherwise complete transmitter; resonant matter supplies the narrowband physical behavior that the switched pad itself does not.</p>
+            <h2>Four Quadrature Mixers End in a Phase-Domain Summator</h2>
+            <p>A Weaver transmitter uses two quadrature mixer pairs: four mixers altogether. Physical27 sigma-delta encodes I and −Q into one bit each. A +7.5 MHz quadrant sequence performs the first mixer pair as exact swaps and inversions of the complete two-bit word. Its outputs are two one-bit intermediate signals.</p>
+            <p>Those two signals control a four-state selector. Each state is the algebraic result of the second pair of quadrature mixers operating on 0°, 90°, 180°, and 270° phases of the physical 216 MHz PLL clock. The selector is therefore a phase-domain summator: it realizes both 216 MHz carrier mixers and their sum on one RF pin. N16 switches that result high or high impedance into the tank.</p>
+            <p>Let Q′ denote the selected quadrature polarity; Physical27 uses <code>Q′ = −Q</code>. The first two mixer products form <code>I1 = I·cos(IF) − Q′·sin(IF)</code> and <code>Q1 = I·sin(IF) + Q′·cos(IF)</code>. The second two mixer products enter the summator as <code>I1·cos(LO) − Q1·sin(LO)</code>. The LO+IF terms reinforce while the LO−IF terms cancel. Reversing Q′ swaps which side survives.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/one-pin-signal-path.svg">
-                    <img src="/fpga-radio-lab/media/one-pin-signal-path.svg" width="1800" height="760" loading="lazy" decoding="async" alt="Causal path from FPGA-native PRBS16 QPSK through complex lane logic, signed I and Q sigma-delta modulators, a 7.5 megahertz phase rotation, four 216 megahertz phases, N16, the resonant tank, a pad, and an RTL-SDR">
+                    <img src="/fpga-radio-lab/media/one-pin-signal-path.svg" width="1800" height="760" loading="lazy" decoding="async" alt="Physical27 Weaver path with two baseband I/Q sigma-delta streams, a first quadrature mixer pair, two one-bit intermediate signals, and a four-state selector that performs the phase-domain sum of the two 216 megahertz carrier mixers on N16">
                 </a>
-                <figcaption>The final v10 path. Complex baseband becomes two one-bit streams and then one of four RF phases before N16 reaches the resonant network.</figcaption>
+                <figcaption>The active Physical27 path implements four quadrature mixers followed by a phase-domain summator. The final selector emits their summed state on one RF pin.</figcaption>
             </figure>
+            <p>The April 2025 <code>mod_apr20.sv</code> used opposing sawtooth baseband sources, two one-bit sigma-delta streams, the same four-mixer Weaver structure, and the same phase-domain summator. Physical27 is its architectural descendant: the frontend now generates PRBS16 QPSK, but the two one-bit intermediate signals, four physical carrier phases, high/high-impedance N16 boundary, and resonant tank remain.</p>
+        </section>
+
+        <section>
+            <h2>I Removed the Pilot and the Carrier Fell Away</h2>
+            <p>On July 25 I sent a narrow QPSK upper branch through the FPGA, N16, tank, nominal 3 dB pad, and RTL-SDR. A deliberate +I pilot made the translated center conspicuous. Removing only that pilot pushed the center line down by 23.41 dB while changing wanted power by 0.01 dB and the local opposite branch by 0.08 dB.</p>
+            <p>With the pilot gone, the wanted branch stood 18.87 dB above the opposite branch and the residual translated center was 28.00 dB below the wanted signal. Visually, this was the orthogonal-looking spectrum I had been chasing: information occupied one side while the local opposite branch and translated center fell away.</p>
+
+            <figure class="inspectable-image">
+                <a href="/fpga-radio-lab/media/weaver-pilot-zero-comparison.png">
+                    <img src="/fpga-radio-lab/media/weaver-pilot-zero-comparison.png" width="2520" height="1800" loading="lazy" decoding="async" alt="Physical comparison of the one-pin transmitter with and without a deliberate in-phase pilot, showing the carrier fall 23.41 decibels while wanted and opposite QPSK branches remain nearly unchanged">
+                </a>
+                <figcaption>The same FPGA image, QPSK bytes, tank, pad, receiver gain, and fixed integration masks before and after removing the pilot. The local opposite branch around the translated center is not the 208 MHz true RF conjugate image. Levels are receiver-relative. <a href="/fpga-radio-lab/data/weaver-pilot-zero-comparison.csv">Download the measured ratios</a>.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h2>The Square Upper Sideband Was the Point</h2>
+            <p>Physical37 streamed signed 16-bit I and Q at 750 ksample/s into the FPGA SDM/DDS/Weaver path. The tank-coupled output filled a 500 kHz upper-sideband core from 223.25 to 223.75 MHz. Its P10-to-P90 level spread was 1.14 dB: visually and numerically close to the flat rectangular band I had been chasing.</p>
+            <p>I then retuned the same receiver to the true 208.2–208.8 MHz conjugate-image region and to the 216 MHz four-phase carrier. Across those sequential views, raw integrated wanted/image separation was 20.28 dB. The raw 216 MHz carrier was 5.70 dB below the wanted band; a coarse receiver-shape adjustment changed those ratios to 21.48 and 9.81 dB.</p>
+
+            <p>The three receiver views at the top use the v15 payload and path while the RTL-SDR tunes sequentially to the wanted band, true image, and carrier. Each view includes its own RF-off baseline. The uninterrupted run then continued after midnight. A later same-configuration four-view sweep improved the 500 kHz flat-core spread to 0.929 dB, placed the 216 MHz carrier 28.85 dB below the desired band, integrated a ±2 kHz translated-center window 38.39 dB below it while excluding the exact tuner-DC bin, and measured 22.52 dB desired/image separation.</p>
+
+            <figure class="inspectable-image">
+                <a href="/fpga-radio-lab/media/wideband-weaver-triad-july27.png">
+                    <img src="/fpga-radio-lab/media/wideband-weaver-triad-july27.png" width="2880" height="1800" loading="lazy" decoding="async" alt="July 27 after-midnight same-configuration Weaver measurements showing the wanted rectangular band, 216 megahertz carrier, true conjugate image, and translated-center integration window">
+                </a>
+                <figcaption>Physical136–139, acquired from 1:12 to 1:17 a.m. PDT on July 27, use the same payload, bitstream, rotation, and guarded acquisition sequence. The four receiver tunings are sequential and receiver-relative. <a href="/fpga-radio-lab/data/wideband-weaver-triad-july27.csv">Download every plotted bin</a>.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h2>The Narrow Lane Put the True Image 29.44 dB Down</h2>
+            <p>Physical27 sent a narrow FPGA-native QPSK lane at 223.5625 MHz. Physical28 kept the FPGA image, gain, sample rate, cable path, and three-second gate unchanged, then moved only the RTL-SDR tuning to the predicted 208.4375 MHz conjugate image. Signed TX-on-minus-RF-off power in fixed 25 kHz windows gave a 29.44 dB wanted/image ratio.</p>
+            <p>Across five broad NanoVNA sweeps, S21 was about 7.95 dB higher at 223.5625 MHz than at 208.4375 MHz, so the tank clearly favored the wanted frequency. The NanoVNA sweep and sequential SDR captures used different instruments and reference planes; subtracting 7.95 dB from 29.44 dB would not isolate a digital-only Weaver cancellation figure.</p>
+
+            <figure class="inspectable-image inspectable-image--fit">
+                <a href="/fpga-radio-lab/media/target-and-conjugate-image.png">
+                    <img src="/fpga-radio-lab/media/target-and-conjugate-image.png" width="1771" height="966" loading="lazy" decoding="async" alt="Actual receiver views centered on the 223.5625 megahertz wanted lane and the 208.4375 megahertz true conjugate image with same-capture RF-off traces">
+                </a>
+                <figcaption>The wanted lane and its resolved true conjugate image. This 29.44 dB result belongs to the sequential tank-to-receiver path. <a href="/fpga-radio-lab/data/target-image-spectra.csv">Download the plotted windows</a>.</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h2>The Tank Turned One-Pin Switching Into Measurable RF Power</h2>
+            <p>The pMOS output does not synthesize a smooth voltage. It injects timed charge into the coupled resonant network and then releases the pin. Electric and magnetic energy continue exchanging in the tank between FPGA edges. That is why this transmitter is not merely a digital pin followed by cosmetic filtering: the RF waveform exists through the interaction of the phase sequence and the tuned matter.</p>
+            <p>My historical bench sketch notes about −15 dBm beside the earlier 7.5 kΩ coupling path. As a power unit, −15 dBm is 31.6 µW; if that power is delivered into 50 Ω, it corresponds to 39.8 mV RMS or about 112 mV peak-to-peak for a sine wave. The sketch does not name its load, output reference plane, bandwidth, cable correction, or instrument settings, so it remains the earlier noted tank value—not a July 2026 output-power measurement.</p>
+
+            <div class="photo-pair">
+                <figure class="inspectable-image inspectable-image--fit">
+                    <a href="/backdrop_rf.jpeg"><img src="/backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Historical one-pin transmitter composite with quadrature sawtooths, the hand-built resonant tank, and the RF analyzer screen near 245.388 megahertz"></a>
+                    <figcaption>The original experiment family: I/Q sawtooths, the coupled tank, and a historical analyzer view at 245.388 MHz. The views are not one synchronized capture.</figcaption>
+                </figure>
+                <figure class="inspectable-image inspectable-image--fit">
+                    <a href="/one-pin-RF/images/resonant-tank-output-sketch.jpg"><img src="/one-pin-RF/images/resonant-tank-output-sketch.jpg" width="1280" height="663" loading="lazy" decoding="async" alt="Brian's historical sketch of the FPGA switching waveform, coupling resistor and capacitor, coupled resonant tank, sinusoidal output, and minus 15 dBm note"></a>
+                    <figcaption>The contemporaneous topology sketch carries the rounded −15 dBm note and the earlier 7.5 kΩ value.</figcaption>
+                </figure>
+            </div>
+
+            <p>For the July 26 Physical27 run, the fixed 25 kHz wanted window integrated to −20.85 dB on the receiver analysis scale, and its peak reached −38.55 dBFS per FFT bin. The RTL-SDR chain had no injected reference supplying a frequency-and-gain calibration constant, so converting either number to dBm would invent a reference that was never measured. The next absolute-power pass must sample voltage at a named 50 Ω output plane with the exact bitstream, tank load, carrier setting, probe factor, scope termination, and path loss recorded together.</p>
         </section>
 
         <section>
@@ -119,7 +180,7 @@
         <section>
             <h2>July 25: Make the Physical Boundary Answer Simple Questions</h2>
             <p>I began by untangling the fixture. The NanoVNA measured the passive network while the transmitter was off. The RTL-SDR then measured the active path with the NanoVNA powered down. Early captures checked tuner behavior, receiver gain, the idle state, finite on/off timing, harmonics within the receiver’s usable range, and whether the ADC hit its rails.</p>
-            <p>Five complex tank sweeps put the median S21 maximum at 220.782991 MHz. The half-power crossings were 217.439055 and 223.718667 MHz, giving a 6.280417 MHz loaded half-power bandwidth and loaded Q of 35.1575. The later 223.5625 MHz QPSK lane lies only 156.167 kHz inside the upper half-power crossing. Its interpolated median S21 is about −23.22 dB, roughly 2.75 dB below the tank peak.</p>
+            <p>Five complex tank sweeps put the median S21 maximum at 220.783 MHz. The half-power crossings were 217.439 and 223.719 MHz, giving a 6.28 MHz loaded bandwidth and loaded Q of about 35.2. The later 223.5625 MHz QPSK lane lies about 156 kHz inside the upper half-power crossing. Its interpolated median S21 is about −23.22 dB, roughly 2.75 dB below the tank peak.</p>
 
             <div class="photo-pair">
                 <figure class="inspectable-image inspectable-image--fit">
@@ -139,50 +200,40 @@
                 <figcaption>Five complex NanoVNA sweeps of the actual tank. The existing calibration fixes the local measurement plane but is not independently traceable. <a href="/fpga-radio-lab/data/tank-s21-five-repeats.csv">Download the plotted S21 values</a>.</figcaption>
             </figure>
 
-            <p>Then I asked the one-pin boundary a cleaner causal question: if only the sign of Q changes, does the physical RF component cross the carrier? It did. The received peak moved from −997.925 Hz to +997.925 Hz around the measured midpoint, a 1.995850 kHz separation. The same digital-to-physical boundary was controlling direction, not merely gating a carrier.</p>
+            <p>Then I asked the one-pin boundary a cleaner causal question: if only the sign of Q changes, does the physical RF component cross the carrier? It did. The received peak moved from about −997.9 Hz to +997.9 Hz around the measured midpoint, a 1.996 kHz separation. The same digital-to-physical boundary was controlling direction, not merely gating a carrier.</p>
 
-            <figure class="inspectable-image inspectable-image--fit">
-                <a href="/fpga-radio-lab/media/q-sign-reversal.png">
-                    <img src="/fpga-radio-lab/media/q-sign-reversal.png" width="1771" height="982" loading="lazy" decoding="async" alt="Two received spectra in which changing only the Q sign moves the selected component from 997.925 hertz below the measured midpoint to 997.925 hertz above it">
+            <figure class="inspectable-image">
+                <a href="/fpga-radio-lab/media/weaver-q-sign-sideband-reversal.png">
+                    <img src="/fpga-radio-lab/media/weaver-q-sign-sideband-reversal.png" width="2904" height="1803" loading="lazy" decoding="async" alt="Full physical receiver spectrum and close view showing that changing only the Q sign moves the selected RF component from 997.925 hertz below the measured midpoint to 997.925 hertz above it">
                 </a>
-                <figcaption>Changing one sign moved the received component across the carrier. The other narrow lines stayed available as context instead of being cropped away. <a href="/fpga-radio-lab/data/q-sign-reversal.csv">Download the plotted bins</a>.</figcaption>
+                <figcaption>The full 222.5–223.0 MHz receiver view and the close sideband view from two bounded six-second transmissions. Changing only Q's sign reversed the Weaver sideband. Levels are receiver-relative. <a href="/fpga-radio-lab/data/q-sign-reversal.csv">Download the plotted bins</a>.</figcaption>
             </figure>
         </section>
 
         <section>
-            <h2>July 26: Let the Received Consequence Choose the Next Change</h2>
-            <p>The experiment loop became most useful when a visually attractive answer was allowed to lose. An 8PSK branch improved opposite-window separation by changing the Q Johnson tap. Run35 reached 20.58 dB and recovered its frame and CRC. Run36 removed a 0.750 phase prewarp and produced an even prettier 23.74 dB spectral separation—but the message length was wrong, the CRC failed, decision-referenced EVM reached 96.15%, and phase jitter reached 93.62°. The laboratory rejected Run36 and restored Run35.</p>
-            <p>That failure changed the objective. Spectrum, logic state, and decoded information had to agree. A narrow line or a better ratio could no longer win by itself.</p>
+            <h2>I Separated Wanted Shape, Carrier, and Image</h2>
+            <p>On July 26 I separated three physical questions that had been conflated: the wanted-band shape, the residual 216 MHz carrier, and the 208 MHz conjugate image. Each receiver tuning changed one observable boundary, so the next FPGA change could address one mechanism at a time.</p>
 
             <dl class="lab-timeline">
-                <dt>July 25, 11:13</dt><dd>Bench reconstruction began with the board, tank, instruments, and operating boundary.</dd>
-                <dt>14:59–16:46</dt><dd>Safety screens, bounded on/off behavior, gain checks, Q-sign reversal, tone tests, and the physically recovered sawtooth mapped the one-pin boundary.</dd>
-                <dt>18:49–21:59</dt><dd>Two-axis audio, system identification, QPSK captures, and natural-voice FM moved from carrier behavior into information-bearing signals.</dd>
-                <dt>July 26, 02:38–05:26</dt><dd>Response-driven phase and tap experiments improved real packets, then rejected Run36 when its better spectrum carried the wrong message.</dd>
-                <dt>14:06–16:21</dt><dd>Separate wanted, 216 MHz carrier, and conjugate-image views isolated two different problems. One nominal PLL delay tap improved the image while slightly worsening carrier separation.</dd>
-                <dt>16:48–17:50</dt><dd>The final v10 build passed four clock domains. Physical27 carried FPGA-native PRBS QPSK; Physical28 retuned the receiver to the conjugate-image region.</dd>
-                <dt>20:16–20:20</dt><dd>A wide stimulus exposed an 18.8878 dB flat-core spread and a strong 216 MHz term, blocking any claim of a uniformly clean three-megahertz transmitter.</dd>
+                <dt>July 25, 11:13</dt><dd>I reconstructed the board, tank, coupling path, receiver, and bounded operating sequence.</dd>
+                <dt>14:59–16:46</dt><dd>Q-sign reversal and pilot removal made the physical I/Q direction and translated-center suppression visible.</dd>
+                <dt>July 26, 16:48–17:50</dt><dd>Physical27 carried FPGA-native PRBS QPSK; Physical28 moved the receiver to the predicted true-image frequency.</dd>
+                <dt>20:57–21:23</dt><dd>Physical37 produced the 500 kHz square upper sideband; Physical39 and Physical48 added the true-image and 216 MHz carrier views.</dd>
+                <dt>July 27, 01:12–01:17</dt><dd>Physical136–139 repeated wanted, carrier, image, and translated-center views with one payload, bitstream, and rotation.</dd>
             </dl>
-
-            <figure class="inspectable-image inspectable-image--fit">
-                <a href="/fpga-radio-lab/media/pll-delay-tradeoff.png">
-                    <img src="/fpga-radio-lab/media/pll-delay-tradeoff.png" width="1620" height="921" loading="lazy" decoding="async" alt="Bar chart comparing target-to-image and target-to-carrier receiver ratios before and after one nominal PLL port-A delay tap">
-                </a>
-                <figcaption>One nominal port-A delay tap improved the 500 Hz wanted/image ratio from 25.07 to 31.00 dB while the wanted/216 MHz carrier ratio moved from 8.13 to 7.36 dB. These are sequential, receiver-relative complete-path comparisons.</figcaption>
-            </figure>
         </section>
 
         <section>
-            <h2>The Final FPGA Generated Its Own QPSK</h2>
+            <h2>A Native QPSK Payload Exercised the Weaver Path</h2>
             <p>The final Physical27 image did not stream payload samples from the host. A PRBS16 generator inside the FPGA began from <code>0x1D2B</code>, advanced with the recurrence <code>p15 ^ p13 ^ p12 ^ p10</code>, and mapped lane 62 as <code>{p5 ^ 1, p7}</code>. Its four states were <code>0=+I</code>, <code>1=+Q</code>, <code>2=−I</code>, and <code>3=−Q</code>.</p>
-            <p>The timing-closed HX8K image used 2,127 of 7,680 logic cells, one of two PLLs, no block RAM, three global buffers, and seven I/O cells. The 12, 30, 108, and 216.03 MHz domains all passed their declared timing constraints. A 324,000,000-cycle gate created one nominal three-second burst at 3,295.8984375 symbols/s and 6,591.796875 gross bits/s.</p>
-            <p>The historical <code>mod_apr20.sv</code> transmitter used opposing sawtooths, two one-bit quantizers, Johnson-counter translation, and the same four-phase selection idea. V10 retains the two one-bit I/Q paths, final phase selector, pMOS-only N16 boundary, and external tank. It replaces the sawtooth frontend with FPGA-native PRBS QPSK, a complex lane waveform, signed SDMs, complete-word +7.5 MHz rotation, one-shot gating, and direct telemetry. It is a descendant, not a byte-equivalent rebuild of the historical source.</p>
+            <p>The timing-closed HX8K image used 2,127 of 7,680 logic cells, one of two PLLs, no block RAM, three global buffers, and seven I/O cells. The 12, 30, 108, and 216.03 MHz domains all passed their declared timing constraints. A 324,000,000-cycle gate created one nominal three-second burst at 3,295.9 symbols/s and 6,591.8 gross bits/s.</p>
+            <p>The April 2025 <code>mod_apr20.sv</code> transmitter used opposing sawtooth baseband sources, two sigma-delta streams, a quadrature IF mixer pair, and the same phase-domain summator for the second two mixers and their RF sum. V10 retains that four-mixer structure, the two one-bit intermediate signals, pMOS-only N16 boundary, and external tank. It replaces the baseband and IF implementation with FPGA-native PRBS QPSK, a complex lane waveform, signed SDMs, complete-word +7.5 MHz rotation, one-shot gating, and direct telemetry. It is a descendant, not a byte-equivalent rebuild of the April 2025 source.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/physical27-live-datapath.png">
-                    <img src="/fpga-radio-lab/media/physical27-live-datapath.png" width="1771" height="1097" loading="lazy" decoding="async" alt="Actual ordered Physical27 FPGA telemetry snapshots of pre-sigma-delta I and Q, I and Q sigma-delta bits, DDS quadrant, and four-phase selector state">
+                    <img src="/fpga-radio-lab/media/physical27-live-datapath.png" width="1771" height="1097" loading="lazy" decoding="async" alt="Actual ordered Physical27 FPGA telemetry snapshots of pre-sigma-delta I and Q, I and Q sigma-delta bits, first-mixer DDS quadrant, and phase-domain summator state">
                 </a>
-                <figcaption>Actual ordered snapshots from the live v10 datapath: pre-SDM I/Q, both one-bit SDM outputs, DDS quadrant, and final selector state. USB telemetry is not a sample-synchronous 216 MHz logic analyzer. <a href="/fpga-radio-lab/data/physical27-telemetry-snapshots.csv">Download the 120 plotted snapshots</a>.</figcaption>
+                <figcaption>Actual ordered snapshots from the live v10 datapath: pre-SDM I/Q, both one-bit SDM outputs, first-mixer DDS quadrant, and phase-domain summator state. USB telemetry is not a sample-synchronous 216 MHz logic analyzer. <a href="/fpga-radio-lab/data/physical27-telemetry-snapshots.csv">Download the 120 plotted snapshots</a>.</figcaption>
             </figure>
 
             <p><a href="/fpga-radio-lab/one-pin-qpsk-signal-path.html">Follow every v10 stage from PRBS state to N16</a>, including source excerpts, constraints, the exact build command, and the source bundle used by the measured image.</p>
@@ -190,7 +241,7 @@
 
         <section>
             <h2>8,592 Bits Crossed the Physical Path</h2>
-            <p>Physical27 armed the RTL-SDR and direct telemetry before programming the FPGA. The receiver captured unsigned 8-bit complex samples at 2.4 MS/s, centered at 223.4875 MHz. The analysis mixed the 223.5625 MHz lane to baseband, averaged groups of 45 input samples, and applied a 257-tap 10 kHz low-pass filter. Channel energy located one 3.0081-second burst without using the transmitted sequence.</p>
+            <p>Physical27 armed the RTL-SDR and direct telemetry before programming the FPGA. The receiver captured unsigned 8-bit complex samples at 2.4 MS/s, centered at 223.4875 MHz. The analysis mixed the 223.5625 MHz lane to baseband, averaged groups of 45 input samples, and applied a 257-tap 10 kHz low-pass filter. Channel energy located one 3.008-second burst without using the transmitted sequence.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/physical27-spectrum.png">
@@ -200,7 +251,7 @@
             </figure>
 
             <p>A fourth-power carrier tracker learned its smoothing width from early directly observed epochs, then followed received I/Q during held-out data without using held-out truth or decisions. Timing, orientation, clock scale, complex gain, and offset were frozen from the early region. Each symbol came from 13 interpolated samples across the central 72% of its epoch.</p>
-            <p>The nominal held-out span contained 5,623 epochs. Direct telemetry reached 4,296 of them; 1,327 holes inside that span stayed absent. Across the entire run, 2,332 epochs were missing. None were reconstructed or scored. The 4,296 directly observed symbols became 8,592 checked bits with no observed errors, 2.0696356% carrier-tracked RMS EVM, and 0.999584 normalized correlation.</p>
+            <p>The nominal held-out span contained 5,623 epochs. Direct telemetry reached 4,296 of them; 1,327 holes inside that span stayed absent. Across the entire run, 2,332 epochs were missing. None were reconstructed or scored. The 4,296 directly observed symbols became 8,592 checked bits with no observed errors, 2.07% carrier-tracked RMS EVM, and 0.9996 normalized correlation.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/physical27-constellation.png">
@@ -211,29 +262,14 @@
         </section>
 
         <section>
-            <h2>The Image and the Carrier Refused to Become One Problem</h2>
-            <p>Physical28 kept the FPGA image, gain, sample rate, path, and duration unchanged, then moved only the RTL-SDR tuning to the 208.4375 MHz conjugate-image region. Both the wanted lane and the named image rose above their own same-capture RF-off baselines. Signed excess power in fixed 25 kHz windows produced a 29.4439 dB wanted/image ratio.</p>
-            <p>That number belongs to the complete sequential path. The tank, cable, pad, tuner, RTL-SDR frequency response, independent clocks, and time between tunings remain inside it. It is not intrinsic digital cancellation. A stronger unassigned line near 208.5 MHz also remains outside the predeclared image window instead of being relabeled after the fact.</p>
-
-            <figure class="inspectable-image inspectable-image--fit">
-                <a href="/fpga-radio-lab/media/target-and-conjugate-image.png">
-                    <img src="/fpga-radio-lab/media/target-and-conjugate-image.png" width="1771" height="966" loading="lazy" decoding="async" alt="Two actual receiver views centered on the 223.5625 megahertz wanted lane and the 208.4375 megahertz conjugate image with same-capture RF-off traces">
-                </a>
-                <figcaption>Wanted and image views from two RTL-SDR tunings of the same FPGA profile. Every panel retains its same-capture RF-off trace. <a href="/fpga-radio-lab/data/target-image-spectra.csv">Download the plotted windows</a>.</figcaption>
-            </figure>
-
-            <p>The 216 MHz four-phase carrier remained a separate, stronger limitation. Later wideband work also found a flat-core p10-to-p90 spread of 18.8878 dB. Quadrature timing changed the image; it did not cure carrier feedthrough or make the wide waveform flat. That separation of causes is more valuable than a single flattering spectrum.</p>
-        </section>
-
-        <section>
             <h2>The Chamber Bounded Each Burst</h2>
             <p>I ran the bench inside an RF chamber as a transmission-safety boundary. Each final profile used volatile configuration, N16 defaulted to high impedance, PLL or reset loss vetoed RF, and the board’s TX LED followed the real physical gate. Physical27 and Physical28 both ended with idle postflight telemetry: N16 high-impedance, burst inactive, and the TX LED off.</p>
-            <p>No retained photograph captures the complete chamber setup, tank wiring, and receiver path. I also did not retain a calibrated exterior field-strength sweep with distance, antenna factor, orientation, detector, bandwidth, ambient baseline, uncertainty, and field units. The July 25–26 runs therefore carry no chamber-leakage number, Part 15 margin, compliance claim, output-power claim, or legal-outdoor claim.</p>
+            <p>The chamber confined the bounded bursts, but no calibrated exterior field-strength sweep measured what escaped it. Distance, antenna factor, orientation, detector, bandwidth, ambient baseline, uncertainty, and field units were not part of the run, so chamber leakage and regulatory margin remain unquantified. The transmitter was not operated as an outdoor legal-power test.</p>
         </section>
 
         <section>
             <h2>Listen to an Earlier FM Passage Through the Same Boundary</h2>
-            <p>Before the final FPGA-native PRBS experiment, a July 25 run used complex FM to pass a privacy-neutral spoken progress report through N16, the tank, the nominal 3 dB pad, and the RTL-SDR. The physical demodulation below lasts 9.794 seconds. Against its exact source-phase model, the longer fitted interval reached 0.869426 correlation and 4.909 dB single-fit SNR, with a 56.83% EVM-like residual.</p>
+            <p>Before the final FPGA-native PRBS experiment, a July 25 run used complex FM to pass a privacy-neutral spoken progress report through N16, the tank, the nominal 3 dB pad, and the RTL-SDR. The physical demodulation below lasts 9.79 seconds. Against its exact source-phase model, the longer fitted interval reached 0.869 correlation and 4.91 dB single-fit SNR, with a 56.8% EVM-like residual.</p>
             <p>The audio is recognizably information-bearing and audibly imperfect. It belongs to the earlier FM branch, not the Physical27 QPSK payload.</p>
 
             <div class="lab-audio">
@@ -255,7 +291,7 @@
 
         <section>
             <h2>What I Am Building Next</h2>
-            <p>The two-day loop can now move from “does the mechanism cross matter?” to controlled characterization and more capable experiment selection. The next work is predominantly instrumentation and causal reach, not another layer of explanatory prose.</p>
+            <p>The next work is traceable conducted power, common-clock timing, repeatability, and a wider experiment envelope.</p>
 
             <div class="roadmap-grid">
                 <article class="roadmap-card roadmap-card--complete">
@@ -295,8 +331,8 @@
 
         <section>
             <h2>Build the V10 Transmitter</h2>
-            <p>The six exact Yosys inputs used by Physical27 now sit beside both generated pre-emphasis includes, the HX8K constraints, timing declarations, a path-neutral build script, the retained profile parameters, and the route summary. The script reproduced the v10 netlist, routed design, report, and FPGA image byte for byte, with all four declared clock domains passing.</p>
-            <p>Those compiled inputs were not part of the repository revision that existed while the bench was running. The July 27 tree binds them together for the first time. The source is available for study and reproduction, but no reuse license has been granted. The programming image, raw RF samples, raw telemetry, device reports, and private workstation paths are not included.</p>
+            <p>Run <code>bash scripts/build-v10.sh</code> to regenerate the v10 netlist, route report, and FPGA image; all four declared clocks pass timing. The bundle includes the RTL, generated constants, constraints, build script, route summary, and scorer.</p>
+            <p>The source is available for study and reproduction; no separate reuse license has been granted.</p>
 
             <div class="download-grid">
                 <article class="download-card">
@@ -320,8 +356,8 @@
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="/fpga-radio-lab/one-pin-qpsk-signal-path.html">Inside the One-Pin QPSK Signal Path</a>
-        <p>Move from PRBS state through signed SDMs, the whole-word phase rotation, four RF phases, N16, and the tank.</p>
+        <a href="/fpga-radio-lab/one-pin-qpsk-signal-path.html">How the One-Pin FPGA Weaver Transmitter Combines I and Q</a>
+        <p>Move through four quadrature mixers, two one-bit intermediate signals, the phase-domain summator, N16, and the tuned tank.</p>
         <p>Technical branches:</p>
         <a href="/fpga-radio-lab/received-qpsk.html">How 8,592 QPSK Bits Came Back Through the Tank</a>
         <a href="/fpga-radio-lab/measurement-loop.html">The HITL Control Loop From RTL Change to Physical RF</a>

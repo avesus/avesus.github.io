@@ -183,11 +183,11 @@
 
             <div class="capability-grid">
                 <article class="capability-card">
-                    <a href="fpga-radio-hardware-in-the-loop.html"><img src="fpga-radio-lab/media/hx8k-board.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="The actual iCE40 HX8K board used for the one-pin FPGA QPSK transmitter"></a>
+                    <a href="fpga-radio-hardware-in-the-loop.html"><img src="fpga-radio-lab/media/wideband-weaver-triad-july26.png" width="3060" height="1700" loading="lazy" decoding="async" alt="The measured square upper sideband, true conjugate image, and physical carrier of Brian Greenforest's one-pin FPGA Weaver transmitter"></a>
                     <span class="eyebrow">RF transmit · physical feedback</span>
-                    <h3><a href="fpga-radio-hardware-in-the-loop.html">One FPGA pin carried 8,592 checked QPSK bits</a></h3>
-                    <p>An iCE40 generated PRBS16 QPSK, reduced complex I and Q to two one-bit streams, selected four 216 MHz phases, and drove N16 into a hand-built resonant tank. A two-day hardware-in-the-loop system rebuilt and measured each change, then rejected a prettier spectrum when it carried the wrong message.</p>
-                    <p><a href="one-pin-quadrature-sdm-transmitter.html">Original quadrature/SDM architecture</a></p>
+                    <h3><a href="fpga-radio-hardware-in-the-loop.html">Four quadrature mixers feed a phase-domain summator on one FPGA RF pin</a></h3>
+                    <p>Two baseband I/Q sigma-delta streams undergo the first Weaver conversion. Their two one-bit results control a four-state selector that realizes the two 216 MHz carrier mixers and performs their phase-domain sum before N16 excites a tuned tank. The narrow wanted lane reached 29.44 dB complete-path image separation.</p>
+                    <p><a href="one-pin-quadrature-sdm-transmitter.html">April 2025 one-pin Weaver RTL</a></p>
                 </article>
 
                 <article class="capability-card">

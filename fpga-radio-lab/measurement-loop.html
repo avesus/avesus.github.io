@@ -150,7 +150,7 @@
         <section>
             <h2>July 26: The Receiver Chose Two Follow-Up Experiments</h2>
             <p>At 02:38 PDT, Run 14 recovered all 1,800 transmitted bits and passed CRC while giving 7.661408 dB of separation from the unwanted comparison window. The physical response did not justify a full correction, so the loop selected a half-sized frequency warp for the follow-up. At 03:02, Run 17 preserved the exact 1,800-bit recovery and raised that separation to 10.435617 dB, an improvement of 2.774209 dB. It also worsened separation from the central LO by 1.011560 dB. The receiver had found an improvement and exposed its cost in the same event.</p>
-            <p>The sharper sequence began at 04:40. Run 33 passed its packet check with 8.865934 dB of raw separation between opposite windows. The pattern pointed to Q being one adjacent Johnson-counter tap away from the intended phase. I allowed one RTL change: the Q tap moved from 1 to 0. Nothing else moved.</p>
+            <p>The sharper sequence began at 04:40. Run 33 passed its packet check with 8.865934 dB of raw separation between opposite windows. The pattern pointed to Q entering the first IF mixer with the wrong adjacent phase. In that RTL snapshot, the Johnson counter served specifically as the quadrature IF oscillator; I changed only the Q input tap from phase 1 to phase 0.</p>
             <p>Run 35 at 05:09 raised the separation to 20.583482 dB, an 11.717548 dB improvement, while the frame length and CRC still passed. Run 36 at 05:23 looked even better in the spectral window: 23.744552 dB. But its recovered length was wrong, CRC failed, decision-referenced EVM reached 96.152%, and angular jitter reached 93.617 degrees. Three minutes later the orchestration restored Run 35.</p>
             <p>That reversal is the central reason I built the loop. A spectrum analyzer can reward a change that destroys the communication system. Closing the path through recovered information prevented the nicest-looking failure from becoming the next design.</p>
         </section>
@@ -175,7 +175,7 @@
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/physical27-live-datapath.png">
-                    <img src="/fpga-radio-lab/media/physical27-live-datapath.png" width="1771" height="1097" loading="lazy" decoding="async" alt="Live Physical 27 FPGA telemetry snapshots of pre-sigma-delta I and Q, both one-bit outputs, DDS quadrant, and final four-phase selector state">
+                    <img src="/fpga-radio-lab/media/physical27-live-datapath.png" width="1771" height="1097" loading="lazy" decoding="async" alt="Live Physical 27 FPGA telemetry snapshots of pre-sigma-delta I and Q, both one-bit outputs, first-mixer DDS quadrant, and phase-domain summator state">
                 </a>
                 <figcaption>Physical 27 joined applied digital state to one independently captured RF event. The receiver was running before CRAM load and stayed running through the return to idle.</figcaption>
             </figure>
@@ -230,8 +230,8 @@
         <a href="/fpga-radio-lab/received-qpsk.html">How 8,592 QPSK Bits Came Back Through the Tank</a>
         <p>Follow the Physical 27 burst through carrier acquisition, held-out phase tracking, symbol decisions, bit recovery, and postflight quiet.</p>
         <p>More:</p>
-        <a href="/fpga-radio-lab/one-pin-qpsk-signal-path.html">Inside the One-Pin QPSK Signal Path</a>
-        <a href="/fpga-radio-hardware-in-the-loop.html">The Complete One-Pin FPGA Radio Laboratory</a>
+        <a href="/fpga-radio-lab/one-pin-qpsk-signal-path.html">How the One-Pin FPGA Weaver Transmitter Combines I and Q</a>
+        <a href="/fpga-radio-hardware-in-the-loop.html">The One-Pin Weaver Measurements and Tuned Tank</a>
         <a href="/fpga-systems.html">FPGA Systems</a>
         <a href="/">Back to greenforest.io</a>
     </nav>
