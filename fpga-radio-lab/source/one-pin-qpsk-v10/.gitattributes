@@ -1,0 +1,16 @@
+# Preserve the retained build inputs byte for byte.  Several generated inputs
+# use CRLF line endings, and their exact hashes are part of the build record.
+rtl/**/*.sv -text whitespace=cr-at-eol
+rtl/**/*.svh -text whitespace=cr-at-eol
+rtl/**/*.json -text whitespace=cr-at-eol
+constraints/*.py -text whitespace=cr-at-eol
+constraints/*.pcf -text whitespace=cr-at-eol
+reference/PROFILE_MANIFEST.txt -text whitespace=cr-at-eol
+reference/route_summary.tsv -text whitespace=cr-at-eol
+data/*.csv -text whitespace=cr-at-eol
+
+# Keep the hand-authored, executable parts of the public bundle portable.
+*.md text eol=lf
+scripts/*.sh text eol=lf
+scripts/*.py text eol=lf
+reference/*.sha256 text eol=lf

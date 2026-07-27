@@ -1,0 +1,2 @@
+seed	exit_code	crystal12	mpsse30	clk108	pll216
+1	0	Info: Max frequency for clock 'CRYSTAL_12MHZ$SB_IO_IN': 84.78 MHz (PASS at 12.00 MHz)	Info: Max frequency for clock    'MPSSE_SCLK$SB_IO_IN': 115.81 MHz (PASS at 30.00 MHz)	Info: Max frequency for clock                'clk_108': 108.67 MHz (PASS at 108.00 MHz)	Info: Max frequency for clock             'pll_216mhz': 244.20 MHz (PASS at 216.03 MHz)

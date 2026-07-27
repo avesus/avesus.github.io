@@ -1,0 +1,208 @@
+.hitl-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+    gap: 0.9rem;
+    margin: 1.6rem 0 2rem;
+}
+
+.hitl-stat {
+    min-width: 0;
+    padding: 1rem 1.05rem;
+    border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+    border-radius: 0.85rem;
+    background: color-mix(in srgb, #eaf5fb 62%, transparent);
+}
+
+.hitl-stat strong {
+    display: block;
+    margin-bottom: 0.28rem;
+    color: #0e6b9f;
+    font-size: clamp(1.55rem, 3vw, 2.25rem);
+    line-height: 1;
+}
+
+.hitl-stat span {
+    display: block;
+    line-height: 1.3;
+}
+
+.lab-grid,
+.photo-pair,
+.download-grid,
+.roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+    align-items: start;
+}
+
+.photo-pair figure,
+.lab-grid > *,
+.download-grid > *,
+.roadmap-grid > * {
+    min-width: 0;
+    margin: 0;
+}
+
+.lab-card,
+.lab-note,
+.lab-audio,
+.roadmap-card,
+.download-card {
+    padding: 1.05rem 1.15rem;
+    border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+    border-radius: 0.9rem;
+    background: color-mix(in srgb, #f7fafb 88%, transparent);
+}
+
+.lab-card h3,
+.roadmap-card h3,
+.download-card h3 {
+    margin-top: 0;
+}
+
+.lab-note {
+    border-left: 0.35rem solid #e66b00;
+    border-radius: 0.25rem 0.9rem 0.9rem 0.25rem;
+}
+
+.lab-audio audio {
+    display: block;
+    width: 100%;
+    margin: 0.8rem 0 0.55rem;
+}
+
+.lab-timeline {
+    display: grid;
+    grid-template-columns: minmax(8.5rem, 12rem) minmax(0, 1fr);
+    gap: 0;
+    margin: 1.5rem 0 2rem;
+}
+
+.lab-timeline dt,
+.lab-timeline dd {
+    margin: 0;
+    padding: 0.85rem 0.9rem;
+    border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.lab-timeline dt {
+    color: #0e6b9f;
+    font-weight: 750;
+}
+
+.lab-timeline dd:last-child,
+.lab-timeline dt:nth-last-child(2) {
+    border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.process-steps {
+    counter-reset: lab-step;
+    list-style: none;
+    padding: 0;
+}
+
+.process-steps li {
+    counter-increment: lab-step;
+    position: relative;
+    min-height: 3rem;
+    padding: 0.15rem 0 1.15rem 3.45rem;
+}
+
+.process-steps li::before {
+    content: counter(lab-step);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    width: 2.55rem;
+    height: 2.55rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #0e6b9f;
+    color: white;
+    font-weight: 800;
+}
+
+.process-steps li::after {
+    content: "";
+    position: absolute;
+    top: 2.55rem;
+    bottom: 0;
+    left: 1.24rem;
+    width: 0.12rem;
+    background: color-mix(in srgb, #0e6b9f 34%, transparent);
+}
+
+.process-steps li:last-child::after {
+    display: none;
+}
+
+.roadmap-card ul,
+.download-card ul {
+    margin-bottom: 0;
+}
+
+.roadmap-card--complete {
+    border-top: 0.35rem solid #008b72;
+}
+
+.roadmap-card--next {
+    border-top: 0.35rem solid #e66b00;
+}
+
+.roadmap-card--later {
+    grid-column: 1 / -1;
+    border-top: 0.35rem solid #7257b5;
+}
+
+.download-card a[download],
+.download-card .primary-download {
+    display: inline-block;
+    margin-top: 0.55rem;
+    padding: 0.62rem 0.88rem;
+    border-radius: 0.55rem;
+    background: #0e6b9f;
+    color: white;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.code-scroll {
+    overflow-x: auto;
+}
+
+.figure-data {
+    margin-top: 0.45rem;
+    font-size: 0.92rem;
+}
+
+@media (max-width: 760px) {
+    .lab-grid,
+    .photo-pair,
+    .download-grid,
+    .roadmap-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .roadmap-card--later {
+        grid-column: auto;
+    }
+
+    .lab-timeline {
+        grid-template-columns: 1fr;
+    }
+
+    .lab-timeline dt {
+        padding-bottom: 0.2rem;
+    }
+
+    .lab-timeline dd {
+        padding-top: 0.2rem;
+        border-top: 0;
+    }
+
+    .lab-timeline dt:not(:first-child) {
+        border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+    }
+}

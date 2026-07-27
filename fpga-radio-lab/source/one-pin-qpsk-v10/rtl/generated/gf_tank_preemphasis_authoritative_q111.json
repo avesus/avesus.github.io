@@ -1,0 +1,23 @@
+{
+  "schema": "greenforest-authoritative-q111-rtl/v1",
+  "operation": "constant polar decomposition of signed Q1.11 complex scalar",
+  "axial_full_scale": 93,
+  "sources": {
+    "120x25k": {
+      "path": "preemphasis/tank_preemphasis_120x25khz_q1_11.csv",
+      "sha256": "fdaa32c22571b0fb1b0aab0d5ab02bbddea3a2e6cc79900ca0fd2b2319f04c7a",
+      "channels": 120
+    },
+    "240x12k5": {
+      "path": "preemphasis/tank_preemphasis_240x12p5khz_q1_11.csv",
+      "sha256": "a0243647362894e43ea8e0ad66eeed046cbd40849ee3ca08ef34cf9738ba9759",
+      "channels": 240
+    }
+  },
+  "outputs": {
+    "gf_tank_preemphasis_authoritative_q111.svh": "ca979b704fe55d222c00113a34859c0d5d81e4a8af62c2f996057d328f79563a",
+    "gf_q111_phase_planes_120x25k.hex": "b6476ed62e85af32aba4bf7b52fd4cad87542b706accd2fa15405596efdc62ab",
+    "gf_q111_phase_planes_240x12k5.hex": "45893e764ceb2f69062f60f39adec9a0a4bd042639f4305fee21a96cd1b5cd57"
+  },
+  "honesty_boundary": "RTL constants only; no RF, fit, timing, or spectral claim"
+}

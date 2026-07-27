@@ -183,11 +183,11 @@
 
             <div class="capability-grid">
                 <article class="capability-card">
-                    <a href="one-pin-quadrature-sdm-transmitter.html"><img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Transmitter waveforms, a hand-built resonant-tank network, and historical RF spectrum context"></a>
-                    <span class="eyebrow">RF transmit</span>
-                    <h3><a href="one-pin-quadrature-sdm-transmitter.html">One-pin quadrature/SDM transmitter</a></h3>
-                    <p>The HX8K source defines two sigma-delta control paths, four-way phase selection from the source's 216 MHz quadrature carrier, and one switched RF output pin. The wrapper connects that RTL to the resonant-tank experiment while keeping fresh-build and calibrated-measurement boundaries explicit.</p>
-                    <p><a href="one-pin-quadrature-sdm-transmitter.html">Inspect the transmitter</a></p>
+                    <a href="fpga-radio-hardware-in-the-loop.html"><img src="fpga-radio-lab/media/hx8k-board.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="The actual iCE40 HX8K board used for the one-pin FPGA QPSK transmitter"></a>
+                    <span class="eyebrow">RF transmit · physical feedback</span>
+                    <h3><a href="fpga-radio-hardware-in-the-loop.html">One FPGA pin carried 8,592 checked QPSK bits</a></h3>
+                    <p>An iCE40 generated PRBS16 QPSK, reduced complex I and Q to two one-bit streams, selected four 216 MHz phases, and drove N16 into a hand-built resonant tank. A two-day hardware-in-the-loop system rebuilt and measured each change, then rejected a prettier spectrum when it carried the wrong message.</p>
+                    <p><a href="one-pin-quadrature-sdm-transmitter.html">Original quadrature/SDM architecture</a></p>
                 </article>
 
                 <article class="capability-card">
