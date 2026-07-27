@@ -16,6 +16,7 @@ const pages = [
   '/about-greenforest.html',
   '/fpga-systems.html',
   '/one-pin-quadrature-sdm-transmitter.html',
+  '/one-pin-fpga-qpsk-transmitter.html',
   '/how-much-radio-do-you-actually-need.html',
   '/ethernet-udp-ice40-reprogrammer.html',
   '/physical-mux-tiles/',
@@ -50,6 +51,7 @@ const screenshotPages = new Set([
   '/about-greenforest.html',
   '/fpga-systems.html',
   '/one-pin-quadrature-sdm-transmitter.html',
+  '/one-pin-fpga-qpsk-transmitter.html',
   '/how-much-radio-do-you-actually-need.html',
   '/ethernet-udp-ice40-reprogrammer.html',
   '/physical-mux-tiles/',
@@ -792,6 +794,35 @@ async function main() {
               ['Historical Spectrum Context', 'one-pin-transmitter-spectrum-390x844.png'],
             ];
             for (const [title, filename] of transmitterSections) {
+              await client.send('Runtime.evaluate', {
+                expression: `(() => {
+                  const heading = Array.from(document.querySelectorAll('h2'))
+                    .find(element => element.textContent.trim() === ${JSON.stringify(title)});
+                  if (heading) {
+                    heading.scrollIntoView({ block: 'start' });
+                    window.scrollBy(0, -16);
+                  }
+                })()`,
+              });
+              await pause(100);
+              const sectionScreenshot = await client.send('Page.captureScreenshot', {
+                format: 'png',
+                fromSurface: true,
+                captureBeyondViewport: false,
+              });
+              fs.writeFileSync(path.join(screenshotDir, filename), sectionScreenshot.data, 'base64');
+            }
+          }
+
+          if (pagePath === '/one-pin-fpga-qpsk-transmitter.html' && viewportName === '390x844') {
+            const qpskSections = [
+              ['The Bits Came Back', 'one-pin-qpsk-held-out-390x844.png'],
+              ['The True Image Is Finite', 'one-pin-qpsk-image-390x844.png'],
+              ['The Tank Is Part Of The Transmitter', 'one-pin-qpsk-tank-390x844.png'],
+              ['A Prettier Spectrum Can Carry The Wrong Message', 'one-pin-qpsk-boundaries-390x844.png'],
+              ['The Cliffhanger Is Gone', 'one-pin-qpsk-ending-390x844.png'],
+            ];
+            for (const [title, filename] of qpskSections) {
               await client.send('Runtime.evaluate', {
                 expression: `(() => {
                   const heading = Array.from(document.querySelectorAll('h2'))

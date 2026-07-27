@@ -40,7 +40,7 @@
                 "url": "https://greenforest.io/"
             },
             "datePublished": "2026-07-22",
-            "dateModified": "2026-07-23",
+            "dateModified": "2026-07-26",
             "image": "https://greenforest.io/backdrop_rf.jpeg",
             "description": "A preserved iCE40 HX8K RF transmitter design with two sigma-delta control paths, four-phase quadrature selection, one RF output pin, and a resonant-tank experiment trail.",
             "mainEntityOfPage": "https://greenforest.io/one-pin-quadrature-sdm-transmitter.html",
@@ -73,7 +73,7 @@
         <div class="status-box">
             <p><span class="status-label">Preserved source design</span>The RTL, HX8K pin constraints, historical build script, circuit sketches, and a qualitative spectrum capture are public here.</p>
             <p><strong>Source establishes:</strong> two sawtooth-driven sigma-delta state paths, four carrier phases, a two-bit phase selector, an iCE40 <code>SB_IO</code> output stage, and <code>RF_OUT</code> on CT256 pin N16.</p>
-            <p><strong>Still requires fresh evidence:</strong> a clean reproducible build, timing report, calibrated RF power and spectrum, resonant-tank transfer measurement, harmonic and emissions characterization, and range.</p>
+            <p><strong>The physical follow-up is now published:</strong> <a href="one-pin-fpga-qpsk-transmitter.html">a named timing-closed FPGA image recovered 8,592 held-out QPSK bits with zero observed errors</a>, with measured EVM, a finite true-image result, and five repeated resonant-tank sweeps.</p>
         </div>
     </section>
 
@@ -115,7 +115,7 @@ sawtoothQ &lt;= sawtoothQ + 32'd148000;
 
 wire rfI = dac_out  ^ j_0[0];
 wire rfQ = dac_outQ ^ j_0[1];</code></pre>
-            <p>The useful idea is compact: two density-coded control streams become a phase trajectory at RF. The source contains that path directly, even though the preserved snapshot still needs repair before a fresh build can be claimed.</p>
+            <p>The useful idea is compact: two density-coded control streams become a phase trajectory at RF. The preserved snapshot contains that path directly. <a href="one-pin-fpga-qpsk-transmitter.html">The measured follow-up isolates and rebuilds the transmitter around the same four-phase boundary</a> while adding complete complex baseband and a held-out QPSK test.</p>
         </section>
 
         <section>
@@ -139,9 +139,9 @@ wire rfQ = dac_outQ ^ j_0[1];</code></pre>
                 <a href="one-pin-RF/images/resonant-tank-output-sketch.jpg">
                     <img src="one-pin-RF/images/resonant-tank-output-sketch.jpg" width="1280" height="663" loading="lazy" decoding="async" alt="Hand sketch of an FPGA square-wave output feeding a coupled resonant-tank network">
                 </a>
-                <figcaption>Working output-network sketch: a digital drive passes through a series resistor and coupling capacitor into a parallel resonant primary coupled to a secondary. The current bench record identifies an 8.5 k&Omega; coupling resistor; the sketch's handwritten values and &minus;15 dBm note are historical and have not been remeasured.</figcaption>
+                <figcaption>Working output-network sketch: a digital drive passes through a series resistor and coupling capacitor into a parallel resonant primary coupled to a secondary. The bench record gives a nominal 8.5 k&Omega; coupling resistance; the sketch's handwritten values and &minus;15 dBm note are historical and have not been remeasured.</figcaption>
             </figure>
-            <p>The resonant network is not decoration. In the reported bench setup, the one-pin FPGA output was coupled through an 8.5 k&Omega; resistor into the local resonant tank. A phase-switched digital pin produces edges and harmonics; the tuned physical network is the boundary that favors a narrow RF region and couples energy onward. Loaded Q, impedance transformation, insertion loss, and output power still need a documented repeat measurement.</p>
+            <p>The resonant network is not decoration. In the reported bench setup, the one-pin FPGA output was coupled through the recorded nominal 8.5 k&Omega; series resistance into the local resonant tank. A phase-switched digital pin produces edges and harmonics; the tuned physical network is the boundary that favors a narrow RF region and couples energy onward. <a href="one-pin-fpga-qpsk-transmitter.html#the-tank-is-part-of-the-transmitter">The follow-up now adds five complex S21 sweeps</a>, measuring a median loaded Q of 35.16 and placing the wanted lane just inside the upper half-power edge.</p>
         </section>
 
         <section>
@@ -150,15 +150,15 @@ wire rfQ = dac_outQ ^ j_0[1];</code></pre>
                 <a href="one-pin-RF/images/historical-cubicsdr-spectrum.jpg">
                     <img src="one-pin-RF/images/historical-cubicsdr-spectrum.jpg" width="1280" height="708" loading="lazy" decoding="async" alt="Historical CubicSDR display from an RTL-SDR Blog V4 showing the local FPGA transmitter and a live PTC channel">
                 </a>
-                <figcaption>Historical CubicSDR capture received through an RTL-SDR Blog V4 dongle. Two received signals are visible: the local one-pin FPGA transmitter coupled through the 8.5 k&Omega; resistor and resonant tank, and a live PTC channel used as a qualitative spectrum-purity reference.</figcaption>
+                <figcaption>Historical CubicSDR capture received through an RTL-SDR Blog V4 dongle. Two received signals are visible: the local one-pin FPGA transmitter coupled through the recorded nominal 8.5 k&Omega; series resistance and resonant tank, and a live PTC channel used as a qualitative spectrum-purity reference.</figcaption>
             </figure>
-            <p>The screen is not evidence from the one-pin FPGA receiver. CubicSDR and the RTL-SDR Blog V4 are the observation instrument here: they receive the local tank-coupled FPGA signal and the live PTC signal in the same view. The local signal's sawtooth-like spectral shape is the comparison of interest. The capture does not record a calibrated amplitude reference, RBW/VBW, receiver gain, coupling loss, or a complete fixture description, so it cannot establish absolute output power, occupied bandwidth, harmonic performance, or compliance. Those measurements should be repeated from a named build and fixture.</p>
+            <p>The screen is not evidence from the one-pin FPGA receiver. CubicSDR and the RTL-SDR Blog V4 are the observation instrument here: they receive the local tank-coupled FPGA signal and the live PTC signal in the same view. The local signal's sawtooth-like spectral shape is the comparison of interest. The capture does not record a calibrated amplitude reference, RBW/VBW, receiver gain, coupling loss, or a complete fixture description, so it cannot establish absolute output power, occupied bandwidth, harmonic performance, or compliance. <a href="one-pin-fpga-qpsk-transmitter.html#the-true-image-is-finite">The follow-up replaces the image cliffhanger with a declared wanted/true-image measurement</a>; calibrated absolute power and a complete emissions scan remain separate experiments.</p>
         </section>
 
         <section>
-            <h2>Fresh-Build Boundary</h2>
+            <h2>The Fresh Build</h2>
             <p>The archived build command targets <code>--hx8k --package ct256</code>, but the selected source is not presently a clean reproduction package. It contains an unresolved <code>n</code> in two sample-shift ranges, procedural assignments to quantizer signals declared as wires, an undeclared clock source in the broader combined design, and transmitter registers without explicit initialization. The timing file also contains conflicting declarations for <code>CLK_21_MHZ</code>.</p>
-            <p>A trustworthy rebuild should first isolate the transmitter from the receiver-era code, repair those source boundaries, synthesize without <code>--ignore-loops</code> if possible, and publish the complete Yosys/nextpnr reports with the resulting bitstream hash. Then the RF measurements can name the exact image under test.</p>
+            <p>I have now isolated and rebuilt it. <a href="one-pin-fpga-qpsk-transmitter.html#the-signal-path-that-ran">The measured follow-up names the exact volatile image by SHA-256</a> and reports passing timing for its 12, 30, 108, and 216.03 MHz domains. The matching final source revision still needs to be committed as a public rebuild package.</p>
         </section>
 
         <section>
@@ -170,11 +170,11 @@ wire rfQ = dac_outQ ^ j_0[1];</code></pre>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a>
-        <p>Follow the reverse boundary: thresholded RF enters one FPGA input and becomes recovered FM audio.</p>
+        <a href="one-pin-fpga-qpsk-transmitter.html">One-Pin FPGA QPSK: 8,592 Recovered Bits</a>
+        <p>See the rebuilt transmitter carry held-out information through the resonant tank into an independent SDR.</p>
         <p>More:</p>
         <a href="fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
-        <p>Place the transmitter beside the Ethernet, arithmetic, tangible-logic, and reconfiguration work.</p>
+        <p>Place the transmitter beside the receiver, Ethernet, arithmetic, physical-logic, and reconfiguration work.</p>
         <a href="/">Back to greenforest.io</a>
     </nav>
 </body>

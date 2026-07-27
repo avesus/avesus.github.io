@@ -57,7 +57,7 @@
         <p>That means pin-level signal behavior, protocol parsing, clocking, arithmetic schedules, configuration transport, device primitives, open toolchains, and the Linux or browser surface used to inspect the machine.</p>
         <div class="cta-row" role="group" aria-label="Explore Brian Greenforest's FPGA systems">
             <a class="cta-link" href="how-much-radio-do-you-actually-need.html">RF receiver</a>
-            <a class="cta-link" href="one-pin-quadrature-sdm-transmitter.html">RF transmitter</a>
+            <a class="cta-link" href="one-pin-fpga-qpsk-transmitter.html">QPSK transmitter</a>
             <a class="cta-link" href="ethernet-udp-ice40-reprogrammer.html">Ethernet reprogrammer</a>
             <a class="cta-link" href="physical-mux-tiles/">Physical MUX tiles</a>
             <a class="cta-link" href="/fpga-verilog/">Learn FPGA And Verilog</a>
@@ -66,10 +66,10 @@
     </section>
 
     <figure class="inspectable-image inspectable-image--fit">
-        <a href="one-pin-quadrature-sdm-transmitter.html">
-            <img src="backdrop_rf.jpeg" width="1279" height="320" loading="eager" decoding="async" alt="Transmitter sawtooth waveforms, a hand-built resonant-tank network, and historical RF spectrum context">
+        <a href="one-pin-fpga-qpsk-transmitter.html">
+            <img src="one-pin-RF/evidence/2026-07-26/mechanism.svg" width="1720" height="610" loading="eager" decoding="async" alt="Complete one-pin FPGA QPSK transmitter path from baseband through phase selection, one switched output, and the resonant tank">
         </a>
-        <figcaption>The one-pin quadrature/SDM transmitter experiment: modulation waveforms, hand-built resonant hardware, and historical spectrum context.</figcaption>
+        <figcaption>The measured one-pin QPSK path: a named FPGA image carried 8,592 held-out bits through one switched RF output and its resonant tank with zero observed errors.</figcaption>
     </figure>
 
     <main>
@@ -92,11 +92,11 @@
                 </article>
 
                 <article class="capability-card">
-                    <a href="one-pin-quadrature-sdm-transmitter.html"><img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Transmitter waveforms, a hand-built resonant-tank network, and historical RF spectrum context"></a>
+                    <a href="one-pin-fpga-qpsk-transmitter.html"><img src="one-pin-RF/evidence/2026-07-26/qpsk-held-out.svg" width="1400" height="880" loading="lazy" decoding="async" alt="Held-out QPSK constellation received from the one-pin FPGA transmitter"></a>
                     <p class="eyebrow">RF transmit</p>
-                    <h3><a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM Transmitter RTL</a></h3>
-                    <p>The preserved iCE40 HX8K source defines two sigma-delta control paths and selects among four phases of the source's 216 MHz quadrature clock to gate one RF output pin.</p>
-                    <p>The wrapper connects the RTL to the resonant-tank sketches and historical spectrum context while keeping calibrated power, spectrum, range, and a fresh build as separate evidence milestones.</p>
+                    <h3><a href="one-pin-fpga-qpsk-transmitter.html">One-Pin FPGA QPSK Transmitter</a></h3>
+                    <p>A named timing-closed iCE40 HX8K image carried 4,296 held-out QPSK symbols through one switched RF output, the resonant tank, and an independent SDR: 8,592 bits with zero observed errors and 2.0696% RMS EVM.</p>
+                    <p>The proof also measures the complete-path true image and repeats the tank transfer sweep. <a href="one-pin-quadrature-sdm-transmitter.html">The earlier article preserves the four-phase quadrature/SDM architecture and historical RTL.</a></p>
                 </article>
 
                 <article class="capability-card">

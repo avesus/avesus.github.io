@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" role="img" aria-labelledby="title desc">
+  <title id="title">Wanted signal and true conjugate image measurement</title>
+  <desc id="desc">Separate receiver tunings measured the wanted 223.5625 megahertz lane and true 208.4375 megahertz conjugate image, producing a 29.4439 decibel complete-path ratio.</desc>
+  <style>
+    .title { font: 700 42px Georgia, serif; fill: #102b20; }
+    .subtitle { font: 22px Georgia, serif; fill: #3e4b44; }
+    .label { font: 700 22px Arial, sans-serif; fill: #102b20; }
+    .body { font: 20px Arial, sans-serif; fill: #263c31; }
+    .small { font: 17px Arial, sans-serif; fill: #4e6257; }
+    .mono { font: 18px Consolas, monospace; fill: #203c2e; }
+    .metric { font: 700 34px Arial, sans-serif; fill: #234f39; }
+  </style>
+  <rect width="1400" height="860" fill="#fbfcfa"/>
+  <text x="70" y="65" class="title">The true conjugate image was finite and measurable</text>
+  <text x="70" y="105" class="subtitle">Same FPGA image and profile; only the receiver tuning moved.</text>
+  <path d="M 85 235 H 1305" stroke="#6f8278" stroke-width="3"/>
+<g><path d="M 233.6875 170 V 300" stroke="#9b4a43" stroke-width="4"/>
+        <circle cx="233.6875" cy="235" r="8" fill="#9b4a43"/>
+        <text x="233.6875" y="146" class="small" fill="#9b4a43" text-anchor="middle">True image</text>
+        <text x="233.6875" y="168" class="mono" text-anchor="middle">208.4375 MHz</text></g>
+<g><path d="M 695 170 V 300" stroke="#8b6c28" stroke-width="4"/>
+        <circle cx="695" cy="235" r="8" fill="#8b6c28"/>
+        <text x="695" y="330" class="small" fill="#8b6c28" text-anchor="middle">216 MHz phase reference</text>
+        <text x="695" y="352" class="mono" text-anchor="middle">216.0000 MHz</text></g>
+<g><path d="M 1152.5 170 V 300" stroke="#5f7468" stroke-width="4"/>
+        <circle cx="1152.5" cy="235" r="8" fill="#5f7468"/>
+        <text x="1152.5" y="146" class="small" fill="#5f7468" text-anchor="middle">Translated center</text>
+        <text x="1152.5" y="168" class="mono" text-anchor="middle">223.5000 MHz</text></g>
+<g><path d="M 1156.3125 170 V 300" stroke="#2f6b4a" stroke-width="4"/>
+        <circle cx="1156.3125" cy="235" r="8" fill="#2f6b4a"/>
+        <text x="1156.3125" y="330" class="small" fill="#2f6b4a" text-anchor="middle">Wanted lane</text>
+        <text x="1156.3125" y="352" class="mono" text-anchor="middle">223.5625 MHz</text></g>
+  <text x="90" y="420" class="label">Fixed 25 kHz signed excess, normalized to the wanted probe</text>
+  <path d="M 110 520 H 1050" stroke="#75897e" stroke-width="3"/>
+  <g><path d="M 110 505 V 535" stroke="#75897e" stroke-width="2"/><text x="110" y="568" class="small" text-anchor="middle">-32 dB</text></g>
+<g><path d="M 345 505 V 535" stroke="#75897e" stroke-width="2"/><text x="345" y="568" class="small" text-anchor="middle">-24 dB</text></g>
+<g><path d="M 580 505 V 535" stroke="#75897e" stroke-width="2"/><text x="580" y="568" class="small" text-anchor="middle">-16 dB</text></g>
+<g><path d="M 815 505 V 535" stroke="#75897e" stroke-width="2"/><text x="815" y="568" class="small" text-anchor="middle">-8 dB</text></g>
+<g><path d="M 1050 505 V 535" stroke="#75897e" stroke-width="2"/><text x="1050" y="568" class="small" text-anchor="middle">0 dB</text></g>
+  <path d="M 185.08450503932272 475 V 535" stroke="#9b4a43" stroke-width="5"/>
+  <circle cx="185.08450503932272" cy="520" r="9" fill="#9b4a43"/>
+  <text x="185.08450503932272" y="460" class="label" fill="#9b4a43" text-anchor="middle">Image −29.4439 dB</text>
+  <path d="M 1050 475 V 535" stroke="#2f6b4a" stroke-width="5"/>
+  <circle cx="1050" cy="520" r="9" fill="#2f6b4a"/>
+  <text x="1050" y="460" class="label" fill="#2f6b4a" text-anchor="end">Wanted 0 dB</text>
+  <rect x="1110" y="405" width="250" height="190" rx="18" fill="#e6efe8" stroke="#416b55" stroke-width="2"/>
+  <text x="1235" y="475" class="metric" text-anchor="middle">29.4439 dB</text>
+  <text x="1235" y="515" class="body" text-anchor="middle">wanted / image</text>
+  <text x="1235" y="548" class="small" text-anchor="middle">complete path</text>
+  <rect x="90" y="625" width="560" height="84" rx="12" fill="#eef4ef" stroke="#b8c9bd"/>
+  <text x="116" y="662" class="label">Wanted probe resolved: +39.0091 dB</text>
+  <text x="116" y="691" class="small">against its own same-capture RF-off frames</text>
+  <rect x="690" y="625" width="560" height="84" rx="12" fill="#f6eeee" stroke="#d5b6b2"/>
+  <text x="716" y="662" class="label">Image probe resolved: +9.2504 dB</text>
+  <text x="716" y="691" class="small">against a different set of RF-off frames</text>
+  <text x="70" y="755" class="body">Resolution checks use different baselines; they are not subtracted to obtain the wanted/image ratio.</text>
+  <text x="70" y="795" class="small">Sequential tunings include tank, cable, pad, tuner, SDR response, and drift. This is not intrinsic FPGA dBc.</text>
+  <text x="70" y="825" class="small">A separate strong line near 208.5 MHz remains unassigned and was excluded from the predeclared image probe.</text>
+</svg>

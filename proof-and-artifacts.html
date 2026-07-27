@@ -67,6 +67,11 @@
                 },
                 {
                     "@type": "TechArticle",
+                    "name": "One-Pin FPGA QPSK Transmitter: 8,592 Recovered Bits",
+                    "url": "https://greenforest.io/one-pin-fpga-qpsk-transmitter.html"
+                },
+                {
+                    "@type": "TechArticle",
                     "name": "Ethernet To An Adjacent iCE40",
                     "url": "https://greenforest.io/ethernet-udp-ice40-reprogrammer.html"
                 },
@@ -147,10 +152,10 @@
             <p>If you need the foundations behind that evidence, <a href="/fpga-verilog/">learn FPGA and Verilog from first principles</a>: Boolean logic through simulation, synthesis, place-and-route, and a programmed iCE40 board.</p>
             <div class="capability-grid">
                 <article class="capability-card">
-                    <a href="one-pin-quadrature-sdm-transmitter.html"><img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Transmitter waveforms, resonant-tank hardware, and historical spectrum context"></a>
+                    <a href="one-pin-fpga-qpsk-transmitter.html"><img src="one-pin-RF/evidence/2026-07-26/qpsk-held-out.svg" width="1400" height="880" loading="lazy" decoding="async" alt="Held-out QPSK constellation received from the one-pin FPGA transmitter"></a>
                     <p class="eyebrow">RF transmit</p>
-                    <h3><a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM Transmitter</a></h3>
-                    <p>The wrapper traces two one-bit control paths through four carrier phases to one HX8K output and a resonant network. Its CubicSDR capture shows the local signal and a live PTC channel received together by an RTL-SDR Blog V4; fresh calibrated measurements remain open.</p>
+                    <h3><a href="one-pin-fpga-qpsk-transmitter.html">One-Pin FPGA QPSK Transmitter</a></h3>
+                    <p>A named timing-closed HX8K image carried 8,592 held-out bits through one switched FPGA output and its resonant tank with zero observed errors and 2.0696% RMS EVM. The proof adds a finite true-image measurement and five repeated complex tank sweeps; calibrated absolute power and a complete emissions scan remain open.</p>
                 </article>
                 <article class="capability-card">
                     <a href="how-much-radio-do-you-actually-need.html"><img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="lazy" decoding="async" alt="Illustrated one-pin FPGA FM receiver path from thresholded RF to recovered audio"></a>
