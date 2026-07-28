@@ -222,6 +222,9 @@
             <p>The next work is a better measurement plane. I want a complete tank schematic and measured BOM, fixture geometry, loading, cables, and named reference planes. I will tie a raw TDS3034C waveform at the intended RF output plane to the exact FPGA image, carrier setting, load, and scope configuration. Traceable amplitude calibration and conducted power with uncertainty will replace relative receiver units where absolute quantities matter.</p>
             <p>I also want a common trigger or clock between FPGA telemetry and RF acquisition, repeated bursts across supply and temperature, drift tracking, and BER versus controlled condition. A simultaneous target/image receiver would remove the sequential frequency-response ambiguity in Physical 28. Wider calibrated chamber sweeps and final-profile harmonic work need instruments and fixtures chosen for those frequency ranges.</p>
             <p>Once that foundation is in place, the same loop can control multiple active lanes, choose discriminators that separate image, carrier, flatness, timing, and message recovery, and expose safe predetermined experiments through a browser. The important part will remain unchanged: every digital idea must cross the physical machine and return as an intelligible consequence before it earns the next experiment.</p>
+            <div class="lab-note">
+                <p><strong>Market addendum:</strong> This weekend also showed me what the AI-controlled laboratory trend is missing. The agent correctly refused to call uncalibrated receiver readings dBm, but it did not finish the absolute-power measurement I had requested. I turned that failure into <a href="/physical-benchmark-for-ai-lab-agents.html">a proposal for a vendor-neutral physical benchmark for engineering agents</a>.</p>
+            </div>
         </section>
     </main>
 
@@ -230,6 +233,7 @@
         <a href="/fpga-radio-lab/received-qpsk.html">How 8,592 QPSK Bits Came Back Through the Tank</a>
         <p>Follow the Physical 27 burst through carrier acquisition, held-out phase tracking, symbol decisions, bit recovery, and postflight quiet.</p>
         <p>More:</p>
+        <a href="/physical-benchmark-for-ai-lab-agents.html">AI Lab Agents Need a Physical Benchmark</a>
         <a href="/fpga-radio-lab/one-pin-qpsk-signal-path.html">How the One-Pin FPGA Weaver Transmitter Combines I and Q</a>
         <a href="/fpga-radio-hardware-in-the-loop.html">The One-Pin Weaver Measurements and Tuned Tank</a>
         <a href="/fpga-systems.html">FPGA Systems</a>
