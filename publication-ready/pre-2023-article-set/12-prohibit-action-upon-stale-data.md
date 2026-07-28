@@ -4,7 +4,7 @@ slug: "prohibit-action-upon-stale-data"
 date: "2022-02-12T02:34:52.475Z"
 original_dates:
   - "2022-02-12T02:34:52.475Z"
-description: "A user interface should not carry out a consequential action when the facts shown to the user are no longer the facts the system will act upon."
+description: "Bind every consequential action to the revision and facts the user actually saw, then show material changes before asking for a fresh decision."
 status: publication-ready
 ---
 
@@ -12,145 +12,138 @@ status: publication-ready
 
 *Originally written February 12, 2022.*
 
-A dangerous button is not dangerous because it is red. It is dangerous when the screen describes one world and the button acts upon another.
+A dangerous button acts on a different world from the one its user saw.
 
-The rule I want is blunt:
+The governing rule is blunt:
 
 > Prohibit action upon stale data.
 
-If I approve, delete, transfer, publish, merge, schedule, or reconfigure something, the system must know that I am acting on the state I actually saw. When that state has changed, my old intention cannot simply be carried forward as though nothing happened.
+Approval, deletion, transfer, publication, merge, scheduling, payment, and reconfiguration must bind themselves to the exact state that informed the decision. When material facts change, the system returns the updated decision to the person instead of reusing an old click.
 
-## The Screen Is Part of the Decision
+## The screen participates in the decision
 
-A user interface does more than collect commands. It supplies the facts from which a person decides what command to give.
+A user interface supplies the facts from which a person chooses an action.
 
-Suppose I open an order and see:
+Suppose an order screen shows:
 
 - destination: Seattle;
 - quantity: 10;
 - price: $40;
 - delivery: Friday.
 
-I approve it. Between opening the page and pressing the button, another person changes the quantity to 1,000 and the destination to Miami. If the system applies my approval to the new order, it has not honored my decision. It has reused the physical gesture of clicking while discarding the information that made the click meaningful.
+The user approves it. Between page load and commit, another person changes the quantity to 1,000 and the destination to Miami. Applying the approval to that new order would preserve the gesture while discarding the decision.
 
-The same failure appears everywhere:
+The same failure can affect:
 
-- deleting a file after someone replaced its contents;
-- sending a message to a recipient whose address changed;
-- approving a document after a new revision appeared;
-- paying an invoice after its amount changed;
-- applying a circuit configuration to a region that now has another owner;
-- revoking a permission after the visible member list became outdated;
-- publishing an edit over someone else's newer work.
+- a file whose contents changed before deletion;
+- a recipient whose address changed before sending;
+- a document that gained a new revision before approval;
+- an invoice whose amount changed before payment;
+- a circuit region that gained a new owner before configuration;
+- a permission whose visible member list fell behind;
+- an edit that would overwrite newer work.
 
-The user did not authorize “whatever happens to occupy this identifier later.” The user authorized an action on a particular observed version.
+The person authorized an action on a particular observed version, not on whatever later occupies the identifier.
 
-## Identity Needs a Revision
+## Identity needs a revision
 
-An object identifier is not enough. The action must carry the revision that was displayed.
-
-A simple request can say:
+Carry the displayed revision with the action:
 
 ```text
 approve order 1842
 only if revision is 27
 ```
 
-The server compares revision 27 with the current revision. If the current order is still revision 27, it performs the action. If the order is now revision 28, it refuses and returns the new state.
+The server compares revision 27 with current state. If the order is still revision 27, it commits the approval. If the order has reached revision 28, it refuses the old operation and returns the new state.
 
-This can be implemented with version numbers, content hashes, entity tags, transaction timestamps, immutable event positions, or another token that changes whenever relevant facts change. The representation matters less than the invariant:
+Version numbers, content hashes, entity tags, transaction timestamps, immutable event positions, or another changing token can supply the revision. The system needs one invariant:
 
 **The action and the information used to choose it must refer to the same state.**
 
-Not every internal change must invalidate every action. A corrected spelling in an internal note may not matter to approval. A changed price certainly does. A good system defines the action's dependency set: the fields, permissions, relationships, and policies whose changes require a new decision.
+The action's dependency set determines which changes invalidate the decision. Correcting an internal note may leave approval intact. Changing price, quantity, ownership, policy, or authority requires fresh review. Define those dependencies explicitly so the system protects meaning without stopping unrelated work.
 
-## Reconfirmation Must Show the Difference
+## Reconfirmation shows the difference
 
-“Something changed. Try again” is safe but lazy.
+A useful conflict response presents:
 
-When possible, the interface should show:
+- what the person saw;
+- what the system knows now;
+- which differences affect the action;
+- whether the requested operation remains available.
 
-- what the user saw;
-- what is true now;
-- which differences matter to the requested action;
-- whether the original action is still available.
+Show intervening document edits. Highlight a changed amount or destination. Name the new deployment target and owner. Identify the permission policy that changed.
 
-The reconfirmation must not become a reflexive second click on an identical-looking dialog. If the system needs a fresh decision, it owes the person a visible reason.
+Then request a fresh decision.
 
-For an edited document, show the intervening changes. For a payment, highlight the new amount or destination. For a deployment, show the changed target version and ownership. For a permission change, identify the policy that was modified.
+This design turns reconfirmation into information rather than a second click on an unchanged-looking dialog.
 
-Then ask again.
+## Confirmation needs current facts
 
-## A Confirmation Dialog Does Not Cure Staleness
+An “Are you sure?” dialog can only confirm the state it displays and binds.
 
-Many systems display “Are you sure?” immediately before a destructive action. That question often confirms nothing.
+The commit path should follow five steps:
 
-If the dialog was produced from stale data, pressing “Yes” only confirms the stale interpretation twice. A confirmation is useful when it restates the current consequential facts and binds the action to their revision. Otherwise it is decoration.
+1. Read current state.
+2. Show the consequential facts.
+3. Record the displayed revision.
+4. Accept the user's decision.
+5. Commit only while that revision still governs the action.
 
-The correct sequence is:
+A tiny interval always remains between decision and commit. The authority that performs the change must conduct the final revision check; browser code alone cannot close that race.
 
-1. read the current state;
-2. show the facts that matter;
-3. record the revision shown;
-4. accept the user's decision;
-5. execute only if that revision still governs the action.
+A confirmation dialog earns its place when it restates current facts and carries their revision into the commit.
 
-There is always a tiny interval between steps four and five. That is why the final check belongs at the authority that commits the change, not only in browser code.
+## Offline work separates preparation from commitment
 
-## Offline Work Makes the Rule More Important
+Offline software intentionally works from snapshots. It can support drafting and planning while delaying consequential commitment until the network returns.
 
-Offline software intentionally works with old snapshots. That does not make every offline action invalid. It means the system must distinguish preparation from commitment.
+A person can draft a message, plan an edit, select files, arrange a schedule, or prepare a circuit configuration offline. On reconnect, the software validates every assumption that the final action depends upon.
 
-I can draft a message offline. I can plan an edit, select files, arrange a schedule, or prepare a configuration. When the network returns, the software must validate every assumption that matters before committing the consequential part.
+Some operations merge naturally. Independent comments can coexist. Counter increments can commute. Edits to separate paragraphs may reconcile. Decisions about a whole state often require review.
 
-Some changes merge naturally. Adding two independent comments may be safe. Incrementing a counter can be commutative. Editing different paragraphs may be reconcilable. Other changes are decisions about a whole state and must stop for review.
-
-An offline queue should therefore hold more than verbs. It should hold:
+An offline queue should carry:
 
 - the intended operation;
 - the observed revision;
 - the facts the operation depended upon;
-- the identity and authority under which it was prepared;
+- the identity and authority that prepared it;
 - an expiration rule;
 - a merge or conflict policy.
 
-“Replay everything later” is not a synchronization design.
+This turns offline replay into a designed synchronization protocol rather than a bag of delayed verbs.
 
-## Permissions Also Become Stale
+## Authority has a revision too
 
-Data is not the only thing that changes. Authority changes too.
+Permissions change while pages remain open. A person may lose access, a role may narrow, a resource may move to another owner, or a policy may add an approval requirement.
 
-A person may lose access while a page remains open. A role may be narrowed. A resource may move to another owner. A policy may begin requiring an additional approval.
+Commit-time authorization answers one question:
 
-The system must validate authorization at commit time. But authorization alone is not enough. If the user still has permission while the target has materially changed, the stale-data rule still applies.
+1. May this person perform the action now?
 
-Two separate questions must be answered:
+Revision binding answers another:
 
-1. Is this person allowed to perform this action now?
-2. Is this still the action they chose from the state they saw?
+2. Does this action still mean what the person chose from the state they saw?
 
-## Not Every Button Must Stop
+The system must answer both before it commits. Current authority cannot rescue an intention formed from materially outdated facts.
 
-The rule should protect meaning, not freeze the interface.
+## Match protection to consequence
 
-Refreshing a page, opening a panel, starting a search, or requesting a new preview can usually operate on current state without reconfirmation. Idempotent actions may be retried safely. Commutative operations may merge. A deliberately relative command—“add one item to whatever the current quantity is”—may be valid across revisions because its meaning explicitly refers to the current state.
-
-The distinction should be designed, not guessed.
+Refreshing a page, opening a panel, starting a search, or requesting a preview can usually operate on current state directly. Idempotent actions can retry. Commutative operations can merge. A deliberately relative command—“add one item to the current quantity”—already defines itself against current state.
 
 For each action, ask:
 
-- What facts made the decision sensible?
+- Which facts made the decision sensible?
 - Which changes would alter its meaning?
 - Can concurrent versions merge without surprise?
-- What is the cost of rejecting a safe action?
-- What is the cost of accepting a stale one?
+- What does rejecting a safe action cost?
+- What does accepting a stale action cost?
 
-The stronger the consequence, the stronger the binding should be.
+A consequential action deserves a stronger binding. A harmless request deserves a lighter path.
 
-## Preserve the Decision, Not the Click
+## Preserve the decision
 
-Interfaces often treat user intent as a stream of events: click, tap, submit, drag. Those events are only the last millimeter of a longer act of reasoning.
+Clicks, taps, submits, and drags form the last millimeter of a longer reasoning process. The person observed a model, understood it, and chose a change.
 
-The person looked at a model, understood it, and chose a change. If the model is no longer true, the gesture is no longer sufficient.
+Bind that choice to the facts that produced it. When material facts change, show the difference and return the choice. Implement one revision-bound operation first—approval, payment, deletion, or reconfiguration—and carry the pattern through every consequential action.
 
-Prohibiting action upon stale data is not pessimism. It is respect for causality. A decision belongs to the facts that produced it. When the facts change, give the decision back to the person.
+A system that prohibits action upon stale data preserves more than consistency. It preserves the user's actual decision.

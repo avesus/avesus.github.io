@@ -6,7 +6,7 @@ original_dates:
   - "2021-05-19T03:29:21.370Z"
   - "2021-09-30T19:16:15.543Z"
   - "2021-09-30T23:10:48.361Z"
-description: "The dynamic language I was looking for was not a new syntax: it was static circuit descriptions installed, connected, owned, and replaced by a spatial reconfiguration fabric."
+description: "A spatial reconfiguration fabric gives static Verilog modules dynamic lives by allocating regions, installing circuits, connecting ports, enforcing ownership, and replacing working structures at runtime."
 status: publication-ready
 ---
 
@@ -14,88 +14,78 @@ status: publication-ready
 
 *September 30, 2021, with its architectural origin dated May 19, 2021*
 
-For a year I searched for the syntax of a dynamic hardware programming language. I wanted a language that could instantiate circuits, alter its own structure, allocate physical resources, and keep working while the machine around it changed.
+A static Verilog module can enter a region, connect to its neighbors, run as part of a larger machine, and later yield that same space to a different circuit. The module keeps its definite logic. The surrounding fabric supplies placement, ownership, connection, and replacement.
 
-Then I realized I had been looking in the wrong place. The circuit description could remain static Verilog. The dynamism belonged in the world that received it.
+That division unlocked the dynamic hardware language I had pursued for a year. In 2021, it made the execution environment the central work and gave every later tool a defined interface. Syntax did not need to make a circuit fluid. A compiler could translate an ordinary module, a placer and router could give it space and signal paths, and the fabric could manage the changing population.
 
-That distinction became the center of Cartilage for me: static descriptions inside a fabric whose regions can be allocated, connected, configured, replaced, and owned at runtime. The language does not have to pretend that a circuit is fluid. A circuit can be an ordinary, definite thing. What changes is which circuit occupies a region, how that region belongs to a larger region, and where its signals go.
-
-The short version is simple:
+The architectural rule fits in one line:
 
 > Keep the module static. Make placement, ownership, connection, and replacement dynamic.
 
-That realization put each piece of the system in its proper place. Verilog describes the static module. A compiler translates it for the fabric. A placer and router give it a physical region and connections. The fabric owns the running population and replaces modules when the larger machine changes. In 2021, that division let me work directly on the execution environment while giving every later tool a defined job and interface.
+Verilog describes each circuit. The compiler targets the fabric. The placer and router assign a bounded region and its ports. The running hierarchy installs, connects, replaces, moves, or releases modules as the larger system changes. Each tool receives a concrete job, and every live circuit keeps a physical address in the machine.
 
 ## The problem was never only syntax
 
-My route to this idea was unusually long. I began with Claytronics: the possibility that many small neighboring machines could become larger machines by changing their local relationships. Later I learned symbolic digital-circuit design and software. I spent years thinking about autonomous agents that could connect their own computational parts, and then about software architectures that would continue to grow without a central bottleneck.
+Claytronics first made the problem tangible. Many neighboring machines can form a larger machine by changing their local relationships. Symbolic digital-circuit design and software added another requirement: autonomous agents need reliable computational parts that they can assemble without rebuilding every multiplier, memory, or communications block from transistors.
 
-Cellular automata and other parallel models were attractive because they made locality unavoidable. By 2018 I was thinking explicitly about computation in physical space. A signal cannot depend instantly on an unlimited number of distant signals. Fan-out consumes wiring and time. Communication has a geometry.
+Cellular automata and other parallel models keep locality visible. By 2018, computation in physical space had become the central question. A distant signal consumes route length and time. Fan-out consumes wiring. Communication has geometry.
 
-I explored a face-centered cubic lattice because each site has twelve immediate neighbors and the structure is highly symmetric. The important lesson was not that one lattice solved the problem. It was that adjacency itself could be part of the programming model.
+A face-centered cubic lattice offered twelve immediate neighbors at every site and a highly symmetric local structure. The lattice itself did not need to become doctrine; its adjacency exposed the right programming resource. A language could reason about which circuits occupy neighboring regions and which boundaries carry their signals.
 
-In September 2020, that led me to three connected mechanisms:
+By September 2020, three mechanisms joined into one substrate:
 
-- Each small cell or tile can point toward an adjacent parent or owner.
-- Those pointers form an ownership structure over the physical fabric.
-- A boundary tile can temporarily act as a local reconfiguration port through which a parent installs a new configuration into a daughter region.
+- Each cell or tile points toward an adjacent parent or owner.
+- Those local pointers form a physical ownership structure across the fabric.
+- A boundary tile can serve as a reconfiguration port through which a parent installs a complete configuration into a daughter region.
 
-The ownership tree is an overlay on a fixed body of hardware. A region is not merely a name in a heap. It is a bounded set of nearby computational resources. The same physical cells supply state, logic, routing, and the bookkeeping that says which region owns which other region.
+The fixed hardware carries the ownership tree as an overlay. A region becomes a bounded set of nearby resources, not a heap name. The same cells provide state, logic, routing, and the facts that connect each daughter to its parent.
 
 ## A local port makes a region replaceable
 
-Imagine a parent region next to a daughter region. One tile on their boundary is assigned the role of reconfiguration port. Through that port, the parent can serially stream the description of a replacement into the daughter.
+Place a parent region beside a daughter region. The parent assigns one boundary tile as a reconfiguration port and streams a replacement description through it.
 
-The stream does not merely change a variable inside an otherwise fixed circuit. Its purpose is to replace the daughter region's tile roles: wires, intersections, Boolean functions, constants, state, or further reconfiguration ports. When installation completes, the same patch of fabric represents a different circuit.
+The stream replaces the daughter's tile roles: wires, intersections, Boolean functions, constants, state elements, or further reconfiguration ports. After installation, the same patch of fabric implements another circuit.
 
-This is why I called the linking layer **Sinew**. Sinew was meant to carry virtual I/O between regions while the ownership overlay—an “intersin” in my early vocabulary—kept the hierarchy locally coherent. The names matter less than the separation:
+The linking layer took the name **Sinew** because it carries virtual I/O among regions. The ownership overlay took the early name **intersin** because it keeps the hierarchy locally coherent. Together they separate four responsibilities:
 
-1. A module has a static internal circuit description.
-2. A region gives that module physical resources.
-3. Local routing connects it to neighboring regions.
-4. A parent can replace a daughter through a bounded configuration interface.
+1. A module defines a static internal circuit.
+2. A region supplies physical resources.
+3. Local routing connects neighboring regions.
+4. A parent replaces a daughter through a bounded configuration interface.
 
-If a tool can compile a conventional static Verilog module into the configuration accepted by such a region, then Verilog does not need a new self-modifying syntax. The reconfiguration operation is performed by the surrounding machine.
+A compiler can lower conventional static Verilog into the region's accepted configuration. The parent then performs reconfiguration through the machine around the module. Static descriptions become a dynamic installed population.
 
-The circuit description remains static. The installed population of modules is dynamic.
+## The hierarchy manages resources
 
-## The hierarchy is also the resource manager
+Software hierarchies usually express logical membership while separate managers track memory, processors, devices, and communication. This fabric makes membership and resources the same local fact.
 
-Software object hierarchies usually describe logical membership. Hardware resource managers separately track memory, processors, devices, and communication. I wanted the membership relation and the resource relation to become the same local fact.
+Adjacent cells encode a daughter's parent. Their shared boundary carries configuration and I/O. Reparenting changes how the daughter participates in the larger machine. Containment, allocation, and replacement gain direct physical meaning without forcing the fabric to imitate every object-oriented convention.
 
-A daughter belongs to a parent because adjacent cells encode that relationship. The parent can provide configuration and I/O at their boundary. Reparenting changes how a region participates in the larger machine. This gives physical meaning to containment, allocation, and replacement without forcing the fabric to imitate every convention of object-oriented programming.
+That matters for autonomous systems. An agent can select a known circuit, allocate a region, connect its ports, use it, and later replace or release it. Reliable building blocks remain definite even while the agent changes the structure of its computational body.
 
-That matters for autonomous systems. A reasoning agent should not have to redesign a multiplier, memory, or communication block transistor by transistor each time it needs one. It should be able to select a known circuit, allocate a region, connect its ports, and later replace or release it. The agent manipulates reliable building blocks while still changing the structure of its own computational body.
+The dynamic language therefore acts as a construction protocol:
 
-The “dynamic language” I had imagined as syntax was therefore closer to a protocol of construction:
-
-- request or identify a region;
+- identify or request a region;
 - establish local ownership;
-- stream in a static circuit configuration;
+- stream a static circuit configuration into it;
 - connect its virtual I/O;
-- use it;
-- replace, move, or release it when the larger system changes.
+- run the circuit;
+- replace, move, or release it when the system changes.
 
-The expressive act is not one line of program text modifying another. It is one configured region changing another configured region through an explicit physical boundary.
+One configured region changes another through an explicit physical boundary. That operation carries more meaning than one line of program text altering another.
 
-## Why catoms brought the idea into focus
+## Catoms reveal the full scale
 
-Claytronics imagines programmable matter assembled from small robotic modules, often called catoms. That setting makes the physical consequences impossible to ignore. A three-dimensional body needs power paths, structural integrity, heat removal, sensing, actuation, and communication. Most particles may spend much of their area or time serving those roles rather than doing arithmetic.
+Claytronics imagines programmable matter assembled from small robotic modules called catoms. A three-dimensional body needs power paths, structural integrity, heat removal, sensing, actuation, and communication alongside arithmetic. The machine must keep itself present in the world while it computes.
 
-That is not a failure of the model. A useful body is not a data center compressed into a sculpture. Computation has to coexist with the work that keeps the body present in the world.
+Local reconfiguration lets one catom run a static circuit while asking an adjacent catom to install another. A regular assembly can combine many short neighbor links into substantial aggregate bandwidth. Even one signal between each neighboring pair raises productive engineering questions: clock rate, protocol overhead, topology, workload, and fault tolerance.
 
-The same local reconfiguration idea could let one catom run a static circuit while asking an adjacent catom to install a different static circuit. In a sufficiently regular assembly, many short neighbor links could provide substantial aggregate bandwidth. I wondered how far even one signal between each pair could go. The answer depends on clock rate, protocol overhead, topology, workload, and fault tolerance, which makes the neighbor interface a concrete design question instead of an article of faith.
+Locality changes the system design. The fabric no longer waits for one wide global bus. Repeated neighbor interfaces distribute configuration and communication across the body, while the ownership structure keeps every transfer attached to a region that can act on it.
 
-Still, locality changes the design question. Instead of demanding a wide global bus, I can ask what a small repeated neighbor interface can support when communication and configuration are distributed across the body.
+## Static and dynamic reinforce each other
 
-## Static and dynamic are not opposites
+Verilog keeps each module exact enough for ordinary circuit reasoning. Ports and ownership make the region boundary explicit. Parent regions compose and replace daughters. The hierarchy can continue upward without asking every level to understand transistor details below it.
 
-The realization that excited me was not that Verilog had secretly become dynamic. It had not. A Verilog description still gives a definite circuit structure, subject to the semantics and limits of the implementation tools.
+In 2020, Cartilage first appeared as a model of reconfiguration trees while the search for a separate dynamic language continued. By September 2021, the reversal had become clear: the reconfiguration fabric already supplied the dynamic part, and static Verilog supplied the vocabulary of pieces.
 
-The larger machine becomes dynamic by treating those definite structures as replaceable occupants of definite regions.
-
-This separation is useful precisely because it preserves something solid at each level. Inside a module, ordinary circuit reasoning applies. At the boundary, ports and ownership are explicit. Above it, a parent can compose modules and replace them. The hierarchy can continue without requiring every level to understand the transistor-level details below it.
-
-In 2020 I treated Cartilage as a small model of reconfiguration trees and kept looking elsewhere for the real language. By September 2021, I understood the reversal: the reconfiguration fabric was the language's dynamic part. Static Verilog could be the vocabulary of the pieces.
-
-The whole thing was not a clever syntax after all. It was a world in which a static circuit could be born, connected, given a place, and replaced.
+The next work follows directly from that division. Compile one known module into a bounded region, install it through a local port, connect it to another live region, then replace it while the parent keeps running. That sequence turns the architectural rule into a complete construction path—and gives static circuits dynamic lives.

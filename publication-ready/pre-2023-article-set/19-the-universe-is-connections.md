@@ -8,7 +8,7 @@ original_dates:
   - "2020-07-08T08:26:17.593Z"
   - "2020-08-05T20:55:56.395Z"
   - "2020-08-15T08:55:34.231Z"
-description: "A connections-first physical model in which events and causal links are fundamental, while distance, trajectories, velocity, energy, and spacetime must emerge from the graph."
+description: "A universe built from events and causal connections can make distance, trajectories, velocity, energy, dimensions, and spacetime emerge from one executable relational structure."
 status: publication-ready
 ---
 
@@ -16,132 +16,110 @@ status: publication-ready
 
 *Developed from May 22 through August 15, 2020.*
 
-I begin with a deliberately severe postulate:
+A universe made from connections can produce space, motion, light, and gravity without placing them underneath physics as unexplained scenery.
 
-**Distance does not exist. Connections do.**
+**Connections come first. Distance emerges from them.**
 
-I use that sentence as a construction rule. If I refuse to put a smooth space underneath the universe at the beginning, what must I build before anything resembling space, motion, light, or gravity can appear?
+That postulate acts as a construction rule. Events occupy the foundation: interactions that happened and created new causal possibilities. A physical thing spans a chain or branching history of related events rather than inhabiting one permanent node at hidden coordinates.
 
-The answer cannot be a static network whose nodes are secretly particles sitting at coordinates. Coordinates would smuggle distance back into the foundation. A node must instead represent an event: an interaction that happened. A physical thing is not one node. Its history is a chain or branching sequence of related events.
+Between interactions, a causal connection carries the continuity ordinarily called motion. A sequence of links gives velocity its meaning. The graph must generate every familiar geometric quantity from relations alone.
 
-Between two interactions, what we ordinarily call a particle’s motion may be represented by a causal connection. Velocity then is not a tiny object carried by the particle. It is a property inferred from a sequence of links.
+## Events Create Trajectories
 
-That is the model I want to test.
+Classical diagrams draw a smooth worldline and assign a particle to every point along it. A connections-first universe records interactions and their continuations. Each event creates later possibilities, and the large-scale pattern of those links forms a trajectory.
 
-## Events, Not Infinitesimal Paths
+This jagged foundation can still yield smooth physics. Stable statistical structure across many links can produce an excellent geometric approximation, much as many short segments reveal a curve without requiring each segment to become infinitesimal.
 
-Classical diagrams draw a smooth worldline and place a particle at every point along it. The line is useful mathematics, but it asks us to imagine an uncountable sequence of positions that are never separately observed.
-
-My connections-first picture is jagged. One interaction produces a new event. That event can connect to later events. A trajectory is the large-scale pattern formed by those links.
-
-The jaggedness need not mean that nature is digitally pixelated. It is a refusal to assume smoothness before deriving it. If many links form a stable statistical structure, smooth geometry may become an excellent approximation—just as a curve emerges from enough short segments without making each segment infinitesimal.
-
-This forces a difficult question: what gives successive links enough identity for us to call them one particle?
-
-Possibilities include conserved quantities, repeating local relations, symmetry, or a rule that maps one event’s available connections into the next event’s possibilities. The identity would live in the continuation rule, not in one permanent bead traveling through an invisible container.
+Particle identity then lives in continuation. Conserved quantities, repeating local relations, symmetry, or a rule that maps one event’s available connections into its successors can bind a history into one recognizable entity. A permanent bead traveling through an invisible container contributes nothing the rule cannot express.
 
 ## Finite Propagation Creates Causality
 
-The fact that light and gravitational influence do not propagate instantaneously is not an inconvenience in this model. It is the organizing gift.
+Finite propagation gives the graph its causal order. An event can depend on some events while other events remain outside its reach. Past and future begin as an asymmetry: which existing connections can contribute to each new interaction.
 
-A connection takes part in a causal order. An event can depend on some events and cannot yet depend on others. “Past” and “future” begin as asymmetry in the graph: which connections can contribute to which new event.
+Instantaneous universal influence would erase locality. Finite propagation lets the universe preserve local structure, partial knowledge, and change that has not yet reached every participant.
 
-If influence were instantaneous everywhere, every node could depend on every other node at once. Local structure would collapse. Finite propagation gives the universe a way to remain partially knowable and partially unfinished.
+The speed of light becomes a limit on how causal relations extend through the network rather than the speed of a special object crossing pre-existing distance. Relativistic physics then supplies a decisive architectural requirement: large-scale behavior must recover Lorentz invariance without turning graph-construction order into a hidden absolute clock.
 
-The speed of light would not simply be the velocity of a special object crossing a pre-existing distance. It would be a limit on how causal relations can extend through the network. To grow into relativity, the model has to recover Lorentz invariance rather than privilege the graph’s construction order as a hidden absolute clock. That is where a beautiful causal picture must become mathematics.
+## Straight Motion Emerges From Continuation
 
-## Straight Is a Derived Word
+A straight line cannot sit at the foundation when distance itself emerges.
 
-A straight line also cannot be fundamental if distance is not fundamental.
+Inertial motion becomes the history whose local continuation rule changes as little as possible. In curved spacetime, a geodesic plays that role. A relational graph needs an equivalent rule that continues a history through locally available connections until an interaction redirects it.
 
-What we call inertial motion would be a path whose local continuation rule changes as little as possible. In curved spacetime, that role is played by a geodesic. My graph would need an equivalent: a rule for continuing a history through locally available connections when no new interaction deflects it.
+Gravity can then appear through changing continuation choices, connection density or weight, or the relationship between event history and local causal structure. An earlier picture placed gravitons as literal points along a falling path. The enduring idea goes deeper: local interaction records and allowed continuations may reconstruct the gradient that geometry describes.
 
-Gravity then cannot be “a force pulling a bead through empty space” in the primitive model. It must appear as a change in the available continuations, in the density or weighting of connections, or in the relationship between event history and local causal structure.
+The equivalence principle and the observed predictions of general relativity define the behavior that reconstruction must carry forward.
 
-I once imagined gravitons as literal points along a falling path. I left that picture behind, but kept the question underneath it: can a gradient that we describe geometrically be reconstructed from nothing but local interaction records and their allowed continuations?
+## Position and Momentum Become Relational Maps
 
-The equivalence principle and the observed predictions of general relativity tell me exactly what such a reconstruction must preserve.
+Hamiltonian mechanics supplies a productive clue. It treats position and momentum as paired descriptions of state, while canonical transformations express the same physics through different phase-space coordinates.
 
-## Position and Momentum May Both Be Maps of Relations
+That flexibility leaves room for locality in a relational state space. Ordinary position can become one projection of a deeper structure rather than the only possible foundation.
 
-Hamiltonian mechanics offers a productive clue because it treats position and momentum as a paired description of state. Under canonical transformations, the same physics can be expressed using different coordinates in phase space.
-
-Hamiltonian mechanics leaves the emergence of space open while showing me that “where something is” need not be the only fundamental view. Locality might be expressible in a relational state space whose projection into ordinary position is only one useful view.
-
-Velocity could emerge from the connection between events. Energy could emerge from the way local continuation possibilities are constrained or from the frequency of state change. Momentum could characterize the direction and persistence of a history through the graph.
-
-Those definitions become useful when they support equations, conserved quantities, and numerical experiments.
+Connection sequences can produce velocity. Constraints on local continuation or the frequency of state change can produce energy. Direction and persistence through the graph can produce momentum. Equations, conserved quantities, and numerical experiments can turn those definitions into a physical model.
 
 ## Put Light Through the Model
 
-Electromagnetism gives the relational picture real work to do.
+Electromagnetism gives the relational structure its first complete workload. A successful connections-first model produces:
 
-A connections-first model has to produce:
+- recover Maxwell’s equations at the appropriate scale;
+- produce Coulomb behavior through finite propagation;
+- generate radiation from accelerated charges;
+- preserve non-radiating uniform motion in vacuum;
+- support scattering and absorption;
+- express gauge symmetry;
+- carry relativistic energy and momentum;
+- reproduce quantum behavior for photons and charged matter.
 
-- Maxwell’s equations at the appropriate scale;
-- Coulomb behavior without instantaneous action at a distance;
-- radiation from accelerated charges;
-- the absence of radiation from uniform motion in vacuum;
-- scattering and absorption;
-- gauge symmetry;
-- relativistic energy and momentum;
-- the quantum behavior of photons and charged matter.
+The mechanism must distinguish virtual-particle bookkeeping from observable transmission and carry forces through more than a story about pellets moving between objects.
 
-It must distinguish a virtual-particle bookkeeping device from an observable transmission. Forces cannot all collapse into a story about tiny pellets flying between objects.
+Quantum mechanics extends the same architecture into interference, uncertainty relations, entanglement correlations, Bell-test results, spin and statistics, and many-particle state. Networks gain physical meaning when their amplitudes, composition rules, and measurable consequences reproduce those phenomena.
 
-The same severity applies to quantum mechanics. If the graph is intended as a deeper model, it must account for interference, uncertainty relations, entanglement correlations, Bell-test results, spin and statistics, and the many-particle state. Merely attaching the word *quantum* to a network does no work.
+Earlier questions about quark radiation, electron structure, retarded gravity, curved-spacetime electromagnetism, particle histories, and antiparticles all belong in this program. Measurements and equations give each question a destination.
 
-My earlier questions reached toward quarks radiating, electron structure, retarded gravity, curved-spacetime electromagnetism, and the relation between particle histories and antiparticles. I keep those questions attached to the measurements and equations they have to explain; geometric satisfaction alone is not enough.
+## Make Three Dimensions an Output
 
-## Why Three Dimensions?
+Three spatial dimensions support mathematical structures that other dimensions change. Knots behave differently in two dimensions and in spaces with additional dimensions. Stable bound orbits also depend on dimensionality and the governing force law.
 
-Three spatial dimensions have peculiar mathematical properties. Knots exist in three dimensions in a way they do not in two, while extra dimensions change what can pass around what. Stable bound orbits also depend on the force law and dimensionality.
+Those properties point toward a sharper computational question: which local graph rules produce a large-scale phase with three extended spatial dimensions, stable matter, and causal propagation? Rules that yield two, four, or non-integer effective dimensions can expose the measurable properties that select a stable phase.
 
-Those facts make dimensional emergence a real target. They do not prove that “shoelaces untie in four dimensions,” entertaining as the image is, nor do they by themselves select our universe.
+Dimension becomes an output of the simulation.
 
-A connections-first theory should ask a sharper question: which local graph rules produce a large-scale geometry with three extended spatial dimensions, stable matter, and causal propagation? If other rules produce two, four, or non-integer effective dimensions, what measurable property distinguishes the stable phase?
+## Black Holes Exercise the Whole Architecture
 
-Dimension should be an output of the simulation.
+Black holes bring causality, geometry, thermodynamics, entanglement, and information into one demanding system. A causal graph can represent horizons and evaporation through relations that need not resemble ordinary exterior distance.
 
-## Black Holes Force the Deepest Question
+The central mechanism must show how information participates in the graph while exterior observers retain relativistic causality. Black-hole thermodynamics and quantum field theory provide the mathematical structure for that account.
 
-Black-hole evaporation tempts every causal theory with poetic shortcuts. One can imagine the future evaporation event connected to the black hole’s earlier existence, or information escaping through relations that do not resemble ordinary exterior distance.
+A successful construction would connect an earlier black hole to later evaporation through lawful causal history, revealing how relational geometry carries information across the full process.
 
-The phrase “faster than light inside a singularity” gives me no mechanism, and the interior of a black hole cannot be treated as an ordinary medium with a hidden shortcut.
+## The First Executable Universe
 
-The legitimate question is whether a causal graph can represent horizons, entanglement, evaporation, and information recovery without introducing connections that let exterior observers violate relativistic causality. Any answer has to meet the mathematics of black-hole thermodynamics and quantum field theory, not merely the drama of the paradox.
-
-## The Simulation I Actually Want
-
-The first experiment is smaller than a theory of everything.
-
-I want a directed event graph with:
+The first experiment needs a directed event graph with:
 
 - finite local state at each event;
 - a bounded set of incoming causal links;
-- local rules for producing possible successor events;
+- local rules that produce possible successor events;
 - labels or conserved values carried across links;
 - no initial Euclidean coordinates;
-- a separate projection that tries to embed the graph into two or three dimensions.
+- a separate projection that attempts to embed the graph in two or three dimensions.
 
-Then I want to ask:
+The experiment asks:
 
 1. Does a stable notion of neighborhood emerge?
-2. Can histories be identified without permanent particle nodes?
+2. Can continuation rules identify histories without permanent particle nodes?
 3. Does an effective speed limit appear?
 4. Can a smooth metric approximate large regions of the graph?
 5. Which local disturbances behave like waves?
 6. Which quantities remain conserved?
-7. What observable would falsify the rule?
+7. Which observable distinguishes the rule from alternatives?
 
-The projection must not control the graph. Otherwise I would be drawing ordinary space and calling it emergent.
+The projection observes the graph; it never controls it. Geometry must emerge from the causal construction itself.
 
-## Build It So It Can Break
+## Turn Connections Into a Physical Engine
 
-“The universe is connections” becomes valuable when I turn it into a model that can break.
+“The universe is connections” concentrates an enormous physical program into one executable starting point.
 
-Connections may require more primitive structure than I hoped. A graph may produce causal order but not quantum amplitudes, geometry but not matter, or elegant pictures but no quantitative predictions.
+Local interaction rules can build causal order, particle histories, waves, conserved quantities, effective geometry, matter, and spacetime within a shared structure. Simulations can then reveal which rules create stable universes and which mechanisms each large-scale law requires.
 
-Either way, the postulate directs attention to something real: physics is learned through interactions, and every coordinate is operationally established through relations among clocks, signals, objects, and observers.
-
-I want to know how far that fact can be pushed. I begin with connections, build events, demand finite causality, and refuse to assume the space I am trying to explain.
+Physics already reaches the world through interactions. Clocks, signals, objects, and observers establish every operational coordinate through relations. A connections-first engine pushes that fact to its architectural conclusion: begin with events, grow causal links, and let the universe construct the space through which it appears to move.

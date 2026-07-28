@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>8,592 QPSK Bits Through One FPGA Pin and a Resonant Tank | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="An iCE40 FPGA generated PRBS16 QPSK, compressed complex I/Q into one switched RF output, and sent 8,592 checked bits through a resonant tank to an independently clocked RTL-SDR with no observed errors.">
+    <meta name="description" content="Physical27 generated PRBS16 QPSK inside an iCE40, compressed complex I/Q onto one switched RF output, drove it through a resonant tank, and returned 8,592 checked bits from 4,296 directly observed held-out symbols with no observed errors.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/fpga-radio-lab/received-qpsk.html">
     <link rel="stylesheet" href="/fpga-radio-lab/radio-lab.css">
     <meta property="og:title" content="8,592 QPSK Bits Through One FPGA Pin and a Resonant Tank">
-    <meta property="og:description" content="The complete physical path carried 4,296 directly observed QPSK symbols from FPGA logic through N16 and a hand-built tank into an RTL-SDR.">
+    <meta property="og:description" content="Physical27 generated PRBS16 QPSK inside an iCE40, compressed complex I/Q onto one switched RF output, drove it through a resonant tank, and returned 8,592 checked bits from 4,296 directly observed held-out symbols with no observed errors.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/fpga-radio-lab/received-qpsk.html">
     <meta property="article:published_time" content="2026-07-27">
@@ -41,9 +41,9 @@
                 "url": "https://greenforest.io/"
             },
             "datePublished": "2026-07-27",
-            "dateModified": "2026-07-27",
+            "dateModified": "2026-07-28",
             "image": "https://greenforest.io/fpga-radio-lab/media/physical27-constellation.png",
-            "description": "An FPGA-native PRBS16 QPSK burst crossed one switched output, a resonant tank, a pad, and an independently clocked RTL-SDR before 8,592 held-out bits were checked.",
+            "description": "Physical27 generated PRBS16 QPSK inside an iCE40, compressed complex I/Q onto one switched RF output, drove it through a resonant tank, and returned 8,592 checked bits from 4,296 directly observed held-out symbols with no observed errors.",
             "mainEntityOfPage": "https://greenforest.io/fpga-radio-lab/received-qpsk.html",
             "proficiencyLevel": "Advanced",
             "publisher": {
@@ -62,8 +62,8 @@
 
     <section class="abstract">
         <p class="eyebrow">Physical QPSK · receiver path</p>
-        <p class="lead">The iCE40 generated its own PRBS16 QPSK, reduced complex I and Q to two one-bit streams, selected among four 216 MHz phases, and drove a single pMOS-switched pad into a hand-built resonant tank.</p>
-        <p>An independently clocked RTL-SDR received the three-second burst after the tank and a nominal 3 dB pad. Direct FPGA telemetry identified 4,296 held-out symbols that actually occurred in silicon. All 8,592 corresponding bits came back without an observed error, at 2.0696356% carrier-tracked RMS EVM.</p>
+        <p class="lead">Physical27 returned all 8,592 checked QPSK bits through one switched FPGA output, a hand-built resonant tank, a nominal 3 dB pad, and an independently clocked RTL-SDR with no observed errors. Carrier-tracked RMS EVM reached 2.0696356%.</p>
+        <p>The iCE40 generated its own PRBS16 QPSK, reduced complex I and Q to two one-bit streams, selected among four 216 MHz phases, and drove a single pMOS-switched pad. Direct FPGA telemetry identified the 4,296 held-out symbols that actually occurred in silicon during the nominal three-second burst.</p>
 
         <div class="hitl-stats" aria-label="Physical27 received result">
             <div class="hitl-stat"><strong>4,296</strong><span>directly observed held-out symbols</span></div>
@@ -76,7 +76,7 @@
     <main>
         <section>
             <h2>The Message Began Inside the FPGA</h2>
-            <p>The host did not stream payload samples into Physical27. A PRBS16 generator inside the FPGA started at <code>0x1D2B</code>. Lane 62 selected two changing taps, applied its fixed salt, and turned each two-bit word into one of four cardinal complex states: <code>+I</code>, <code>+Q</code>, <code>−I</code>, or <code>−Q</code>.</p>
+            <p>I put the PRBS16 generator inside the FPGA, so Physical27 created its own payload instead of accepting host-streamed samples. The 16-bit register started at <code>0x1D2B</code>. Lane 62 selected two changing taps, applied its fixed salt, and turned each two-bit word into one of four cardinal complex states: <code>+I</code>, <code>+Q</code>, <code>−I</code>, or <code>−Q</code>.</p>
             <p>The lane advanced at 3,295.8984375 symbols/s. Signed first-order sigma-delta modulators converted its I and Q components into two one-bit streams. A common +7.5 MHz Gray rotation moved the entire complex word, rather than offsetting I and Q independently. The rotated bits selected one of the PLL’s four quadrature phases at 216 MHz. N16 then switched high or high-impedance into the resonant network.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
@@ -102,26 +102,26 @@
 
         <section>
             <h2>From 2.4 Million Samples per Second to One Point per Symbol</h2>
-            <p>The receiver clocks and FPGA clocks were independent. I therefore recovered carrier and timing from the captured waveform, while direct telemetry supplied the precise transmitted symbol only at epochs that reached the host.</p>
+            <p>The receiver and FPGA ran on independent clocks. The captured waveform supplied carrier and timing, while direct telemetry supplied the precise transmitted symbol only at epochs that reached the host.</p>
 
             <ol class="process-steps">
                 <li><strong>Translate the lane to zero frequency.</strong> Complex mixing moved the +75 kHz wanted lane to baseband.</li>
-                <li><strong>Reduce and filter.</strong> Each group of 45 input samples became one complex sample, followed by a 257-tap low-pass filter with a 10 kHz cutoff.</li>
-                <li><strong>Locate the RF burst.</strong> Channel energy selected the interval from 0.7995 to 3.80761875 seconds without consulting the transmitted symbol sequence.</li>
-                <li><strong>Seed the carrier tracker.</strong> Fourth-power phase removed QPSK data modulation and produced an initial residual-frequency estimate of −79.0627 Hz.</li>
-                <li><strong>Choose the phase bandwidth.</strong> Early directly observed epochs selected a 65-sample smoothing width, equivalent to 1.21875 ms after reduction.</li>
-                <li><strong>Freeze symbol timing.</strong> Early alignment set the first epoch at 0.807219774 seconds and fitted 3,295.899426 symbols/s, about 0.3 ppm above the nominal FPGA rate.</li>
-                <li><strong>Freeze orientation and affine correction.</strong> The early region selected the normal QPSK orientation, complex gain, and offset.</li>
-                <li><strong>Measure each received symbol.</strong> Thirteen interpolated points across the central 72% of each symbol epoch were averaged into one complex value.</li>
-                <li><strong>Track held-out phase from RF alone.</strong> During the scored interval, the carrier tracker used received I/Q; it did not use held-out symbol truth or its own hard decisions.</li>
-                <li><strong>Score only direct matches.</strong> A symbol entered the count only when its physical receive epoch and its directly observed FPGA telemetry epoch were both present.</li>
+                <li><strong>Reduce and filter.</strong> The reducer turns each group of 45 input samples into one complex sample, then applies a 257-tap low-pass filter with a 10 kHz cutoff.</li>
+                <li><strong>Locate the RF burst.</strong> Channel energy selects the interval from 0.7995 to 3.80761875 seconds without consulting the transmitted symbol sequence.</li>
+                <li><strong>Seed the carrier tracker.</strong> Fourth-power phase removes QPSK data modulation and produces an initial residual-frequency estimate of −79.0627 Hz.</li>
+                <li><strong>Choose the phase bandwidth.</strong> Early directly observed epochs select a 65-sample smoothing width, equivalent to 1.21875 ms after reduction.</li>
+                <li><strong>Freeze symbol timing.</strong> Early alignment sets the first epoch at 0.807219774 seconds and fits 3,295.899426 symbols/s, about 0.3 ppm above the nominal FPGA rate.</li>
+                <li><strong>Freeze orientation and affine correction.</strong> The early region selects the normal QPSK orientation, complex gain, and offset.</li>
+                <li><strong>Measure each received symbol.</strong> The receiver averages thirteen interpolated points across the central 72% of each symbol epoch into one complex value.</li>
+                <li><strong>Track held-out phase from RF alone.</strong> During the scored interval, received I/Q drives the carrier tracker; held-out symbol truth and hard decisions do not.</li>
+                <li><strong>Score only direct matches.</strong> The score admits a symbol only when both its physical receive epoch and its directly observed FPGA telemetry epoch exist.</li>
             </ol>
         </section>
 
         <section>
             <h2>Initialization Ended Before the Checked Interval Began</h2>
-            <p>The first 993 directly observed symbols supplied the timing, orientation, complex gain, offset, and tracker-width choices. The held-out boundary then began at zero-based epoch 4,200 and ended before epoch 9,823. Those settings stayed frozen while phase continued to follow the received waveform.</p>
-            <p>The nominal held-out span contained 5,623 epochs. Direct telemetry reached 4,296 of them. The other 1,327 epochs inside that span remained holes; no symbol was inferred, interpolated, or counted there. Across the complete run, 2,332 telemetry epochs were absent.</p>
+            <p>The first 993 directly observed symbols supplied the timing, orientation, complex gain, offset, and tracker-width choices. The held-out interval then began at zero-based epoch 4,200 and ended before epoch 9,823. The receiver held those settings fixed while phase continued to follow the received waveform.</p>
+            <p>The nominal held-out span contained 5,623 epochs. Direct telemetry reached 4,296 of them and left 1,327 holes inside that span. The score inferred, interpolated, and counted no symbols in those holes. Across the complete run, telemetry left 2,332 epochs absent.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/physical27-constellation.png">
@@ -133,8 +133,8 @@
 
         <section>
             <h2>Every Directly Paired Symbol Chose the Intended Quadrant</h2>
-            <p>Hard decisions used the nearest of the four cardinal QPSK states. All 4,296 held-out symbols selected the intended state, so the two-bit mapping produced 8,592 checked bits with zero observed errors. The normalized complex correlation was 0.999584. Eleven local time windows stayed between 1.9828% and 2.1650% RMS EVM.</p>
-            <p>This finite burst does not define a zero bit-error rate. A BER curve needs many more bits, repeated bursts, controlled received level, temperature and supply variation, and failures as well as successes. Here the specific engineering result is smaller and concrete: every directly paired held-out symbol in Physical27 survived the complete one-pin FPGA, tank, pad, and receiver path.</p>
+            <p>Hard decisions used the nearest of the four cardinal QPSK states. All 4,296 held-out symbols selected the intended state, so the two-bit mapping produced 8,592 checked bits with zero observed errors. Normalized complex correlation reached 0.999584. Eleven local time windows stayed between 1.9828% and 2.1650% RMS EVM.</p>
+            <p>This finite burst records a precise engineering result: every directly paired held-out symbol in Physical27 survived the complete one-pin FPGA, tank, pad, and receiver path. A BER curve offers the next expansion through many more bits, repeated bursts, controlled received level, temperature and supply variation, and failures as well as successes.</p>
 
             <div class="download-grid">
                 <article class="download-card">
@@ -153,7 +153,7 @@
         <section>
             <h2>The Conjugate Image Required a Second Tuning</h2>
             <p>Physical28 kept the FPGA image, receiver gain, sample rate, path, and duration unchanged, then moved only the RTL-SDR center to the 208.4375 MHz conjugate-image region. Signed excess power in the predeclared 25 kHz wanted and image windows gave a 29.443932 dB wanted/image ratio.</p>
-            <p>The two regions were measured sequentially through different RTL-SDR tuner settings. The ratio therefore includes the tank, cable, nominal 3 dB pad, tuner response, receiver response, independent clocks, and the time between captures. It is a complete-path comparison, not device-only Weaver cancellation.</p>
+            <p>Two sequential RTL-SDR tuner settings measured the regions. The resulting complete-path ratio includes the tank, cable, nominal 3 dB pad, tuner response, receiver response, independent clocks, and the time between captures; it reports more than device-only Weaver cancellation.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/target-and-conjugate-image.png">
@@ -164,9 +164,9 @@
         </section>
 
         <section>
-            <h2>The Next Receiver Must Share More Time With the Transmitter</h2>
-            <p>Host arrival times were enough to pair thousands of low-rate symbols, but USB telemetry is not a 216 MHz logic analyzer. A common trigger or clock would make sub-symbol timing causal instead of host-associated. Repeated controlled bursts can then sweep received level, temperature, supply, tap settings, tank loading, and symbol rate while keeping the same physical reference plane.</p>
-            <p>The stronger 216 MHz term remains a separate transmitter problem from the conjugate image. The next receiver work therefore needs to follow information recovery, carrier feedthrough, image behavior, and wideband flatness as four different consequences rather than compressing them into one flattering ratio.</p>
+            <h2>A Shared Clock Will Expand the Receiver's Reach</h2>
+            <p>Host arrival times paired thousands of low-rate symbols, while a common trigger or clock can add sub-symbol timing that USB telemetry cannot provide at 216 MHz. Repeated controlled bursts can then sweep received level, temperature, supply, tap settings, tank loading, and symbol rate while keeping the same physical reference plane.</p>
+            <p>The stronger 216 MHz term remains a separate transmitter problem from the conjugate image. The next receiver can follow information recovery, carrier feedthrough, image behavior, and wideband flatness as four distinct consequences.</p>
         </section>
     </main>
 

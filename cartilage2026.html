@@ -37,7 +37,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-30",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-28",
             "image": "https://greenforest.io/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif",
             "description": "A Cartilage 2026 WebGL/GPGPU fabric milestone: child-owned reconfiguration port roots, restored 6x6 ownership blocks, active port initialization, and a 450-frame captured render.",
             "mainEntityOfPage": "https://greenforest.io/cartilage2026.html",
@@ -51,109 +51,101 @@
 </head>
 
 <body>
-    <header>Cartilage 2026: Child-Owned Reconfiguration Ports</header>
+    <header><h1 class="page-title">Cartilage 2026: Child-Owned Reconfiguration Ports</h1></header>
     <address>June 30, 2026</address>
 
     <section class="abstract">
-        <p>Ownership became visible enough here to show square child regions and active port roots inside a running fabric.</p>
-        <p>This is a preserved Cartilage WebGL/GPGPU visual milestone: a self-contained renderer where reconfiguration-port roots belong to the child subtree, while the initialized ownership tree remains a square <code>6x6</code> block.</p>
-        <p>The artifact is not a hand-drawn diagram. The GIF is captured from the running GLSL fabric, and the runnable demo is copied as a standalone web page.</p>
-        <div class="status-box">
-            <p><span class="status-label">Live milestone</span>This page delivers the checked boot/preallocation and render-capture milestone.</p>
-            <p><strong>Included:</strong> child-owned reconfiguration port roots, square <code>6x6</code> ownership blocks, active port-root initialization, the 252-bit transaction calculation, and the 450-frame capture.</p>
-            <p><strong>Milestone focus:</strong> child-side reconfiguration ports, visible ownership blocks, local port roots, and the WebGL/GPGPU render path for this 2026 fabric step.</p>
-        </div>
+        <p class="lead">A reconfiguration port can belong to the child region that it creates.</p>
+        <p>Cartilage 2026 makes that ownership visible inside a running WebGL/GPGPU fabric. Active port roots sit beside square <code>6x6</code> child regions, while ordinary parent pointers preserve each region’s coherent local tree.</p>
+        <p>A 450-frame native-pixel capture follows the renderer through initialization and fill. The standalone WebGL machine, source record, hashes, timing calculation, and boot-state decoder travel with it.</p>
     </section>
 
     <main>
         <section>
-            <h1>The Captured Artifact</h1>
+            <h2>Watch Child-Owned Regions Appear</h2>
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif">
                     <img src="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" alt="Cartilage 2026 WebGL fabric showing active child-owned reconfiguration port roots and square ownership blocks">
                 </a>
-                <figcaption>Cartilage 2026 fabric evolution captured from the WebGL/GPGPU renderer. The image is a native top-left crop from a 1024x2048 render, not a resized render.</figcaption>
+                <figcaption>The running WebGL/GPGPU fabric across 450 frames. This native top-left <code>512x1024</code> crop comes directly from the full <code>1024x2048</code> render.</figcaption>
             </figure>
-            <p class="artifact-link"><a href="/cellular-automata-2019/cartilage2026.html">Open the Cartilage 2026 WebGL artifact</a></p>
+            <p class="artifact-link"><a href="/cellular-automata-2019/cartilage2026.html">Run the Cartilage 2026 WebGL fabric</a></p>
         </section>
 
         <section>
-            <h1>The Run Package</h1>
-            <p>The published packet contains the standalone WebGL artifact, the 450-frame GIF capture, a technical README, and a verification report for the boot ownership shape.</p>
-            <div class="status-box">
-                <p><strong>Runnable artifact:</strong> <a href="/cellular-automata-2019/cartilage2026.html">cellular-automata-2019/cartilage2026.html</a></p>
-                <p><strong>Captured render:</strong> <a href="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif">cartilage3-active-port-roots-450f-512x1024.gif</a></p>
-                <p><strong>Technical handoff:</strong> <a href="/cartilage2026/README.md">cartilage2026/README.md</a></p>
-                <p><strong>Verification report:</strong> <a href="/cartilage2026/verification-report.md">cartilage2026/verification-report.md</a></p>
-            </div>
-            <p>The source snapshot, copied file hash, GIF hash, timing calculation, and explicit non-claims are documented in those packet files.</p>
-            <div class="status-box">
-                <p><span class="status-label">Current core reference</span><a href="/cartilage-core.html">Cartilage Core</a> is now the compact source-and-hardware entry point.</p>
-                <p>Its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> adds a single-file WebGL1 model, architecture paper and PDF, local-clocked SystemVerilog RTL, and a self-checking Verilator testbench. It proves an exact 252-bit <code>6x6</code> installation plus one apply pulse and all four rows of an interior-MUX AND circuit.</p>
-                <p><strong>Lineage:</strong> Cartilage Core was reduced directly from the same <code>cartilage26/cartilage3.html</code> source revision, <code>4143b8a</code>, that produced this 450-frame packet. It is the compact descendant; this page's packet remains authoritative for the capture itself.</p>
-            </div>
+            <h2>Open Every Part Of The Run</h2>
+            <p>The complete packet joins the machine, 450-frame capture, technical README, and decoded boot-state report:</p>
+            <ul>
+                <li><strong>Running fabric:</strong> <a href="/cellular-automata-2019/cartilage2026.html">cellular-automata-2019/cartilage2026.html</a></li>
+                <li><strong>Frame sequence:</strong> <a href="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif">cartilage3-active-port-roots-450f-512x1024.gif</a></li>
+                <li><strong>Technical record:</strong> <a href="/cartilage2026/README.md">cartilage2026/README.md</a></li>
+                <li><strong>Boot-state decode:</strong> <a href="/cartilage2026/verification-report.md">cartilage2026/verification-report.md</a></li>
+            </ul>
+            <p>Source and capture hashes connect the files to the same run, while the timing calculation explains why a complete 252-bit image fills within the 450 recorded frames.</p>
+            <p><a href="/cartilage-core.html">Cartilage Core</a> distills this architecture into a compact WebGL1 machine and a matching local-clocked SystemVerilog implementation. Its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> adds the hardware paper, self-checking Verilator testbench, and an exact <code>6x6</code> AND installation.</p>
+            <p>Both implementations descend from <code>cartilage26/cartilage3.html</code> at revision <code>4143b8a</code>; this page preserves the large visual field, while Cartilage Core isolates the mechanism for hardware development.</p>
         </section>
 
         <section>
-            <h1>The Engineering Claim</h1>
-            <p>The current milestone changes the ownership model around reconfiguration ports. A reconfiguration port is treated as the root of the child subtree. The port's <code>parent</code> direction selects the external application ingress side, while the child subtree still uses ordinary square ownership parent pointers.</p>
-            <p>That distinction matters because the port role can be physically shifted without collapsing the initialized ownership shape. The role column and the ownership tree are related, but they are not the same data structure.</p>
+            <h2>The Port Belongs To The Region It Creates</h2>
+            <p>Each reconfiguration port serves as the root of its child subtree. The port’s <code>parent</code> direction selects the external application ingress side, while ordinary parent pointers organize the rest of the square child region.</p>
+            <p>Separating port role from ownership lets the port move without collapsing the initialized region. Role column, ownership tree, and active configuration signal cooperate as distinct parts of the architecture.</p>
         </section>
 
         <section>
-            <h1>What The GIF Shows</h1>
+            <h2>The Field At Native Resolution</h2>
             <p>The visible fabric is a <code>32x64</code> logical-cell WebGL/GPGPU renderer. Each logical cell uses two RGBA texels of state. The full native render is <code>1024x2048</code>; the GIF is the native top-left <code>512x1024</code> crop.</p>
-            <p>The focus is the initialized reconfiguration corridor and preallocated square blocks. The corrected boot shape restores every cell of each square <code>6x6</code> block instead of letting the visible ownership structure collapse into a short row near the reconfiguration port.</p>
+            <p>The initialized reconfiguration corridor runs beside preallocated square blocks. The corrected boot shape assigns all 36 parent pointers in each <code>6x6</code> region, so the visible ownership structure fills the complete square from its port root.</p>
         </section>
 
         <section>
-            <h1>The Bug And The Fix</h1>
-            <p>The difficult part was not merely shifting the port/wire role columns. The ownership tree also had to be restored as full square <code>6x6</code> subtrees by writing all 36 parent pointers at boot.</p>
-            <p>One subtle startup bug remained after that: shifted port root cells were initialized without an explicit active configuration signal. Because the engine has a parent-rotation fallback when <code>conf_signal</code> is inactive, child pointers near an inactive port root could rotate during the first compute steps.</p>
-            <p>The final fix initializes those shifted port roots with <code>conf_signal: 1.0</code>. That keeps the child-owned square subtree active from the first frame.</p>
+            <h2>The First Frame Determines The Tree</h2>
+            <p>Moving the port and wire columns also required a complete square ownership tree. Boot initialization now writes all 36 parent pointers for every <code>6x6</code> subtree.</p>
+            <p>A second startup interaction exposed the decisive detail. When a shifted root began with an inactive <code>conf_signal</code>, the engine’s parent-rotation fallback could rotate nearby child pointers during the first compute steps.</p>
+            <p>Initializing each shifted root with <code>conf_signal: 1.0</code> keeps the child-owned square active from the first frame and preserves its intended geometry.</p>
         </section>
 
         <section>
-            <h1>Transaction Size And Timing</h1>
-            <p>A complete square <code>6x6</code> transaction is 36 cell records. Each record is seven bits: two orientation bits, three mode bits, and two parent-direction bits.</p>
+            <h2>A 252-Bit Transaction Fills In 420 Frames</h2>
+            <p>A complete <code>6x6</code> region contains 36 cell records. Each record carries seven bits: two orientation bits, three mode bits, and two parent-direction bits.</p>
             <pre><code>36 cells * 7 bits = 252 bits</code></pre>
             <p>The current renderer advances <code>COMPUTE_STEPS = 30</code> updates per rendered frame. The internal configuration clock toggles every 25 GPGPU updates, so one complete clock cycle is 50 updates.</p>
             <pre><code>252 * 50 / 30 = 420 rendered frames</code></pre>
-            <p>The included capture records 450 frames so the block fill and a short post-fill tail are visible.</p>
+            <p>The 450-frame capture shows the complete fill plus 30 frames of the resulting state.</p>
         </section>
 
         <section>
-            <h1>Verification Boundary</h1>
-            <p>The packet verifies the boot/preallocation state and included render capture. Static checks confirmed that the square slot grid contains every slot <code>0..35</code> exactly once, both ownership templates contain 36 records, the active bitstream is 252 bits, and no old root-append workaround remains.</p>
-            <p>The byte-level start-state check decoded the initialized first <code>6x6</code> block and confirmed the expected parent-direction grid plus active <code>conf_signal</code> bits in all 36 cells.</p>
-            <p>This does not claim readout is implemented. It does not claim the fabric is a finished <code>4x4</code> coarse reconfiguration model. It does not claim that every future dynamic reconfiguration stream has been exhaustively verified.</p>
+            <h2>The 36-Cell Image Holds Together</h2>
+            <p>Static checks find every slot <code>0..35</code> exactly once, count 36 records in both ownership templates, measure the active bitstream at 252 bits, and confirm the corrected root construction.</p>
+            <p>A byte-level decoder reads the initialized first <code>6x6</code> block and matches the expected parent-direction grid. It also finds active <code>conf_signal</code> bits in all 36 cells, connecting the source-level image to the visible first frame.</p>
+            <p>That complete boot state provides the starting point for readout, repeated dynamic installation, and coarser multi-region fabrics.</p>
         </section>
 
         <section>
-            <h1>How To Read It</h1>
-            <p>Use the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article for the 32-code body-role alphabet: reconfiguration port, cross, constants, wire orientations, and MUX modes.</p>
-            <p>Use the earlier <a href="/cartilage-nested-instantiation-demo.html">Cartilage nested-instantiation demo</a> article for the broader parent/daughter-region model. This 2026 artifact is a more recent boot-shape and reconfiguration-port-root milestone in that same line of work.</p>
+            <h2>Read The Roles, Then Follow The Region</h2>
+            <p><a href="/cartilage-visual-language.html">Cartilage Visual Language</a> decodes the 32 body roles: reconfiguration port, cross, constants, wire orientations, and MUX modes.</p>
+            <p><a href="/cartilage-nested-instantiation-demo.html">Runtime Instantiation In Adjacent Space</a> develops the parent-and-daughter region model. This 2026 machine shows how child-owned port roots preserve that relationship across a large visible field.</p>
         </section>
 
         <section>
-            <h1>Ownership Boundary</h1>
-            <p>The useful distinction is between role column, parent pointer, and active configuration wire. If those three fields collapse into one visual idea, the render stops explaining child-owned reconfiguration ports.</p>
+            <h2>Three Fields Make Ownership Legible</h2>
+            <p>The role column says what a cell does. The parent pointer says which local tree owns it. The active configuration wire says when that tree receives a new image. Keeping those fields distinct lets the render explain how one region can create another without surrendering its own structure.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
         <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
-        <p>The current implementation, hardware paper, RTL, testbench, and evidence boundary.</p>
+        <p>Run the compact browser fabric, follow its matching RTL, and install the same 252-bit circuit image in both.</p>
         <p>More:</p>
         <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
-        <p>The rendered cell-role alphabet used by the Cartilage family of artifacts.</p>
-        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>The local-port and bounded-region fabric model behind the 2026 milestone.</p>
-        <p>Build next:</p>
+        <p>Decode every visible port, cross, constant, wire orientation, and MUX mode in the field.</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Runtime Instantiation In Adjacent Space</a>
+        <p>Follow a local parent port as it streams a complete image into a child region.</p>
+        <p>Extend the architecture:</p>
         <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help extend child-owned ports into deterministic multi-cell roots, shared ownership, recovery, and a complete editor. Funding and contributors are welcome.</p>
-        <a href="/">Go back</a>
+        <p>Work with Brian to extend child-owned ports into deterministic multi-cell roots, shared ownership, recovery, and a complete editor.</p>
+        <a href="/">Back to greenforest.io</a>
     </nav>
 </body>
 

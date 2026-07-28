@@ -6,11 +6,11 @@
     <title>VLSI Questions for Reactive Programming</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A reactive-programming note framed through VLSI concerns: multi-bit completeness, comparators, pipelines, propagation delay, feedback, and oscillation.">
+    <meta name="description" content="VLSI timing turns reactive programming into an exact engineering discipline of value completeness, pipelines, propagation delay, feedback, and oscillation.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-10-08-vlsi-questions-for-reactive-programming.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="VLSI Questions for Reactive Programming">
-    <meta property="og:description" content="A reactive-programming note framed through VLSI concerns: multi-bit completeness, comparators, pipelines, propagation delay, feedback, and oscillation.">
+    <meta property="og:description" content="VLSI timing turns reactive programming into an exact engineering discipline of value completeness, pipelines, propagation delay, feedback, and oscillation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-10-08-vlsi-questions-for-reactive-programming.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-10-08",
-                                "dateModified": "2026-07-09",
-                                "description": "A reactive-programming note framed through VLSI concerns: multi-bit completeness, comparators, pipelines, propagation delay, feedback, and oscillation.",
+                                "dateModified": "2026-07-28",
+                                "description": "VLSI timing turns reactive programming into an exact engineering discipline of value completeness, pipelines, propagation delay, feedback, and oscillation.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-10-08-vlsi-questions-for-reactive-programming.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>VLSI Questions for Reactive Programming</header>
     <address>October 8, 2022</address>
 
+
+    <section class="abstract">
+        <p>Reactive software becomes far more precise when VLSI engineers ask the questions. When does a multi-bit value count as complete? When may a comparator fire? How do propagation delay, pipelines, feedback, and clock domains shape a higher-order reaction?</p>
+        <p>Brian Greenforest invites chip designers to bring decades of timing discipline into the design of large reactive programs.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Every Reaction Occupies Time and Space</h1>
+            <p>A composite value may arrive across several wires or processes at different moments. The system needs an explicit rule for completeness before downstream logic treats the value as meaningful.</p>
+            <p>Pipelines add latency while increasing throughput. Feedback paths create cycles whose period can exceed one local clock, and careless coupling can produce oscillation far above the gate level.</p>
+        </section>
+
+        <section>
+            <h1>Turn Silicon Practice Into Language Semantics</h1>
+            <p>Clock trees and D flip-flops solve local timing problems; they do not automatically resolve causality across a hierarchy of reactive objects. A language and runtime must expose those relationships.</p>
+            <p>ASIC designers, reactive-language researchers, and distributed-systems engineers can define these semantics together. Bring a hard timing pattern and help make reactive programs as analyzable as synchronous circuits.</p>
+        </section>
+
+        <section>
+            <h1>Execute VLSI Questions for Reactive Programming Through Cartilage Runtime Instantiation</h1>
+            <p>Cartilage Runtime-Instantiation Architecture carries this system into nested modules that enter and connect inside a live spatial machine.</p>
+            <p><a href="/cartilage-nested-instantiation-demo.html">Cartilage Runtime-Instantiation Architecture</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6984595234248691712" data-linkedin-activity="6984595234248691712" data-linkedin-source="activity:6984595234248691712">
         <h2 id="linkedin-original-6984595234248691712">Originally posted on LinkedIn</h2>
@@ -99,42 +126,13 @@
             <div class="linkedin-verbatim-text" data-source-sha256="81017e18e1d24d167d553b15df765cfb166a3db348afe0d627de8426af959a6d">ASIC designers in VLSI are the best people to trust reactive programming software insight. What advice you can share regarding completeness of multi-bit values, and comparators, based on composite sets of elementary data values? How you go along with pipelining and signal propagation latencies, to determine higher-order cycles and to prevent higher-order oscillations? You are well aware that clock trees and D flip flops are not panacea for higher-level reactive effects.</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2022-10-08.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>VLSI Questions for Reactive Programming</h1>
-            <p>Reactive programming has hardware-shaped problems once values are no longer single events. Multi-bit values need completeness rules: when is the value ready, what counts as a coherent update, and how do comparators behave while the pieces are still arriving?</p>
-            <p>VLSI makes those questions concrete. Pipelines, propagation delay, clock trees, latches, D flip-flops, and fanout all exist because timing and state cannot be wished away.</p>
-            <p>The software version has the same pressure at a higher level. Reactive graphs can oscillate, observe half-updated state, or create cycles whose timing depends on scheduling details. A runtime has to decide where state is stored, when updates commit, and how feedback is bounded.</p>
-            <p>The useful bridge is to treat reactive software as a timed system, not only as dependency notation. Circuit designers already live with those constraints.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-07-20-rocks-photons-and-spacetime-motion.html">Rocks, Photons, and Spacetime Motion</a>
-        <p>Another dated publication from July 20, 2022.</p>
-        <p>More:</p>
-        <a href="2022-12-22-software-developers-are-the-cybersecurity-frontline.html">Software Developers Are the Cybersecurity Frontline</a>
-        <p>Another dated publication from December 22, 2022.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6984595234248691712/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From VLSI Questions for Reactive Programming, read:</strong></p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Runtime-Instantiation Architecture</a>
+        <p>Cartilage&amp;rsquo;s runtime-instantiation architecture creates and connects nested modules inside a live spatial machine.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6984595234248691712/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

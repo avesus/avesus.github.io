@@ -4,7 +4,7 @@ slug: "model-the-world-around-the-state-machine"
 date: "2020-03-18T05:10:59.705Z"
 original_dates:
   - "2020-03-18T05:10:59.705Z"
-description: "A practical way to design hierarchical statecharts: include the interaction medium, reason about the product of subsystem states, and then choose meaningful world-level macrostates."
+description: "A hierarchical statechart becomes useful when it includes every stateful participant and interaction medium, then compresses their Cartesian product into meaningful world-level macrostates."
 status: publication-ready
 ---
 
@@ -12,129 +12,105 @@ status: publication-ready
 
 *March 18, 2020*
 
-Hierarchical statecharts became easier for me when I stopped asking, “What states does this component have?” and asked a larger question:
+A statechart can describe more than one component's private life. It can name the changing condition of the whole interacting world: participants, wires, queues, networks, shared memory, people, and the environment that carries their effects.
 
-> What states can the whole interacting world be in?
+That shift turns hierarchy into a practical modeling tool. First expose the combined state space. Then group the combinations that share important behavior into macrostates such as **idle**, **request in transit**, **server handling request**, **reply in transit**, and **failed**.
 
-A component has internal structure. A statechart describes behavior over time. The difficulty is not that statecharts cannot represent structure; Harel statecharts explicitly provide hierarchy and orthogonal, concurrent regions. The difficulty is learning how to move from a collection of structural parts to a useful behavioral partition of their combined life.
-
-My practical method is to model not only the participants but also the medium through which they interact. I then account for the combined state space and group it into macrostates that matter to the system's behavior.
-
-The point is to see what the Cartesian product contains before compressing it. I can then choose the distinctions that matter without trying to enumerate an astronomical state space.
+The model respects the Cartesian product without drawing every point inside it.
 
 ## State belongs to everything that can differ
 
-Suppose a system \(A\) can be in one of several configurations. At any moment it has a current state, even if we have not written down every detail of that state. We can decompose \(A\) into smaller stateful parts, but decomposition does not make state disappear; it changes the level at which we describe it.
+Suppose system \(A\) can enter several relevant configurations. Decomposing \(A\) into smaller parts changes the description level while preserving the fact that each part and the whole can differ over time.
 
-Now add another system, \(B\). The combined state is not “the state of \(A\) or the state of \(B\).” It contains both:
+Add system \(B\). Their combined state contains both choices:
 
 \[
 S_{A,B} = S_A \times S_B
 \]
 
-If \(A\) has three relevant states and \(B\) has four, their unconstrained product contains twelve combinations. Physical rules and business rules may make some combinations unreachable or forbidden, but that restriction is an additional fact. It should not be smuggled into one component's diagram without explanation.
+If \(A\) has three relevant states and \(B\) has four, the unconstrained product contains twelve combinations. Physical rules and business rules can forbid or prevent some combinations. The model should express each such restriction as a rule rather than bury it inside one component's diagram.
 
-Real systems also communicate. That means \(A\) and \(B\) are not the complete cast.
+Communication adds another participant: the medium that carries change between \(A\) and \(B\).
 
-## The medium is a participant
+## The medium participates
 
-Let \(A'\) be an observable part of \(A\)'s state. Let \(M\) be the interaction medium between \(A\) and \(B\). The medium might be a wire, queue, network, shared memory, protocol, person, or physical environment.
+Let \(A'\) denote an observable part of \(A\)'s state. Let \(M\) denote the interaction medium. A wire, queue, network, shared memory, protocol, person, or physical environment can all play this role.
 
-When \(A'\) changes, \(M\) may change. The medium may encode the observation, buffer it, route it, delay it, combine it with something else, lose it, or reject it. Eventually an observable part \(M'\) may change where \(B\) can notice.
+When \(A'\) changes, \(M\) may encode the observation, buffer it, route it, delay it, combine it, lose it, or reject it. Later, an observable part \(M'\) may change where \(B\) can notice.
 
-The behavioral chain is therefore not:
-
-\[
-A \rightarrow B
-\]
-
-It is:
+The behavioral chain therefore has four visible stages:
 
 \[
 A' \rightarrow M \rightarrow M' \rightarrow B
 \]
 
-Even this notation is only a dependency sketch. It does not imply that every change in \(A'\) reaches \(B\), or that \(B\) must react visibly when it does.
+This dependency sketch leaves room for real behavior. \(B\) may ignore the observation, retain it without changing output, or wait for another condition before reacting.
 
-\(B\) may ignore the observation. It may record it internally without changing its output. It may react only when another condition also holds. A robust model must leave room for those possibilities.
-
-Once the medium is explicit, the world state becomes:
+Once the model includes the medium, the world state becomes:
 
 \[
 S_W = S_A \times S_M \times S_B
 \]
 
-That product is the raw space from which useful behavioral macrostates are chosen.
+That product supplies the raw material for useful macrostates.
 
 ## Start with the product, then compress it
 
-State explosion is real: the number of combined configurations grows multiplicatively as concurrent components are added. Statecharts help manage that problem through hierarchy, concurrency, and selective abstraction. They do not require drawing every product state as a separate box.
+Concurrent components multiply the number of combined configurations. Hierarchy, orthogonal regions, and selective abstraction let a statechart organize that growth without drawing a separate box for every combination.
 
-My modeling approach is a disciplined thought experiment:
+A disciplined construction sequence keeps the model legible:
 
-1. Identify the stateful participants.
-2. Include the interaction media as participants.
-3. Ask which combinations of their states are possible, reachable, forbidden, or irrelevant.
-4. Group the combinations that share the same important behavior into world-level macrostates.
-5. Define transitions between those macrostates.
-6. Open each macrostate only as far as needed to explain its internal concurrent behavior.
+1. Identify every stateful participant.
+2. Include each interaction medium as a participant.
+3. Determine which combinations can occur, which rules forbid, and which behavior can safely ignore.
+4. Group combinations that produce the same important behavior into world-level macrostates.
+5. Define transitions among those macrostates.
+6. Open each macrostate only far enough to explain its internal concurrent behavior.
 
-For a request protocol, the macrostates might be **idle**, **request in transit**, **request being handled**, **reply in transit**, and **failed**. Those are not states of the client alone, server alone, or network alone. Each names a meaningful region of the combined product.
+In a request protocol, **request in transit** can include a waiting client, a medium carrying or buffering the request, and a server ready to handle it. The same client, server, or medium state may appear inside several world macrostates because the description organizes itself around behavior rather than component ownership.
 
-For example, **request in transit** may include:
+This compression makes the product useful. It names the combinations that change what the system can do next.
 
-- the client waiting;
-- the medium carrying or buffering the request;
-- the server waiting to handle it.
+## Invariants govern the reachable world
 
-The same server state may appear inside several world macrostates. The same is true of the client and medium. That is not duplication of the real components. It is the consequence of organizing the description around world behavior rather than component ownership.
+An invariant states a property that every relevant reachable state or transition must preserve. “At most one owner controls this actuator” and “a reply never arrives before its request” both qualify.
 
-## Invariants are properties, not inventories
+The reachable-state set and the invariant play different roles:
 
-My original notes used “invariant” too loosely. The complete set of states a system could enter is not, by itself, an invariant.
+- **State explosion** describes growth in the combined state space.
+- **An invariant violation** occurs when a reachable state or transition breaks a required property.
+- **An unanticipated combination** exposes a combination the designer omitted; it may break an invariant, reveal a missing constraint, or behave harmlessly.
 
-An invariant is a property intended to hold across the relevant reachable states or transitions. “At most one owner controls this actuator” can be an invariant. “A reply is never delivered before its request” can be an invariant. The set of reachable states is a different concept, even though exploring it is how we test whether an invariant holds.
+A large product complicates exhaustive checking, but the product itself remains a design fact. World-level macrostates give safety and liveness properties a visible home. The designer can state which property governs each region of behavior and which transition must preserve it.
 
-State explosion and invariant violation must also be separated:
+## Failure belongs inside the world
 
-- **State explosion** is the growth of the combined state space.
-- **An invariant violation** is a reachable state or transition that breaks a required property.
-- **An unanticipated combination** is a combination the designer failed to consider. It may violate an invariant, reveal that the stated invariant was incomplete, or simply be harmless.
+Real media duplicate messages, fill queues, disconnect wires, deliver observations late, and let participants disagree about which transition occurred. When a model omits the medium, these events appear to come from nowhere.
 
-These problems interact. A huge state space makes omissions more likely and exhaustive checking harder. But a large product is not itself a failure, and an invariant violation is not defined by surprise.
+A stateful medium gives detection and recovery explicit places to live. The world can enter a degraded macrostate. A subsystem can isolate a damaged region, retry an idempotent action, reconstruct state from a durable record, or stop safely.
 
-This correction strengthens the practical method. Once the world-level macrostates are visible, I can attach explicit safety and liveness properties to them instead of relying on an intuition that the diagram “looks complete.”
-
-## Failure belongs inside the world model
-
-Complex systems eventually enter states their happy-path diagrams omitted. In a mission-critical design, “unexpected” cannot mean “outside the model and therefore someone else's problem.”
-
-The interaction medium is often where the omitted state hides: a message is duplicated, a queue is full, a wire is disconnected, an observation arrives late, or two parties disagree about which transition happened. If the medium is absent from the statechart, those failures appear magical.
-
-Making the medium stateful creates places to express detection and recovery. The world may transition into a handled degraded macrostate. A subsystem may isolate a damaged region, retry an idempotent action, reconstruct state from a durable record, or stop safely.
-
-No diagram guarantees robustness. Exhaustive detection may be infeasible, especially when components expose only partial state. But the model can say what information is observable, which invariant was threatened, and what recovery preserves.
+The chart should say which facts participants can observe, which invariant faces danger, and which recovery action preserves the system's purpose. That vocabulary lets mission-critical designs treat degraded operation as designed behavior instead of an unnamed outside condition.
 
 ## Parent transitions need explicit semantics
 
-I also objected to designs in which a child state silently blocks a transition that the enclosing macrostate appears to promise. That objection should not be confused with a formal rule that statechart exits are always unconditional. In ordinary statechart semantics, transitions may have triggers and guards, and exiting a composite state exits its active descendants according to the chosen semantics.
+A child condition should never silently block behavior that an enclosing macrostate appears to promise.
 
-My design preference is narrower: a world-level transition should not depend on an invisible child condition. If a guard matters, promote the relevant fact into the macrostate's contract or make the blocked case visible.
+Statechart engines already support triggers, guards, hierarchy, and rules for exiting active descendants. The design responsibility lies in the contract: if a child fact changes whether the parent can perform an advertised transition, promote that fact into the macrostate contract or expose the blocked case as visible behavior.
 
-This resembles good interface design. The parent need not expose every child detail, but it must expose every child detail that changes whether the parent's advertised behavior is available.
+The parent can hide internal detail while still revealing every detail that changes its public behavior. This is the same discipline that makes an interface dependable.
 
-## Distribution is possible, not automatic
+## Distribution follows the model
 
-Statecharts are attractive for large systems because regions can often be assigned to different computational resources. Explicit events, hierarchy, and concurrent regions provide natural boundaries.
+Statechart regions offer natural implementation boundaries because they already make events, hierarchy, and concurrent behavior explicit. Engineers can assign regions to different resources while keeping the world model intact.
 
-But a diagram is not automatically an infinitely scalable distributed implementation. Distribution adds ordering, latency, synchronization, failure, and ownership questions. A partition works only if the event semantics and the required invariants survive those physical facts.
+Physical distribution adds ordering, latency, synchronization, failure, and ownership. The medium's state carries those costs into the model. A partition succeeds when event semantics and invariants survive the actual links and clocks connecting the regions.
 
-Here again, the medium cannot be omitted. Once communication is represented as state, the cost of distribution becomes part of the model rather than an invisible implementation detail.
+This lets the same statechart guide implementation decisions. A long or unreliable path appears as medium behavior, not an invisible detail that surprises the deployed system.
 
-## The useful act is choosing the macrostates
+## Choose the macrostates that change action
 
-The raw product state is too large to write down for most interesting systems. The goal is not to draw it. The goal is to respect it.
+Most useful systems have a product state too large to enumerate. The modeling task asks a sharper question: which differences in the interacting world change what the system can do next?
 
-I begin by imagining \(A\), \(M\), and \(B\) together. I ask what each can know, what can be observed, where information waits, and which combinations change the meaning of the whole. Then I partition that combined space into a small number of macrostates with explicit transitions between them.
+Start with \(A\), \(M\), and \(B\) together. Identify what each can know, where information waits, which observations cross the medium, and which combinations alter the meaning of the whole. Then partition that space into a compact set of named macrostates and explicit transitions.
 
-That is the shift that made hierarchical statecharts practical for me. Do not begin with a diagram of boxes owned by components. Begin with the interacting world, include the medium, and decide which differences in that world deserve names.
+Use the result to design one real protocol. Draw the participants and medium, name the world-level stages, attach invariants, and give failure and recovery their own transitions. The statechart will then describe the behavior people depend on rather than stopping at the boxes that happen to implement it.

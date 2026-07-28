@@ -6,11 +6,11 @@
     <title>AI Arithmetic on Chips</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A chip-arithmetic note about CSA, PPA, one-hot FSM control, H-trees, FIFO, CDC, IEEE 754 FMA, bfloat16, and pipelined backpropagation on large chips.">
+    <meta name="description" content="Carry-save and parallel-prefix arithmetic, one-hot control, clocking, FIFO, CDC, IEEE 754 FMA, and bfloat16 form a practical AI-chip foundation.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-11-29-ai-arithmetic-on-chips.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="AI Arithmetic on Chips">
-    <meta property="og:description" content="A chip-arithmetic note about CSA, PPA, one-hot FSM control, H-trees, FIFO, CDC, IEEE 754 FMA, bfloat16, and pipelined backpropagation on large chips.">
+    <meta property="og:description" content="Carry-save and parallel-prefix arithmetic, one-hot control, clocking, FIFO, CDC, IEEE 754 FMA, and bfloat16 form a practical AI-chip foundation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-11-29-ai-arithmetic-on-chips.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-11-29",
-                                "dateModified": "2026-07-09",
-                                "description": "A chip-arithmetic note about CSA, PPA, one-hot FSM control, H-trees, FIFO, CDC, IEEE 754 FMA, bfloat16, and pipelined backpropagation on large chips.",
+                                "dateModified": "2026-07-28",
+                                "description": "Carry-save and parallel-prefix arithmetic, one-hot control, clocking, FIFO, CDC, IEEE 754 FMA, and bfloat16 form a practical AI-chip foundation.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-11-29-ai-arithmetic-on-chips.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>AI Arithmetic on Chips</header>
     <address>November 29, 2023</address>
 
+
+    <section class="abstract">
+        <p>AI arithmetic on silicon becomes tractable when its core structures stay visible. Carry-save adders compress many operands, parallel-prefix adders resolve carries, and one-hot state machines control deeply pipelined dataflow.</p>
+        <p>Brian Greenforest joins those elements with power delivery, H-trees, FIFOs, clock-domain crossing, IEEE 754 fused multiply-add, bfloat16, and fully pipelined backpropagation.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Build the Arithmetic and the Movement Together</h1>
+            <p>CSA networks keep partial sums in redundant form until the final stage. Parallel-prefix structures deliver fast addition, while FMA pipelines organize alignment, multiplication, accumulation, normalization, rounding, and exceptional values.</p>
+            <p>Power planes, decoupling, clock H-trees, FIFO depth, and CDC protocols determine whether the arithmetic can run reliably across a large chip.</p>
+        </section>
+
+        <section>
+            <h1>Make Training a Physical Pipeline</h1>
+            <p>Bfloat16 reduces storage and multiplier cost while retaining an eight-bit exponent range suited to neural training. Large-area systems such as Cerebras show how much parallel training structure a wafer-scale fabric can host.</p>
+            <p>Brian offers online teaching in fully pipelined backpropagation. Chip teams, students, and independent designers can learn the datapath and build the accelerator that their model needs.</p>
+        </section>
+
+        <section>
+            <h1>Build the Arithmetic Beneath AI Arithmetic on Chips</h1>
+            <p>The Bit-Serial Bubbles-Free Multiplier turns local switching, state, and scheduling into a complete arithmetic engine.</p>
+            <p><a href="2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</a> &middot; <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a> &middot; <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7135418069195116545" data-linkedin-activity="7135418069195116545" data-linkedin-source="activity:7135418069195116545">
         <h2 id="linkedin-original-7135418069195116545">Originally posted on LinkedIn</h2>
@@ -118,55 +145,13 @@ PM if you want to learn more. I can teach you online fully pipelined backpropaga
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Model arithmetic on chips reduces quickly to concrete datapath and control pieces.</p>
-        <p>The post names the layer that matters for chip implementations: carry-save adders, parallel-prefix adders, one-hot state machines, H-trees, FIFO, clock-domain crossing, IEEE 754 FMA, bfloat16, and pipelined backpropagation when enough chip area is available.</p>
-        <div class="status-box">
-            <p><span class="status-label">Chip-arithmetic note</span>Originally posted 2023-11-29; expanded here around datapath and control structures.</p>
-            <p><strong>Article focus:</strong> carry-save adders, parallel-prefix adders, state-machine control, clock distribution, FIFO, CDC, FMA, bfloat16, and training datapaths.</p>
-            <p><strong>Related:</strong> <a href="2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</a>, <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>, and <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a>.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Datapath Pieces</h1>
-            <p>AI arithmetic on chips eventually becomes a physical datapath. Carry-save adders reduce partial products without propagating every carry immediately. Parallel-prefix adders handle the carry-propagate step when the design needs a final binary result.</p>
-            <p>Multiply-accumulate and fused multiply-add units sit on top of those primitives, along with format choices such as IEEE 754 floating point, bfloat16, integer accumulators, and saturation or rounding behavior.</p>
-        </section>
-
-        <section>
-            <h1>Control And Distribution</h1>
-            <p>The arithmetic unit is not enough by itself. The chip also needs state-machine control, FIFOs, clock-domain crossings, reset strategy, clock distribution, power distribution, and physical routing that preserves timing.</p>
-            <p>That is why a simple arithmetic formula becomes a chip-design problem. The datapath, controller, clock tree, memory movement, and verification plan all have to agree.</p>
-        </section>
-
-        <section>
-            <h1>Training On Large Chips</h1>
-            <p>A fully pipelined training datapath is possible only when the chip has enough area and memory movement to keep forward values, gradient flow, parameter updates, and synchronization organized. The arithmetic primitive is visible, but the schedule and data placement decide whether the machine is usable.</p>
-            <p>The related bit-serial multiplier article takes the same idea at smaller scale: make the arithmetic schedule inspectable first, then ask how it composes into a larger fabric.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>
-        <p>A small multiplier circuit artifact with source images and a readable streaming schedule.</p>
-        <p>More:</p>
-        <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a>
-        <p>The arithmetic-primitives note that leads into this chip implementation thread.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7135418069195116545/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From AI Arithmetic on Chips, read:</strong></p>
+        <a href="2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</a>
+        <p>An open fused multiply-add unit requires far more than publishing RTL. The reusable package must capture floating-point semantics, verification, synthesis constraints, process assumptions, floorplanning, timing closure, power, routing, extraction, and signoff.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7135418069195116545/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

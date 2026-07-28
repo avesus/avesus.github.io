@@ -6,11 +6,11 @@
     <title>Sequential Code and Hidden Runtime State</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A software-architecture note: sequential source code can hide state, time, ownership, and locality when the real system behaves like many interacting machines.">
+    <meta name="description" content="The instruction pointer hides a system behind serial control flow; reactive spatial structure can make causality, ownership, and parallelism visible.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-05-27-conventional-code-as-a-sequential-mess.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Sequential Code and Hidden Runtime State">
-    <meta property="og:description" content="A software-architecture note: sequential source code can hide state, time, ownership, and locality when the real system behaves like many interacting machines.">
+    <meta property="og:description" content="The instruction pointer hides a system behind serial control flow; reactive spatial structure can make causality, ownership, and parallelism visible.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-05-27-conventional-code-as-a-sequential-mess.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2021-05-27",
-                                "dateModified": "2026-07-09",
-                                "description": "A software-architecture note: sequential source code can hide state, time, ownership, and locality when the real system behaves like many interacting machines.",
+                                "dateModified": "2026-07-28",
+                                "description": "The instruction pointer hides a system behind serial control flow; reactive spatial structure can make causality, ownership, and parallelism visible.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-05-27-conventional-code-as-a-sequential-mess.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,27 @@
 <body>
     <header>Sequential Code and Hidden Runtime State</header>
     <address>May 27, 2021</address>
+
+
+    <section class="abstract">
+        <p>Conventional code compresses an entire machine into the wandering viewpoint of one instruction pointer. Control jumps among functions and objects, forcing the reader to reconstruct time, history, and hidden relationships before understanding what the system does.</p>
+        <p>Brian Greenforest turns that limitation into a design brief for a reactive, spatial, massively parallel programming model.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Make the System Visible at Once</h1>
+            <p>A function call presents a black box and shifts attention into another sequential context. Shared references and callbacks then entangle boxes that looked separate on the page.</p>
+            <p>A spatial model gives every operation a location, state, owner, and set of connections. Causality travels through visible paths, and independent work remains visibly independent.</p>
+        </section>
+
+        <section>
+            <h1>Replace the Program Counter With Structure</h1>
+            <p>Cartilage combines local resource ownership, reactive ports, dynamic allocation, and hardware execution so the program’s organization becomes the machine’s organization.</p>
+            <p>Software architects and language researchers can bring a codebase whose control flow obscures the design. Recast it as a connected reactive system and make its real parallelism legible.</p>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6803490069710815232" data-linkedin-activity="6803490069710815232" data-linkedin-source="activity:6803490069710815232">
@@ -170,51 +191,13 @@ I tend to believe that FP is TOO POWERFUL to keep code comprehensible.</div>
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Software-architecture note</span>Originally posted 2021-05-27; rewritten here around sequential source code and hidden runtime state.</p>
-            <p><strong>Included:</strong> instruction pointers, event order, state ownership, locality, parallel work, and why a program can be hard to reason about even when each function is readable.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Sequential View Hides Runtime Shape</h1>
-            <p>Sequential source code is readable because it gives one line after another. A running application is often not that simple. It may have event handlers, timers, queues, workers, sockets, caches, subscriptions, GPU kernels, browser callbacks, or devices that all affect state at different times.</p>
-            <p>The instruction pointer is a useful local explanation. It becomes a weak global explanation when the important behavior is distributed across many active boxes.</p>
-        </section>
-
-        <section>
-            <h1>Why the Circuit Analogy Helps</h1>
-            <p>A circuit forces the reader to ask where state lives, which paths can change it, what happens on a clock boundary, and which values are local. Software needs the same questions once the program becomes event-driven or parallel.</p>
-            <p>The goal is not to make all software look like hardware. The goal is to preserve enough runtime structure that a future change can be made without guessing which hidden state will move next.</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>The practical target is source code that keeps event order, ownership, locality, and failure visible. That matters for live feeds, background workers, remote-control paths, browser state, database migrations, and parallel computation.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2021-06-18-cpus-solve-a-narrow-class-of-problems.html">CPUs Solve a Narrow Class of Problems</a>
-        <p>The compute-architecture version of the same sequential-shape question.</p>
-        <p>More:</p>
-        <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>
-        <p>The larger source-code problem once execution spreads across workers, devices, and machines.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6803490069710815232/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Sequential Code and Hidden Runtime State, read:</strong></p>
+        <a href="2022-04-27-reactive-programming-implies-distributed-systems.html">Reactive Programming Implies Distributed Systems</a>
+        <p>A reactive variable already contains the seed of a distributed system. When values change independently, trigger work, cross boundaries, and maintain relationships over time, the program must manage concurrency, location, ownership, and communication.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6803490069710815232/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

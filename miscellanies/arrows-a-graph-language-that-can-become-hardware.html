@@ -14,7 +14,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/miscellanies/arrows-a-graph-language-that-can-become-hardware.html">
     <meta property="article:published_time" content="2026-07-24">
-    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,8 +42,8 @@
             },
             "dateCreated": "2020-09-03T18:53:18.212Z",
             "datePublished": "2026-07-24",
-            "dateModified": "2026-07-24",
-            "description": "A graph can describe knowledge, behavior, routing, and circuits only when every arrow has explicit semantics for value, state, direction, timing, and physical cost.",
+            "dateModified": "2026-07-28",
+            "description": "Arrows becomes an executable graph language when every relation names its value, state, direction, timing, authority, route, and physical cost all the way down to hardware.",
             "mainEntityOfPage": "https://greenforest.io/miscellanies/arrows-a-graph-language-that-can-become-hardware.html",
             "isPartOf": {
                 "@type": "CollectionPage",
@@ -62,98 +62,93 @@
 
 <body class="article-structured miscellany-article">
     <header><h1 class="page-title">Arrows: A Graph Language That Can Become Hardware</h1></header>
-    <address><time datetime="2020-09-03">Originally written September 3, 2020.</time></address>
+    <address><time datetime="2020-09-03">Originally written September 3, 2020.</time><br><time datetime="2026-07-28">Updated July 28, 2026</time></address>
 
     <section class="abstract">
         <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
-        <p class="lead">A graph can describe knowledge, behavior, routing, and circuits only when every arrow has explicit semantics for value, state, direction, timing, and physical cost.</p>
+        <p class="lead">Arrows becomes an executable graph language when every relation names its value, state, direction, timing, authority, route, and physical cost all the way down to hardware.</p>
     </section>
 
     <main>
         <section class="article-opening">
-            <p>I keep returning to arrows.</p>
-            <p>Mathematics draws arrows between objects. Programmers draw dependencies and control flow. Statecharts draw transitions. Circuit diagrams draw signals. Routers draw paths. Knowledge graphs draw relationships. These pictures look related, but resemblance alone does not make them one language.</p>
-            <p>I want to find the smallest set of arrow semantics that can cross those boundaries without becoming vague.</p>
-            <p>The ambition is not merely a graph-drawing tool. It is a graph whose executable parts can become a machine.</p>
+            <p>An arrow can begin as a relationship in thought and end as a timed electrical route through a machine.</p>
+            <p>Mathematics connects objects with arrows. Programs draw dependencies and control flow. Statecharts draw transitions. Circuits draw signals. Routers draw paths. Knowledge graphs draw meaning. One visual grammar can connect these layers when every arrow states exactly what it promises.</p>
+            <p><strong>Arrows</strong> aims at that continuity: concepts, behavior, dataflow, ownership, configuration, and physical hardware in one progressively executable graph.</p>
         </section>
         <section>
-            <h2>Begin with the Edge</h2>
-            <p>A conventional graph starts with vertices and adds edges between them. An edge-first view asks a different question: what relation, movement, dependency, or possible transition exists here?</p>
-            <p>Nodes still matter. They may be values, junctions, states, ports, or the places where arrows meet. But the arrow carries the active promise:</p>
+            <h2>Begin with the edge</h2>
+            <p>A conventional graph starts with vertices and adds edges. An edge-first language asks which relation, movement, dependency, or transition exists here.</p>
+            <p>Nodes still serve as values, junctions, states, ports, and meeting points. The arrow carries the active promise:</p>
             <ul>
-                <li>a value may travel this way;</li>
-                <li>this fact depends on that fact;</li>
-                <li>this state may become that state;</li>
+                <li>a value travels this way;</li>
+                <li>one fact depends on another;</li>
+                <li>one state can become another;</li>
                 <li>this signal drives that input;</li>
-                <li>this region can receive a configuration message from that region.</li>
+                <li>this region can receive configuration from that owner.</li>
             </ul>
-            <p>The same drawn arrow cannot mean all of those things automatically. Each executable arrow needs a type and a rule.</p>
-            <p>For example:</p>
+            <p>Each executable arrow names its type and rule:</p>
             <pre><code class="language-text">A --value--&gt; B
 A --enables--&gt; transition
 state_1 --event x--&gt; state_2
 cell_4 --bit at tick t--&gt; cell_5
 owner --may configure--&gt; region</code></pre>
-            <p>The visual grammar can remain uniform while the semantics stay precise.</p>
+            <p>The drawing stays coherent while its semantics remain exact.</p>
         </section>
         <section>
-            <h2>From Knowledge to Computation</h2>
-            <p>A knowledge graph is useful because it makes dependencies visible. A mathematical definition may depend on earlier definitions. A conclusion may depend on premises. A design decision may depend on physical limits.</p>
-            <p>Traversing those arrows can answer questions:</p>
+            <h2>Meaning can descend into computation</h2>
+            <p>A knowledge graph makes dependencies visible. A mathematical definition can depend on earlier definitions. A conclusion can depend on premises. A design decision can depend on physical limits.</p>
+            <p>Traversal can answer practical questions:</p>
             <ul>
-                <li>What must I understand before this?</li>
-                <li>Which conclusions become invalid if this premise changes?</li>
+                <li>What must come first?</li>
+                <li>Which conclusions change when this premise changes?</li>
                 <li>What uses this definition?</li>
-                <li>Which parts of a design depend on this component?</li>
+                <li>Which parts of the design depend on this component?</li>
             </ul>
-            <p>That is already valuable. Synthesis begins where a conceptual relationship acquires an executable rule.</p>
-            <p>Compilation begins only when the graph supplies operational meaning. A statement such as “mass relates to energy” is not a circuit specification. A graph that defines bit widths, functions, state, update order, and interfaces can be.</p>
-            <p>Arrows should therefore allow several levels without pretending they are identical:</p>
+            <p>Execution begins when a relationship gains an operational rule. “Mass relates to energy” records meaning. A graph that specifies bit widths, functions, state, update order, and interfaces can construct a machine.</p>
+            <p>Arrows supports several connected levels:</p>
             <ol>
                 <li><strong>Conceptual arrows</strong> record meaning and dependency.</li>
                 <li><strong>Behavioral arrows</strong> define events and state transitions.</li>
                 <li><strong>Dataflow arrows</strong> carry typed values through operations.</li>
-                <li><strong>Structural arrows</strong> connect physical or logical ports.</li>
-                <li><strong>Configuration arrows</strong> change the structure that the other arrows use.</li>
+                <li><strong>Structural arrows</strong> connect logical or physical ports.</li>
+                <li><strong>Configuration arrows</strong> change the structure that carries the other arrows.</li>
             </ol>
-            <p>The power comes from explicit bridges between levels.</p>
+            <p>Explicit lowering steps connect those levels without flattening their distinct jobs.</p>
         </section>
         <section>
-            <h2>Statecharts Are Naturally Made of Arrows</h2>
-            <p>In a statechart, a state is not merely a labeled circle. It is an active condition with rules about entry, residence, and exit. A transition arrow names a possible change, often triggered by an event and guarded by a condition.</p>
-            <p>That gives an arrow several parts:</p>
+            <h2>Statecharts give arrows lifecycles</h2>
+            <p>A statechart state represents an active condition with entry, residence, and exit behavior. A transition arrow carries several fields:</p>
             <pre><code class="language-text">starting state
 trigger
 guard
 effect
 target state</code></pre>
-            <p>If effects themselves have duration or subscribers, a transition may need explicit state of its own. If the machine has concurrent regions, several arrows may become active under one event. If a transition crosses hierarchy, the language must define which substates exit and which states enter.</p>
-            <p>This is where a clean picture must become an exact execution model. “Follow the arrow” is not enough. The engine needs rules for concurrency, priority, invalid combinations, and observable intermediate states.</p>
-            <p>Once those rules exist, the same transition graph can be interpreted in software or lowered into storage bits and Boolean logic.</p>
+            <p>When effects have duration or subscribers, the transition can hold state of its own. Concurrent regions may activate several transitions under one event. A hierarchy-crossing transition must define which descendants exit and which target states enter.</p>
+            <p>The engine therefore gives “follow the arrow” exact rules for concurrency, priority, invalid combinations, and observable intermediate states.</p>
+            <p>With those rules in place, software can execute the graph directly, or a compiler can lower it into state bits and Boolean logic.</p>
         </section>
         <section>
-            <h2>An Arrow Becomes Hardware Through Obligations</h2>
-            <p>A circuit arrow is expensive.</p>
-            <p>It needs a driver, a destination, an electrical representation, a route, fan-out capacity, delay, and usually a timing discipline. If the signal crosses a region boundary, that boundary must have a port. If the route is long, intermediate wiring and perhaps registers consume space.</p>
-            <p>This means the hardware compiler cannot treat an arrow as an infinitely thin line that crosses anything.</p>
-            <p>For each structural arrow it must answer:</p>
+            <h2>Hardware gives every arrow obligations</h2>
+            <p>A circuit arrow consumes physical resources.</p>
+            <p>It needs a driver, a destination, an electrical representation, a route, fan-out capacity, delay, and a timing discipline. A region crossing needs a port. A long path consumes intermediate routing and may need registers.</p>
+            <p>A hardware compiler must answer:</p>
             <ul>
-                <li>Which cell or port drives it?</li>
-                <li>How many destinations listen?</li>
-                <li>Which path does it occupy?</li>
-                <li>Can it cross another path?</li>
-                <li>Is the value combinational, latched, or serialized?</li>
+                <li>Which cell or port drives the value?</li>
+                <li>How many destinations receive it?</li>
+                <li>Which path carries it?</li>
+                <li>Can another route cross it?</li>
+                <li>Does the value travel combinationally, through registers, or through serialization?</li>
                 <li>Which clock or handshake establishes validity?</li>
-                <li>What happens while the route is being changed?</li>
+                <li>What happens during rerouting?</li>
             </ul>
-            <p>An arrow graph becomes hardware when those obligations are discharged.</p>
+            <p>The graph becomes hardware when the implementation fulfills those obligations.</p>
         </section>
         <section>
-            <h2>Geometry Changes the Language</h2>
-            <p>I explored square, hexagonal, cubic, and cuboctahedral neighborhoods because geometry decides which arrows are cheap.</p>
-            <p>A 2:1 multiplexer has two data inputs, one selector, and one output. Put that function into a spatial cell and the cell immediately needs enough directions or local switching capacity to receive three inputs and drive the result.</p>
-            <p>A square cell has four sides. It is easy to draw, but crossings and fan-out compete aggressively for those ports. A hexagonal cell has six neighbors. That may permit two overlapping three-input structures or make crossings more natural, but it also increases configuration state and routing choices. A three-dimensional cell offers more neighbors again while making construction and visualization harder.</p>
-            <p>There is no universally perfect lattice. The correct geometry depends on what the cell promises:</p>
+            <h2>Geometry changes the cost</h2>
+            <p>Square, hexagonal, cubic, and cuboctahedral neighborhoods make different arrows cheap.</p>
+            <p>A 2:1 multiplexer needs two data inputs, one selector, and one output. A spatial cell that implements it needs enough directions or local switching capacity for those four relationships.</p>
+            <p>A square cell offers four sides but makes crossings and fan-out compete for ports. A hexagonal cell offers six neighbors and can support richer local overlap or crossings at the price of more configuration choices. A three-dimensional cell offers still more neighbors while demanding more difficult construction and visualization.</p>
+            <p>The target geometry should follow the cell's promise:</p>
             <ul>
                 <li>one multiplexer;</li>
                 <li>two latched routes;</li>
@@ -163,63 +158,60 @@ target state</code></pre>
                 <li>a state-transition element;</li>
                 <li>a reconfiguration port.</li>
             </ul>
-            <p>The language should not hide that choice. It should let an abstract arrow acquire a physical cost as it descends toward a target fabric.</p>
+            <p>Arrows keeps the abstract relation readable while giving it a physical price as it descends toward a target fabric.</p>
         </section>
         <section>
-            <h2>The Tree That Changes the Graph</h2>
-            <p>The machine also needs a way to install and replace its own arrows.</p>
-            <p>One simple possibility is a configuration tree. A serial message enters through a root, follows deterministic addresses through the tree, and reaches a target cell or region. The message changes a role, an input selection, a direction, or a local connection.</p>
-            <p>This creates two graphs at once:</p>
+            <h2>A second graph changes the first</h2>
+            <p>The machine needs a route for installing and replacing application arrows.</p>
+            <p>A configuration tree can carry serial messages from a root through deterministic addresses to one cell or region. Each message changes a role, input selection, direction, or local connection.</p>
+            <p>The system now contains two graphs:</p>
             <ol>
-                <li>the application graph carrying the computation;</li>
-                <li>the configuration graph able to replace parts of the application graph.</li>
+                <li>the application graph that performs computation;</li>
+                <li>the configuration graph that replaces application structure.</li>
             </ol>
-            <p>They may share cells, but they cannot be confused. Reconfiguration must not leave half-installed routes driving arbitrary application state. The target needs a transaction boundary: collect a complete change, validate what can be validated locally, then apply it at a defined moment.</p>
-            <p>A dynamic language for hardware must express this second graph directly. Creating a function instance is not only allocating an abstract object. It is requesting space, delivering a structural description, establishing connections, and transferring authority over the result.</p>
+            <p>They may share physical cells while retaining different responsibilities. Reconfiguration collects a complete change, applies local checks, and commits at a defined moment so half-installed routes never drive accidental application state.</p>
+            <p>Dynamic hardware construction therefore includes space allocation, structural delivery, connection, and authority transfer. A function instance becomes a region that actually exists and joins the machine through physical ports.</p>
         </section>
         <section>
-            <h2>Pipelining Every Wire Does Not Remove Time</h2>
-            <p>One tempting design is to latch every short segment. Then values move one local step at a time, long combinational paths disappear, and the fabric becomes a deeply pipelined graph.</p>
-            <p>This is appealing, but it is not freedom from timing closure.</p>
-            <p>Every register still has setup, hold, clock, reset, and skew requirements. Every additional stage adds latency and state. Feedback loops need an explicit number of delays. Two paths that must meet may require balancing. An asynchronous version exchanges the global clock for local handshake and completion obligations.</p>
-            <p>Local pipelining turns distance into explicit latency. It makes the cost of a long arrow visible as stored intermediate state.</p>
-            <p>That is exactly the kind of fact Arrows should preserve.</p>
+            <h2>Local pipelining makes distance visible</h2>
+            <p>Latching every short segment turns long combinational paths into many local steps. Values advance one segment at a time through a deeply pipelined graph.</p>
+            <p>Each register still carries setup, hold, clock, reset, and skew requirements. Each stage adds latency and state. Feedback loops need explicit delay counts. Paths that meet need balancing. An asynchronous implementation replaces global clock obligations with local handshake and completion rules.</p>
+            <p>Local pipelining converts distance into stored intermediate state. Arrows can show that cost directly on the route.</p>
         </section>
         <section>
-            <h2>One Drawing, Several Working Interpretations</h2>
-            <p>I want the tool to let a person begin with a clean graph and progressively make it executable:</p>
+            <h2>One graph supports several working interpretations</h2>
+            <p>A builder can make one graph progressively executable:</p>
             <ol>
-                <li>draw concepts and dependencies;</li>
-                <li>mark executable regions;</li>
-                <li>define types, state, triggers, and functions;</li>
-                <li>choose software, statechart, or circuit semantics;</li>
-                <li>lower structural arrows onto a target topology;</li>
-                <li>expose routes, registers, crossings, fan-out, and configuration;</li>
-                <li>simulate the result before installing it.</li>
+                <li>Draw concepts and dependencies.</li>
+                <li>Mark executable regions.</li>
+                <li>Define types, state, triggers, and functions.</li>
+                <li>Choose software, statechart, or circuit semantics.</li>
+                <li>Lower structural arrows onto a target topology.</li>
+                <li>Expose routes, registers, crossings, fan-out, and configuration.</li>
+                <li>Simulate the installed result.</li>
             </ol>
-            <p>The high-level graph should not disappear. It remains the explanation. The lower levels show what that explanation costs.</p>
-            <p>Some subgraphs may compile to ordinary software. Some may become Verilog. Some may remain human knowledge that guides the executable pieces without pretending to be executable itself.</p>
-            <p>That mixture is the point of unification: each layer keeps its own semantics while sharing one visible graph.</p>
+            <p>The high-level graph remains the explanation. Lower layers reveal the resources that explanation consumes.</p>
+            <p>Some subgraphs can compile to ordinary software. Others can become Verilog. Human knowledge can remain alongside both and guide them without pretending to execute.</p>
         </section>
         <section>
-            <h2>The Arrow Is a Promise</h2>
-            <p>An arrow is easy to draw because paper has no resistance, congestion, delay, authority, or failure.</p>
-            <p>A real arrow has all of them.</p>
-            <p>That is why I still think an arrow-centered language can be powerful. It forces relationships into the foreground. It can show where knowledge depends, where behavior changes, where values travel, where ownership reaches, and where a physical path must exist.</p>
-            <p>The line on the screen is only the beginning. The language becomes real when every executable arrow can answer: what moves, under whose control, through which space, in what time, and what changes when it arrives?</p>
+            <h2>The arrow makes a promise</h2>
+            <p>Paper gives a line no resistance, congestion, delay, authority, or failure. A working machine gives every route all five.</p>
+            <p>That is the strength of an arrow-centered language. Relationships stay in the foreground from meaning through behavior to hardware.</p>
+            <p>Choose one executable arrow and lower it completely. Name its value, source, destination, authority, fan-out, route, timing, storage, and configuration path. Then connect several such arrows into a state transition or circuit and preserve the higher-level explanation above them.</p>
+            <p>Arrows becomes real when every line can answer: what moves, under whose control, through which space, at what time, and what changes when it arrives?</p>
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue reading">
         <p>Read next:</p>
         <a href="/miscellanies/a-programming-language-made-of-live-circuits.html">A Programming Language Made of Live Circuits</a>
-        <p>A design for a parallel, reactive, dynamically reconfigurable language in which instances are live circuits and code is the stream that constructs them.</p>
+        <p>This parallel, reactive language makes every instance a live circuit, every type a compact construction stream.</p>
         <p>Continue:</p>
         <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
         <p>See how routes, constants, MUXes, ports, orientation, and ownership become a readable visual alphabet.</p>
         <p>Nearby:</p>
         <a href="/miscellanies/an-instruction-is-a-wire-reused-in-time.html">An Instruction Is a Wire Reused in Time</a>
-        <p>A speculative event-fabric architecture where stateful pattern matchers react to changed bits and instructions schedule connections through time.</p>
+        <p>A stateful event fabric turns instructions into scheduled reconnections:, pattern matchers retain inputs, authorized packets carry changes.</p>
         <a href="/miscellanies/">Browse all 53 Miscellanies</a>
         <a href="/">Back to greenforest.io</a>
     </nav>

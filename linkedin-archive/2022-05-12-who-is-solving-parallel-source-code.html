@@ -6,11 +6,11 @@
     <title>Who Is Solving Parallel Source Code?</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Parallel source code as a fundamental computing problem: preserving causality, timing, locality, ownership, and failure when execution spreads across workers, devices, and machines.">
+    <meta name="description" content="The future needs parallel source code that humans can reason about and maintain across workers, devices, machines, timing, ownership, and failure.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-12-who-is-solving-parallel-source-code.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Who Is Solving Parallel Source Code?">
-    <meta property="og:description" content="Parallel source code as a fundamental computing problem: preserving causality, timing, locality, ownership, and failure when execution spreads across workers, devices, and machines.">
+    <meta property="og:description" content="The future needs parallel source code that humans can reason about and maintain across workers, devices, machines, timing, ownership, and failure.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-12-who-is-solving-parallel-source-code.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-05-12",
-                                "dateModified": "2026-07-09",
-                                "description": "Parallel source code as a fundamental computing problem: preserving causality, timing, locality, ownership, and failure when execution spreads across workers, devices, and machines.",
+                                "dateModified": "2026-07-28",
+                                "description": "The future needs parallel source code that humans can reason about and maintain across workers, devices, machines, timing, ownership, and failure.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-12-who-is-solving-parallel-source-code.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Who Is Solving Parallel Source Code?</header>
     <address>May 12, 2022</address>
 
+
+    <section class="abstract">
+        <p>The defining computing challenge reaches beyond adding more processors. Human programmers need one parallel body of source code whose causality they can understand and support across generations.</p>
+        <p>Brian Greenforest frames that challenge at civilizational scale: trillions of lines of future software will span workers, devices, and machines, and people must still own the result.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Parallel Hardware Needs Parallel Language</h1>
+            <p>Execution spreads across locations, so the source model must preserve timing, locality, ownership, communication, and failure. A library call or orchestration layer cannot carry the entire mental model.</p>
+            <p>One coherent language can make processes, routes, state, and resource boundaries visible without forcing every developer to become a cluster specialist.</p>
+        </section>
+
+        <section>
+            <h1>Design for the Humans Who Maintain the Future</h1>
+            <p>AI tools can assist implementation, yet human programmers still choose architectures, meanings, responsibilities, and long-lived relationships. The platform must make those decisions legible.</p>
+            <p>Language researchers, accelerator builders, and distributed-systems teams can bring their strongest models to this problem. The future belongs to the system that makes parallel source code as natural as sequential code feels today.</p>
+        </section>
+
+        <section>
+            <h1>Study the Parallel-Programming Session</h1>
+            <p>The linked GTC session puts the source-language problem beside a concrete industry account of programming parallel hardware.</p>
+            <p><a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31880/" target="_blank" rel="noopener">GTC Spring 2021 session S31880</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6930322593442934784" data-linkedin-activity="6930322593442934784" data-linkedin-source="activity:6930322593442934784">
         <h2 id="linkedin-original-6930322593442934784">Originally posted on LinkedIn</h2>
@@ -124,92 +151,13 @@ Does ANYBODY address THAT PROBLEM today???</div>
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Parallel source code is the problem of keeping cause, timing, ownership, locality, and failure readable when execution spreads across workers, devices, regions, or machines.</p>
-        <p>The issue is not only how to run more operations. The issue is how a builder can still understand, change, and support the program after one sequential execution path is no longer enough.</p>
-        <div class="status-box">
-            <p><span class="status-label">Problem note</span>Originally posted 2022-05-12; expanded here into the actual parallel-source-code question.</p>
-            <p><strong>Included:</strong> causality, timing, locality, ownership, failure, the support burden of long-lived code, and the link to multi-device scaling.</p>
-            <p><strong>Article focus:</strong> the source-code problem behind parallel execution: locality, causality, timing, ownership, failure, and scale.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Question</h1>
-            <p>Hardware can provide more lanes: cores, GPUs, FPGAs, accelerators, workers, services, regions, and machines. That does not by itself give the programmer a coherent program.</p>
-            <p>The hard question is source-level structure. Can one program describe parallel work while preserving the reasons a future maintainer needs: what caused what, when data is valid, which place owns a value, where failure can happen, and what has to remain local?</p>
-        </section>
-
-        <section>
-            <h1>What Must Stay Readable</h1>
-            <div class="article-fact-table">
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Causality</div>
-                    <div>Which result depends on which inputs, messages, clocks, memory states, or completed tasks.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Timing</div>
-                    <div>When a value is ready, when it expires, and whether a later stage can safely observe it.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Locality</div>
-                    <div>Which work belongs near which memory, device, region, data source, or physical boundary.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Ownership</div>
-                    <div>Which worker, device, actor, process, or region is allowed to mutate a piece of state.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Failure</div>
-                    <div>What happens when one lane stalls, one worker retries, one device disappears, or one message arrives late.</div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h1>Why It Matters</h1>
-            <p>Single-path source code remains popular because it is supportable. A person can read it, step through it, patch it, and explain the order of events.</p>
-            <p>Parallel systems often lose that property. The source becomes a collection of callbacks, kernels, queues, jobs, actors, services, promises, locks, message handlers, and deployment assumptions. The runtime may be fast while the program becomes harder to reason about.</p>
-            <p>That is the problem this note is pointing at. More computation should not automatically mean less control over the program's causal shape.</p>
-        </section>
-
-        <section>
-            <h1>Scale Boundary</h1>
-            <p>As single execution paths stop carrying the whole workload, parallel computation becomes a central software problem rather than a niche accelerator topic.</p>
-            <p>The goal is not to claim a language or runtime solves the limits of hardware scaling. The goal is to name the programming burden created by those limits: large-scale computation still needs source code that a human team can understand and support.</p>
-        </section>
-
-        <section>
-            <h1>Original Post Context</h1>
-            <p>The original post asked whether general-purpose parallel compute can have one orchestrated source form that remains easy to reason about.</p>
-            <p>That is still the useful question: not just how to launch parallel work, but how to preserve the structure that lets future programmers maintain it.</p>
-        </section>
-
-        <section>
-            <h1>Original Link</h1>
-            <p>The post linked an NVIDIA GTC session as the immediate context for the question: <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31880/" target="_blank" rel="noopener">GTC Spring 2021 session S31880</a>.</p>
-        </section>
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-05-11-when-one-fpga-is-not-enough.html">When One FPGA Is Not Enough</a>
-        <p>The physical version of the same scaling problem: partitioning, SerDes, clocks, latency, placement, and readable boundaries across packages.</p>
-        <p>More:</p>
-        <a href="2022-05-12-verilog-allocation-and-dynamic-languages.html">Verilog, Allocation, and Dynamic Languages</a>
-        <p>A related note about static hardware allocation and dynamic software allocation.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6930322593442934784/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Who Is Solving Parallel Source Code?, read:</strong></p>
+        <a href="2022-04-27-reactive-programming-implies-distributed-systems.html">Reactive Programming Implies Distributed Systems</a>
+        <p>A reactive variable already contains the seed of a distributed system. When values change independently, trigger work, cross boundaries, and maintain relationships over time, the program must manage concurrency, location, ownership, and communication.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6930322593442934784/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

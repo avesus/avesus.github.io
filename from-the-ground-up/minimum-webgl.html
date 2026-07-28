@@ -9,11 +9,11 @@
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="description" content="Minimal WebGL setup: direct browser API calls for a visible, no-framework path into GPU-backed computation.">
+    <meta name="description" content="Create a WebGL context, compile GLSL, draw two triangles, and read a 32-bit GPU result through direct browser API calls.">
     <link rel="canonical" href="https://greenforest.io/from-the-ground-up/minimum-webgl.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Run GPU Code With Raw WebGL and GLSL">
-    <meta property="og:description" content="Minimal WebGL setup: direct browser API calls for a visible, no-framework path into GPU-backed computation.">
+    <meta property="og:description" content="Run one inspectable GPU computation from raw WebGL context creation through GLSL execution and result readback.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/from-the-ground-up/minimum-webgl.html">
     <meta property="og:image" content="https://greenforest.io/social-previews/from-the-ground-up/minimum-webgl.png">
@@ -32,50 +32,42 @@
 
 <header>Run GPU Code With Raw WebGL And GLSL</header>
 <section class="abstract">
-    <p><strong>Minimal WebGL setup:</strong> direct browser API calls for a visible, no-framework path into GPU-backed computation.</p>
-    <div class="status-box">
-        <p><span class="status-label">Runnable browser snippet</span>Direct WebGL setup, visible JavaScript snippets, shader compilation, and no-framework GPGPU framing.</p>
-        <p><strong>Scope:</strong> WebGL 1.0 origin material, not a complete WebGPU treatment.</p>
-    </div>
-    <p>
-        <em>Disclaimer: there is no hidden code behind the scenes.
-	The entire GPGPU computation raw, low level, browser APIs are
-	called from code you see on this page, and on this page only.</em></p>
-    <p>
-        We describe the minimum required JavaScript to make WebGL API calls in the browser to make our GPU hardware code. The code doesn't use any frameworks, so you right-click on your browser, chose <em>Inspect</em>, and navigate to the <em>Console</em>        tab, and copy-paste the JavaScript code presented in this article into the console.
-    </p>
+    <p><strong>One WebGL fragment can turn a GLSL expression into a 32-bit hardware result.</strong></p>
+    <p>The code below creates the canvas and context, compiles the shader pair, rasterizes two triangles, writes RGBA bytes, and reads them back. Direct browser calls expose the complete path from JavaScript to GPU execution.</p>
+    <p>Open the browser's <em>Inspect</em> panel, choose <em>Console</em>, and run each block in sequence.</p>
 </section>
 
 <main>
     <section>
-        <h1>What the code does</h1>
-        <p>The minimum GPU code runs in a single GPU hardware thread, and outputs 32 bits as the result of computation. That's the easiest way to see how it runs.</p>
+        <h1>Make One GPU Thread Return 32 Bits</h1>
+        <p>The minimum path runs one GPU hardware thread and returns four RGBA bytes. That 32-bit result makes every stage easy to inspect.</p>
 
-        <p>To make that happen, we're going to execute the following sequence of commands:
+        <p>The sequence starts with two browser operations:
             <ol>
                 <li>Create an invisible <code>&lt;canvas&gt;</code> HTML element.</li>
-                <li>Call the method <code>getContext()</code> of the element.</li>
+                <li>Call its <code>getContext()</code> method to acquire WebGL.</li>
             </ol>
+            Shader compilation, triangle rasterization, and result readback then complete the loop.
         </p>
 
     </section>
 
     <section>
-        <h1>WebGL context</h1>
+        <h2>Build the WebGL Context</h2>
 
-        <p>It starts from an HTML element. We're in a browser, after all:</p>
+        <p>A browser canvas owns the WebGL context:</p>
         <textarea class="code">
 window.elt_webgl = document.createElement('canvas');
 
 return elt_webgl;
 </textarea>
 
-        <p>The default size of HTML canvas element is 300 by 150 pixels:</p>
+        <p>The canvas starts at its default size of 300 by 150 pixels:</p>
         <textarea class="code">
 return `${ elt_webgl.width }x${ elt_webgl.height }`;
 </textarea>
 
-        <p>So we reduce it to 2x2:</p>
+        <p>A 2x2 canvas keeps this first run compact:</p>
         <textarea class="code">
 elt_webgl.width = elt_webgl.height = 2;
 // this.insertAdjacentElement('afterend', elt_webgl);
@@ -83,7 +75,7 @@ return `${ elt_webgl.width }x${ elt_webgl.height }`;
 </textarea>
 
 
-        <p>Default WebGL init parameters are suboptimal for GPGPU&mdash;with a depth buffer and anti-aliasing, and introducing additional latency&mdash;so we disable it:</p>
+        <p>Depth testing and antialiasing add graphics work that this GPGPU path does not need. The context options remove both and request high-performance, desynchronized execution:</p>
         <textarea class="code">
 window.gl = elt_webgl.getContext('webgl', {
 	depth: false,
@@ -101,7 +93,7 @@ return gl;
 </textarea>
 
 
-        <p>When OpenGL doesn't work we need to know why. Let's make <code>gl.getError()</code> return text:</p>
+        <p>A readable <code>gl.getError()</code> wrapper turns numeric failures into precise diagnostic names:</p>
         <textarea class="code">
 window.gl_err = (gl) => ({
 	0: 'NO_ERROR',
@@ -114,7 +106,7 @@ window.gl_err = (gl) => ({
 		[gl.getError()]);
 </textarea>
 
-        <p>To run GPU code, we need to compile it, and then render two triangles:</p>
+        <p>The Shader class compiles the GLSL pair, links the program, binds a four-vertex strip, and renders two triangles:</p>
         <textarea class="code">
 
 window.Shader = class {
@@ -220,7 +212,7 @@ run (framebuffer) {
 
 </textarea>
 
-        <p>Now, after we got a missing API, we can run it:</p>
+        <p>The complete run path now writes the RGBA value [0, 255, 127, 0] across a 16x16 viewport:</p>
         <textarea class="code">
 const gpu_exe_0 = new Shader(gl, `#version 100
 
@@ -239,7 +231,7 @@ return gpu_exe_0.run(framebuffer);
 
 </textarea>
 
-        <p>We don't have to read GPU shader execution results which it wrote into framebuffer's color attachment(s), because these simply can be used as textures in new runs after swapping</p>
+        <p>A later pass can consume the color attachment directly as a texture after a state swap. For inspection, readPixels() copies the 16x16 RGBA result into a byte array:</p>
         <textarea class="code">
 const current_color_attachment_contents = new Uint8Array(
 	16 * 16 * 4);
@@ -249,12 +241,11 @@ gl.readPixels(0, 0, 16, 16,
 return current_color_attachment_contents;
 </textarea>
 
-        <h2>Float precision and GLSL 1.00</h2>
-        <p>GLSL 1.00 preprocessor cuts all floating point literals below 1.0000001e-37 = pow(2, -123) * (1 + 0.0633825) by a silly point simply shrinking all decimal literals below 1e-37 to zero in a buggy way: the sign is ignored. It's preprocessor, it's
-            not your GPU. There's a lot of
-            <a target="_blank" rel="noopener" href="https://chromium.googlesource.com/angle/angle/+/master/src/compiler/translator/ConstantUnion.cpp">"garbage" buggy code</a> there.</p>
+        <h2>Keep GLSL 1.00 Precision Under Direct Control</h2>
+        <p>The GLSL 1.00 preprocessor cuts floating-point literals below 1.0000001e-37 = pow(2, -123) * (1 + 0.0633825). Its decimal-literal path shrinks values below 1e-37 to zero and ignores the sign. The preprocessor causes that behavior before the GPU runs the shader; ANGLE's
+            <a target="_blank" rel="noopener" href="https://chromium.googlesource.com/angle/angle/+/master/src/compiler/translator/ConstantUnion.cpp">constant-union implementation</a> shows the relevant translation path.</p>
 
-        <p>We can write a function doing all of this:</p>
+        <p>The next function runs dynamic shader source and returns floating-point values, raw bytes, and the corresponding bit string:</p>
         <textarea class="code">
 
 window.run_dynamic_gpu_code = (gl, source, width, height) => {
@@ -292,7 +283,7 @@ window.run_dynamic_gpu_code = (gl, source, width, height) => {
 };
 </textarea>
 
-        <p>So we can run our dynamic shader code:</p>
+        <p>The dynamic runner can now execute the packing shader against a 1x1 target:</p>
         <textarea class="code">
 return run_dynamic_gpu_code(gl, `#version 100
 
@@ -600,9 +591,7 @@ void main () {
 </textarea>
 
 
-        <p>Let's enable shaders which produce floating point values rather than 4 bytes of RGBA in the range from 0 to 255. Also, let's render to 8 color buffers simultaneously (doesn't work in smartphones). Visible framebuffer has RGBA8888 attachments.
-            But we can't use these attachments as data inside of shader code to read from. Also, RGBA8888 per shader run is not much of output (just 32 bits per GPU thread). On smartphones, this is the only option, but let's enable our desktop machines
-            and laptops to run at full throttle:</p>
+        <p>Desktop and laptop GPUs can write floating-point values to 8 color buffers at once. Smartphones generally retain the RGBA8888 path and its 32 output bits per shader thread. The final block creates a floating-point texture, attaches it to an offscreen framebuffer, runs GLSL, and reads four 32-bit channels at full desktop width:</p>
         <textarea class="code">
 
 // We want to use floating point textures:
@@ -709,7 +698,9 @@ return [
 <nav class="article-links" aria-label="Continue reading">
     <p>Next:</p>
     <a href="/shader-before-gpu-renderman-ai-hardware.html">A History of Programmable Shaders: RenderMan, GPUs, CUDA, and AI</a>
+    <p>Follow this programmable fragment path from RenderMan through GPUs, general-purpose compute, and AI hardware.</p>
     <p>More:</p>
     <a href="/webgl-glsl-computing.html">Raw WebGL and GLSL for Browser GPU Computation</a>
-    <a href="./">WebGL and Computation From First Principles</a>
+    <p>Expand the one-thread run into textures, feedback, state surfaces, and larger browser computations.</p>
+    <a href="./">Follow the Complete Ground-Up Sequence</a>
 </nav>

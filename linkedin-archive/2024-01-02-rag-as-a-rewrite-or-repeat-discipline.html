@@ -6,11 +6,11 @@
     <title>RAG as a Rewrite-or-Repeat Discipline</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A retrieval-augmented generation note: rewrite an answer when retrieved context changes it, or repeat the answer when the context adds no useful information.">
+    <meta name="description" content="Retrieval-augmented generation can follow one decisive rule: rewrite when retrieved evidence changes the answer, otherwise repeat the answer unchanged.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2024-01-02-rag-as-a-rewrite-or-repeat-discipline.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="RAG as a Rewrite-or-Repeat Discipline">
-    <meta property="og:description" content="A retrieval-augmented generation note: rewrite an answer when retrieved context changes it, or repeat the answer when the context adds no useful information.">
+    <meta property="og:description" content="Retrieval-augmented generation can follow one decisive rule: rewrite when retrieved evidence changes the answer, otherwise repeat the answer unchanged.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2024-01-02-rag-as-a-rewrite-or-repeat-discipline.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2024-01-02",
-                                "dateModified": "2026-07-09",
-                                "description": "A retrieval-augmented generation note: rewrite an answer when retrieved context changes it, or repeat the answer when the context adds no useful information.",
+                                "dateModified": "2026-07-28",
+                                "description": "Retrieval-augmented generation can follow one decisive rule: rewrite when retrieved evidence changes the answer, otherwise repeat the answer unchanged.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2024-01-02-rag-as-a-rewrite-or-repeat-discipline.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>RAG as a Rewrite-or-Repeat Discipline</header>
     <address>January 2, 2024</address>
 
+
+    <section class="abstract">
+        <p>Retrieval-augmented generation becomes reliable when the answerer follows a crisp decision: rewrite the answer when retrieved information changes it, or repeat the answer when retrieval adds nothing useful.</p>
+        <p>Brian Greenforest reduces RAG to that disciplined transformation plus an embedding model that finds candidate context.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Retrieval Supplies a Possible Correction</h1>
+            <p>An embedding model maps the query and documents into a space where relevant passages can surface. The generator then receives the query, current answer, and new passage.</p>
+            <p>The critical operation lies in relevance judgment. Useful context changes or completes the answer; irrelevant context should not trigger invention, commentary, or needless paraphrase.</p>
+        </section>
+
+        <section>
+            <h1>Make the Output Stand on Its Own</h1>
+            <p>The instruction forbids references to the old answer or retrieval process. Readers receive the best final answer directly, with no editorial residue.</p>
+            <p>Teams building RAG systems can test this rewrite-or-repeat contract across adversarial, redundant, and corrective passages. The simplicity makes behavior measurable and gives production systems a clear fallback.</p>
+        </section>
+
+        <section>
+            <h1>Put Retrieval Discipline Beside a Complete Training Run</h1>
+            <p>The four-layer run exposes how a small language model is trained, giving the RAG argument a concrete base model and execution path.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a> &middot; <a href="https://lnkd.in/g6CGSTuH" target="_blank" rel="noopener">https://lnkd.in/g6CGSTuH</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7147788827493904385" data-linkedin-activity="7147788827493904385" data-linkedin-source="activity:7147788827493904385">
         <h2 id="linkedin-original-7147788827493904385">Originally posted on LinkedIn</h2>
@@ -121,56 +148,13 @@ https://lnkd.in/g6CGSTuH</div>
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>One practical RAG discipline is a two-way decision: rewrite the existing answer when retrieved context changes it, or repeat the answer when the context adds nothing useful.</p>
-        <p>The value is not the acronym. The value is the control rule: retrieval should update the answer only when it actually carries new evidence.</p>
-        <div class="status-box">
-            <p><span class="status-label">RAG note</span>Originally posted 2024-01-02; expanded here around the rewrite-or-repeat rule.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-            <p><strong>Article focus:</strong> retrieval, answer refinement, rewrite/repeat behavior, and context usefulness.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Rule</h1>
-            <p>The original prompt constrained answer refinement to two outcomes. If the new context is useful, rewrite the answer using it. If the new context is not useful, repeat the original answer.</p>
-            <p>That keeps retrieval from becoming automatic contamination. A retrieved passage has to earn its way into the answer.</p>
-        </section>
-
-        <section>
-            <h1>The Small Test</h1>
-            <p>The prompt example used a simple fact: "Three apples were green." The query asked what color the apples were. The model's job was not to discuss context. It was to produce the corrected answer when the context answered the query.</p>
-            <p>The same discipline scales to larger RAG systems: context should either change the answer for a reason or leave the answer alone.</p>
-            <p><a href="https://lnkd.in/g6CGSTuH" target="_blank" rel="noopener">https://lnkd.in/g6CGSTuH</a></p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/g6CGSTuH" target="_blank" rel="noopener">https://lnkd.in/g6CGSTuH</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-12-08-remembering-carl-hewitt.html">Remembering Carl Hewitt</a>
-        <p>Another dated publication from December 8, 2023.</p>
-        <p>More:</p>
-        <a href="2024-01-10-training-a-tiny-llama-from-scratch.html">Training a Tiny LLaMA From Scratch</a>
-        <p>Another dated publication from January 10, 2024.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7147788827493904385/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From RAG as a Rewrite-or-Repeat Discipline, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7147788827493904385/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

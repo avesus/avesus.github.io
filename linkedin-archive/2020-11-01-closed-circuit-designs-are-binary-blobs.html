@@ -6,11 +6,11 @@
     <title>Closed Circuit Designs Are Binary Blobs</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A hardware-openness note about proprietary circuit IP, FPGA HDL, open toolchains, and why shareable circuit source matters for smaller builders.">
+    <meta name="description" content="Readable HDL and open FPGA toolchains let builders inspect, teach, modify, synthesize, and preserve circuits instead of depending on opaque proprietary IP blocks.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2020-11-01-closed-circuit-designs-are-binary-blobs.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Closed Circuit Designs Are Binary Blobs">
-    <meta property="og:description" content="A hardware-openness note about proprietary circuit IP, FPGA HDL, open toolchains, and why shareable circuit source matters for smaller builders.">
+    <meta property="og:description" content="Readable HDL and open FPGA toolchains let builders inspect, teach, modify, synthesize, and preserve circuits instead of depending on opaque proprietary IP blocks.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2020-11-01-closed-circuit-designs-are-binary-blobs.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2020-11-01",
-                                "dateModified": "2026-07-09",
-                                "description": "A hardware-openness note about proprietary circuit IP, FPGA HDL, open toolchains, and why shareable circuit source matters for smaller builders.",
+                                "dateModified": "2026-07-28",
+                                "description": "Readable HDL and open FPGA toolchains let builders inspect, teach, modify, synthesize, and preserve circuits instead of depending on opaque proprietary IP blocks.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2020-11-01-closed-circuit-designs-are-binary-blobs.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,31 @@
 <body>
     <header>Closed Circuit Designs Are Binary Blobs</header>
     <address>November 1, 2020</address>
+
+    <section class="abstract">
+        <p>A readable circuit source gives hardware the same civilizing power that source code gives software. Engineers can inspect the design, simulate it, teach it, modify it, synthesize it for another device, and preserve it after one vendor or product disappears.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>HDL Turns a Circuit Into Shared Knowledge</h1>
+            <p>A proprietary IP block behaves like a binary firmware blob: it performs a useful function while hiding the structure that creates the result. That opacity limits repair, adaptation, verification, education, and independent implementation.</p>
+            <p>VHDL and Verilog let a circuit travel as readable source. Public testbenches can exercise it. Synthesis can map it onto new devices. Contributors can repair timing, extend protocols, and teach the mechanism from the same executable description.</p>
+        </section>
+
+        <section>
+            <h1>Open Toolchains Complete the Source Path</h1>
+            <p>Yosys and Project IceStorm gave independent builders a public path from HDL through synthesis and iCE40 bitstreams. Lattice devices supplied the tangible substrate. Together they made circuit sharing more than a document exchange: source could become configured hardware through inspectable tools.</p>
+            <p>The 2020 industry moment sharpened the stakes. Intel already owned Altera, and AMD had announced its plan to acquire Xilinx. The two companies that had expanded FPGA practice now sat inside businesses built around enormous proprietary processor portfolios.</p>
+        </section>
+
+        <section>
+            <h1>Keep the Circuit World Buildable</h1>
+            <p>Open hardware thrives when device vendors publish documentation, support public flows, and treat community toolchains as strategic infrastructure. Designers strengthen it by releasing HDL, tests, constraints, build instructions, and explanations that another person can carry forward.</p>
+            <p>Choose one useful closed block and publish a readable replacement. Every such circuit expands the part of the computing stack that people can understand and own.</p>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6728533817285574656" data-linkedin-activity="6728533817285574656" data-linkedin-source="activity:6728533817285574656">
@@ -135,44 +160,13 @@ Will Lattice Semiconductor withstand the harsh &quot;fight&quot; for openness? T
         </section>
     </section>
 
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Software openness has a familiar source-versus-binary distinction. Hardware has a similar boundary: can the circuit be read, modified, built, and taught, or is the useful design locked behind proprietary IP?</p>
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2020-11-01.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Circuit Source Matters</h1>
-            <p>A proprietary circuit block can be as opaque to a builder as a binary firmware blob is to a software developer. The problem is not only licensing. It is the loss of inspectability, modification, teaching, repair, and independent implementation.</p>
-            <p>FPGAs made a different habit possible. VHDL and Verilog can be shared, reviewed, simulated, synthesized, and improved in public. Open toolchains such as Yosys and Project IceStorm made that habit more practical for small devices and independent builders.</p>
-        </section>
-
-        <section>
-            <h1>The Industry Boundary</h1>
-            <p>Large semiconductor vendors depend on proprietary IP portfolios, patent position, and closed implementation details. Open hardware needs enough viable devices, documentation, and tooling that public HDL can still turn into working circuits without depending on a closed black box at the most important step.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2020-10-23-diy-bga-and-solderless-multilayer-pcb-tests.html">DIY BGA and Solderless Multilayer PCB Tests</a>
-        <p>Another dated publication from October 23, 2020.</p>
-        <p>More:</p>
-        <a href="2020-11-06-ftl-communications-as-a-research-program.html">FTL Communications as a Research Program</a>
-        <p>Another dated publication from November 6, 2020.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6728533817285574656/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Closed Circuit Designs Are Binary Blobs, read:</strong></p>
+        <a href="2021-04-18-open-hardware-ip-cores-are-coming.html">Open Hardware IP Cores Are Coming</a>
+        <p>Open hardware IP can create the same compounding economy that open-source software brought to applications. Reusable Wi-Fi, 5G, USB, compute, and control cores let teams assemble sophisticated systems instead of rebuilding foundations behind proprietary walls.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6728533817285574656/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

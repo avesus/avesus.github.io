@@ -6,11 +6,11 @@
     <title>Training a Tiny LLaMA From Scratch</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A small-model training note: a 500k-parameter LLaMA-style model trained overnight on CPU with TinyStories, architecture parameters, and sample output preserved.">
+    <meta name="description" content="A 500,000-parameter LLaMA-style model trained overnight on CPU turns Transformer architecture, TinyStories data, and generation into a reproducible build.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2024-01-10-training-a-tiny-llama-from-scratch.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Training a Tiny LLaMA From Scratch">
-    <meta property="og:description" content="A small-model training note: a 500k-parameter LLaMA-style model trained overnight on CPU with TinyStories, architecture parameters, and sample output preserved.">
+    <meta property="og:description" content="A 500,000-parameter LLaMA-style model trained overnight on CPU turns Transformer architecture, TinyStories data, and generation into a reproducible build.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2024-01-10-training-a-tiny-llama-from-scratch.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2024-01-10",
-                                "dateModified": "2026-07-09",
-                                "description": "A small-model training note: a 500k-parameter LLaMA-style model trained overnight on CPU with TinyStories, architecture parameters, and sample output preserved.",
+                                "dateModified": "2026-07-28",
+                                "description": "A 500,000-parameter LLaMA-style model trained overnight on CPU turns Transformer architecture, TinyStories data, and generation into a reproducible build.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2024-01-10-training-a-tiny-llama-from-scratch.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Training a Tiny LLaMA From Scratch</header>
     <address>January 10, 2024</address>
 
+
+    <section class="abstract">
+        <p>A complete LLaMA-style language model can fit into 500,000 parameters and train overnight on a CPU. Brian Greenforest built that machine from scratch in PyTorch on TinyStories, turning the modern Transformer stack into something one engineer can inspect end to end.</p>
+        <p>The run makes architecture, data, loss, optimization, and sampling tangible through a generated story produced by the resulting weights.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The Whole Model Fits on One Line</h1>
+            <p>The configuration used dimension 103, five layers, eight attention heads, one key-value head, vocabulary size 103, multiple-of-four alignment, sequence length 240, and dropout 0.2.</p>
+            <p>Those choices expose grouped-query attention, residual blocks, normalization, token representation, autoregressive masking, and next-token training at a scale that invites direct study.</p>
+        </section>
+
+        <section>
+            <h1>Train the Architecture, Then Read Its Voice</h1>
+            <p>An overnight CPU run produced recognizably story-shaped text with characters, actions, emotional words, and imperfect grammar. The output makes learned statistical structure visible without hiding behind a giant pretrained checkpoint.</p>
+            <p>Students and engineers can reproduce the run, inspect every tensor, change one architectural choice, and build genuine intuition for how a LLaMA-family model learns.</p>
+        </section>
+
+        <section>
+            <h1>Run Training a Tiny LLaMA From Scratch in a Four-Layer Transformer</h1>
+            <p>The complete training run connects this mathematical argument to executable code, data flow, and a working small model.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7150899172584386560" data-linkedin-activity="7150899172584386560" data-linkedin-source="activity:7150899172584386560">
         <h2 id="linkedin-original-7150899172584386560">Originally posted on LinkedIn</h2>
@@ -124,51 +151,13 @@
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>This was a small LLaMA-style training run: about 500k parameters on TinyStories, trained overnight on CPU in PyTorch.</p>
-        <p>The value is that model shape and output stay together. The page preserves the architecture settings and a generated sample so the run can be read as a concrete artifact, not just a claim that a model was trained.</p>
-        <div class="status-box">
-            <p><span class="status-label">Small-model run</span>Originally posted 2024-01-10; expanded here around the training artifact.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-            <p><strong>Article focus:</strong> TinyStories, 500k parameters, CPU training, PyTorch, architecture settings, and generated sample text.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Run</h1>
-            <p>The model used TinyStories and trained overnight on CPU in PyTorch. The reported size was about 500k parameters.</p>
-            <p>The preserved settings were: dim 103, 5 layers, 8 heads, 1 key/value head, vocabulary size 103, multiple_of 4, maximum sequence length 240, and dropout 0.2.</p>
-        </section>
-
-        <section>
-            <h1>Sample Output</h1>
-            <blockquote>
-                <p>Once upon a time, there was a very cold! The road had been to be thoughtful and see the animals remembered to eat her new friends. One day, while playing, Tom took a big pot in his friend when he decided to see the sun to let Lucy be dangerous of happy plants. Tom jumped on...</p>
-            </blockquote>
-            <p>The sample is useful because it shows the level of the run directly: local grammar and story-like texture appear, but the model is still very small and the generated sequence does not yet maintain strong coherence.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2024-01-02-rag-as-a-rewrite-or-repeat-discipline.html">RAG as a Rewrite-or-Repeat Discipline</a>
-        <p>Another dated publication from January 2, 2024.</p>
-        <p>More:</p>
-        <a href="2024-01-10-loss-functions-in-llms-and-embedding-models.html">Loss Functions in LLMs and Embedding Models</a>
-        <p>Another dated publication from January 10, 2024.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7150899172584386560/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Training a Tiny LLaMA From Scratch, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7150899172584386560/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

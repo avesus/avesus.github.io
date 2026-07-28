@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>MUX Algebra: Every Two-Input Logic Gate From MUXes | Greenforest I/O</title>
-    <meta name="description" content="A visual 2020 construction of all 16 two-input Boolean functions, pairing exact 2:1 MUX diagrams with placed, routed, and shader-verified Cartilage fabric patches.">
+    <title>One Multiplexer Builds Every Two-Input Logic Gate | Brian Greenforest</title>
+    <meta name="description" content="Build all 16 two-input Boolean functions from 2:1 multiplexers, then run every circuit as a placed and routed Cartilage fabric patch.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/mux-algebra.html">
     <link rel="icon" href="/favicon.ico">
-    <meta property="og:title" content="MUX Algebra: Every Two-Input Logic Gate From MUXes">
-    <meta property="og:description" content="See every two-input Boolean function as both an exact MUX circuit and a placed, routed Cartilage fabric patch.">
+    <meta property="og:title" content="One Multiplexer Builds Every Two-Input Logic Gate">
+    <meta property="og:description" content="All 16 two-input Boolean functions become selector circuits and executable Cartilage routes.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/mux-algebra.html">
     <meta property="article:published_time" content="2020-03-22T17:10:23.959Z">
@@ -22,21 +22,21 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="MUX Algebra: Every Two-Input Logic Gate From MUXes - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="One Multiplexer Builds Every Two-Input Logic Gate - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/mux-algebra.png">
-    <meta name="twitter:image:alt" content="MUX Algebra: Every Two-Input Logic Gate From MUXes - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="One Multiplexer Builds Every Two-Input Logic Gate - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "MUX Algebra: Every Two-Input Logic Gate From MUXes",
-            "description": "A visual 2020 construction of all 16 two-input Boolean functions, pairing exact 2:1 MUX diagrams with placed, routed, and shader-verified Cartilage fabric patches.",
+            "headline": "One Multiplexer Builds Every Two-Input Logic Gate",
+            "description": "Build all 16 two-input Boolean functions from 2:1 multiplexers, then run every circuit as a placed and routed Cartilage fabric patch.",
             "dateCreated": "2020-03-22T17:10:23.959Z",
             "datePublished": "2020-03-22",
-            "dateModified": "2026-07-23",
+            "dateModified": "2026-07-28",
             "additionalProperty": {
                 "@type": "PropertyValue",
                 "name": "Transistor-level LUT2 follow-up",
@@ -398,23 +398,23 @@
 </head>
 
 <body class="article-structured mux-algebra-visual">
-    <header><h1 class="page-title">MUX Algebra</h1></header>
+    <header><h1 class="page-title">One Multiplexer Builds Every Two-Input Logic Gate</h1></header>
     <address>
         Written <time datetime="2020-03-22T17:10:23.959Z">March 22, 2020</time>, with the transistor-level follow-up added <time datetime="2020-03-23T06:24:03.564Z">March 23, 2020</time><br>
-        <time datetime="2026-07-23">Visual web edition July 23, 2026</time>
+        <time datetime="2026-07-28">Updated July 28, 2026</time>
     </address>
 
     <section class="abstract">
-        <p class="mux-deck">Build every two-input logic gate from selectors, inputs, and constants.</p>
-        <p class="mux-opening">A MUX chooses one wire. From <code>0</code>, <code>1</code>, <code>A</code>, and <code>NOT A</code>, one more choice by <code>B</code> produces every Boolean function of <code>A</code> and <code>B</code>.</p>
+        <p class="mux-deck">One selector, two constants, and two inputs generate the complete two-variable Boolean universe.</p>
+        <p class="mux-opening">A MUX controlled by <code>B</code> chooses among <code>0</code>, <code>1</code>, <code>A</code>, and <code>NOT A</code>. Those four sources produce every Boolean function of <code>A</code> and <code>B</code>&mdash;then run as real routes in the Cartilage fabric.</p>
     </section>
 
     <main>
         <section id="mux-rule">
-            <h2>The Only MUX Rule</h2>
+            <h2>One Rule Controls Every Circuit</h2>
             <p class="mux-rule">M(S, D0, D1) = S ? D1 : D0</p>
             <div class="mux-parity-intro">
-                <p><strong>Every lesson has two views.</strong> First comes the clean circuit; immediately beneath it is the same function placed and routed in the real Cartilage fabric. A pale beige square identifies a MUX tile; a filled dark signal ring means <code>1</code>, while a hollow ring means <code>0</code>. Open a compact fabric image—or the <strong>Native</strong> links beneath a responsive route—to inspect its unlabelled native pixels.</p>
+                <p><strong>Each lesson connects equation to machine.</strong> The clean circuit appears first; the same function follows as a placed and routed Cartilage fabric. A pale beige square marks a MUX tile, a filled dark ring carries <code>1</code>, and a hollow ring carries <code>0</code>. Open any fabric image or <strong>Native</strong> link to inspect its pixels.</p>
             </div>
             <div class="mux-grid mux-grid--2">
                 <figure class="mux-figure" data-parity-id="01-mux-selects-d0">
@@ -462,12 +462,12 @@
                     <figcaption><code>S=1</code> connects <code>D1</code> to <code>Y</code>.</figcaption>
                 </figure>
             </div>
-            <p>The selector does not calculate a value. It connects exactly one input path to the output.</p>
+            <p>The selector connects exactly one input path to the output. Composition turns that controlled connection into logic.</p>
         </section>
 
         <section id="mux-sources">
-            <h2>Constants Create The Four Possible Sources</h2>
-            <p>Once <code>A</code> is the only live input, its output can behave in only four ways. Each picture below uses the same MUX geometry and gives that behavior a two-bit pointer.</p>
+            <h2>Four Sources Cover Every Behavior Of A</h2>
+            <p>With <code>A</code> as the only live input, an output can equal <code>0</code>, <code>A</code>, <code>1</code>, or <code>NOT A</code>. The same MUX geometry creates all four, and a two-bit pointer names each source.</p>
             <div class="mux-grid mux-grid--2">
                 <figure class="mux-figure" data-parity-id="03-source-00-zero">
                     <!-- mux-cartilage-parity:start -->
@@ -561,8 +561,8 @@
         </section>
 
         <section id="mux-and">
-            <h2>Build AND One Branch At A Time</h2>
-            <p>Freeze <code>B</code>, and ask what the output must do as <code>A</code> changes. The answer for each value of <code>B</code> is one of the four source pictures above.</p>
+            <h2>AND Emerges One Branch At A Time</h2>
+            <p>Hold <code>B</code> constant and follow the output as <code>A</code> changes. Each value of <code>B</code> selects one of the four sources above.</p>
             <div class="mux-grid mux-grid--2">
                 <figure class="mux-figure" data-parity-id="10-and-when-b-zero">
                     <!-- mux-cartilage-parity:start -->
@@ -639,14 +639,14 @@
                         <img src="/media/mux-algebra/cartilage/cartilage-and-propagation.gif" width="448" height="464" loading="lazy" decoding="async" alt="Actual Cartilage GLSL fabric frames for a one-MUX AND patch with A and B high; the signal advances through the fabric and output Y rises on cycle two">
                     </picture>
                 </a>
-                <figcaption>Each frame advances exactly one native GLSL fabric transition. Watch the dark <code>1</code> state enter the beige MUX tile: with <code>A=1</code> and <code>B=1</code>, <code>Y</code> rises on cycle 2. Labels are composited over unscaled renderer captures.</figcaption>
+                <figcaption>Each frame advances exactly one native GLSL fabric transition. Watch the dark <code>1</code> state enter the beige MUX tile: with <code>A=1</code> and <code>B=1</code>, <code>Y</code> rises on cycle 2. A postprocess composites labels over unscaled renderer captures.</figcaption>
             </figure>
         </section>
 
         <section id="mux-proof">
-            <h2>Why No Boolean Function Is Missing</h2>
-            <h3>Direct truth-bit construction</h3>
-            <p>Store the four truth-table outputs as <code>C00</code>, <code>C10</code>, <code>C01</code>, and <code>C11</code>. Two MUXes choose by <code>A</code>; a third chooses the correct column by <code>B</code>. Because the four stored bits can contain any pattern, this tree realizes all 16 two-input functions.</p>
+            <h2>The Construction Reaches All 16 Functions</h2>
+            <h3>Store the four truth bits directly</h3>
+            <p>Store the outputs as <code>C00</code>, <code>C10</code>, <code>C01</code>, and <code>C11</code>. Two MUXes choose by <code>A</code>; a third chooses the correct column by <code>B</code>. Four freely chosen bits span all 16 two-input functions.</p>
             <figure class="mux-figure mux-major" id="mux-lut2-tree" data-parity-id="09a-universal-lut2-tree">
                 <!-- mux-cartilage-parity:start -->
                 <div class="mux-parity-panels mux-parity-panels--responsive">
@@ -678,8 +678,8 @@
                 <figcaption>Three nested 2:1 MUXes select one of four stored truth bits. This is the direct LUT2 construction.</figcaption>
             </figure>
 
-            <h3>The 2020 source-pointer construction</h3>
-            <p>The manuscript uses a different four-bit encoding. It notices that each fixed-<code>B</code> column is exactly one of <code>0</code>, <code>A</code>, <code>1</code>, or <code>NOT A</code>, then stores two source addresses instead of four direct truth bits.</p>
+            <h3>Store two source pointers</h3>
+            <p>The 2020 construction uses another four-bit encoding. Each fixed-<code>B</code> column equals <code>0</code>, <code>A</code>, <code>1</code>, or <code>NOT A</code>, so two source addresses replace four direct truth bits.</p>
             <figure class="mux-figure mux-major" id="mux-truth-columns" data-parity-id="07-split-truth-table-by-b">
                 <!-- mux-cartilage-parity:start -->
                 <div class="mux-parity-panels mux-parity-panels--responsive">
@@ -771,14 +771,14 @@
                 <figcaption>Both addresses see the same four sources. <code>B</code> chooses which addressed branch reaches <code>Y</code>.</figcaption>
             </figure>
             <div class="mux-encoding-note">
-                <p><strong>Do not mix the encodings.</strong> A truth vector lists four outputs in the visible order <code>A0B0, A0B1, A1B0, A1B1</code>. The 2020 pointer word contains two source addresses in the order <code>B=0 | B=1</code>.</p>
+                <p><strong>The two encodings record different things.</strong> A truth vector lists four outputs in the visible order <code>A0B0, A0B1, A1B0, A1B1</code>. The pointer word stores two source addresses in the order <code>B=0 | B=1</code>.</p>
                 <p>For example, XOR has truth vector <code>0110</code> but pointer word <code>01|11 = 0111</code>.</p>
             </div>
         </section>
 
         <section id="mux-catalog">
-            <h2>Every Two-Input Function As A Circuit</h2>
-            <p>Each card shows the smallest 2:1 MUX wiring, the four visible truth outputs, and the 2020 pointer word. Constants and direct wires count as zero MUXes. XOR, XNOR, NAND, and NOR need two; the other nontrivial functions need one.</p>
+            <h2>Every Two-Input Function Becomes A Circuit</h2>
+            <p>Each card shows minimal 2:1 MUX wiring, four visible truth outputs, and the pointer word. Constants and direct wires use zero MUXes. XOR, XNOR, NAND, and NOR use two; every other nontrivial function uses one.</p>
 
             <div class="mux-catalog">
                 <div class="mux-catalog-group">
@@ -1164,8 +1164,8 @@
         </section>
 
         <section id="mux-more-inputs">
-            <h2>More Inputs Repeat The Same Move</h2>
-            <p>For a third input, split the function once more. The two branches are now two-input functions from the catalog above. Repeating the split eventually reaches constants, so nested MUXes can express any Boolean function.</p>
+            <h2>Each New Input Adds One Selection Level</h2>
+            <p>A third input selects between two functions from the catalog above. Repeat that decomposition until every branch reaches a constant, and nested MUXes express any Boolean function.</p>
             <figure class="mux-figure mux-major" data-parity-id="31-more-inputs-repeat">
                 <!-- mux-cartilage-parity:start -->
                 <div class="mux-parity-panels mux-parity-panels--responsive">
@@ -1199,19 +1199,19 @@
         </section>
 
         <section id="mux-cartilage-evidence">
-            <h2>The Same Circuits Running In Cartilage</h2>
+            <h2>All 34 Circuits Run In Cartilage</h2>
             <div class="mux-cartilage-evidence">
-                <p>All <code>34/34</code> generated teaching illustrations have a one-to-one Cartilage counterpart, including the five responsive mobile routes. The shader-readback run covers <code>606</code> passing cases, and every labeled image has an unlabelled native capture beside it.</p>
-                <p>I rendered them with the Cartilage Core WebGL1/GLSL engine at commit <code>48ff6e0</code>. Each placed and routed state is loaded with <code>window.cartilage.loadState</code>, advanced with <code>window.cartilage.step</code>, and read back with <code>window.cartilage.readCell</code> at a native 96 pixels per tile.</p>
-                <p>Every 32×64 state begins with a reconfiguration-port root at <code>(0,0)</code>. The check reads all 2,048 cells before and after every truth-table case and rejects parent-pointer search or a changed parent field. Only native zoom and the initialization of three host-injected boundary cells differ in the temporary capture copy; the GLSL transition and renderer stay the same.</p>
-                <p>This run checks the application behavior of circuits already placed in the fabric. Carrying the same cells through the serial reconfiguration-install path is a separate operation.</p>
+                <p>Every one of the <code>34/34</code> teaching illustrations has a one-to-one Cartilage route, including five responsive mobile layouts. Shader readback covers <code>606</code> passing cases, and each labeled image includes a native-pixel capture.</p>
+                <p>Cartilage Core commit <code>48ff6e0</code> renders the routes through WebGL1 and GLSL. <code>window.cartilage.loadState</code> installs each state, <code>window.cartilage.step</code> advances it, and <code>window.cartilage.readCell</code> reads it back at 96 native pixels per tile.</p>
+                <p>Every <code>32&times;64</code> state begins with a reconfiguration-port root at <code>(0,0)</code>. The checker reads all 2,048 cells before and after each truth-table case and rejects parent-pointer search or any changed parent field. Native zoom and three host-injected boundary cells initialize the capture copy; the GLSL transition and renderer remain identical.</p>
+                <p>The run executes already routed application circuits. The serial installer supplies the complementary path from configuration stream to placed circuit.</p>
                 <p><a href="/media/mux-algebra/cartilage/parity-manifest.json">Open the capture, routing, truth-check, and SHA-256 manifest.</a></p>
             </div>
         </section>
 
         <section id="mux-originals">
-            <h2>The Original 2020 Figures</h2>
-            <p>The paired abstract diagrams and Cartilage captures above are new teaching views. I drew the five Logisim circuits below in 2020, so they stand outside the <code>34/34</code> generated-illustration count.</p>
+            <h2>The 2020 Logisim Circuits Started The Construction</h2>
+            <p>Five original Logisim circuits precede the paired teaching views and sit outside the <code>34/34</code> generated-illustration count.</p>
             <figure class="mux-figure mux-original-small">
                 <a href="/media/mux-algebra/four-bit-configurable-mux-network.png">
                     <img src="/media/mux-algebra/four-bit-configurable-mux-network.png" width="418" height="300" loading="lazy" decoding="async" alt="Original 2020 Logisim configurable MUX network with A, B, ground, power, a four-bit configuration input, and output Y">
@@ -1245,8 +1245,8 @@
                 </figure>
             </div>
 
-            <p>I wrote the MUX-algebra construction on March 22, 2020, and added the transistor-level LUT2 follow-up on March 23. For this visual edition I standardized the variable names as <code>A</code> and <code>B</code> and corrected the two implication labels against their truth tables.</p>
-            <p>The Logisim circuits show the functional selector network. They are not a transistor layout, extracted circuit, or powered-hardware measurement. My original “16 CMOS transistor” LUT2 count assumed a particular selector arrangement; the real total depends on MUX topology, complemented-selector generation, source sharing, loading, and output drive.</p>
+            <p>The MUX-algebra construction dates to March 22, 2020; the transistor-level LUT2 follow-up dates to March 23. This edition standardizes variables as <code>A</code> and <code>B</code> and aligns both implication labels with their truth tables.</p>
+            <p>The Logisim drawings show functional selector networks. A transistor implementation chooses its count through MUX topology, complemented-selector generation, source sharing, loading, and output drive. The original "16 CMOS transistor" LUT2 count corresponds to one such arrangement.</p>
 
             <details class="mux-programmer">
                 <summary>Exact executable definition</summary>
@@ -1262,8 +1262,8 @@ muxAlgebra(1, 1, 0b0111); // XOR  -> 0</code></pre>
         </section>
 
         <section id="mux-connections">
-            <h2>Where This Construction Leads</h2>
-            <p>The <a href="/cartilage/logic-to-luts.html">Logisim-to-LUT learning path</a> grows this exact selection rule from LUT1 through LUT6 and connects it to Lattice and AMD/Xilinx FPGA primitives. The <a href="/physical-mux-tiles/">physical MUX tiles</a> make the selector, constants, routes, intersections, and orientation tangible. <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a> extends the same completeness argument into storage, configuration transport, ownership, and an extensible fabric.</p>
+            <h2>From One Selector To A Reconfigurable Computer</h2>
+            <p>The <a href="/cartilage/logic-to-luts.html">Logisim-to-LUT learning path</a> grows this rule from LUT1 through LUT6 and connects it to Lattice and AMD/Xilinx FPGA primitives. The <a href="/physical-mux-tiles/">physical MUX tiles</a> turn selectors, constants, routes, intersections, and orientation into objects you can arrange by hand. <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a> carries the same construction into storage, configuration transport, ownership, and an extensible fabric.</p>
         </section>
     </main>
 
@@ -1274,9 +1274,9 @@ muxAlgebra(1, 1, 0b0111); // XOR  -> 0</code></pre>
         <p>More:</p>
         <a href="/cartilage/">The Complete Cartilage Learning Path</a>
         <p>Continue from local Boolean choice through drive, timing, state, wires, composition, and runtime region replacement.</p>
-        <p>Build next:</p>
+        <p>Apply the selector:</p>
         <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help carry universal MUX logic from these diagrams into named, routed, inspectable Cartilage circuits that anyone can run. Funding and contributors are welcome.</p>
+        <p>Join Brian in turning universal MUX logic into named, routed Cartilage circuits that anyone can run.</p>
     </nav>
 </body>
 

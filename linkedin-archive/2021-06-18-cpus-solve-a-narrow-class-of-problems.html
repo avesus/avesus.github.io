@@ -6,11 +6,11 @@
     <title>CPUs Solve a Narrow Class of Problems</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A compute-architecture note: sequential CPUs are general tools, but locality, concurrency, timing, and reconfigurable datapaths matter when software must scale.">
+    <meta name="description" content="CPUs serialize a narrow model of computation; reconfigurable Boolean fabrics expose parallel structure and manage complexity through local relationships.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-18-cpus-solve-a-narrow-class-of-problems.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="CPUs Solve a Narrow Class of Problems">
-    <meta property="og:description" content="A compute-architecture note: sequential CPUs are general tools, but locality, concurrency, timing, and reconfigurable datapaths matter when software must scale.">
+    <meta property="og:description" content="CPUs serialize a narrow model of computation; reconfigurable Boolean fabrics expose parallel structure and manage complexity through local relationships.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-18-cpus-solve-a-narrow-class-of-problems.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2021-06-18",
-                                "dateModified": "2026-07-09",
-                                "description": "A compute-architecture note: sequential CPUs are general tools, but locality, concurrency, timing, and reconfigurable datapaths matter when software must scale.",
+                                "dateModified": "2026-07-28",
+                                "description": "CPUs serialize a narrow model of computation; reconfigurable Boolean fabrics expose parallel structure and manage complexity through local relationships.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-18-cpus-solve-a-narrow-class-of-problems.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,27 @@
 <body>
     <header>CPUs Solve a Narrow Class of Problems</header>
     <address>June 18, 2021</address>
+
+
+    <section class="abstract">
+        <p>CPUs excel at sequential instruction streams, yet that model covers only a narrow part of the computation engineers need. It also forces complex systems through blocking calls, stacks, shared memory, and orchestration that hide the machine’s natural parallel structure.</p>
+        <p>Brian Greenforest presents FPGAs as a liberation tool: configurable Boolean systems that can express many relationships at once and create dynamic structure through connected fabrics.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>General Computation Needs More Than an ISA</h1>
+            <p>Yosys, Icarus Verilog, Verilator, Vivado, and modern FPGA devices let engineers define datapaths, state machines, protocols, and application logic directly. One FPGA can also configure another, enabling class-like instances inside a changing hardware system.</p>
+            <p>That structure offers a different way to manage complexity. Local components own state and connections instead of competing through one global instruction and memory model.</p>
+        </section>
+
+        <section>
+            <h1>Open the Fabric and Grow the Ecosystem</h1>
+            <p>The architecture raises a commercial choice about patents, licensing, and open source. Public documentation and defensive intellectual-property strategy can protect the inventor while inviting the ecosystem that a new machine needs.</p>
+            <p>FPGA vendors, tool builders, investors, and open-hardware developers can help carry this fabric into products. The opportunity combines a licensable architecture with a community-scale computing platform.</p>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6811497465783701505" data-linkedin-activity="6811497465783701505" data-linkedin-source="activity:6811497465783701505">
@@ -207,51 +228,13 @@ Boolean logic had it always.</div>
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Compute-architecture note</span>Originally posted 2021-06-18; rewritten here around execution shape and reconfigurable datapaths.</p>
-            <p><strong>Included:</strong> sequential control, spatial datapaths, explicit timing, FPGA fabric, and where a CPU abstraction stops being the right shape.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Sequential Control Is a Shape</h1>
-            <p>A CPU is an enormously useful execution shape: instruction pointer, registers, memory, cache hierarchy, interrupts, operating system, toolchain. It is also a shape with consequences. Work is usually expressed as a sequence, even when the problem has local concurrency, fixed timing, bit-level dataflow, or many independent state updates.</p>
-            <p>That mismatch matters when the machine must scale without becoming opaque. More threads, workers, or queues can help, but they do not remove the underlying assumption that the main unit of expression is still software running on a sequential core.</p>
-        </section>
-
-        <section>
-            <h1>When the Shape Fights the Problem</h1>
-            <p>Some problems are clearer as placed behavior: a pipeline stage, a routing cell, a local accumulator, a clocked boundary, a bit-serial datapath, or a small reconfigurable region with explicit inputs and outputs. FPGAs are useful because they let the computation occupy space instead of only time.</p>
-            <p>The useful split is straightforward: CPUs handle broad control well, while some problems need a datapath, a fabric, or a local rule before adding another software layer makes sense.</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>CPUs remain the right place for operating systems, orchestration, general control, files, networks, and large parts of application logic. Reconfigurable hardware earns its place when locality, timing, parallel state, and custom data movement are the real constraints.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From CPUs Solve a Narrow Class of Problems, read:</strong></p>
         <a href="2021-06-18-the-isa-as-an-api-you-cannot-extend.html">The ISA as an API You Cannot Extend</a>
-        <p>The machine-interface version of the same argument.</p>
-        <p>More:</p>
-        <a href="2021-06-18-mini-fpgas-inside-fpgas.html">Mini-FPGAs Inside FPGAs</a>
-        <p>A local-reconfiguration version of the same execution-shape question.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6811497465783701505/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+        <p>A fixed instruction set gives software developers a polished interface to a machine they cannot change. Brian Greenforest compares it to building a major web product with permission to call an API but no permission to write server-side code.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6811497465783701505/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

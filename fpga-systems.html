@@ -53,8 +53,8 @@
     <header><h1 class="page-title">FPGA Systems From Pins To Bitstreams</h1></header>
 
     <section class="abstract">
-        <p class="lead">I build complete FPGA paths across boundaries that are usually separated.</p>
-        <p>That means pin-level signal behavior, protocol parsing, clocking, arithmetic schedules, configuration transport, device primitives, open toolchains, and the Linux or browser surface used to inspect the machine.</p>
+        <p class="lead">Complete FPGA systems emerge when pins, protocols, clocks, arithmetic, and configuration become one design.</p>
+        <p>This work follows each machine through pin-level signal behavior, packet parsing, clocking, arithmetic schedules, configuration transport, device primitives, open toolchains, and the Linux or browser surface that controls it.</p>
         <div class="cta-row" role="group" aria-label="Explore Brian Greenforest's FPGA systems">
             <a class="cta-link" href="how-much-radio-do-you-actually-need.html">RF receiver</a>
             <a class="cta-link" href="fpga-radio-hardware-in-the-loop.html">One-pin Weaver TX</a>
@@ -69,63 +69,63 @@
         <a href="fpga-radio-hardware-in-the-loop.html">
             <img src="fpga-radio-lab/media/wideband-weaver-triad-july26.png" width="3060" height="1700" loading="eager" decoding="async" alt="Measured wanted upper sideband, true conjugate image, and physical carrier from the one-pin FPGA Weaver transmitter">
         </a>
-        <figcaption>Two signed one-bit I/Q streams select among four physical 216 MHz phases, collapse a Weaver upconversion onto N16, and excite a hand-built resonant tank.</figcaption>
+        <figcaption>Two signed one-bit I/Q streams select among four physical 216 MHz phases, carry a Weaver upconversion through N16, and excite a hand-built resonant tank.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h2>The Work Is The Boundary Between Blocks</h2>
-            <p>An FPGA is not merely a place to translate software into gates. It is where electrical behavior, clocks, packet structure, state, routing, and configuration meet. I work directly at those joins.</p>
-            <p>I cross Lattice iCE40 and Xilinx 7-series hardware, Verilog and SystemVerilog, vendor primitives, Yosys-based toolchains, raw network framing, RF threshold crossings, and direct reconfiguration of one FPGA by another.</p>
-            <p>If these projects are your first encounter with FPGAs, begin with <a href="/fpga-verilog/">All Things All The Time: FPGA And Verilog From First Principles</a>. It builds the machine from Boolean logic, LUTs, flip-flops, Verilog, simulation, synthesis, placement, routing, and a programmed board.</p>
+            <h2>The System Lives Where The Blocks Meet</h2>
+            <p>An FPGA joins electrical behavior, clocks, packet structure, state, routing, and configuration in one programmable machine. The decisive engineering happens at those joins.</p>
+            <p>The systems here span Lattice iCE40 and Xilinx 7-series hardware, Verilog and SystemVerilog, vendor primitives, Yosys-based toolchains, raw network framing, RF threshold crossings, and direct reconfiguration of one FPGA by another.</p>
+            <p>For a first encounter with FPGAs, begin with <a href="/fpga-verilog/">All Things All The Time: FPGA And Verilog From First Principles</a>. It builds upward from Boolean logic, LUTs, and flip-flops through Verilog, simulation, synthesis, placement, routing, and a programmed iCE40 board.</p>
         </section>
 
         <section>
-            <h2>Six Concrete FPGA Paths</h2>
+            <h2>Six FPGA Paths From Signal To System</h2>
             <div class="capability-grid">
                 <article id="rf-systems" class="capability-card">
                     <a href="how-much-radio-do-you-actually-need.html"><img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="lazy" decoding="async" alt="Illustrated one-pin FPGA FM receiver path from thresholded RF to recovered audio"></a>
                     <p class="eyebrow">RF receive</p>
                     <h3><a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a></h3>
                     <p>A thresholded RF stream enters one logical differential iCE40 input site. DDR decisions become I/Q bit lanes, DDS sign bits control four XOR-and-popcount terms, and a later I/Q cross product recovers FM phase movement before sigma-delta audio.</p>
-                    <p>The page includes operating video, the selected UP5K source snapshot, build path, and the receiver measurements still needed.</p>
+                    <p>Operating video, selected UP5K source, and the build path trace the receiver from a single input site to audible output.</p>
                 </article>
 
                 <article class="capability-card">
                     <a href="fpga-radio-hardware-in-the-loop.html"><img src="fpga-radio-lab/media/wideband-weaver-triad-july26.png" width="3060" height="1700" loading="lazy" decoding="async" alt="Physical Weaver triad showing the flat wanted band, true conjugate image, and 216 megahertz carrier"></a>
                     <p class="eyebrow">RF transmit · hardware in the loop</p>
                     <h3><a href="fpga-radio-hardware-in-the-loop.html">One-Pin FPGA Weaver Transmitter</a></h3>
-                    <p>The HX8K implements four quadrature mixers followed by a phase-domain summator. Two baseband I/Q sigma-delta streams undergo the first conversion; their two one-bit results control a four-state selector that realizes the two 216 MHz carrier mixers and their sum on N16. Physical measurements resolve the square wanted band, carrier, tuned-tank response, and true conjugate image.</p>
-                    <p><a href="one-pin-quadrature-sdm-transmitter.html">Trace the April 2025 one-pin Weaver RTL</a></p>
+                    <p>The HX8K implements four quadrature mixers and a phase-domain summator. The first conversion transforms two baseband I/Q sigma-delta streams; their one-bit results control a four-state selector that realizes the two 216 MHz carrier mixers and their sum on N16.</p>
+                    <p>Physical SDR measurements resolve the square wanted band, carrier, tuned-tank response, and true conjugate image. <a href="one-pin-quadrature-sdm-transmitter.html">Trace the April 2025 one-pin Weaver RTL.</a></p>
                 </article>
 
                 <article class="capability-card">
                     <a href="ethernet-udp-ice40-reprogrammer.html"><img src="ethernet-udp-ice40-reprogrammer/images/port-of-edmonds-working-reprogrammer-waveform-2020.png" width="785" height="1050" loading="lazy" decoding="async" alt="January 2020 working-reprogrammer waveform with green digital traces"></a>
                     <p class="eyebrow">Network and configuration</p>
                     <h3><a href="ethernet-udp-ice40-reprogrammer.html">Ethernet To An Adjacent iCE40</a></h3>
-                    <p>A 2020 multi-file source publication implements RMII receive, ARP response, fixed-layout IPv4/UDP-carried bitstream ingestion, FPGA RAM storage, and direct control of an adjacent iCE40LP384 configuration interface.</p>
-                    <p>The Linux sender combines UDP, epoll, XCB, EGL, and GLES2 in the same control shell.</p>
+                    <p>A 2020 multi-file system receives RMII Ethernet, answers ARP, ingests a fixed-layout bitstream through IPv4/UDP, stores it in FPGA RAM, and controls an adjacent iCE40LP384 configuration interface directly.</p>
+                    <p>The Linux sender combines UDP, epoll, XCB, EGL, and GLES2 in one control shell.</p>
                 </article>
 
                 <article class="capability-card">
                     <p class="eyebrow">Arithmetic scheduling</p>
                     <h3><a href="serial_multiplier/">Bubbles-Free Bit-Serial Multiplier</a></h3>
-                    <p>The current Logisim artifact is an <code>8x8</code> unsigned positive-number circuit with three clocks of fixed latency and one LSB-first result bit per clock after fill. Consecutive operand words enter without a drain gap.</p>
-                    <p>It is a concrete architecture for narrow streaming graphs and a clear target for an RTL port.</p>
+                    <p>The Logisim <code>8x8</code> unsigned positive-number circuit holds latency to three clocks and emits one LSB-first result bit per clock after fill. Consecutive operand words enter without a drain gap.</p>
+                    <p>The schedule gives narrow streaming graphs a continuous arithmetic building block and maps cleanly toward RTL.</p>
                 </article>
 
                 <article class="capability-card">
                     <p class="eyebrow">Tangible logic</p>
                     <h3><a href="physical-mux-tiles/">Physical MUX Tiles For STEM EE</a></h3>
-                    <p>Fabricated input, constant, selector, route, and intersection PCB variants make circuit role, orientation, and topology into objects that can be assembled and changed by hand.</p>
-                    <p>The project is a physical teaching alphabet, not a claim that every assembled patch is already a powered or classroom-validated computer.</p>
+                    <p>Input, constant, selector, route, and intersection PCB variants turn circuit role, orientation, and topology into objects that learners can assemble and change by hand.</p>
+                    <p>This physical teaching alphabet carries the logic of MUXes and LUTs out of diagrams and into palm-scale compositions.</p>
                 </article>
 
                 <article class="capability-card">
                     <p class="eyebrow">Spatial reconfiguration</p>
                     <h3><a href="cartilage/">Cartilage</a></h3>
-                    <p>Cartilage is the larger architecture: locally coherent regions of cells with owned ports, state, routing, and replacement. Its learning path runs from one MUX through LUTs, drivers, clock distribution, state, timing, metal, composition, and runtime instantiation in adjacent space.</p>
-                    <p><a href="cartilage-core.html">Run Cartilage Core</a>, then follow the <a href="cartilage-reconfigurable-computing-roadmap.html">roadmap for the editor, simulator, ownership, and recovery work</a>. Funding and contributors are welcome.</p>
+                    <p>Cartilage organizes cells into locally coherent regions with owned ports, state, routing, and replacement. Its learning path runs from one MUX through LUTs, drivers, clock distribution, state, timing, metal, composition, and runtime instantiation in adjacent space.</p>
+                    <p><a href="cartilage-core.html">Run Cartilage Core</a>, then follow the <a href="cartilage-reconfigurable-computing-roadmap.html">editor, simulator, ownership, and recovery roadmap</a>. The architecture invites funding, implementation partners, and contributors.</p>
                 </article>
             </div>
         </section>
@@ -133,27 +133,27 @@
         <section>
             <h2>Devices, Primitives, And Toolchains</h2>
             <div class="article-fact-table" role="table" aria-label="FPGA devices, primitives, and tools represented in the public work">
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lattice targets</div><div role="cell">iCE40 UP5K, HX4K/HX8K, and LP384 source and build trails</div></div>
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Xilinx target</div><div role="cell">Arty / 7-series Ethernet controller and adjacent-device reprogrammer source</div></div>
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">HDL boundary</div><div role="cell">Verilog and SystemVerilog; PLLs, global buffers, DDR input, RMII, RAM, CRC, and configuration-pin control</div></div>
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Open tools</div><div role="cell">Yosys, nextpnr, IceStorm, arachne-pnr, IcePack, Verilator, and Logisim</div></div>
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Host integration</div><div role="cell">Linux UDP and epoll, XCB events, EGL/GLES2, raw WebGL/GLSL, and browser-visible tests</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lattice targets</div><div role="cell">iCE40 UP5K, HX4K/HX8K, and LP384 source, builds, radio paths, and configuration control</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Xilinx target</div><div role="cell">Arty / 7-series Ethernet controller with an adjacent-device reprogrammer</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">HDL</div><div role="cell">Verilog and SystemVerilog with PLLs, global buffers, DDR input, RMII, RAM, CRC, and configuration-pin control</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Open toolchains</div><div role="cell">Yosys, nextpnr, IceStorm, arachne-pnr, IcePack, Verilator, and Logisim</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Host systems</div><div role="cell">Linux UDP and epoll, XCB events, EGL/GLES2, raw WebGL/GLSL, and browser-visible tests</div></div>
             </div>
         </section>
 
         <section>
-            <h2>What This Range Is Worth</h2>
-            <p class="lead">I can follow a computation until the abstraction stops matching the machine.</p>
-            <p>Sometimes the right intervention is an arithmetic schedule. Sometimes it is an FPGA input threshold used as the front edge of a receiver. Sometimes it is an ARP response and bitstream path with no CPU in the datapath. Sometimes it is a configuration port between devices, or a circuit alphabet that a learner can hold.</p>
-            <p>The value is not breadth for its own sake. It is the ability to make the boundary concrete when hardware, software, protocol, and physical behavior have been split into separate specialties.</p>
+            <h2>One Engineer Can Follow The Whole Computation</h2>
+            <p class="lead">The useful abstraction ends where it stops matching the machine.</p>
+            <p>The right intervention may take the form of an arithmetic schedule, an FPGA input threshold at the front of a receiver, an ARP response and bitstream path with no CPU in the datapath, a configuration port between devices, or a circuit alphabet that a learner can hold.</p>
+            <p>That cross-layer range turns hardware, software, protocols, and physical behavior back into one tractable system—the point where difficult product and research problems often yield.</p>
         </section>
 
         <section class="traction-panel">
-            <h2>Bring An FPGA Boundary That Does Not Fit The Usual Stack</h2>
-            <p>Good work can begin with an RTL path, signal boundary, timing problem, packet interface, reconfiguration mechanism, teaching instrument, or architecture that needs to become inspectable before a team can decide what to build.</p>
+            <h2>Bring The FPGA Problem That Does Not Fit The Usual Stack</h2>
+            <p>Start with an RTL path, signal interface, timing problem, packet boundary, reconfiguration mechanism, teaching instrument, or architecture. Together, we can turn it into a machine that a team can run, inspect, and develop.</p>
             <div class="cta-row">
-                <a class="cta-link" href="technology-research-and-consulting.html">Ways to work together</a>
-                <a class="cta-link" href="proof-and-artifacts.html">Inspect built evidence</a>
+                <a class="cta-link" href="technology-research-and-consulting.html">Commission FPGA R&amp;D</a>
+                <a class="cta-link" href="proof-and-artifacts.html">Explore working systems</a>
                 <a class="cta-link" href="mailto:brian@solidstatepros.com?subject=FPGA%20systems%20inquiry%20for%20Greenforest%20I%2FO">Email an FPGA inquiry</a>
             </div>
         </section>
@@ -162,10 +162,10 @@
     <nav class="article-links">
         <p>Read next:</p>
         <a href="ethernet-udp-ice40-reprogrammer.html">Ethernet To An Adjacent iCE40</a>
-        <p>Inspect the 2020 Verilog, configuration, and Linux host-control source trail.</p>
+        <p>Follow the 2020 Verilog, configuration interface, and Linux host controller from packet to programmed device.</p>
         <p>More:</p>
         <a href="physical-mux-tiles/">Physical MUX Tiles For STEM EE</a>
-        <p>See roles from reconfigurable logic represented as a hand-assemblable PCB alphabet.</p>
+        <p>Build the roles of reconfigurable logic from a hand-assemblable PCB alphabet.</p>
         <a href="/">Back to greenforest.io</a>
     </nav>
 </body>

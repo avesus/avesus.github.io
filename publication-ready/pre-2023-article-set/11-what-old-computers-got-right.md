@@ -4,7 +4,7 @@ slug: "what-old-computers-got-right"
 date: "2022-04-26T05:15:48.103Z"
 original_dates:
   - "2022-04-26T05:15:48.103Z"
-description: "A computer should preserve the user's work, invite physical extension, explain itself completely, and make programming available the moment it turns on."
+description: "A personal computer should preserve its owner's work, invite physical extension, explain its circuits and recovery path, and offer programming from the moment power reaches the machine."
 status: publication-ready
 ---
 
@@ -12,99 +12,94 @@ status: publication-ready
 
 *Originally written April 26, 2022.*
 
-I do not miss old computers because they were slow, beige, or difficult. I miss the agreement they made with the person who bought one.
+Old personal computers made a powerful agreement with their owners: this machine can become yours in knowledge as well as possession.
 
-The machine arrived as a thing you could understand. It had a power switch, a programming language, documentation, visible expansion points, and a reasonably direct relationship between what you asked it to do and what it did. You could spend years learning it without discovering that your accumulated knowledge had been remotely declared obsolete.
+A power switch started it. A programming language invited immediate action. Documentation explained the system. Expansion points welcomed hardware nobody had imagined yet. Years of learning accumulated into greater control instead of expiring at a vendor's command.
 
-Modern computers are astonishingly capable. The problem is not their speed. The problem is that their social contract has become worse.
+Modern machines bring extraordinary speed, displays, networks, storage, and fabrication. They can pair those capabilities with the same durable relationship between owner and computer.
 
 ## Storage Should Survive the Computer
 
-The computer is a replaceable engine. My work is not.
+The compute engine will eventually fail or age. The owner's work should outlive it.
 
-That distinction should be visible in the architecture. If the compute unit fails, I should be able to detach the storage, attach it to another compatible machine, and continue. Replacement should feel like changing a motor, not negotiating the return of my own memory.
+Architecture can make that distinction physical. Detach storage from one failed machine, connect it to another compatible machine, and continue. Replacing the engine should resemble changing a motor rather than negotiating for the return of memory.
 
-External storage is not merely a backup accessory. It is an assertion of ownership. The files, programs, settings, notes, and experiments belong to the person using the machine. Compute can be upgraded around them.
+External storage expresses ownership. Files, programs, settings, notes, and experiments belong to the person who created them. Compute can improve around that continuity.
 
-Cloud storage can satisfy part of that goal, but it can also invert it. A remote service may preserve data while making access depend on an account, subscription, network, application version, or company that can disappear. The important property is not whether the storage sits inside or outside the room. The important property is whether the user can recover it with ordinary tools and move it to another computer without asking permission.
+Remote storage can also preserve data, but ownership requires more than location. A user should recover ordinary files with ordinary tools and move them to another computer without depending on one account, subscription, network, application version, or company.
 
-## Installation Should Sometimes Be Physical
+## Physical attachment can make installation legible
 
-Software installation has become an abstract ritual: accounts, stores, package managers, permissions, dependency resolution, license dialogs, and background updates. Physical attachment can be much clearer.
+Software installation now often passes through accounts, stores, package managers, permissions, dependency resolution, license dialogs, and background updates. Physical attachment can express a capability more directly.
 
-Connect the thing and it is present. Remove it and it is gone.
+Connect the component and the computer can show exactly what arrived. Remove it and the capability leaves.
 
-That “thing” might be storage, an interface, a sensor, a cartridge, a development module, or a complete compute unit. The physical boundary gives the user a model. There is less ambiguity about what was added, where it lives, or how to take it away.
+The component might contain storage, an interface, a sensor, a cartridge, a development module, or a complete compute unit. A modular computer can identify it, explain the electrical and software contract, and ask the owner whether to activate it. Placing an object on a marked connection can install a tool or open its contents.
 
-I do not want every feature embalmed in a proprietary plastic cartridge. I want the useful directness of attachment. A modular computer could identify a newly connected component, display exactly what capability it provides, and let the user decide whether to activate it. Putting a physical object onto a marked location could be enough to install a tool or open its contents.
+This does not require proprietary plastic around every feature. It requires a visible relationship among object, capability, location, and removal.
 
-The point is not nostalgia. The point is legibility.
-
-## A Real Computer Can Be Extended
+## A computer invites extension
 
 An appliance hides its boundaries. A computer exposes them.
 
-An extendable machine lets people add memory, storage, interfaces, controllers, displays, accelerators, and entirely unanticipated devices. This is not only a repair feature. It is an invitation to invention.
+An extendable machine lets people add memory, storage, interfaces, controllers, displays, accelerators, and devices its original designers never anticipated. Expansion supports repair and invention at the same time.
 
-The expansion connector says, “The person who designed this machine did not imagine its final use.”
+Every expansion connector carries a generous statement: the machine has not reached its final use.
 
-That humility matters. A sealed computer may be beautifully optimized for the day it ships, but it also assumes that the manufacturer knows every future need. An open electrical and software interface leaves room for the person holding the machine to disagree.
+A complete contract makes that invitation practical. Electrical limits, protocol versions, dimensions, initialization, discovery, and security rules tell another builder how to join the system. Accessible hardware gains lasting value when its specifications let people create reliable extensions rather than guess at the boundary.
 
-Extension does require discipline. Electrical limits, protocol versions, physical dimensions, and security boundaries must be specified. An expansion bus that can silently take over the machine is not friendly merely because it is accessible. Openness works when the contract is complete enough for someone else to build against it.
+## Documentation belongs to the machine
 
-## Documentation Is Part of the Computer
+A stable printed page can lie beside a board, accept pencil marks, survive a reboot, and remain readable after a website changes.
 
-People still print documents. I print datasheets because a stable page is a powerful instrument. It can lie beside a board, accept pencil marks, survive a reboot, and remain readable after a website changes.
-
-A computer should come with the knowledge required to use and understand it:
+A personal computer should arrive with the knowledge required to operate and understand it:
 
 - a clear introduction;
 - a complete programming reference;
 - electrical and expansion specifications;
 - a circuit diagram;
 - recovery instructions;
-- worked examples that begin with the machine exactly as delivered.
+- worked examples that start from the delivered machine.
 
-This is not packaging material. It is part of the product.
+These materials form part of the product. They let owners recover, repair, extend, teach, and preserve the system.
 
-Complete documentation also makes right-to-repair concrete. “Repairable” is an empty adjective when the circuit is secret, the parts are unidentified, diagnostic modes are locked, and the recovery image can only be obtained from a vanished server.
+A schematic identifies components and relationships. Diagnostic modes expose failure. A locally available recovery image restores operation. Together they make repair an ordinary capability rather than a promise that disappears with a server.
 
-A schematic does more than help a technician. It tells every curious owner that the machine is allowed to be understood.
+The schematic also tells every curious owner that the machine welcomes understanding.
 
-## Programming Should Be There at Power-On
+## Programming begins at power-on
 
-One of the loveliest properties of an older personal computer was that learning to program did not begin with installing a programming environment.
+Older personal computers often placed the first programming step directly after the power switch:
 
 Turn it on. Type something. See what happens.
 
-The first lesson was not account creation, command-line package installation, dependency management, or choosing among seventeen nearly identical tools. The computer already contained the bridge between curiosity and action.
+A modern computer can make that path far richer. It can include a friendly language, a serious systems language, an editor, examples, offline documentation, a debugger, and a safe route from one line of code into real hardware.
 
-A modern machine can do this much better. It can include a friendly language, a serious systems language, an editor, examples, offline documentation, a debugger, and a safe route from a tiny experiment into the real hardware. Beginner access does not require a toy universe disconnected from the machine. It requires a shallow first step and a long path forward.
+Beginner access does not need a sealed toy universe. It needs a shallow first step followed by a long path toward mastery.
 
-Developer friendliness is not a niche concession. Games, experiments, homemade tools, strange peripherals, and tiny personal programs are how a computer becomes culturally alive. “Serious business use” may justify a purchase, but play teaches people that the machine can become something else.
+Games, experiments, homemade tools, strange peripherals, and personal programs make a computer culturally alive. Business may justify the purchase; play teaches the owner that the machine can become something new.
 
-## Knowledge Should Not Expire on Schedule
+## Knowledge should compound
 
-Hardware improves. Operating systems change. Interfaces evolve. None of that requires treating old knowledge as waste.
+Hardware improves. Operating systems change. Interfaces evolve. A computer can carry accumulated understanding forward through each generation.
 
-If a program has a clear machine contract, a newer system should be able to preserve that contract directly or emulate it. If an old storage format is understood, tools should remain available to read it. If people learned a programming environment deeply, a new generation should offer a path forward rather than a ceremonial bonfire.
+Clear machine contracts make preservation possible. A newer system can implement or emulate an older contract. Stable tools can read documented storage formats. A familiar programming environment can gain a migration path instead of vanishing on schedule.
 
-Compatibility has costs. Preserving every bug forever can distort a platform. Old interfaces may be insecure or tied to assumptions that no longer hold. The answer is not eternal accidental behavior. It is a documented boundary: preserve the meaningful model, isolate dangerous behavior, and provide explicit migration when exact compatibility is impossible.
+Compatibility requires design. Preserving accidental bugs forever can distort a platform, while old interfaces may carry unsafe assumptions. A documented boundary offers a better route: preserve the meaningful model, isolate dangerous behavior, and provide an explicit migration when exact execution no longer fits.
 
-The most valuable compatibility is not binary compatibility. It is continuity of understanding.
+The most valuable compatibility preserves continuity of understanding. A person who learned how the machine works should gain leverage from that knowledge on the next one.
 
-## The Missing Reboot
+## Reboot the personal computer contract
 
-I want a new computer with the confidence of an old one:
+A new personal computer can unite modern capability with six durable properties:
 
-- my work survives the engine;
-- attachment has visible meaning;
-- extension is expected;
-- documentation is complete;
+- the owner's work survives the engine;
+- physical attachment has visible meaning;
+- extension remains expected;
+- documentation explains the complete machine;
 - programming begins immediately;
-- repair is permitted;
-- knowledge compounds instead of expiring.
+- repair and recovery remain available.
 
-None of this requires returning to old performance or old limitations. We can keep modern displays, networks, processors, fabrication, and languages. We can build machines that are faster, safer, and easier without making them more opaque.
+Build one computer around that agreement. Give it detachable readable storage, a documented expansion connector, an offline recovery image, complete schematics, and a programming environment waiting at first boot. Let every upgrade deepen the owner's relationship with the machine.
 
-The reboot I want is not a retro enclosure around a modern sealed appliance. It is a return to the idea that a personal computer should become more personal the longer a person lives with it.
+The personal computer becomes truly personal when years of use produce more knowledge, more capability, and more freedom to change it.

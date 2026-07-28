@@ -6,11 +6,11 @@
     <title>Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Why reusable open-source ASIC FMA IP requires more than RTL: floating-point behavior, verification, constraints, PDK assumptions, physical design, and signoff.">
+    <meta name="description" content="Reusable open ASIC FMA IP must carry numerical behavior, RTL, verification, constraints, PDK assumptions, physical design, timing, power, and signoff.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII">
-    <meta property="og:description" content="Why reusable open-source ASIC FMA IP requires more than RTL: floating-point behavior, verification, constraints, PDK assumptions, physical design, and signoff.">
+    <meta property="og:description" content="Reusable open ASIC FMA IP must carry numerical behavior, RTL, verification, constraints, PDK assumptions, physical design, timing, power, and signoff.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-11-02",
-                                "dateModified": "2026-07-11",
-                                "description": "Why reusable open-source ASIC FMA IP requires more than RTL: floating-point behavior, verification, constraints, PDK assumptions, physical design, and signoff.",
+                                "dateModified": "2026-07-28",
+                                "description": "Reusable open ASIC FMA IP must carry numerical behavior, RTL, verification, constraints, PDK assumptions, physical design, timing, power, and signoff.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header><h1 class="page-title">Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</h1></header>
     <address>November 2, 2023</address>
 
+
+    <section class="abstract">
+        <p>An open fused multiply-add unit requires far more than publishing RTL. The reusable package must capture floating-point semantics, verification, synthesis constraints, process assumptions, floorplanning, timing closure, power, routing, extraction, and signoff.</p>
+        <p>Brian Greenforest explains why the GDSII-to-RTL feedback loop and expensive proprietary tools make open ASIC IP harder than open software.</p>
+    </section>
+
+    <main>
+        <section>
+            <h2>The Arithmetic Reaches Into Physical Design</h2>
+            <p>FMA combines multiplication and addition with one final rounding, so exponent alignment, partial products, normalization, exceptions, precision, and IEEE 754 behavior interact throughout the datapath.</p>
+            <p>Wire delay, fanout, clocking, placement, cell libraries, process corners, and power grids then reshape the logical design. Engineers must iterate between physical results and RTL architecture.</p>
+        </section>
+
+        <section>
+            <h2>Open the Complete Know-How Stack</h2>
+            <p>A Cadence seat can cost around $80,000 per year, while foundry rules and corporate practice often remain closed. That structure concentrates the experience required to turn a correct module into manufacturable silicon.</p>
+            <p>Universities, chip companies, foundries, and open-tool teams can publish verified arithmetic blocks with reproducible physical flows. Open FMA IP can become infrastructure for an entire generation of independent AI-chip builders.</p>
+        </section>
+
+        <section>
+            <h2>Build the Arithmetic Beneath Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</h2>
+            <p>The Bit-Serial Bubbles-Free Multiplier turns local switching, state, and scheduling into a complete arithmetic engine.</p>
+            <p><a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a> &middot; <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a> &middot; <a href="https://openroad.readthedocs.io/en/latest/" target="_blank" rel="noopener">OpenROAD</a> &middot; <a href="https://openlane2.readthedocs.io/en/latest/reference/flows.html" target="_blank" rel="noopener">OpenLane</a> &middot; <a href="https://github.com/openhwgroup/cvfpu" target="_blank" rel="noopener">FPnew/CVFPU</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7125730558772457472" data-linkedin-activity="7125730558772457472" data-linkedin-source="activity:7125730558772457472">
         <h2 id="linkedin-original-7125730558772457472">Originally posted on LinkedIn</h2>
@@ -127,62 +154,13 @@
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Open-sourcing an FPU fused multiply-add unit is not the same kind of problem as open-sourcing a software package.</p>
-        <p>The post points at the hard layer: reasoning between RTL and GDSII, paying for and operating commercial EDA tooling, and carrying the implementation know-how that turns arithmetic intent into a manufacturable chip block.</p>
-        <div class="status-box">
-            <p><span class="status-label">Chip-design note</span>Originally posted 2023-11-02; expanded here around FMA IP and ASIC tooling.</p>
-            <p><strong>Article focus:</strong> fused multiply-add, floating-point datapaths, RTL, GDSII, verification, timing closure, and open ASIC barriers.</p>
-            <p><strong>Related:</strong> <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a> and <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h2>The FMA Boundary</h2>
-            <p>A fused multiply-add unit looks simple at the arithmetic level: compute A x B + C with one rounding path. In hardware, it becomes a large floating-point datapath with alignment, partial-product reduction, normalization, rounding, exception behavior, pipeline staging, and verification.</p>
-            <p>That is why open-sourcing an ASIC FMA block is harder than publishing a compact formula or a software library.</p>
-        </section>
-
-        <section>
-            <h2>RTL Is Not The Whole Artifact</h2>
-            <p>The RTL matters, but ASIC usefulness depends on the path from RTL to layout. Timing closure, clocking, physical synthesis, placement, routing, standard-cell libraries, memories, power delivery, and design-rule closure all affect whether the block can become a chip.</p>
-            <p>Open HDL can still leave builders stuck if the manufacturable path depends on proprietary tools, foundry data, private implementation practice, or validation knowledge that is not available with the source.</p>
-        </section>
-
-        <section>
-            <h2>The Open-Hardware Gap</h2>
-            <p>Software openness scales well because most users can build, run, inspect, and test the result on commodity machines. ASIC openness has a deeper replication problem: the final object is physical, expensive to fabricate, and tied to process-specific constraints.</p>
-            <p>The useful open-hardware target is therefore larger than source release. It includes testbenches, timing constraints, implementation notes, process assumptions, verification coverage, and a path another builder can actually reproduce.</p>
-        </section>
-
-        <section>
-            <h2>What Changed Since 2023</h2>
-            <p>The open tool boundary moved. <a href="https://openroad.readthedocs.io/en/latest/" target="_blank" rel="noopener">OpenROAD</a> now documents an open RTL-to-GDSII toolchain, and <a href="https://openlane2.readthedocs.io/en/latest/reference/flows.html" target="_blank" rel="noopener">OpenLane</a> integrates Yosys, OpenROAD, KLayout, and Magic into reproducible flows. The problem is no longer accurately described as the absence of an open physical-design path.</p>
-            <p>Open floating-point RTL exists too. <a href="https://github.com/openhwgroup/cvfpu" target="_blank" rel="noopener">FPnew/CVFPU</a> is a configurable SystemVerilog floating-point unit with standard and transprecision formats. That makes the sharper question visible: what must accompany an FMA implementation before another team can reuse it with confidence?</p>
-            <p>The answer includes supported formats and rounding modes, exception behavior, interface and pipeline contracts, tests and coverage, timing constraints, library and PDK assumptions, power-performance-area results, physical verification, and a named signoff boundary. A successful layout in one process is evidence. It is not automatically a portable hard macro or a complete reusable product.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII, read:</strong></p>
         <a href="2023-11-09-learn-how-chips-multiply-and-add.html">Learn How Chips Multiply and Add</a>
-        <p>The arithmetic-primitives side of the same FMA hardware problem.</p>
-        <p>More:</p>
-        <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a>
-        <p>A small public multiplier circuit with source artifacts and a readable timing schedule.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7125730558772457472/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+        <p>Understanding chip arithmetic opens the door to designing the entire AI machine. Wallace trees compress partial products, Han-Carlson networks carry addition quickly, fused multiply-add preserves accuracy, and Newton-Raphson turns division and transcendental functions into convergent arithmetic pipelines.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7125730558772457472/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Learn Electronics by Building One Whole Computer | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="A project-led electronics curriculum in which every new circuit becomes part of one computer the learner can eventually understand end to end.">
+    <meta name="description" content="Build one whole computer to learn digital logic, FPGA timing, processors, memory, displays, networking, analog electronics, radio, power, PCBs, and diagnosis.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/miscellanies/learn-electronics-by-building-one-whole-computer.html">
     <meta property="og:title" content="Learn Electronics by Building One Whole Computer">
-    <meta property="og:description" content="A project-led electronics curriculum in which every new circuit becomes part of one computer the learner can eventually understand end to end.">
+    <meta property="og:description" content="Build one whole computer to learn digital logic, FPGA timing, processors, memory, displays, networking, analog electronics, radio, power, PCBs, and diagnosis.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/miscellanies/learn-electronics-by-building-one-whole-computer.html">
     <meta property="article:published_time" content="2026-07-24">
-    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,8 +42,8 @@
             },
             "dateCreated": "2022-04-10T20:27:52.849Z",
             "datePublished": "2026-07-24",
-            "dateModified": "2026-07-24",
-            "description": "A project-led electronics curriculum in which every new circuit becomes part of one computer the learner can eventually understand end to end.",
+            "dateModified": "2026-07-28",
+            "description": "Build one whole computer to learn digital logic, FPGA timing, processors, memory, displays, networking, analog electronics, radio, power, PCBs, and diagnosis.",
             "mainEntityOfPage": "https://greenforest.io/miscellanies/learn-electronics-by-building-one-whole-computer.html",
             "isPartOf": {
                 "@type": "CollectionPage",
@@ -62,35 +62,33 @@
 
 <body class="article-structured miscellany-article">
     <header><h1 class="page-title">Learn Electronics by Building One Whole Computer</h1></header>
-    <address><time datetime="2022-04-10">April 10–May 21, 2022</time></address>
+    <address><time datetime="2022-04-10">April 10–May 21, 2022</time><br><time datetime="2026-07-28">Updated July 28, 2026</time></address>
 
     <section class="abstract">
         <p class="eyebrow">Building, education, community, and creative tools</p>
-        <p class="lead">A project-led electronics curriculum in which every new circuit becomes part of one computer the learner can eventually understand end to end.</p>
+        <p class="lead">Build one whole computer to learn digital logic, FPGA timing, processors, memory, displays, networking, analog electronics, radio, power, PCBs, and diagnosis.</p>
     </section>
 
     <main>
         <section class="article-opening">
-            <p>Electronics education is often a table covered with unrelated miracles.</p>
-            <p>An LED blinks. An op-amp amplifies. A microcontroller prints a line. An FPGA counts. A radio receives something. Each exercise works, but the learner is left with a drawer of modules and no single machine whose entire path can be followed from an input pin to a useful result.</p>
-            <p>I want the opposite curriculum: build one whole computer.</p>
-            <p>Not a modern laptop assembled from opaque modules. Build a machine small enough that its processor state, memory, display, storage, communication, power, and physical interfaces can all become understandable. Each lesson should leave behind a working organ. At the end, the organs belong to one creature.</p>
+            <p>One whole computer can turn years of electronics into a connected machine that a learner understands end to end.</p>
+            <p>Instead of leaving LEDs, op-amps, microcontrollers, FPGAs, and radios as unrelated miracles, every lesson adds a working organ to the same computer. At completion, processor state, memory, display, storage, communication, power, and physical interfaces all participate in one traceable result.</p>
         </section>
         <section>
-            <h2>Begin with a computer that can fit in the mind</h2>
-            <p>An Apple I–scale machine is an excellent size of ambition. The point is not to reproduce every historical specification exactly. The point is to choose constraints that make the whole visible:</p>
+            <h2>Begin With a Computer That Fits in the Mind</h2>
+            <p>An Apple I–scale computer provides the right ambition. Historical replication matters less than constraints that keep the complete path visible:</p>
             <ul>
                 <li>an 8-bit processor;</li>
-                <li>a small amount of RAM;</li>
+                <li>focused RAM capacity;</li>
                 <li>text output;</li>
-                <li>a keyboard;</li>
-                <li>a simple firmware monitor;</li>
-                <li>a cassette-like or flash-based storage path;</li>
+                <li>keyboard input;</li>
+                <li>direct firmware monitor;</li>
+                <li>cassette-like or flash-based storage;</li>
                 <li>BASIC, an assembler, or another language that exposes the machine.</li>
             </ul>
-            <p>The 6502 is useful because its architectural state is compact. A learner can name the blocks:</p>
+            <p>The 6502 helps because learners can name and draw its compact architectural state:</p>
             <ul>
-                <li>low and high bytes of the program counter;</li>
+                <li>low and high program-counter bytes;</li>
                 <li>accumulator;</li>
                 <li>X and Y index registers;</li>
                 <li>stack pointer;</li>
@@ -99,14 +97,14 @@
                 <li>data output;</li>
                 <li>data-input latch.</li>
             </ul>
-            <p>That list is not the processor, but it is small enough to draw. Once drawn, each instruction becomes movement among known pieces rather than incantation.</p>
+            <p>This drawing does not replace the processor. It gives every instruction known places from which to move and into which to arrive.</p>
         </section>
         <section>
-            <h2>Stage one: logic that stays visible</h2>
-            <p>The first machine can live in Logisim or another circuit simulator. Build gates, multiplexers, registers, counters, and a finite-state controller. Connect LEDs and seven-segment displays. Watch a clock move one state at a time.</p>
-            <p>The goal is not to finish a simulated computer before touching hardware. It is to learn the vocabulary required to diagnose hardware later:</p>
+            <h2>Stage One: Keep Logic Visible</h2>
+            <p>The first machine can live in Logisim or another circuit simulator. Learners build gates, multiplexers, registers, counters, and a finite-state controller, then connect LEDs and seven-segment displays and advance one clock step at a time.</p>
+            <p>The simulator establishes the vocabulary needed for later diagnosis:</p>
             <ul>
-                <li>combinational versus sequential behavior;</li>
+                <li>combinational and sequential behavior;</li>
                 <li>propagation and clocked state;</li>
                 <li>buses and bit width;</li>
                 <li>decoding;</li>
@@ -114,44 +112,44 @@
                 <li>memory addressing;</li>
                 <li>serial and parallel movement.</li>
             </ul>
-            <p>A simulator earns its keep when a physical signal misbehaves and the learner has a model of what it was supposed to do.</p>
+            <p>When a physical signal behaves differently from expectation, the learner has a model that can locate the difference.</p>
         </section>
         <section>
-            <h2>Stage two: put the state in an FPGA</h2>
-            <p>An FPGA turns the diagram into a physical timing problem.</p>
-            <p>Implement a counter, then a register file, then a small processor block in Verilog. Write a testbench that changes several inputs and makes expected outputs explicit. Synthesize early. Place and route early. The tool should not be reserved for the grand finale; its warnings and timing reports are part of the subject.</p>
-            <p>The board should expose enough memory and I/O to grow:</p>
+            <h2>Stage Two: Put State Into an FPGA</h2>
+            <p>An FPGA turns the diagram into a physical timing system.</p>
+            <p>Implement a counter, then a register file, then a processor block in Verilog. Write a testbench that changes several inputs and names expected outputs. Synthesize, place, and route early so warnings and timing reports become part of the subject.</p>
+            <p>The board provides room to grow:</p>
             <ul>
                 <li>on-chip or external SRAM;</li>
                 <li>flash storage;</li>
                 <li>Ethernet or another packet link;</li>
-                <li>a display connector;</li>
+                <li>display connector;</li>
                 <li>keyboard input;</li>
                 <li>LEDs and buttons;</li>
                 <li>serial debug.</li>
             </ul>
-            <p>Specific FPGA families will age. The teaching sequence should not depend on one part number. Choose a board whose documentation, voltage requirements, and toolchain can actually be obtained, and record the exact version used.</p>
+            <p>FPGA families change over time, so the curriculum chooses a board through available documentation, voltage requirements, obtainable tooling, and recorded tool versions rather than one permanent part number.</p>
         </section>
         <section>
-            <h2>Stage three: make the computer converse</h2>
-            <p>A computer becomes interesting when it meets something outside itself.</p>
-            <p>Start with a keyboard because it turns human intent into bytes. Add a two-line text display, then a pixel display. Generate VGA or another simple video signal if the board permits it. Read and write flash. Implement a small packet protocol such as ARP plus UDP only after raw framing and checksums make sense.</p>
-            <p>Each interface should be taught as a complete path:</p>
+            <h2>Stage Three: Make the Computer Converse</h2>
+            <p>External interfaces turn the computer into an instrument.</p>
+            <p>A keyboard converts human intention into bytes. A two-line display reveals text state. A pixel display adds addressable geometry. VGA or another direct video signal can expose timing where the board supports it. Flash gives persistence. Raw framing and checksums prepare the learner to implement a focused packet path such as ARP plus UDP.</p>
+            <p>Every interface follows a complete seven-part route:</p>
             <ol>
-                <li>electrical levels and physical connector;</li>
+                <li>electrical levels and connector;</li>
                 <li>timing or signaling convention;</li>
                 <li>receiving state machine;</li>
                 <li>buffering;</li>
-                <li>representation in memory;</li>
+                <li>memory representation;</li>
                 <li>software-visible behavior;</li>
-                <li>a test that can fail clearly.</li>
+                <li>a test with a clear failure signal.</li>
             </ol>
-            <p>This prevents “the Ethernet chapter” from becoming a library call that hides the network.</p>
+            <p>This route turns networking into circuitry, state, and software rather than an unexplained library call.</p>
         </section>
         <section>
-            <h2>Stage four: cross the analog boundary</h2>
-            <p>Digital logic is not a separate universe.</p>
-            <p>The machine eventually needs to encounter:</p>
+            <h2>Stage Four: Cross the Analog Boundary</h2>
+            <p>Digital logic operates inside an analog and electromagnetic world.</p>
+            <p>The computer can progressively encounter:</p>
             <ul>
                 <li>differential signaling and common-mode rejection;</li>
                 <li>op-amps and differential amplifiers;</li>
@@ -163,35 +161,35 @@
                 <li>motors, piezoelectric elements, buzzers, and power drivers;</li>
                 <li>DC-to-DC conversion.</li>
             </ul>
-            <p>These should not all be bolted onto the computer at once. Choose one analog path and make it legible end to end. For example, sample a low-frequency signal, process it in the FPGA, and produce an audible or visible result. Then measure noise, clipping, bandwidth, and timing.</p>
-            <p>Radio work needs particular care. Power, frequency, antenna, and certification rules are specific; low power is not permission to transmit anywhere. Begin with shielded or receive-only experiments and verify the applicable rules before radiating a signal.</p>
+            <p>One analog path at a time keeps the entire mechanism legible. Sample a low-frequency signal, process it in the FPGA, and produce an audible or visible result. Then measure noise, clipping, bandwidth, and timing.</p>
+            <p>Radio adds concrete regulatory and physical responsibilities. Power, frequency, antenna, and certification rules depend on jurisdiction and band; low power alone does not authorize transmission. Shielded or receive-only work creates a safe starting point, followed by verification of applicable rules before radiation.</p>
         </section>
         <section>
-            <h2>Stage five: build the thing that holds the machine</h2>
-            <p>Breadboards teach access. PCBs teach geometry.</p>
-            <p>Design a small board for one known subsystem rather than immediately laying out the entire computer. Learn footprints, decoupling, return paths, connectors, test points, solder masks, vias, and assembly. Print or fabricate the enclosure. Make the controls comfortable enough that the machine can be used rather than merely photographed.</p>
-            <p>Process knowledge matters here. Photolithography, etching, laser cutting, and home fabrication should be treated as experiments with materials, ventilation, protective equipment, waste handling, and measurable limits—not as shortcuts around safe practice.</p>
+            <h2>Stage Five: Build the Body of the Machine</h2>
+            <p>Breadboards teach access; PCBs teach geometry.</p>
+            <p>Begin with one known subsystem. Learn footprints, decoupling, return paths, connectors, test points, solder masks, vias, and assembly before laying out the complete computer. Fabricate an enclosure and make controls comfortable enough for sustained use.</p>
+            <p>Photolithography, etching, laser cutting, and home fabrication become measured material processes with ventilation, protective equipment, waste handling, and documented limits.</p>
+            <p>A 3D-printed or otherwise fabricated body gives the computer a place where every connector, control, and service path can support its use.</p>
         </section>
         <section>
             <h2>Finish by Following One Action</h2>
-            <p>The computer is finished when the learner can follow an action.</p>
-            <p>Press a key. Which electrical signal changes? Which state machine receives it? Where is the byte stored? Which instruction reads it? How is a character selected? Which memory feeds the display? What clock or handshake advances each step? Where could it stall?</p>
-            <p>A modern computer makes that question almost impossible to answer completely. Our educational machine should make it irresistible.</p>
-            <p>The artifact at the end is useful, but the deeper result is ownership. The learner no longer sees “hardware,” “software,” “network,” “analog,” and “fabrication” as unrelated courses. They are different views of one constructed object.</p>
-            <p>One whole computer is enough territory for years of electronics—and small enough to begin with one blinking bit.</p>
+            <p>Completion means that a learner can follow one action through every layer.</p>
+            <p>Press a key. Which electrical signal changes? Which state machine receives it? Where does the byte reside? Which instruction reads it? How does the display select a character? Which memory supplies pixels? Which clock or handshake advances the sequence? Where can it stall?</p>
+            <p>The completed machine turns “hardware,” “software,” “network,” “analog,” and “fabrication” into views of one constructed system.</p>
+            <p>One whole computer offers enough territory for years of electronics and one clear starting point: a blinking bit whose complete path the learner can explain.</p>
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue reading">
         <p>Read next:</p>
         <a href="/miscellanies/the-pcb-you-can-actually-build-at-home.html">The PCB You Can Actually Build at Home</a>
-        <p>How to design a home-buildable PCB around packages, layers, materials, and processes a small workshop can inspect, repair, and improve.</p>
+        <p>A home-buildable PCB aligns packages, layers, materials, footprints, vias, soldering, masks, test points, inspection, repair.</p>
         <p>Continue:</p>
         <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a>
         <p>Continue from home-built boards to the fabrication tools makers still need.</p>
         <p>Nearby:</p>
         <a href="/miscellanies/play-harmony-at-melody-speed.html">Play Harmony at Melody Speed</a>
-        <p>A concept for an instrument that separates continuous strumming from robotic chord formation so harmony can be played quickly and comfortably.</p>
+        <p>A programmable fret-forming instrument separates excitation from chord geometry, moving through harmony at keyboard speed while retaining physical expression.</p>
         <a href="/miscellanies/">Browse all 53 Miscellanies</a>
         <a href="/">Back to greenforest.io</a>
     </nav>

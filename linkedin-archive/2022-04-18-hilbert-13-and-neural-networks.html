@@ -6,11 +6,11 @@
     <title>Hilbert 13 and Neural Networks</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A machine-learning note: multivariate approximation, neural networks, sum-of-products structure, Q-learning, Monte Carlo methods, and why empirical scaling still needs mechanism.">
+    <meta name="description" content="Hilbert’s thirteenth problem illuminates the scaling challenge behind multivariate approximation, deep reinforcement learning, and quantum machine learning.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-18-hilbert-13-and-neural-networks.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Hilbert 13 and Neural Networks">
-    <meta property="og:description" content="A machine-learning note: multivariate approximation, neural networks, sum-of-products structure, Q-learning, Monte Carlo methods, and why empirical scaling still needs mechanism.">
+    <meta property="og:description" content="Hilbert’s thirteenth problem illuminates the scaling challenge behind multivariate approximation, deep reinforcement learning, and quantum machine learning.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-18-hilbert-13-and-neural-networks.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-04-18",
-                                "dateModified": "2026-07-09",
-                                "description": "A machine-learning note: multivariate approximation, neural networks, sum-of-products structure, Q-learning, Monte Carlo methods, and why empirical scaling still needs mechanism.",
+                                "dateModified": "2026-07-28",
+                                "description": "Hilbert’s thirteenth problem illuminates the scaling challenge behind multivariate approximation, deep reinforcement learning, and quantum machine learning.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-18-hilbert-13-and-neural-networks.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,27 @@
     <header>Hilbert 13 and Neural Networks</header>
     <address>April 18, 2022</address>
 
+
+    <section class="abstract">
+        <p>Neural networks promise to approximate extraordinarily complex multivariate functions, yet the representation must still fit into physical compute. Hilbert’s thirteenth problem offers a powerful lens on that tension between expressive composition and executable scale.</p>
+        <p>Brian Greenforest connects that mathematical lineage to Q-learning, convolutional and recurrent networks, Monte Carlo methods, Markov chains, and the next possibilities in quantum machine learning.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Representation Determines Scale</h1>
+            <p>High-dimensional functions can demand explosive resources when a system represents them directly. Compositions of lower-dimensional functions, sums of products, and learned hierarchies offer different ways to organize the same complexity.</p>
+            <p>Deep reinforcement learning adds sampled experience and statistical updates, allowing useful policies to emerge without enumerating an entire phase space. Its practical success makes the underlying mechanism worth understanding in exact computational terms.</p>
+        </section>
+
+        <section>
+            <h1>Carry the Question Into Quantum Learning</h1>
+            <p>Quantum systems offer a radically different state space and measurement process. Combining them with learning raises new questions about representation, sampling, correlations, and which computations produce useful advantage.</p>
+            <p>Mathematicians, ML researchers, and hardware builders can study those questions together. The prize reaches beyond a faster model: it could reveal a new way to organize multivariate computation.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6921674729401577472" data-linkedin-activity="6921674729401577472" data-linkedin-source="activity:6921674729401577472">
         <h2 id="linkedin-original-6921674729401577472">Originally posted on LinkedIn</h2>
@@ -112,51 +133,13 @@ Now simply imagine, what can we do with QUANTUM machine learning!!!! &lt;3 &lt;3
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Machine-learning note</span>Originally posted 2022-04-18; rewritten here around multivariate approximation and scaling.</p>
-            <p><strong>Included:</strong> Hilbert's 13th problem as motivation, neural networks, sum-of-products structure, Q-learning, Monte Carlo methods, and the gap between empirical behavior and mechanism.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Approximation and Scaling</h1>
-            <p>The useful question in this note is how multivariate functions become representable at scale. Neural networks, sum-of-products forms, and related approximators all ask a practical version of the same question: how can many interacting variables be represented without the expression becoming unusable?</p>
-            <p>Hilbert's 13th problem is useful here as a historical pointer toward composition and representation. The modern engineering question is not only whether a network can fit a function, but what structure makes the fit efficient, trainable, and inspectable enough to use.</p>
-        </section>
-
-        <section>
-            <h1>Learning Systems Still Need Mechanism</h1>
-            <p>Q-learning, deep networks, recursive structures, Monte Carlo methods, and reinforcement-learning systems can work impressively in practice. That empirical success does not remove the need to understand stability, sample cost, state representation, discontinuities, and feedback paths.</p>
-            <p>The durable point is caution and curiosity together: when a method works better than the simple mental model predicts, the next useful step is to identify the mechanism, limits, and operating conditions.</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>This is a short approximation note, not a claim that arbitrary functions, quantum machine learning, or reinforcement learning are solved. It points to a real engineering question: how to keep representation, training, and mechanism attached while model capacity scales.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
-        <p>A small complete model run where architecture, tokenizer, loss, samples, and source path stay together.</p>
-        <p>More:</p>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Hilbert 13 and Neural Networks, read:</strong></p>
         <a href="2023-03-26-transformers-as-mathematical-optimization.html">Transformers as Mathematical Optimization</a>
-        <p>A later optimization-oriented note about transformers and hardware execution.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6921674729401577472/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+        <p>Chatbot fashion can change while the Transformer remains a foundational mathematical machine. Its attention layers, learned representations, and massive optimization make it a durable method for fitting and transforming high-dimensional structure.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6921674729401577472/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

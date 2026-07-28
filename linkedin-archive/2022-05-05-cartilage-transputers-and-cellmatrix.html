@@ -6,11 +6,11 @@
     <title>Cartilage, Transputers, and CellMatrix</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A reconfigurable-fabric note comparing Cartilage with Transputer and CellMatrix ideas: local links, cell-scale configuration, packaging, power, and routing discipline.">
+    <meta name="description" content="Cartilage extends the lineage of Transputers and CellMatrix with micro-FPGAs, local links, power-aware packaging, and an indefinitely scalable fabric.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-05-cartilage-transputers-and-cellmatrix.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Cartilage, Transputers, and CellMatrix">
-    <meta property="og:description" content="A reconfigurable-fabric note comparing Cartilage with Transputer and CellMatrix ideas: local links, cell-scale configuration, packaging, power, and routing discipline.">
+    <meta property="og:description" content="Cartilage extends the lineage of Transputers and CellMatrix with micro-FPGAs, local links, power-aware packaging, and an indefinitely scalable fabric.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-05-cartilage-transputers-and-cellmatrix.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-05-05",
-                                "dateModified": "2026-07-10",
-                                "description": "A reconfigurable-fabric note comparing Cartilage with Transputer and CellMatrix ideas: local links, cell-scale configuration, packaging, power, and routing discipline.",
+                                "dateModified": "2026-07-28",
+                                "description": "Cartilage extends the lineage of Transputers and CellMatrix with micro-FPGAs, local links, power-aware packaging, and an indefinitely scalable fabric.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-05-cartilage-transputers-and-cellmatrix.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Cartilage, Transputers, and CellMatrix</header>
     <address>May 5, 2022</address>
 
+
+    <section class="abstract">
+        <p>Cartilage carries the strongest ideas of Transputers and CellMatrix into a new post-processor fabric. Micro-FPGAs, local communication, analog one-wire SerDes links, and physical packaging let computation grow by adding more connected material.</p>
+        <p>The architecture joins power distribution, signaling, configuration, and program structure so scale becomes a property of the fabric instead of a custom cluster project.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Build on the Right Lineage</h1>
+            <p>Inmos Transputers made communication part of the processor model. Nicholas Macias’s CellMatrix explored locally connected reconfigurable cells. Ross Freeman’s FPGA made programmable hardware commercially real.</p>
+            <p>Cartilage combines those lineages with small reconfigurable nodes and a runtime that manages regions, routes, objects, and ports across a physically expandable array.</p>
+        </section>
+
+        <section>
+            <h1>Create the Platform After Processors</h1>
+            <p>The opportunity reaches from data-center compute to programmable matter and locally organized machines. The fabric can accept new nodes without redesigning a fixed-size server around every expansion.</p>
+            <p>Early cofounders, investors, FPGA engineers, and distributed-systems builders can shape this platform now. Help turn the architecture, runtime, and packaging into the next computing industry.</p>
+        </section>
+
+        <section>
+            <h1>Execute Cartilage, Transputers, and CellMatrix Through Cartilage Runtime Instantiation</h1>
+            <p>Cartilage Runtime-Instantiation Architecture carries this system into nested modules that enter and connect inside a live spatial machine.</p>
+            <p><a href="/cartilage-nested-instantiation-demo.html">Cartilage Runtime-Instantiation Architecture</a> &middot; <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> &middot; <a href="/cartilage-core.html">Cartilage Core</a> &middot; <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6928125248680710144" data-linkedin-activity="6928125248680710144" data-linkedin-source="activity:6928125248680710144">
         <h2 id="linkedin-original-6928125248680710144">Originally posted on LinkedIn</h2>
@@ -116,87 +143,13 @@ And... &quot;I told you&quot; ;-)</div>
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Cartilage belongs near several older fabric ideas: Transputer-style local communication, CellMatrix-style programmable cells, and FPGA-style configurable logic.</p>
-        <p>The useful comparison is architectural. A tiled machine has to define how cells communicate, how configuration enters, how power and timing cross the package, and how routing stays local enough to scale.</p>
-        <div class="status-box">
-            <p><span class="status-label">Fabric comparison</span>Originally posted 2022-05-05; expanded here into the fabric comparison.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
-            <p><strong>Article focus:</strong> local communication, cell-scale configuration, packaging, power, and routing discipline.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Comparison</h1>
-            <p>The Transputer treated communication as part of the computing node rather than an afterthought. CellMatrix explored a field of programmable cells. FPGAs make Boolean structure physical, timed, and placeable.</p>
-            <p>Cartilage overlaps with those questions. It asks how far a uniform fabric can go when cells expose local ports, local configuration, and explicit routing instead of depending on one global controller to hide the structure.</p>
-        </section>
-
-        <section>
-            <h1>What Has To Work</h1>
-            <div class="article-fact-table">
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Local links</div>
-                    <div>Neighbor communication has to be cheap enough that a tiled layout remains useful as the array grows.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Configuration</div>
-                    <div>Cells need an explicit way to receive and preserve local role changes without turning every update into a whole-machine event.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Packaging</div>
-                    <div>Power, timing, and external access become part of the architecture once the fabric is meant to scale physically.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Routing</div>
-                    <div>The routing rule has to remain visible enough that placement and boundaries can be reasoned about cell by cell.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Scaling limit</div>
-                    <div>The interesting limit is not a slogan about infinity. It is whether local rules keep latency, configuration cost, and layout cost bounded enough to compose.</div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h1>Useful Claim</h1>
-            <p>The point of the comparison is not that Cartilage is the same thing as any earlier machine. The point is that all of these systems make locality a design surface.</p>
-            <p>For a reconfigurable fabric, the hard parts are visible: ports, routing, configuration entry, power, timing, packaging, and the shape of the cells that have to repeat.</p>
-        </section>
-        <section class="cartilage-visual-link">
-            <h1>Cartilage Visual Language</h1>
-            <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
-        </section>
-
-        <section>
-            <h1>Current Mechanism</h1>
-            <p>The comparison now has a concrete reference: <a href="/cartilage-core.html">Cartilage Core</a> publishes the compact browser fabric, hardware paper, local-clocked SystemVerilog RTL, and exact 252-bit installation. Inspect the <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> for the current cell, router, fabric, and testbench definitions. Packaging, physical timing closure, and multi-device links remain outside that logical proof.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-05-05-fpgas-as-reactive-parallel-beauty.html">FPGAs as Reactive Parallel Beauty</a>
-        <p>Another dated publication from May 5, 2022.</p>
-        <p>More:</p>
-        <a href="2022-05-11-when-one-fpga-is-not-enough.html">When One FPGA Is Not Enough</a>
-        <p>Another dated publication from May 11, 2022.</p>
-        <p>Current Cartilage program:</p>
-        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Follow the current implementation work and the places where funding or contributors can help.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6928125248680710144/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Cartilage, Transputers, and CellMatrix, read:</strong></p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Runtime-Instantiation Architecture</a>
+        <p>Cartilage&amp;rsquo;s runtime-instantiation architecture creates and connects nested modules inside a live spatial machine.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6928125248680710144/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

@@ -4,7 +4,7 @@ slug: "write-the-failures"
 date: "2021-01-30T00:50:52.169Z"
 original_dates:
   - "2021-01-30T00:50:52.169Z"
-description: "Success stories hide the search space; writing failed ideas shows other builders what was tried, why it looked plausible, and where reality objected."
+description: "A well-written negative result maps the search space: it preserves the original mechanism, the assumptions that made it promising, the test that challenged it, and the pieces worth carrying forward."
 status: publication-ready
 ---
 
@@ -12,125 +12,119 @@ status: publication-ready
 
 *Originally written January 30, 2021.*
 
-Most people are not spectacularly successful, so most people do not write about failure. That is exactly backward.
+A negative result can save the next builder a week, reveal a hidden constraint, preserve a useful component, or redirect an entire research program.
 
-A polished success story compresses years of wandering into a clean line: I had an idea, overcame adversity, made several wise decisions, and arrived. The story may be encouraging. It is usually a terrible map.
+Polished success stories often compress years of wandering into one smooth path. They celebrate an outcome while erasing the terrain around it. The useful engineering map includes the routes that met reality and had to turn.
 
-The useful map contains the wrong turns.
+Write those routes with enough force and detail that another person can begin from a later point.
 
-## Success Is a Biased Sample
+## Success shows one selected path
 
-Success includes judgment, work, timing, other people, available tools, and luck. Even when the work is excellent, the outcome is drawn from circumstances that may never repeat.
+Success combines judgment, work, timing, collaborators, tools, resources, and luck. The outcome selects one visible sample from many efforts.
 
-One company succeeding with a particular architecture cannot tell us that the architecture caused the success. The similar companies that chose it and failed are harder to see, as are the companies that succeeded for another reason despite it. The visible winner is one sample selected by the outcome.
+One company may succeed with an architecture while similar companies fail with it. Another company may succeed for reasons that outweigh the architecture. Winner-only accounts cannot separate those causes.
 
-A failed project can be vague or uninformative. A well-described failure exposes constraints that success often leaves hidden.
+A precise negative result exposes constraints that a success can glide past. It records:
 
-It tells us:
-
-- what someone believed before trying;
-- why the belief was plausible;
-- what was actually attempted;
-- which observation contradicted the expectation;
+- what the builder believed before trying;
+- why the mechanism looked promising;
+- what the team actually constructed;
+- which observation changed the expectation;
 - which parts still worked;
-- what would have to change for another attempt to make sense.
+- what conditions could make another attempt worthwhile.
 
-That is reusable knowledge.
+That record turns an outcome into reusable engineering knowledge.
 
-## Research Should Risk Being Wrong
+## Research gives reality a choice
 
-If I choose only questions whose answers are guaranteed, I am not protecting research. I am avoiding it.
+Research matters when more than one result remains possible. A design exploration gains value because the physical or human world can answer differently from the designer's expectation.
 
-An experiment becomes valuable when more than one outcome is possible. A design exploration matters because reality still has a choice.
+The best discipline makes the vulnerable part cheap and clear enough to test.
 
-This does not mean betting years on every dramatic thought. The discipline is to make the vulnerable part small enough to test.
+Instead of betting a new computer architecture on speed, isolate one expected advantage and build a fair comparison. Instead of promising that an interface eliminates mistakes, identify one class of mistake and measure the change. Instead of claiming that a physical theory explains everything, derive one observable result that can disagree.
 
-Instead of betting an entire new computer architecture on speed, isolate one expected advantage and build the smallest fair comparison. Instead of promising that a new interface eliminates mistakes, identify one class of mistake and measure whether it changes. Instead of saying a physical theory explains everything, derive one result that could disagree with observation.
+A precise result names what happened: latency exceeded its budget; a mechanism required more state than expected; a counterexample broke an assumption; noise hid the signal; users interpreted the control differently.
 
-The failure then becomes precise. A latency exceeded its budget. A mechanism required more state than expected. An assumption did not survive a counterexample. A signal could not be distinguished from noise. The user did not understand the boundary.
+Specific outcomes teach. Vague disappointment cannot.
 
-Specific failure teaches. Grand disappointment does not.
+## Preserve the original attraction
 
-## Preserve Why the Bad Idea Looked Good
+After learning the answer, anyone can make an earlier idea look foolish. That destroys the most transferable part of the story.
 
-It is easy to make an old mistake look foolish after learning the answer. That erases the most transferable part.
+Reconstruct why the mechanism deserved attention. Perhaps it removed one kind of complexity while moving work into routing. Perhaps a beautiful abstraction assumed perfect synchronization. Perhaps a material supplied ideal electrical behavior but failed mechanically at the required scale. Perhaps an algorithm appeared linear because its analysis omitted an expensive preparation stage.
 
-A useful failure account reconstructs the original attraction. Perhaps the design reduced one kind of complexity while silently moving it into routing. Perhaps a beautiful abstraction assumed perfect synchronization. Perhaps a material had ideal electrical properties but was too brittle at the required scale. Perhaps an algorithm looked linear because the expensive preparation step was omitted.
-
-If readers cannot see why an intelligent person tried it, they cannot recognize the same structure when it returns under another name.
-
-I want the failed idea presented at its strongest:
+Readers need the strongest version of the idea:
 
 1. Here was the problem.
-2. Here was the mechanism I believed could solve it.
+2. Here was the mechanism that could solve it.
 3. Here were the assumptions.
 4. Here was the prediction.
 5. Here was the test.
-6. Here is where the result diverged.
+6. Here is where observation changed the route.
 
-The explanation should not humiliate the earlier thinker, even when that thinker is me.
+That sequence respects the intelligence that produced the attempt and helps another builder recognize the same structure under a new name.
 
-## Separate Failure from Absence
+## Name what happened
 
-“It did not work” can mean several different things:
+“It did not work” hides several different outcomes:
 
-- the mechanism was contradicted;
-- the implementation contained a bug;
-- the test could not distinguish outcomes;
-- the available tools were insufficient;
-- the cost exceeded the value;
-- the project stopped before reaching a test;
-- the result worked but solved the wrong problem.
+- observation contradicted the mechanism;
+- an implementation bug blocked the run;
+- the test could not distinguish its alternatives;
+- available tools could not reach the needed condition;
+- cost exceeded the value;
+- construction stopped before the decisive test;
+- the result worked technically while serving the wrong problem.
 
-These are not interchangeable.
+Each outcome contributes different knowledge.
 
-An unfinished prototype tells us where construction stopped. A broken build points first to implementation. A result below a commercial threshold may still reveal a physical effect. A beautiful mechanism that nobody needs can work technically and still fail as a product.
+A stopped construction records the last completed mechanism and the next obstacle. A broken build directs attention to implementation. A result below a commercial threshold can still reveal a physical effect. A working mechanism without a customer teaches a product lesson rather than an electrical one.
 
-Name the layer that failed.
+Name the exact layer and the exact event that changed the route. That precision lets future work reuse what remains valuable.
 
-When I publish a negative result, I separate the obstacle from the decisive experiment. If the test stopped at the obstacle, that obstacle is what I report.
+## Carry forward the working pieces
 
-## Record the Small Surviving Pieces
+A larger idea can change direction while several of its mechanisms continue to matter.
 
-Large ideas often fail without becoming worthless.
+An architecture can yield a useful protocol. A slow implementation can reveal a superior visual model. A fabrication route can produce an excellent cleaning process. A product can uncover one interaction that people love. A physical model can identify the right measurement even when the result points elsewhere.
 
-A rejected architecture may contain a useful protocol. A slow prototype may reveal a better visual model. A failed fabrication method may produce an excellent cleaning procedure. A product nobody wanted may expose one interaction people love. An incorrect theory may ask the right measurement question.
+Disassemble the result:
 
-The temptation is to save the whole idea or discard everything. The better act is disassembly.
+- Which mechanisms behaved as intended?
+- Which tools or procedures improved?
+- Which observations will guide another system?
+- Which assumptions need replacement?
+- Which component deserves a new context?
 
-Which parts worked? Which parts are useful? What can be carried into another system?
+Research compounds through these tested parts. A workshop full of mechanisms carries more future value than a shelf reserved only for triumphant final forms.
 
-This is how research compounds. Not as a museum of triumphant final forms, but as a workshop full of tested parts.
+## Give the result enough detail to reuse
 
-## A Failure Deserves Enough Detail to Be Avoided
-
-Warning people that something failed is not enough. They need enough information to determine whether their situation is genuinely the same.
+Another builder needs enough context to determine whether a new attempt shares the same conditions.
 
 A strong account includes:
 
-- the date and version;
-- relevant hardware, software, materials, or environmental conditions;
-- the exact procedure;
+- date and version;
+- relevant hardware, software, materials, and environment;
+- exact procedure;
 - expected and observed behavior;
 - raw measurements when available;
-- alternative explanations;
-- changes attempted after the first failure;
-- the conditions under which the result applies.
+- competing explanations;
+- changes attempted after the first result;
+- conditions under which the observation applies.
 
-The goal is not ceremonial transparency. The goal is to prevent another person from spending a week reproducing an already understood dead end—or to let them notice the one condition under which their attempt may differ.
+These details prevent needless repetition and reveal the one changed condition that may justify a new route. They also let future tools revisit an old result with better instruments.
 
-## Failure Is the Work
+## The search space is the work
 
-Success is rare partly because the search space is large. A person who reports only the final route conceals the size and shape of that space.
+A final route gains meaning from the terrain around it:
 
-I would rather read the notebook of falls:
-
-- the elegant model that broke under one counterexample;
-- the board that could not be assembled reliably;
+- the elegant model that met one decisive counterexample;
+- the board whose assembly process demanded another method;
 - the optimization that moved the bottleneck;
 - the interface that protected users from the wrong danger;
-- the prediction that reality refused.
+- the prediction that sent the measurement program somewhere better.
 
-These stories do not tell people to stop trying. They let people begin from a later point.
+Write one such result now. Begin with the mechanism at full strength, record the prediction and procedure, name the observation that changed the plan, and end with the parts that another builder can use.
 
-Research is not a performance of being right. It is an organized way to become less wrong. Write the failures, and the fall becomes part of the road instead of a hole everyone must discover alone.
+A failure written this way does not close the road. It builds the next section of it.

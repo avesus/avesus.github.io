@@ -6,11 +6,11 @@
     <title>OpenCL Kernels and the Final Chip</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="An accelerator-placement note about OpenCL-style kernels, device allocation, configuration, security boundaries, and what changes when kernels approach final hardware.">
+    <meta name="description" content="The Final Chip can place and manage OpenCL-style kernels across a secure, reconfigurable cluster with one language and open-ended physical scale.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-13-opencl-kernels-and-the-final-chip.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="OpenCL Kernels and the Final Chip">
-    <meta property="og:description" content="An accelerator-placement note about OpenCL-style kernels, device allocation, configuration, security boundaries, and what changes when kernels approach final hardware.">
+    <meta property="og:description" content="The Final Chip can place and manage OpenCL-style kernels across a secure, reconfigurable cluster with one language and open-ended physical scale.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-13-opencl-kernels-and-the-final-chip.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-05-13",
-                                "dateModified": "2026-07-09",
-                                "description": "An accelerator-placement note about OpenCL-style kernels, device allocation, configuration, security boundaries, and what changes when kernels approach final hardware.",
+                                "dateModified": "2026-07-28",
+                                "description": "The Final Chip can place and manage OpenCL-style kernels across a secure, reconfigurable cluster with one language and open-ended physical scale.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-13-opencl-kernels-and-the-final-chip.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>OpenCL Kernels and the Final Chip</header>
     <address>May 13, 2022</address>
 
+
+    <section class="abstract">
+        <p>Accelerator kernels should move to the best hardware without forcing programmers to configure every device, buffer, route, and security boundary. The Final Chip architecture places and manages OpenCL-style computation across an expandable cluster of reconfigurable silicon.</p>
+        <p>A new language can make allocation, ownership, communication, and reconfiguration part of one program while the physical fabric grows from a device to a data center and beyond.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Turn Kernels Into Managed Objects</h1>
+            <p>Each kernel becomes a region with explicit inputs, outputs, state, and capabilities. The runtime can place that region near data, connect it to services, replicate it for load, and change its hardware allocation as demand shifts.</p>
+            <p>Local object-capability relationships protect sensitive resources without wrapping every interaction in an unrelated software stack.</p>
+        </section>
+
+        <section>
+            <h1>Build the Research Partnership</h1>
+            <p>Microsoft’s history with FPGA acceleration, cloud infrastructure, developer platforms, and HoloLens research makes it a natural partner for this architecture. The work connects chips, language design, distributed systems, and elastic service delivery.</p>
+            <p>Research labs, cloud providers, and semiconductor partners can host, fund, or co-develop the next implementation. Bring the kernels, infrastructure, and fabrication path that can carry the Final Chip into the world.</p>
+        </section>
+
+        <section>
+            <h1>Build the Fabrication Path Behind OpenCL Kernels and the Final Chip</h1>
+            <p>The Missing Maker Fab carries this work into the tools and processes required to fabricate fast active devices locally.</p>
+            <p><a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6930692618993500160" data-linkedin-activity="6930692618993500160" data-linkedin-source="activity:6930692618993500160">
         <h2 id="linkedin-original-6930692618993500160">Originally posted on LinkedIn</h2>
@@ -111,64 +138,13 @@ PLEASE SAVE US ASAP.
 #scalability #startups #research #coding #microsoft #reactiveprogramming #distributedcomputing #hpc #fpga #chiplets #smartdust #claytronics #nanobots #curecancer</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Kernel-placement note</span>Originally posted 2022-05-13; rewritten here around accelerator kernels and hardware placement.</p>
-            <p><strong>Included:</strong> OpenCL-style kernels, placement, allocation, configuration, security boundaries, chiplets, and the limits of automatic management.</p>
-            <p><strong>Article focus:</strong> what has to be explicit before kernels can move from source code into distributed accelerator or fabric resources.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Kernel Placement Problem</h1>
-            <p>OpenCL-style kernels are a useful boundary because they make some work explicit: inputs, outputs, buffers, launch shape, memory movement, and the device that runs the kernel.</p>
-            <p>That is not enough by itself. If kernels are meant to spread across accelerator cards, FPGA regions, chiplets, or a larger fabric, the system needs placement and ownership rules that survive more than one device.</p>
-        </section>
-
-        <section>
-            <h1>What Has To Be Managed</h1>
-            <ul class="article-facts">
-                <li><strong>Placement:</strong> which device, region, chiplet, or fabric area owns the kernel instance.</li>
-                <li><strong>Memory:</strong> where buffers live, when data moves, and which copies are authoritative.</li>
-                <li><strong>Configuration:</strong> which bitstream, kernel variant, clock, memory layout, or protocol endpoint is active.</li>
-                <li><strong>Security:</strong> which tenant, process, or capability can invoke the work and access the data.</li>
-                <li><strong>Failure:</strong> what happens when a device stalls, a link drops, a kernel faults, or a configuration update fails.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h1>What Final Hardware Changes</h1>
-            <p>A kernel running on a GPU is still usually managed by a host runtime. A kernel lowered into FPGA fabric or chiplet-scale hardware has fewer layers between the operation and the physical execution path.</p>
-            <p>That can reduce overhead, but it also removes convenient runtime assumptions. Allocation, scheduling, isolation, observability, and updates have to be designed into the system instead of assumed from the host software stack.</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>This note does not claim configuration-free or infinitely scalable kernel management. The useful target is smaller and harder: make kernel placement explicit enough that source code, data movement, device ownership, and security boundaries can still be understood when work is distributed across hardware.</p>
-            <p>The fabrication side of this question connects to <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a>: the missing layer is not just more boards, but active behavior that can be built, tested, and controlled closer to the builder.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-05-12-verilog-allocation-and-dynamic-languages.html">Verilog, Allocation, and Dynamic Languages</a>
-        <p>The allocation side of the same problem: hardware resources have to exist before runtime can use them.</p>
-        <p>More:</p>
-        <a href="2022-07-06-searching-for-a-tinkerer-replacement-for-silicon.html">Searching for a Tinkerer Replacement for Silicon</a>
-        <p>A related device-search note about useful active elements beyond conventional silicon access.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6930692618993500160/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From OpenCL Kernels and the Final Chip, read:</strong></p>
+        <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a>
+        <p>The maker-fab program defines the local tools and processes needed to fabricate fast active devices, not only package them.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6930692618993500160/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

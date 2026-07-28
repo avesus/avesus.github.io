@@ -6,11 +6,11 @@
     <title>Verilog, Allocation, and Dynamic Languages</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A hardware/software allocation note: Verilog reserves resources before runtime, while dynamic languages allocate objects, fields, and references while the program runs.">
+    <meta name="description" content="Cartilage brings dynamic allocation and object relationships to reconfigurable fabric, overcoming the fixed-resource model of conventional Verilog.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-12-verilog-allocation-and-dynamic-languages.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Verilog, Allocation, and Dynamic Languages">
-    <meta property="og:description" content="A hardware/software allocation note: Verilog reserves resources before runtime, while dynamic languages allocate objects, fields, and references while the program runs.">
+    <meta property="og:description" content="Cartilage brings dynamic allocation and object relationships to reconfigurable fabric, overcoming the fixed-resource model of conventional Verilog.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-12-verilog-allocation-and-dynamic-languages.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-05-12",
-                                "dateModified": "2026-07-23",
-                                "description": "A hardware/software allocation note: Verilog reserves resources before runtime, while dynamic languages allocate objects, fields, and references while the program runs.",
+                                "dateModified": "2026-07-28",
+                                "description": "Cartilage brings dynamic allocation and object relationships to reconfigurable fabric, overcoming the fixed-resource model of conventional Verilog.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-12-verilog-allocation-and-dynamic-languages.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Verilog, Allocation, and Dynamic Languages</header>
     <address>May 12, 2022</address>
 
+
+    <section class="abstract">
+        <p>Verilog gives programmers direct parallel hardware, yet conventional FPGA flows allocate every LUT, register, and wire before runtime. Software languages let a program create objects, fields, references, and memory as needs change.</p>
+        <p>Cartilage joins those worlds: a distributed fabric that can allocate regions, instantiate dynamic types, and reconfigure local hardware while the application runs.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Static Elaboration Meets Dynamic Work</h1>
+            <p>An FPGA build fixes resource use into a bitstream. When every LUT has a role, another line of hardware logic requires a new allocation and compile cycle. C and C++ offer malloc and new; JavaScript and Python let objects gain relationships at runtime.</p>
+            <p>Accelerator APIs still force programmers to manage kernels, buffers, and communication across artificial boundaries. That machinery obscures the application’s own object model.</p>
+        </section>
+
+        <section>
+            <h1>Give Reconfigurable Hardware a Native Runtime</h1>
+            <p>Cartilage treats regions and connections as allocatable resources. Objects can create contained objects, attach ports, move references, and reshape local logic without turning the whole machine into a centrally managed FPGA build.</p>
+            <p>Software-language designers and FPGA engineers can work together on this post-von-Neumann model. Bring dynamic semantics to the fabric and let hardware scale as one homogeneous program.</p>
+        </section>
+
+        <section>
+            <h1>Locate Allocation in the FPGA Fabric</h1>
+            <p>The architecture chapter shows where LUTs, registers, wires, and routes live; the parallel-language and multiplier links carry allocation into source semantics and arithmetic structure.</p>
+            <p><a href="/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">See where LUTs, registers, wires, and routed module connections live inside an FPGA</a> &middot; <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a> &middot; <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6930415265725771776" data-linkedin-activity="6930415265725771776" data-linkedin-source="activity:6930415265725771776">
         <h2 id="linkedin-original-6930415265725771776">Originally posted on LinkedIn</h2>
@@ -117,65 +144,13 @@ We need a new distributed massively parallel PROGRAMMING LANGUAGE that runs on a
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Allocation note</span>Originally posted 2022-05-12; rewritten here around the static-resource boundary in hardware description.</p>
-            <p><strong>Included:</strong> LUT exhaustion, fixed-size hardware reservation, dynamic allocation, object references, kernels, and why a parallel language needs ownership and placement rules.</p>
-            <p><strong>Article focus:</strong> the difference between allocating hardware before runtime and allocating software structure while the program runs.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Allocation Boundary</h1>
-            <p>Verilog makes hardware resources explicit before runtime. LUTs, registers, memories, wires, and module instances have to exist in the design before a clock ever runs.</p>
-            <p>That is powerful because the resulting machine has real spatial structure. It is also restrictive: once the fabric is full, a new behavior cannot appear the way a dynamic language can allocate another object or attach another field.</p>
-            <p><a href="/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">See where LUTs, registers, wires, and routed module connections live inside an FPGA</a> before carrying that fixed-resource model into dynamic allocation.</p>
-        </section>
-
-        <section>
-            <h1>What Dynamic Languages Hide</h1>
-            <p>In C, C++, JavaScript, Python, and similar systems, a program can create new heap objects, attach references, dispatch through methods, and grow data structures while it runs. The machine pays for that flexibility through memory management, indirection, cache behavior, garbage collection or lifetime rules, and runtime failure modes.</p>
-            <p>Hardware description pushes the payment forward. A fixed array, FIFO, memory block, or pipeline stage reserves area even when the workload does not use every slot. The upside is timing and placement that can be reasoned about. The downside is wasted capacity when the static shape is wrong.</p>
-        </section>
-
-        <section>
-            <h1>Why Kernel Systems Feel Awkward</h1>
-            <p>GPU and accelerator systems often expose this boundary through kernels. Work is split into separate compiled units, and communication has to move through buffers, queues, host orchestration, or message-passing patterns.</p>
-            <p>That is not the same as object references inside a dynamic runtime. The programmer has to decide where data lives, when it crosses a boundary, and which execution region is allowed to mutate it.</p>
-        </section>
-
-        <section>
-            <h1>The Language Requirement</h1>
-            <p>A useful massively parallel language cannot merely say "use hardware" or "use kernels." It needs ownership, placement, allocation, communication, and failure rules that remain readable as work spreads across regions or devices.</p>
-            <p>That connects directly to <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>: more execution lanes are not enough if the source loses causality, locality, timing, and ownership.</p>
-        </section>
-
-        <section>
-            <h1>Concrete Hardware Example</h1>
-            <p>The <a href="/serial_multiplier/">Bit-Serial Bubbles-Free Multiplier</a> is a small example of hardware-shaped scheduling. It is not dynamically allocated software; it is a fixed datapath arranged so streaming work keeps moving once the pipeline is filled.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>
-        <p>The source-code side of the same problem: preserving causality, timing, locality, ownership, and failure when execution spreads out.</p>
-        <p>More:</p>
-        <a href="2022-05-13-opencl-kernels-and-the-final-chip.html">OpenCL Kernels and the Final Chip</a>
-        <p>A related accelerator note about kernels, allocation, and the boundary between source code and final hardware.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6930415265725771776/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Verilog, Allocation, and Dynamic Languages, read:</strong></p>
+        <a href="/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">FPGA Architecture: LUTs, Flip-Flops, and Routing</a>
+        <p>This chapter locates LUTs, flip-flops, wires, and routed modules inside the physical FPGA fabric.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6930415265725771776/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

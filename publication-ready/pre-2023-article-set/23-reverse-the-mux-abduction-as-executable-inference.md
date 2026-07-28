@@ -7,7 +7,7 @@ original_dates:
   - "2022-03-22T01:13:09.505Z"
   - "2022-04-08T00:16:37.968Z"
   - "2022-07-09T02:33:27.402Z"
-description: "A finite, executable account of abduction: observe a multiplexer output, run its relation backward, enumerate compatible causes, and rank the surviving explanations without confusing inference with reversed physical time."
+description: "Reverse-the-MUX inference turns abduction into an executable engine that enumerates compatible causes, ranks explanations, and chooses the next observation that separates them."
 status: publication-ready
 ---
 
@@ -15,143 +15,131 @@ status: publication-ready
 
 *Developed from February 8 through July 9, 2022.*
 
-Deduction runs a rule forward. Abduction asks what could have produced the result.
+A multiplexer can turn abduction—the search for causes behind an observation—into a finite executable operation.
 
-I wanted to make that distinction executable with the smallest useful circuit I know: a multiplexer.
-
-A two-input MUX has data inputs `a` and `b`, a selector `s`, and output `y`:
+A two-input MUX has data inputs `a` and `b`, selector `s`, and output `y`:
 
 ```text
 y = (not s and a) or (s and b)
 ```
 
-Forward execution is ordinary:
+Forward execution follows the selector:
 
-- when `s = 0`, output `a`;
-- when `s = 1`, output `b`.
+- `s = 0` selects `a` as the output;
+- `s = 1` selects `b` as the output.
 
-Reverse the MUX and the question changes:
+Reverse the relation and the machine answers a new question:
 
-**Given an observed `y`, which assignments of `a`, `b`, and `s` remain possible?**
+**After observing `y`, which combinations of `a`, `b`, and `s` satisfy the relation?**
 
-That is abduction in a finite Boolean world.
+That question gives abduction a complete Boolean core.
 
-## Reversing a Relation, Not Time
+## Reverse the Relation
 
-I reverse the relation, not physical time. No output signal has to travel into the past.
+Reverse-the-MUX inference changes the direction of analysis, not physical time.
 
-The Boolean relation has four variables. Forward evaluation supplies three and computes the fourth. Inverse inference supplies some other subset and asks which complete assignments satisfy the same relation.
+The Boolean relation contains four variables. Forward evaluation supplies three and computes the fourth. Inverse inference supplies another subset and enumerates every complete assignment that satisfies the same relation.
 
-For `y = 1`, the valid causes include:
+For `y = 1`, valid causes include:
 
 | `s` | Required selected input | Unselected input |
 |---|---|---|
 | `0` | `a = 1` | `b` may be `0` or `1` |
 | `1` | `b = 1` | `a` may be `0` or `1` |
 
-The observation does not identify one cause. It creates a constraint.
+The observation creates a constraint with several solutions.
 
-If I also observe `s = 0`, then `a = 1` follows, while `b` remains unconstrained. If I know `a = 0` and still observe `y = 1`, the selector must be `1` and `b` must be `1`.
+Add `s = 0`, and the relation requires `a = 1` while leaving `b` unconstrained. Add `a = 0` while `y = 1`, and the relation requires both `s = 1` and `b = 1`.
 
-Abduction is not arbitrary guessing. It is the generation of assignments that survive the known constraints.
+Abduction generates every assignment that survives the known constraints.
 
-## Broken Implication
+## One Effect Opens Many Causes
 
-Ordinary implication encourages a one-way reading:
+Ordinary implication presents one direction:
 
 ```text
 cause -> effect
 ```
 
-Abduction deliberately “breaks” that arrow. It refuses to pretend that one effect names one cause.
+Abduction opens the arrow and returns the causes compatible with the effect.
 
-If a rule says rain can make pavement wet, wet pavement does not prove rain. A sprinkler, a broken pipe, or a cleaning crew may also satisfy the observation. The reverse operation returns a set of possible worlds, not a verdict.
+Rain can make pavement wet. Wet pavement can also follow from a sprinkler, broken pipe, or cleaning crew. The reverse operation therefore creates a set of possible worlds that all satisfy the observation.
 
-The MUX makes this humility impossible to avoid. A one-bit output usually leaves several one-bit explanations.
+The MUX makes that multiplicity visible in one bit. Larger Boolean circuits support the same operation: fix observed outputs, leave unknown inputs, internal states, or configuration bits symbolic, and solve for every consistent assignment.
 
-Larger Boolean circuits can be treated the same way. Fix observed outputs. Leave unknown inputs, internal states, or configuration bits symbolic. Solve for assignments that make the circuit consistent.
+This turns Boolean satisfiability into an explanatory engine.
 
-This is Boolean satisfiability with an explanatory purpose.
+## Ranking Turns Possibilities Into Explanations
 
-## From Possibilities to Explanations
+Constraint solving creates candidates. A ranking layer turns them into useful explanations through explicit criteria:
 
-Constraint solving gives candidates. It does not tell me which candidate is useful.
+- probability before the new observation;
+- assumptions the explanation introduces;
+- cost of its implied mechanism;
+- agreement with earlier observations;
+- power to predict an unobserved value;
+- stability under measurement error;
+- simplicity of the model it creates.
 
-An abductive engine needs a second layer that ranks explanations. Possible criteria include:
+Bayesian inference supplies principled rankings when probabilities exist. Search or learning can estimate which explanations have worked before. Formal logic can reject contradictions. Each technique operates from its actual observations and preferences.
 
-- prior probability;
-- number of assumptions;
-- cost of the implied mechanism;
-- compatibility with previous observations;
-- ability to predict an unobserved value;
-- robustness when measurements contain error;
-- simplicity of the resulting model.
+The clean architecture has four stages:
 
-Bayesian inference supplies one principled ranking when probabilities are available. Search or learning can estimate which explanations have worked before. Formal logic can reject contradictions. Each method works from the observations and preferences it is actually given.
+1. **Generate** all or many constraint-compatible causes.
+2. **Rank** them through explicit preferences or probabilities.
+3. **Test** the strongest distinction with a new observation.
+4. **Revise** the ranking after the result.
 
-The clean architecture is:
+Abduction proposes; experiment separates.
 
-1. **generate** all or many constraint-compatible causes;
-2. **rank** them using explicit preferences or probabilities;
-3. **test** the best distinctions with a new observation;
-4. **revise** when the test fails.
+## Prediction and Guessing Share a Relation
 
-Abduction proposes. Experiment separates.
+Consider a game where one agent writes and hides a bit sequence while another writes a sequence intended to match it.
 
-## Prediction Is the Dual of Guessing
+When the sequences match, the first agent can call the result a prediction; the second can call it a guess. The same correlation gains different causal stories from the record treated as prior and the actor placed at the center.
 
-Consider a simple game. I write a bit sequence, hide it, and ask another agent to write a matching sequence.
-
-If the sequences match, I can say I predicted what the agent would write. The agent can say it guessed what I had already written. The same correlation receives two causal stories depending on which record I treat as prior and which actor I center.
-
-This does not erase physical order. Timestamps, information access, and communication paths still matter. It does reveal that “prediction” and “guess” are roles assigned around a matching relation.
-
-A good inference system should record those information boundaries:
+Physical order remains available through timestamps, information access, and communication paths. A rigorous inference system records:
 
 - what existed before the decision;
 - what each agent could observe;
-- when the hypothesis was committed;
+- when the hypothesis entered the record;
 - which result arrived later.
 
-Without that discipline, a lucky guess can be retold as foresight.
+Those boundaries give a matching relation its correct causal meaning.
 
-## What “Fifty Percent A and Fifty Percent B” Can Mean
+## Give Percentages Their Exact Semantics
 
-I once wrote the compressed phrase “50% of A + 50% of B” beside the idea of quantum speedup. The phrase can describe a classical mixture, uncertainty over two hypotheses, an ensemble, or—with the correct mathematical machinery—a quantum superposition whose amplitudes and interference matter.
+The 2022 formulation placed the compressed phrase “50% of A + 50% of B” beside quantum speedup. That phrase can describe a classical mixture, uncertainty over two hypotheses, an ensemble, or—with the required mathematical machinery—a quantum superposition whose amplitudes and interference matter.
 
-For abductive inference I need only the classical reading: two explanations may begin with equal prior weight. A new observation changes the weights or rules one out.
+Abductive inference needs the classical reading: two explanations can begin with equal prior weight, and a new observation changes those weights or removes one candidate.
 
-Interference is not obtained by writing a percentage sign between alternatives.
+Quantum interference requires amplitude and phase. A percentage sign alone does not create it.
 
-## Neural Search Is an Optional Engine
+## Neural Search Can Accelerate the Engine
 
-I also imagined a deep, recurrent, asynchronous, quantized, spiking network as an inference machine. To turn that bundle into an architecture, each word needs a specific job:
+A deep, recurrent, asynchronous, quantized, spiking network offers one possible search engine when every adjective names a function:
 
-- deep: several representational layers;
-- recurrent: retained state and feedback;
-- asynchronous: local events rather than one global step;
-- quantized: bounded numeric state;
-- spiking: information carried partly by event timing.
+- **deep:** several representational layers;
+- **recurrent:** retained state and feedback;
+- **asynchronous:** local events instead of one global step;
+- **quantized:** bounded numeric state;
+- **spiking:** information carried partly through event timing.
 
-Such a network might learn to propose likely causes quickly. It still needs a constraint checker if the result must obey exact logic. A learned proposal mechanism and a symbolic verifier can complement one another: one searches the huge space; the other refuses impossible answers.
+Such a network can learn to propose likely causes quickly. A constraint checker can then enforce exact logic. Learned proposal and symbolic verification form a productive pair: one searches a vast space; the other accepts only assignments that satisfy the relation.
 
-The MUX remains the ground truth for the tiny case.
+The MUX supplies the ground truth for the smallest case.
 
-## Abduction as World-Making
+## Abduction Can Build a Shared World
 
-There is also a philosophical layer I do not want to erase.
+A bold hypothesis changes the world a group inhabits. Once people coordinate around a model, they create instruments, institutions, software, and expectations that make some futures more likely. An information system can distribute that model widely enough for thousands of people to act through it.
 
-A bold hypothesis changes the world a group inhabits. Once people coordinate around a model, they build instruments, institutions, software, and expectations that make some futures more likely. An information system can distribute a model so widely that thousands of people act as though it were already true.
+This world-making has a concrete mechanism: coordinated behavior through people, instruments, institutions, and software. Earlier images of many-worlds, morphic resonance, and a photonic continuity field helped frame the possibility; collective action makes it operational.
 
-That is real world-making through coordinated behavior. It acts through people, instruments, institutions, and software—not through thought alone selecting a quantum branch, activating time travel, or bending physical truth. Many-worlds, morphic resonance, and a photonic continuity field gave me images for thinking; coordinated action supplies the mechanism here.
+The same mechanism explains how a hypothesis can harden into an assumed fact and shape later observations. Recorded commitments and distinguishing tests let a group keep the model responsive while it acts.
 
-The valuable warning is social: an abductive hypothesis can harden into supposed fact. If enough people synchronize around it, the model begins producing observations shaped by the model itself.
+## The Executable Core
 
-That makes falsifiable tests and recorded commitments morally important.
-
-## The Small Executable Core
-
-Reverse-the-MUX inference can be implemented without metaphysical machinery:
+Reverse-the-MUX inference needs only an executable relation:
 
 ```text
 inputs:
@@ -167,8 +155,8 @@ output:
   possible causes, not one invented certainty
 ```
 
-For a small circuit, brute-force enumeration is enough. For a larger one, a SAT solver, binary decision diagram, constraint engine, or hybrid learned search can reduce the work.
+Brute-force enumeration handles a finite circuit. SAT solvers, binary decision diagrams, constraint engines, and hybrid learned search extend the same operation to larger systems.
 
-The important thing is that the explanation remains connected to an executable relation. I can inspect why an assignment survives. I can add one observation and watch alternatives disappear. I can see when several stories still fit instead of forcing one.
+Every explanation stays connected to the relation that generated it. An engineer can inspect why an assignment survives, add one observation, watch alternatives disappear, and choose the measurement that separates the remaining stories.
 
-Abduction is bold because it creates possibilities. It becomes knowledge only when those possibilities accept the risk of being eliminated.
+Abduction creates possible causes. Executable relations, ranked evidence, and decisive observations turn them into knowledge.

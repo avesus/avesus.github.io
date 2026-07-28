@@ -6,11 +6,11 @@
     <title>Probit, Argmax, Logit, and Neural Networks</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A statistical-modeling note separating probit, logit, sigmoid, softmax, argmax, Gaussian CDFs, and neural-network output layers.">
+    <meta name="description" content="Probit, logit, sigmoid, softmax, argmax, and Gaussian densities connect neural-network output layers directly to classical statistical modeling.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-18-probit-argmax-logit-and-neural-networks.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Probit, Argmax, Logit, and Neural Networks">
-    <meta property="og:description" content="A statistical-modeling note separating probit, logit, sigmoid, softmax, argmax, Gaussian CDFs, and neural-network output layers.">
+    <meta property="og:description" content="Probit, logit, sigmoid, softmax, argmax, and Gaussian densities connect neural-network output layers directly to classical statistical modeling.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-18-probit-argmax-logit-and-neural-networks.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-08-18",
-                                "dateModified": "2026-07-09",
-                                "description": "A statistical-modeling note separating probit, logit, sigmoid, softmax, argmax, Gaussian CDFs, and neural-network output layers.",
+                                "dateModified": "2026-07-28",
+                                "description": "Probit, logit, sigmoid, softmax, argmax, and Gaussian densities connect neural-network output layers directly to classical statistical modeling.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-18-probit-argmax-logit-and-neural-networks.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Probit, Argmax, Logit, and Neural Networks</header>
     <address>August 18, 2023</address>
 
+
+    <section class="abstract">
+        <p>Neural-network outputs inherit a deep statistical lineage. Probit connects probabilities to Gaussian quantiles, logit connects probabilities to log-odds, sigmoid and softmax map scores into probabilities, and argmax selects the winning coordinate.</p>
+        <p>Brian Greenforest uses those relationships to make perceptrons, output layers, attention, and learned classification feel like one continuous mathematical system.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Maps and Choices Have Different Jobs</h1>
+            <p>The probit function inverts the standard normal cumulative distribution. The logit inverts the logistic sigmoid. Softmax converts a vector of logits into a categorical probability distribution.</p>
+            <p>Argmax does not reverse softmax; it discards probability detail and returns the index with the greatest score. Derivatives of sigmoid and Gaussian CDFs produce bell-shaped sensitivity curves, while the softmax Jacobian couples every category.</p>
+        </section>
+
+        <section>
+            <h1>Teach Neural Networks Through Statistics</h1>
+            <p>Output layers encode assumptions about outcomes, likelihoods, and geometry. Those choices determine the loss function, gradients, calibration, and the meaning of a prediction.</p>
+            <p>Statistics educators and ML practitioners can teach these transforms together, derive their gradients, and show how classical links become executable neural architecture.</p>
+        </section>
+
+        <section>
+            <h1>Run Probit, Argmax, Logit, and Neural Networks in a Four-Layer Transformer</h1>
+            <p>The complete training run connects this mathematical argument to executable code, data flow, and a working small model.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7098186252893487104" data-linkedin-activity="7098186252893487104" data-linkedin-source="activity:7098186252893487104">
         <h2 id="linkedin-original-7098186252893487104">Originally posted on LinkedIn</h2>
@@ -108,55 +135,13 @@
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Probit, logit, sigmoid, softmax, and argmax are often taught as isolated machine-learning vocabulary. They are better read as statistical links, probability transforms, and decision operators.</p>
-        <p>The useful point is that neural-network output layers are statistical interfaces, not just arbitrary activation functions.</p>
-        <div class="status-box">
-            <p><span class="status-label">Statistical-modeling note</span>Originally posted 2023-08-18; expanded here around output-layer terminology.</p>
-            <p><strong>Article focus:</strong> probit, logit, sigmoid, Gaussian CDF, softmax, argmax, classification, and neural-network outputs.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Links And Inverses</h1>
-            <p>The probit function is the inverse CDF of the standard normal distribution. The logit function is the inverse of the logistic sigmoid. These are link functions: they map probabilities into an unbounded latent scale.</p>
-            <p>The derivative of the Gaussian CDF is the Gaussian density. The derivative of the sigmoid has its own peaked shape. Those derivatives matter because learning systems optimize through these nonlinear maps.</p>
-        </section>
-
-        <section>
-            <h1>Softmax And Argmax</h1>
-            <p>Softmax maps a vector of scores into a probability distribution over classes. Argmax selects the index with the largest score or probability. Argmax is not a true inverse of softmax; it is a decision rule applied after scores or probabilities have been computed.</p>
-            <p>That distinction matters in neural networks. Training usually needs differentiable probability-like outputs; deployment may collapse those outputs into a discrete class choice.</p>
-        </section>
-
-        <section>
-            <h1>The Neural-Network Point</h1>
-            <p>A deep network output layer often acts as a statistical model head. Attention, hidden layers, and embeddings produce representation; the final probability interface determines how the result is interpreted and trained.</p>
-            <p>That is why neural networks are closer to statistics than the word &quot;perceptron&quot; suggests.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-08-11-nvidia-gpus-are-not-universal-computers.html">NVIDIA GPUs Are Not Universal Computers</a>
-        <p>Another dated publication from August 11, 2023.</p>
-        <p>More:</p>
-        <a href="2023-08-24-optimizer-history-around-attention-and-adamw.html">Optimizer History Around Attention and AdamW</a>
-        <p>Another dated publication from August 24, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7098186252893487104/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Probit, Argmax, Logit, and Neural Networks, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7098186252893487104/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

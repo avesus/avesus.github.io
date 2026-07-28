@@ -14,7 +14,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/human-computer-interaction-as-model-exchange.html">
     <meta property="article:published_time" content="2022-02-20T21:02:47.516Z">
-    <meta property="article:modified_time" content="2026-07-23">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,7 +42,7 @@
             },
             "dateCreated": "2022-02-20T21:02:47.516Z",
             "datePublished": "2022-02-20",
-            "dateModified": "2026-07-23",
+            "dateModified": "2026-07-28",
             "temporalCoverage": "2022-02-20/2022-10-18",
             "additionalProperty": {
                 "@type": "PropertyValue",
@@ -68,41 +68,41 @@
 
     <section class="abstract">
         <p class="eyebrow">Human-computer interaction</p>
-        <p class="lead">An interface is not a collection of screens. It is a conversation in which people and machines build, inspect, and change models together.</p>
-        <p>Buttons, forms, search boxes, notifications, documents, dashboards, keyboards, and mice look like unrelated interface parts until we ask what each one is doing in the conversation. Is it listening? Asking? Answering? Telling? Waiting to be noticed? Interrupting? Once those acts are named, many interface mistakes become ordinary communication mistakes.</p>
+        <p class="lead">Every interface conducts a conversation in which people and machines build, inspect, and change models together.</p>
+        <p>Buttons, forms, search boxes, notifications, documents, dashboards, keyboards, and mice each perform a conversational act: listen, ask, answer, tell, observe, wait, ignore, interrupt, or resume. Naming that act turns many interface problems into familiar communication problems.</p>
     </section>
 
     <main>
         <section>
-            <h2>People Already Use the Simplest Interface</h2>
-            <p>People can coordinate surprisingly complex work through text. One person asks a question. Another answers. Someone states an intention. Someone else tells the group about a change before anybody asks.</p>
-            <p>The screen adds images, controls, animation, audio, and spatial arrangement, but it does not abolish that basic exchange. Showing an image on a screen is close to placing the image on a table. Following a link is close to accepting a document someone hands you. The delivery changes; the need to establish shared meaning remains.</p>
-            <p>Every participant carries an internal model of the thing under discussion. The models are never perfectly identical. Communication works by making selected parts of one model available to another mind, then allowing the recipient to inspect, revise, or act on what arrived.</p>
+            <h2>Conversation Already Coordinates Complex Work</h2>
+            <p>Text alone can coordinate complex work. One person asks, another answers, a third states an intention, and someone announces a change before anybody asks.</p>
+            <p>Screens add images, controls, animation, audio, and spatial arrangement to that exchange. Showing an image resembles placing it on a table; following a link resembles accepting a document from another person. The medium changes while the need for shared meaning persists.</p>
+            <p>Each participant carries an internal model of the subject. Communication exposes selected parts of one model so another person can inspect, revise, combine, or act on them.</p>
         </section>
 
         <section>
-            <h2>The Four Active Moves</h2>
-            <p>Four verbs cover much of the visible work in an interface:</p>
+            <h2>Four Verbs Drive The Exchange</h2>
+            <p>Four verbs describe most visible interface work:</p>
             <dl>
                 <dt><strong>Listen</strong></dt>
-                <dd>Become available to receive a message through a particular channel.</dd>
+                <dd>Open a particular channel and become ready to receive a message.</dd>
 
                 <dt><strong>Ask</strong></dt>
-                <dd>Request part of a model: its current state, an explanation, a missing value, or a possible next action.</dd>
+                <dd>Request part of a model: current state, explanation, a needed value, or a possible next action.</dd>
 
                 <dt><strong>Answer</strong></dt>
-                <dd>Reveal the requested part of a model in a form the other participant can use.</dd>
+                <dd>Reveal the requested part of a model in a form that another participant can use.</dd>
 
                 <dt><strong>Tell</strong></dt>
-                <dd>Offer a state change, fact, warning, or invitation without waiting for a question.</dd>
+                <dd>Offer a state change, fact, warning, or invitation before anyone asks.</dd>
             </dl>
-            <p>Listening deserves its own verb. A computer cannot answer a request it did not receive. A person cannot act on a notification delivered through a muted, hidden, unavailable, or distrusted channel. “The message exists” and “the other party was listening” are different states.</p>
-            <p>Ask and answer are not merely labels for HTTP requests and responses. A filter asks a collection to reveal a narrower model. A dashboard answers a recurring operational question. A disabled control answers a question too: not now, and ideally why not. A form tells the system what state the person wants to establish.</p>
+            <p>Listening deserves its own verb. A computer answers only requests that reach an active receiver. A person acts only on notifications that arrive through available, visible, and trusted channels. Message existence and recipient attention describe different states.</p>
+            <p>Ask and answer reach beyond HTTP. A filter asks a collection for a narrower model. A dashboard answers a recurring operational question. A disabled control explains present availability. A form tells the system which state the person wants to establish.</p>
         </section>
 
         <section>
-            <h2>Observe and Ignore Are Real States</h2>
-            <p>Not every moment is an active message. A person can observe and wait. A computer can wait for input. Either party can ignore the channel and do internal work.</p>
+            <h2>Observe, Wait, Ignore, Think</h2>
+            <p>Conversation also contains quiet states. A person observes and waits. A computer waits for input. Either participant turns away from the channel and performs internal work.</p>
             <p>That gives us a larger interaction alphabet:</p>
             <ul>
                 <li>listen;</li>
@@ -112,69 +112,68 @@
                 <li>observe or wait;</li>
                 <li>ignore or think.</li>
             </ul>
-            <p>An interface that cannot represent waiting often invents false progress. An interface that cannot distinguish thinking from abandonment becomes impatient. It flashes, nags, times out, or steals focus because it treats silence as an error.</p>
-            <p>Sometimes waiting applies to one medium rather than the whole conversation. After a loud noise, speech may pause while text remains available. During a network interruption, local editing may continue while synchronization waits. A good system knows which channel is blocked and which process is still alive.</p>
+            <p>An interface that represents waiting can avoid false progress. One that distinguishes thought from abandonment can remain calm instead of flashing, nagging, timing out, or stealing focus whenever silence appears.</p>
+            <p>Waiting can apply to one medium while the larger conversation continues. A loud noise can pause speech while text remains available. A network interruption can pause synchronization while local editing continues. A strong system tracks the unavailable channel and the living process separately.</p>
         </section>
 
         <section>
-            <h2>A Message Addresses a Model</h2>
-            <p>A useful message does not float freely. It points to a subject the receiver can identify: this order, that paragraph, the selected motor, tomorrow’s meeting, the current simulation, the file whose name just changed.</p>
-            <p>A question explores a model. An answer shares its state. An imperative attempts to change it. Even a casual announcement invites the receiver to create or update a model: the build passed, the door is open, the train is late.</p>
-            <p>This is why context loss is so destructive. The words may arrive intact while the addressed model has disappeared. “Approve it” is meaningless if the receiver no longer knows what <em>it</em> is. Restoring the model is not decorative interface work; it is part of delivering the message.</p>
-            <p>Links, selections, visible history, stable names, and local previews all help keep the subject attached to the exchange. They reduce the amount of model reconstruction each person must perform in their head.</p>
+            <h2>Every Message Needs A Subject</h2>
+            <p>A useful message points to a subject that the receiver can identify: this order, that paragraph, the selected motor, tomorrow’s meeting, the current simulation, or the renamed file.</p>
+            <p>A question explores the model. An answer shares its state. An imperative changes it. An announcement asks the receiver to update it with a passed build, open door, or late train.</p>
+            <p>Context loss can deliver every word while losing the addressed model. An approval request becomes meaningless when the receiver cannot identify its object. Restoring the subject forms part of message delivery.</p>
+            <p>Links, selections, visible history, stable names, and local previews keep the subject attached to the exchange and reduce the model reconstruction each person must perform.</p>
         </section>
 
         <section>
-            <h2>Interruption Is Part of the Protocol</h2>
-            <p>Answers can be stopped halfway. Questions can be revised before they are complete. A person can abandon an instruction after seeing an unexpected consequence. A machine can interrupt the person’s train of thought with an alert.</p>
-            <p>Interruption is therefore not an exceptional failure outside the model. It is a normal transition inside the interaction.</p>
-            <p>A robust interface should make four facts recoverable:</p>
+            <h2>Interruption Belongs Inside The Protocol</h2>
+            <p>Someone can stop an answer halfway, revise a question before completion, or abandon an instruction after seeing its consequence. A machine can interrupt a person’s thought with an alert.</p>
+            <p>The interaction model should treat interruption as a normal transition and preserve four recoverable facts:</p>
             <ol>
                 <li>What process was in progress?</li>
-                <li>What part completed before the interruption?</li>
-                <li>What remains provisional or unsent?</li>
+                <li>Which part completed before the interruption?</li>
+                <li>Which part remains provisional or unsent?</li>
                 <li>What would resuming actually do?</li>
             </ol>
-            <p>Without those facts, “continue” is a gamble. The person must guess whether the system saved, submitted, duplicated, discarded, or partially applied the work.</p>
-            <p>Computers frequently interrupt thoughts that computers helped us create. A document, script, or task list can replay a model we recorded yesterday. When its reminder appears today, the machine is carrying our own earlier thought back into the present conversation. That can be useful. It should still enter politely.</p>
-            <p>The recorded model may also belong to somebody else. A message, drawing, program, or shared document lets another person’s earlier thought enter my present attention, complete with its own subject and unfinished requests.</p>
+            <p>Those facts turn continuation from a gamble into a defined transition. The person can see whether the system saved, submitted, duplicated, discarded, or partially applied the work.</p>
+            <p>Documents, scripts, and task lists carry earlier thought back into the present conversation. A reminder can revive yesterday’s model at the right moment while respecting the work already in focus.</p>
+            <p>Messages, drawings, programs, and shared documents also carry another person’s earlier thought into present attention, complete with its subject and open requests.</p>
         </section>
 
         <section>
-            <h2>Medium, Channel, Session, Process</h2>
-            <p>These words are often collapsed, but they solve different design problems.</p>
-            <p>A <strong>medium</strong> is a general form such as text, sound, or visible movement. A <strong>channel</strong> is a particular route through that medium: this chat window, that display, a printed sheet, a spoken conversation across one table.</p>
-            <p>A <strong>session</strong> is one connected period of interaction over a channel. Pick up a pen and an interaction session begins. Put it down and that session ends. Pick it up again and a new session can resume the same larger task.</p>
-            <p>The <strong>interaction process</strong> is held together by intention. It can span broken sessions, changed devices, and long pauses. Drafting a circuit may move from notebook to browser to FPGA tool to workbench without becoming four unrelated projects.</p>
-            <p>Software becomes brittle when it identifies the process with one session. A closed tab then looks like the death of the work. A dropped connection looks like cancellation. A device change looks like a new person. Preserving process identity across sessions is one of the deepest forms of continuity an interface can provide.</p>
+            <h2>Medium, Channel, Session, And Process</h2>
+            <p>These four concepts solve different continuity problems.</p>
+            <p>A <strong>medium</strong> supplies a general form such as text, sound, or visible movement. A <strong>channel</strong> supplies a particular route through that medium: this chat window, that display, a printed sheet, or a spoken conversation across one table.</p>
+            <p>A <strong>session</strong> spans one connected period of interaction over a channel. Picking up a pen begins one session; putting it down ends it. A later session can resume the same larger task.</p>
+            <p>Intention holds the <strong>interaction process</strong> together across broken sessions, changed devices, and long pauses. A circuit can move from notebook to browser to FPGA tool to workbench while remaining one project.</p>
+            <p>Software gains resilience when it preserves process identity across sessions. A closed tab pauses the work, a dropped connection delays synchronization, and a device change offers another channel into the same continuing process.</p>
         </section>
 
         <section>
-            <h2>Attention Selects the Active Conversation</h2>
-            <p>A person may receive many signals at once, but conscious attention tends to elevate one interaction into the foreground. Selecting a window, looking at a tool, or reaching for an object loads a working context: what this is, what can be done with it, what just happened, and what I intended to do next.</p>
-            <p>People can perform familiar actions in the background, but automatic action is not the same as holding several equally detailed conversations at once. Interfaces that scatter one task across competing channels force the person to reload context repeatedly.</p>
-            <p>Focus is therefore more than keyboard routing or a highlighted border. It is the user’s current commitment of modeling effort. Moving focus should preserve enough state that returning does not require rebuilding the world from scraps.</p>
-            <p>This also explains why an object can feel as if it is “waiting.” The object need not possess a mind. The person maintains an unfinished interaction model: the editor is waiting for the next line, the instrument for the next measurement, the door for the next push.</p>
+            <h2>Attention Chooses The Active Conversation</h2>
+            <p>Many signals can arrive at once, but conscious attention usually brings one interaction into the foreground. Selecting a window, looking at a tool, or reaching for an object loads its working context: identity, available actions, recent change, and intended next step.</p>
+            <p>Familiar actions may continue in the background, yet they differ from several equally detailed foreground conversations. Interfaces that scatter one task across competing channels force repeated context reloads.</p>
+            <p>Focus represents more than keyboard routing or a highlighted border. It records the user’s present commitment of modeling effort. A focus change should preserve enough state for a clean return.</p>
+            <p>An object can therefore feel as though it waits. The person maintains an open interaction model: the editor awaits the next line, the instrument the next measurement, and the door the next push.</p>
         </section>
 
         <section>
             <h2>Objects Answer Through Consequences</h2>
-            <p>Manipulating an object is an interaction because the object responds. Pick up a pen and its weight, texture, balance, and movement answer the hand. Push a control and its resistance, sound, display, and resulting machine state answer the intention.</p>
-            <p>When reality differs from the anticipated simulation, the difference is a message. The drawer sticks. The motor stalls. The button moved but the action did not occur. A humane interface does not hide that answer merely because it is inconvenient.</p>
-            <p>Feedback is strongest when it describes the changed model, not merely the gesture. A ripple proves that a pointer landed. “Saved locally; synchronization is waiting for a connection” explains what happened to the work.</p>
+            <p>An object responds to manipulation. A pen answers the hand through weight, texture, balance, and movement. A control answers intention through resistance, sound, display, and changed machine state.</p>
+            <p>When reality differs from anticipation, the difference carries information. A drawer sticks, a motor stalls, or a button moves while the action fails. A humane interface reveals that consequence clearly.</p>
+            <p>The strongest feedback describes the changed model. A ripple confirms pointer contact; a message that says local save succeeded while synchronization awaits a connection explains the state of the work.</p>
         </section>
 
         <section>
-            <h2><time datetime="2022-10-18">October 18, 2022: Explicit Input Is Sensing</time></h2>
-            <p>Computer vision is not the only way a machine senses a person. Keyboard and mouse input are sensors of human state. They receive deliberate expressions rather than guessing intention from appearance.</p>
-            <p>Optical recognition can be useful, but it is indirect. The machine sees pixels and infers a posture, identity, emotion, or action. A key press can say exactly which command the person chose. A pointer can state a precise position. Interaction is itself evidence.</p>
-            <p>This changes the design question. Do we need to infer what the person wants, or can we give them a comfortable way to express it? The second path is often cheaper, faster, more private, and easier to correct.</p>
-            <p>The same device or surface can also carry interaction in both directions. A display presents state and accepts touch. A keyboard tells the machine and signals back through motion, sound, and light. Push and pull, imperative and declarative, control and presentation are roles inside an interaction—not permanent properties of a device.</p>
+            <h2><time datetime="2022-10-18">October 18, 2022: Explicit Input Senses Intention</time></h2>
+            <p>Keyboard and mouse input sense human state through deliberate expression. They complement computer vision by letting people state intentions directly.</p>
+            <p>Optical recognition sees pixels and infers posture, identity, emotion, or action. A key press names the chosen command; a pointer names a position. Interaction itself supplies evidence.</p>
+            <p>This shifts the design question from inference alone toward expression: can the interface give the person a comfortable, private, and correctable way to state what they want?</p>
+            <p>One surface can carry interaction in both directions. A display presents state and accepts touch. A keyboard tells the machine and answers through motion, sound, and light. Push and pull, imperative and declarative, control and presentation describe roles within an exchange rather than permanent device properties.</p>
         </section>
 
         <section>
-            <h2>A Small Interface Test</h2>
-            <p>For any important screen or device, ask:</p>
+            <h2>Test The Conversation Beneath The Interface</h2>
+            <p>For every consequential screen or device, ask:</p>
             <ol>
                 <li>Which model are the person and machine trying to share?</li>
                 <li>Who is listening, and through which channel?</li>
@@ -184,17 +183,17 @@
                 <li>Does feedback describe the resulting state, or only acknowledge the gesture?</li>
                 <li>Are we inferring human intent when we could let the person express it directly?</li>
             </ol>
-            <p>Those questions do not prescribe a visual style. They expose the conversational machinery under the style. Once that machinery is sound, the screen can become quieter because it no longer has to compensate for missing context with noise.</p>
+            <p>These questions expose the conversational machinery beneath visual style. When that machinery carries subject, attention, state, and continuity correctly, the screen can become quieter and more powerful.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
         <a href="/the-url-is-a-camera.html">The URL Is a Camera</a>
-        <p>Carry the model-exchange idea into web architecture, where a path and a role select the viewpoint a server must answer.</p>
+        <p>Carry model exchange into web architecture, where path and role select the viewpoint that a server projects.</p>
         <p>More:</p>
         <a href="/linkedin-archive/2022-03-11-disseminated-thought-can-be-improved.html">Disseminated Thought Can Be Improved</a>
-        <p>Follow one message beyond the live session and see how publication makes thought available for revision.</p>
+        <p>Follow one message beyond the live session as publication makes thought available for revision and response.</p>
         <a href="/">Back to greenforest.io</a>
     </nav>
 </body>

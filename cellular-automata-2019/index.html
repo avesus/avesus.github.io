@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <title>Cellular Automata Experiments, 2019-2021</title>
-    <meta name="description" content="An archive of browser/GPU cellular automata experiments exploring reversible routing, machine-like heat, organic dynamics, and the path toward Cartilage.">
+    <title>From Cellular Automata To A Reconfigurable Computing Fabric | Brian Greenforest</title>
+    <meta name="description" content="Executable GPU machines trace Brian Greenforest's path from reversible symbol routing and organic local rules to the Cartilage reconfigurable Boolean fabric.">
     <link rel="canonical" href="https://greenforest.io/cellular-automata-2019/">
-    <meta property="og:title" content="Cellular Automata Experiments, 2019-2021">
-    <meta property="og:description" content="Executable WebGL automata and ShaderToy artifacts from the path toward Cartilage and local reconfigurable computation.">
+    <meta property="og:title" content="From Cellular Automata To A Reconfigurable Computing Fabric">
+    <meta property="og:description" content="Run the local-rule machines that evolved into Cartilage's owned ports, Boolean roles, and recursive reconfiguration.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cellular-automata-2019/">
         <link rel="icon" href="/favicon.ico">
@@ -21,47 +21,42 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cellular Automata Experiments, 2019-2021 - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="From Cellular Automata To A Reconfigurable Computing Fabric - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cellular-automata-2019/index.png">
-    <meta name="twitter:image:alt" content="Cellular Automata Experiments, 2019-2021 - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="From Cellular Automata To A Reconfigurable Computing Fabric - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
 <body>
-    <header>Cellular Automata Experiments, 2019-2021</header>
-    <address>2019-2021</address>
+    <header>From Cellular Automata To A Reconfigurable Computing Fabric</header>
+    <address>2019&ndash;2021 &middot; Updated July 28, 2026</address>
 
     <section class="abstract">
-        <p>Before Cartilage became circuit-like, the same question appeared as moving local symbols and visible rules.</p>
-        <p>This is an archive of browser/GPU cellular automata experiments: local symbol-routing machines that led from reversible and machine-like dynamics toward Cartilage, a locally reconfigurable Boolean fabric.</p>
-        <p>The old pages are preserved as executable artifacts. This page gives them a map.</p>
-        <div class="status-box">
-            <p><span class="status-label">Executable artifact map</span>This page collects the old browser/GPU automata and points to the Cartilage branch.</p>
-            <p><strong>Included:</strong> reversible routing, information-conservative behavior, machine-like behavior, organic dynamics, nonlocal symbol routing, and the Cartilage branch.</p>
-            <p><strong>Boundary:</strong> each automaton is a local-rule experiment, not a finished programming model.</p>
-        </div>
+        <p>Moving local symbols became a reconfigurable computer.</p>
+        <p>These browser and GPU machines explore reversible routing, information conservation, dense mechanical behavior, organic motion, and nonlocal symbol transport. Their visible rules led directly to Cartilage: a locally owned Boolean fabric that can install circuits inside itself.</p>
+        <p>Run the lineage from its earliest hexagonal cells to the current WebGL and SystemVerilog core.</p>
     </section>
 
     <main>
         <section>
-            <h1>Most Recent Cartilage Update</h1>
-            <p>The current continuation is <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>. Its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> publishes the compact WebGL1 model, hardware paper, local-clocked SystemVerilog RTL, and Verilator testbench.</p>
-            <p>The <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage roadmap</a> carries this lineage into a readable editor, named-wire tracing, visible component boundaries, larger ownership roots, recovery, saved circuits, and interactive lessons. Funding and contributors are welcome.</p>
-            <p><a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a> remains the later visual-lineage milestone where child-owned port roots and square <code>6x6</code> ownership blocks are visible in the running fabric. Cartilage Core was reduced directly from that packet's <code>4143b8a</code> source revision. The older 2021 raw demos below are preserved executable fossils, not files from the current repository.</p>
+            <h2>Cartilage Turns The Lineage Into A Computer</h2>
+            <p><a href="/cartilage-core.html">Cartilage Core</a> publishes a compact WebGL1 machine, a hardware paper, local-clocked SystemVerilog RTL, a self-checking Verilator testbench, and an exact 252-bit circuit installation in its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a>.</p>
+            <p>The <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage development path</a> grows that core into a readable editor, named-wire tracing, visible component boundaries, larger ownership roots, recovery, saved circuits, and interactive lessons. Choose one package and build it with Brian.</p>
+            <p><a href="/cartilage2026.html">Cartilage 2026</a> makes child-owned port roots and square <code>6x6</code> ownership regions visible in the running fabric. Cartilage Core descends directly from that packet's <code>4143b8a</code> source revision; the 2021 machines below show the ideas taking shape.</p>
         </section>
 
         <section class="rule-note">
-            <h1>How These Shader Pages Run</h1>
-            <p>The old pages contain duplicated and commented GLSL experiments. The active rule is the later GPGPU update shader, not the display shader near the top. Each update pass reads a packed RGBA texture cell, fetches the six hex-neighbor cells, calls one active <code>computeNewNodeState...</code> function, packs the new state back into the swap texture, and then the display shader draws that texture.</p>
-            <p>In the rule summaries below, <code>redArrow</code> is the six-direction port/orientation stored in the cell. A copy means replacing the whole packed cell state with the selected neighbor's state. A rotation means advancing <code>redArrow</code> by one direction modulo six.</p>
+            <h2>Each Shader Executes A Local Machine</h2>
+            <p>The active GPGPU update shader drives each page. Every pass reads one packed RGBA cell, fetches its six hexagonal neighbors, calls the active <code>computeNewNodeState...</code> function, writes the resulting state into the swap texture, and hands that texture to the display shader.</p>
+            <p><code>redArrow</code> stores one of six port orientations. A copy replaces the complete packed cell with a selected neighbor; a rotation advances <code>redArrow</code> by one direction modulo six.</p>
         </section>
 
         <section>
-            <h1>Reversible And Information-Conservative</h1>
-            <p>These are the demos closest to conservative local routing: simple rules, visible motion, and state that behaves less like heat and more like signal.</p>
+            <h2>Reversible Rules Carry State Like A Signal</h2>
+            <p>Simple reciprocal rules preserve local structure and turn visible motion into directed signal flow.</p>
             <div class="demo-grid">
                 <article class="demo-card">
                     <img src="thumbs/conservative.png" alt="Screenshot preview of the Conservative cellular automaton">
@@ -77,8 +72,8 @@
         </section>
 
         <section>
-            <h1>Machine-Like And Hot</h1>
-            <p>These look more like dense machinery. They are not information-conservative; activity accumulates and the system gets hot.</p>
+            <h2>One-Way Copying Creates Dense Mechanical Motion</h2>
+            <p>One-way copying accumulates activity and produces packed, machine-like dynamics.</p>
             <div class="demo-grid">
                 <article class="demo-card">
                     <img src="thumbs/driller.png" alt="Screenshot preview of the Driller cellular automaton">
@@ -99,8 +94,8 @@
         </section>
 
         <section>
-            <h1>Organic Dynamics</h1>
-            <p>These demos are less circuit-like and more visual, but they still come from simple local update rules.</p>
+            <h2>Simple Turns Generate Organic Dynamics</h2>
+            <p>Copy-and-turn schedules create islands and vortices from the same local state machinery.</p>
             <div class="demo-grid">
                 <article class="demo-card">
                     <img src="thumbs/islands.png" alt="Screenshot preview of the Islands cellular automaton">
@@ -116,9 +111,9 @@
         </section>
 
         <section>
-            <h1>Nonlocal Symbol Routing</h1>
-            <p>The earliest machines used red and green I/O ports on hexagonal cells. A cell's routing scheme existed as a symbol; the machine streamed that symbol across the fabric and reprogrammed a receiving cell through its red port, duplicating the symbol at the target location.</p>
-            <p>That was the whole routing scheme. It was not practical as a programming interface, but it was enough to give rise to Turing-complete behavior from local symbol motion and target-cell reprogramming.</p>
+            <h2>Symbols Reprogram Cells Across The Fabric</h2>
+            <p>The earliest machines gave each hexagonal cell red and green I/O ports. A routing scheme existed as a symbol; the fabric streamed that symbol to another location and reprogrammed the receiving cell through its red port.</p>
+            <p>Local symbol motion and target-cell reprogramming produced Turing-complete behavior and established the bridge from cellular dynamics to programmable structure.</p>
             <div class="demo-grid">
                 <article class="demo-card video-card">
                     <video controls preload="metadata" poster="thumbs/model-of-computation-routing.jpg">
@@ -130,49 +125,49 @@
                 <article class="demo-card">
                     <img src="https://img.youtube.com/vi/8QitzYR5enM/hqdefault.jpg" alt="YouTube preview for older nonlocal symbol routing video">
                     <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8QitzYR5enM">Older YouTube record</a>
-                    <p>A rough external video record of related old machines.</p>
+                    <p>An external video shows related machines running through the same local-symbol lineage.</p>
                 </article>
             </div>
         </section>
 
         <section>
-            <h1>Cartilage Line</h1>
-            <p>The 2021 Cartilage branch is where the local-rule experiments became practical for circuit-like reconfiguration: local ports, parent pointers, serial configuration streams, and tile roles.</p>
+            <h2>Cartilage Gives Local Rules Circuit Roles And Ownership</h2>
+            <p>The 2021 Cartilage branch joins local ports, parent pointers, serial configuration streams, and tile roles into a recursively reconfigurable circuit fabric.</p>
             <div class="demo-grid">
                 <article class="demo-card">
                     <img src="/cartilage-core/cartilage-core-and-late.png" width="512" height="1024" alt="Cartilage Core completed 6 by 6 AND installation">
                     <a href="/cartilage-core.html">Cartilage Core</a>
-                    <p>The current mechanism package: public source, exact 252-bit installation, architecture paper, SystemVerilog RTL, and self-checking testbench.</p>
+                    <p>Public source, an exact 252-bit installation, an architecture paper, SystemVerilog RTL, and a self-checking testbench.</p>
                 </article>
                 <article class="demo-card">
-                    <img src="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" alt="Screenshot preview of the Cartilage 2026 child-owned reconfiguration port artifact">
+                    <img src="/cartilage2026/cartilage3-active-port-roots-450f-512x1024.gif" alt="Cartilage 2026 child-owned reconfiguration port roots running across the fabric">
                     <a href="/cartilage2026.html">Cartilage 2026</a>
-                    <p>The later visual-lineage WebGL/GPGPU milestone: child-owned reconfiguration port roots, square <code>6x6</code> ownership blocks, active port initialization, and a checked 450-frame capture.</p>
+                    <p>Child-owned reconfiguration port roots, square <code>6x6</code> ownership blocks, active port initialization, and a 450-frame run.</p>
                 </article>
                 <article class="demo-card">
-                    <img src="thumbs/cartilage.png" alt="Screenshot preview of the first Cartilage demo">
+                    <img src="thumbs/cartilage.png" alt="The first Cartilage WebGL machine">
                     <a href="./cartilage.html">Cartilage</a>
-                    <p>The first local web Cartilage artifact in this archive.</p>
+                    <p>The first local web Cartilage machine in this lineage.</p>
                 </article>
                 <article class="demo-card">
-                    <img src="thumbs/cartilage-random.png" alt="Screenshot preview of the randomized Cartilage child-side reconfiguration port artifact">
+                    <img src="thumbs/cartilage-random.png" alt="Randomized Cartilage child-side reconfiguration ports">
                     <a href="/cartilage_random.html">Cartilage random child ports</a>
-                    <p>A randomized Cartilage artifact showing child-side reconfiguration ports across the fabric. These ports belong to the child side of the region relationship.</p>
+                    <p>Randomized child-side reconfiguration ports spread across the fabric and make region ownership visible.</p>
                 </article>
                 <article class="demo-card">
                     <img src="thumbs/cartilage2.png" alt="Screenshot preview of Cartilage 2">
                     <a href="./cartilage2.html">Cartilage 2</a>
-                    <p>A later Cartilage artifact in the same browser/GPU lineage.</p>
+                    <p>A later browser/GPU Cartilage machine.</p>
                 </article>
                 <article class="demo-card">
                     <img src="thumbs/cartilage3.png" alt="Screenshot preview of Cartilage 3">
                     <a href="./cartilage3.html">Cartilage 3</a>
-                    <p>The primary nested-instantiation demo used by the article wrapper.</p>
+                    <p>The primary machine for nested region instantiation.</p>
                 </article>
                 <article class="demo-card">
                     <img src="thumbs/cartilage4.png" alt="Screenshot preview of Cartilage 4">
                     <a href="./cartilage4.html">Cartilage 4</a>
-                    <p>A further Cartilage variant preserved as an executable artifact.</p>
+                    <p>Another executable Cartilage variant in the local-rule lineage.</p>
                 </article>
                 <article class="demo-card">
                     <img src="thumbs/cartilage-shadertoy.png" alt="Screenshot preview of the Cartilage ShaderToy">
@@ -182,26 +177,26 @@
             </div>
         </section>
         <section class="cartilage-visual-link">
-            <h1>Cartilage Visual Language</h1>
+            <h2>Thirty-Two Roles Form A Visual Language</h2>
             <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
         </section>
 
         <section>
-            <h1>Local-Rule Boundary</h1>
-            <p>The useful comparison set is cellular automata, reversible local-rule systems, and symbol-routing machines. Those references sharpen which behaviors are already known and which parts of the Cartilage branch are specific to this fabric.</p>
+            <h2>Local Rules Grow Into Owned Computation</h2>
+            <p>Cellular automata, reversible systems, and symbol-routing machines supply the foundation. Cartilage adds owned regions, explicit ports, Boolean role installation, and recursive structural change.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
         <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
-        <p>The current source-and-hardware entry point.</p>
+        <p>Install the 252-bit circuit in WebGL and SystemVerilog, then inspect the public source.</p>
         <p>More:</p>
         <a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
-        <p>The preserved visual-lineage milestone.</p>
-        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>The article explaining why the Cartilage line matters as a reconfigurable circuit fabric.</p>
-        <a href="/">Go back</a>
+        <p>Watch child-owned regions establish their port roots across 450 frames.</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Runtime Instantiation In Adjacent Space</a>
+        <p>Follow a parent region as it creates and configures a child through a local port.</p>
+        <a href="/">Explore Brian Greenforest's Systems And Research</a>
     </nav>
 
     <footer>

@@ -6,7 +6,7 @@ original_dates:
   - "2022-04-10T20:27:52.849Z"
   - "2022-05-06T07:51:18.952Z"
   - "2022-05-21T16:30:10.141Z"
-description: "A project-led electronics curriculum in which every new circuit becomes part of one computer the learner can eventually understand end to end."
+description: "Build one whole computer to learn digital logic, FPGA timing, processors, memory, displays, networking, analog electronics, radio, power, PCBs, and diagnosis."
 status: "publication-ready"
 ---
 
@@ -14,29 +14,25 @@ status: "publication-ready"
 
 *April 10–May 21, 2022*
 
-Electronics education is often a table covered with unrelated miracles.
+One whole computer can turn years of electronics into a connected machine that a learner understands end to end.
 
-An LED blinks. An op-amp amplifies. A microcontroller prints a line. An FPGA counts. A radio receives something. Each exercise works, but the learner is left with a drawer of modules and no single machine whose entire path can be followed from an input pin to a useful result.
+Instead of leaving LEDs, op-amps, microcontrollers, FPGAs, and radios as unrelated miracles, every lesson adds a working organ to the same computer. At completion, processor state, memory, display, storage, communication, power, and physical interfaces all participate in one traceable result.
 
-I want the opposite curriculum: build one whole computer.
+## Begin With a Computer That Fits in the Mind
 
-Not a modern laptop assembled from opaque modules. Build a machine small enough that its processor state, memory, display, storage, communication, power, and physical interfaces can all become understandable. Each lesson should leave behind a working organ. At the end, the organs belong to one creature.
-
-## Begin with a computer that can fit in the mind
-
-An Apple I–scale machine is an excellent size of ambition. The point is not to reproduce every historical specification exactly. The point is to choose constraints that make the whole visible:
+An Apple I–scale computer provides the right ambition. Historical replication matters less than constraints that keep the complete path visible:
 
 - an 8-bit processor;
-- a small amount of RAM;
+- focused RAM capacity;
 - text output;
-- a keyboard;
-- a simple firmware monitor;
-- a cassette-like or flash-based storage path;
+- keyboard input;
+- direct firmware monitor;
+- cassette-like or flash-based storage;
 - BASIC, an assembler, or another language that exposes the machine.
 
-The 6502 is useful because its architectural state is compact. A learner can name the blocks:
+The 6502 helps because learners can name and draw its compact architectural state:
 
-- low and high bytes of the program counter;
+- low and high program-counter bytes;
 - accumulator;
 - X and Y index registers;
 - stack pointer;
@@ -45,15 +41,15 @@ The 6502 is useful because its architectural state is compact. A learner can nam
 - data output;
 - data-input latch.
 
-That list is not the processor, but it is small enough to draw. Once drawn, each instruction becomes movement among known pieces rather than incantation.
+This drawing does not replace the processor. It gives every instruction known places from which to move and into which to arrive.
 
-## Stage one: logic that stays visible
+## Stage One: Keep Logic Visible
 
-The first machine can live in Logisim or another circuit simulator. Build gates, multiplexers, registers, counters, and a finite-state controller. Connect LEDs and seven-segment displays. Watch a clock move one state at a time.
+The first machine can live in Logisim or another circuit simulator. Learners build gates, multiplexers, registers, counters, and a finite-state controller, then connect LEDs and seven-segment displays and advance one clock step at a time.
 
-The goal is not to finish a simulated computer before touching hardware. It is to learn the vocabulary required to diagnose hardware later:
+The simulator establishes the vocabulary needed for later diagnosis:
 
-- combinational versus sequential behavior;
+- combinational and sequential behavior;
 - propagation and clocked state;
 - buses and bit width;
 - decoding;
@@ -61,49 +57,49 @@ The goal is not to finish a simulated computer before touching hardware. It is t
 - memory addressing;
 - serial and parallel movement.
 
-A simulator earns its keep when a physical signal misbehaves and the learner has a model of what it was supposed to do.
+When a physical signal behaves differently from expectation, the learner has a model that can locate the difference.
 
-## Stage two: put the state in an FPGA
+## Stage Two: Put State Into an FPGA
 
-An FPGA turns the diagram into a physical timing problem.
+An FPGA turns the diagram into a physical timing system.
 
-Implement a counter, then a register file, then a small processor block in Verilog. Write a testbench that changes several inputs and makes expected outputs explicit. Synthesize early. Place and route early. The tool should not be reserved for the grand finale; its warnings and timing reports are part of the subject.
+Implement a counter, then a register file, then a processor block in Verilog. Write a testbench that changes several inputs and names expected outputs. Synthesize, place, and route early so warnings and timing reports become part of the subject.
 
-The board should expose enough memory and I/O to grow:
+The board provides room to grow:
 
 - on-chip or external SRAM;
 - flash storage;
 - Ethernet or another packet link;
-- a display connector;
+- display connector;
 - keyboard input;
 - LEDs and buttons;
 - serial debug.
 
-Specific FPGA families will age. The teaching sequence should not depend on one part number. Choose a board whose documentation, voltage requirements, and toolchain can actually be obtained, and record the exact version used.
+FPGA families change over time, so the curriculum chooses a board through available documentation, voltage requirements, obtainable tooling, and recorded tool versions rather than one permanent part number.
 
-## Stage three: make the computer converse
+## Stage Three: Make the Computer Converse
 
-A computer becomes interesting when it meets something outside itself.
+External interfaces turn the computer into an instrument.
 
-Start with a keyboard because it turns human intent into bytes. Add a two-line text display, then a pixel display. Generate VGA or another simple video signal if the board permits it. Read and write flash. Implement a small packet protocol such as ARP plus UDP only after raw framing and checksums make sense.
+A keyboard converts human intention into bytes. A two-line display reveals text state. A pixel display adds addressable geometry. VGA or another direct video signal can expose timing where the board supports it. Flash gives persistence. Raw framing and checksums prepare the learner to implement a focused packet path such as ARP plus UDP.
 
-Each interface should be taught as a complete path:
+Every interface follows a complete seven-part route:
 
-1. electrical levels and physical connector;
+1. electrical levels and connector;
 2. timing or signaling convention;
 3. receiving state machine;
 4. buffering;
-5. representation in memory;
+5. memory representation;
 6. software-visible behavior;
-7. a test that can fail clearly.
+7. a test with a clear failure signal.
 
-This prevents “the Ethernet chapter” from becoming a library call that hides the network.
+This route turns networking into circuitry, state, and software rather than an unexplained library call.
 
-## Stage four: cross the analog boundary
+## Stage Four: Cross the Analog Boundary
 
-Digital logic is not a separate universe.
+Digital logic operates inside an analog and electromagnetic world.
 
-The machine eventually needs to encounter:
+The computer can progressively encounter:
 
 - differential signaling and common-mode rejection;
 - op-amps and differential amplifiers;
@@ -115,26 +111,26 @@ The machine eventually needs to encounter:
 - motors, piezoelectric elements, buzzers, and power drivers;
 - DC-to-DC conversion.
 
-These should not all be bolted onto the computer at once. Choose one analog path and make it legible end to end. For example, sample a low-frequency signal, process it in the FPGA, and produce an audible or visible result. Then measure noise, clipping, bandwidth, and timing.
+One analog path at a time keeps the entire mechanism legible. Sample a low-frequency signal, process it in the FPGA, and produce an audible or visible result. Then measure noise, clipping, bandwidth, and timing.
 
-Radio work needs particular care. Power, frequency, antenna, and certification rules are specific; low power is not permission to transmit anywhere. Begin with shielded or receive-only experiments and verify the applicable rules before radiating a signal.
+Radio adds concrete regulatory and physical responsibilities. Power, frequency, antenna, and certification rules depend on jurisdiction and band; low power alone does not authorize transmission. Shielded or receive-only work creates a safe starting point, followed by verification of applicable rules before radiation.
 
-## Stage five: build the thing that holds the machine
+## Stage Five: Build the Body of the Machine
 
-Breadboards teach access. PCBs teach geometry.
+Breadboards teach access; PCBs teach geometry.
 
-Design a small board for one known subsystem rather than immediately laying out the entire computer. Learn footprints, decoupling, return paths, connectors, test points, solder masks, vias, and assembly. Print or fabricate the enclosure. Make the controls comfortable enough that the machine can be used rather than merely photographed.
+Begin with one known subsystem. Learn footprints, decoupling, return paths, connectors, test points, solder masks, vias, and assembly before laying out the complete computer. Fabricate an enclosure and make controls comfortable enough for sustained use.
 
-Process knowledge matters here. Photolithography, etching, laser cutting, and home fabrication should be treated as experiments with materials, ventilation, protective equipment, waste handling, and measurable limits—not as shortcuts around safe practice.
+Photolithography, etching, laser cutting, and home fabrication become measured material processes with ventilation, protective equipment, waste handling, and documented limits.
+
+A 3D-printed or otherwise fabricated body gives the computer a place where every connector, control, and service path can support its use.
 
 ## Finish by Following One Action
 
-The computer is finished when the learner can follow an action.
+Completion means that a learner can follow one action through every layer.
 
-Press a key. Which electrical signal changes? Which state machine receives it? Where is the byte stored? Which instruction reads it? How is a character selected? Which memory feeds the display? What clock or handshake advances each step? Where could it stall?
+Press a key. Which electrical signal changes? Which state machine receives it? Where does the byte reside? Which instruction reads it? How does the display select a character? Which memory supplies pixels? Which clock or handshake advances the sequence? Where can it stall?
 
-A modern computer makes that question almost impossible to answer completely. Our educational machine should make it irresistible.
+The completed machine turns “hardware,” “software,” “network,” “analog,” and “fabrication” into views of one constructed system.
 
-The artifact at the end is useful, but the deeper result is ownership. The learner no longer sees “hardware,” “software,” “network,” “analog,” and “fabrication” as unrelated courses. They are different views of one constructed object.
-
-One whole computer is enough territory for years of electronics—and small enough to begin with one blinking bit.
+One whole computer offers enough territory for years of electronics and one clear starting point: a blinking bit whose complete path the learner can explain.

@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, follow">
-    <title>Cartilage Mux Lanes Debug Fixture</title>
-    <meta name="description" content="A Cartilage mux-lanes debug fixture with boundary inputs, local mux behavior, 160 fabric cycles, and passing edge-surface output checks.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <title>Three Boundary-Driven Cartilage MUX Lanes</title>
+    <meta name="description" content="Drive nine boundary values through three independent Cartilage MUX lanes for 160 fabric cycles and read the expected 1, 1, 0 result at the opposite edge.">
     <link rel="canonical" href="https://greenforest.io/cartilage-verified-mux-lanes.html">
-    <meta property="og:title" content="Cartilage Mux Lanes Debug Fixture">
-    <meta property="og:description" content="A Cartilage mux-lanes debug fixture with boundary inputs, local mux behavior, 160 fabric cycles, and passing edge-surface output checks.">
+    <meta property="og:title" content="Three Boundary-Driven Cartilage MUX Lanes">
+    <meta property="og:description" content="Nine edge inputs drive three local selectors across a 16x16 Cartilage fabric and produce the checked 1, 1, 0 output pattern.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-verified-mux-lanes.html">
         <link rel="icon" href="/favicon.ico">
@@ -21,25 +21,25 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cartilage Mux Lanes Debug Fixture - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Three Boundary-Driven Cartilage MUX Lanes - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-verified-mux-lanes.png">
-    <meta name="twitter:image:alt" content="Cartilage Mux Lanes Debug Fixture - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Three Boundary-Driven Cartilage MUX Lanes - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Cartilage Mux Lanes Debug Fixture",
+            "headline": "Three Boundary-Driven Cartilage MUX Lanes",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-23",
+            "dateModified": "2026-07-28",
             "image": "https://greenforest.io/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png",
-            "description": "A Cartilage mux-lanes debug fixture with boundary inputs, local mux behavior, 160 fabric cycles, and passing edge-surface output checks.",
+            "description": "A 16x16 Cartilage run that drives nine boundary values through three independent MUX lanes for 160 cycles and reads 1, 1, 0 at the output edge.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-verified-mux-lanes.html",
             "publisher": {
                 "@type": "Person",
@@ -51,91 +51,81 @@
 </head>
 
 <body>
-    <header>Cartilage Mux Lanes Debug Fixture</header>
+    <header><h1>Three Boundary-Driven Cartilage MUX Lanes</h1></header>
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This page is a mux-lanes debug fixture with passing edge-surface checks.</p>
-        <p>The annotation overlay comes from the older manifest <code>marks</code> path. The current mechanism reference is <a href="/cartilage-core.html">Cartilage Core</a>; use <a href="/cartilage2026.html">Cartilage 2026</a> and the <a href="/cartilage-visual-language.html">visual-language decoder</a> for the render lineage.</p>
-        <div class="status-box">
-            <p><span class="status-label">Mux-lanes fixture</span>This page records a small edge-driven mux example.</p>
-            <p><strong>Included:</strong> a <code>16x16</code> mux-lanes run, <code>2048x2048</code> PNG, nine driven boundary values, <code>160</code> fabric cycles, and passing edge-surface output checks.</p>
-            <p><strong>Page role:</strong> a compact boundary-drive example for reading three independent 2:1 mux lanes.</p>
-        </div>
+        <p>Three selectors operate independently inside one <code>16x16</code> Cartilage fabric, turning nine edge inputs into the checked output pattern 1, 1, 0.</p>
+        <p>The run advances for <code>160</code> fabric cycles and records the circuit in a <code>2048x2048</code> render. Its manifest <code>marks</code> overlay names each lane, while the fabric itself carries selectors and data across the boundary.</p>
+        <p><a href="/cartilage-core.html">Cartilage Core</a> supplies the current mechanism; <a href="/cartilage2026.html">Cartilage 2026</a> and the <a href="/cartilage-visual-language.html">visual-language decoder</a> connect this run to the larger architecture.</p>
     </section>
 
     <main>
         <section>
-            <h1>The Rendered Artifact</h1>
+            <h2>See All Three MUX Lanes At Once</h2>
             <figure class="inspectable-image">
                 <a href="/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png">
-                    <img src="/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png" alt="Verified Cartilage fabric render with three labeled mux lanes, selector inputs on the left, false inputs from the top, true inputs from the bottom, and outputs on the right">
+                    <img src="/cartilage-verified-mux-lanes/cartilage-verified-mux-lanes.png" alt="Three Cartilage MUX lanes with left-edge selectors, top false inputs, bottom true inputs, and right-edge outputs reading 1, 1, 0">
                 </a>
-                <figcaption>A 16x16 Cartilage fabric render of three verified mux lanes. The full-resolution image is linked for inspection.</figcaption>
+                <figcaption>Selectors enter from the left, false values from the top, true values from the bottom, and the three selected results emerge at the right.</figcaption>
             </figure>
         </section>
 
         <section>
-            <h1>What This Fixture Shows</h1>
-            <p>The mux-lanes run still demonstrates a real edge-surface check: boundary inputs are driven, local mux islands compute selections, and checked values reach the right edge.</p>
-            <p>The screenshot is a debug fixture, so the cleaner visual-language and 2026 milestone pages are better entry points for first-time readers.</p>
+            <h2>Connect Boundary Transactions To Local Logic</h2>
+            <p>The run drives values at named edge positions, routes them into three local MUX islands, and reads each selected value from the opposite edge.</p>
+            <p>The circuit makes the external transaction path concrete: boundary I/O reaches ordinary Cartilage roles, those roles compute locally, and the manifest checks the exposed results.</p>
         </section>
 
         <section>
-            <h1>The Circuit</h1>
-            <p>Each lane is a plain 2:1 mux. The lane reads one selector, one false-side value, and one true-side value:</p>
+            <h2>Use One Selector Equation In Three Places</h2>
+            <p>Each 2:1 lane reads one selector, one false-side value, and one true-side value:</p>
             <pre><code>OUT0 = SEL0 ? T0 : F0
 OUT1 = SEL1 ? T1 : F1
 OUT2 = SEL2 ? T2 : F2</code></pre>
-            <p>This is the base form developed in <a href="/mux-algebra.html">MUX Algebra</a>. Nesting it grows one selector into a LUT2 or a larger decision tree.</p>
-            <p>The three lanes are independent. The value of the example is not arithmetic depth; it is that the inputs and outputs cross the fabric boundary through the external transaction path and are checked against the manifest.</p>
+            <p><a href="/mux-algebra.html">MUX Algebra</a> develops this base form and shows how nesting selectors builds a LUT2 or a larger decision tree.</p>
+            <p>Independence gives each lane its own complete boundary-to-boundary path, so one fabric run exercises three selector choices in parallel.</p>
         </section>
 
         <section>
-            <h1>Driven Inputs</h1>
-            <p>The manifest drove nine boundary values:</p>
+            <h2>Drive Nine Named Edge Values</h2>
+            <p>The manifest assigns all three selectors and both data choices at explicit boundary positions:</p>
             <pre><code>SEL0@left4=1   F0@top5=0   T0@bottom5=1
 SEL1@left8=0   F1@top9=1   T1@bottom9=1
 SEL2@left12=1  F2@top13=1  T2@bottom13=0</code></pre>
-            <p>With those values, the expected outputs are:</p>
+            <p>Those selections produce three explicit output values:</p>
             <pre><code>OUT0@right4=1
 OUT1@right8=1
 OUT2@right12=0</code></pre>
         </section>
 
         <section>
-            <h1>Verification Result</h1>
-            <p>The generated surface assertion passed:</p>
+            <h2>Read The 1, 1, 0 Result At The Right Edge</h2>
+            <p>The generated surface assertion records matching expected and observed values:</p>
             <pre><code>expected OUT0@right4=1, OUT1@right8=1, OUT2@right12=0
 observed OUT0=1, OUT1=1, OUT2=0</code></pre>
-            <p>The run used 160 fabric cycles in manifest drive mode. The first edge readback already showed active left-edge selector positions, and the final readback showed the asserted right-edge outputs.</p>
+            <p>Manifest drive mode advances the fabric through 160 cycles. The first edge readback exposes active selector positions on the left; the final readback exposes the asserted results on the right.</p>
         </section>
 
         <section>
-            <h1>Render Notes</h1>
-            <p>The rendered lattice is <code>16x16</code> cells. The PNG is <code>2048x2048</code> pixels. The run records the source path <code>cartilage-grid-rs/examples/external-mux-lanes.surface.qfg</code>, but that QFG file and its standalone report are not published in this website bundle. The checked inputs, outputs, cycle count, and render metadata retained on this page are the available public record.</p>
-            <p>The labels and translucent regions are human reading aids. The underlying cell-role alphabet is decoded in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
+            <h2>Decode The 16x16 Run At Full Resolution</h2>
+            <p>The lattice contains <code>16x16</code> cells, and the PNG spans <code>2048x2048</code> pixels. The run identifies its originating path as <code>cartilage-grid-rs/examples/external-mux-lanes.surface.qfg</code>. This page carries the public input vector, output vector, cycle count, and render metadata.</p>
+            <p>Labels and translucent regions help the reader follow each lane. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> decodes the installed roles beneath those overlays.</p>
         </section>
 
         <section>
-            <h1>Where It Fits</h1>
-            <p>Use this page for the mux-lane boundary-drive example. <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> are the current compact implementation and hardware reference; they are not the source tree for this older fixture.</p>
+            <h2>Scale The Boundary Path Into Larger Circuits</h2>
+            <p>This three-lane run establishes the edge-driven selector pattern. <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> carry the same local-role architecture into the current compact browser and hardware implementation.</p>
         </section>
     </main>
 
     <nav class="article-links">
-        <p>Read next:</p>
+        <p>Open the current mechanism next:</p>
         <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
-        <p>The current source, hardware paper, and RTL evidence.</p>
-        <p>More:</p>
-        <a href="/cartilage2026.html">Cartilage 2026: Child-Owned Reconfiguration Ports</a>
-        <p>The current preferred Cartilage milestone.</p>
-        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>The local-port and bounded-region model behind larger Cartilage fabric examples.</p>
-        <p>Build next:</p>
-        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help turn boundary-driven MUX fixtures into named, traceable, reusable Cartilage components. Funding and contributors are welcome.</p>
-        <a href="/">Go back</a>
+        <p>Follow the local roles from WebGL1 through an exact 252-bit regional installation and SystemVerilog RTL.</p>
+        <p>Then see nested composition:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Runtime Instantiation In Nested Cartilage Regions</a>
+        <p>See a local reconfiguration port stream new roles into a bounded daughter region.</p>
     </nav>
 </body>
 

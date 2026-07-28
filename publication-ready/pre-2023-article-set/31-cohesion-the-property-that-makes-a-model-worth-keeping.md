@@ -4,7 +4,7 @@ slug: "cohesion-the-property-that-makes-a-model-worth-keeping"
 date: "2022-03-09T00:17:45.619Z"
 original_dates:
   - "2022-03-09T00:17:45.619Z"
-description: "A practical definition of cohesion as explanatory compression that preserves the distinctions needed for prediction, construction, and revision."
+description: "Cohesion compresses a complex system into fewer, stronger relations while preserving the distinctions that support prediction, construction, composition, and revision."
 status: publication-ready
 ---
 
@@ -12,56 +12,54 @@ status: publication-ready
 
 *March 9, 2022*
 
-The world gives me details faster than I can think them.
+A cohesive model makes a complicated system compact enough to think about and strong enough to act through.
 
-A circuit contains transistors, wires, parasitic capacitances, fabrication variation, temperature, and time. A company contains people, contracts, equipment, habits, promises, and accidents. A website contains requests, records, permissions, screens, sessions, and the mismatched expectations of everyone touching it.
+Circuits contain transistors, wires, parasitic capacitance, fabrication variation, temperature, and time. Companies contain people, contracts, equipment, habits, promises, and accidents. Websites contain requests, records, permissions, screens, sessions, and conflicting expectations.
 
-I cannot carry all of that at once. I need a smaller structure that preserves the relationships required for the next decision.
+No decision can carry every detail at once. It needs a smaller structure that preserves the relationships capable of changing the answer.
 
-I call the quality of that structure **cohesion**: the ability of a model to explain a complicated system through fewer, stronger ideas without erasing the distinctions that make the explanation useful.
+**Cohesion** names that power: explanatory compression through fewer, stronger ideas whose relationships constrain one another.
 
-Cohesion is not mere simplicity. “Everything happens for a reason” is simple and explains nothing. A cohesive model compresses because its parts constrain one another.
+## Compression Creates Consequences
 
-## Compression With Consequences
+A subway map removes street width, building shape, and most geographical distance. It retains stations, lines, transfers, and order because those relations answer where to enter, where to change, and what comes next.
 
-A subway map omits the width of streets, the shapes of buildings, and most geographical distance. It retains stations, lines, transfer points, and order. That compression is useful because it answers a particular family of questions: where can I enter, where must I change, and what comes next?
+Remove a transfer station and the map loses its function. Draw every curb and the transit structure disappears into detail.
 
-If the map drops a transfer station, its beauty no longer matters. If it draws every curb, it stops being a subway map.
+A cohesive model therefore performs two duties:
 
-A cohesive model therefore has two simultaneous duties:
+1. Eliminate detail that cannot affect the intended reasoning.
+2. Keep every distinction capable of changing the answer.
 
-1. Remove details that do not affect the intended reasoning.
-2. Preserve every distinction that can change the answer.
+Change one element and observe which other elements must respond. A list has no internal consequences. A tangle forces arbitrary global repair. A cohesive model creates strong local consequences through intelligible boundaries.
 
-This gives cohesion a test. Change one element of the model and ask what else must change. If nothing constrains anything else, the model is only a list. If every change forces arbitrary global repair, the model is probably tangled. A good model has strong local consequences and intelligible boundaries.
+## Relations Support Many Useful Views
 
-## Relations Often Cohere Better Than Boxes
+Objects gather state and behavior into named boundaries. Relations let one fact participate in several classifications and joins. A strong system uses each where its invariants benefit.
 
-Object-oriented descriptions encourage me to gather state and behavior into named boxes. Relational descriptions encourage me to state facts that can participate in several classifications and joins.
+A repair order participates in several views:
 
-Neither form wins universally. The useful observation is that the same thing may need several projections.
-
-A repair order is:
-
-- work owned by a technician;
+- work under a technician’s ownership;
 - an event in a machine’s history;
-- a cost charged to a customer;
+- a customer charge;
 - a dependency for a shipment;
-- and a record of a recurring failure.
+- a record of recurring failure.
 
-If I bury the order inside one privileged object hierarchy, every other question becomes a traversal or a copy. A relational model can preserve the order once and let several views select and join it. An object can still own the behavior that enforces a transition. Cohesion comes from choosing boundaries that match the invariants, not from loyalty to one programming style.
+One privileged object hierarchy makes every other view a traversal or copy. A relational model can store the order once and produce each projection through selection and joins. An object can still enforce the transitions it owns.
 
-This is why an information system is not identical to its database. The database preserves symbols and relationships. The living model is distributed among people who know what those symbols imply and what action follows.
+Cohesion comes from boundaries that match invariants rather than loyalty to one programming style.
 
-## A Circuit Is a Lesson in Layered Cohesion
+This also explains why an information system exceeds its database. The database preserves symbols and relationships; people carry the operational knowledge that turns those symbols into decisions and action.
 
-At one level, a multiplexer selects one input according to a control bit. At another, multiplexers form a lookup table. Lookup tables and registers form a datapath. A datapath and a controller form a machine.
+## Circuits Demonstrate Layered Cohesion
 
-Each layer hides details while exposing a contract. The multiplexer does not need to know that it participates in an arithmetic unit. The controller does not need to reason about individual transistor channels on every cycle.
+A multiplexer selects an input through a control bit. Multiplexers form a lookup table. Lookup tables and registers form a datapath. A datapath and controller form a machine.
 
-Yet the abstraction is not free to lie. Timing, fan-out, metastability, and routing can break the higher-level story. A cohesive architecture states where those lower-level facts re-enter.
+Each layer compresses detail and exposes a contract. The multiplexer can perform its role without knowing that it serves an arithmetic unit. The controller can execute cycles without tracking every transistor channel.
 
-The most useful models are therefore not one perfect abstraction. They are a chain of models with explicit translations:
+Timing, fan-out, metastability, and routing still reenter at explicit architectural boundaries. Cohesion connects the layers rather than pretending one abstraction can replace all of them.
+
+The useful structure forms a chain of models with defined translations:
 
 ```text
 physical transition
@@ -72,76 +70,74 @@ physical transition
 -> domain consequence
 ```
 
-Cohesion means I can move along that chain without inventing a new universe at every boundary.
+Cohesion lets an engineer move through that chain while preserving the same machine.
 
-## Four Ways a Cohesive Model Works
+## Four Properties Make Cohesion Work
 
-I look for four working properties.
+Four working properties reveal a cohesive model.
 
 ### 1. It generates consequences
 
-The model should tell me something I did not merely type into it. A scheduling model should reveal a conflict. A circuit model should predict an output. A permissions model should decide whether an action is possible.
+The model produces information beyond its inputs. A scheduling model reveals a conflict. A circuit model predicts an output. A permissions model determines whether an action can proceed.
 
 ### 2. It composes
 
-Two instances should combine without requiring me to reproduce their entire interiors. A component exposes ports. A table participates in a join. A process offers a protocol. Composition shows that the interface carries real meaning.
+Instances combine through meaningful interfaces without reproducing their interiors. A component exposes ports. A table participates in a join. A process offers a protocol.
 
 ### 3. It discriminates
 
-A model that accommodates every outcome predicts none. I need to know what observation would force a revision. Cohesion includes exclusion: these states are valid, those are not; this mechanism would produce one trace, that mechanism another.
+The model distinguishes outcomes. It names valid and invalid states and shows how different mechanisms produce different traces. Observations can therefore select among explanations.
 
-### 4. It can be revised locally
+### 4. It supports local revision
 
-New information should have an address. If learning one fact requires replacing every term, the model has no stable joints. If nothing from the world can modify it, the model is doctrine.
+New information has an address. Stable joints let one changed fact update the relevant part of the model while preserving the rest.
 
-These tests apply to scientific theories, software architectures, business plans, and personal explanations. The stakes differ; the discipline does not.
+These properties serve scientific theories, software architectures, business plans, and personal explanations at their appropriate scales.
 
-## Cohesion Needs Contact With the World
+## Cohesion Connects to the World
 
-A false story can be wonderfully cohesive. Conspiracy theories often compress chaotic events into a small cast with a single intention. Their emotional force comes partly from high apparent cohesion.
+Observations give cohesion its external grip.
 
-The missing property is contact with observations that can distinguish one explanation from another. When every contrary observation becomes another layer of concealment, the model protects its compression by sacrificing revisability.
+A conspiracy story can compress chaotic events into one cast and one intention, producing powerful apparent cohesion. When every contrary event becomes additional concealment, the story loses the local revision that a working model supplies.
 
-Truth also does not guarantee useful cohesion. A complete list of accurate measurements may be too large to guide action. We still need a model that selects relations appropriate to the question.
+A complete list of accurate measurements creates the opposite problem: truth without enough compression to guide action. A useful model selects the relations that answer its question.
 
-So I do not treat cohesion as a certificate. I treat it as one axis:
+The combined form:
 
 ```text
 useful model = cohesion + empirical contact + stated scope + revisability
 ```
 
-Different work weights these terms differently. A design sketch may begin with cohesion and seek measurements later. A deployed safety system needs all four working together.
+Different work emphasizes different terms. A design can begin with cohesion and gather measurements through construction. A deployed safety system coordinates all four continuously.
 
-## Soul as the Chooser of a New Relation
+## Soul Chooses an Unrealized Relation
 
-My original thought went farther than a method for cultivating luck.
+The original metaphysical extension names **soul** as the part of a person that can hold a relation that does not yet exist, prefer it, and spend real work bringing it into form.
 
-I imagined a conscious mind making a lucky choice that pulls reality toward greater cohesion. I used the word **soul** for the part of a person that can hold a relation that does not yet exist, prefer it, and spend real work making the world conform to it.
+Evolution produces intricate organization. Deliberate creation adds the act of choosing a model because it compresses several relations into one intelligible structure.
 
-I use that word metaphysically. Evolution plainly produces intricate organization. The distinction I am reaching for is between retaining forms that happen to survive and deliberately choosing a model because it compresses several relations into one intelligible structure.
+A circuit designer recognizes that separate control rules belong to one state machine before the unified circuit exists. An architect preserves a path that connects several human needs even when a locally cheaper plan would erase it. A mathematician chooses an unfamiliar representation to reveal hidden symmetry.
 
-A circuit designer can see that separate control rules are instances of one state machine before the unified circuit exists. An architect can preserve a path that connects several human needs even when a locally cheaper plan would erase it. A mathematician can choose an unfamiliar representation because a hidden symmetry might become visible there. In each case, the cohesive structure first exists as a focused preference and only later as matter, notation, or behavior.
+In every case, focused preference holds the cohesive structure before matter, notation, or behavior embodies it.
 
-That is where I place the soul in this model: not as a substitute for mechanism, but as the chooser that commits to one unrealized cohesion among many possible arrangements. The choice still needs muscles, tools, experiments, energy, and correction. Wanting a relation does not make it true.
+The soul acts here as chooser rather than substitute mechanism. Muscles, tools, experiments, energy, and correction carry the choice into the world. An evolutionary account can describe lucky abstraction through variation and selection in a nervous system; the word *soul* keeps attention on the instant when a possible relation becomes a chosen obligation.
 
-An evolutionary account may explain every apparently lucky abstraction as variation and selection inside a nervous system. I still value the word *soul* when it makes me look more precisely at the instant a possible relation becomes a chosen obligation.
+Practical cohesion grows through:
 
-In practice I look for cohesion by:
+- comparing several representations of one problem;
+- searching for repeated relationships;
+- building the smallest example that can disagree with the model;
+- keeping an unsuccessful representation long enough to learn from it;
+- preferring mechanisms that explain several observations with precision.
 
-- compare several representations of the same problem;
-- search for repeated relationships;
-- build the smallest example that can disagree with the model;
-- keep the failed representation long enough to understand why it failed;
-- and prefer a mechanism that explains several observations without becoming vague.
+These practices let a conscious chooser increase cohesion deliberately.
 
-These are more than search tricks to me. They are ways a conscious chooser looks for an opportunity to increase cohesion deliberately.
+## A Cohesive Model Returns Power
 
-## A Cohesive Model Gives Something Back
+Abstraction can do more than hide complexity. A cohesive model returns usable power.
 
-Abstraction is often described as hiding complexity. I want more from it.
+It can predict a failure before it happens, carry a component into an unfamiliar system, explain the system to another person, or let one part change without invisible damage.
 
-A cohesive model should return power. It should let me predict a failure before it happens, reuse a component in an unfamiliar system, explain the system to another person, or change one part without fear of invisible damage.
+The measure comes from the meaningful structure that remains after compression.
 
-The measure is not how much detail I removed. It is how much meaningful structure remains after the removal.
-
-When a model makes a complicated thing smaller and the smaller thing can still surprise me correctly, it is worth keeping.
+When a model makes a complicated thing smaller and the smaller thing still surprises its user correctly, that model deserves to stay.

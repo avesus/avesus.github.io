@@ -6,11 +6,11 @@
     <title>Three Levels of a New Programming System</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A programming-system note about three layers: hardware substrate, self-reprogramming object model, and high-level language syntax for distributed reactive computation.">
+    <meta name="description" content="Cartilage joins a scalable hardware substrate, a self-reprogramming object runtime, and a high-level language for reactive parallel computation.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-06-three-levels-of-a-new-programming-system.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Three Levels of a New Programming System">
-    <meta property="og:description" content="A programming-system note about three layers: hardware substrate, self-reprogramming object model, and high-level language syntax for distributed reactive computation.">
+    <meta property="og:description" content="Cartilage joins a scalable hardware substrate, a self-reprogramming object runtime, and a high-level language for reactive parallel computation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-06-three-levels-of-a-new-programming-system.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-04-06",
-                                "dateModified": "2026-07-09",
-                                "description": "A programming-system note about three layers: hardware substrate, self-reprogramming object model, and high-level language syntax for distributed reactive computation.",
+                                "dateModified": "2026-07-28",
+                                "description": "Cartilage joins a scalable hardware substrate, a self-reprogramming object runtime, and a high-level language for reactive parallel computation.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-06-three-levels-of-a-new-programming-system.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,27 @@
 <body>
     <header>Three Levels of a New Programming System</header>
     <address>April 6, 2022</address>
+
+
+    <section class="abstract">
+        <p>A new computer architecture becomes usable when hardware, runtime, and language reinforce one another. Cartilage joins all three: a scalable fabric, a self-reprogramming object model, and a high-level syntax for distributed reactive programs.</p>
+        <p>That union turns two decades of operating-system and language work into a coherent path from silicon cells to application code.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Three Layers, One Machine</h1>
+            <p>The hardware layer uses arrays of locally connected compute nodes. The middle layer manages objects, regions, ports, routing, and runtime reconfiguration. The language layer expresses dynamic types, reactive dataflow, hierarchy, and massive parallelism.</p>
+            <p>Work on Lattice iCE40LP384 and iCE40HX1K boards, Logisim models, ShaderToy renderings, and a JavaScript fabric emulator refined the required node size and showed why each node needs more than one fine-grained logic cell.</p>
+        </section>
+
+        <section>
+            <h1>Build the Language the Fabric Invites</h1>
+            <p>The resulting machine model removes the fixed boundary between application, runtime, and configured hardware. Programs can create structure, move responsibility, and reshape local computation as their needs change.</p>
+            <p>Language designers, FPGA engineers, and distributed-systems builders can help turn this three-level system into the programming environment that parallel hardware has demanded for decades.</p>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6917299061574287360" data-linkedin-activity="6917299061574287360" data-linkedin-source="activity:6917299061574287360">
@@ -143,54 +164,13 @@ This stuff is so cool!</div>
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>This note describes a three-layer programming-system sketch: hardware substrate, self-reprogramming object model, and high-level language syntax.</p>
-        <p>The useful artifact path is concrete: an FPGA-array idea, PCB attempts around small Lattice parts, and emulators in Logisim and ShaderToy that exposed why a fine-grained cell needed controller structure around it.</p>
-        <div class="status-box">
-            <p><span class="status-label">Programming-system note</span>Originally posted 2022-04-06; expanded here around the three-layer architecture.</p>
-            <p><strong>Article focus:</strong> FPGA arrays, emulation, hardware substrate, self-reprogramming object model, reactive dataflow, and language syntax.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Three Layers</h1>
-            <p>The sketch separates the system into three layers. The low layer is the hardware substrate. The middle layer is a self-reprogramming object model that owns local structure. The top layer is the language surface: syntax and semantics for writing programs against that model.</p>
-            <p>That separation is useful because it prevents the language from pretending the substrate is generic. Placement, ownership, state, and reconfiguration have to remain visible enough for the program to behave predictably.</p>
-        </section>
-
-        <section>
-            <h1>The Emulator Result</h1>
-            <p>The original work passed through small FPGA-array hardware plans and then emulators in Logisim and ShaderToy. The emulators exposed a practical constraint: a very fine-grained FPGA-like cell is not enough if each compute region also needs local control, framing, and reconfiguration behavior.</p>
-            <p>That pushed the design toward a cell or region that contains more than one logic element and can act as a controlled local object instead of a bare gate.</p>
-        </section>
-
-        <section>
-            <h1>The Programming Target</h1>
-            <p>The target language was distributed, reactive, object-oriented, dynamically typed, and capable of describing self-modifying structure. Those words only matter if the middle layer gives them concrete meaning: what owns state, what can change, how messages or dependencies move, and how local reconfiguration is bounded.</p>
-            <p>The claim to preserve is the architecture, not the slogan: hardware substrate, reconfigurable object model, and language syntax have to be designed together.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-03-30-the-von-neumann-bottleneck-is-still-here.html">The Von Neumann Bottleneck Is Still Here</a>
-        <p>Another dated publication from March 30, 2022.</p>
-        <p>More:</p>
-        <a href="2022-04-13-machine-learning-plus-quantum.html">Machine Learning Plus Quantum</a>
-        <p>Another dated publication from April 13, 2022.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6917299061574287360/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Three Levels of a New Programming System, read:</strong></p>
+        <a href="2022-04-27-what-cartilage-is-and-is-not.html">What Cartilage Is and Is Not</a>
+        <p>Cartilage concentrates on one consequential goal: replace the Turing-von Neumann programming bottleneck with a scalable machine for reactive, distributed computation. Ordinary silicon, local reconfiguration, and proven SerDes links supply the physical foundation.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6917299061574287360/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

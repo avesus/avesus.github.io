@@ -6,11 +6,11 @@
     <title>Chain-of-Thought Reasoning May Be a Mistake</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A model-evaluation note about chain-of-thought prompting, hidden computation, single-shot answers, benchmark incentives, and why more text is not always better reasoning.">
+    <meta name="description" content="Long visible reasoning chains can win benchmarks while constraining stronger latent computation; single-shot answers reveal another path to capable models.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2025-12-31-chain-of-thought-reasoning-may-be-a-mistake.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Chain-of-Thought Reasoning May Be a Mistake">
-    <meta property="og:description" content="A model-evaluation note about chain-of-thought prompting, hidden computation, single-shot answers, benchmark incentives, and why more text is not always better reasoning.">
+    <meta property="og:description" content="Long visible reasoning chains can win benchmarks while constraining stronger latent computation; single-shot answers reveal another path to capable models.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2025-12-31-chain-of-thought-reasoning-may-be-a-mistake.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2025-12-31",
-                                "dateModified": "2026-07-09",
-                                "description": "A model-evaluation note about chain-of-thought prompting, hidden computation, single-shot answers, benchmark incentives, and why more text is not always better reasoning.",
+                                "dateModified": "2026-07-28",
+                                "description": "Long visible reasoning chains can win benchmarks while constraining stronger latent computation; single-shot answers reveal another path to capable models.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2025-12-31-chain-of-thought-reasoning-may-be-a-mistake.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,27 @@
     <header>Chain-of-Thought Reasoning May Be a Mistake</header>
     <address>December 31, 2025</address>
 
+
+    <section class="abstract">
+        <p>Long chain-of-thought traces can improve benchmarks and still point model design in the wrong direction. A striking single-shot answer sometimes outperforms an hour of narrated intermediate reasoning, revealing substantial capability inside latent computation.</p>
+        <p>Brian Greenforest asks whether forcing every inference through text creates its own entropy, distraction, and overthinking.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Visible Steps Are One Interface to Computation</h1>
+            <p>A reasoning model can generate intermediate tokens, inspect them, and continue. That process expands test-time compute and makes some tasks easier, yet the token stream also commits the model to a narrow sequential path.</p>
+            <p>Latent representations can integrate many relationships without spelling each one out. A direct answer may preserve that parallel structure and avoid errors introduced by a long self-conditioning chain.</p>
+        </section>
+
+        <section>
+            <h1>Evaluate the Answer and the Compute Path Separately</h1>
+            <p>Leaderboards often reward accuracy after large reasoning budgets. A stronger evaluation can compare direct and deliberative modes, cost, calibration, consistency, and the kinds of tasks each mode solves.</p>
+            <p>AI researchers can design models that choose the right internal mode instead of treating more visible text as more intelligence. The same lesson applies to people: reflection helps until narration begins to replace thought.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7411950504282341376" data-linkedin-activity="7411950504282341376" data-linkedin-source="activity:7411950504282341376">
         <h2 id="linkedin-original-7411950504282341376">Originally posted on LinkedIn</h2>
@@ -100,53 +121,12 @@
 #GPT #LLM #airesearch #overthinking</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
-
-    <section class="abstract">
-        <p>Chain-of-thought prompting can improve benchmark results, but extra visible reasoning text is not the same thing as better internal computation.</p>
-        <p>The useful question is how to evaluate model work when short answers sometimes outperform long traces, and when long traces can contain post-hoc narration, unnecessary steps, or errors that still lead to the right answer.</p>
-        <div class="status-box">
-            <p><span class="status-label">Model-evaluation note</span>Originally posted 2025-12-31; expanded here around reasoning traces and evaluation.</p>
-            <p><strong>Article focus:</strong> chain-of-thought prompting, single-shot answers, hidden computation, benchmark incentives, trace quality, and verification.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Evaluation Problem</h1>
-            <p>A long reasoning trace gives the evaluator something to inspect, but it also changes the task. The model is no longer only answering; it is also producing an explanation-shaped artifact that may or may not reflect the computation that mattered.</p>
-            <p>That makes the evaluation question sharper: did the trace help the model reach the answer, did it help the human verify the answer, or did it mainly satisfy a benchmark format?</p>
-        </section>
-
-        <section>
-            <h1>Why Short Answers Matter</h1>
-            <p>Strong single-shot answers are a useful signal. They suggest that some work is carried in the model's internal representation rather than in the visible text sequence.</p>
-            <p>That does not make short answers inherently better. It means visible steps should be judged by their contribution: fewer errors, clearer verification, better decomposition, or stronger reproducibility.</p>
-        </section>
-
-        <section>
-            <h1>The Practical Rule</h1>
-            <p>Use reasoning traces when they expose checkable structure. Do not treat length as proof of reasoning quality.</p>
-            <p>For technical work, the final artifact still has to survive tests, source inspection, constraints, measurements, or review. The trace is useful only if it helps that happen.</p>
-        </section>
-
-    </main>
-    <nav class="article-links">
-        <p>Next:</p>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Chain-of-Thought Reasoning May Be a Mistake, read:</strong></p>
         <a href="2025-10-30-ai-does-not-repeal-no-free-lunch.html">AI Does Not Repeal No Free Lunch</a>
-        <p>Another dated publication from October 30, 2025.</p>
-        <p>More:</p>
-        <a href="2026-01-31-the-physical-mux-tile-alphabet.html">The Physical MUX Tile Alphabet</a>
-        <p>Another dated publication from January 31, 2026.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7411950504282341376/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+        <p>AI can multiply a developer’s reach, but it cannot repeal the mathematics and organizational structure of software engineering. No Free Lunch, No Silver Bullet, and The Mythical Man-Month still govern specialization, essential complexity, and coordination.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7411950504282341376/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

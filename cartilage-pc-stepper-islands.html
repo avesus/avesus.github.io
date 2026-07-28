@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, follow">
-    <title>Cartilage PC Stepper Islands</title>
-    <meta name="description" content="A Cartilage visual placement sketch for a 4-bit conditional incrementer: OUT = ENABLE ? (IN + 1) : IN.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <title>Cartilage PC Stepper Islands: A Spatial 4-Bit Incrementer</title>
+    <meta name="description" content="Map a 4-bit conditional incrementer across a 55x55 Cartilage fabric, with repeated MUX slices implementing OUT = ENABLE ? (IN + 1) : IN.">
     <link rel="canonical" href="https://greenforest.io/cartilage-pc-stepper-islands.html">
-    <meta property="og:title" content="Cartilage PC Stepper Islands">
-    <meta property="og:description" content="A Cartilage program-counter stepper placement sketch showing the local island decomposition for OUT = ENABLE ? (IN + 1) : IN.">
+    <meta property="og:title" content="Cartilage PC Stepper Islands: A Spatial 4-Bit Incrementer">
+    <meta property="og:description" content="See four repeated Cartilage MUX slices hold or increment a value through a visible carry chain.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-pc-stepper-islands.html">
         <link rel="icon" href="/favicon.ico">
@@ -21,25 +21,25 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cartilage PC Stepper Islands - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Cartilage PC Stepper Islands: A Spatial 4-Bit Incrementer - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-pc-stepper-islands.png">
-    <meta name="twitter:image:alt" content="Cartilage PC Stepper Islands - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Cartilage PC Stepper Islands: A Spatial 4-Bit Incrementer - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Cartilage PC Stepper Islands",
+            "headline": "Cartilage PC Stepper Islands: A Spatial 4-Bit Incrementer",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-23",
+            "dateModified": "2026-07-28",
             "image": "https://greenforest.io/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png",
-            "description": "A Cartilage visual placement sketch for a 4-bit conditional incrementer: OUT = ENABLE ? (IN + 1) : IN.",
+            "description": "A 55x55 Cartilage placement map for a four-bit conditional incrementer built from repeated local MUX slices and a visible carry chain.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-pc-stepper-islands.html",
             "publisher": {
                 "@type": "Person",
@@ -51,91 +51,82 @@
 </head>
 
 <body>
-    <header>Cartilage PC Stepper Islands</header>
+    <header><h1>Cartilage PC Stepper Islands: A Spatial 4-Bit Incrementer</h1></header>
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This is a visual placement sketch for a 4-bit conditional incrementer.</p>
-        <p>The intended circuit is <code>OUT = ENABLE ? (IN + 1) : IN</code>.</p>
-        <p>That is the small control block behind a program-counter step, sequencer advance, DMA address bump, or state machine register that either holds its value or moves to the next value.</p>
-        <div class="status-box">
-            <p><span class="status-label">Visual placement sketch</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>.</p>
-            <p><strong>Included:</strong> a <code>55x55</code> visual placement sketch, a <code>3080x3080</code> PNG, the intended <code>OUT = ENABLE ? (IN + 1) : IN</code> function, and the local island decomposition.</p>
-            <p><strong>Sketch focus:</strong> repeated bit-slice structure, carry propagation, edge route intent, and the mapping from incrementer equations into Cartilage cell roles.</p>
-        </div>
+        <p>Four repeated MUX slices turn one enable signal into a spatial program-counter step: hold the current word or advance it by one.</p>
+        <p>The circuit implements <code>OUT = ENABLE ? (IN + 1) : IN</code> across a <code>55x55</code> Cartilage placement map with a visible carry route from bit zero through bit three.</p>
+        <p>The <code>3080x3080</code> image exposes the control block used by program counters, sequencers, DMA address generators, and state registers as nineteen labeled roles and routes.</p>
     </section>
 
     <main>
         <section>
-            <h1>The Rendered Artifact</h1>
+            <h2>Read The Four-Bit Stepper As One Spatial Circuit</h2>
             <figure class="inspectable-image">
                 <a href="/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png">
-                    <img src="/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png" alt="Cartilage fabric render of a 4-bit conditional incrementer with IN lanes from the left, ENABLE from the top, OUT lanes to the right, and final carry C4">
+                    <img src="/cartilage-pc-stepper-islands/cartilage-pc-stepper-islands.png" alt="A 55 by 55 Cartilage incrementer map with four left-edge inputs, top-edge ENABLE, four right-edge outputs, and final carry C4">
                 </a>
-                <figcaption>A 55x55 Cartilage visual placement sketch of a 4-bit program-counter stepper. The full-resolution image is linked for reading the routes.</figcaption>
+                <figcaption>Four repeated bit slices carry ENABLE from C0 through C4 while IN0–IN3 enter from the left and OUT0–OUT3 leave at the right.</figcaption>
             </figure>
         </section>
 
         <section>
-            <h1>What This Page Shows</h1>
-            <p>The render shows the intended placement vocabulary for a small control datapath: left-edge input routes, top-edge enable, repeated local bit slices, carry propagation, and right-edge output routes.</p>
-            <p>For checked arithmetic behavior, use the <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>. For the current mechanism and hardware reference, use <a href="/cartilage-core.html">Cartilage Core</a>; use <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">visual language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation demo</a> for the browser-artifact lineage.</p>
+            <h2>See Hold And Increment Share The Same Datapath</h2>
+            <p>Left-edge inputs, a top-edge enable route, four local toggle islands, four carry islands, and right-edge outputs make <code>OUT = ENABLE ? (IN + 1) : IN</code> visible from end to end.</p>
+            <p>The <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a> runs a related carry structure across every input pair. <a href="/cartilage-core.html">Cartilage Core</a> supplies the current browser and hardware mechanism; <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">visual language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation mechanism</a> connect this map to the full architecture.</p>
         </section>
 
         <section>
-            <h1>The Stepper Function</h1>
-            <p>In the intended stepper, each bit slice receives one input bit and one carry bit. The carry seed is <code>C[0] = ENABLE</code>, so the circuit increments only when enable is asserted.</p>
+            <h2>Seed The Carry Chain With ENABLE</h2>
+            <p>Each bit slice consumes one input bit and one carry bit. <code>C[0] = ENABLE</code> makes the first carry the control input for the entire word.</p>
             <pre><code>OUT[i]    = IN[i] xor C[i]
 C[i + 1] = IN[i] and C[i]
 C[0]     = ENABLE</code></pre>
-            <p>When <code>ENABLE</code> is zero, the first carry is zero and every output bit copies its input. When <code>ENABLE</code> is one, the carry ripple performs the ordinary increment-by-one operation.</p>
+            <p>With <code>ENABLE</code> at zero, every output copies its input. With <code>ENABLE</code> at one, the carry ripples through each asserted input bit and performs the increment-by-one operation.</p>
         </section>
 
         <section>
-            <h1>MUX Island Decomposition</h1>
-            <p>The Cartilage placement uses mux-friendly local logic islands. Each bit slice is decomposed into a local inversion island, an output toggle island, and a carry island:</p>
+            <h2>Decompose Each Bit Into Three MUX Islands</h2>
+            <p>Each slice combines a local inversion island, an output-toggle island, and a carry island:</p>
             <pre><code>notIN[i] = IN[i] ? 0 : 1
 OUT[i]   = C[i] ? notIN[i] : IN[i]
 C[i + 1] = IN[i] ? C[i] : 0</code></pre>
-            <p><a href="/mux-algebra.html">MUX Algebra</a> explains the selector form used by each inversion, output toggle, and carry island.</p>
-            <p>The repeated structure is the point of the render. It is easier to inspect than a single adder because the four slices show the same local rule repeated with a visible carry chain.</p>
+            <p><a href="/mux-algebra.html">MUX Algebra</a> derives the selector form behind every inversion, output toggle, and carry decision.</p>
+            <p>Four visible repetitions reveal how one local rule scales across a word while the carry chain links each slice to its neighbor.</p>
         </section>
 
         <section>
-            <h1>How To Read The Routes</h1>
-            <p><code>ENABLE</code> enters from the top edge and seeds <code>C0</code>. <code>IN0</code> through <code>IN3</code> enter from the left edge. <code>OUT0</code> through <code>OUT3</code> leave to the right edge, and the final overflow carry <code>C4</code> is also routed to the right edge.</p>
-            <p>The sea around the active logic is mostly constant-zero cells. It is intentionally spacious so the repeated slice structure, local toggle islands, carry islands, intersections, and edge routes stay readable.</p>
+            <h2>Trace Every Input, Carry, And Output</h2>
+            <p><code>ENABLE</code> enters from the top and seeds <code>C0</code>. <code>IN0</code> through <code>IN3</code> enter from the left. <code>OUT0</code> through <code>OUT3</code> and the overflow carry <code>C4</code> leave at the right.</p>
+            <p>A spacious constant-zero sea separates the active logic so each toggle island, carry island, intersection, and edge route remains legible.</p>
         </section>
 
         <section>
-            <h1>Data I/O Is Ordinary Fabric Routing</h1>
-            <p>In the sketch, the data inputs and outputs are ordinary metal adjacency through neighboring fabric cells. Reconfiguration-port cells are not used for these data paths.</p>
-            <p>That distinction is part of the Cartilage model: reconfiguration ports change fabric state, while this screenshot is meant to show a configured control/arithmetic datapath carrying runtime data through local wires, intersections, constants, and MUX behavior.</p>
+            <h2>Route Runtime Data Through Neighboring Cells</h2>
+            <p>Ordinary metal adjacency carries inputs, carries, and outputs through neighboring fabric cells. Reconfiguration ports retain the separate job of installing or replacing cell roles.</p>
+            <p>The mapped datapath carries runtime values through local wires, intersections, constants, and MUXes while the configuration plane remains structurally distinct.</p>
         </section>
 
         <section>
-            <h1>Render Notes</h1>
-            <p>The rendered lattice is <code>55x55</code> cells. The PNG is <code>3080x3080</code> pixels. It is a cycle-zero initialized-cell schematic with 19 semantic labels.</p>
-            <p>The labels are callouts for the human reader, not extra tile roles. The cell vocabulary is the same Cartilage render alphabet decoded in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
+            <h2>Decode The 55x55 Fabric At Full Resolution</h2>
+            <p>The lattice contains <code>55x55</code> cells, and the PNG spans <code>3080x3080</code> pixels. Cycle-zero initialized roles form the circuit beneath 19 semantic labels.</p>
+            <p>Human-readable callouts name the signals, while the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> decodes the installed cell roles beneath them.</p>
         </section>
 
         <section>
-            <h1>Where It Fits</h1>
-            <p>The useful part is the placement vocabulary. <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> are the current mechanism and hardware reference. They do not turn this older cycle-zero placement sketch into a driven or verified counter.</p>
+            <h2>Carry The Placement Pattern Into A Running Machine</h2>
+            <p>This placement map contributes the repeated bit-slice layout, control route, and carry topology. <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> provide the current browser and hardware mechanism for installing and running Cartilage regions.</p>
         </section>
     </main>
 
     <nav class="article-links">
-        <p>Read next:</p>
-        <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>
-        <p>A guide to the Cartilage run, timeline, and sketch pages.</p>
-        <p>More:</p>
+        <p>Decode the fabric next:</p>
         <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
-        <p>The 32-code cell-role alphabet used by this render.</p>
-        <p>Build next:</p>
-        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help turn these state and placement islands into an interactive, traceable Cartilage machine. Funding and contributors are welcome.</p>
-        <a href="/">Go back</a>
+        <p>Read the 32 installed roles that form each wire, intersection, constant, and MUX island in this map.</p>
+        <p>Then run the carry structure:</p>
+        <a href="/cartilage-verified-ripple2-adder.html">Cartilage Ripple2 Adder: 96 Passing Browser Expectations</a>
+        <p>Follow generated arithmetic through 3,072 lockstep updates and edge-visible results.</p>
     </nav>
 </body>
 

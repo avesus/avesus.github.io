@@ -5,7 +5,7 @@ date: "2019-04-14T06:29:38.327Z"
 original_dates:
   - "2019-04-14T06:29:38.327Z"
   - "2020-08-10T00:56:15.530Z"
-description: "A physical-telepresence concept built around dedicated attention, tangible remote action, local autonomy, long-lived modular hardware, and an always-available window rather than another app."
+description: "A dedicated telepresence device gives remote relationships a stable place, tangible shared actions, local autonomy, explicit consent, modular longevity, and one new physical verb at a time."
 status: publication-ready
 ---
 
@@ -13,125 +13,115 @@ status: publication-ready
 
 *Developed April 14, 2019 and August 10, 2020.*
 
-Video calls are excellent at transporting rectangles of light and sound. They are poor at creating presence.
+Presence needs a place in the room.
 
-The problem is not resolution. It is that a call remains an application competing with every other application on a device designed for divided attention. The camera is a feature. The person becomes a window among notifications, tabs, and controls.
+Video calls transport light and sound, yet the call still competes with every notification, tab, and control on a general-purpose screen. A dedicated object can create a stable physical window between two places.
 
-I wanted a dedicated object.
+That window invites a glance, a quiet interval, an approach, or a deliberate shared act without requiring both people to launch a meeting and perform continuous attention. Its fixed location gives the remote relationship geometry.
 
-An always-available window between two places would not ask me to launch a meeting, arrange my face inside a frame, and perform continuous attention. It would have a stable physical location. I could glance toward it, approach it, leave it quiet, or use it for a deliberate shared act.
+Presence becomes a device when attention and action gain a dependable physical home.
 
-Presence is partly a device because attention has geometry.
+## Bring Remote Reality Into the Room
 
-## Connected Reality
+Virtual reality carries a person into a constructed world. Physical telepresence brings a remote or imagined object into the room the person already inhabits.
 
-Virtual reality places me inside a constructed world. Physical telepresence asks for the opposite movement: bring a remote or imagined object into the room where I already live.
+The object can begin as a mobile display or projection surface. More capable versions can change shape, form a touchable interface, move an instrument within reach, or let a remote person manipulate a corresponding object at the local site.
 
-The object might begin as a mobile display or projection surface. A more ambitious version could change shape, create a touchable interface, move an instrument into reach, or let a remote person manipulate a corresponding object at my location.
+Ask for a piano keyboard. A local machine unfolds or projects a playable surface. The keys provide physical response and local sound. A remote teacher indicates hand position or plays a phrase through a paired instrument.
 
-Imagine asking for a piano keyboard. A local machine unfolds or projects a playable surface in front of me. Keys have physical response. Sound is produced locally. A remote teacher can indicate hand position or play a phrase through a paired instrument.
+This creates a temporary shared device rather than a video of one.
 
-That is not a video of a piano. It is a temporary device whose state can be shared.
+Claytronics offers the expansive destination: matter that reassembles into arbitrary forms. Each useful physical degree of freedom creates a practical step toward that destination and earns the next capability.
 
-The ultimate claytronics vision is matter that can reassemble into arbitrary forms. I begin with one useful physical degree of freedom at a time and let each device earn the next.
+## Local Autonomy Makes Remote Touch Natural
 
-## Latency Changes the Meaning of Touch
+Latency changes the meaning of touch. Even an Earth-scale round trip takes time, and congestion adds more. Continuous joystick control becomes unstable or exhausting when a distant robot must wait for every correction.
 
-Latency changes what remote touch can safely mean.
+Local autonomy closes the fast loop. The remote device holds balance, avoids collisions, respects force limits, and completes a bounded action while the network carries human intent.
 
-Even across Earth, a round trip takes time. Through congested networks it takes more. For distant robots, continuous joystick control becomes unstable or exhausting. The remote system needs local autonomy: hold balance, avoid collisions, respect force limits, and complete a small action without waiting for every correction.
+The device can support intent without constructing a permanent surveillance model. A direct autonomy contract:
 
-The machine does not need to predict my fingers before I decide to move them.
+- infers only what the current action needs;
+- performs inference locally where possible;
+- retains behavioral models only through informed consent;
+- shows when autonomy acts;
+- provides an immediate stop;
+- checks safety before converting a prediction into irreversible physical force.
 
-An earlier version of this idea imagined continuously modeling the user so aggressively that the remote device could anticipate intent. That would turn presence into surveillance. I prefer explicit rules:
-
-- infer only what is needed for the current action;
-- perform inference locally when possible;
-- retain no behavioral model without informed consent;
-- show when autonomy is active;
-- provide an immediate stop;
-- never convert a prediction into irreversible physical force without a safety check.
-
-Prediction can hide latency. It must not erase agency.
+Prediction can absorb latency while preserving agency.
 
 ## The Semantic Safety Layer
 
-When communication changes physical state, malformed or hostile messages can hurt people.
+Physical communication needs verbs that machinery can execute safely.
 
-A physical-telepresence protocol therefore needs more than encryption and packet delivery. It needs an action model.
+The receiving device publishes bounded operations: move a joint within this envelope, stay under this force, keep a surface below this temperature, remain outside this protected volume, and stop when sensing diverges from expectation.
 
-The receiving device should know the bounded operations it is willing to perform: move this joint within this envelope, apply no more than this force, heat no surface above this temperature, remain outside this protected volume, stop when sensing disagrees with expectation.
+The semantic layer checks high-level intent before actuation. Independent low-level controllers enforce mechanical and thermal limits regardless of network messages or model output.
 
-High-level intent can be checked before it becomes actuation. Low-level controllers must still enforce limits even if the high-level model is wrong.
+No strong AI can guarantee universal safety by interpreting every possible human action. Authentication, local sensing, constrained mechanics, fail-safe states, and a deliberately limited protocol create practical safety. Encryption protects communication; typed action interfaces protect bodies and rooms.
 
-No “strong AI” can guarantee universal safety by understanding every possible human action. Practical safety comes from constrained mechanics, independent limits, authentication, local sensing, fail-safe states, and a protocol whose verbs are smaller than “do whatever the remote person wants.”
+Physical action deserves typed interfaces.
 
-The physical world deserves typed interfaces.
+## A Shared Library of Physical Capabilities
 
-## A Shared Device Economy
+Shared access can bring sophisticated telepresence hardware into use long before every household owns it.
 
-Sophisticated telepresence hardware will not begin cheap. That suggests shared access.
+A neighborhood or building can host mobile devices for reservation by task. A device travels to the user, authenticates both locations, performs a bounded session, and returns for charging or maintenance. Shared specialized attachments can provide capabilities that individual ownership would leave idle.
 
-A neighborhood or building could host mobile devices that users reserve for a particular task. The device arrives, authenticates both locations, performs a bounded session, and returns to charge or maintenance. Specialized attachments could be shared rather than purchased by every household.
+The model resembles a library of physical abilities rather than a disposable gadget market.
 
-The model resembles a library of physical capabilities more than a disposable gadget market.
+Its operating design answers essential questions:
 
-Shared ownership also raises hard questions:
-
-- Who cleans and repairs the device?
+- Who cleans and repairs each device?
 - Which sensors operate between sessions?
-- Where are recordings stored?
-- How does a user inspect the machine before inviting it inside?
-- What prevents harassment or physical misuse?
+- Where do recordings reside?
+- How can a user inspect the machine before inviting it inside?
+- Which controls prevent harassment and physical misuse?
 - Can a person use the essential function without surrendering unrelated personal data?
 
-The answers determine whether the shared system feels like public infrastructure or a stranger’s surveillance robot.
+Clear answers can make the service feel like trusted public infrastructure.
 
-## Build for Long Life
+## Build the Platform for Long Life
 
-A physical platform should not become waste because its software fashion changed.
+A modular physical platform can outlive changing software fashions.
 
-The durable module should separate long-lived capabilities from replaceable ones:
+The durable system separates long-lived capabilities from replaceable ones:
 
 - power and structural frame;
 - motors and force-limited joints;
 - display, light, sound, and basic sensing;
 - local safety controllers;
 - replaceable compute and communication modules;
-- software-defined behaviors installed through explicit permissions.
+- software-defined behavior installed through explicit permissions.
 
-No module will contain every future sensor and emitter for decades. That was an attractive but unrealistic dream. Modularity gives a better route to longevity. A useful chassis can accept new compute, radios, tools, and surfaces without discarding the whole machine.
+Modularity lets a useful chassis accept new compute, radios, tools, sensors, emitters, and surfaces across decades without discarding the complete machine.
 
-Reconfigurable computation matters here because the device may change roles. It does not make electronic engineering obsolete. Motors, optics, thermal paths, batteries, connectors, and electromagnetic compatibility remain stubbornly physical.
+Reconfigurable computation expands the device’s roles. Motors, optics, thermal paths, batteries, connectors, and electromagnetic compatibility still give every role its physical limits and strengths. Engineering those boundaries makes software coordination dependable.
 
-Software can coordinate them only after engineering makes each boundary trustworthy.
+## Dedicated Attention Preserves Continuity
 
-## Dedicated Attention Without Demanding Attention
+An always-available window can support presence without creating an obligation.
 
-An always-on presence device must avoid becoming an always-on obligation.
+The device expresses clear social states:
 
-The window needs social states:
+- ambient presence available;
+- deliberate calls available;
+- quiet mode with a gentle signal;
+- closed mode;
+- physical cover or full power-down.
 
-- available for ambient presence;
-- available for a deliberate call;
-- quiet but open to a gentle signal;
-- closed;
-- physically covered or powered down.
+Both locations can see the current state, making consent more legible than it often appears in an app.
 
-Both sides should see the state. A dedicated device should make consent clearer than an app, not more ambiguous.
+The goal centers continuity of place rather than continuous eye contact.
 
-The goal is not continuous eye contact. It is continuity of place.
+A grandparent can keep the window near a kitchen table. Collaborators can leave paired work surfaces open while building separate parts. A musician can share a physical controller instead of compressed audio alone. A remote worker can operate one instrument for five minutes and then let the room return to its ordinary life.
 
-A grandparent might keep the window near a kitchen table. Two collaborators might leave paired work surfaces open while building separate parts. A musician might share a physical controller rather than compressed audio alone. A remote worker might manipulate one instrument for five minutes, then let the room become a room again.
+## Give Each Relationship a Physical Verb
 
-## Back to the Real World
+Screens remove gesture, posture, shared objects, and peripheral awareness, then try to restore them with pixels. Physical presence starts with the action two places want to share and creates the device that performs it.
 
-Screens remove gesture, posture, shared objects, and peripheral awareness, then attempt to add them back with more pixels.
+Sometimes a camera and microphone provide the complete verb. Other relationships call for a movable pointer, paired sketch surface, force-limited gripper, shared keyboard, or quiet window in one dependable corner.
 
-Physical presence begins elsewhere. It asks what action two places should share and builds a device for that action.
+The destination remains expansive: remote reality entering a room as something a person can touch.
 
-Sometimes the answer really is a camera and microphone. Sometimes it is a movable pointer, a paired sketch surface, a force-limited gripper, a shared keyboard, or a quiet window that occupies one dependable corner.
-
-I still love the wild destination: remote reality entering the room as something I can touch. The path to it is not one universal morphing robot and not a model that watches me continuously.
-
-It is a sequence of purpose-built devices. Each one gives a remote relationship one new physical verb, keeps that verb safe, and earns a place in the room.
+A sequence of purpose-built devices can reach it. Each device gives a remote relationship one new physical verb, makes that verb trustworthy, and earns its place in the room.

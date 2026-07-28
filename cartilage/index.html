@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Cartilage: A Spatial Computing Learning Path</title>
-    <meta name="description" content="Learn Cartilage in order: Logisim and LUTs, CMOS gain and drivers, clock and event distribution, statecharts, timing closure, metal wires, nested components, and runtime spatial reconfiguration.">
+    <title>Cartilage: From One MUX To Runtime Spatial Reconfiguration</title>
+    <meta name="description" content="Build Cartilage understanding layer by layer: LUTs, CMOS restoration, distribution, statecharts, timing closure, metal routes, nested components, and runtime spatial reconfiguration.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/cartilage/">
-    <meta property="og:title" content="Cartilage: A Spatial Computing Learning Path">
-    <meta property="og:description" content="A chapter-by-chapter route from visible logic and physical distribution to nested, runtime-reconfigurable regions of computation.">
+    <meta property="og:title" content="Cartilage: From One MUX To Runtime Spatial Reconfiguration">
+    <meta property="og:description" content="Follow one visible selector through the physical and architectural layers that produce nested, runtime-reconfigurable regions of computation.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/cartilage/">
     <link rel="icon" href="/favicon.ico">
@@ -21,21 +21,21 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cartilage: A Spatial Computing Learning Path - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Cartilage from one MUX to runtime spatial reconfiguration - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage/index.png">
-    <meta name="twitter:image:alt" content="Cartilage: A Spatial Computing Learning Path - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Cartilage from one MUX to runtime spatial reconfiguration - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            "name": "Cartilage: A Spatial Computing Learning Path",
+            "name": "Cartilage: From One MUX To Runtime Spatial Reconfiguration",
             "url": "https://greenforest.io/cartilage/",
-            "description": "A chapter-by-chapter route from visible logic and physical distribution to nested, runtime-reconfigurable regions of computation.",
+            "description": "A chapter-by-chapter construction from visible local logic through physical distribution and into nested, runtime-reconfigurable regions of computation.",
             "datePublished": "2026-07-22",
-            "dateModified": "2026-07-23",
+            "dateModified": "2026-07-28",
             "hasPart": [
                 {
                     "@type": "TechArticle",
@@ -74,7 +74,7 @@
                 },
                 {
                     "@type": "TechArticle",
-                    "name": "Cartilage Nested-Instantiation Demo",
+                    "name": "Runtime Instantiation In Space",
                     "url": "https://greenforest.io/cartilage-nested-instantiation-demo.html"
                 },
                 {
@@ -90,17 +90,17 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">Cartilage: A Spatial Computing Learning Path</h1></header>
+    <header><h1 class="page-title">Cartilage: From One MUX To Runtime Spatial Reconfiguration</h1></header>
     <address>July 22, 2026</address>
 
     <section class="abstract">
-        <p>Cartilage is a reconfigurable computing architecture in which local regions, boundaries, routing, configuration, and replacement remain visible parts of the machine.</p>
-        <p><a class="cta-link" href="logic-to-luts.html">Start Chapter 1: Logisim And LUTs</a></p>
-        <p id="cartilage-roadmap-cta"><a class="cta-link" href="/cartilage-reconfigurable-computing-roadmap.html">Open The Cartilage Development Roadmap</a></p>
-        <p>Cartilage is larger than one WebGL demo or a field of MUXes. Begin with visible circuits, climb through the physical machinery that makes logic reliable, then reach nested components and runtime creation of a daughter region in adjacent space.</p>
-        <p>This is the teaching order. Read one chapter at a time, then run the fabric pages with the concepts already in hand.</p>
+        <p>Cartilage makes local logic, routing, ownership, configuration, and regional replacement visible inside one spatial computing architecture.</p>
+        <p><a class="cta-link" href="logic-to-luts.html">Start Chapter 1 With One MUX And Build Toward LUT6</a></p>
+        <p id="cartilage-roadmap-cta"><a class="cta-link" href="/cartilage-reconfigurable-computing-roadmap.html">Build The Cartilage Spatial Circuit Workstation</a></p>
+        <p>The path begins with a selector whose wires you can see, follows the analog and physical machinery that keeps logic reliable, and arrives at a parent creating a bounded daughter machine in adjacent space.</p>
+        <p>Each chapter adds one necessary layer. Read the sequence in order, then open the running fabrics with the entire mechanism in view.</p>
         <div class="reader-note">
-            <p>If LUTs, registers, Verilog, testbenches, synthesis, and place-and-route are still new, <a href="/fpga-verilog/">take the conventional FPGA and Verilog path first</a>. Return here for the next question: how Cartilage makes physical distribution, regional ownership, and runtime reconfiguration part of the computing model.</p>
+            <p>The <a href="/fpga-verilog/">FPGA and Verilog learning path</a> builds LUT, register, testbench, synthesis, and place-and-route fluency. Cartilage then carries those foundations into explicit physical distribution, regional ownership, and runtime reconfiguration.</p>
         </div>
     </section>
 
@@ -108,147 +108,147 @@
         <a href="logic-to-luts.svg">
             <img src="logic-to-luts.svg" width="1200" height="675" alt="Progression from one visible multiplexer to stored truth tables and FPGA LUT4, LUT5, and LUT6 primitives">
         </a>
-        <figcaption>Original Greenforest I/O diagram for Chapter 1: the same choice primitive grows from a visible MUX into the lookup tables used by real FPGA families.</figcaption>
+        <figcaption>Original Greenforest I/O diagram for Chapter 1: one visible choice primitive grows into the lookup tables used across real FPGA families.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h2>The One-Chapter-At-A-Time Route</h2>
+            <h2>Build The Architecture One Chapter At A Time</h2>
             <ol class="learning-path">
                 <li>
                     <h3><a href="logic-to-luts.html">Logisim, The MUX, And LUT1 Through LUT6</a></h3>
-                    <p><span class="chapter-status available">Published</span>Make the selector visible, grow it into stored truth tables, then connect LUT4 to Lattice iCE40 and LUT5/LUT6 to AMD/Xilinx configurable logic.</p>
-                    <p class="reader-note"><strong>2020 foundation:</strong> <a href="/mux-algebra.html">MUX Algebra</a> writes the local choice as a conditional, enumerates all 16 two-input Boolean functions, and gives the original four-bit configuration scheme.</p>
-                    <p class="reader-note"><strong>Hands-on companion:</strong> the <a href="/physical-mux-tiles/">physical MUX tiles</a> turn inputs, constants, selectors, routes, intersections, and orientation into fabricated PCB parts for a proposed STEM/EE learning path. They are a separate physical teaching prototype, not the complete Cartilage architecture.</p>
+                    <p>Expose the selector, grow it into stored truth tables, then connect LUT4 to Lattice iCE40 and LUT5/LUT6 to AMD/Xilinx configurable logic.</p>
+                    <p class="reader-note"><strong>2020 foundation:</strong> <a href="/mux-algebra.html">MUX Algebra</a> writes local choice as a conditional, enumerates all 16 two-input Boolean functions, and defines the original four-bit configuration scheme.</p>
+                    <p class="reader-note"><strong>Hands-on companion:</strong> the <a href="/physical-mux-tiles/">physical MUX tiles</a> embody inputs, constants, selectors, routes, intersections, and orientation as fabricated PCB parts for a proposed STEM/EE learning path. The tile alphabet supplies a tactile route into the wider Cartilage architecture.</p>
                 </li>
                 <li id="gain-and-drivers">
                     <h3><a href="cmos-gain-and-output-drivers.html">CMOS Inverters As Gain, Restoration, And Output Drive</a></h3>
-                    <p><span class="chapter-status available">Published</span>Move below Boolean symbols. A real inverter has a voltage-transfer curve, gain through its transition region, noise margins, finite output current, and capacitive load. Logic survives a long computation because stages restore levels and sized drivers supply fanout.</p>
+                    <p>Move beneath Boolean symbols. A real inverter contributes a voltage-transfer curve, transition-region gain, noise margins, finite output current, and capacitive load. Restoring stages and sized drivers carry reliable logic across fanout.</p>
                 </li>
                 <li id="distribution">
                     <h3><a href="clock-event-reset-distribution.html">Clock, Event, And Reset Trees; H-Trees And Driver Grids</a></h3>
-                    <p><span class="chapter-status available">Published</span>A high-fanout event is a physical distribution problem. Buffer trees, H-shaped geometry, grids, and segmented regional networks trade skew, insertion delay, energy, metal, and locality. Cartilage needs the same question for configuration edges and application events, not only for a conventional global clock.</p>
+                    <p>Treat every high-fanout event as a physical distribution system. Buffer trees, H-shaped geometry, grids, and segmented regional networks trade skew, insertion delay, energy, metal, and locality across clocks, resets, configuration edges, and application events.</p>
                 </li>
                 <li id="statecharts">
                     <h3><a href="statecharts-and-one-hot-fsms.html">Harel Statecharts And One-Hot Spatial State Machines</a></h3>
-                    <p><span class="chapter-status available">Published</span>Harel statecharts add hierarchy, concurrency, and event-driven transitions to flat finite-state diagrams. A one-hot encoding gives each state a visible storage location. Together they provide a bridge from behavioral composition to a machine whose active state occupies space.</p>
+                    <p>Use Harel statecharts to express hierarchy, concurrency, and event-driven transitions. Give every one-hot state a visible storage location, then connect behavioral composition to a machine whose active state occupies space.</p>
                 </li>
                 <li id="timing-and-metal">
                     <h3><a href="clock-regions-and-timing-closure.html">Clock Regions And Timing Closure</a></h3>
-                    <p><span class="chapter-status available">Published</span>Placement decides path length; fanout requires buffers; congestion detours routes; clocks cross region boundaries; and final routed delays must satisfy setup and hold constraints. This is where a logical architecture meets a realizable device.</p>
+                    <p>Close the machine in physical space: placement sets path length, buffers carry fanout, congestion redirects routes, clocks cross regional resources, and final delays satisfy setup and hold constraints.</p>
                 </li>
                 <li id="metal-wires">
                     <h3><a href="metal-wires.html">Metal Wires Are Part Of The Machine</a></h3>
-                    <p><span class="chapter-status available">Published</span>Wires are not free arrows. Layers, vias, resistance, capacitance, direction, and routing capacity determine what a connection costs. Cartilage side-metals make locality visible while remaining distinct from physical IC closure.</p>
+                    <p>Replace free arrows with layers, vias, resistance, capacitance, direction, and finite routing capacity. Cartilage side-metals expose locality; physical implementation maps that locality onto real routing resources.</p>
                 </li>
                 <li id="composition">
                     <h3><a href="nested-components-and-composition.html">OOP-Style Nested Components And Composition</a></h3>
-                    <p><span class="chapter-status available">Published</span>A component owns state and an interface; a parent composes children without flattening their identity. Cartilage turns that software intuition into spatial ownership: the child is a bounded region, the interface is a local boundary, and the configuration path is represented inside the fabric.</p>
+                    <p>Give each component state, identity, and an interface while its parent composes children and preserves their identities. Cartilage turns that software intuition into a bounded child region, a local interface, and a configuration path inside the fabric.</p>
                 </li>
                 <li id="runtime-region">
                     <h3><a href="/cartilage-nested-instantiation-demo.html">Runtime Instantiation In An Adjacent Region</a></h3>
-                    <p><span class="chapter-status available">Artifact wrapper</span>A parent uses a local reconfiguration port to stream a complete image into a neighboring daughter region. The daughter can receive new wire, intersection, constant, MUX, or port roles. That bounded replacement is the concrete example of dynamic reactivity on space.</p>
+                    <p>Watch a parent stream a complete image through a local reconfiguration port into a neighboring daughter region. New wire, intersection, constant, MUX, and port roles turn bounded replacement into dynamic reactivity on space.</p>
                 </li>
             </ol>
         </section>
 
         <section>
-            <h2>Source Anchors For The Teaching Path</h2>
-            <p>These are not decorative “further reading” links. Each one anchors a specific step in the path to a maintained tool, a device manual, a primary paper, or a physical-design reference.</p>
+            <h2>Anchor Every Layer In Primary Sources</h2>
+            <p>Each source connects one chapter to a maintained tool, official device manual, primary paper, or physical-design reference.</p>
             <div class="reference-grid">
                 <div class="reference-card">
                     <span class="chapter-number">Circuits</span>
                     <h3><a href="https://github.com/logisim-evolution/logisim-evolution" target="_blank" rel="noopener">Logisim-evolution</a></h3>
-                    <p>The maintained cross-platform logic design and simulation tool. The public multiplier artifact itself remains in legacy Logisim 2.7.1 format.</p>
+                    <p>Use the maintained cross-platform logic design and simulation tool alongside the public multiplier’s legacy Logisim 2.7.1 circuit.</p>
                 </div>
                 <div class="reference-card">
                     <span class="chapter-number">LUT4</span>
                     <h3><a href="https://www.latticesemi.com/view_document?document_id=52206" target="_blank" rel="noopener">Lattice iCE40 Technology Library</a></h3>
-                    <p>The official <code>SB_LUT4</code> primitive and its 16-bit <code>LUT_INIT</code> address mapping.</p>
+                    <p>Read the official <code>SB_LUT4</code> primitive and its exact 16-bit <code>LUT_INIT</code> address mapping.</p>
                 </div>
                 <div class="reference-card">
                     <span class="chapter-number">LUT5 / LUT6</span>
                     <h3><a href="https://docs.amd.com/r/en-US/ug574-ultrascale-clb/CLB-Overview" target="_blank" rel="noopener">AMD UltraScale CLB Guide</a></h3>
-                    <p>The official 6-input LUT and dual-LUT5 modes, with storage, carry, routing, and slice context.</p>
+                    <p>Connect the official 6-input LUT and dual-LUT5 modes to their storage, carry, routing, and slice context.</p>
                 </div>
                 <div class="reference-card">
                     <span class="chapter-number">Gain</span>
                     <h3><a href="https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/resources/mit6_012f09_lec14/" target="_blank" rel="noopener">MIT: Inverter Basics</a></h3>
-                    <p>CMOS, transfer characteristics, noise margins, and sizing—the physical basis for treating an inverter as a restoring gain stage.</p>
+                    <p>Follow CMOS transfer characteristics, noise margins, and sizing into the restoring gain stage beneath digital logic.</p>
                 </div>
                 <div class="reference-card">
                     <span class="chapter-number">Distribution</span>
                     <h3><a href="https://docs.amd.com/r/en-US/ug572-ultrascale-clocking/Clock-Structure" target="_blank" rel="noopener">AMD UltraScale Clock Structure</a></h3>
-                    <p>Clock regions, horizontal spines, vertical and horizontal tracks, roots, leaf buffers, and segmented regional distribution.</p>
+                    <p>Trace clock regions, horizontal spines, vertical and horizontal tracks, roots, leaf buffers, and segmented regional distribution.</p>
                 </div>
                 <div class="reference-card">
                     <span class="chapter-number">Behavior</span>
                     <h3><a href="https://dl.acm.org/doi/10.1016/0167-6423%2887%2990035-9" target="_blank" rel="noopener">Harel's Statecharts Paper</a></h3>
-                    <p>The 1987 primary paper introducing a visual formalism for complex systems with hierarchy, orthogonality, and event-driven behavior.</p>
+                    <p>Read the 1987 primary paper that introduced hierarchy, orthogonality, and event-driven behavior as one visual formalism.</p>
                 </div>
                 <div class="reference-card">
                     <span class="chapter-number">Closure</span>
                     <h3><a href="https://docs.amd.com/r/en-US/ug949-vivado-design-methodology/Analyzing-and-Resolving-Timing-Violations" target="_blank" rel="noopener">AMD Timing-Closure Methodology</a></h3>
-                    <p>Constraints, clocking, congestion, path delay, skew, and the iterative work required to make a placed and routed design meet timing.</p>
+                    <p>Use constraints, clocking, congestion, path delay, and skew to drive a placed and routed design into timing closure.</p>
                 </div>
                 <div class="reference-card">
                     <span class="chapter-number">Metal</span>
                     <h3><a href="https://openroad.readthedocs.io/en/latest/main/src/est/README.html" target="_blank" rel="noopener">OpenROAD Parasitics Estimation</a></h3>
-                    <p>Routing-layer resistance and capacitance, clock-versus-signal wire models, and delay estimation after placement or global routing.</p>
+                    <p>Estimate routing-layer resistance and capacitance with distinct clock and signal wire models after placement or global routing.</p>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2>After The Foundations: Use The Evidence In This Order</h2>
+            <h2>Put The Foundations Into The Running Fabric</h2>
             <div class="chapter-grid">
                 <div class="chapter-card">
                     <span class="chapter-number">Read the marks</span>
                     <h3><a href="/cartilage-visual-language.html">Cartilage Visual Language</a></h3>
-                    <p>Decode reconfiguration ports, crosses, constants, wire orientations, and the MUX modes before judging a fabric render.</p>
+                    <p>Decode reconfiguration ports, crosses, constants, wire orientations, and MUX modes across a complete fabric render.</p>
                 </div>
                 <div class="chapter-card">
                     <span class="chapter-number">See composition</span>
                     <h3><a href="/cartilage-nested-instantiation-demo.html">Nested Instantiation</a></h3>
-                    <p>The canonical wrapper for the local-port, daughter-region, and bounded replacement idea.</p>
+                    <p>Watch local ports install bounded daughter regions through serial replacement.</p>
                 </div>
                 <div class="chapter-card">
                     <span class="chapter-number">Inspect the core</span>
                     <h3><a href="/cartilage-core.html">Cartilage Core</a></h3>
-                    <p>The compact WebGL1 model, hardware paper, SystemVerilog RTL, Verilator testbench, and one exact 252-bit installation.</p>
+                    <p>Open the compact WebGL1 model, hardware paper, SystemVerilog RTL, Verilator testbench, and exact 252-bit installation.</p>
                 </div>
                 <div class="chapter-card" id="cartilage-roadmap-card">
                     <span class="chapter-number">Build what comes next</span>
                     <h3><a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Development Roadmap</a></h3>
-                    <p>The public work program for renderer ergonomics, deterministic region roots, ownership overlap, recovery, simulator controls, saved circuits, and interactive lessons.</p>
+                    <p>Build renderer ergonomics, deterministic region roots, ownership overlap, recovery, simulator controls, saved circuits, and interactive lessons.</p>
                 </div>
                 <div class="chapter-card">
                     <span class="chapter-number">Read the architecture</span>
                     <h3><a href="https://github.com/avesus/cartilage-core/blob/main/paper/cartilage-compute.md" target="_blank" rel="noopener">Cartilage Compute Hardware Paper</a></h3>
-                    <p>The editable architecture paper defines the local configuration protocol, cell roles, ownership boundary, runtime application behavior, and verification scope.</p>
+                    <p>Read the editable architecture paper for the local configuration protocol, cell roles, ownership boundary, runtime application behavior, and verification architecture.</p>
                 </div>
             </div>
-            <p><a href="/ai-assisted-cartilage-draft-archive.html">Use the Cartilage run and sketch index</a> only when you need the wider record of checked runs, timelines, sketches, and debug fixtures.</p>
+            <p><a href="/ai-assisted-cartilage-draft-archive.html">Open the wider Cartilage run index</a> for complete run packages, timelines, placement maps, and circuit traces.</p>
         </section>
 
         <section>
-            <h2>What Will Not Be Repeated</h2>
-            <p>The older self-contained WebGL files remain preserved artifacts. They will not be mechanically rewritten just to acquire modern site chrome. The old AI-assisted simulator pages also do not define the teaching sequence. Pages with overlapping labels, weak explanatory copy, or ambiguous proof claims belong in the run-and-sketch record, below this reader path.</p>
-            <p>New chapters should be published only when they have a clear construction, an attributable diagram or inspectable artifact, primary links, and one deliberate next step. That is slower than generating six simulators at once. It is also how Cartilage becomes teachable.</p>
+            <h2>Preserve The Running Lineage And Extend It Deliberately</h2>
+            <p>The self-contained WebGL machines retain their original execution paths, while these articles supply modern context, mechanism, and navigation around them. The broader run index carries additional timelines, placement maps, and circuit traces beside this teaching sequence.</p>
+            <p>Every new chapter adds a clear construction, an attributable diagram or running machine, primary sources, and one deliberate next step. That discipline turns Cartilage into a coherent architecture for learning, use, and collaborative development.</p>
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue reading about Cartilage">
-        <p>Start:</p>
+        <p>Begin with the local primitive:</p>
         <a href="logic-to-luts.html">From Logisim And Multiplexers To LUT1-LUT6</a>
-        <p>Build the local truth-table primitive before moving into physical distribution and spatial ownership.</p>
-        <p>More:</p>
+        <p>Build the local truth-table primitive, then carry it into physical distribution and spatial ownership.</p>
+        <p>Open the current implementation:</p>
         <a href="/cartilage-core.html">Cartilage Core</a>
-        <p>Run the current browser and SystemVerilog implementations if you already know FPGA architecture and physical timing.</p>
-        <p>Build next:</p>
+        <p>Run the browser and SystemVerilog mechanisms around one exact regional installation.</p>
+        <p>Help build the workstation:</p>
         <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help finish the editor, deterministic region control, ownership, recovery, simulator, and interactive lessons that turn this learning path into a complete tool. Funding and contributors are welcome.</p>
-        <a href="/">Back to greenforest.io</a>
+        <p>Choose a defined package across the editor, deterministic region control, ownership, recovery, simulation, and live lessons.</p>
+        <a href="/">Explore Greenforest I/O</a>
     </nav>
 </body>
 

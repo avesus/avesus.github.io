@@ -6,11 +6,11 @@
     <title>A Physical-Constraints-Aware Programming Language</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A programming-language note: distributed programs need to express physical constraints such as placement, links, latency, clock domains, ownership, and device boundaries.">
+    <meta name="description" content="A physical-constraints-aware language can place one reactive program across FPGA meshes, CPUs, GPUs, networks, ports, and reconfigurable regions.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-04-18-a-physical-constraints-aware-programming-language.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="A Physical-Constraints-Aware Programming Language">
-    <meta property="og:description" content="A programming-language note: distributed programs need to express physical constraints such as placement, links, latency, clock domains, ownership, and device boundaries.">
+    <meta property="og:description" content="A physical-constraints-aware language can place one reactive program across FPGA meshes, CPUs, GPUs, networks, ports, and reconfigurable regions.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-04-18-a-physical-constraints-aware-programming-language.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2021-04-18",
-                                "dateModified": "2026-07-09",
-                                "description": "A programming-language note: distributed programs need to express physical constraints such as placement, links, latency, clock domains, ownership, and device boundaries.",
+                                "dateModified": "2026-07-28",
+                                "description": "A physical-constraints-aware language can place one reactive program across FPGA meshes, CPUs, GPUs, networks, ports, and reconfigurable regions.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-04-18-a-physical-constraints-aware-programming-language.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,33 @@
 <body>
     <header>A Physical-Constraints-Aware Programming Language</header>
     <address>April 18, 2021</address>
+
+
+    <section class="abstract">
+        <p>A distributed program should know where its computation lives. Brian Greenforest’s physical-constraints-aware language models FPGA regions, CPUs, GPUs, networks, ports, placement, and communication as parts of one reactive application.</p>
+        <p>The architecture puts FPGAs at the center as programmable cores that control the larger constellation rather than treating them as peripheral accelerators.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Make Physical Reality Part of the Language</h1>
+            <p>Objects occupy regions, expose ports, and connect through routes with finite bandwidth and latency. The language can express placement, SerDes boundaries, clock relationships, and which resource owns each connection.</p>
+            <p>Harel statecharts organize reactive behavior, while object capabilities govern authority and sharing. Dynamic resource creation lets programs instantiate new types and structures as the machine changes.</p>
+        </section>
+
+        <section>
+            <h1>Compile From Intent to a Distributed Machine</h1>
+            <p>A MUX-centered primitive can encode useful local behavior compactly; one design step reduced a configuration from 25 bits to 8. The same discipline extends upward from a cell to meshes of FPGAs and the CPUs and GPUs they coordinate.</p>
+            <p>Programming-language researchers, FPGA engineers, and distributed-systems builders can bring a physical workload into this model and help make the entire machine programmable as one system.</p>
+        </section>
+
+        <section>
+            <h1>Ground Programming Abstractions in FPGA Physics</h1>
+            <p>The linked FPGA-abstraction essay connects language design to timing, area, routing, and the physical cost of computation.</p>
+            <p><a href="https://www.cs.cornell.edu/~asampson/blog/fpgaabstraction.html?utm_content=buffer03216&amp;utm_medium=social&amp;utm_source=linkedin.com&amp;utm_campaign=buffer" target="_blank" rel="noopener">https://www.cs.cornell.edu/~asampson/blog/fpgaabstraction.html?utm_content=buffer03216&amp;utm_medium=social&amp;utm_source=linkedin.com&amp;utm_campaign=buffer</a></p>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6789429527421558784" data-linkedin-activity="6789429527421558784" data-linkedin-source="activity:6789429527421558784">
@@ -193,57 +220,13 @@ We ALMOST made it work! It's a dynamic distributed parallel reactive physical co
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Programming-language note</span>Originally posted 2021-04-18; rewritten here around physical constraints in distributed execution.</p>
-            <p><strong>Included:</strong> CPUs, GPUs, FPGAs, Ethernet/IP links, placement, latency, ownership, and why accelerators should not be treated as invisible backend details.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Physical Constraints Belong in the Program</h1>
-            <p>A distributed program does not run in an abstract place. It runs across CPUs, GPUs, FPGAs, network links, memory regions, clock domains, device drivers, queues, and control paths. Those physical facts affect latency, throughput, failure, security, and who owns each piece of state.</p>
-            <p>A useful programming model should let the builder express those constraints directly instead of hiding them behind a flat worker abstraction.</p>
-        </section>
-
-        <section>
-            <h1>Placement Is Part of Meaning</h1>
-            <p>When a program spans devices, placement is not an optimization pass at the end. It changes what the program means operationally: where data waits, which clock observes it, which link can fail, which host can restart, and which region is allowed to mutate state.</p>
-            <p>That is why heterogeneous systems need language and runtime support for physical boundaries, not only faster kernels.</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>The original post linked Adrian Sampson's FPGA abstraction writing as immediate context. The continuing question is how to make placement, resources, and physical costs readable without forcing every project into one accelerator-specific programming style.</p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://www.cs.cornell.edu/~asampson/blog/fpgaabstraction.html?utm_content=buffer03216&amp;utm_medium=social&amp;utm_source=linkedin.com&amp;utm_campaign=buffer" target="_blank" rel="noopener">https://www.cs.cornell.edu/~asampson/blog/fpgaabstraction.html?utm_content=buffer03216&amp;utm_medium=social&amp;utm_source=linkedin.com&amp;utm_campaign=buffer</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-05-11-when-one-fpga-is-not-enough.html">When One FPGA Is Not Enough</a>
-        <p>The multi-device hardware version of the same placement and boundary problem.</p>
-        <p>More:</p>
-        <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>
-        <p>The source-code version of the same scale problem.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6789429527421558784/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From A Physical-Constraints-Aware Programming Language, read:</strong></p>
+        <a href="2022-04-27-reactive-programming-implies-distributed-systems.html">Reactive Programming Implies Distributed Systems</a>
+        <p>A reactive variable already contains the seed of a distributed system. When values change independently, trigger work, cross boundaries, and maintain relationships over time, the program must manage concurrency, location, ownership, and communication.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6789429527421558784/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

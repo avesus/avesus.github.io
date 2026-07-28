@@ -6,11 +6,11 @@
     <title>Elementary Computation Is a Switching Operation</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A Boolean-logic note: elementary computation can be read as switching, selection, and if-then-else structure rather than starting from the CPU as the primitive.">
+    <meta name="description" content="A MUX exposes the elementary act of computation: choose between alternatives, compose the choices, and build an entire digital system.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-27-elementary-computation-is-a-switching-operation.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Elementary Computation Is a Switching Operation">
-    <meta property="og:description" content="A Boolean-logic note: elementary computation can be read as switching, selection, and if-then-else structure rather than starting from the CPU as the primitive.">
+    <meta property="og:description" content="A MUX exposes the elementary act of computation: choose between alternatives, compose the choices, and build an entire digital system.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-27-elementary-computation-is-a-switching-operation.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-04-27",
-                                "dateModified": "2026-07-23",
-                                "description": "A Boolean-logic note: elementary computation can be read as switching, selection, and if-then-else structure rather than starting from the CPU as the primitive.",
+                                "dateModified": "2026-07-28",
+                                "description": "A MUX exposes the elementary act of computation: choose between alternatives, compose the choices, and build an entire digital system.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-27-elementary-computation-is-a-switching-operation.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Elementary Computation Is a Switching Operation</header>
     <address>April 27, 2022</address>
 
+
+    <section class="abstract">
+        <p>Computation begins with a choice. A switching element selects one of two alternatives, and networks of those selections build the logic, state, and control behind every digital system.</p>
+        <p>Verilog and FPGAs make that reality visible. They let students move past the CPU as a mysterious primitive and construct computation from Boolean decisions.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The If-Then-Else Lives in Hardware</h1>
+            <p>A multiplexer takes a selector and routes one input to its output. That physical operation implements the same conditional relationship that software expresses as if-then-else.</p>
+            <p>Compose MUXes with registers and feedback, and the network can represent arithmetic, protocols, state machines, processors, and application-specific datapaths.</p>
+        </section>
+
+        <section>
+            <h1>Teach Computation From the Switch Up</h1>
+            <p>This perspective connects Boolean algebra, source code, routing, and silicon in one continuous model. It gives software developers a concrete mental picture of what their abstractions eventually ask hardware to do.</p>
+            <p>Build one MUX in Verilog, inspect its waveform, and place it inside a larger network. That first switch opens the path to designing whole machines.</p>
+        </section>
+
+        <section>
+            <h1>Build the Switching Operation as MUX Algebra</h1>
+            <p>MUX Algebra develops the primitive symbolically, while Cartilage Visual Language makes the resulting network directly inspectable.</p>
+            <p><a href="/mux-algebra.html">MUX Algebra</a> &middot; <a href="/cartilage-visual-language.html">Cartilage Visual Language</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6925174188265668608" data-linkedin-activity="6925174188265668608" data-linkedin-source="activity:6925174188265668608">
         <h2 id="linkedin-original-6925174188265668608">Originally posted on LinkedIn</h2>
@@ -117,52 +144,13 @@ An elementary computation is a switching operation, a binary decision between tw
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Elementary computation can be read as switching: choosing one path or value from alternatives under a condition.</p>
-        <p>That makes the CPU a built machine, not the primitive. Verilog and FPGA work make the lower structure visible: selection, state, wiring, timing, and parallel datapaths.</p>
-        <div class="status-box">
-            <p><span class="status-label">Boolean-logic note</span>Originally posted 2022-04-27; expanded here around switching and selection.</p>
-            <p><strong>Article focus:</strong> if-then-else, switching, Verilog, FPGA structure, and Boolean computation.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Primitive</h1>
-            <p>A CPU is a useful abstraction, but it is not where computation has to start. Underneath a processor are choices: select this value or that one, take this path or that path, update this state or preserve it.</p>
-            <p>The everyday programming form is if-then-else. The circuit form is switching and selection. A MUX is the physical version of that idea; <a href="/mux-algebra.html">MUX Algebra</a> develops the equivalence in programming, truth-table, and circuit notation.</p>
-        </section>
-
-        <section>
-            <h1>Why Verilog Helps</h1>
-            <p>Verilog and FPGA work expose the structure that ordinary sequential code often hides. The builder has to think about registers, wires, fanout, clocks, routing, and parallel operations.</p>
-            <p>That does not make every problem simpler. It makes the machine shape visible enough to reason about timing and resources directly.</p>
-        </section>
-        <section class="cartilage-visual-link">
-            <h1>Cartilage Visual Language</h1>
-            <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-04-27-a-short-term-cartilage-project-structure.html">A Short-Term Cartilage Project Structure</a>
-        <p>Another dated publication from April 27, 2022.</p>
-        <p>More:</p>
-        <a href="2022-04-28-movie-inspirations-for-programmable-matter.html">Movie Inspirations for Programmable Matter</a>
-        <p>Another dated publication from April 28, 2022.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6925174188265668608/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Elementary Computation Is a Switching Operation, read:</strong></p>
+        <a href="/mux-algebra.html">MUX Algebra</a>
+        <p>MUX Algebra develops multiplexers as a compact symbolic and physical language for complete logic systems.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6925174188265668608/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

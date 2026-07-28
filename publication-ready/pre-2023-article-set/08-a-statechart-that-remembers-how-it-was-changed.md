@@ -5,7 +5,7 @@ date: "2020-06-11T19:05:28.188Z"
 original_dates:
   - "2020-06-11T19:05:28.188Z"
   - "2021-01-18T00:43:20.043Z"
-description: "A dynamic statechart model that records editing and execution in one directed history and makes observed transitions explicit states."
+description: "A directed statechart history joins structural editing, live execution, transition lifecycles, and previous/next observations so the machine can explain how it changed and what followed."
 status: publication-ready
 ---
 
@@ -13,86 +13,86 @@ status: publication-ready
 
 *First developed June 11, 2020, with the observable-state model extended January 18, 2021.*
 
-A normal statechart tells me what states and transitions exist. A trace tells me what happened during one execution. An editor’s undo history tells me how the diagram itself changed. I want one model that can connect all three.
+A statechart can remember more than its current state. It can preserve the edits that created its structure, the execution steps that traversed it, and the dynamic changes that let new behavior appear while the machine ran.
 
-Begin with an empty canvas. Add a state. Refine it into substates. Merge two structures. Create a transition. Activate the machine. Move from one active state to another. Let a subsystem respond to a transition by adding structure beneath a previously unrefined state.
+Begin with an empty canvas. Add a state. Refine it into substates. Merge two structures. Add a transition. Activate the chart. Move from one active state to another. Let a subsystem respond by creating structure beneath a coarse state.
 
-Each of those operations changes the statechart, but conventional tools usually divide them into unrelated worlds: document edits, runtime events, debugger records, and application effects. My proposal is to preserve them in a directed history. The statechart remembers not only where it went, but how it became the machine that was able to go there.
+One directed history can connect all of those operations. The machine remembers where it went and how it became capable of going there.
 
-## Structure and execution share a history
+## Structure and execution share one history
 
-The history begins with a root revision representing an empty chart. Every edit produces a new node connected to the revision from which it was made. Execution also produces nodes: initialization, activation, transition selection, entry, exit, and the resulting active configuration.
+A root revision represents the empty chart. Every edit adds a node connected to its source revision. Execution adds nodes for initialization, activation, transition selection, entry, exit, and the resulting active configuration.
 
-This history need not be a single line. Two edits can branch from the same revision. A later operation can merge compatible branches. An execution can point to the exact structural revision it used, so a runtime trace is never separated from the definition that gave it meaning.
+The history can branch. Two editors can derive different structures from one revision. A later operation can merge compatible branches. Every execution points to the exact structural revision whose semantics governed it.
 
-That distinction matters when the chart is dynamic. A subsystem may observe that a coarse state has been entered and refine it by introducing child states. Another subsystem may add a transition or instantiate a previously absent region. The next active configuration then belongs to a new structural revision. The edit is not an invisible side effect; it is part of the causal record.
+Dynamic statecharts gain the most from this connection. A subsystem may refine an entered state with new children. Another may install a transition or create a concurrent region. The next active configuration then belongs to the new structural revision. The edit takes its place in the causal record alongside the execution that requested it.
 
-I store that history efficiently through structural sharing: unchanged nodes persist, while each revision records only its operation or difference. The directed-history model is semantic: every change has a predecessor, an identity, and a place in the same causal structure as execution.
+Structural sharing keeps the record efficient. Unchanged nodes persist, while each revision stores its operation or difference. Every change gains a predecessor, an identity, and a traversable path through the same history as runtime behavior.
 
-## The active configuration is an invariant I choose
+## The active configuration stays explicit
 
-For a live, nonterminated chart, I require an explicit active configuration. “Idle” is still a state if idleness is behavior the system can occupy. This avoids a vague interval in which the machine exists but has no representable condition.
+Every live chart carries an explicit active configuration. If idleness represents behavior, the chart names an idle state rather than entering an unrepresented interval.
 
-One-hot encoding provides a useful physical picture for a flat deterministic state machine: one state bit is active, and a transition moves that activity token to another bit. The number of active bits is conserved.
+A flat deterministic state machine can use one-hot encoding: one state bit holds the activity token, and a transition moves that token to another bit. The number of active bits remains constant.
 
-That picture needs a qualification. A hierarchical statechart may have an active ancestor and descendant at the same time, and orthogonal regions may contain several active leaf states. Such a chart is not globally one-hot. It can still use one-hot encodings within individual exclusive regions, while the complete active configuration is the product of those regional choices.
+Hierarchical and concurrent charts extend the picture. An active leaf also activates its ancestors, and each orthogonal region may hold its own active leaf. The complete configuration becomes a product of regional choices. Individual exclusive regions can still use one-hot encodings.
 
-Dynamic editing can also change the number of regions or active substates. I think of that as a local flow of activity: introducing, removing, or refining structure changes where active tokens are allowed to exist. This is a bookkeeping invariant rather than conservation of physical energy, and it makes structural change precise.
+Dynamic editing can add or remove regions and refine active states. The model treats this as local activity bookkeeping: structural change defines where tokens may exist and how entry or exit transfers them. This explicit invariant turns live editing into a precise operation.
 
-## A transition can become a state
+## A transition can carry state
 
-Most diagrams draw a transition as an arrow assumed to happen atomically. That is enough when nobody needs to observe or delay it. But a transition effect may itself have a lifecycle. Other components may subscribe to it, and the departing state may need to complete exit work before the target may finish entering.
+A diagram often draws a transition as an atomic arrow. When no observer depends on the interval, that compact form works.
 
-In that case I promote the transition from ink between states into an explicit intermediate state.
+A transition effect may also have a lifecycle. Subscribers may need to observe it. Exit work may need to finish before target entry completes. In those cases, promote the arrow into an explicit intermediate state.
 
-Suppose state `A` transitions to state `B`. In the compact form, the active configuration changes atomically from `A` to `B`. In the expanded form, activity moves from `A` into a transition instance and then unconditionally into `B`. That intermediate instance can activate effects and notify subscribers. Its identity also makes the transition visible in the history graph.
+For a transition from `A` to `B`, the compact form moves activity atomically. The expanded form moves activity from `A` into a transition instance and then unconditionally into `B`. The instance can activate effects, notify subscribers, and leave its own identity in the history graph.
 
-An unobserved, instantaneous arrow can stay atomic. I promote it into an explicit transition state when something observes the interval or when work can delay it. The extra state exists because its lifecycle adds real power.
+One transition pattern can serve several origin-target pairs while the execution record preserves the identity of the transition that actually fired. Reusable predicates and effects then save structure without erasing causality.
 
-The same transition pattern can serve several origin-target pairs when it represents a shared predicate or effect, but those relationships must remain unambiguous. A reusable predicate is not permission to lose the identity of the transition that actually fired.
+## Entry and exit have lifecycles
 
-## Entry and exit are processes
+Complex states move through five useful phases:
 
-Complex states do not simply blink from absent to present. I use a five-part lifecycle:
+1. **Exited.** The state remains inactive and eligible to enter.
+2. **Entering.** Entry has begun; initialization or cascading effects may still run, so exit stays disabled.
+3. **Entered.** The state now activates its behavior and can select enabled exits.
+4. **Exiting.** Exit has committed; cleanup may delay transfer into the chosen transition.
+5. **Exited again.** Activity has left, and an observable transition may briefly carry it onward.
 
-1. **Exited.** The state is inactive and eligible to enter.
-2. **Entering.** An entry transition is active. Internal initialization or a cascade of entry effects may still be running, so exit stays disabled.
-3. **Entered.** The state is established. Internal microstates may continue to develop, and enabled exit transitions may now be selected.
-4. **Exiting.** Exit has been committed. The state no longer activates dependent systems as an entered state, but cleanup may delay transfer into the selected exit transition.
-5. **Exited again.** Activity has left, and an observed exit transition may briefly carry it toward the next state.
+Once the chart commits an exit, required cleanup may delay completion but cannot silently cancel the chosen transition. Subscribers can distinguish “exit requested,” “state leaving,” and “state left.”
 
-Once an exit is committed, I do not allow it to be silently canceled. The state may delay completion while required exit work finishes, but eventually it transfers activity to the requesting transition. This makes effects composable: subscribers can distinguish “an exit was requested,” “the state is leaving,” and “the state has left.”
+Run-to-completion semantics may collapse several microsteps into one public macrostep. This model keeps the microsteps visible whenever another component depends on them. The chart exposes exactly the lifecycle that its public behavior requires.
 
-There are other valid statechart semantics, including run-to-completion steps that collapse several microsteps into one observable macrostep. My model is useful when those microsteps matter and therefore deserve representation.
+## Previous and next state define change
 
-## Observe previous and next state directly
+The January 2021 extension gives every observable state a previous sample and a next sample for the current reaction step.
 
-By January 2021, I had a simpler way to describe a state-change event. A component that reacts to change depends on both the old state and the new state. Other components can be allowed to observe those two sampled values directly instead of receiving an artificial event with the same information repackaged.
-
-Every observable state therefore has a previous sample and a next sample for the current reaction step. A transition predicate may ask:
+A dependent component can recognize a boundary directly:
 
 ```text
 previous == Entering
 next == Entered
 ```
 
-That pair is the event. It says exactly which boundary was crossed.
+That pair constitutes the event. It names the exact crossing without repackaging the same information into a detached event object.
 
-For external observers, the transition bar itself can also be visible when it has been promoted into an explicit state. The public surface of a component then includes stable states and any transition intervals that the component promises observers may depend upon. Internal microstates remain hidden unless intentionally exposed.
+An explicit transition state can also join the public surface when observers need its interval. Stable states and promised transition intervals remain visible; private microstates stay inside the component.
 
-This previous/next model has a cost: observable state must retain or make available its prior sample. But it removes ambiguity about when a change is sampled and avoids inventing a separate event system detached from state.
+Retaining a previous sample consumes state, but it gives reactive dependents precise sampling semantics. Each observer can tell which value changed, from what, and at which reaction step.
 
-## A chart I can edit while it lives
+## A live chart can explain itself
 
-The complete model is more involved than a conventional diagram, and that is precisely the point. It must represent:
+The complete model records:
 
-- structural revisions and their branches;
-- the active configuration associated with each execution step;
-- dynamic refinement and removal of states;
-- transition instances when somebody observes them;
+- structural revisions and branches;
+- the active configuration at every execution step;
+- dynamic refinement and removal;
+- transition instances when observers need them;
 - entry and exit lifecycles;
-- and previous/next samples for reactive dependents.
+- previous and next samples for reactive dependents.
 
-At the lowest level, these semantics can be realized with explicit storage elements and combinational connections. The directed history may live in software, persistent data structures, or another circuit; the logical model does not demand one physical encoding.
+Storage elements and combinational connections can implement the lowest-level behavior. Software, persistent data structures, or another circuit can hold the directed history. The semantics require one thing from every implementation: maintain the causal link among structure, change, and execution.
 
-What it does demand is accountability. If the chart changes while running, I can ask who changed it, from which revision, in response to which active state, and what execution followed. Editing is no longer outside the machine. Execution is no longer detached from the definition. Both become traversable parts of one history.
+Use the model on one editable statechart. Start from an empty root, add hierarchy, run a transition, refine one active state, promote one observed transition into an intermediate state, and follow the resulting history backward. The chart will answer who changed it, from which revision, during which active configuration, and what execution followed.
+
+Editing then becomes an operation inside the machine's history. Execution becomes a path through the exact structure that gave it meaning.

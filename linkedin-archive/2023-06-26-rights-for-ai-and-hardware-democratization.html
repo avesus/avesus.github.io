@@ -6,11 +6,11 @@
     <title>Rights for AI and Hardware Democratization</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A hardware-access note about local AI compute, open hardware, Soft IP versus Hard IP, and active-device fabrication beyond board-level maker work.">
+    <meta name="description" content="Builders deserve the right to fabricate custom AI chips, own trusted open hardware, and run models locally at radically lower cost.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-06-26-rights-for-ai-and-hardware-democratization.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Rights for AI and Hardware Democratization">
-    <meta property="og:description" content="A hardware-access note about local AI compute, open hardware, Soft IP versus Hard IP, and active-device fabrication beyond board-level maker work.">
+    <meta property="og:description" content="Builders deserve the right to fabricate custom AI chips, own trusted open hardware, and run models locally at radically lower cost.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-06-26-rights-for-ai-and-hardware-democratization.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-06-26",
-                                "dateModified": "2026-07-09",
-                                "description": "A hardware-access note about local AI compute, open hardware, Soft IP versus Hard IP, and active-device fabrication beyond board-level maker work.",
+                                "dateModified": "2026-07-28",
+                                "description": "Builders deserve the right to fabricate custom AI chips, own trusted open hardware, and run models locally at radically lower cost.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-06-26-rights-for-ai-and-hardware-democratization.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,33 @@
 <body>
     <header>Rights for AI and Hardware Democratization</header>
     <address>June 26, 2023</address>
+
+
+    <section class="abstract">
+        <p>The AI era needs hardware rights: the right to tape out a custom supercomputer chip, build trusted open hardware, and run a model locally at a fraction of centralized GPU-cluster cost.</p>
+        <p>Brian Greenforest connects those rights to four years of open-FPGA work and a two-material copper-and-glass switching invention designed to move active-device fabrication closer to ordinary builders.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Open Hardware Must Reach Beyond Soft IP</h1>
+            <p>Open RTL still depends on proprietary hard IP, especially SerDes blocks, closed process knowledge, and long semiconductor supply chains. Those dependencies limit security, repair, local manufacturing, and the economics of claytronics.</p>
+            <p>Brian’s FPGA fabric accepts a soft-IP bitstream and organizes reconfigurable computation, while his materials research pursues nonlinear switching without silicon, cobalt, molybdenum, or iron.</p>
+        </section>
+
+        <section>
+            <h1>Fund the Team That Can Build the Complete Stack</h1>
+            <p>Work on magnetic amplifiers and older RF mechanisms led to a nonlinear two-material system using copper and glass. That path joins device physics, circuit architecture, open tools, and local fabrication.</p>
+            <p>The invention now needs an angel investor, commercial leadership, marketing, scientists, and engineers. Join the team that can turn hardware rights into a manufacturable AI computing platform.</p>
+        </section>
+
+        <section>
+            <h1>Build the Fabrication Path Behind Rights for AI and Hardware Democratization</h1>
+            <p>The Missing Maker Fab carries this work into the tools and processes required to fabricate fast active devices locally.</p>
+            <p><a href="/the-missing-maker-fab.html">The Missing Maker Fab</a> &middot; <a href="https://lnkd.in/g49pk3WG" target="_blank" rel="noopener">https://lnkd.in/g49pk3WG</a></p>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7079146835960889344" data-linkedin-activity="7079146835960889344" data-linkedin-source="activity:7079146835960889344">
@@ -209,67 +236,13 @@ As of the flex PCB fabric, it's quite clever, and I might patent it after all, b
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Local AI compute is not only a software problem. It depends on fabrication access, inspectable hardware, reusable IP, trusted boards, and toolchains that people can actually run near themselves.</p>
-        <p>The hard boundary is active hardware. Makers can build boards, enclosures, firmware, fixtures, and test rigs. The missing layer is the ability to reproduce useful active-device behavior locally enough to matter.</p>
-        <div class="status-box">
-            <p><span class="status-label">Hardware-access note</span>Originally posted 2023-06-26; expanded here around the manufacturing boundary.</p>
-            <p><strong>Article focus:</strong> local model compute, open hardware, Soft IP, Hard IP, fabrication access, and active-device process paths.</p>
-            <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Access Problem</h1>
-            <p>Running models locally is constrained by hardware access as much as by code. A person or small shop can download model weights and write software, but custom compute still depends on expensive fabrication, closed process knowledge, vendor-controlled IP, and hardware platforms that are difficult to inspect completely.</p>
-            <p>The practical access target is a stack where more of the compute path can be owned locally: board design, firmware, test, reusable open IP, and eventually active-device fabrication or active-material processes.</p>
-        </section>
-
-        <section>
-            <h1>Soft IP And Hard IP</h1>
-            <p>Soft IP can be inspected, synthesized, simulated, adapted, and moved across targets when the toolchain supports it. Hard IP is different. Blocks such as SERDES, PLLs, memory interfaces, and vendor-specific transceivers often carry the real system boundary because their behavior, layout, timing, and validation are not fully portable.</p>
-            <p>That boundary matters for open hardware. A design can have open HDL and still depend on closed hard blocks for the parts that make it usable at speed.</p>
-        </section>
-
-        <section>
-            <h1>The Active-Device Layer</h1>
-            <p>The maker layer is strong at PCBs, assembly, enclosures, firmware, fixtures, and test. It is weaker at locally reproducible active behavior: gain, switching, restoration, fanout, and repeatability.</p>
-            <p>This is why the hardware-access question connects to older switching devices, magnetic amplifiers, unconventional materials, and non-silicon experiments. The point is not to announce a replacement for CMOS. The point is to ask what useful active device class can be built, tested, and reproduced closer to the people using it.</p>
-        </section>
-
-        <section>
-            <h1>What Has To Hold</h1>
-            <p>For local compute to become more than a slogan, the path has to preserve real engineering constraints: process window, yield, timing, power, signal integrity, test coverage, and a way to compose many devices into a reliable system.</p>
-            <p>The right comparison is not only price against a cloud GPU. It is control over the compute path: what can be inspected, repaired, adapted, reproduced, and trusted without asking a remote stack for permission.</p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/g49pk3WG" target="_blank" rel="noopener">https://lnkd.in/g49pk3WG</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-06-23-shadertoy-as-an-asic-simulator-path.html">ShaderToy as an ASIC Simulator Path</a>
-        <p>Another dated publication from June 23, 2023.</p>
-        <p>More:</p>
-        <a href="2023-06-29-a-second-law-after-moore.html">A Second Law After Moore</a>
-        <p>Another dated publication from June 29, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7079146835960889344/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Rights for AI and Hardware Democratization, read:</strong></p>
+        <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a>
+        <p>The maker-fab program defines the local tools and processes needed to fabricate fast active devices, not only package them.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7079146835960889344/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

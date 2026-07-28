@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>A Programming Language Made of Live Circuits | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="A design for a parallel, reactive, dynamically reconfigurable language in which instances are live circuits and code is the stream that constructs them.">
+    <meta name="description" content="This parallel, reactive language makes every instance a live circuit, every type a compact construction stream.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/miscellanies/a-programming-language-made-of-live-circuits.html">
     <meta property="og:title" content="A Programming Language Made of Live Circuits">
-    <meta property="og:description" content="A design for a parallel, reactive, dynamically reconfigurable language in which instances are live circuits and code is the stream that constructs them.">
+    <meta property="og:description" content="This parallel, reactive language makes every instance a live circuit, every type a compact construction stream.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/miscellanies/a-programming-language-made-of-live-circuits.html">
     <meta property="article:published_time" content="2026-07-24">
-    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,8 +42,8 @@
             },
             "dateCreated": "2021-03-23T23:36:14.888Z",
             "datePublished": "2026-07-24",
-            "dateModified": "2026-07-24",
-            "description": "A design for a parallel, reactive, dynamically reconfigurable language in which instances are live circuits and code is the stream that constructs them.",
+            "dateModified": "2026-07-28",
+            "description": "This parallel, reactive language makes every instance a live circuit, every type a compact construction stream, and every dynamic change an owned reconfiguration of physical structure.",
             "mainEntityOfPage": "https://greenforest.io/miscellanies/a-programming-language-made-of-live-circuits.html",
             "isPartOf": {
                 "@type": "CollectionPage",
@@ -62,80 +62,78 @@
 
 <body class="article-structured miscellany-article">
     <header><h1 class="page-title">A Programming Language Made of Live Circuits</h1></header>
-    <address><time datetime="2021-03-23">Developed from March 23 through May 22, 2021.</time></address>
+    <address><time datetime="2021-03-23">Developed from March 23 through May 22, 2021.</time><br><time datetime="2026-07-28">Updated July 28, 2026</time></address>
 
     <section class="abstract">
         <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
-        <p class="lead">A design for a parallel, reactive, dynamically reconfigurable language in which instances are live circuits and code is the stream that constructs them.</p>
+        <p class="lead">This parallel, reactive language makes every instance a live circuit, every type a compact construction stream, and every dynamic change an owned reconfiguration of physical structure.</p>
     </section>
 
     <main>
         <section class="article-opening">
-            <p>What would a dynamic programming language look like if its objects were not records in memory and its functions were not sequences of instructions, but living circuits?</p>
-            <p>My answer begins with a deliberately small machine model. A root circuit owns a collection of storage elements and unconfigured subcircuits. Each subcircuit has a reconfiguration port: a serial input for commands and a serial output for reading its current configuration. By sending a configuration stream through that port, the enclosing circuit can create or replace the child’s structure while the larger machine continues to exist.</p>
-            <p>In this model, code is not primarily something a processor fetches. Code is a description of how to construct a circuit.</p>
+            <p>A program can continually decide which machine should exist here now.</p>
+            <p>In this language, objects become live circuits rather than records in memory, and functions become construction descriptions rather than instruction sequences. A root circuit owns storage elements and unconfigured child regions. Each child exposes a reconfiguration port: one serial input accepts construction commands, and one serial output reveals current configuration. The parent creates or replaces the child by streaming structure through that port while the larger machine keeps running.</p>
+            <p>Code describes how to construct the circuit. The installed instance retains state, reacts through its ports, and remains addressable for as long as its owner keeps it alive.</p>
         </section>
         <section>
-            <h2>State is visible in the structure</h2>
-            <p>The primitive state element is a D flip-flop with an input and an output. I also give it control for clock enable, which can freeze its state, and reset or initialization. A circuit can collect those controls for its children into circuit-level ports.</p>
-            <p>Attached to each state input is a Boolean expression. It may be as simple as another state element’s output, or it may describe a combinational operation that fits within the intended clock period. Operations that need several cycles or too much area become subcircuits of their own.</p>
-            <p>This resembles an FPGA logic cell because logic and retained state live together. Commercial cells add their own lookup tables, carry resources, routing, and device-specific constraints; here I use the correspondence to define a compact language machine.</p>
-            <p>The result is a circuit with named signals, explicit state, and explicit children. Wires are drawn when local and anonymous. A signal name can stand in for a visually inconvenient connection. Parallel words and serial streams can both travel through ports; their higher-level types may describe numbers, objects, matrices, strings, or framed packets. Those types describe how a circuit produces and consumes signals. They do not turn the live internal state of a circuit into an ordinary value.</p>
+            <h2>State lives in the structure</h2>
+            <p>A D flip-flop supplies the primitive retained state. Its input receives a Boolean expression; its output exposes the current bit. Clock enable can hold the bit, while reset or initialization establishes a known starting value. A circuit can collect these controls across its children and expose them through circuit-level ports.</p>
+            <p>An input expression may directly use another state output or implement combinational logic that fits the intended clock period. Operations that demand several cycles or more area become child circuits with their own state and interfaces.</p>
+            <p>This arrangement resembles an FPGA logic cell because logic and retained state live together. Commercial devices add lookup tables, carry chains, routing resources, and target-specific timing. The language machine uses the correspondence to keep computation physically explicit.</p>
+            <p>Named signals, explicit state, and explicit children form the circuit. Local anonymous connections can remain visible wires. Names can represent connections that would clutter the drawing. Parallel words and serial streams can carry numbers, objects, matrices, strings, or framed packets through typed ports. Those types describe production and consumption; the live circuit itself remains a continuing structure.</p>
         </section>
         <section>
-            <h2>An instance is something that keeps running</h2>
-            <p>Conventional languages blur an important distinction. A function name identifies reusable behavior, while a call produces a temporary activation that is rarely addressable as a continuing object. Hardware description languages are clearer: a module has a type name, and each instantiated subcircuit has an instance name.</p>
-            <p>I want that distinction in a dynamic language.</p>
-            <p>Imagine an expression such as:</p>
+            <h2>An instance keeps running</h2>
+            <p>Hardware description languages make a useful distinction: a module has a type name, and each installed subcircuit has an instance name. A dynamic circuit language should preserve it.</p>
+            <p>Consider:</p>
             <pre><code class="language-text">filter = FilterType(input: samples, cutoff: control)</code></pre>
-            <p>Here <code>filter</code> is not merely the result of a completed call. It names a live instance. Its ports remain available:</p>
+            <p><code>filter</code> names a live circuit rather than the returned value of a completed call. Its ports remain available:</p>
             <pre><code class="language-text">display = filter.output
 filter.cutoff = knob.position</code></pre>
-            <p>The equals sign denotes a continuing reactive binding, not a one-time copy. Changes propagate through the connected circuit. Removing the instance releases or repurposes the resources that implemented it.</p>
-            <p>This eliminates the need to pretend that an ongoing computation is a function invocation waiting to return. A multi-cycle algorithm can still emerge when the desired operation cannot be afforded as fully parallel hardware, but waiting is a property of that particular circuit, not the universal meaning of computation.</p>
+            <p>The equals sign establishes a continuing reactive binding. Changes propagate through the connected circuit. Removing <code>filter</code> releases or repurposes the resources that embodied it.</p>
+            <p>A multi-cycle algorithm still makes sense when full parallel hardware costs too much. Waiting then belongs to that particular circuit's protocol instead of defining computation everywhere through a universal call stack.</p>
         </section>
         <section>
-            <h2>Code and prototype are not the instance</h2>
-            <p>An early temptation was to instantiate a circuit by freezing it and copying every flip-flop, child, wire, and configuration bit. That is appealing because it copies runtime state as well as structure. It is also wasteful when a container needs a thousand similar children.</p>
-            <p>The more compact thing to move is the construction description.</p>
-            <p>A type is a recipe for formatting available local resources into an instance. It can include parameters and initializer values, but it need not prescribe rigid physical identities for every destination element. The same recipe may unfold into different suitable local resource trees.</p>
-            <p>This resolves the prototype discrepancy: one existing instance may demonstrate what is wanted, but the reusable type is the smaller generative pattern behind it. Code matters because plurality matters. When a pattern appears once, code and instance can look equivalent. When it appears a thousand times, the difference becomes physical.</p>
-            <p>The type stream can describe state elements, input expressions, ports, children, and the streams needed to construct those children recursively. Instead of a global module repository consulted by name, a circuit may have a direct connection to the provider of a child’s construction stream. Instantiation becomes piping that stream into an empty child’s reconfiguration port.</p>
-            <p>Reading a configured circuit back through its port could also provide a stream that initializes another destination. That is a separate operation from copying a compact type: one reproduces a particular configured structure, while the other unfolds a reusable description.</p>
+            <h2>Types generate instances</h2>
+            <p>Copying every flip-flop, child, wire, and configuration bit from one running instance would reproduce its structure and state. A system that needs a thousand similar children gains more from a compact construction description.</p>
+            <p>A type provides that generative pattern. It tells available local resources how to form an instance, supplies parameters and initializer values, and leaves physical identities to the allocator. The same type stream can unfold into many suitable local resource trees.</p>
+            <p>Plurality makes the distinction physical. One instance embodies resources now. One type can construct many instances over time.</p>
+            <p>The stream can define state elements, input expressions, ports, children, and recursive child streams. A circuit may receive a child's construction stream directly from its provider rather than consulting a global module repository by name. Instantiation becomes a concrete operation: pipe the stream into an empty child's reconfiguration port.</p>
+            <p>The readback port can also emit a configured circuit and selected state for installation elsewhere. That snapshot operation reproduces one particular running structure; the compact type produces another instance from the reusable construction.</p>
         </section>
         <section>
             <h2>Reconfiguration follows ownership</h2>
-            <p>Every live child belongs to an enclosing circuit. I represent that relationship explicitly so the parent can direct the child’s allocation and configuration. At a low level, ownership must be realized by a routable physical mechanism rather than by an abstract pointer floating outside the machine.</p>
-            <p>The 2021 design used a tree of configuration access paths. The parent selects a descendant, sends configuration data down to it, and reads configuration data back. Termination points make the access structure explicit even at leaves. That tree turns abstract ownership into a protocol that a physical interpreter can implement.</p>
-            <p>The data plane and the configuration plane are distinct:</p>
+            <p>Every child belongs to a parent, and the physical machine carries that relationship through a routable configuration path.</p>
+            <p>The 2021 design uses a tree of configuration access. A parent selects a descendant, streams commands downward, and reads configuration upward. Explicit termination points close the tree at leaves. The path turns ownership into a protocol that hardware can implement.</p>
+            <p>Two planes keep the operation legible:</p>
             <ul>
-                <li>the data plane carries the values produced by the running circuit;</li>
-                <li>the configuration plane changes what circuit occupies a region and how its ports connect.</li>
+                <li>the data plane carries values among running circuits;</li>
+                <li>the configuration plane changes which circuit occupies a region and how its ports connect.</li>
             </ul>
-            <p>That separation makes self-modification less mystical. A parent is not arbitrarily altering invisible machine code. It is sending a bounded construction stream to an explicitly owned reconfiguration port.</p>
+            <p>The parent holds authority over the child's configuration port. It changes a bounded owned region instead of altering an ambient instruction space. Self-modification becomes ordinary construction with a visible source, destination, and ownership relation.</p>
         </section>
         <section>
-            <h2>Cartilage is the changing space between instances</h2>
-            <p>Dynamic instantiation creates a physical problem. New child rectangles need resources, and their ports need connections. If every possible child slot and wire is reserved in advance, allocation is fast but space is wasted. If the contents can change, the inter-component region must be rerouted as children appear, disappear, or move.</p>
-            <p>I call that changing connective region Cartilage.</p>
-            <p>The image is a set of rectangular subcircuits with typed ports at known positions. Between them is a configurable routing fabric. A high-level request says which ports must connect; a routing process finds and installs a path through the available fabric. General placement and routing problems are computationally hard. Hierarchy, bounded regions, incremental repair, and acceptable rather than perfect routes keep that work local and tractable.</p>
-            <p>The central idea is still strong: the wires between components form a component in their own right. They have state, consume area, and must be reconfigured when the object graph changes. Dynamic allocation in a circuit language is therefore not only memory management. It is live interconnect management.</p>
+            <h2>Cartilage manages live interconnect</h2>
+            <p>Dynamic instantiation consumes space and connections. New child rectangles need resources, and their typed ports need routes. Reserving every possible slot and wire wastes area. Letting content change requires the connective region to reroute as children appear, disappear, or move.</p>
+            <p>That changing connective region is <strong>Cartilage</strong>.</p>
+            <p>Rectangular subcircuits expose typed ports at known positions. A configurable routing fabric fills the space between them. A high-level request names the ports that must connect; the routing process finds and installs a path through available cells.</p>
+            <p>General placement and routing demand difficult search. Hierarchy, bounded regions, incremental repair, and good-enough local routes keep the work manageable. The interconnect acts as a component in its own right: it owns state, consumes area, and changes whenever the circuit graph changes.</p>
+            <p>Dynamic allocation therefore manages live interconnect as well as memory.</p>
         </section>
         <section>
-            <h2>Three views of one language</h2>
-            <p>By May 2021 I could see the language at three levels:</p>
+            <h2>Three views form one language</h2>
+            <p>By May 2021, the language had three continuous levels:</p>
             <ol>
-                <li><strong>High level:</strong> equations and Harel-style statecharts describe concepts, modes, and relationships. Entering a state may instantiate the datapath that state needs; exiting can release it.</li>
-                <li><strong>Middle level:</strong> a reactive hardware language describes state, equations, streams, named ports, and live circuit instances.</li>
-                <li><strong>Low level:</strong> a spatial machine allocates resources, maintains parent-child configuration access, and reconfigures the routing fabric.</li>
+                <li><strong>High level:</strong> equations and Harel-style statecharts describe concepts, modes, and relationships. Entering a state can instantiate its datapath; exiting can release it.</li>
+                <li><strong>Middle level:</strong> a reactive hardware language defines state, equations, streams, named ports, and live circuit instances.</li>
+                <li><strong>Low level:</strong> a spatial machine allocates regions, maintains parent-child configuration access, and reconfigures routing.</li>
             </ol>
-            <p>The language has three defining properties.</p>
-            <p>It is <strong>parallel</strong>: independent relations remain active rather than waiting behind a universal call stack.</p>
-            <p>It is <strong>reactive</strong>: a changed input automatically drives the relations that depend on it.</p>
-            <p>It is <strong>dynamic</strong>: an enclosing circuit can change the exact structure of a child through an explicit configuration interface.</p>
-            <p>Every relation eventually becomes flip-flops, combinational logic, routing, protocol state, or a time-multiplexed algorithm when resources are scarce. The language keeps those physical consequences visible all the way up.</p>
-            <p>That gives me a coherent language to build toward: programs as live structures, instances that stay addressable while they run, types as compact construction streams, and reconfiguration as an ordinary operation performed through ownership.</p>
-            <p>In such a system, programming is not telling a fixed machine what instruction comes next. It is continually deciding what machine should exist here now.</p>
+            <p>Three properties give the system its character.</p>
+            <p>It is <strong>parallel</strong>: independent relations remain active instead of waiting behind one call stack.</p>
+            <p>It is <strong>reactive</strong>: changed inputs drive every dependent relation.</p>
+            <p>It is <strong>dynamic</strong>: a parent changes a child's exact structure through an explicit configuration interface.</p>
+            <p>Every relation eventually occupies flip-flops, combinational logic, routing, protocol state, or a time-multiplexed algorithm when resources call for serialization. The language keeps those physical consequences visible all the way up.</p>
+            <p>A useful next construction can prove the full path without shrinking the idea: define one typed circuit, stream two live instances into separate owned regions, connect their ports through Cartilage, change one input, observe the reactive output, then replace one instance while its parent remains alive. That sequence makes programming and machine construction the same act.</p>
         </section>
     </main>
 
@@ -145,7 +143,7 @@ filter.cutoff = knob.position</code></pre>
         <p>Static circuit descriptions become a dynamic language when a spatial fabric can install, connect, own, and replace them while it runs.</p>
         <p>Continue:</p>
         <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Continue the live-circuit language through the editor, ownership, recovery, and browser-workstation program. Funding and contributors are welcome.</p>
+        <p>Fund or join the editor, ownership, recovery, or browser-workstation package that carries the live-circuit language forward.</p>
         <p>Nearby:</p>
         <a href="/miscellanies/arrows-a-graph-language-that-can-become-hardware.html">Arrows: A Graph Language That Can Become Hardware</a>
         <p>A graph becomes executable when every arrow has explicit semantics for value, state, direction, timing, and physical cost.</p>

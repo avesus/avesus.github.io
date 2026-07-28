@@ -6,11 +6,11 @@
     <title>Cartilage Project Structure, 2022</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A Cartilage project-structure note from 2022: fabric emulator, FPGA prototype path, Cartilage VM/runtime, Sinew control plane, and parallel-language surface.">
+    <meta name="description" content="Cartilage advances through four connected layers: fabric emulation, stock-FPGA hardware, a self-reprogramming runtime, and a parallel language.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Cartilage Project Structure, 2022">
-    <meta property="og:description" content="A Cartilage project-structure note from 2022: fabric emulator, FPGA prototype path, Cartilage VM/runtime, Sinew control plane, and parallel-language surface.">
+    <meta property="og:description" content="Cartilage advances through four connected layers: fabric emulation, stock-FPGA hardware, a self-reprogramming runtime, and a parallel language.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-04-27",
-                                "dateModified": "2026-07-10",
-                                "description": "A Cartilage project-structure note from 2022: fabric emulator, FPGA prototype path, Cartilage VM/runtime, Sinew control plane, and parallel-language surface.",
+                                "dateModified": "2026-07-28",
+                                "description": "Cartilage advances through four connected layers: fabric emulation, stock-FPGA hardware, a self-reprogramming runtime, and a parallel language.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Cartilage Project Structure, 2022</header>
     <address>April 27, 2022</address>
 
+
+    <section class="abstract">
+        <p>Cartilage turns a new computer architecture into an executable program of work. Four connected projects move from choosing the right fabric cell to manufacturing hardware, running self-reprogramming objects, and expressing applications in a distributed language.</p>
+        <p>Each layer answers a concrete question and feeds the next, creating a direct path from transistor-scale choices to human-readable software.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Four Projects Define the Build</h1>
+            <p>The emulator measures candidate cells: D flip-flops, MUX networks, LUTs, and SerDes bandwidth for communication between nodes. Sinew provides the overlay control network that changes neighboring configurations.</p>
+            <p>Stock-FPGA hardware carries the model into physical devices. Earlier board designs used Lattice iCE40LP384-SG32 parts on cuttable flex circuits and iCE40HX1K-TQ144 parts on a modular four-layer board.</p>
+        </section>
+
+        <section>
+            <h1>Cartilage and the Language Complete the Stack</h1>
+            <p>The Cartilage runtime manages zones, ports, routes, contained-object creation, and dynamic types across the emulator, FPGA array, or custom silicon. One process can represent one reactive value or operation.</p>
+            <p>The language layer gives programmers a distributed, massively parallel surface for that machine. Emulator builders, FPGA engineers, runtime designers, and language creators can take ownership of one layer and connect it to the whole.</p>
+        </section>
+
+        <section>
+            <h1>Open the Cartilage Core Behind Cartilage Project Structure, 2022</h1>
+            <p>The public core and its repository carry this architecture into source-backed, executable reconfigurable computation.</p>
+            <p><a href="/cartilage-visual-language.html">Cartilage Visual Language</a> &middot; <a href="/cartilage-core.html">Cartilage Core</a> &middot; <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6925162336206929921" data-linkedin-activity="6925162336206929921" data-linkedin-source="activity:6925162336206929921">
         <h2 id="linkedin-original-6925162336206929921">Originally posted on LinkedIn</h2>
@@ -107,76 +134,13 @@
 4. Distributed massively parallel programming language syntax. Didn't touch yet, but it seems in a close reach (perhaps this year, even!)</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Project-structure note</span>Originally posted 2022-04-27; rewritten here around concrete Cartilage work packages.</p>
-            <p><strong>Included:</strong> fabric emulator, FPGA element sizing, LUT/MUX/DFF trade space, Sinew control plane, physical FPGA prototypes, Cartilage VM/runtime, and language syntax.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Four Work Packages</h1>
-            <p>The 2022 Cartilage work split into four practical layers: a fabric emulator, physical FPGA prototypes, a Cartilage VM/runtime, and a massively parallel language surface.</p>
-            <p>That split still reads well because each layer answers a different engineering question. What is the right cell size? Can the structure run on available hardware? What owns regions and routes? How does another builder express work for the fabric?</p>
-        </section>
-
-        <section>
-            <h1>1. Fabric Emulator</h1>
-            <p>The emulator was meant to explore FPGA-element size and interconnect shape before committing to hardware. The variables included D flip-flops, multiplexer networks, LUTs, local routing, and SerDes bandwidth for inter-node communication.</p>
-            <p>An early GLSL prototype used a very small reconfigurable switching fabric. The next step was a JavaScript/Node.js emulator for a small array of interconnected FPGA-like nodes controlled by a special overlay control plane called Sinew.</p>
-        </section>
-
-        <section>
-            <h1>2. Physical FPGA Prototypes</h1>
-            <p>The physical path used stock FPGAs as a near-term substrate. The note mentions a flex-PCB direction using iCE40LP384-SG32 parts and a higher-bandwidth FIFO-rich iCE40HX1K-TQ144 modular PCB direction.</p>
-            <p>The point was not to pretend stock parts were the final element. They were a way to test packaging, communication, modularity, and the cost of building a fabric from available devices.</p>
-        </section>
-
-        <section>
-            <h1>3. Cartilage VM and Runtime</h1>
-            <p>The Cartilage runtime layer was the zone manager. It could sit on top of the emulator, stock-FPGA prototypes, or a later optimized physical element.</p>
-            <p>Its responsibility was to manage reactive structure: local regions, ports, route management, contained object instantiation, and runtime type creation without flattening the fabric into one global controller.</p>
-        </section>
-
-        <section>
-            <h1>4. Language Surface</h1>
-            <p>The language layer was the human-facing surface for distributed massively parallel programs. It had to express regions, messages, state, configuration, placement, and failure without hiding the runtime boundaries that make the system supportable.</p>
-            <p>That remains the adoption test for this kind of work. A fabric becomes useful when another builder can run examples, see ownership, and understand what changes when a region is instantiated or reconfigured.</p>
-        </section>
-        <section class="cartilage-visual-link">
-            <h1>Cartilage Visual Language</h1>
-            <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
-        </section>
-
-        <section>
-            <h1>Current Mechanism</h1>
-            <p>The 2022 project structure was a roadmap. The current inspectable mechanism is <a href="/cartilage-core.html">Cartilage Core</a>: a compact browser fabric, hardware paper, local-clocked SystemVerilog RTL, and an exact 252-bit installation. Its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> is the concrete starting point for evaluating what now exists and what still belongs to the roadmap.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-04-27-what-cartilage-is-and-is-not.html">What Cartilage Is and Is Not</a>
-        <p>The boundary note for the same project: regions, ports, routing, configuration, and ordinary digital logic.</p>
-        <p>More:</p>
-        <a href="2022-04-26-adopting-a-new-massively-parallel-language.html">Adopting a New Massively Parallel Language</a>
-        <p>The adoption side of the language/runtime work package.</p>
-        <p>Current Cartilage program:</p>
-        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Follow the implementation work and the places where funding or contributors can help.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6925162336206929921/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Cartilage Project Structure, 2022, read:</strong></p>
+        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
+        <p>The visual language makes Cartilage topology, state, and active computation directly inspectable.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6925162336206929921/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

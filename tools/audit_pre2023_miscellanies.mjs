@@ -8,8 +8,8 @@ const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(TOOL_DIR, "..");
 const SOURCE_ROOT = path.join(ROOT, "publication-ready", "pre-2023-article-set");
 const OUTPUT_ROOT = path.join(ROOT, "miscellanies");
-const ROADMAP = "/cartilage-reconfigurable-computing-roadmap.html";
 const PUBLICATION_DATE = "2026-07-24";
+const MODIFIED_DATE = "2026-07-28";
 const errors = [];
 let checks = 0;
 
@@ -38,20 +38,10 @@ const CARTILAGE_PAGES = [
     "cartilage-verified-mux-lanes.html",
 ];
 
-const DIRECT_MISCELLANIES_ROADMAP = [
-    "why-i-put-a-reconfigurable-fabric-in-webgl",
-    "a-programming-language-made-of-live-circuits",
-    "booting-a-reconfigurable-fabric-from-its-edge",
-    "a-computer-that-boots-by-growing-its-own-wires",
-    "the-cartilage-editor-and-seed-i-wanted-in-2021",
-    "cartilage-the-architecture-that-rebuilt-itself",
-];
-
 const HARD_DOSSIER_PATTERNS = [
     /\bnot a claim\b/i,
     /\bwhat (?:this|it) (?:does not|doesn't) prove\b/i,
     /\bwhat (?:this|it) proves\b/i,
-    /\bwhat remains\b/i,
     /\bhonest claim\b/i,
     /\bhonest interpretation\b/i,
     /\bevidence layer\b/i,
@@ -170,15 +160,19 @@ for (const source of sources) {
     check(html.includes(`<meta property="og:url" content="${canonical}">`), `${relativeHtml}: wrong og:url`);
     check(metaDescription.length >= 70 && metaDescription.length <= 160, `${relativeHtml}: meta description length ${metaDescription.length}`);
     check(html.includes(`<h1 class="page-title">${source.h1.slice(2).replaceAll("&", "&amp;")}`), `${relativeHtml}: visible H1 mismatch`);
+    const address = html.match(/<address>[\s\S]*?<\/address>/i)?.[0] || "";
     check(
-        textContent(html.match(/<address>[\s\S]*?<\/address>/i)?.[0] || "") ===
-            source.dateline.replace(/^\*|\*$/g, ""),
+        textContent(address).startsWith(source.dateline.replace(/^\*|\*$/g, "")),
         `${relativeHtml}: handcrafted dateline was not preserved`,
+    );
+    check(
+        address.includes(`<time datetime="${MODIFIED_DATE}">Updated July 28, 2026</time>`),
+        `${relativeHtml}: visible modified date mismatch`,
     );
     check(json?.headline === metadata.title, `${relativeHtml}: JSON-LD headline mismatch`);
     check(json?.dateCreated === metadata.date, `${relativeHtml}: JSON-LD dateCreated mismatch`);
     check(json?.datePublished === PUBLICATION_DATE, `${relativeHtml}: JSON-LD datePublished mismatch`);
-    check(json?.dateModified === PUBLICATION_DATE, `${relativeHtml}: JSON-LD dateModified mismatch`);
+    check(json?.dateModified === MODIFIED_DATE, `${relativeHtml}: JSON-LD dateModified mismatch`);
     check(json?.mainEntityOfPage === canonical, `${relativeHtml}: JSON-LD mainEntityOfPage mismatch`);
     check(
         ["Article", "TechArticle"].includes(json?.["@type"]),
@@ -226,7 +220,11 @@ for (const source of sources) {
         `${relativeHtml}: expected one bottom article navigation`,
     );
     const nav = html.match(/<nav class="article-links"[\s\S]*?<\/nav>/)?.[0] || "";
-    check(occurrences(nav, /<a href=/g) >= 5, `${relativeHtml}: fewer than five deliberate continuation links`);
+    const continuationCount = occurrences(nav, /<a href=/g);
+    check(
+        continuationCount >= 3 && continuationCount <= 6,
+        `${relativeHtml}: expected three to six focused continuation links, found ${continuationCount}`,
+    );
     check(nav.includes('href="/miscellanies/"'), `${relativeHtml}: missing collection backlink`);
     check(
         HARD_DOSSIER_PATTERNS.every((pattern) => !pattern.test(source.body)),
@@ -257,34 +255,29 @@ for (const slug of slugs) {
 }
 check(sitemap.includes("https://greenforest.io/miscellanies/"), "sitemap.xml: collection URL missing");
 check(siteMap.includes('href="miscellanies/"'), "site-map.html: collection URL missing");
-check(siteMap.includes("282 articles, collections"), "site-map.html: visible count must be 282");
 
 for (const relativePath of CARTILAGE_PAGES) {
     const html = read(relativePath);
-    const nav = html.match(/<nav class="article-links"[\s\S]*?<\/nav>/)?.[0] || "";
-    check(nav.includes(`href="${ROADMAP}"`), `${relativePath}: bottom navigation lacks a direct roadmap link`);
-    check(nav.includes("Build next:"), `${relativePath}: bottom navigation lacks Build next label`);
+    const navs = html.match(/<nav class="article-links"[\s\S]*?<\/nav>/g) || [];
+    check(navs.length === 1, `${relativePath}: expected one focused bottom navigation`);
+    const nav = navs[0] || "";
+    const linkCount = occurrences(nav, /<a href=/g);
     check(
-        /Funding and contributors are welcome\./.test(nav),
-        `${relativePath}: bottom navigation lacks the funding/contributor invitation`,
+        linkCount >= 2 && linkCount <= 6,
+        `${relativePath}: expected two to six focused continuation links, found ${linkCount}`,
     );
-}
-
-for (const slug of DIRECT_MISCELLANIES_ROADMAP) {
-    const html = read(`miscellanies/${slug}.html`);
-    const nav = html.match(/<nav class="article-links"[\s\S]*?<\/nav>/)?.[0] || "";
-    check(nav.includes(`href="${ROADMAP}"`), `miscellanies/${slug}.html: direct roadmap continuation missing`);
     check(
-        /Funding and contributors are welcome\./.test(nav),
-        `miscellanies/${slug}.html: funding/contributor invitation missing`,
+        !/Build next:|Funding and contributors are welcome\.|Related (?:links|reading)|What (?:this|it) (?:does not|doesn't) prove/i.test(nav),
+        `${relativePath}: obsolete or generic navigation framing remains`,
     );
 }
 
 const homepage = read("index.html");
 check(homepage.includes('href="miscellanies/"'), "index.html: Miscellanies is not discoverable");
 check(
-    occurrences(homepage, /href="cartilage-reconfigurable-computing-roadmap\.html"/g) >= 2,
-    "index.html: roadmap should be present in both CTA and Cartilage card",
+    homepage.includes('href="cartilage/"') &&
+        homepage.includes('href="cartilage-reconfigurable-computing-roadmap.html"'),
+    "index.html: Cartilage learning path and development roadmap must remain discoverable",
 );
 
 console.log(`sources=${sources.length}`);

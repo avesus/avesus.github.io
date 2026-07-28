@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <title>Cartilage Verified Ripple2 Adder</title>
-    <meta name="description" content="A verified browser/GLSL Cartilage render of a 2-bit ripple-carry adder generated from QFG source, run for 3072 lockstep updates, and checked with 96 browser expectations.">
+    <title>Cartilage Ripple2 Adder: 3,072 Updates, 96 Passing Expectations</title>
+    <meta name="description" content="Run a generated 2-bit ripple-carry adder through 3,072 Cartilage browser/GLSL updates and read all 96 passing expectations at edge-visible result lanes.">
     <link rel="canonical" href="https://greenforest.io/cartilage-verified-ripple2-adder.html">
-    <meta property="og:title" content="Cartilage Verified Ripple2 Adder">
-    <meta property="og:description" content="A generated 2-bit ripple-carry adder in Cartilage: QFG primitive cells, edge-visible result lanes, 3072 lockstep updates, and 96 expectations passing.">
+    <meta property="og:title" content="Cartilage Ripple2 Adder: 96 Passing Browser Expectations">
+    <meta property="og:description" content="A generated QFG circuit adds every pair of two-bit inputs across 3,072 lockstep updates and exposes its three result bits at the fabric edge.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-verified-ripple2-adder.html">
         <link rel="icon" href="/favicon.ico">
@@ -21,25 +21,25 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cartilage Verified Ripple2 Adder - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Cartilage Ripple2 Adder with 96 passing browser expectations - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-verified-ripple2-adder.png">
-    <meta name="twitter:image:alt" content="Cartilage Verified Ripple2 Adder - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Cartilage Ripple2 Adder with 96 passing browser expectations - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Cartilage Verified Ripple2 Adder",
+            "headline": "Cartilage Ripple2 Adder: 3,072 Updates, 96 Passing Expectations",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-10",
+            "dateModified": "2026-07-28",
             "image": "https://greenforest.io/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png",
-            "description": "A verified browser/GLSL Cartilage render of a 2-bit ripple-carry adder generated from QFG source, run for 3072 lockstep updates, and checked with 96 browser expectations.",
+            "description": "A generated two-bit ripple-carry adder that runs through 3,072 Cartilage browser/GLSL updates and satisfies all 96 edge-visible result expectations.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-verified-ripple2-adder.html",
             "publisher": {
                 "@type": "Person",
@@ -51,87 +51,79 @@
 </head>
 
 <body>
-    <header>Cartilage Verified Ripple2 Adder</header>
+    <header><h1>Cartilage Ripple2 Adder: 3,072 Updates, 96 Passing Expectations</h1></header>
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This page gives the current public Cartilage arithmetic artifact: a generated 2-bit ripple-carry adder rendered in the browser/GLSL fabric and checked by the QFG verification run.</p>
-        <p>The circuit computes <code>{C2, S1, S0} = A[1:0] + B[1:0]</code>. The source is not a hand-drawn route sketch; it is a generated QFG primitive-cell netlist with concrete cells for wires, muxes, constants, and crossbars.</p>
-        <div class="status-box">
-            <p><span class="status-label">Verified arithmetic run</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>.</p>
-            <p><strong>Included:</strong> <code>207</code> explicit seed cells, <code>16</code> parsed QFG frame declarations, <code>3072</code> lockstep fabric updates, and <code>96/96</code> browser expectations passed.</p>
-            <p><strong>Run focus:</strong> one generated 2-bit adder run with its PNG, QFG source, verification report, and current Cartilage entry links.</p>
-        </div>
+        <p>A generated two-bit ripple-carry adder turns every pair of two-bit inputs into edge-visible sum and carry lanes inside the browser/GLSL Cartilage fabric.</p>
+        <p>The QFG netlist places <code>207</code> explicit wire, MUX, constant, and crossbar cells. Across <code>16</code> frame declarations and <code>3072</code> lockstep updates, the circuit computes <code>{C2, S1, S0} = A[1:0] + B[1:0]</code> and satisfies <code>96/96</code> browser expectations.</p>
+        <p>The full-resolution PNG, generated QFG source, and run report expose the same two-bit arithmetic from spatial layout through final readout.</p>
     </section>
 
     <main>
         <section>
-            <h1>The Rendered Artifact</h1>
+            <h2>See The Generated Two-Bit Datapath</h2>
             <figure class="inspectable-image">
                 <a href="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png">
-                    <img src="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png" alt="Verified Cartilage 2-bit ripple-carry adder render with A and B input lanes, sum outputs, carry routes, verified crossbars, and edge surface labels">
+                    <img src="/cartilage-verified-ripple2-adder/cartilage-verified-ripple2-adder.png" alt="A generated 32 by 32 Cartilage ripple-carry adder with two input words, sum lanes, carry routes, crossbars, and edge-visible results">
                 </a>
-                <figcaption>A 32x32 Cartilage fabric render of the verified 2-bit ripple-carry adder. The full-resolution 3072x3072 PNG is linked for inspection.</figcaption>
+                <figcaption>A 32x32 fabric carries two input words through generated MUX islands, crossbars, sum lanes, and the ripple carry; the linked PNG spans 3072x3072 pixels.</figcaption>
             </figure>
         </section>
 
         <section>
-            <h1>The Circuit</h1>
-            <p>The adder consumes all 16 pairs of two-bit inputs and exposes the three-bit result:</p>
+            <h2>Add All 16 Input Pairs</h2>
+            <p>The adder consumes all 16 combinations of two two-bit words and exposes the three-bit result:</p>
             <pre><code>{C2, S1, S0} = A[1:0] + B[1:0]</code></pre>
-            <p>The generated QFG places the primitive Cartilage cells directly. The crossbars visible in the screenshot are intentional generated cells, not accidental overlay intersections.</p>
+            <p>The generated QFG places every primitive Cartilage cell directly. Its visible crossbars route intentional signal crossings inside the circuit.</p>
         </section>
 
         <section>
-            <h1>The Verification Run</h1>
-            <p>The browser/GLSL lockstep run streamed the QFG frames through the fabric and checked the result at frame boundaries:</p>
+            <h2>Advance 3,072 Lockstep Fabric Updates</h2>
+            <p>The browser/GLSL engine streams each QFG frame through the fabric and checks the arithmetic result at every frame transition:</p>
             <pre><code>207 explicit seed cells
 16 parsed QFG frame declarations
 3072 lockstep fabric updates
 96 browser expectations checked
 96 browser expectations passed</code></pre>
-            <p>The run result is documented by the verification report and QFG source. The picture is the readable render of that generated fabric.</p>
+            <p>The QFG source defines the placed circuit, the report records all 96 passing expectations, and the image makes the generated routes readable at full resolution.</p>
         </section>
 
         <section>
-            <h1>Output Surface</h1>
-            <p>The result bits are routed to ordinary edge-visible readout lanes:</p>
+            <h2>Read Three Result Bits At The Fabric Edge</h2>
+            <p>Ordinary edge-visible lanes carry all three result bits:</p>
             <pre><code>S0 exits on the left edge at row 8
 S1 exits on the right edge at row 16
 C2 exits on the right edge at row 28</code></pre>
-            <p>The final checked frame is <code>a=3, b=3</code>, so the expected result is binary <code>110</code>. The final edge readout has active right-edge lanes 16 and 28, matching <code>S1=1</code> and <code>C2=1</code>; <code>S0=0</code> is inactive.</p>
+            <p>The final frame adds <code>a=3, b=3</code> and produces binary <code>110</code>. Active right-edge lanes 16 and 28 carry <code>S1=1</code> and <code>C2=1</code>; the inactive left-edge lane at row 8 carries <code>S0=0</code>.</p>
         </section>
 
         <section>
-            <h1>Artifacts</h1>
-            <p>The source netlist is available as <a href="/cartilage-verified-ripple2-adder/browser-static-ripple2-adder-edge.qfg">browser-static-ripple2-adder-edge.qfg</a>. The full verification report is available as <a href="/cartilage-verified-ripple2-adder/verification-report.md">verification-report.md</a>.</p>
-            <p>The screenshot is a visualization of those artifacts. It is useful because it lets a reader follow the placed fabric, while verification comes from the generated QFG and the expectation checks.</p>
+            <h2>Open The Circuit And Its Complete Run Record</h2>
+            <p><a href="/cartilage-verified-ripple2-adder/browser-static-ripple2-adder-edge.qfg">browser-static-ripple2-adder-edge.qfg</a> contains the generated source netlist, and <a href="/cartilage-verified-ripple2-adder/verification-report.md">verification-report.md</a> records the full run.</p>
+            <p>The screenshot turns those placed cells into a readable spatial circuit, while the source and report carry the exact frame declarations, expectations, and results.</p>
         </section>
 
         <section>
-            <h1>What This Replaces</h1>
-            <p>The previous full-adder islands, PC-stepper islands, and mux-lanes pages are now treated as draft or debug artifacts. The first two are visual placement sketches without edge-surface verification. The mux-lanes page is a useful debug fixture, but not the requested clean visitor-facing schematic.</p>
-            <p>This ripple2 adder is the current public replacement: generated source, readable render, edge-visible result lanes, and a passing browser expectation run.</p>
+            <h2>Advance From Placement Maps To Generated Arithmetic</h2>
+            <p>The full-adder islands and PC-stepper islands pages contribute spatial design maps. The three MUX lanes page contributes an edge-driven selector run. This ripple2 adder combines both strengths in one generated arithmetic circuit.</p>
+            <p>Generated source, a readable route map, edge-visible result lanes, and 96 passing expectations create a complete public path from circuit definition to browser execution.</p>
         </section>
 
         <section>
-            <h1>Verification Boundary</h1>
-            <p>The QFG source, verification report, rendered routes, and edge-visible result lanes should all describe the same generated 2-bit adder run.</p>
-            <p><a href="/cartilage-core.html">Cartilage Core</a> and the <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> are the current compact mechanism and hardware reference. They are not the source tree for this QFG ripple-adder run; this page's QFG and verification report remain the evidence for the adder shown here.</p>
+            <h2>Connect Four Views Of One Run</h2>
+            <p>The QFG source defines the cells, the report records the frame-by-frame checks, the render exposes the routes, and the edge lanes display the arithmetic result from the same generated run.</p>
+            <p><a href="/cartilage-core.html">Cartilage Core</a> and the <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> supply the current compact browser and hardware mechanism. This page’s QFG and run report supply the exact two-bit adder package.</p>
         </section>
     </main>
 
     <nav class="article-links">
-        <p>Read next:</p>
-        <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>
-        <p>A guide to the Cartilage run, timeline, and sketch pages.</p>
-        <p>More:</p>
+        <p>Decode every placed role next:</p>
         <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
-        <p>The 32-code cell-role alphabet used by this render.</p>
-        <p>Build next:</p>
-        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help carry this generated, checked circuit path into interactive placement, tracing, saving, and browser lessons. Funding and contributors are welcome.</p>
-        <a href="/">Go back</a>
+        <p>Read the 32-code alphabet behind every port, cross, constant, wire, and MUX in the adder.</p>
+        <p>Then open the current install mechanism:</p>
+        <a href="/cartilage-core.html">Cartilage Core: Browser Fabric, RTL, and a 252-Bit Install</a>
+        <p>Follow a bounded region from a serial configuration payload into browser execution and SystemVerilog RTL.</p>
     </nav>
 </body>
 

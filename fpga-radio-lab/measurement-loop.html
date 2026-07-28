@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>The Control Loop Behind My One-Pin FPGA Radio | Greenforest I/O</title>
+    <title>The FPGA Radio Loop That Protected the Message | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="How I closed a hardware-in-the-loop cycle around RTL, volatile iCE40 programming, live telemetry, a resonant tank, an RTL-SDR, and recovered QPSK information on July 25 and 26, 2026.">
+    <meta name="description" content="On July 25 and 26, 2026, a closed hardware-in-the-loop cycle carried one-pin FPGA radio changes from RTL through volatile iCE40 hardware and recovered QPSK, delivering 8,592 checked bits with no observed errors.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/fpga-radio-lab/measurement-loop.html">
     <link rel="stylesheet" href="/fpga-radio-lab/radio-lab.css">
-    <meta property="og:title" content="The Control Loop Behind My One-Pin FPGA Radio">
-    <meta property="og:description" content="One physical loop rebuilt the FPGA, watched its live state, measured the received result, rejected a prettier failure, and restored the design that still carried the message.">
+    <meta property="og:title" content="The FPGA Radio Loop That Protected the Message">
+    <meta property="og:description" content="On July 25 and 26, 2026, a closed hardware-in-the-loop cycle carried one-pin FPGA radio changes from RTL through volatile iCE40 hardware and recovered QPSK, delivering 8,592 checked bits with no observed errors.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/fpga-radio-lab/measurement-loop.html">
     <meta property="article:published_time" content="2026-07-27">
@@ -24,26 +24,26 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="The Control Loop Behind My One-Pin FPGA Radio - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="The FPGA Radio Loop That Protected the Message - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-radio-lab/measurement-loop.png">
-    <meta name="twitter:image:alt" content="The Control Loop Behind My One-Pin FPGA Radio - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="The FPGA Radio Loop That Protected the Message - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "The Control Loop Behind My One-Pin FPGA Radio",
+            "headline": "The FPGA Radio Loop That Protected the Message",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest",
                 "url": "https://greenforest.io/"
             },
             "datePublished": "2026-07-27",
-            "dateModified": "2026-07-27",
+            "dateModified": "2026-07-28",
             "image": "https://greenforest.io/fpga-radio-lab/media/hx8k-board.jpg",
-            "description": "How I closed a hardware-in-the-loop cycle around RTL, volatile iCE40 programming, live telemetry, a resonant tank, an RTL-SDR, and recovered QPSK information on July 25 and 26, 2026.",
+            "description": "On July 25 and 26, 2026, a closed hardware-in-the-loop cycle carried one-pin FPGA radio changes from RTL through volatile iCE40 hardware and recovered QPSK, delivering 8,592 checked bits with no observed errors.",
             "mainEntityOfPage": "https://greenforest.io/fpga-radio-lab/measurement-loop.html",
             "proficiencyLevel": "Advanced",
             "publisher": {
@@ -57,37 +57,37 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">The Control Loop Behind My One-Pin FPGA Radio</h1></header>
+    <header><h1 class="page-title">The FPGA Radio Loop That Protected the Message</h1></header>
     <address>July 27, 2026</address>
 
     <section class="abstract">
         <p class="eyebrow">FPGA radio &middot; hardware in the loop</p>
-        <p class="lead">On July 25 and 26, I made every useful change to my one-pin FPGA transmitter cross the same complete loop: edit the RTL, close timing, arm the receiver, program the actual iCE40, transmit one bounded burst, recover what arrived, and decide what to change next.</p>
-        <p>The loop mattered most when the spectrum looked best. Run 36 produced the strongest apparent rejection of the unwanted window, but the packet length was wrong, the CRC failed, and the symbols collapsed. I rejected it and restored Run 35. A radio is not improved by a prettier plot if it stops carrying the message.</p>
+        <p class="lead">On July 25 and 26, one complete hardware-in-the-loop cycle carried every useful transmitter change from RTL through the actual iCE40, the resonant network, the RTL-SDR, and recovered information. Physical 27 returned 8,592 checked QPSK bits with no observed errors.</p>
+        <p>The same loop caught Run 36: its 23.744552 dB spectral-window result looked strongest, yet it returned the wrong packet length, failed CRC, reached 96.152% decision-referenced EVM, and reached 93.617 degrees of angular jitter. The workflow restored Run 35 three minutes later. The received message, not the prettiest spectrum, chose the design.</p>
 
         <figure class="inspectable-image inspectable-image--fit">
             <a href="/fpga-radio-lab/media/hitl-control-loop.svg">
                 <img src="/fpga-radio-lab/media/hitl-control-loop.svg" width="1800" height="980" decoding="async" fetchpriority="high" alt="Closed hardware-in-the-loop cycle from choosing one physical question through RTL build, armed telemetry and receiver capture, volatile programming, a bounded RF burst, information recovery, and the next decision">
             </a>
-            <figcaption>I closed one causal loop around the source, the configured silicon, the live output state, the resonant network, the received RF, and the recovered information.</figcaption>
+            <figcaption>The causal loop connects the source, configured silicon, live output state, resonant network, received RF, and recovered information.</figcaption>
         </figure>
     </section>
 
     <main>
         <section>
-            <h2>I Kept the Engineering Decisions Human</h2>
-            <p>I chose the architecture, the physical connections, the 222&ndash;225 MHz working boundary, the safety rules, the question for each experiment, and the one variable allowed to change. Those choices determine what an RF result means. They cannot be recovered later from a directory of captures.</p>
-            <p>I gave the repeatable mechanics to the orchestration. It edited the nominated parameter, ran Yosys and nextpnr, checked timing, started direct telemetry, waited for the RTL-SDR ready handshake, loaded volatile CRAM, verified CDONE, commanded one finite burst, captured the off/on/off interval, recovered the packet or audio, and returned the output to its idle state. Ordinary sweep segmentation, gain sweeps, and unchanged repeats remained predetermined instrument work.</p>
-            <p>Three branches chose their next setting from the physical response: Run 14 through Run 17, Run 33 through Run 36, and the later PLL-delay branch. Everywhere else, automation executed the experiment I had already defined. This kept physical authority narrow while still letting the receiver answer quickly enough to guide the next build.</p>
+            <h2>Human Engineering Judgment Drove Every Automated Pass</h2>
+            <p>Human engineering judgment set the architecture, physical connections, 222&ndash;225 MHz working boundary, safety rules, question for each experiment, and single variable allowed to change. Those choices determine what an RF result means; no directory of captures can reconstruct them later.</p>
+            <p>Orchestration handled the repeatable mechanics. It edited the nominated parameter, ran Yosys and nextpnr, checked timing, started direct telemetry, waited for the RTL-SDR ready handshake, loaded volatile CRAM, verified CDONE, commanded one finite burst, captured the off/on/off interval, recovered the packet or audio, and returned the output to its idle state. Predetermined instrument routines handled ordinary sweep segmentation, gain sweeps, and unchanged repeats.</p>
+            <p>The physical response selected each next setting in three branches: Run 14 through Run 17, Run 33 through Run 36, and the later PLL-delay branch. Everywhere else, automation executed a previously defined experiment. This division kept physical authority narrow and let the receiver guide the next build quickly.</p>
 
             <div class="photo-pair">
                 <figure class="inspectable-image inspectable-image--fit">
                     <a href="/fpga-radio-lab/media/hx8k-board.jpg"><img src="/fpga-radio-lab/media/hx8k-board.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="Privacy-cropped photograph of the iCE40 HX8K breakout board used in the one-pin transmitter experiments"></a>
-                    <figcaption>The same iCE40 HX8K board was rebuilt in volatile memory as the loop advanced.</figcaption>
+                    <figcaption>The loop rebuilt the same iCE40 HX8K board in volatile memory as each experiment advanced.</figcaption>
                 </figure>
                 <figure class="inspectable-image inspectable-image--fit">
                     <a href="/fpga-radio-lab/media/resonant-tank-closeup.jpg"><img src="/fpga-radio-lab/media/resonant-tank-closeup.jpg" width="400" height="320" loading="lazy" decoding="async" alt="Close photograph of the hand-built resonant tank used by the one-pin transmitter family"></a>
-                    <figcaption>The switched FPGA pad did not act alone. This resonant network supplied the physical selectivity after N16.</figcaption>
+                    <figcaption>This resonant network supplies the physical selectivity after the switched N16 FPGA pad.</figcaption>
                 </figure>
             </div>
         </section>
@@ -95,40 +95,40 @@
         <section>
             <h2>One Question Crossed the Whole Machine</h2>
             <ol class="process-steps">
-                <li><strong>Choose one physical question.</strong> I named the measurement, the allowed band, the safety condition, and one variable to change.</li>
-                <li><strong>Build the exact digital change.</strong> The tools synthesized, placed, and routed it. A timing or topology failure stopped the branch before the board was touched.</li>
-                <li><strong>Start the observers first.</strong> Direct FPGA telemetry began, then the RTL-SDR armed and acknowledged that samples were already flowing.</li>
-                <li><strong>Load volatile CRAM.</strong> The orchestration programmed the image through FTDI/D2XX and checked CDONE. Nothing was written to persistent configuration memory.</li>
-                <li><strong>Transmit one bounded event.</strong> The receiver was already recording when the burst began, so one capture held RF-off guard time, the burst, and the return to quiet.</li>
-                <li><strong>Read both sides of the boundary.</strong> Direct telemetry identified what the FPGA applied; independent IQ samples showed what crossed N16, the tank, the pad, cable, tuner, and receiver.</li>
-                <li><strong>Recover the information.</strong> Spectral separation was useful, but packet length, CRC, symbols, bits, EVM, and timing decided whether the change remained a radio.</li>
-                <li><strong>Keep, reject, or restore.</strong> A successful discriminator became the starting point for the next single change. A failure caused the last accepted image to be reloaded.</li>
-                <li><strong>Check the idle state.</strong> Postflight telemetry had to show N16 high-impedance and the transmit LED off before the loop could advance.</li>
+                <li><strong>Define one physical question.</strong> Name the measurement, allowed band, safety condition, and one variable to change.</li>
+                <li><strong>Build the exact digital change.</strong> Yosys and nextpnr synthesize, place, and route it. Any timing or topology failure stops the branch before the board sees a new image.</li>
+                <li><strong>Start the observers first.</strong> Direct FPGA telemetry starts, then the RTL-SDR arms and confirms that samples already flow.</li>
+                <li><strong>Load volatile CRAM.</strong> The orchestration programs the image through FTDI/D2XX, checks CDONE, and leaves persistent configuration memory untouched.</li>
+                <li><strong>Capture one bounded event.</strong> The receiver starts before the burst, so one capture holds RF-off guard time, the burst, and the return to quiet.</li>
+                <li><strong>Join both sides of the physical path.</strong> Direct telemetry identifies what the FPGA applies; independent IQ samples show what crosses N16, the tank, the pad, cable, tuner, and receiver.</li>
+                <li><strong>Recover the information.</strong> Packet length, CRC, symbols, bits, EVM, and timing decide whether a change still carries the message.</li>
+                <li><strong>Keep, reject, or restore.</strong> A successful discriminator starts the next single change. A failure reloads the last accepted image.</li>
+                <li><strong>Confirm the idle state.</strong> Postflight telemetry must show N16 high-impedance and the transmit LED off before the loop advances.</li>
             </ol>
 
-            <p>From 11:13 PDT on July 25 through 20:43 PDT on July 26, the work spanned 33 hours, 30 minutes. Inside that interval I made 171 RTL-SDR acquisitions, 87 configured NanoVNA sweeps, saved 133 raw IQ captures, and performed 70 volatile FPGA loads across 42 digital configurations. These are bounded instrument and programming operations, not equivalent experiments and not continuous RF transmission. Receiver acquisitions include their RF-off guard intervals.</p>
+            <p>From 11:13 PDT on July 25 through 20:43 PDT on July 26, the campaign spanned 33 hours, 30 minutes. Inside that interval, the lab made 171 RTL-SDR acquisitions and 87 configured NanoVNA sweeps, saved 133 raw IQ captures, and performed 70 volatile FPGA loads across 42 digital configurations. These figures count bounded instrument and programming operations; they neither count equivalent experiments nor describe continuous RF transmission. Every receiver acquisition includes its RF-off guard intervals.</p>
         </section>
 
         <section>
-            <h2>July 25: I Taught the Bench to Answer Clean Questions</h2>
-            <p>The first day was about removing ambiguity from the physical path. I corrected the antenna, coupler, LNA, attenuation, and 50-ohm terminations; separated passive NanoVNA work from active SDR work; and stopped using an early H8 configuration when its tuner did not lock as intended. The NanoVNA was powered down before transmitter captures.</p>
+            <h2>July 25: The Bench Began Answering Clean Questions</h2>
+            <p>The first day removed ambiguity from the physical path. The work corrected the antenna, coupler, LNA, attenuation, and 50-ohm terminations; separated passive NanoVNA work from active SDR work; and retired an early H8 configuration when its tuner failed to lock as intended. The lab powered down the NanoVNA before transmitter captures.</p>
 
             <dl class="lab-timeline">
                 <dt>11:13 PDT</dt>
-                <dd>The session began with the physical connections and safe operating boundary, not with an RF optimization target.</dd>
+                <dd>The session began with the physical connections and safe operating boundary, before any RF optimization target.</dd>
                 <dt>12:22&ndash;13:44</dt>
                 <dd>Receiver and fixture baselines exposed the topology mistakes and fixed the antenna, coupler, LNA, attenuator, and termination arrangement.</dd>
                 <dt>14:59&ndash;15:37</dt>
-                <dd>Wide views, gain checks, finite on/off behavior, and the high-impedance idle state bounded what later narrow measurements could mean.</dd>
+                <dd>Wide views, gain checks, finite on/off behavior, and the high-impedance idle state established the context for later narrow measurements.</dd>
                 <dt>16:06&ndash;17:58</dt>
                 <dd>Q-sign reversal, tone, amplitude, sawtooth, and phase-ramp experiments made the one-pin boundary answer elementary causal questions.</dd>
                 <dt>18:49&ndash;20:22</dt>
                 <dd>Two-axis audio and system-identification experiments tested whether richer structure survived the physical path.</dd>
                 <dt>20:42 onward</dt>
-                <dd>The loop moved into QPSK and FM. The first saved volatile programming operation followed at 00:36 PDT on July 26.</dd>
+                <dd>The loop moved into QPSK and FM. The first retained volatile programming operation followed at 00:36 PDT on July 26.</dd>
             </dl>
 
-            <p>Five complex sweeps of the passive tank put the median S21 maximum at 220.782991 MHz. The half-power crossings were 217.439055 and 223.718667 MHz, a 6.280417 MHz loaded bandwidth and a loaded Q of 35.1575. That result mattered later: the final 223.5625 MHz QPSK lane sat only 156.167 kHz inside the upper half-power crossing.</p>
+            <p>Five complex sweeps of the passive tank put the median S21 maximum at 220.782991 MHz. The half-power crossings landed at 217.439055 and 223.718667 MHz, producing a 6.280417 MHz loaded bandwidth and a loaded Q of 35.1575. That measured passband later placed the final 223.5625 MHz QPSK lane only 156.167 kHz inside the upper half-power crossing.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/tank-passband.png">
@@ -137,7 +137,7 @@
                 <figcaption>Five repeated complex sweeps put the final QPSK lane close to the upper shoulder of the actual tank. <a href="/fpga-radio-lab/data/tank-s21-five-repeats.csv">Open the plotted S21 values</a>.</figcaption>
             </figure>
 
-            <p>Then I changed only the sign of Q. The received component moved from 997.925 Hz below the measured midpoint to 997.925 Hz above it, a 1.995850 kHz crossing. The digital quadrature choice was controlling which side of the physical carrier received energy, giving the later packet work a directional control it could change deliberately.</p>
+            <p>Changing only the sign of Q moved the received component from 997.925 Hz below the measured midpoint to 997.925 Hz above it, a 1.995850 kHz crossing. The digital quadrature choice controlled which side of the physical carrier received energy and gave the later packet work a deliberate directional control.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/q-sign-reversal.png">
@@ -148,17 +148,17 @@
         </section>
 
         <section>
-            <h2>July 26: The Receiver Chose Two Follow-Up Experiments</h2>
-            <p>At 02:38 PDT, Run 14 recovered all 1,800 transmitted bits and passed CRC while giving 7.661408 dB of separation from the unwanted comparison window. The physical response did not justify a full correction, so the loop selected a half-sized frequency warp for the follow-up. At 03:02, Run 17 preserved the exact 1,800-bit recovery and raised that separation to 10.435617 dB, an improvement of 2.774209 dB. It also worsened separation from the central LO by 1.011560 dB. The receiver had found an improvement and exposed its cost in the same event.</p>
-            <p>The sharper sequence began at 04:40. Run 33 passed its packet check with 8.865934 dB of raw separation between opposite windows. The pattern pointed to Q entering the first IF mixer with the wrong adjacent phase. In that RTL snapshot, the Johnson counter served specifically as the quadrature IF oscillator; I changed only the Q input tap from phase 1 to phase 0.</p>
-            <p>Run 35 at 05:09 raised the separation to 20.583482 dB, an 11.717548 dB improvement, while the frame length and CRC still passed. Run 36 at 05:23 looked even better in the spectral window: 23.744552 dB. But its recovered length was wrong, CRC failed, decision-referenced EVM reached 96.152%, and angular jitter reached 93.617 degrees. Three minutes later the orchestration restored Run 35.</p>
-            <p>That reversal is the central reason I built the loop. A spectrum analyzer can reward a change that destroys the communication system. Closing the path through recovered information prevented the nicest-looking failure from becoming the next design.</p>
+            <h2>July 26: Receiver Results Directed the Next Build</h2>
+            <p>At 02:38 PDT, Run 14 recovered all 1,800 transmitted bits and passed CRC while giving 7.661408 dB of separation from the unwanted comparison window. The physical response called for a half-sized frequency warp rather than a full correction. At 03:02, Run 17 preserved the exact 1,800-bit recovery and raised that separation to 10.435617 dB, an improvement of 2.774209 dB. It also reduced separation from the central LO by 1.011560 dB. One event revealed both the improvement and its cost.</p>
+            <p>The sharper sequence began at 04:40. Run 33 passed its packet check with 8.865934 dB of raw separation between opposite windows. The pattern located Q on the wrong adjacent phase at the first IF mixer. In that RTL snapshot, the Johnson counter served specifically as the quadrature IF oscillator; the next build changed only the Q input tap from phase 1 to phase 0.</p>
+            <p>Run 35 at 05:09 raised the separation to 20.583482 dB, an 11.717548 dB improvement, while the frame length and CRC still passed. Run 36 at 05:23 looked even better in the spectral window: 23.744552 dB. Its recovered message told the opposite story: it returned the wrong length, failed CRC, reached 96.152% decision-referenced EVM, and reached 93.617 degrees of angular jitter. Three minutes later, the orchestration restored Run 35.</p>
+            <p>That reversal captures why I built the loop. A spectrum analyzer can reward a change that destroys the communication system. Recovered information kept the nicest-looking failure out of the next design.</p>
         </section>
 
         <section>
             <h2>One PLL Tap Improved the Image and Worsened the Carrier</h2>
-            <p>Later that afternoon, I considered swapping the sideband. The predicted dominant output would have moved outside my 222&ndash;225 MHz boundary, so I stopped that branch before transmission. I instead allowed one nominal delay tap on PLL port A and held the rest of the transmitter constant.</p>
-            <p>Physical 24 through Physical 26, acquired from 16:09 to 16:21 PDT, separated three questions into fixed receiver views. In the 25 kHz integration windows used for the main comparison, wanted-to-image separation moved from 24.7769 to 30.0123 dB. Wanted-to-carrier separation moved the other way, from 8.1091 to 7.3466 dB. The tap bought image separation by spending carrier separation; neither number alone could choose the design.</p>
+            <p>Later that afternoon, a sideband swap would have moved the predicted dominant output outside the 222&ndash;225 MHz boundary. That boundary stopped the branch before transmission. The next pass added one nominal delay tap on PLL port A and held the rest of the transmitter constant.</p>
+            <p>The lab acquired Physical 24 through Physical 26 from 16:09 to 16:21 PDT and separated three questions into fixed receiver views. In the 25 kHz integration windows used for the main comparison, wanted-to-image separation moved from 24.7769 to 30.0123 dB. Wanted-to-carrier separation moved the other way, from 8.1091 to 7.3466 dB. The tap traded carrier separation for image separation, so the design needed both numbers.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/pll-delay-tradeoff.png">
@@ -169,25 +169,25 @@
         </section>
 
         <section>
-            <h2>Physical 27 Closed the Loop Through Recovered Bits</h2>
-            <p>I built the accepted Physical 27 image at 16:48 PDT. It used 2,127 of 7,680 logic cells, one PLL, no block RAM, three global networks, and seven package I/O sites. Its routed maxima were 84.78, 115.81, 108.67, and 244.20 MHz for the four declared domains, including the 216.03 MHz RF-phase domain.</p>
+            <h2>Physical 27 Returned 8,592 Checked Bits With No Observed Errors</h2>
+            <p>The accepted Physical 27 image closed at 16:48 PDT. It used 2,127 of 7,680 logic cells, one PLL, no block RAM, three global networks, and seven package I/O sites. Its routed maxima reached 84.78, 115.81, 108.67, and 244.20 MHz for the four declared domains, including the 216.03 MHz RF-phase domain.</p>
             <p>At 16:56, the orchestration started telemetry, waited for the SDR, programmed volatile CRAM, verified CDONE, issued one three-second burst, and left the receiver running long enough to observe quiet on both sides. Direct telemetry associated the actual PRBS16 QPSK state with the independent IQ stream rather than inferring the transmitted state from the receiver alone.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/physical27-live-datapath.png">
                     <img src="/fpga-radio-lab/media/physical27-live-datapath.png" width="1771" height="1097" loading="lazy" decoding="async" alt="Live Physical 27 FPGA telemetry snapshots of pre-sigma-delta I and Q, both one-bit outputs, first-mixer DDS quadrant, and phase-domain summator state">
                 </a>
-                <figcaption>Physical 27 joined applied digital state to one independently captured RF event. The receiver was running before CRAM load and stayed running through the return to idle.</figcaption>
+                <figcaption>Physical 27 joined applied digital state to one independently captured RF event. The receiver started before CRAM load and continued through the return to idle.</figcaption>
             </figure>
 
-            <p>The QPSK source ran at 3,295.8984375 symbols per second, or 6,591.796875 gross bits per second. After acquisition, 4,296 directly observed held-out symbols produced 8,592 checked bits with no observed errors. Carrier-tracked RMS EVM was 2.0696% and normalized correlation was 0.999584. The receiver used known symbols only for initial acquisition; phase tracking over the held-out region did not use the transmitted bit decisions.</p>
-            <p>The nominal held-out span contained 5,623 epochs. Direct telemetry reached 4,296 of them; the other 1,327 remained holes. Across the complete run I found 7,555 directly observed epochs and 2,332 holes, and I did not interpolate those holes into successes. After the burst, 22,528 idle telemetry frames reported no burst request, no RF-enable state, and no transmit LED activity.</p>
+            <p>The QPSK source ran at 3,295.8984375 symbols per second, or 6,591.796875 gross bits per second. After acquisition, 4,296 directly observed held-out symbols produced 8,592 checked bits with no observed errors. Carrier-tracked RMS EVM reached 2.0696% and normalized correlation reached 0.999584. The receiver used known symbols only for initial acquisition; phase tracking over the held-out region did not use the transmitted bit decisions.</p>
+            <p>The nominal held-out span contained 5,623 epochs. Direct telemetry reached 4,296 of them; the other 1,327 remained holes. Across the complete run, direct telemetry covered 7,555 epochs and left 2,332 holes. No interpolation turned those holes into successes. After the burst, 22,528 idle telemetry frames reported no burst request, no RF-enable state, and no transmit LED activity.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/physical27-spectrum.png">
                     <img src="/fpga-radio-lab/media/physical27-spectrum.png" width="1771" height="982" loading="lazy" decoding="async" alt="RTL-SDR spectrum of the Physical 27 QPSK burst around the 223.5625 megahertz wanted lane">
                 </a>
-                <figcaption>The received Physical 27 spectrum in receiver-relative dBFS per FFT bin. It is not calibrated power at N16 or at the tank output. <a href="/fpga-radio-lab/data/physical27-spectrum.csv">Open the plotted spectrum</a>.</figcaption>
+                <figcaption>The Physical 27 spectrum reports receiver-relative dBFS per FFT bin; neither N16 nor the tank output has a calibrated power value here. <a href="/fpga-radio-lab/data/physical27-spectrum.csv">Open the plotted spectrum</a>.</figcaption>
             </figure>
 
             <figure class="inspectable-image inspectable-image--fit">
@@ -199,31 +199,31 @@
         </section>
 
         <section>
-            <h2>Physical 28 Moved Only the Receiver</h2>
+            <h2>Physical 28 Measured the Conjugate Image With One Receiver Change</h2>
             <p>At 17:50 PDT, Physical 28 changed one thing outside the FPGA: the RTL-SDR tuned from 223.4875 MHz to 208.3625 MHz to look at the conjugate image. The FPGA image, transmitter profile, SDR gain, sample rate, cable path, and receiver stayed otherwise unchanged.</p>
-            <p>The sequential complete-path comparison gave 29.4439 dB of wanted-to-image separation in fixed 25 kHz windows. That value belongs to this complete physical path. It includes the tank, pad, cable, tuner, and RTL-SDR frequency response; it is not an intrinsic cancellation number isolated from the apparatus.</p>
+            <p>The sequential complete-path comparison produced 29.4439 dB of wanted-to-image separation in fixed 25 kHz windows. This complete-path value combines the tank, pad, cable, tuner, RTL-SDR frequency response, and intrinsic Weaver contribution in one physical result.</p>
 
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/fpga-radio-lab/media/target-and-conjugate-image.png">
                     <img src="/fpga-radio-lab/media/target-and-conjugate-image.png" width="1771" height="966" loading="lazy" decoding="async" alt="Sequential target and conjugate-image RTL-SDR views from Physical 27 and Physical 28 with the transmitter configuration held constant">
                 </a>
-                <figcaption>The target and conjugate image were captured sequentially with only receiver tuning changed. A simultaneous common-clock measurement is one of the next improvements.</figcaption>
+                <figcaption>The receiver captured the target and conjugate image sequentially while changing only its tuning. A simultaneous common-clock measurement offers the next improvement.</figcaption>
             </figure>
         </section>
 
         <section>
-            <h2>The Chamber Bounded the Bursts</h2>
-            <p>I used my RF chamber as the physical safety boundary and operated finite one-shot bursts, not a continuously transmitting board. Physical 27 and Physical 28 both ended with telemetry showing N16 high-impedance and the transmit LED off. The orchestration would not begin another branch until that postflight condition was visible.</p>
-            <p>I did not retain a chamber photograph or an exterior calibrated field-strength sweep from this session. I therefore do not present these experiments as measured containment, outdoor legality, or regulatory compliance. The next chamber pass needs distance, antenna factor, orientation, detector and bandwidth settings, ambient baseline, and uncertainty recorded together.</p>
+            <h2>Finite Bursts and the Chamber Controlled the RF Session</h2>
+            <p>The RF chamber set the physical safety boundary, and the transmitter produced finite one-shot bursts rather than continuous RF. Physical 27 and Physical 28 both ended with telemetry showing N16 high-impedance and the transmit LED off. The orchestration required that postflight condition before starting another branch.</p>
+            <p>This session left no chamber photograph or exterior calibrated field-strength sweep. Accordingly, this work makes no claim of measured containment, outdoor legality, or regulatory compliance. The next chamber pass can record distance, antenna factor, orientation, detector and bandwidth settings, ambient baseline, and uncertainty together.</p>
         </section>
 
         <section>
-            <h2>What I Will Make the Loop Do Next</h2>
-            <p>The next work is a better measurement plane. I want a complete tank schematic and measured BOM, fixture geometry, loading, cables, and named reference planes. I will tie a raw TDS3034C waveform at the intended RF output plane to the exact FPGA image, carrier setting, load, and scope configuration. Traceable amplitude calibration and conducted power with uncertainty will replace relative receiver units where absolute quantities matter.</p>
-            <p>I also want a common trigger or clock between FPGA telemetry and RF acquisition, repeated bursts across supply and temperature, drift tracking, and BER versus controlled condition. A simultaneous target/image receiver would remove the sequential frequency-response ambiguity in Physical 28. Wider calibrated chamber sweeps and final-profile harmonic work need instruments and fixtures chosen for those frequency ranges.</p>
-            <p>Once that foundation is in place, the same loop can control multiple active lanes, choose discriminators that separate image, carrier, flatness, timing, and message recovery, and expose safe predetermined experiments through a browser. The important part will remain unchanged: every digital idea must cross the physical machine and return as an intelligible consequence before it earns the next experiment.</p>
+            <h2>The Same Loop Opens a Richer Measurement Plane</h2>
+            <p>The next measurement plane can add a complete tank schematic and measured BOM, fixture geometry, loading, cables, and named reference planes. A raw TDS3034C waveform at the intended RF output plane can connect the exact FPGA image, carrier setting, load, and scope configuration. Traceable amplitude calibration and conducted power with uncertainty can supply absolute quantities where relative receiver units cannot.</p>
+            <p>A common trigger or clock between FPGA telemetry and RF acquisition can support repeated bursts across supply and temperature, drift tracking, and BER versus controlled condition. A simultaneous target/image receiver can remove the sequential frequency-response ambiguity in Physical 28. Wider calibrated chamber sweeps and final-profile harmonic work need instruments and fixtures chosen for those frequency ranges.</p>
+            <p>With that measurement plane, the same loop can control multiple active lanes, choose discriminators that separate image, carrier, flatness, timing, and message recovery, and expose safe predetermined experiments through a browser. Every digital idea still crosses the physical machine and returns as an intelligible consequence before it earns the next experiment.</p>
             <div class="lab-note">
-                <p><strong>Market addendum:</strong> This weekend also showed me what the AI-controlled laboratory trend is missing. The agent correctly refused to call uncalibrated receiver readings dBm, but it did not finish the absolute-power measurement I had requested. I turned that failure into <a href="/physical-benchmark-for-ai-lab-agents.html">a proposal for a vendor-neutral physical benchmark for engineering agents</a>.</p>
+                <p><strong>Market opportunity:</strong> AI-controlled laboratories need a vendor-neutral benchmark that tests whether an agent can complete an absolute-power measurement after recognizing uncalibrated receiver units. This campaign exposed exactly that need and led to <a href="/physical-benchmark-for-ai-lab-agents.html">a proposal for a vendor-neutral physical benchmark for engineering agents</a>.</p>
             </div>
         </section>
     </main>

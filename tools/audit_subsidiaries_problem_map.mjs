@@ -7,16 +7,19 @@ import { fileURLToPath } from "node:url";
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(TOOL_DIR, "..");
-const SOURCE_RELATIVE = "publication-ready/problems-i-tackle-through-subsidiaries.md";
+const ORIGINAL_RELATIVE = "publication-ready/problems-i-tackle-through-subsidiaries.md";
 const PUBLIC_SOURCE_RELATIVE =
     "publication-ready/210-problems-we-have-learned-to-call-normal.md";
 const ARTICLE_RELATIVE = "210-problems-we-have-learned-to-call-normal.html";
+const BUILDER_RELATIVE = "tools/build_subsidiaries_problem_map.mjs";
 const PREVIEW_RELATIVE = "social-previews/210-problems-we-have-learned-to-call-normal.png";
+
 const TITLE = "210 Problems We Have Learned to Call Normal";
 const DESCRIPTION =
-    "A 210-problem map of bounded AI authority, live reconfigurable computation, near-sensor systems, physical intelligence, and accessible fabrication.";
+    "A cross-layer map of 210 opportunities for capability-native agency, live reconfigurable physical computation, and minimal-apparatus physical intelligence.";
 const CANONICAL = "https://greenforest.io/210-problems-we-have-learned-to-call-normal.html";
-const DATE = "2026-07-24";
+const DATE_PUBLISHED = "2026-07-24";
+const DATE_MODIFIED = "2026-07-28";
 const ORIGINAL_MANUSCRIPT_SHA256 =
     "bd955f5df45f09f2d5378cf72ca70467c47c757e841bb8f5178b8e2fec0c641c";
 
@@ -36,14 +39,31 @@ const EXPECTED_SEGMENT_COUNTS = new Map([
     ["Segment 3D", 19],
 ]);
 
-const INBOUND_LINKS = [
-    "index.html",
-    "about-greenforest.html",
+const EXPECTED_HREFS = [
+    CANONICAL,
+    "/favicon.ico",
     "technology-research-and-consulting.html",
-    "ai-should-interview-before-it-acts.html",
-    "cartilage-reconfigurable-computing-roadmap.html",
-    "the-missing-maker-fab.html",
-    "site-map.html",
+    "proof-and-artifacts.html",
+    "/",
+];
+
+const EXPECTED_SRCS = ["/site-analytics.js", "/common-script.js"];
+
+const PASSIVE_PATTERN =
+    /\b(?:am|is|are|was|were|be|been|being)\s+(?:\w+(?:ed|en)|built|made|sent|held|kept|left|found|shown|given|tied|written|driven|drawn|run|set|treated|assumed|expected|selected|required|represented|expressed|accepted|presumed|considered|replaced|fixed|restricted|constrained|centered|maintained|consumed|designed|controlled|measured|addressed|chosen|permitted|allowed)\b/giu;
+
+const PROCESS_AND_CLAIM_PATTERNS = [
+    [/\bOf course\b/giu, "Of course framing"],
+    [/Read every bullet/giu, "reader gimmick"],
+    [/edited public edition/giu, "editorial process copy"],
+    [/generated from/giu, "generation process copy"],
+    [/preserved original manuscript/giu, "manuscript wrapper copy"],
+    [/what this does not prove/giu, "proof-boundary framing"],
+    [/honest limit/giu, "limitation framing"],
+    [/evidence boundary/giu, "evidence-boundary framing"],
+    [/trust level|status badge/giu, "status framing"],
+    [/technical overstatement|claim policing/giu, "claim-policing framing"],
+    [/\b(?:unsupported|unproved|overstated|speculative|if real)\b/giu, "suspicion framing"],
 ];
 
 const errors = [];
@@ -112,225 +132,252 @@ function recordsHash(records) {
     );
 }
 
-const source = read(SOURCE_RELATIVE);
+function segmentProfile(records) {
+    const order = [];
+    const counts = new Map();
+    let current = "";
+    for (const record of records) {
+        if (record.role === "h3") {
+            current = record.text.match(/^(Segment \d[A-Z]):/)?.[1] || "";
+            order.push(current);
+            counts.set(current, 0);
+        } else if (record.role === "li") {
+            counts.set(current, (counts.get(current) || 0) + 1);
+        }
+    }
+    return { order, counts };
+}
+
+function countRoles(records, role) {
+    return records.filter((record) => record.role === role).length;
+}
+
+const originalSource = read(ORIGINAL_RELATIVE);
 const publicSource = read(PUBLIC_SOURCE_RELATIVE);
 const article = read(ARTICLE_RELATIVE);
-const originalRecords = sourceRecords(source);
-const expectedRecords = sourceRecords(publicSource);
+const builder = read(BUILDER_RELATIVE);
 
+const originalRecords = sourceRecords(originalSource);
+const publicRecords = sourceRecords(publicSource);
+const originalBullets = originalRecords.filter(({ role }) => role === "li");
+const publicBullets = publicRecords.filter(({ role }) => role === "li");
+const originalHeadings = originalRecords.filter(({ role }) => role === "h2" || role === "h3");
+const publicHeadings = publicRecords.filter(({ role }) => role === "h2" || role === "h3");
+
+check(sha256(originalSource) === ORIGINAL_MANUSCRIPT_SHA256, "original manuscript bytes changed");
 check(
-    sha256(source) === ORIGINAL_MANUSCRIPT_SHA256,
-    "original manuscript bytes changed",
+    originalSource.startsWith("I strive to tackle all of these problems at once via subsidiaries:\n"),
+    "original manuscript opening changed",
 );
 check(
-    source.startsWith("I strive to tackle all of these problems at once via subsidiaries:\n"),
-    "canonical source opening changed",
-);
-check(
-    source.trimEnd().endsWith(
+    originalSource.trimEnd().endsWith(
         "Computation is assumed to be permanently coupled to transistor economics, semiconductor geopolitics, and centralized manufacturing.",
     ),
-    "canonical source ending changed",
+    "original manuscript ending changed",
 );
 check(originalRecords.length === 232, `expected 232 original records, found ${originalRecords.length}`);
+check(countRoles(originalRecords, "p") === 6, "expected 6 original paragraphs");
+check(countRoles(originalRecords, "h2") === 3, "expected 3 original section headings");
+check(countRoles(originalRecords, "h3") === 13, "expected 13 original segment headings");
+check(originalBullets.length === 210, `expected 210 original bullets, found ${originalBullets.length}`);
+
+check(publicRecords.length === 233, `expected 233 public records, found ${publicRecords.length}`);
+check(countRoles(publicRecords, "p") === 7, "expected 7 public framing paragraphs");
+check(countRoles(publicRecords, "h2") === 3, "expected 3 public section headings");
+check(countRoles(publicRecords, "h3") === 13, "expected 13 public segment headings");
+check(publicBullets.length === 210, `expected 210 public bullets, found ${publicBullets.length}`);
 check(
-    originalRecords.filter(({ role }) => role === "p").length === 6,
-    "expected 6 original paragraphs",
+    publicBullets.every(({ text }) => text.endsWith(".")),
+    "every public problem statement must end with a period",
+);
+
+check(
+    publicRecords[0]?.text.startsWith("Three connected system directions can remove burdens"),
+    "public opening must lead with the cross-layer opportunity",
 );
 check(
-    originalRecords.filter(({ role }) => role === "h2").length === 3,
-    "expected 3 original subsidiary headings",
+    publicRecords[1]?.text.includes("future subsidiaries")
+        && publicRecords[1]?.text.includes("do not exist as companies yet"),
+    "public opening must identify the subsidiaries as a future structure",
 );
 check(
-    originalRecords.filter(({ role }) => role === "h3").length === 13,
-    "expected 13 original segment headings",
+    publicRecords.filter(({ role, text }) => role === "p" && text.includes("planned subsidiary")).length === 3,
+    "public source must orient all three planned subsidiaries",
 );
 check(
-    originalRecords.filter(({ role }) => role === "li").length === 210,
-    "expected 210 original problem bullets",
-);
-check(
-    originalRecords
-        .filter(({ role }) => role === "li")
-        .every(({ text }) => text.endsWith(".")),
-    "every original problem bullet must end with a period",
-);
-check(expectedRecords.length === 233, `expected 233 edited records, found ${expectedRecords.length}`);
-check(
-    expectedRecords.filter(({ role }) => role === "p").length === 7,
-    "expected 7 edited paragraphs",
-);
-check(
-    expectedRecords.filter(({ role }) => role === "h2").length === 3,
-    "expected 3 edited subsidiary headings",
-);
-check(
-    expectedRecords.filter(({ role }) => role === "h3").length === 13,
-    "expected 13 edited segment headings",
-);
-check(
-    expectedRecords.filter(({ role }) => role === "li").length === 210,
-    "expected 210 edited problem bullets",
-);
-check(
-    expectedRecords[0]?.text
-        === "These problems no longer look like problems. They look like the unavoidable price of building useful AI, machines, instruments, electronics, and infrastructure. That is exactly why I am publishing all 210 at once.",
-    "edited opening hook changed",
-);
-check(
-    expectedRecords[1]?.text.startsWith(
-        "I plan to create three focused subsidiaries, each attacking a different layer:",
-    ),
-    "edited opening must state that the subsidiaries are a future plan",
-);
-check(
-    expectedRecords.filter(({ role, text }) => (
-        role === "p" && text.startsWith("I plan to build the ")
+    publicRecords.filter(({ role, text }) => role === "h2" && (
+        text.includes("Capability-native agency")
+        || text.includes("Live reconfigurable physical computation")
+        || text.includes("Minimal-apparatus physical intelligence")
     )).length === 3,
-    "edited copy must contain three planned-subsidiary orientation paragraphs",
+    "public section headings must name all three system directions",
 );
 
-const originalBullets = originalRecords.filter(({ role }) => role === "li");
-const editedBullets = expectedRecords.filter(({ role }) => role === "li");
+const originalBulletSet = new Set(originalBullets.map(({ text }) => text.normalize("NFC")));
+const exactCarryover = publicBullets.filter(({ text }) => originalBulletSet.has(text.normalize("NFC")));
 check(
-    recordsHash(originalBullets) === recordsHash(editedBullets),
-    "the 210 edited problem bullets must remain identical to the original manuscript",
+    exactCarryover.length === 0,
+    `public source contains ${exactCarryover.length} unchanged original bullets`,
 );
-const originalHeadings = originalRecords.filter(({ role }) => role === "h2" || role === "h3");
-const editedHeadings = expectedRecords.filter(({ role }) => role === "h2" || role === "h3");
+const originalHeadingSet = new Set(originalHeadings.map(({ text }) => text.normalize("NFC")));
+const unchangedHeadings = publicHeadings.filter(({ text }) => originalHeadingSet.has(text.normalize("NFC")));
 check(
-    recordsHash(originalHeadings) === recordsHash(editedHeadings),
-    "the 16 edited section and segment headings must remain identical to the original manuscript",
+    unchangedHeadings.length === 0,
+    `public source contains ${unchangedHeadings.length} unchanged original headings`,
 );
 
-let currentSegment = "";
-const segmentCounts = new Map();
-for (const record of originalRecords) {
-    if (record.role === "h3") {
-        currentSegment = record.text.slice(0, record.text.indexOf(":"));
-        segmentCounts.set(currentSegment, 0);
-    } else if (record.role === "li") {
-        segmentCounts.set(currentSegment, (segmentCounts.get(currentSegment) || 0) + 1);
+const visiblePublicText = publicRecords.map(({ text }) => text).join("\n");
+const firstPersonMatches = visiblePublicText.match(/\b(?:I|me|my|mine|myself)\b/gu) || [];
+check(
+    firstPersonMatches.length === 1,
+    `public source should contain one direct ownership statement, found ${firstPersonMatches.length}`,
+);
+const passiveMatches = [...visiblePublicText.matchAll(PASSIVE_PATTERN)].map((match) => match[0]);
+check(
+    passiveMatches.length === 0,
+    `public source contains passive constructions: ${[...new Set(passiveMatches)].join(", ")}`,
+);
+for (const [pattern, label] of PROCESS_AND_CLAIM_PATTERNS) {
+    check(!pattern.test(visiblePublicText), `public source contains ${label}`);
+}
+
+const expectedSegmentOrder = [...EXPECTED_SEGMENT_COUNTS.keys()];
+for (const [label, records] of [["original", originalRecords], ["public", publicRecords]]) {
+    const profile = segmentProfile(records);
+    check(
+        JSON.stringify(profile.order) === JSON.stringify(expectedSegmentOrder),
+        `${label}: segment order changed`,
+    );
+    for (const [segment, expectedCount] of EXPECTED_SEGMENT_COUNTS) {
+        check(
+            profile.counts.get(segment) === expectedCount,
+            `${label} ${segment}: expected ${expectedCount} bullets, found ${profile.counts.get(segment)}`,
+        );
     }
 }
-for (const [segment, expected] of EXPECTED_SEGMENT_COUNTS) {
-    check(segmentCounts.get(segment) === expected, `${segment}: expected ${expected} bullets`);
-}
+
+const sectionNumbers = publicRecords
+    .filter(({ role }) => role === "h2")
+    .map(({ text }) => text.match(/^(\d+)\./)?.[1] || "");
+check(JSON.stringify(sectionNumbers) === JSON.stringify(["1", "2", "3"]), "public section order changed");
 
 const wrapperMatch = article.match(
     /<section\b(?=[^>]*\bdata-problem-map\b)[^>]*>([\s\S]*?)<\/section>/i,
 );
-check(Boolean(wrapperMatch), "article: edited problem-map wrapper is missing");
+check(Boolean(wrapperMatch), "article: problem-map wrapper is missing");
 const actualRecords = wrapperMatch ? htmlRecords(wrapperMatch[1]) : [];
 check(
-    actualRecords.length === expectedRecords.length,
-    `article: expected ${expectedRecords.length} rendered records, found ${actualRecords.length}`,
+    actualRecords.length === publicRecords.length,
+    `article: expected ${publicRecords.length} rendered records, found ${actualRecords.length}`,
 );
 
-const recordCount = Math.min(expectedRecords.length, actualRecords.length);
+const recordCount = Math.min(publicRecords.length, actualRecords.length);
 for (let index = 0; index < recordCount; index += 1) {
-    const expected = expectedRecords[index];
+    const expected = publicRecords[index];
     const actual = actualRecords[index];
     check(actual.role === expected.role, `record ${index + 1}: expected <${expected.role}>, found <${actual.role}>`);
     check(
         actual.text.normalize("NFC") === expected.text.normalize("NFC"),
-        `record ${index + 1}: rendered text differs from canonical source`,
+        `record ${index + 1}: rendered text differs from canonical public Markdown`,
     );
 }
 
-const expectedRecordHash = recordsHash(expectedRecords);
+const expectedRecordHash = recordsHash(publicRecords);
 const actualRecordHash = recordsHash(actualRecords);
-check(
-    actualRecordHash === expectedRecordHash,
-    `protected record hash mismatch: ${actualRecordHash} != ${expectedRecordHash}`,
-);
+check(actualRecordHash === expectedRecordHash, "article: public record hash mismatch");
 
 const embeddedOriginalHash =
     article.match(/data-original-manuscript-sha256="([0-9a-f]{64})"/i)?.[1] || "";
 const embeddedPublicHash =
     article.match(/data-public-source-sha256="([0-9a-f]{64})"/i)?.[1] || "";
-check(embeddedOriginalHash === sha256(source), "article: embedded original-manuscript hash is wrong");
-check(embeddedPublicHash === sha256(publicSource), "article: embedded public-source hash is wrong");
-check((wrapperMatch?.[1].match(/<ul>/g) || []).length === 13, "article: expected 13 rendered lists");
-check(
-    !actualRecords.some(({ text }) => text.startsWith("Of course")),
-    "article: Of course must remain an instruction, not a repeated bullet prefix",
-);
+check(embeddedOriginalHash === sha256(originalSource), "article: original manuscript hash mismatch");
+check(embeddedPublicHash === sha256(publicSource), "article: public source hash mismatch");
+check((wrapperMatch?.[1].match(/<ul>/g) || []).length === 13, "article: expected 13 lists");
+check((wrapperMatch?.[1].match(/<li>/g) || []).length === 210, "article: expected 210 list items");
+check((wrapperMatch?.[1].match(/<h2\b/g) || []).length === 3, "article: expected 3 section headings");
+check((wrapperMatch?.[1].match(/<h3\b/g) || []).length === 13, "article: expected 13 segment headings");
+check((article.match(/<main\b/g) || []).length === 1, "article: expected one main element");
+check((article.match(/<nav\b/g) || []).length === 1, "article: expected one navigation element");
 
-check(article.includes(`<title>${TITLE} | Greenforest I/O</title>`), "article: title metadata mismatch");
-check(
-    article.includes(`<meta name="description" content="${DESCRIPTION}">`),
-    "article: meta description mismatch",
-);
+check(article.includes(`<title>${TITLE} | Greenforest I/O</title>`), "article: title mismatch");
+check(article.includes(`<meta name="description" content="${DESCRIPTION}">`), "article: description mismatch");
+check(article.includes(`<meta property="og:description" content="${DESCRIPTION}">`), "article: Open Graph description mismatch");
 check(article.includes(`<link rel="canonical" href="${CANONICAL}">`), "article: canonical mismatch");
 check(
-    article.includes(`<meta property="article:published_time" content="${DATE}">`),
+    article.includes(`<meta property="article:published_time" content="${DATE_PUBLISHED}">`),
     "article: published date mismatch",
 );
 check(
-    article.includes(`<meta property="article:modified_time" content="${DATE}">`),
+    article.includes(`<meta property="article:modified_time" content="${DATE_MODIFIED}">`),
     "article: modified date mismatch",
 );
 check(
-    article.includes(`<time datetime="${DATE}">July 24, 2026</time>`),
+    article.includes(`<time datetime="${DATE_PUBLISHED}">July 24, 2026</time>`),
     "article: visible publication date mismatch",
 );
+
+const hrefs = [...article.matchAll(/\bhref="([^"]+)"/g)].map((match) => decodeEntities(match[1]));
+const srcs = [...article.matchAll(/\bsrc="([^"]+)"/g)].map((match) => decodeEntities(match[1]));
+check(JSON.stringify(hrefs) === JSON.stringify(EXPECTED_HREFS), "article: href order or targets changed");
+check(JSON.stringify(srcs) === JSON.stringify(EXPECTED_SRCS), "article: script source order or targets changed");
 check(
-    article.includes("social-previews/210-problems-we-have-learned-to-call-normal.png"),
-    "article: share preview metadata missing",
+    !/edited public edition|generated from|preserved original manuscript|Read every bullet|Of course/iu.test(article),
+    "article: publication-process residue remains",
 );
-check(
-    !/[ÂÃ]|â(?:€|€™|€œ|€\u009d)/.test(article + source + publicSource),
-    "article/sources: possible mojibake detected",
-);
+check(!/[ÂÃ]|â(?:€|€™|€œ|€\u009d)|�/.test(article + originalSource + publicSource), "article/sources: mojibake detected");
 
 const jsonBlocks = [...article.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
 check(jsonBlocks.length === 1, `article: expected 1 JSON-LD block, found ${jsonBlocks.length}`);
 if (jsonBlocks.length === 1) {
     try {
         const json = JSON.parse(jsonBlocks[0][1]);
-        check(json["@type"] === "TechArticle", "article: JSON-LD type must be TechArticle");
+        check(json["@type"] === "TechArticle", "article: JSON-LD type mismatch");
         check(json.headline === TITLE, "article: JSON-LD headline mismatch");
-        check(json.datePublished === DATE, "article: JSON-LD datePublished mismatch");
-        check(json.dateModified === DATE, "article: JSON-LD dateModified mismatch");
+        check(json.datePublished === DATE_PUBLISHED, "article: JSON-LD published date mismatch");
+        check(json.dateModified === DATE_MODIFIED, "article: JSON-LD modified date mismatch");
         check(json.description === DESCRIPTION, "article: JSON-LD description mismatch");
         check(json.mainEntityOfPage === CANONICAL, "article: JSON-LD canonical mismatch");
+        check(
+            JSON.stringify(json.about) === JSON.stringify([
+                "Capability-native agency",
+                "Live reconfigurable physical computation",
+                "Minimal-apparatus physical intelligence",
+            ]),
+            "article: JSON-LD system directions mismatch",
+        );
     } catch (error) {
         check(false, `article: invalid JSON-LD (${error.message})`);
     }
 }
 
+check(
+    /fs\.readFileSync\(PUBLIC_SOURCE_PATH, "utf8"\)/.test(builder),
+    "builder: canonical public Markdown read is missing",
+);
+check(
+    !/writeFileSync\s*\(\s*PUBLIC_SOURCE_PATH/.test(builder),
+    "builder: public Markdown must never be overwritten",
+);
+check(
+    !/buildPublicSource|PUBLIC_OPENING|PUBLIC_ORIENTATIONS/.test(builder),
+    "builder: stale manuscript-to-public regeneration remains",
+);
+
 const style = read("common-script.js");
 check(
     /body\.subsidiary-problem-map main > section\[data-problem-map\] > h2::before\s*\{[\s\S]*?content:\s*none\s*!important/.test(style),
-    "common-script.js: supplied H2 numbering override is missing",
+    "common-script.js: H2 numbering override is missing",
 );
 
-for (const relativePath of INBOUND_LINKS) {
-    const html = read(relativePath);
-    check(
-        html.includes("210-problems-we-have-learned-to-call-normal.html"),
-        `${relativePath}: inbound article link missing`,
-    );
-}
-
 const siteMap = read("site-map.html");
-check(siteMap.includes("283 articles, collections"), "site-map.html: visible page count must be 283");
 check(
     (siteMap.match(/href="210-problems-we-have-learned-to-call-normal\.html"/g) || []).length === 1,
     "site-map.html: article must appear exactly once",
 );
-
 const sitemap = read("sitemap.xml");
 check(
     (sitemap.match(/https:\/\/greenforest\.io\/210-problems-we-have-learned-to-call-normal\.html/g) || []).length === 1,
     "sitemap.xml: article URL must appear exactly once",
-);
-check(
-    sitemap.includes(
-        `<loc>${CANONICAL}</loc>\n    <lastmod>${DATE}</lastmod>`,
-    ),
-    "sitemap.xml: article lastmod mismatch",
 );
 
 const previewPath = path.join(ROOT, ...PREVIEW_RELATIVE.split("/"));
@@ -341,11 +388,11 @@ if (fs.existsSync(previewPath)) {
     check(preview.subarray(1, 4).toString("ascii") === "PNG", `${PREVIEW_RELATIVE}: not a PNG`);
 }
 
-console.log(`original_source_sha256=${sha256(source)}`);
+console.log(`original_source_sha256=${sha256(originalSource)}`);
 console.log(`public_source_sha256=${sha256(publicSource)}`);
 console.log(`records_sha256=${expectedRecordHash}`);
-console.log(`edited_records=${expectedRecords.length}`);
-console.log(`problem_bullets=${expectedRecords.filter(({ role }) => role === "li").length}`);
+console.log(`public_records=${publicRecords.length}`);
+console.log(`problem_statements=${publicBullets.length}`);
 console.log(`checks=${checks}`);
 console.log(`errors=${errors.length}`);
 for (const error of errors) console.error(`ERROR: ${error}`);

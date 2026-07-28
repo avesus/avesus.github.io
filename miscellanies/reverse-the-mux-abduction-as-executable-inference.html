@@ -14,7 +14,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/miscellanies/reverse-the-mux-abduction-as-executable-inference.html">
     <meta property="article:published_time" content="2026-07-24">
-    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,8 +42,8 @@
             },
             "dateCreated": "2022-02-08T05:02:26.913Z",
             "datePublished": "2026-07-24",
-            "dateModified": "2026-07-24",
-            "description": "A finite, executable account of abduction: observe a multiplexer output, run its relation backward, enumerate compatible causes, and rank the surviving explanations without confusing inference with reversed physical time.",
+            "dateModified": "2026-07-28",
+            "description": "Reverse-the-MUX inference turns abduction into an executable engine that enumerates compatible causes, ranks explanations, and chooses the next observation that separates them.",
             "mainEntityOfPage": "https://greenforest.io/miscellanies/reverse-the-mux-abduction-as-executable-inference.html",
             "isPartOf": {
                 "@type": "CollectionPage",
@@ -62,33 +62,32 @@
 
 <body class="article-structured miscellany-article">
     <header><h1 class="page-title">Reverse the MUX: Abduction as Executable Inference</h1></header>
-    <address><time datetime="2022-02-08">Developed from February 8 through July 9, 2022.</time></address>
+    <address><time datetime="2022-02-08">Developed from February 8 through July 9, 2022.</time><br><time datetime="2026-07-28">Updated July 28, 2026</time></address>
 
     <section class="abstract">
         <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
-        <p class="lead">A finite, executable account of abduction: observe a multiplexer output, run its relation backward, enumerate compatible causes, and rank the surviving explanations without confusing inference with reversed physical time.</p>
+        <p class="lead">Reverse-the-MUX inference turns abduction into an executable engine that enumerates compatible causes, ranks explanations, and chooses the next observation that separates them.</p>
     </section>
 
     <main>
         <section class="article-opening">
-            <p>Deduction runs a rule forward. Abduction asks what could have produced the result.</p>
-            <p>I wanted to make that distinction executable with the smallest useful circuit I know: a multiplexer.</p>
-            <p>A two-input MUX has data inputs <code>a</code> and <code>b</code>, a selector <code>s</code>, and output <code>y</code>:</p>
+            <p>A multiplexer can turn abduction—the search for causes behind an observation—into a finite executable operation.</p>
+            <p>A two-input MUX has data inputs <code>a</code> and <code>b</code>, selector <code>s</code>, and output <code>y</code>:</p>
             <pre><code class="language-text">y = (not s and a) or (s and b)</code></pre>
-            <p>Forward execution is ordinary:</p>
+            <p>Forward execution follows the selector:</p>
             <ul>
-                <li>when <code>s = 0</code>, output <code>a</code>;</li>
-                <li>when <code>s = 1</code>, output <code>b</code>.</li>
+                <li><code>s = 0</code> selects <code>a</code> as the output;</li>
+                <li><code>s = 1</code> selects <code>b</code> as the output.</li>
             </ul>
-            <p>Reverse the MUX and the question changes:</p>
-            <p><strong>Given an observed <code>y</code>, which assignments of <code>a</code>, <code>b</code>, and <code>s</code> remain possible?</strong></p>
-            <p>That is abduction in a finite Boolean world.</p>
+            <p>Reverse the relation and the machine answers a new question:</p>
+            <p><strong>After observing <code>y</code>, which combinations of <code>a</code>, <code>b</code>, and <code>s</code> satisfy the relation?</strong></p>
+            <p>That question gives abduction a complete Boolean core.</p>
         </section>
         <section>
-            <h2>Reversing a Relation, Not Time</h2>
-            <p>I reverse the relation, not physical time. No output signal has to travel into the past.</p>
-            <p>The Boolean relation has four variables. Forward evaluation supplies three and computes the fourth. Inverse inference supplies some other subset and asks which complete assignments satisfy the same relation.</p>
-            <p>For <code>y = 1</code>, the valid causes include:</p>
+            <h2>Reverse the Relation</h2>
+            <p>Reverse-the-MUX inference changes the direction of analysis, not physical time.</p>
+            <p>The Boolean relation contains four variables. Forward evaluation supplies three and computes the fourth. Inverse inference supplies another subset and enumerates every complete assignment that satisfies the same relation.</p>
+            <p>For <code>y = 1</code>, valid causes include:</p>
             <div class="table-scroll" tabindex="0">
                 <table>
                     <thead><tr>
@@ -110,87 +109,82 @@
                     </tbody>
                 </table>
             </div>
-            <p>The observation does not identify one cause. It creates a constraint.</p>
-            <p>If I also observe <code>s = 0</code>, then <code>a = 1</code> follows, while <code>b</code> remains unconstrained. If I know <code>a = 0</code> and still observe <code>y = 1</code>, the selector must be <code>1</code> and <code>b</code> must be <code>1</code>.</p>
-            <p>Abduction is not arbitrary guessing. It is the generation of assignments that survive the known constraints.</p>
+            <p>The observation creates a constraint with several solutions.</p>
+            <p>Add <code>s = 0</code>, and the relation requires <code>a = 1</code> while leaving <code>b</code> unconstrained. Add <code>a = 0</code> while <code>y = 1</code>, and the relation requires both <code>s = 1</code> and <code>b = 1</code>.</p>
+            <p>Abduction generates every assignment that survives the known constraints.</p>
         </section>
         <section>
-            <h2>Broken Implication</h2>
-            <p>Ordinary implication encourages a one-way reading:</p>
+            <h2>One Effect Opens Many Causes</h2>
+            <p>Ordinary implication presents one direction:</p>
             <pre><code class="language-text">cause -&gt; effect</code></pre>
-            <p>Abduction deliberately “breaks” that arrow. It refuses to pretend that one effect names one cause.</p>
-            <p>If a rule says rain can make pavement wet, wet pavement does not prove rain. A sprinkler, a broken pipe, or a cleaning crew may also satisfy the observation. The reverse operation returns a set of possible worlds, not a verdict.</p>
-            <p>The MUX makes this humility impossible to avoid. A one-bit output usually leaves several one-bit explanations.</p>
-            <p>Larger Boolean circuits can be treated the same way. Fix observed outputs. Leave unknown inputs, internal states, or configuration bits symbolic. Solve for assignments that make the circuit consistent.</p>
-            <p>This is Boolean satisfiability with an explanatory purpose.</p>
+            <p>Abduction opens the arrow and returns the causes compatible with the effect.</p>
+            <p>Rain can make pavement wet. Wet pavement can also follow from a sprinkler, broken pipe, or cleaning crew. The reverse operation therefore creates a set of possible worlds that all satisfy the observation.</p>
+            <p>The MUX makes that multiplicity visible in one bit. Larger Boolean circuits support the same operation: fix observed outputs, leave unknown inputs, internal states, or configuration bits symbolic, and solve for every consistent assignment.</p>
+            <p>This turns Boolean satisfiability into an explanatory engine.</p>
         </section>
         <section>
-            <h2>From Possibilities to Explanations</h2>
-            <p>Constraint solving gives candidates. It does not tell me which candidate is useful.</p>
-            <p>An abductive engine needs a second layer that ranks explanations. Possible criteria include:</p>
+            <h2>Ranking Turns Possibilities Into Explanations</h2>
+            <p>Constraint solving creates candidates. A ranking layer turns them into useful explanations through explicit criteria:</p>
             <ul>
-                <li>prior probability;</li>
-                <li>number of assumptions;</li>
-                <li>cost of the implied mechanism;</li>
-                <li>compatibility with previous observations;</li>
-                <li>ability to predict an unobserved value;</li>
-                <li>robustness when measurements contain error;</li>
-                <li>simplicity of the resulting model.</li>
+                <li>probability before the new observation;</li>
+                <li>assumptions the explanation introduces;</li>
+                <li>cost of its implied mechanism;</li>
+                <li>agreement with earlier observations;</li>
+                <li>power to predict an unobserved value;</li>
+                <li>stability under measurement error;</li>
+                <li>simplicity of the model it creates.</li>
             </ul>
-            <p>Bayesian inference supplies one principled ranking when probabilities are available. Search or learning can estimate which explanations have worked before. Formal logic can reject contradictions. Each method works from the observations and preferences it is actually given.</p>
-            <p>The clean architecture is:</p>
+            <p>Bayesian inference supplies principled rankings when probabilities exist. Search or learning can estimate which explanations have worked before. Formal logic can reject contradictions. Each technique operates from its actual observations and preferences.</p>
+            <p>The clean architecture has four stages:</p>
             <ol>
-                <li><strong>generate</strong> all or many constraint-compatible causes;</li>
-                <li><strong>rank</strong> them using explicit preferences or probabilities;</li>
-                <li><strong>test</strong> the best distinctions with a new observation;</li>
-                <li><strong>revise</strong> when the test fails.</li>
+                <li><strong>Generate</strong> all or many constraint-compatible causes.</li>
+                <li><strong>Rank</strong> them through explicit preferences or probabilities.</li>
+                <li><strong>Test</strong> the strongest distinction with a new observation.</li>
+                <li><strong>Revise</strong> the ranking after the result.</li>
             </ol>
-            <p>Abduction proposes. Experiment separates.</p>
+            <p>Abduction proposes; experiment separates.</p>
         </section>
         <section>
-            <h2>Prediction Is the Dual of Guessing</h2>
-            <p>Consider a simple game. I write a bit sequence, hide it, and ask another agent to write a matching sequence.</p>
-            <p>If the sequences match, I can say I predicted what the agent would write. The agent can say it guessed what I had already written. The same correlation receives two causal stories depending on which record I treat as prior and which actor I center.</p>
-            <p>This does not erase physical order. Timestamps, information access, and communication paths still matter. It does reveal that “prediction” and “guess” are roles assigned around a matching relation.</p>
-            <p>A good inference system should record those information boundaries:</p>
+            <h2>Prediction and Guessing Share a Relation</h2>
+            <p>Consider a game where one agent writes and hides a bit sequence while another writes a sequence intended to match it.</p>
+            <p>When the sequences match, the first agent can call the result a prediction; the second can call it a guess. The same correlation gains different causal stories from the record treated as prior and the actor placed at the center.</p>
+            <p>Physical order remains available through timestamps, information access, and communication paths. A rigorous inference system records:</p>
             <ul>
                 <li>what existed before the decision;</li>
                 <li>what each agent could observe;</li>
-                <li>when the hypothesis was committed;</li>
+                <li>when the hypothesis entered the record;</li>
                 <li>which result arrived later.</li>
             </ul>
-            <p>Without that discipline, a lucky guess can be retold as foresight.</p>
+            <p>Those boundaries give a matching relation its correct causal meaning.</p>
         </section>
         <section>
-            <h2>What “Fifty Percent A and Fifty Percent B” Can Mean</h2>
-            <p>I once wrote the compressed phrase “50% of A + 50% of B” beside the idea of quantum speedup. The phrase can describe a classical mixture, uncertainty over two hypotheses, an ensemble, or—with the correct mathematical machinery—a quantum superposition whose amplitudes and interference matter.</p>
-            <p>For abductive inference I need only the classical reading: two explanations may begin with equal prior weight. A new observation changes the weights or rules one out.</p>
-            <p>Interference is not obtained by writing a percentage sign between alternatives.</p>
+            <h2>Give Percentages Their Exact Semantics</h2>
+            <p>The 2022 formulation placed the compressed phrase “50% of A + 50% of B” beside quantum speedup. That phrase can describe a classical mixture, uncertainty over two hypotheses, an ensemble, or—with the required mathematical machinery—a quantum superposition whose amplitudes and interference matter.</p>
+            <p>Abductive inference needs the classical reading: two explanations can begin with equal prior weight, and a new observation changes those weights or removes one candidate.</p>
+            <p>Quantum interference requires amplitude and phase. A percentage sign alone does not create it.</p>
         </section>
         <section>
-            <h2>Neural Search Is an Optional Engine</h2>
-            <p>I also imagined a deep, recurrent, asynchronous, quantized, spiking network as an inference machine. To turn that bundle into an architecture, each word needs a specific job:</p>
+            <h2>Neural Search Can Accelerate the Engine</h2>
+            <p>A deep, recurrent, asynchronous, quantized, spiking network offers one possible search engine when every adjective names a function:</p>
             <ul>
-                <li>deep: several representational layers;</li>
-                <li>recurrent: retained state and feedback;</li>
-                <li>asynchronous: local events rather than one global step;</li>
-                <li>quantized: bounded numeric state;</li>
-                <li>spiking: information carried partly by event timing.</li>
+                <li><strong>deep:</strong> several representational layers;</li>
+                <li><strong>recurrent:</strong> retained state and feedback;</li>
+                <li><strong>asynchronous:</strong> local events instead of one global step;</li>
+                <li><strong>quantized:</strong> bounded numeric state;</li>
+                <li><strong>spiking:</strong> information carried partly through event timing.</li>
             </ul>
-            <p>Such a network might learn to propose likely causes quickly. It still needs a constraint checker if the result must obey exact logic. A learned proposal mechanism and a symbolic verifier can complement one another: one searches the huge space; the other refuses impossible answers.</p>
-            <p>The MUX remains the ground truth for the tiny case.</p>
+            <p>Such a network can learn to propose likely causes quickly. A constraint checker can then enforce exact logic. Learned proposal and symbolic verification form a productive pair: one searches a vast space; the other accepts only assignments that satisfy the relation.</p>
+            <p>The MUX supplies the ground truth for the smallest case.</p>
         </section>
         <section>
-            <h2>Abduction as World-Making</h2>
-            <p>There is also a philosophical layer I do not want to erase.</p>
-            <p>A bold hypothesis changes the world a group inhabits. Once people coordinate around a model, they build instruments, institutions, software, and expectations that make some futures more likely. An information system can distribute a model so widely that thousands of people act as though it were already true.</p>
-            <p>That is real world-making through coordinated behavior. It acts through people, instruments, institutions, and software—not through thought alone selecting a quantum branch, activating time travel, or bending physical truth. Many-worlds, morphic resonance, and a photonic continuity field gave me images for thinking; coordinated action supplies the mechanism here.</p>
-            <p>The valuable warning is social: an abductive hypothesis can harden into supposed fact. If enough people synchronize around it, the model begins producing observations shaped by the model itself.</p>
-            <p>That makes falsifiable tests and recorded commitments morally important.</p>
+            <h2>Abduction Can Build a Shared World</h2>
+            <p>A bold hypothesis changes the world a group inhabits. Once people coordinate around a model, they create instruments, institutions, software, and expectations that make some futures more likely. An information system can distribute that model widely enough for thousands of people to act through it.</p>
+            <p>This world-making has a concrete mechanism: coordinated behavior through people, instruments, institutions, and software. Earlier images of many-worlds, morphic resonance, and a photonic continuity field helped frame the possibility; collective action makes it operational.</p>
+            <p>The same mechanism explains how a hypothesis can harden into an assumed fact and shape later observations. Recorded commitments and distinguishing tests let a group keep the model responsive while it acts.</p>
         </section>
         <section>
-            <h2>The Small Executable Core</h2>
-            <p>Reverse-the-MUX inference can be implemented without metaphysical machinery:</p>
+            <h2>The Executable Core</h2>
+            <p>Reverse-the-MUX inference needs only an executable relation:</p>
             <pre><code class="language-text">inputs:
   known values and observed outputs
 
@@ -202,22 +196,22 @@ process:
 
 output:
   possible causes, not one invented certainty</code></pre>
-            <p>For a small circuit, brute-force enumeration is enough. For a larger one, a SAT solver, binary decision diagram, constraint engine, or hybrid learned search can reduce the work.</p>
-            <p>The important thing is that the explanation remains connected to an executable relation. I can inspect why an assignment survives. I can add one observation and watch alternatives disappear. I can see when several stories still fit instead of forcing one.</p>
-            <p>Abduction is bold because it creates possibilities. It becomes knowledge only when those possibilities accept the risk of being eliminated.</p>
+            <p>Brute-force enumeration handles a finite circuit. SAT solvers, binary decision diagrams, constraint engines, and hybrid learned search extend the same operation to larger systems.</p>
+            <p>Every explanation stays connected to the relation that generated it. An engineer can inspect why an assignment survives, add one observation, watch alternatives disappear, and choose the measurement that separates the remaining stories.</p>
+            <p>Abduction creates possible causes. Executable relations, ranked evidence, and decisive observations turn them into knowledge.</p>
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue reading">
         <p>Read next:</p>
         <a href="/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.html">Logical Momentum: A State Needs a Direction, Not Just a Value</a>
-        <p>A design for computations that carry transition direction, completion, and release instead of representing every variable as a timeless value.</p>
+        <p>Logical momentum carries transition direction, phase, completion, release, and replay information with each value so reactive computations can compose.</p>
         <p>Continue:</p>
         <a href="/mux-algebra.html">MUX Algebra</a>
         <p>Use the complete gate catalog and its verified Cartilage counterparts before running the relation backward.</p>
         <p>Nearby:</p>
         <a href="/miscellanies/from-domain-models-down-to-muxes-and-back-up.html">From Domain Models Down to MUXes—and Back Up</a>
-        <p>A walk from diverse domain models through simulation, control and datapath, Boolean relations, multiplexers, state, energy, and physical work.</p>
+        <p>Every domain consequence can travel through explicit transition rules, control, datapaths, Boolean relations, MUXes, retained state, energy.</p>
         <a href="/miscellanies/">Browse all 53 Miscellanies</a>
         <a href="/">Back to greenforest.io</a>
     </nav>

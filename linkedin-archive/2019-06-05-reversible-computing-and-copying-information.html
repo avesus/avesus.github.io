@@ -6,11 +6,11 @@
     <title>Reversible Computing and Copying Information</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A reversible-computing note about copying, caching, recomputation, and the physical cost of erasing state in a finite machine.">
+    <meta name="description" content="Every copied intermediate result saves recomputation and consumes physical state, so a reversible machine must plan storage, fanout, cleanup, and uncomputation together.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2019-06-05-reversible-computing-and-copying-information.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Reversible Computing and Copying Information">
-    <meta property="og:description" content="A reversible-computing note about copying, caching, recomputation, and the physical cost of erasing state in a finite machine.">
+    <meta property="og:description" content="Every copied intermediate result saves recomputation and consumes physical state, so a reversible machine must plan storage, fanout, cleanup, and uncomputation together.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2019-06-05-reversible-computing-and-copying-information.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2019-06-05",
-                                "dateModified": "2026-07-09",
-                                "description": "A reversible-computing note about copying, caching, recomputation, and the physical cost of erasing state in a finite machine.",
+                                "dateModified": "2026-07-28",
+                                "description": "Every copied intermediate result saves recomputation and consumes physical state, so a reversible machine must plan storage, fanout, cleanup, and uncomputation together.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2019-06-05-reversible-computing-and-copying-information.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,30 @@
     <header>Reversible Computing and Copying Information</header>
     <address>June 5, 2019</address>
 
+    <section class="abstract">
+        <p>Every copied bit buys saved work and consumes physical state. Reversible computing makes that exchange part of the architecture: cache an intermediate value, carry it where the circuit needs it, then return temporary storage to a known state without erasing useful information.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>A Copy Trades Time for State</h1>
+            <p>Ordinary software caches a value so several branches can reuse it. The cache replaces repeated arithmetic with storage and movement. A physical circuit pays the same bill in registers, wires, switching energy, fanout, and occupied volume.</p>
+            <p>A fixed-volume machine cannot create fresh blank state forever. Eventually it must reclaim storage. Irreversible logic overwrites old values and releases energy through that loss of information. Reversible logic instead carries enough history to run selected operations backward.</p>
+        </section>
+
+        <section>
+            <h1>Uncomputation Closes the Loop</h1>
+            <p>A reversible circuit can compute an intermediate result, copy the part that later stages need, and reverse the original path to clear temporary state. That sequence turns cleanup into a designed computation rather than an invisible overwrite.</p>
+            <p>The architecture therefore chooses between three resources at every branch: recompute a value, retain it, or uncompute the machinery that produced it. Each choice changes area, latency, routing, and energy.</p>
+        </section>
+
+        <section>
+            <h1>Design Copies as First-Class Operations</h1>
+            <p>Mark where information fans out. Give every retained value a lifetime. Pair temporary work with a return path. These choices make the physical meaning of caching explicit and open a route toward machines that conserve information while still sharing results across parallel computation.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6542124072942338048" data-linkedin-activity="6542124072942338048" data-linkedin-source="activity:6542124072942338048">
         <h2 id="linkedin-original-6542124072942338048">Originally posted on LinkedIn</h2>
@@ -106,45 +130,13 @@ What are your thoughts on this, dear fellow computer science researchers?</div>
         </blockquote>
     </section>
 
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Caching avoids recomputation by keeping intermediate values available. Reversible computing makes the other side of that bargain visible: copied information has to be accounted for, cleaned up, or uncomputed.</p>
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2019-06-05.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Copy Cost</h1>
-            <p>Ordinary machines use copies constantly. A cached value can save work by preventing a branch of a computation from being recomputed. That is useful, but it is not physically neutral: the machine must allocate state, preserve it, overwrite it, or erase it.</p>
-            <p>In reversible computing, that bookkeeping becomes part of the design problem. If an intermediate result is copied for later use, the circuit also needs a path for cleaning up temporary state without throwing away information that still matters.</p>
-        </section>
-
-        <section>
-            <h1>The Engineering Question</h1>
-            <p>The useful comparison is storage versus recomputation. A saved value costs area, memory, energy, fanout, and later cleanup. Recomputing can be expensive too, but it may avoid carrying extra state through the rest of the circuit.</p>
-            <p>A reversible design has to decide where copied information belongs, how long it should live, and whether it can be uncomputed cleanly after the dependent work is finished.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2019-04-24-geometric-algebra-and-matrix-multiplication.html">Geometric Algebra and Matrix Multiplication</a>
-        <p>Another dated publication from April 24, 2019.</p>
-        <p>More:</p>
-        <a href="2019-07-09-distributed-reactive-programming-for-claytronics.html">Distributed Reactive Programming for Claytronics</a>
-        <p>Another dated publication from July 9, 2019.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6542124072942338048/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Reversible Computing and Copying Information, read:</strong></p>
+        <a href="2023-06-21-reversible-computation-and-biological-efficiency.html">Reversible Computation and Biological Efficiency</a>
+        <p>Computing at biological scale demands a radically different energy model. The human brain operates near tens of watts while conventional fabrics with comparable connection counts would consume orders of magnitude more power.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6542124072942338048/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

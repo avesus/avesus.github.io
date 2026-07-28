@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Metal Wires Are Part of the Machine | Cartilage</title>
-    <meta name="description" content="Cartilage chapter six: replace schematic arrows with routing layers, vias, resistance, capacitance, congestion, direction, and the distinction between Cartilage side-metals and physical IC metal.">
+    <title>Route Signals Through Metal Layers, Vias, Resistance, And Capacitance | Cartilage</title>
+    <meta name="description" content="Replace schematic arrows with routing layers, vias, resistance, capacitance, direction, and finite capacity, then map Cartilage side-metals onto physical resources.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/cartilage/metal-wires.html">
-    <meta property="og:title" content="Metal Wires Are Part of the Machine">
-    <meta property="og:description" content="Routes consume layers, tracks, vias, delay, energy, and capacity; Cartilage's logical side-metals make locality visible but are not fabricated metal claims.">
+    <meta property="og:title" content="Route Signals Through Metal Layers, Vias, Resistance, And Capacitance">
+    <meta property="og:description" content="Every route consumes layers, tracks, vias, delay, energy, and capacity; Cartilage side-metals make that spatial cost visible.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage/metal-wires.html">
     <meta property="article:published_time" content="2026-07-22">
@@ -22,20 +22,20 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Metal Wires Are Part of the Machine - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Signals routed through metal layers and vias - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage/metal-wires.png">
-    <meta name="twitter:image:alt" content="Metal Wires Are Part of the Machine - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Signals routed through metal layers and vias - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "Metal Wires Are Part of the Machine",
+            "headline": "Route Signals Through Metal Layers, Vias, Resistance, And Capacitance",
             "datePublished": "2026-07-22",
-            "dateModified": "2026-07-22",
-            "description": "Routing layers, vias, resistance, capacitance, congestion, direction, and Cartilage's logical side-metals.",
+            "dateModified": "2026-07-28",
+            "description": "Routing layers, vias, resistance, capacitance, congestion, direction, and Cartilage side-metals make every connection spatially explicit.",
             "image": "https://greenforest.io/cartilage/metal-wires.svg",
             "mainEntityOfPage": "https://greenforest.io/cartilage/metal-wires.html",
             "isPartOf": {
@@ -53,71 +53,71 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">Metal Wires Are Part Of The Machine</h1></header>
+    <header><h1 class="page-title">Route Signals Through Metal Layers, Vias, Resistance, And Capacitance</h1></header>
     <address>July 22, 2026</address>
 
     <section class="abstract">
         <p><span class="eyebrow">Cartilage · Chapter 6</span></p>
-        <p>A wire in a logic drawing looks free. A routed connection occupies a track on a particular layer, changes direction through vias, couples capacitively to its surroundings, resists current, consumes routing capacity, and adds delay.</p>
-        <p>Cartilage also uses “metal” as a logical vocabulary for directional side connections between neighboring cells. The analogy is valuable only when the layers stay distinct: local side-metals in a browser substrate are not yet fabricated IC metal.</p>
+        <p>Every routed connection occupies a track on a particular layer, changes direction through vias, couples capacitively to its surroundings, resists current, consumes routing capacity, and adds delay.</p>
+        <p>Cartilage uses “metal” as a logical vocabulary for directional side connections between neighboring cells. Those local side-metals make spatial communication visible, while physical implementation maps them onto FPGA routing resources or fabricated IC layers.</p>
     </section>
 
     <figure class="concept-diagram">
         <a href="metal-wires.svg">
             <img src="metal-wires.svg" width="1200" height="675" alt="A source and load connected across horizontal and vertical metal layers with vias and an RC wire model">
         </a>
-        <figcaption>Original Greenforest I/O diagram. The routing-layer and parasitic concepts are grounded in the OpenROAD documentation linked below.</figcaption>
+        <figcaption>Original Greenforest I/O diagram: a source reaches its load through horizontal and vertical layers, vias, and an RC path grounded in the OpenROAD documentation below.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h2>Interconnect Has A Stack</h2>
-            <p>Integrated circuits use multiple conducting layers separated by dielectric. Design rules define widths, spacings, enclosures, pitches, allowed directions, and via structures. A route moves along one layer, changes layers through a via, and eventually reaches a pin shape on a cell or macro.</p>
-            <p>Different layers can be assigned different preferred directions and different roles. A flow may reserve a layer range for signals and another for clocks. OpenROAD's <a href="https://openroad.readthedocs.io/en/latest/main/src/grt/README.html" target="_blank" rel="noopener">global-routing documentation</a> exposes separate signal and clock layer ranges and layer-by-layer capacity adjustments.</p>
+            <h2>Build Every Route Through A Physical Stack</h2>
+            <p>Integrated circuits use multiple conducting layers separated by dielectric. Design rules define widths, spacings, enclosures, pitches, allowed directions, and via structures. A route follows one layer, changes layers through a via, and reaches a pin shape on a cell or macro.</p>
+            <p>Designers assign preferred directions and distinct roles to each layer, reserving one range for signals and another for clocks when the flow requires it. OpenROAD’s <a href="https://openroad.readthedocs.io/en/latest/main/src/grt/README.html" target="_blank" rel="noopener">global-routing documentation</a> exposes separate signal and clock layer ranges plus layer-by-layer capacity adjustments.</p>
         </section>
 
         <section>
-            <h2>Resistance And Capacitance Make Delay Spatial</h2>
-            <p>A metal segment has resistance along its length and capacitance to neighboring conductors and the substrate. Vias add resistance and geometry. The driver must charge or discharge the combined wire and input capacitance.</p>
-            <p>OpenROAD's <a href="https://openroad.readthedocs.io/en/latest/main/src/est/README.html" target="_blank" rel="noopener">parasitics-estimation reference</a> lets a flow set resistance and capacitance by routing layer, distinguish clock and signal wire models, and estimate parasitics from placement or global routing. The important transition is from “net A connects to B” to “this route through these layers has an estimated physical cost.”</p>
+            <h2>Turn Resistance And Capacitance Into Spatial Delay</h2>
+            <p>A metal segment contributes resistance along its length and capacitance to neighboring conductors and the substrate. Vias add resistance and geometry, while the driver charges or discharges the combined wire and input capacitance.</p>
+            <p>OpenROAD’s <a href="https://openroad.readthedocs.io/en/latest/main/src/est/README.html" target="_blank" rel="noopener">parasitics-estimation reference</a> lets a flow set resistance and capacitance by routing layer, distinguish clock and signal wire models, and estimate parasitics from placement or global routing. “Net A connects to B” therefore becomes “this route through these layers has an estimated physical cost.”</p>
         </section>
 
         <section>
-            <h2>Capacity Makes Routes Compete</h2>
-            <p>A layer contains a finite number of legal tracks. Pins, macros, power structures, blockages, and already-routed nets consume access and capacity. When too many desired routes cross one area, the router detours, changes layers, adds vias, or fails to find a legal solution.</p>
-            <p>That is congestion. It is why the shortest abstract connection may become a long physical route, and why placement, floorplanning, hierarchy, and high-fanout structure can determine timing before a single gate delay changes.</p>
+            <h2>Make Finite Routing Capacity Part Of Placement</h2>
+            <p>Each layer contains a finite number of legal tracks. Pins, macros, power structures, blockages, and routed nets consume access and capacity. Dense demand makes the router detour, change layers, add vias, or report that no legal solution remains.</p>
+            <p>Congestion can turn the shortest abstract connection into a long physical route. Placement, floorplanning, hierarchy, and high-fanout structure therefore shape timing before any gate delay changes.</p>
         </section>
 
         <section>
-            <h2>Cartilage Side-Metals Are A Logical Substrate</h2>
+            <h2>Use Every Cartilage Side-Metal As A Local Route</h2>
             <p>The preserved <code>cartilage3</code> substrate gives each square cell three incoming and three outgoing directional connections on each of four sides—24 edge “metals” per cell, excluding power. Sixteen belong to the Sinew reconfiguration overlay; eight carry application or intersection state.</p>
-            <p>In the WebGL artifact, these values move by local neighbor reads and texture ping-pong. Path length and region shape therefore determine update latency in the simulated substrate. That is a strong spatial property. It is not a resistance, capacitance, electromigration, crosstalk, or foundry-rule result.</p>
-            <p><a href="/cartilage-nested-instantiation-demo.html">The nested-instantiation wrapper</a> explains how local configuration data and ownership use these neighboring relationships without modifying the preserved shader artifact.</p>
+            <p>Local neighbor reads and texture ping-pong move these values through the WebGL fabric, so path length and region shape directly determine simulated update latency. Physical implementation adds resistance, capacitance, electromigration, crosstalk, and foundry-rule analysis to that spatial topology.</p>
+            <p><a href="/cartilage-nested-instantiation-demo.html">The nested-instantiation mechanism</a> shows local configuration data and ownership using those neighboring relationships while the canonical shader keeps its original execution path.</p>
         </section>
 
         <section>
-            <h2>Why Keep The Word “Metal”</h2>
-            <p>The word is useful because it resists an easy abstraction error. A value does not teleport from one component to another. It occupies a path, crosses a boundary, consumes local connection capacity, and arrives after propagation.</p>
-            <p>The word becomes misleading only when logical adjacency is presented as physical closure. A future Cartilage implementation must map logical side-metals onto concrete FPGA routing or IC layers, extract or estimate delay, satisfy design rules, and close timing. The current public evidence has not crossed that boundary.</p>
+            <h2>Keep The Word “Metal” Attached To Physical Cost</h2>
+            <p>A value occupies a path, crosses a boundary, consumes local connection capacity, and arrives after propagation. The word “metal” keeps that spatial and physical cost inside the architecture.</p>
+            <p>Physical Cartilage implementation maps logical side-metals onto concrete FPGA routing or IC layers, extracts or estimates delay, satisfies design rules, and closes timing. That mapping turns logical adjacency into a characterized physical route.</p>
         </section>
 
         <section>
-            <h2>Wires Make Ownership Concrete</h2>
-            <p>A nested component is not merely a name in a source file. Its boundary has ports; its ports occupy routes; its parent must reach them; and an independently reconfigurable child needs a configuration surface distinct from ordinary circuit composition.</p>
-            <p>The next chapter uses that physical intuition to distinguish nested source definitions, ordinary composed circuitry, and a genuinely owned daughter region.</p>
+            <h2>Use Routes To Make Ownership Concrete</h2>
+            <p>A nested component occupies a bounded region. Its ports consume routes, its parent reaches those routes, and its independent reconfiguration uses a configuration surface distinct from ordinary application composition.</p>
+            <p>The next chapter carries that physical structure into nested source definitions, composed circuitry, and parent-owned daughter regions.</p>
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue the Cartilage learning path">
         <p>Next:</p>
         <a href="nested-components-and-composition.html">Nested Components And Spatial Composition</a>
-        <p>Turn hierarchy into explicit interfaces, ownership boundaries, and independently replaceable daughter regions.</p>
-        <p>More:</p>
+        <p>Give hierarchy a physical interface, an ownership boundary, routed ports, and independently replaceable daughter regions.</p>
+        <p>Return to the full sequence:</p>
         <a href="/cartilage/">The Complete Cartilage Learning Path</a>
-        <p>Return to the sequence and its current evidence map.</p>
-        <p>Build next:</p>
+        <p>Connect routed locality to logic, state, timing, and runtime regional composition.</p>
+        <p>Build the workstation:</p>
         <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help turn Cartilage’s logical side-metals into named, traceable, physically costed routes. Funding and contributors are welcome.</p>
+        <p>Choose a concrete package that makes Cartilage side-metals named, traceable, and physically costed.</p>
     </nav>
 </body>
 

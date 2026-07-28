@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>My April 2025 One-Pin FPGA Weaver Transmitter RTL | Greenforest I/O</title>
+    <title>One FPGA Pin Performs A Weaver RF Sum | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="My April 2025 iCE40 Weaver RTL implements four quadrature mixers followed by a phase-domain summator: two I/Q sigma-delta streams undergo the first conversion, then a four-state selector realizes two 216 MHz mixers and their sum on one RF pin.">
+    <meta name="description" content="An iCE40 implements four quadrature mixers and a phase-domain summator: two I/Q sigma-delta streams control a four-state selector that realizes two 216 MHz mixers and their sum on one RF pin.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/one-pin-quadrature-sdm-transmitter.html">
-    <meta property="og:title" content="My April 2025 One-Pin FPGA Weaver Transmitter RTL">
+    <meta property="og:title" content="One FPGA Pin Performs A Weaver RF Sum">
     <meta property="og:description" content="Four quadrature mixers produce two one-bit intermediate signals that control a four-state selector; the selector performs the phase-domain sum on one 216 MHz RF pin.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/one-pin-quadrature-sdm-transmitter.html">
@@ -23,26 +23,26 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="My April 2025 One-Pin FPGA Weaver Transmitter RTL - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="One FPGA Pin Performs A Weaver RF Sum - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/one-pin-quadrature-sdm-transmitter.png">
-    <meta name="twitter:image:alt" content="My April 2025 One-Pin FPGA Weaver Transmitter RTL - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="One FPGA Pin Performs A Weaver RF Sum - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "My April 2025 One-Pin FPGA Weaver Transmitter RTL",
+            "headline": "One FPGA Pin Performs A Weaver RF Sum",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest",
                 "url": "https://greenforest.io/"
             },
             "datePublished": "2026-07-22",
-            "dateModified": "2026-07-27",
+            "dateModified": "2026-07-28",
             "image": "https://greenforest.io/backdrop_rf.jpeg",
-            "description": "My April 2025 iCE40 Weaver RTL implements four quadrature mixers followed by a phase-domain summator: two I/Q sigma-delta streams undergo the first conversion, then a four-state selector realizes two 216 MHz mixers and their sum on one RF pin.",
+            "description": "An iCE40 implements four quadrature mixers and a phase-domain summator: two I/Q sigma-delta streams control a four-state selector that realizes two 216 MHz mixers and their sum on one RF pin.",
             "mainEntityOfPage": "https://greenforest.io/one-pin-quadrature-sdm-transmitter.html",
             "proficiencyLevel": "Advanced",
             "publisher": {
@@ -56,27 +56,27 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">My April 2025 One-Pin FPGA Weaver Transmitter RTL</h1></header>
+    <header><h1 class="page-title">One FPGA Pin Performs A Weaver RF Sum</h1></header>
     <address>July 22, 2026</address>
 
     <section class="abstract">
         <p class="eyebrow">FPGA Weaver radio · April 2025 RTL</p>
-        <p class="lead">This transmitter is four quadrature mixers followed by a phase-domain summator. Two baseband I/Q sigma-delta streams undergo the first Weaver conversion. The resulting two one-bit signals control a four-state selector that realizes the two 216 MHz carrier mixers and their sum on one iCE40 RF pin.</p>
+        <p class="lead">Four quadrature mixers collapse into one phase-switched FPGA pin and a resonant network.</p>
         <figure class="inspectable-image inspectable-image--fit">
             <a href="backdrop_rf.jpeg">
                 <img src="backdrop_rf.jpeg" width="1279" height="320" loading="eager" decoding="async" alt="Transmitter sawtooth waveforms, hand-built resonant-tank hardware, and a historical RF spectrum display">
             </a>
-            <figcaption>The transmitter experiment family: opposing I/Q sawtooths, the hand-built resonant network, and the historical analyzer view near 245.388 MHz.</figcaption>
+            <figcaption>Opposing I/Q sawtooths drive the four-mixer structure, one pin excites the hand-built resonant network, and the receiver displays the resulting signal near 245.388 MHz.</figcaption>
         </figure>
-        <p>The first mixer pair produces <code>rfI</code> and <code>rfQ</code>. Those bits do not leave through two analog paths. Together they address a four-state selector. Each selector state equals one possible algebraic sum of the second 216 MHz quadrature mixer pair, so the selector performs the phase-domain summation. One selected RF phase reaches N16 and the tank.</p>
-        <p>In July 2026 I built an architectural descendant: PRBS QPSK and a +7.5 MHz whole-word rotation replaced the baseband and IF implementation, while the four-mixer structure, two one-bit intermediate signals, phase-domain summator, N16 boundary, and tank remained. My historical tank sketch notes about −15 dBm beside its 7.5 kΩ coupling path; it does not name a load, output reference plane, bandwidth, or instrument settings.</p>
+        <p>The first mixer pair produces <code>rfI</code> and <code>rfQ</code>. Together, those bits address a four-state selector. Each state equals one algebraic sum of the second 216 MHz quadrature mixer pair, so the selector performs both carrier mixing and phase-domain summation before one selected phase reaches N16 and the tank.</p>
+        <p>A July 2026 descendant replaces the baseband and IF implementation with PRBS QPSK and a +7.5 MHz whole-word rotation while preserving the four mixers, two one-bit intermediate signals, phase-domain summator, N16 output, and tank. The historical tank sketch labels a 7.5 kΩ coupling path and records “about −15 dBm” beside the output.</p>
     </section>
 
     <main>
         <section>
-            <h2>The RTL Implements Four Mixers and One Phase-Domain Sum</h2>
+            <h2>Four Mixers Become One Selectable Phase</h2>
             <p>The April 2025 transmitter is in <a href="one-pin-RF/ptc_nov21/mod_apr20.sv"><code>one-pin-RF/ptc_nov21/mod_apr20.sv</code></a>. The adjacent <a href="one-pin-RF/ptc_nov21/build.sh">build script</a>, <a href="one-pin-RF/ptc_nov21/hx8k.pcf">HX8K constraints</a>, and <a href="one-pin-RF/ptc_nov21/timing.py">nextpnr timing declarations</a> use the open Yosys, nextpnr, IceStorm, and <code>iceprog</code> path.</p>
-            <p>Opposing 32-bit sawtooths create the complex baseband motion, and two sigma-delta paths reduce I and Q to one bit each. In this RTL snapshot, a Johnson counter supplies the specific quadrature IF oscillator; adjacent taps drive the first mixer pair. The complete four-mixer quadrature relationship rejects the conjugate image, and the resulting <code>rfI</code>/<code>rfQ</code> pair controls the four-state selector that performs the phase-domain sum.</p>
+            <p>Opposing 32-bit sawtooths create complex baseband motion, and two sigma-delta paths reduce I and Q to one bit each. A Johnson counter supplies the quadrature IF oscillator; adjacent taps drive the first mixer pair. The complete quadrature relationship rejects the conjugate image, and the resulting <code>rfI</code>/<code>rfQ</code> pair controls the selector that performs the phase-domain sum.</p>
         </section>
 
         <section>
@@ -97,7 +97,7 @@ assign MODULATED_RF_OUT = rfI ? (
                 <a href="one-pin-RF/images/quadrature-sdm-four-phase-sketch.jpg">
                     <img src="one-pin-RF/images/quadrature-sdm-four-phase-sketch.jpg" width="1280" height="1010" loading="lazy" decoding="async" alt="Hand sketch of four phase-offset carrier waves and their square-wave equivalents">
                 </a>
-                <figcaption>Working sketch of four carrier phases and their square-wave equivalents. It explains the selection rule; it is not a measured 216 MHz timing capture.</figcaption>
+                <figcaption>The four carrier phases and their square-wave equivalents reveal how each selector state chooses the algebraic sum of the two carrier products.</figcaption>
             </figure>
         </section>
 
@@ -113,8 +113,8 @@ wire rfQ = dac_outQ ^ j_0[1];</code></pre>
         </section>
 
         <section>
-            <h2>The One-Pin Output Boundary</h2>
-            <p><code>RF_OUT</code> is mapped to N16 in the HX8K CT256 constraint file. The source does not drive it as an ordinary push-pull data assignment. An <code>SB_IO</code> primitive holds the data side high and applies <code>MODULATED_RF_OUT</code> to <code>OUTPUT_ENABLE</code>, using the pMOS side as the switched RF boundary.</p>
+            <h2>N16 Becomes The Physical Summation Point</h2>
+            <p>The HX8K CT256 constraint file maps <code>RF_OUT</code> to N16. Instead of an ordinary push-pull data assignment, an <code>SB_IO</code> primitive holds the data side high and applies <code>MODULATED_RF_OUT</code> to <code>OUTPUT_ENABLE</code>, using the pMOS side as the RF switch.</p>
             <pre><code>SB_IO #(
   .PIN_TYPE(6'b101000),
   .IO_STANDARD("SB_LVCMOS"),
@@ -124,46 +124,46 @@ wire rfQ = dac_outQ ^ j_0[1];</code></pre>
   .D_OUT_0(1'b1),
   .OUTPUT_ENABLE(MODULATED_RF_OUT)
 );</code></pre>
-            <p>That pin is the digital/physical handoff. The FPGA chooses phase; the external network supplies the narrowband electrical behavior.</p>
+            <p>The FPGA chooses the phase at N16; the external network stores energy and turns those switched edges into narrowband electrical behavior.</p>
         </section>
 
         <section>
-            <h2>The Resonant-Tank Experiment</h2>
+            <h2>The Resonant Tank Turns Edges Into RF</h2>
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="one-pin-RF/images/resonant-tank-output-sketch.jpg">
                     <img src="one-pin-RF/images/resonant-tank-output-sketch.jpg" width="1280" height="663" loading="lazy" decoding="async" alt="Hand sketch of an FPGA square-wave output feeding a coupled resonant-tank network">
                 </a>
-                <figcaption>My historical output-network sketch: the FPGA switch feeds a series resistor and coupling capacitor, a parallel resonant primary, and a coupled secondary. The handwritten output estimate is about −15 dBm.</figcaption>
+                <figcaption>The output-network sketch sends the FPGA switch through a series resistor and coupling capacitor into a parallel resonant primary and coupled secondary. The handwritten output annotation reads about −15 dBm.</figcaption>
             </figure>
-            <p>The resonant network is not decoration. A phase-switched digital pin produces edges and harmonics; the tank stores field energy between those edges, favors the intended RF region, and couples a sinusoidal output from its secondary. The historical sketch shows a 7.5 kΩ coupling value. The July 2026 fixture used a nominal 8.5 kΩ value and measured a loaded tank Q of about 35.2.</p>
+            <p>A phase-switched digital pin produces edges and harmonics. The tank stores field energy between those edges, favors the intended RF region, and couples a sinusoidal output from its secondary. The historical sketch shows a 7.5 kΩ coupling value; the July 2026 fixture uses a nominal 8.5 kΩ value and measures a loaded tank Q of about 35.2.</p>
         </section>
 
         <section>
-            <h2>The Tank-Coupled Signal Appeared Beside a Live Reference</h2>
+            <h2>The Receiver Shows The Local Signal Beside Live Radio</h2>
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="one-pin-RF/images/historical-cubicsdr-spectrum.jpg">
                     <img src="one-pin-RF/images/historical-cubicsdr-spectrum.jpg" width="1280" height="708" loading="lazy" decoding="async" alt="Historical CubicSDR display from an RTL-SDR Blog V4 showing the local FPGA transmitter and a live PTC channel">
                 </a>
-                <figcaption>Historical CubicSDR capture received through an RTL-SDR Blog V4 dongle. Two received signals are visible: the local one-pin FPGA transmitter coupled through the 8.5 k&Omega; resistor and resonant tank, and a live PTC channel used as a qualitative spectrum-purity reference.</figcaption>
+                <figcaption>An RTL-SDR Blog V4 receives the local one-pin FPGA transmitter through the 8.5 k&Omega; coupling resistor and resonant tank beside a live PTC channel in the same CubicSDR view.</figcaption>
             </figure>
-            <p>CubicSDR and an RTL-SDR Blog V4 received the local tank-coupled FPGA signal and a live PTC channel in the same view. The local signal's sawtooth-like spectral shape was the comparison I cared about. The 2026 continuation replaces that qualitative view with RF-off subtraction, exact receiver windows, a measured tank transfer, and separate views of the wanted band, 216 MHz carrier, and 208 MHz true image.</p>
+            <p>The local signal carries the expected sawtooth-like spectral shape beside the live channel. The 2026 continuation adds RF-off subtraction, fixed receiver windows, measured tank transfer, and separate views of the wanted band, 216 MHz carrier, and 208 MHz true image.</p>
         </section>
 
         <section>
             <h2>Why This Transmitter Matters</h2>
             <p>The design compresses four quadrature mixers and their final sum into FPGA primitives and one physical output: two one-bit intermediate signals, four carrier phases, one phase-domain summator, one switched pin, and one resonant network.</p>
-            <p>That is useful beyond this particular snapshot. It shows a route from digital modulation state to RF phase without inserting a conventional external I/Q modulator between the FPGA and the tuned output network.</p>
+            <p>It creates a direct route from digital modulation state to RF phase and removes the conventional external I/Q modulator between the FPGA and tuned output network. That opens compact transmitter paths whose signal architecture lives almost entirely in reprogrammable logic.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="fpga-radio-hardware-in-the-loop.html">My One-Pin FPGA Weaver Transmitter: Four Quadrature Mixers and a Phase-Domain Summator</a>
+        <a href="fpga-radio-hardware-in-the-loop.html">Measure The One-Pin FPGA Weaver Transmitter</a>
         <p>Follow the four quadrature mixers, two one-bit intermediate signals, phase-domain summator, N16, tuned tank, and physical measurements of the square wanted band, carrier, and true conjugate image.</p>
         <p>More:</p>
         <a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a>
         <a href="fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
-        <p>Place the transmitter beside the Ethernet, arithmetic, tangible-logic, and reconfiguration work.</p>
+        <p>Connect the transmitter to the wider Ethernet, arithmetic, tangible-logic, and reconfiguration systems.</p>
         <a href="/">Back to greenforest.io</a>
     </nav>
 </body>

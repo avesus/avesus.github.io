@@ -6,11 +6,11 @@
     <title>The ISA as an API You Cannot Extend</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A machine-interface note: an ISA is a fixed contract between software and hardware, useful for portability but limiting when a program needs a new datapath.">
+    <meta name="description" content="A fixed instruction set resembles a perfect web API with no server-side access; Verilog lets programmers extend the machine itself.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-18-the-isa-as-an-api-you-cannot-extend.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The ISA as an API You Cannot Extend">
-    <meta property="og:description" content="A machine-interface note: an ISA is a fixed contract between software and hardware, useful for portability but limiting when a program needs a new datapath.">
+    <meta property="og:description" content="A fixed instruction set resembles a perfect web API with no server-side access; Verilog lets programmers extend the machine itself.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-18-the-isa-as-an-api-you-cannot-extend.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2021-06-18",
-                                "dateModified": "2026-07-09",
-                                "description": "A machine-interface note: an ISA is a fixed contract between software and hardware, useful for portability but limiting when a program needs a new datapath.",
+                                "dateModified": "2026-07-28",
+                                "description": "A fixed instruction set resembles a perfect web API with no server-side access; Verilog lets programmers extend the machine itself.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-18-the-isa-as-an-api-you-cannot-extend.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,27 @@
     <header>The ISA as an API You Cannot Extend</header>
     <address>June 18, 2021</address>
 
+
+    <section class="abstract">
+        <p>A fixed instruction set gives software developers a polished interface to a machine they cannot change. Brian Greenforest compares it to building a major web product with permission to call an API but no permission to write server-side code.</p>
+        <p>Verilog removes that restriction. It lets programmers define the parallel circuits, state, and interfaces that their application actually needs.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The ISA Fixes the Shape of Every Request</h1>
+            <p>Software can combine instructions endlessly, yet each operation still passes through the processor’s documented vocabulary, register model, memory hierarchy, and control flow.</p>
+            <p>Custom hardware moves the application’s structure into the machine. Reactive paths run together, data stays near the logic that uses it, and the design pays only for the mechanisms it needs.</p>
+        </section>
+
+        <section>
+            <h1>Every Programmer Should Meet the Fabric</h1>
+            <p>Learning Verilog changes how a developer sees loops, functions, state, timing, and concurrency. Even when the final product uses a CPU, the hardware model reveals the cost and opportunity behind every abstraction.</p>
+            <p>Build one Verilog design, simulate its waveform, and carry that physical understanding back into software—or forward into a fully reconfigurable system.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6811701791533740032" data-linkedin-activity="6811701791533740032" data-linkedin-source="activity:6811701791533740032">
         <h2 id="linkedin-original-6811701791533740032">Originally posted on LinkedIn</h2>
@@ -119,51 +140,13 @@ I strongly believe that EVERY PROGRAMMER in any language MUST learn and practice
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Machine-interface note</span>Originally posted 2021-06-18; rewritten here around the ISA as a fixed hardware/software contract.</p>
-            <p><strong>Included:</strong> instruction sets, software portability, custom datapaths, timing, state placement, and why hardware literacy changes what a programmer can express.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>An ISA Is a Contract</h1>
-            <p>An instruction set is the public contract a program receives from a processor. That contract is valuable because it gives portability, tooling, operating systems, debuggers, compilers, and decades of accumulated practice.</p>
-            <p>It is also a boundary. If the needed operation is a new datapath, a different state placement, a timing-critical circuit, or a small parallel machine, software cannot add that primitive by naming it. The program can only compose the instructions the machine already exposes.</p>
-        </section>
-
-        <section>
-            <h1>What Software Cannot Add by Itself</h1>
-            <p>Software can emulate missing behavior, but emulation keeps paying for the original execution shape. A custom hardware path can put storage, routing, comparison, accumulation, and control where the work actually happens.</p>
-            <p>That is why Verilog or another hardware-description path is useful for software engineers. It teaches timing, registers, fanout, resource sharing, and the cost of moving data. Those constraints are present whether or not the software layer admits them.</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>The practical point is knowing when the ISA is the wrong level of expression. Some systems need a new instruction. Some need a coprocessor. Some need an FPGA region. Some need to stay ordinary software because the fixed contract is exactly what makes them maintainable.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2021-06-18-cpus-solve-a-narrow-class-of-problems.html">CPUs Solve a Narrow Class of Problems</a>
-        <p>The execution-shape version of this machine-interface argument.</p>
-        <p>More:</p>
-        <a href="2021-06-22-an-fpga-cloud-for-shared-designs.html">An FPGA Cloud for Shared Designs</a>
-        <p>A later note on shared access to reconfigurable hardware.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6811701791533740032/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From The ISA as an API You Cannot Extend, read:</strong></p>
+        <a href="2018-10-24-a-breakthrough-in-simpler-computation.html">Simpler Computation Without an ISA</a>
+        <p>Computation can grow from locally managed components instead of a fixed catalog of instructions. This 2018 architecture placed composition, state, configuration, and parallel structure ahead of the ISA, opening a direct path toward machines that can change their own organization while they run.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6811701791533740032/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

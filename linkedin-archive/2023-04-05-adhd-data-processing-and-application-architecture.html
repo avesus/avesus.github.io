@@ -6,11 +6,11 @@
     <title>Application Startup and Dataflow Architecture</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="An application-architecture note: startup code, object construction, state ownership, event handlers, dataflow, and feedback paths define the program users actually run.">
+    <meta name="description" content="Application architecture emerges from startup order, object construction, state ownership, dataflow, event handlers, feedback, and the responsibility behind them.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-04-05-adhd-data-processing-and-application-architecture.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Application Startup and Dataflow Architecture">
-    <meta property="og:description" content="An application-architecture note: startup code, object construction, state ownership, event handlers, dataflow, and feedback paths define the program users actually run.">
+    <meta property="og:description" content="Application architecture emerges from startup order, object construction, state ownership, dataflow, event handlers, feedback, and the responsibility behind them.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-04-05-adhd-data-processing-and-application-architecture.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-04-05",
-                                "dateModified": "2026-07-09",
-                                "description": "An application-architecture note: startup code, object construction, state ownership, event handlers, dataflow, and feedback paths define the program users actually run.",
+                                "dateModified": "2026-07-28",
+                                "description": "Application architecture emerges from startup order, object construction, state ownership, dataflow, event handlers, feedback, and the responsibility behind them.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-04-05-adhd-data-processing-and-application-architecture.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,27 @@
     <header>Application Startup and Dataflow Architecture</header>
     <address>April 5, 2023</address>
 
+
+    <section class="abstract">
+        <p>An application’s deepest structure appears when startup code brings its objects onto the stage. Construction order, state ownership, dataflow, event handlers, and feedback paths define the system users actually run.</p>
+        <p>Brian Greenforest connects that architectural reading practice with an ADHD mind that processes many books and papers in parallel yet reads C++ main startup logic from beginning to end.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Read the Code That Creates the World</h1>
+            <p>Event handlers explain local reactions. Startup code explains which components exist, who owns them, how they connect, and which stable relationships persist for the application’s lifetime.</p>
+            <p>Mapping each constructor and invocation on one linear sheet reveals the grand architecture. It turns a collection of callbacks into a system with history, state, and purpose.</p>
+        </section>
+
+        <section>
+            <h1>Own the Feedback Loop</h1>
+            <p>Data science also creates architecture. Mathematical models consume observations and human hypotheses, produce insights and recommendations, and feed those outputs back into people and institutions.</p>
+            <p>The data scientist chooses where to look and which world to model. Engineers should claim responsibility for that creative input, the resulting actuators, and the larger system their work changes.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7049426057304674304" data-linkedin-activity="7049426057304674304" data-linkedin-source="activity:7049426057304674304">
         <h2 id="linkedin-original-7049426057304674304">Originally posted on LinkedIn</h2>
@@ -111,52 +132,13 @@ P.S.: Things that have a beginning are not there to have an end. Temporal sequen
 (edit: someone/something has deleted all new lines in the copy. Sorry for the inconvenience of reading!)</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Application-architecture note</span>Originally posted 2023-04-05; rewritten here around startup structure and dataflow ownership.</p>
-            <p><strong>Included:</strong> main entry points, construction order, long-lived state, event handlers, data pipelines, feedback paths, and what to inspect before changing a running system.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Startup Path Defines the Runtime</h1>
-            <p>In a large application, the entry point is not boilerplate. The startup path constructs the long-lived objects, state stores, schedulers, event loops, data feeds, network clients, model pipelines, and shutdown responsibilities that shape the rest of the run.</p>
-            <p>Event handlers are easier to read in isolation. They are also easy to misunderstand if the reader has not first seen what was constructed, who owns it, and which pieces survive for the lifetime of the process.</p>
-        </section>
-
-        <section>
-            <h1>Read Construction Order</h1>
-            <p>A useful first pass through an unfamiliar application is simple: read the entry point, list the objects created in order, mark the durable state, and draw the paths where data enters, changes, and leaves.</p>
-            <p>That map answers practical questions before a change is made. Which component owns the setting? Which worker observes the feed? Which migration changes the stored shape? Which event handler is only a leaf, and which one mutates state that later code depends on?</p>
-        </section>
-
-        <section>
-            <h1>Data Work Is a Feedback System</h1>
-            <p>Data science and machine-learning applications are also application architectures. Observations enter, models are trained or updated, recommendations leave, users or operators react, and new observations come back. The useful question is where that feedback is stored, tested, audited, and corrected.</p>
-            <p>Responsibility follows the path. A model output is not only a number; it becomes part of a product, workflow, decision, or user-facing loop. The architecture should make that loop visible enough to test and improve.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Application Startup and Dataflow Architecture, read:</strong></p>
         <a href="2026-03-06-correctness-emerges-by-acting.html">Correctness Emerges by Acting</a>
-        <p>The software-quality companion: observed behavior should become tests, migrations, and safer paths.</p>
-        <p>More:</p>
-        <a href="2022-04-21-compiling-backend-code-to-a-colder-chip.html">Compiling Backend Code to a Colder Chip</a>
-        <p>A backend-architecture note about preserving data models, state, configuration, and observability when execution changes shape.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7049426057304674304/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+        <p>Correctness grows from action. Builders become more accurate by closing the loop quickly: act, observe the real result, choose the next correction, and carry each lesson into tests and safer paths.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7049426057304674304/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

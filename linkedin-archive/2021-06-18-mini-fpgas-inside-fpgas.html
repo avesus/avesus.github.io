@@ -6,11 +6,11 @@
     <title>Mini-FPGAs Inside FPGAs</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A reconfigurable-fabric note: small programmable regions inside a larger FPGA can carry local configuration, control, and custom datapaths without CPU cores.">
+    <meta name="description" content="Thousands of mini-FPGAs inside a larger FPGA can load custom bitstreams, create dynamic regions, and replace processor islands with native Boolean machinery.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-18-mini-fpgas-inside-fpgas.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Mini-FPGAs Inside FPGAs">
-    <meta property="og:description" content="A reconfigurable-fabric note: small programmable regions inside a larger FPGA can carry local configuration, control, and custom datapaths without CPU cores.">
+    <meta property="og:description" content="Thousands of mini-FPGAs inside a larger FPGA can load custom bitstreams, create dynamic regions, and replace processor islands with native Boolean machinery.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-18-mini-fpgas-inside-fpgas.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2021-06-18",
-                                "dateModified": "2026-07-23",
-                                "description": "A reconfigurable-fabric note: small programmable regions inside a larger FPGA can carry local configuration, control, and custom datapaths without CPU cores.",
+                                "dateModified": "2026-07-28",
+                                "description": "Thousands of mini-FPGAs inside a larger FPGA can load custom bitstreams, create dynamic regions, and replace processor islands with native Boolean machinery.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-18-mini-fpgas-inside-fpgas.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Mini-FPGAs Inside FPGAs</header>
     <address>June 18, 2021</address>
 
+
+    <section class="abstract">
+        <p>A larger FPGA can contain thousands of smaller programmable fabrics, each with its own compact bitstream. That programming style creates dynamic hardware regions without inserting a RISC-V processor wherever behavior may change.</p>
+        <p>Brian Greenforest’s mini-FPGA pattern keeps computation in the massively parallel Boolean domain until a true instruction stream adds value.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Instantiate Reconfiguration as a Component</h1>
+            <p>A mini-FPGA module contains LUTs, registers, routing MUXes, configuration state, and application-facing ports. The surrounding Verilog can create many instances and feed each one a custom configuration.</p>
+            <p>Those regions behave like dynamically selectable components inside the larger circuit. They can host local control, dataflow, state machines, or specialized functions while preserving direct hardware relationships.</p>
+        </section>
+
+        <section>
+            <h1>Choose Structure Before Software</h1>
+            <p>Stacks, instruction pointers, and register files bring familiar software semantics, yet they also serialize work. A reconfigurable region can express the same changing behavior through parallel logic and local state.</p>
+            <p>Start with conventional FPGA architecture, inspect the Cartilage Core, and build a mini-fabric whose configuration matches the application instead of forcing the application through another CPU.</p>
+        </section>
+
+        <section>
+            <h1>Locate the Mini-FPGA Inside the Fabric</h1>
+            <p>The FPGA architecture chapter identifies LUTs, flip-flops, and routes; Cartilage Core carries those resources into a nested reconfigurable system.</p>
+            <p><a href="/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">start with the conventional FPGA architecture chapter</a> &middot; <a href="/cartilage-core.html">Cartilage Core</a> &middot; <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6811474430057943040" data-linkedin-activity="6811474430057943040" data-linkedin-source="activity:6811474430057943040">
         <h2 id="linkedin-original-6811474430057943040">Originally posted on LinkedIn</h2>
@@ -125,53 +152,13 @@ Not all problems require a Von Neumann CPU. Especially, NP-hard ones...
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Reconfigurable-fabric note</span>Originally posted 2021-06-18; rewritten here around programmable regions instantiated inside a larger design.</p>
-            <p><strong>Included:</strong> nested fabric, local bitstreams, LUT cost, routing cost, and when a small configurable datapath is clearer than a small CPU.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Fabric Inside Fabric</h1>
-            <p>A larger FPGA design can instantiate a smaller programmable region and feed it a local configuration stream. At that point the region behaves less like a fixed module and more like a tiny fabric with explicit ports, local state, and a bounded routing problem.</p>
-            <p>The useful comparison is not novelty. It is resource shape. A tiny CPU brings an instruction pointer, registers, program memory, and software tooling. A tiny fabric brings local logic, routing, and configuration bits. Either can be right, but they are not the same machine.</p>
-        </section>
-
-        <section>
-            <h1>Why Not Just Use Cores?</h1>
-            <p>Thousands of small CPU cores make sense when the work is naturally instruction-driven. They are less natural when the work is a fixed local rule, a small datapath, a routing decision, or a pipeline stage that only needs to change its configuration.</p>
-            <p>Keeping the behavior as logic can preserve timing and locality. It also makes the cost visible: LUTs, flip-flops, routing, configuration storage, placement pressure, and debug tooling.</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>Nested fabric spends FPGA resources to create a programmable substrate inside another programmable substrate. It earns that cost when local reconfiguration is simpler than rebuilding the whole design or embedding a processor where a small circuit would do.</p>
-            <p>Before the nested-fabric step, <a href="/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">start with the conventional FPGA architecture chapter</a>: LUTs, flip-flops, logic blocks, switchboxes, and interconnect make the costs named here concrete.</p>
-            <p>The current concrete reference is <a href="/cartilage-core.html">Cartilage Core</a>. Its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> publishes a local-cell SystemVerilog fabric and exact serial installation, but does not yet provide FPGA synthesis, placement, timing, area, or power results.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2021-06-18-cpus-solve-a-narrow-class-of-problems.html">CPUs Solve a Narrow Class of Problems</a>
-        <p>The broader execution-shape argument behind this fabric note.</p>
-        <p>More:</p>
-        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>A later browser/GPU fabric demo with bounded regions and local configuration paths.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6811474430057943040/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Mini-FPGAs Inside FPGAs, read:</strong></p>
+        <a href="/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html">FPGA Architecture: LUTs, Flip-Flops, and Routing</a>
+        <p>This chapter locates LUTs, flip-flops, wires, and routed modules inside the physical FPGA fabric.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6811474430057943040/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

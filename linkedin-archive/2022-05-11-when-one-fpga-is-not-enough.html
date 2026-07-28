@@ -6,11 +6,11 @@
     <title>When One FPGA Is Not Enough</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="What changes when an FPGA design crosses one device: partitioning, SerDes, clocks, protocols, latency, pipelines, placement, routing, and readable physical boundaries.">
+    <meta name="description" content="When logic crosses one FPGA, scaling demands a unified answer for partitioning, SerDes, clocks, latency, power, placement, and program structure.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-05-11-when-one-fpga-is-not-enough.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="When One FPGA Is Not Enough">
-    <meta property="og:description" content="What changes when an FPGA design crosses one device: partitioning, SerDes, clocks, protocols, latency, pipelines, placement, routing, and readable physical boundaries.">
+    <meta property="og:description" content="When logic crosses one FPGA, scaling demands a unified answer for partitioning, SerDes, clocks, latency, power, placement, and program structure.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-05-11-when-one-fpga-is-not-enough.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-05-11",
-                                "dateModified": "2026-07-09",
-                                "description": "What changes when an FPGA design crosses one device: partitioning, SerDes, clocks, protocols, latency, pipelines, placement, routing, and readable physical boundaries.",
+                                "dateModified": "2026-07-28",
+                                "description": "When logic crosses one FPGA, scaling demands a unified answer for partitioning, SerDes, clocks, latency, power, placement, and program structure.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-05-11-when-one-fpga-is-not-enough.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>When One FPGA Is Not Enough</header>
     <address>May 11, 2022</address>
 
+
+    <section class="abstract">
+        <p>Filling the largest FPGA changes the problem. Logic must cross package boundaries, and every new boundary introduces SerDes links, clock domains, protocols, pipelines, latency, placement, routing, synchronization, power, and engineering cost.</p>
+        <p>Brian Greenforest’s Cartilage architecture turns that custom integration burden into a scalable fabric with one programming model.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Crossing the Package Boundary Changes Everything</h1>
+            <p>A design that once shared one clock and routing graph now needs explicit communication between devices. Teams trade clock ambition for pipeline depth, design protocols, distribute time, and partition state around physical links.</p>
+            <p>At rack scale, two kilowatts across 36 units can disappear quickly. Linux, RISC-V, Kubernetes, orchestration libraries, and custom glue then multiply the levels an engineering team must maintain.</p>
+        </section>
+
+        <section>
+            <h1>Scale the Fabric Instead of Rebuilding the Cluster</h1>
+            <p>Cartilage organizes pure reconfigurable nodes through local links, dynamic placement, and a hardware runtime. Adding hardware expands the same machine instead of creating another separately administered island.</p>
+            <p>Organizations facing multi-FPGA complexity can bring their partitioning problem into this architecture. The goal is direct: save billions of engineering hours and make reconfigurable clusters scale.</p>
+        </section>
+
+        <section>
+            <h1>Map Multi-FPGA Structure in Cartilage</h1>
+            <p>Cartilage Visual Language makes distributed modules, boundaries, and interconnect visible when one FPGA can no longer contain the complete machine.</p>
+            <p><a href="/cartilage-visual-language.html">Cartilage Visual Language</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6930220193507917824" data-linkedin-activity="6930220193507917824" data-linkedin-source="activity:6930220193507917824">
         <h2 id="linkedin-original-6930220193507917824">Originally posted on LinkedIn</h2>
@@ -113,91 +140,13 @@ Because I know how to. Because I also know that nobody on Earth does know how to
 I know something that nobody else does, and I do want to help.</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>When a design crosses a single FPGA, partitioning, clocks, SerDes links, latency, placement, and routing become part of the program.</p>
-        <p>The problem is not just buying more fabric. The design now has physical boundaries that must be represented in the architecture.</p>
-        <div class="status-box">
-            <p><span class="status-label">Scale note</span>Originally posted 2022-05-11; rewritten here around the multi-device engineering problem.</p>
-            <p><strong>Included:</strong> partitioning, SerDes, clocks, protocols, latency, pipelines, placement, routing, and why the software stack often appears when the FPGA boundary becomes too hard to manage directly.</p>
-            <p><strong>Article focus:</strong> what changes when an FPGA design crosses one device: partitioning, SerDes, clocks, protocols, latency, pipelines, placement, and routing.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Device Boundary</h1>
-            <p>A large FPGA design is still one physical timing problem while it fits inside one package. Once the design crosses into a second package, the boundary becomes architectural.</p>
-            <p>Internal nets are no longer only routes. They become framed links, clock-domain crossings, latency contracts, reset rules, flow-control paths, debug paths, and placement constraints.</p>
-        </section>
-
-        <section>
-            <h1>What Changes</h1>
-            <div class="article-fact-table">
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Partitioning</div>
-                    <div>The design must be split where data movement, timing, and ownership can survive the package boundary.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">SerDes</div>
-                    <div>Internal wires become serialized links with framing, recovery, training, flow control, and error behavior.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Clocks</div>
-                    <div>Clock distribution becomes clock-domain crossing, synchronization, timestamping, or explicit asynchronous protocol design.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Latency</div>
-                    <div>Pipeline timing now includes link delay, buffering, retry behavior, and remote backpressure.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Placement</div>
-                    <div>Physical placement and routing are no longer only vendor-tool concerns; they affect the program architecture.</div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h1>Why The Software Stack Appears</h1>
-            <p>Teams often escape this problem by moving work into CPUs, Linux, GPU kernels, orchestration systems, services, or message queues. That can be the right tradeoff, but it changes the machine.</p>
-            <p>The FPGA fabric stops being the whole execution model and becomes one layer inside a larger software-controlled system. That may improve delivery, but it also adds latency, memory movement, operating-system behavior, deployment complexity, and more places for state to hide.</p>
-        </section>
-
-        <section>
-            <h1>What Must Remain Readable</h1>
-            <p>The useful goal is not scale as a headline. The useful goal is a split design whose timing, data ownership, resource pressure, and failure behavior can still be read by the people maintaining it.</p>
-            <p>A multi-device fabric needs explicit boundaries: what crosses, when it crosses, who owns it after it crosses, what happens when it arrives late, and how the rest of the pipeline keeps moving.</p>
-        </section>
-
-        <section class="cartilage-visual-link">
-            <h1>Related Fabric Work</h1>
-            <p>The Cartilage articles explore a smaller, visual version of the same concern: ownership, configuration, and routing boundaries should remain visible inside the fabric. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article decodes the cell-role alphabet used by that line of work.</p>
-        </section>
-
-        <section>
-            <h1>Original Post Context</h1>
-            <p>The original post was written around the moment when a single FPGA is no longer enough: the logic must be partitioned, clocks and latency must be redesigned, and the project can become dominated by custom glue.</p>
-            <p>The cleaned-up claim is narrower and stronger: crossing a device boundary turns physical scale into part of the program.</p>
-        </section>
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-05-05-cartilage-transputers-and-cellmatrix.html">Cartilage, Transputers, and CellMatrix</a>
-        <p>A related note about spatial fabrics and local computation.</p>
-        <p>More:</p>
-        <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>
-        <p>The same scaling problem from the source-code side.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6930220193507917824/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From When One FPGA Is Not Enough, read:</strong></p>
+        <a href="/cartilage-visual-language.html">Cartilage Visual Language</a>
+        <p>The visual language makes Cartilage topology, state, and active computation directly inspectable.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6930220193507917824/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

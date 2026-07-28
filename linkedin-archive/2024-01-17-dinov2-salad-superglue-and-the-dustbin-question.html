@@ -6,11 +6,11 @@
     <title>DINOv2, SALAD, SuperGlue, and the Dustbin Question</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A vision-model note comparing DINOv2/SALAD, SuperGlue, LightGlue, optimal transport, and the dustbin mechanism used for unmatched image features.">
+    <meta name="description" content="DINOv2-SALAD, SuperGlue, and LightGlue reveal a decisive visual-matching choice: model unmatched features with an optimal-transport dustbin or avoid it.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2024-01-17-dinov2-salad-superglue-and-the-dustbin-question.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="DINOv2, SALAD, SuperGlue, and the Dustbin Question">
-    <meta property="og:description" content="A vision-model note comparing DINOv2/SALAD, SuperGlue, LightGlue, optimal transport, and the dustbin mechanism used for unmatched image features.">
+    <meta property="og:description" content="DINOv2-SALAD, SuperGlue, and LightGlue reveal a decisive visual-matching choice: model unmatched features with an optimal-transport dustbin or avoid it.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2024-01-17-dinov2-salad-superglue-and-the-dustbin-question.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2024-01-17",
-                                "dateModified": "2026-07-09",
-                                "description": "A vision-model note comparing DINOv2/SALAD, SuperGlue, LightGlue, optimal transport, and the dustbin mechanism used for unmatched image features.",
+                                "dateModified": "2026-07-28",
+                                "description": "DINOv2-SALAD, SuperGlue, and LightGlue reveal a decisive visual-matching choice: model unmatched features with an optimal-transport dustbin or avoid it.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2024-01-17-dinov2-salad-superglue-and-the-dustbin-question.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>DINOv2, SALAD, SuperGlue, and the Dustbin Question</header>
     <address>January 17, 2024</address>
 
+
+    <section class="abstract">
+        <p>Visual place recognition and feature matching must decide which observations correspond and which have no partner. DINOv2-SALAD, SuperGlue, and LightGlue expose two architectural answers to that unmatched-feature problem.</p>
+        <p>Brian Greenforest asks whether removing the optimal-transport dustbin can improve the next generation of Transformer-based visual retrieval and matching.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>The Dustbin Gives Unmatched Features a Destination</h1>
+            <p>SuperGlue augments its assignment matrix with dustbin rows and columns, then uses Sinkhorn optimal transport to allocate features that lack a credible match.</p>
+            <p>SALAD applies optimal-transport aggregation to DINOv2 features for single-stage visual place recognition, carrying the dustbin idea into image retrieval.</p>
+        </section>
+
+        <section>
+            <h1>LightGlue Opens Another Path</h1>
+            <p>LightGlue uses adaptive computation and confidence-based pruning without the same dustbin construction. That design raises a direct research question about matching quality, speed, calibration, and failure behavior.</p>
+            <p>Vision researchers can compare both mechanisms on repeated textures, occlusion, viewpoint change, and scenes with many unmatched features. The resulting ablation could guide a stronger retriever-matcher architecture.</p>
+        </section>
+
+        <section>
+            <h1>Connect Vision Matching to a Complete Model Run</h1>
+            <p>The four-layer run exposes training end to end, while the linked DINOv2, SALAD, and SuperGlue sources carry representation learning into visual place recognition and matching.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a> &middot; <a href="https://lnkd.in/gvgwd4dz" target="_blank" rel="noopener">https://lnkd.in/gvgwd4dz</a> &middot; <a href="https://lnkd.in/giTDQBtA" target="_blank" rel="noopener">https://lnkd.in/giTDQBtA</a> &middot; <a href="https://lnkd.in/gzsjuvyq" target="_blank" rel="noopener">https://lnkd.in/gzsjuvyq</a> &middot; <a href="https://arxiv.org/abs/2311.15937" target="_blank" rel="noopener">https://arxiv.org/abs/2311.15937</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7153229812667453442" data-linkedin-activity="7153229812667453442" data-linkedin-source="activity:7153229812667453442">
         <h2 id="linkedin-original-7153229812667453442">Originally posted on LinkedIn</h2>
@@ -117,59 +144,13 @@ Links:
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>This note compares DINOv2/SALAD, SuperGlue, and LightGlue through one implementation question: what happens to unmatched features.</p>
-        <p>SuperGlue used an optimal-transport dustbin mechanism for unmatched keypoints. The note asks whether a related visual-place-recognition pipeline can remove or change that dustbin step in the way LightGlue did.</p>
-        <div class="status-box">
-            <p><span class="status-label">Vision-model note</span>Originally posted 2024-01-17; expanded here around the dustbin mechanism.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-            <p><strong>Article focus:</strong> DINOv2/SALAD, SuperGlue, LightGlue, optimal transport, dustbin handling, and visual place recognition.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Question</h1>
-            <p>Visual matching systems need a way to represent features that should not be matched. In SuperGlue, the dustbin gives the optimal-transport assignment a place to put unmatched keypoints.</p>
-            <p>The question raised here is whether DINOv2/SALAD-style visual place recognition needs the same mechanism, or whether the pipeline can be simplified in the direction shown by LightGlue.</p>
-        </section>
-
-        <section>
-            <h1>Why It Matters</h1>
-            <p>Retriever/matcher systems are not only about the embedding backbone. The matching rule decides how ambiguity, missing features, repeated texture, and non-correspondence are represented.</p>
-            <p>Changing the dustbin is therefore an architectural question: it affects what the model can decline to match, what it is forced to explain, and how much matching machinery remains after the descriptor stage.</p>
-        </section>
-
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/gvgwd4dz" target="_blank" rel="noopener">https://lnkd.in/gvgwd4dz</a></li>
-                <li><a href="https://lnkd.in/giTDQBtA" target="_blank" rel="noopener">https://lnkd.in/giTDQBtA</a></li>
-                <li><a href="https://lnkd.in/gzsjuvyq" target="_blank" rel="noopener">https://lnkd.in/gzsjuvyq</a></li>
-                <li><a href="https://arxiv.org/abs/2311.15937" target="_blank" rel="noopener">https://arxiv.org/abs/2311.15937</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2024-01-13-the-closed-photolithography-compute-cycle.html">The Closed Photolithography Compute Cycle</a>
-        <p>Another dated publication from January 13, 2024.</p>
-        <p>More:</p>
-        <a href="2024-01-17-teach-microelectronics-in-maker-spaces.html">Teach Microelectronics in Maker Spaces</a>
-        <p>Another dated publication from January 17, 2024.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7153229812667453442/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From DINOv2, SALAD, SuperGlue, and the Dustbin Question, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7153229812667453442/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

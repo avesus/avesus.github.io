@@ -6,11 +6,11 @@
     <title>The Long Mathematical Path to Transformers</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A compact map of the mathematical background behind transformers: probability, optimization, sequence models, tensor operations, normalization, tokenization, and hardware arithmetic.">
+    <meta name="description" content="Transformers unite decades of probability, optimization, sequence modeling, tensor algebra, information theory, sampling, tokenization, and hardware arithmetic.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-10-25-the-long-mathematical-path-to-transformers.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The Long Mathematical Path to Transformers">
-    <meta property="og:description" content="A compact map of the mathematical background behind transformers: probability, optimization, sequence models, tensor operations, normalization, tokenization, and hardware arithmetic.">
+    <meta property="og:description" content="Transformers unite decades of probability, optimization, sequence modeling, tensor algebra, information theory, sampling, tokenization, and hardware arithmetic.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-10-25-the-long-mathematical-path-to-transformers.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-10-25",
-                                "dateModified": "2026-07-09",
-                                "description": "A compact map of the mathematical background behind transformers: probability, optimization, sequence models, tensor operations, normalization, tokenization, and hardware arithmetic.",
+                                "dateModified": "2026-07-28",
+                                "description": "Transformers unite decades of probability, optimization, sequence modeling, tensor algebra, information theory, sampling, tokenization, and hardware arithmetic.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-10-25-the-long-mathematical-path-to-transformers.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>The Long Mathematical Path to Transformers</header>
     <address>October 25, 2023</address>
 
+
+    <section class="abstract">
+        <p>Transformers condense an enormous mathematical lineage into one executable architecture. Understanding them deeply connects probability, optimization, dynamical systems, tensor algebra, information theory, sequence models, sampling, tokenization, and chip arithmetic.</p>
+        <p>Brian Greenforest maps that lineage as a complete curriculum for people who want to build the model rather than operate only its interface.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Start With Probability, Dynamics, and Optimization</h1>
+            <p>Joint and conditional probability, Bayes rules, maximum entropy, mutual information, experimental design, Gaussian mixtures, PCA, ICA, hidden Markov models, autoregression, Q-learning, Pontryagin, Euler-Lagrange, dynamic programming, and Hamilton-Jacobi-Bellman equations establish the modeling foundation.</p>
+            <p>Kernels, convolution, central-limit behavior, nonlinear embeddings, Hilbert problems, topological spaces, and tensor contraction explain how representations carry complex relationships.</p>
+        </section>
+
+        <section>
+            <h1>Follow the Architecture Into Training and Hardware</h1>
+            <p>RNNs, LSTMs, attention, cross-attention, causal masking, KV caches, RoPE, normalization, GLU-family activations, dropout, initialization, momentum, minibatches, adaptive spans, sparse attention, grouped-query attention, tokenizers, temperature, top-k sampling, and logits define the modern model path.</p>
+            <p>FMA, GEMM, Hadamard products, bfloat16, quantization, binarized weights, memory movement, and fused kernels determine how that mathematics runs. Students can use this map as a multi-year path from first principles to original Transformer and AI-chip work.</p>
+        </section>
+
+        <section>
+            <h1>Run The Long Mathematical Path to Transformers in a Four-Layer Transformer</h1>
+            <p>The complete training run connects this mathematical argument to executable code, data flow, and a working small model.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7122990780222251008" data-linkedin-activity="7122990780222251008" data-linkedin-source="activity:7122990780222251008">
         <h2 id="linkedin-original-7122990780222251008">Originally posted on LinkedIn</h2>
@@ -108,44 +135,13 @@
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-10-25.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Long Mathematical Path to Transformers</h1>
-            <p>Transformers sit at the junction of several older subjects, not a single trick.</p>
-            <p>The probability side includes conditional probability, maximum likelihood, cross-entropy, entropy, Bayes-style reasoning, sampling, and distributions over token sequences.</p>
-            <p>The optimization side includes gradient descent, momentum, Adam and AdamW, initialization, normalization, minibatches, regularization, learning-rate schedules, and stability over many updates.</p>
-            <p>The sequence-modeling side includes autoregression, embeddings, attention, causal masking, KV cache, position encodings, recurrent-model history, and the problem of preserving context while generating one token at a time.</p>
-            <p>The systems side includes tensor contraction, matrix multiplication, fused operations, memory bandwidth, quantization, low-precision weights, and the hardware path that decides whether a model can run at useful speed.</p>
-            <p>That is the point of the long list in the original post: transformers are not isolated from applied mathematics, numerical methods, or machine architecture. They are where those subjects meet.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-10-24-hessian-free-methods-did-not-vanish.html">Hessian-Free Methods Did Not Vanish</a>
-        <p>Another dated publication from October 24, 2023.</p>
-        <p>More:</p>
-        <a href="2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Sourcing ASIC FMA Is Hard</a>
-        <p>Another dated publication from November 2, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7122990780222251008/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From The Long Mathematical Path to Transformers, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7122990780222251008/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

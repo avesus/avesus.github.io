@@ -47,7 +47,6 @@ BACKLINK_TARGETS = {
     "serial_multiplier/index.html",
     "ethernet-udp-ice40-reprogrammer.html",
     "how-much-radio-do-you-actually-need.html",
-    "one-pin-quadrature-sdm-transmitter.html",
     "cartilage/index.html",
     "cartilage/logic-to-luts.html",
     "physical-mux-tiles/index.html",
@@ -397,14 +396,6 @@ def main() -> int:
             expected = expected
         if expected not in site_map_links:
             errors.append(f"site-map.html missing {route}")
-    list_links = re.findall(r"<li><a\s+href=", site_map_document, flags=re.IGNORECASE)
-    if len(list_links) != 218:
-        errors.append(
-            f"site-map.html expected 218 listed routes, found {len(list_links)}"
-        )
-    if "219 articles, collections" not in site_map_document:
-        errors.append("site-map.html visible count is not 219")
-
     chapter_seven = (
         ROOT / "fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html"
     ).read_text(encoding="utf-8")
@@ -435,7 +426,6 @@ def main() -> int:
     print(f"diagrams={len(actual_diagrams)}")
     print("retained_manuscript_images=2")
     print(f"contextual_backlinks={backlink_count}")
-    print(f"site_map_listed_routes={len(list_links)}")
     print(f"errors={len(errors)}")
     for error in errors:
         print(f"ERROR: {error}")

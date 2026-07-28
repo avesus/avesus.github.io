@@ -1,268 +1,268 @@
-These problems no longer look like problems. They look like the unavoidable price of building useful AI, machines, instruments, electronics, and infrastructure. That is exactly why I am publishing all 210 at once.
+Three connected system directions can remove burdens that modern AI, machines, instruments, electronics, and infrastructure have learned to accept: capability-native agency, live reconfigurable physical computation, and minimal-apparatus physical intelligence.
 
-I plan to create three focused subsidiaries, each attacking a different layer: capability-native agency; live reconfigurable physical computation; and minimal-apparatus physical intelligence.
+I plan to organize future subsidiaries around these three directions. They do not exist as companies yet; the work already defines the technical and commercial ground they can pursue.
 
-In this plan, the same customer industry may appear under more than one subsidiary because each attacks a different layer. A robotics company, for example, can face an authority problem, a computational-structure problem, and an interface-apparatus problem at the same time.
+One customer can need all three directions at once. A robotics team may need structurally bounded machine authority, spatial computation that follows the body, and direct physical interfaces that strip away converter stacks. The same cross-layer opportunity reaches instruments, satellites, industrial systems, adaptive edge machines, and fabrication.
 
-Read every bullet as beginning with “Of course…” If a sentence feels obvious, ask when and why we accepted the burden it describes as inevitable.
+These 210 problem statements locate the leverage: build mechanisms that own authority, reorganize locally, and compute closer to physical cause and effect.
 
-1. Capability-native agency
+1. Capability-native agency: Give machines authority they can possess
 
-I plan to build the first subsidiary around systems in which AI agents and autonomous machines possess structurally bounded authority, rather than ambient power constrained by monitoring, policies, and retrospective accountability.
+The first planned subsidiary will build capability-native systems that give AI agents and autonomous machines structurally bounded authority, with delegation, ownership, revocation, and possible effects visible in the mechanism itself.
 
-Segment 1A: Enterprise AI agents acting across production systems
+Segment 1A: Give enterprise AI agents consequence-shaped authority
 
-* An agent must use a human account, service account, API key, or application identity to act.
-* The account receives the union of every permission the agent might need during any possible task.
-* Permissions remain the same when the agent’s purpose, principal, instructions, state, or environment changes.
-* Authority is described as API operations rather than the real-world consequence being authorized.
-* An agent authorized to perform one task can technically exercise the same permissions for unrelated reasons.
-* Every external system maintains a separate and incompatible conception of what the agent may do.
-* The agent’s effective authority can only be reconstructed by combining credentials, roles, tool definitions, application policies, and network access.
-* An organization cannot ask one system to enumerate everything a particular agent can currently cause.
-* Untrusted instructions and documents enter the same reasoning process that controls consequential tools.
-* Prompt-injection defense is expected to determine whether information is legitimate instead of structurally limiting what influenced behavior can cause.
-* Tool wrappers describe callable operations but do not own the state or consequences affected by those operations.
-* Long-running tasks retain authority even after the human’s reason for delegating it has disappeared.
-* Changing the model, prompt, planning method, or toolchain does not trigger reconsideration of the authority already granted.
-* The same authenticated agent may behave completely differently after an invisible vendor update.
-* Human approval is inserted at arbitrary checkpoints even when the approver cannot reconstruct the agent’s state or downstream plan.
-* Safety is treated as a choice between approving every action and granting enough ambient power for the agent to be useful.
-* Audit logs are accepted as the answer to actions that should sometimes have been impossible.
-* Rollback is treated as sufficient even for disclosures, payments, commitments, communications, and other irreversible consequences.
-* Responsibility remains assigned to a human who may have neither understood nor controlled the action that occurred.
-* Increasing agent usefulness necessarily means increasing the amount of institutional power exposed to uncertain behavior.
+* Enterprise agents borrow human accounts, service accounts, API keys, or application identities before they can act.
+* A single account accumulates every permission an agent might need across every possible task.
+* Those permissions outlive changes in purpose, principal, instructions, state, and environment.
+* API verbs stand in for the real-world consequence that actually needs authorization.
+* Authorization for one task exposes the same permissions to unrelated purposes.
+* Each external system defines its own incompatible version of what an agent may do.
+* Teams reconstruct effective authority by joining credentials, roles, tool definitions, application policies, and network access.
+* Organizations lack one system that can enumerate everything a particular agent can currently cause.
+* Untrusted instructions and documents enter the reasoning path that controls consequential tools.
+* Prompt-injection defenses judge information legitimacy instead of structurally limiting the effects of influenced behavior.
+* Tool wrappers expose callable operations without owning the state or consequences those operations change.
+* Long-running tasks keep authority after the human reason for delegation disappears.
+* Changes to the model, prompt, planning method, or toolchain leave existing authority untouched.
+* Invisible vendor updates can radically change the behavior of the same authenticated agent.
+* Arbitrary approval checkpoints ask humans to approve actions without reconstructing agent state or downstream plans.
+* Teams choose between approving every action and exposing enough ambient power to make the agent useful.
+* Audit logs document actions that stronger structure could have made impossible.
+* Rollback cannot reverse disclosures, payments, commitments, communications, or other irreversible consequences.
+* Organizations assign responsibility to humans who neither understood nor controlled the action.
+* Every gain in agent usefulness expands the institutional power exposed to uncertain behavior.
 
-Segment 1B: Multi-agent systems and delegated machine organizations
+Segment 1B: Make machine delegation narrow, causal, and revocable
 
-* Delegating authority means transmitting a credential, token, session, or proxy relationship.
-* Delegated power does not naturally become narrower as it moves through a chain of agents.
-* The recipient learns what operation it can perform but not the complete provenance and purpose of the authority.
-* Agents coordinate through messages while ownership of the state being changed remains external and implicit.
-* Several agents may concurrently act on the same consequential state without any one of them owning its mutation.
-* Agent identity, process identity, model identity, session identity, and organizational responsibility collapse into one vague actor.
-* An agent cannot create a subordinate agent whose possible effects are structurally and inspectably contained within its own authority.
-* Revoking one delegation requires discovering all credentials, sessions, queues, derived tasks, and downstream delegations created from it.
-* Authority expiration is expressed through time limits rather than completion, withdrawal, state change, or disappearance of purpose.
-* A coordinator must possess broader power than every activity it coordinates.
-* Cross-agent safety depends on global policy and monitoring possessing a complete view of the organization.
-* An agent may correctly complete its local assignment while violating the intent governing the larger undertaking.
-* Conflicts between agents are settled by priorities, retries, locks, or human intervention rather than explicit ownership relationships.
-* Organizational boundaries are represented by service endpoints rather than by the structure of the computation itself.
-* A failure in one agent can leave partially executed authority distributed across other agents and external systems.
-* A complete causal history of who authorized what is difficult precisely when delegation becomes economically useful.
+* Machine delegation passes a credential, token, session, or proxy relationship from one actor to another.
+* Delegation chains preserve or broaden power instead of narrowing it at each handoff.
+* Recipients learn the operation they can perform while losing the authority’s complete provenance and purpose.
+* Agents exchange messages while external systems retain implicit ownership of the state they change.
+* Several agents can mutate the same consequential state concurrently without any agent owning that mutation.
+* Systems blur agent, process, model, session, and organizational identities into one vague actor.
+* An agent lacks a structural way to create a subordinate whose possible effects fit inspectably inside its own authority.
+* Revocation teams must discover every credential, session, queue, derived task, and downstream delegation that one handoff created.
+* Time limits stand in for completion, withdrawal, state change, and the disappearance of purpose.
+* Coordinators accumulate broader power than every activity they coordinate.
+* Global policy and monitoring must see the complete organization before they can govern cross-agent behavior.
+* An agent can complete its local assignment correctly and still violate the intent of the larger undertaking.
+* Priorities, retries, locks, and human intervention settle conflicts that explicit ownership relationships should resolve.
+* Service endpoints substitute for organizational boundaries inside the computation itself.
+* One agent failure can scatter partially exercised authority across other agents and external systems.
+* Economically useful delegation makes the causal history of authorization hardest to reconstruct.
 
-Segment 1C: Autonomous industrial and robotic action
+Segment 1C: Give autonomous machines local ownership of physical consequences
 
-* Authentication of a controller or operator is treated as authorization for the physical commands it emits.
-* A planner receives control of an entire machine because actuators cannot possess narrower purpose-specific authority.
-* Safety limits constrain speeds, forces, zones, and modes without expressing which actor owns which physical consequence.
-* A legitimate high-level objective is assumed to legitimize every intermediate action selected to achieve it.
-* Local machine components cannot possess and delegate authority over their own state and physical territory.
-* A central controller must own the powers of every subsystem it coordinates.
-* Maintenance credentials grant broad control because precise temporary authority is harder to express.
-* Remote support requires opening general access to machines whose physical context the remote party cannot observe completely.
-* Disconnected operation requires either stopping the machine or continuing with authority that may have become obsolete.
-* Physical state changes faster than centrally administered permissions can be reconsidered.
-* Safety relies on cages, interlocks, emergency stops, monitoring, and shutdown after the acting computation has already received power.
-* A machine cannot prove locally that a requested action falls inside the exact authority delegated for its present state.
-* Changing machine configuration invalidates assumptions embedded in separate access-control and safety systems.
-* Human operators remain legally responsible for autonomous actions whose selection mechanism they cannot inspect.
-* More autonomous physical operation is presumed to require more centralized surveillance and override power.
+* Control systems treat controller or operator authentication as permission for every physical command that follows.
+* Planners inherit whole-machine control because actuators expose no narrower purpose-specific authority.
+* Speed, force, zone, and mode limits constrain motion without assigning ownership of each physical consequence.
+* A legitimate high-level objective lends presumed legitimacy to every intermediate action in its plan.
+* Local machine components lack mechanisms to own and delegate authority over their state and physical territory.
+* Central controllers accumulate the powers of every subsystem they coordinate.
+* Maintenance sessions grant broad control because systems cannot express precise temporary authority easily.
+* Remote support opens general machine access to people who cannot observe the complete physical context.
+* A disconnected machine must either stop or continue under authority that its current state may have outgrown.
+* Physical state outruns centrally administered permission changes.
+* Cages, interlocks, emergency stops, monitoring, and shutdown react after acting computation already holds physical power.
+* Local machine logic cannot verify that a requested action fits the exact authority for its present state.
+* Machine reconfiguration invalidates assumptions inside separate access-control and safety systems.
+* Law assigns human operators responsibility for autonomous choices whose selection mechanism they cannot inspect.
+* Designers answer greater physical autonomy with more centralized surveillance and override power.
 
-Segment 1D: Capability-enforced computing infrastructure
+Segment 1D: Build computing infrastructure around capability and ownership
 
-* Authority belongs to identities and roles rather than being a first-class structural possession.
-* An application starts with ambient access to its process, filesystem, network, environment, and inherited services.
-* Isolation follows machines, containers, accounts, and processes rather than semantic state ownership.
-* Tenant separation is imposed around applications that were internally designed with ambient power.
-* Security policy is evaluated outside the mechanism whose behavior it constrains.
-* Passing an authorization check creates ambient authority inside the authorized component.
-* A service must trust upstream callers to use its operations for legitimate purposes.
-* Composing two individually permitted services can create an unanticipated combined authority.
-* Periodic access reviews substitute for continuous knowledge of live delegation relationships.
-* Permissions accumulate because removing one may break an undocumented dependency.
-* Revocation is coarse because authority was never represented as a specific relationship.
-* Central policy machinery must understand an increasingly distributed and dynamic system.
-* Compromise containment follows administrative boundaries rather than the causal structure of the affected operation.
-* Security evidence consists of configurations, logs, scans, and policy reports rather than an inspectable limit on possible effects.
-* Owners of information and processes cannot directly own the computational territory through which their authority is exercised.
+* Systems attach authority to identities and roles instead of making it a first-class structural possession.
+* Applications inherit ambient access to processes, filesystems, networks, environments, and services at startup.
+* Machines, containers, accounts, and processes define isolation while semantic state ownership remains invisible.
+* Platforms wrap tenant boundaries around applications that still carry ambient power internally.
+* External policy engines judge behavior outside the mechanism they constrain.
+* A passed authorization check releases ambient authority inside the approved component.
+* Services trust upstream callers to use available operations for legitimate purposes.
+* Two individually permitted services can combine into an authority nobody anticipated.
+* Periodic access reviews stand in for continuous knowledge of live delegation relationships.
+* Undocumented dependencies let permissions accumulate and resist removal.
+* Revocation stays coarse because the system never modeled authority as a specific relationship.
+* Central policy engines must comprehend systems that grow more distributed and dynamic every day.
+* Administrative boundaries shape compromise containment instead of the causal structure of the affected operation.
+* Configurations, logs, scans, and policy reports stand in for inspectable limits on possible effects.
+* Information and process owners cannot directly own the computational territory that exercises their authority.
 
-2. Live reconfigurable physical computation
+2. Live reconfigurable physical computation: Let structure change while the machine runs
 
-I plan to build the second around spatial, locally owned, dynamically reconfigurable computation for instruments, robots, satellites, industrial systems, adaptive edge machines, and eventually programmable matter.
+The second planned subsidiary will build spatial, locally owned computation that can reorganize live across instruments, robots, satellites, industrial systems, adaptive edge machines, and eventually programmable matter.
 
-Segment 2A: Scientific and technical instruments
+Segment 2A: Let scientific instruments reshape their live causal structure
 
-* The instrument’s computational structure is fixed when its electronics are designed.
-* New measurement behavior must be forced through signal paths created for earlier assumptions.
-* A physically local event must travel to a designated processor before it can participate in computation.
-* Signal acquisition, processing, control, storage, visualization, and physical response live in separate subsystems.
-* Adding a new interpretation generally means adding software above the existing data pipeline rather than changing the pipeline’s causal structure.
-* Instrument state is divided among firmware, host software, configuration files, calibration databases, and operator procedures.
-* The instrument’s displayed state is not the same object as the state governing its physical behavior.
-* Multiple instruments must be synchronized by clocks, triggers, cables, timestamps, and post-processing.
-* A new experiment requires humans to reconstruct causality across instruments that cannot own a shared computational region.
-* Calibration is a separate procedure rather than an evolving part of live computation.
-* An instrument may expose data while concealing the mechanism that transformed observation into result.
-* Field updates replace firmware images rather than alter bounded live regions.
-* One changed component can require requalification of the entire measurement chain.
-* Diagnosing a transient failure requires correlating logs and captures created by different clocks.
-* Flexibility is purchased by transferring more responsibility to a host computer and more integration work to the operator.
+* Instrument designers freeze computational structure when they design the electronics.
+* New measurement behaviors squeeze through signal paths that embody earlier assumptions.
+* Physically local events travel to designated processors before they can join the computation.
+* Separate subsystems split acquisition, processing, control, storage, visualization, and physical response.
+* Teams add interpretation above an existing data pipeline instead of changing its causal structure.
+* Firmware, host software, configuration files, calibration databases, and operator procedures divide instrument state.
+* The display presents a different object from the state that governs physical behavior.
+* Teams synchronize multiple instruments with clocks, triggers, cables, timestamps, and post-processing.
+* Each new experiment forces humans to reconstruct causality across instruments that share no computational region.
+* Separate calibration procedures interrupt rather than evolve with live computation.
+* Instruments expose data while hiding the mechanism that transformed observation into result.
+* Field updates replace complete firmware images instead of reshaping bounded live regions.
+* One component change can trigger requalification across the entire measurement chain.
+* Engineers diagnose transients by correlating logs and captures from different clocks.
+* Host computers and operators absorb the integration cost of instrument flexibility.
 
-Segment 2B: Industrial systems and robots
+Segment 2B: Make industrial machines compute where physical work happens
 
-* Sensors and actuators are endpoints attached to a central controller rather than computational participants in their local physical territory.
-* Production machinery must stop while its computational structure is changed.
-* Reconfiguration is performed by specialists using representations separate from the live machine.
-* A physical rearrangement requires corresponding changes to addressing, routing, configuration, safety, calibration, and software.
-* The machine cannot discover a changed structure and reorganize its causal ownership locally.
-* Coordination among nearby components requires communication through a central controller or network.
-* Locality is treated as a latency optimization rather than part of the machine’s semantics.
-* Machine state is scattered among controllers, drives, robots, databases, supervisory software, and undocumented operator knowledge.
-* Adding one machine or station becomes a system-integration project.
-* A local failure disables a large functional region because failure boundaries follow equipment boundaries.
-* Redundancy duplicates large components because smaller computational territories cannot survive and reorganize independently.
-* Real-time behavior is maintained through priorities, schedules, overprovisioning, and strict limits on change.
-* Adaptability and deterministic operation are treated as conflicting objectives.
-* Safety certification depends on freezing the architecture that changing operating conditions make obsolete.
-* Operators observe alarms, traces, dashboards, and schematics rather than the live causal organization of the machine.
-* A robot’s computational topology remains unrelated to the topology of the body and environment it controls.
-* Machine lifetime greatly exceeds the lifetime of the computational assumptions and components embedded in it.
+* Central controllers reduce sensors and actuators to endpoints instead of computational participants in local physical territory.
+* Production machinery stops whenever engineers change its computational structure.
+* Specialists reconfigure the machine through representations that live outside it.
+* Physical rearrangements cascade into addressing, routing, configuration, safety, calibration, and software changes.
+* Machines fail to discover changed structure and reorganize causal ownership locally.
+* Nearby components route coordination through a central controller or network.
+* Designers treat locality as a latency optimization instead of part of machine semantics.
+* Controllers, drives, robots, databases, supervisory software, and undocumented operator knowledge scatter machine state.
+* One added machine or station triggers a system-integration project.
+* Equipment-sized failure boundaries let local faults disable large functional regions.
+* Failure planning duplicates entire components because smaller computational territories lack independent survival and reorganization.
+* Priorities, schedules, overprovisioning, and strict limits on change preserve real-time behavior.
+* Conventional architecture pits adaptability against deterministic operation.
+* Safety certification freezes the architecture while operating conditions continue to change.
+* Operators watch alarms, traces, dashboards, and schematics instead of the machine’s live causal organization.
+* A robot’s computational topology ignores the body and environment it controls.
+* Machines outlive the computational assumptions and components embedded in them.
 
-Segment 2C: Satellites and remote autonomous systems
+Segment 2C: Let remote systems reorganize after deployment
 
-* Computational architecture must be finalized years before the system encounters its operating environment.
-* Post-deployment adaptability is restricted to behaviors anticipated before launch or installation.
-* Reconfiguration means selecting among predesigned modes or uploading another externally prepared image.
-* Every possible future need competes for fixed processing, routing, memory, and redundancy decided in advance.
-* Reliability requires duplicating complete subsystems rather than allowing surviving regions to reorganize.
-* A damaged region cannot naturally transfer its state, function, and authority to neighboring resources.
-* Communication delay requires local autonomy while authority and planning remain centered on remote operators.
-* Loss of communication forces a choice between inactivity and continued operation under outdated assumptions.
-* Repurposing healthy physical hardware is considered too risky because computational structure cannot change transparently.
-* Verification evidence applies to a static configuration and becomes uncertain after meaningful reconfiguration.
-* State transition, resource ownership, physical location, and communication topology are maintained in separate representations.
-* Remote operators reconstruct causality from sparse telemetry rather than inspect the computation itself.
-* Scarce energy is consumed moving data among fixed resources because computation cannot migrate into the relevant physical locality.
-* Mission lifetime is constrained by the obsolescence of inaccessible computational components.
-* Hardware that physically survives cannot acquire fundamentally new organization without having been designed for that exact possibility.
+* Teams finalize computational architecture years before the system meets its operating environment.
+* Prelaunch imagination limits every behavior the deployed system can adopt later.
+* Remote systems switch among predesigned modes or accept externally prepared images when they need reconfiguration.
+* Fixed processing, routing, memory, and redundancy force every possible future need to compete for resources chosen in advance.
+* Reliability plans duplicate complete subsystems instead of letting surviving regions reorganize.
+* Damaged regions cannot hand state, function, and authority to neighboring resources naturally.
+* Communication delay demands local autonomy while remote operators retain authority and planning.
+* Communication loss forces a choice between inactivity and continued operation under outdated assumptions.
+* Teams avoid repurposing healthy hardware because opaque structural change makes the risk hard to inspect.
+* Static verification loses certainty after meaningful reconfiguration.
+* Separate representations track state transitions, resource ownership, physical location, and communication topology.
+* Remote operators infer causality from sparse telemetry instead of inspecting the computation itself.
+* Fixed resources spend scarce energy moving data because computation cannot migrate into the relevant physical locality.
+* Inaccessible computational components age out before the surrounding physical system does.
+* Surviving hardware gains no fundamentally new organization unless designers predicted that exact possibility before deployment.
 
-Segment 2D: Adaptive edge machines
+Segment 2D: Give edge machines live, local computational structure
 
-* “Edge computation” means placing a conventional fixed computer nearer to the phenomenon.
-* The device remains architecturally centralized even when geographically decentralized.
-* Sensors convert local physical behavior into data that must travel through buses, memory, schedulers, and processing cores.
-* Accelerated functions remain fixed structures selected before the device’s future workload is known.
-* Updating behavior changes instructions while the causal machinery executing those instructions remains fixed.
-* Reconfigurable resources are controlled through externally compiled configurations rather than live local ownership.
-* Changing one computational region safely requires reasoning about hidden global timing, routing, and resource effects.
-* Storage, communication, and computation remain separate systems even when all are physically adjacent.
-* Workloads compete through a scheduler that understands resources but not the physical meaning of their work.
-* Local state ownership is represented in software conventions rather than physical computational boundaries.
-* Power and latency are optimized after data movement and abstraction have already been accepted.
-* More adaptability requires a larger operating stack and therefore more opacity and failure surface.
-* Determinism requires bypassing the flexible layers that were added to make the device adaptable.
-* Device behavior cannot grow a new bounded computational structure in response to its physical experience.
-* Inspecting the running machine reveals processors and tasks, not the spatial causal organization of its behavior.
+* Edge deployments move a conventional fixed computer closer to the phenomenon.
+* Geographic distribution leaves each device architecturally centralized.
+* Sensors send local physical behavior through buses, memory, schedulers, and processing cores before computation can use it.
+* Designers lock accelerated functions before future workloads reveal what the device will need.
+* Updates replace instructions while leaving the causal machinery unchanged.
+* External toolchains compile every reconfigurable-resource change instead of granting live local ownership.
+* A local computational change exposes hidden global timing, routing, and resource effects.
+* Physical adjacency still leaves storage, communication, and computation as separate systems.
+* Schedulers arbitrate workloads without understanding the physical meaning of their work.
+* Software conventions assign local state ownership instead of physical computational boundaries.
+* Optimization starts after the architecture accepts data movement and abstraction.
+* Each adaptability layer enlarges the operating stack, opacity, and failure surface.
+* Determinism strips away the flexible layers that made the device adaptable.
+* Devices cannot grow new bounded computational structures from physical experience.
+* Runtime inspection reveals processors and tasks instead of the spatial causal organization of behavior.
 
-Segment 2E: Programmable matter and large spatial electronics
+Segment 2E: Make computation belong to programmable matter
 
-* Physical modules require fixed identifiers assigned independently of their current physical relationships.
-* Global software must reconstruct topology before useful collective behavior can begin.
-* Regular manufactured geometry is assumed even when the material is cut, damaged, folded, extended, or assembled irregularly.
-* Physical adjacency, communication adjacency, computational ownership, and mechanical attachment remain different relationships.
-* Power and data distribution must be designed before the final spatial behavior is known.
-* Central coordination becomes more complex with every additional module.
-* Local interaction rules may produce demonstrations, but useful machinery is presumed to require a global plan.
-* Shape change and computation are treated as separate subsystems.
-* A damaged module can break addressing, routing, synchronization, or power for otherwise healthy regions.
-* Self-repair means restoring a preexisting configuration rather than reorganizing live function around changed matter.
-* A region cannot naturally establish a boundary, own state, expose ports, and authorize local mutation.
-* Cutting or combining physical material invalidates an externally maintained computational model.
-* Connectors, wiring, addressing, and configuration dominate the scale at which modules can exist.
-* Programmable matter is considered commercially irrelevant until it achieves science-fiction-like arbitrary shape transformation.
-* Large spatial electronics remain either passive surfaces or centrally managed collections of conventional devices.
-* The physical object and the computation governing it remain distinct things.
+* Fixed identifiers ignore the physical relationships that modules form in the moment.
+* Global software reconstructs topology before the material can produce useful collective behavior.
+* Manufactured regularity breaks when people cut, damage, fold, extend, or assemble the material irregularly.
+* Systems split physical adjacency, communication adjacency, computational ownership, and mechanical attachment into different relationships.
+* Designers commit power and data distribution before they know the final spatial behavior.
+* Every added module multiplies the burden of central coordination.
+* Local interaction rules can produce visible behavior, yet conventional designs reserve useful machinery for a global plan.
+* Separate subsystems divide shape change from computation.
+* One damaged module can sever addressing, routing, synchronization, or power for healthy regions.
+* Repair restores a previous configuration instead of reorganizing live function around changed matter.
+* Regions lack a native way to establish boundaries, own state, expose ports, and authorize local mutation.
+* Cutting or combining material invalidates the computational model maintained elsewhere.
+* Connectors, wiring, addressing, and configuration set the minimum practical module scale.
+* Science-fiction expectations hide commercially valuable programmable matter short of arbitrary shape transformation.
+* Industry confines large spatial electronics to passive surfaces or centrally managed collections of conventional devices.
+* External control separates the physical object from the computation that governs it.
 
-3. Minimal-apparatus physical intelligence
+3. Minimal-apparatus physical intelligence: Move intelligence into the mechanism
 
-I plan to build the third around near-sensor computation, direct physical interfaces, tiny local learning, unusual active devices, and systems that remove converters, centralized machinery, or inaccessible fabrication where those layers constitute the real burden.
+The third planned subsidiary will build near-sensor computation, direct physical interfaces, tiny local learning, and unusual active devices that remove converter stacks, centralized machinery, and inaccessible fabrication where those layers create the real burden.
 
-Segment 3A: Near-sensor computation and distributed sensing
+Segment 3A: Let sensors decide where phenomena occur
 
-* A sensor’s job ends when it produces a standardized signal or number.
-* The physical phenomenon must be conditioned, digitized, buffered, timestamped, transported, stored, and interpreted elsewhere.
-* All potentially available information should be preserved even when the required local decision is simple.
-* Raw observations must travel because sensing and meaning are institutionally separate functions.
-* The data generated by sensing can cost more to transmit and store than the local consequence is worth.
-* Each sensing point requires power regulation, conversion, clocks, firmware, addressing, protocols, and maintenance.
-* “Near-sensor” intelligence still begins after conversion into conventional digital representation.
-* The apparatus between phenomenon and decision may dominate the sensor itself.
-* Sensors with slightly different physical behavior must be normalized through repeated calibration.
-* Noise, hysteresis, nonlinear response, and material history are removed before computation rather than allowed to participate in it.
-* A local threshold or control decision still inherits a general-purpose computational stack.
-* Sensing networks are designed around central collection even when most collected data produces no action.
-* Bandwidth and storage are expanded rather than questioning why the observation must leave its source.
-* Failure of communication removes intelligence from an otherwise functioning physical sensor.
-* Distributed sensing creates a permanent battery, maintenance, identity, synchronization, and software-management burden.
+* Standardized signals or numbers mark the end of a sensor’s assigned job.
+* A physical phenomenon crosses conditioning, digitization, buffering, timestamps, transport, storage, and remote interpretation before it can matter.
+* Designers preserve every available detail even when the local decision needs very little information.
+* Institutional separation between sensing and meaning sends raw observations elsewhere.
+* Transmission and storage can cost more than the local consequence that gives sensed data value.
+* Every sensing point carries power regulation, conversion, clocks, firmware, addressing, protocols, and maintenance.
+* Conventional near-sensor intelligence waits for a standard digital representation before it begins.
+* Interface apparatus can outweigh the sensor between phenomenon and decision.
+* Repeated calibration normalizes sensors whose physical behavior differs slightly.
+* Preprocessing removes noise, hysteresis, nonlinear response, and material history before computation can use them.
+* A local threshold or control decision inherits a general-purpose computational stack.
+* Central collection shapes sensing networks even when most collected data triggers no action.
+* Systems expand bandwidth and storage instead of asking why an observation must leave its source.
+* A communication failure strips intelligence from an otherwise functioning physical sensor.
+* Distributed sensing imposes permanent battery, maintenance, identity, synchronization, and software-management burdens.
 
-Segment 3B: Direct physical interfaces and converter-heavy systems
+Segment 3B: Replace converter stacks with direct computational relationships
 
-* Every distinct physical domain requires a chain of specialized conversion and interface components.
-* A nearby physical cause and effect must communicate through standardized representations rather than direct computational relationships.
-* A one-bit physical decision may require analog conditioning, conversion, processing, protocol handling, and output conversion.
-* Interface architecture is selected for generality even when generality greatly exceeds the required function.
-* Converter accuracy preserves distinctions irrelevant to the intended physical consequence.
-* Timing created naturally by the physical mechanism is replaced by clocks, sampling, buffering, and reconstruction.
-* Feedback loops leave the physical locality they regulate and return through multiple abstraction layers.
-* Interfaces confirm that signals were transmitted without confirming that the intended physical result occurred.
-* Every layer requires its own debugging instruments, models, expertise, and failure analysis.
-* Interoperability means accepting the complete standardized stack used by every other participant.
-* Direct coupling is dismissed as fragile or application-specific while the costs of universal abstraction are treated as unavoidable.
-* Removing an interface layer is framed as component optimization rather than an opportunity to reconceive the causal system.
-* Physical devices become dependent on drivers, firmware, and protocol support that may disappear before the device wears out.
-* The ownership of the physical effect and the ownership of the machinery producing it remain separate.
+* Every distinct physical domain accumulates a chain of specialized conversion and interface components.
+* Standard representations mediate nearby physical causes and effects that could share a direct computational relationship.
+* One-bit physical decisions recruit analog conditioning, conversion, processing, protocol handling, and output conversion.
+* Designers choose general interface architectures whose reach greatly exceeds the required function.
+* Converter accuracy preserves distinctions that never affect the intended physical consequence.
+* Clocks, sampling, buffering, and reconstruction replace timing that the physical mechanism creates naturally.
+* Multiple abstraction layers pull feedback loops out of the physical locality they regulate before returning them.
+* Interface layers confirm signal delivery without confirming the intended physical result.
+* Every layer adds debugging instruments, models, expertise, and failure analysis.
+* Interoperability imports the complete standardized stack that every other participant uses.
+* Teams dismiss direct coupling as fragile or application-specific while accepting universal abstraction costs as unavoidable.
+* Component-level optimization hides the opportunity to reconceive the causal system by removing an interface layer.
+* Drivers, firmware, and protocol support can expire before the physical device wears out.
+* Separate owners control the physical effect and the machinery that produces it.
 
-Segment 3C: Tiny local learning and adaptation
+Segment 3C: Give tiny machines local learning they can own
 
-* Learning happens in centralized infrastructure while deployed devices merely execute inference.
-* A machine must export its experience before it may improve from that experience.
-* Training and operation are separate lifecycle phases.
-* Adaptation means replacing the deployed model from elsewhere.
-* A small learning system is designed by compressing an architecture created for vastly larger machinery.
-* Model size is treated as the primary path to capability.
-* Device-specific learning is considered too expensive to maintain independently.
-* Fleet-wide averaging is preferable even when it erases important local physical differences.
-* Local examples require human labeling before they can become useful learning material.
-* Learning state, operational state, sensor history, and control state remain separate.
-* Continual learning is prohibited because the mechanism of change cannot be observed or bounded.
-* An offline device is expected to remain intellectually frozen.
-* Local uncertainty is represented as a number rather than embodied in what the machine may safely do.
-* Memory, arithmetic, communication, and sensing remain separate costs inside even the smallest adaptive system.
-* Energy, latency, and physical realization are addressed after the learning mechanism has been chosen.
-* Learning success is measured by abstract benchmark accuracy rather than improved physical behavior.
-* Understanding how a tiny system changed is considered no easier than interpreting a remote statistical model.
-* Local adaptation requires trusting the vendor’s update infrastructure rather than the owner’s observable mechanism.
+* Central infrastructure learns while deployed devices only execute inference.
+* Machines export local experience before they can improve from it.
+* Lifecycle plans separate training from operation.
+* Adaptation arrives as a replacement model from elsewhere.
+* Designers shrink architectures built for vastly larger machinery to create small learning systems.
+* Model size dominates the search for capability.
+* Fleet economics make device-specific learning look too expensive to maintain independently.
+* Fleet-wide averages erase important local physical differences.
+* Local examples wait for human labels before learning systems can use them.
+* Separate stores split learning state, operational state, sensor history, and control state.
+* Change mechanisms that expose neither their operation nor their bounds block continual learning.
+* Network loss freezes an offline device’s ability to improve.
+* A number represents local uncertainty while behavior ignores what the machine can safely do.
+* Even the smallest adaptive system pays separate costs for memory, arithmetic, communication, and sensing.
+* Learning design precedes energy, latency, and physical realization.
+* Abstract benchmark accuracy outranks improvement in physical behavior.
+* Teams find tiny-system change as opaque as a remote statistical model.
+* Vendor update infrastructure controls local adaptation instead of an owner-observable mechanism.
 
-Segment 3D: Unusual active devices and accessible fabrication
+Segment 3D: Make active computation locally fabricable
 
-* Useful active computation requires semiconductor junctions manufactured through inaccessible fabrication infrastructure.
-* Creating active function and creating interconnect are fundamentally different manufacturing activities.
-* A circuit board may route intelligence but may not itself embody the active mechanism.
-* Small organizations may assemble purchased intelligence but cannot manufacture consequential active behavior.
-* Magnetic materials belong in transformers, inductors, storage, or sensing—not general switching and gain.
-* Material hysteresis and nonlinear response are nuisances to characterize away rather than possible computational mechanisms.
-* Alternative devices must outperform conventional transistors generally before being considered useful in any neglected niche.
-* Small-run custom active devices are economically impossible.
-* Device geometry cannot become an ordinarily machinable file in the way mechanical parts and circuit boards can.
-* Fabrication knowledge belongs to specialized institutions rather than to the people designing systems.
-* Makers and ordinary laboratories are allowed to construct passive arrangements around sealed active components.
-* Local fabrication of active function is educational demonstration rather than serious production.
-* Repair means replacing a proprietary active component rather than reproducing its mechanism.
-* One discontinued component can permanently disable an otherwise repairable machine.
-* Supply-chain concentration is treated as an intrinsic property of electronics.
-* Harsh physical environments require expensive specialized versions of the same inaccessible technology.
-* Material and process variation prevent computation rather than becoming usable state.
-* The scale of fabrication capital determines who is permitted to invent new computational matter.
-* Computation is assumed to be permanently coupled to transistor economics, semiconductor geopolitics, and centralized manufacturing.
+* Inaccessible infrastructure for manufacturing semiconductor junctions controls access to useful active computation.
+* Manufacturing separates active function from interconnect as fundamentally different activities.
+* Circuit boards route intelligence without embodying the active mechanism themselves.
+* Small organizations can assemble purchased intelligence but cannot manufacture consequential active behavior.
+* Conventional design confines magnetic materials to transformers, inductors, storage, and sensing instead of general switching and gain.
+* Designers characterize away material hysteresis and nonlinear response instead of using them as computational mechanisms.
+* Evaluation demands general superiority over conventional transistors before an alternative device can serve a neglected niche.
+* Current economics rule out small-run custom active devices.
+* Electronic design workflows stop before device geometry becomes an ordinarily machinable file like a mechanical part or circuit board.
+* Specialized institutions hoard fabrication knowledge away from the people who design systems.
+* Conventional fabrication limits makers and ordinary laboratories to passive arrangements around sealed active components.
+* Industry labels locally fabricated active function as education instead of serious production.
+* Repair replaces a proprietary active component instead of reproducing its mechanism.
+* One discontinued proprietary component can permanently strand a machine that remains repairable everywhere else.
+* Electronics treats supply-chain concentration as an intrinsic property.
+* Harsh environments demand expensive specialized versions of the same inaccessible technology.
+* Conventional design treats material and process variation as an obstacle instead of usable state.
+* Fabrication capital decides who gets to invent new computational matter.
+* Transistor economics, semiconductor geopolitics, and centralized manufacturing permanently bind computation to inaccessible infrastructure.

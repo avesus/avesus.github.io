@@ -6,11 +6,11 @@
     <title>Binary Decision Diagrams and MUX Networks</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A Boolean-representation note: binary decision diagrams can be read as MUX / if-then-else networks connecting EDA representation with programming conditionals.">
+    <meta name="description" content="Binary decision diagrams reveal complex Boolean functions as ordered MUX networks, connecting conditionals, EDA, programming languages, and physical logic.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-04-26-binary-decision-diagrams-and-mux-networks.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Binary Decision Diagrams and MUX Networks">
-    <meta property="og:description" content="A Boolean-representation note: binary decision diagrams can be read as MUX / if-then-else networks connecting EDA representation with programming conditionals.">
+    <meta property="og:description" content="Binary decision diagrams reveal complex Boolean functions as ordered MUX networks, connecting conditionals, EDA, programming languages, and physical logic.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-04-26-binary-decision-diagrams-and-mux-networks.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2021-04-26",
-                                "dateModified": "2026-07-23",
-                                "description": "A Boolean-representation note: binary decision diagrams can be read as MUX / if-then-else networks connecting EDA representation with programming conditionals.",
+                                "dateModified": "2026-07-28",
+                                "description": "Binary decision diagrams reveal complex Boolean functions as ordered MUX networks, connecting conditionals, EDA, programming languages, and physical logic.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-04-26-binary-decision-diagrams-and-mux-networks.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Binary Decision Diagrams and MUX Networks</header>
     <address>April 26, 2021</address>
 
+
+    <section class="abstract">
+        <p>A binary decision diagram turns a Boolean function into a network of explicit choices. Each node asks for one variable and selects the next path, so the entire structure maps directly onto multiplexers and if-then-else expressions.</p>
+        <p>Brian Greenforest reached this structure through object-oriented cellular automata and recognized its power for both electronic design automation and programming-language conditionals.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>A MUX Is a Decision Node</h1>
+            <p>One selector chooses between two continuations. Ordering and sharing those choices can collapse repeated subfunctions, producing a canonical and often compact representation of the original logic.</p>
+            <p>That direct mapping makes BDDs easier to inspect than many AND-inverter, majority-inverter, disjunctive-normal, or conjunctive-normal forms. The graph shows the actual decisions that govern the result.</p>
+        </section>
+
+        <section>
+            <h1>Carry Decision Structure Across the Stack</h1>
+            <p>EDA tools can use BDDs for equivalence, synthesis, verification, and optimization. Languages can expose the same structure so programmers reason about conditional logic before it disappears into instruction streams.</p>
+            <p>Explore MUX algebra and the connected Boolean work, then bring a conditional-heavy design into the decision-diagram model.</p>
+        </section>
+
+        <section>
+            <h1>Reduce Binary Decision Diagrams and MUX Networks to the MUX Switching Algebra</h1>
+            <p>MUX Algebra and the Boolean construction show how one switching primitive grows into a complete computational fabric.</p>
+            <p><a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a> &middot; <a href="https://lnkd.in/gihhg7i" target="_blank" rel="noopener">https://lnkd.in/gihhg7i</a> &middot; <a href="/mux-algebra.html">MUX Algebra</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6792572656123305984" data-linkedin-activity="6792572656123305984" data-linkedin-source="activity:6792572656123305984">
         <h2 id="linkedin-original-6792572656123305984">Originally posted on LinkedIn</h2>
@@ -130,56 +157,13 @@ https://lnkd.in/gihhg7i</div>
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>A binary decision diagram can be read as a structured network of conditional choices. In circuit terms, that is close to a MUX network. In programming terms, it is close to an if-then-else tree.</p>
-        <p>The useful connection is between EDA representation and programming conditionals: a Boolean decision structure can be both a data structure and a physical implementation path.</p>
-        <div class="status-box">
-            <p><span class="status-label">Boolean-representation note</span>Originally posted 2021-04-26; expanded here around BDDs and MUX networks.</p>
-            <p><strong>Related:</strong> <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a></p>
-            <p><strong>Article focus:</strong> binary decision diagrams, MUX networks, if-then-else trees, and EDA representation.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Representation</h1>
-            <p>The original note compared binary decision diagrams with MIG, AIG, DNF, and CNF representations. The BDD path is interesting because it can be understood as a network of multiplexers.</p>
-            <p>That makes the representation readable from two directions: EDA can see a Boolean structure, and a programmer can see nested conditionals.</p>
-            <p><a href="https://lnkd.in/gihhg7i" target="_blank" rel="noopener">https://lnkd.in/gihhg7i</a></p>
-        </section>
-
-        <section>
-            <h1>Why MUXes Matter</h1>
-            <p>A MUX makes a conditional physical. It selects one of two inputs based on a control bit. A tree or graph of those choices becomes a compact way to express Boolean behavior, and it connects directly to the larger Boolean-fabric work.</p>
-            <p>The 2020 article <a href="/mux-algebra.html">MUX Algebra</a> writes the same decision structure as nested conditional expressions and enumerates every two-input LUT function.</p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/gihhg7i" target="_blank" rel="noopener">https://lnkd.in/gihhg7i</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2021-04-26-geometric-algebra-as-strict-types.html">Geometric Algebra as Strict Types</a>
-        <p>Another dated publication from April 26, 2021.</p>
-        <p>More:</p>
-        <a href="2021-05-27-conventional-code-as-a-sequential-mess.html">Conventional Code as a Sequential Mess</a>
-        <p>Another dated publication from May 27, 2021.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6792572656123305984/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Binary Decision Diagrams and MUX Networks, read:</strong></p>
+        <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
+        <p>This construction derives universal computation directly from multiplexers and Boolean switching.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6792572656123305984/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

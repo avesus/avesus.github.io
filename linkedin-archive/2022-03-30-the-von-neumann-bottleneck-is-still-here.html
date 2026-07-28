@@ -6,11 +6,11 @@
     <title>The Von Neumann Bottleneck Is Still Here</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A parallel-computing note about the von Neumann bottleneck, many-core contention, object-capability ownership, and one program spanning cores and devices.">
+    <meta name="description" content="One distributed executable can span cores and devices while preserving object-capability ownership, reactive flow, and a coherent programming model.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2022-03-30-the-von-neumann-bottleneck-is-still-here.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The Von Neumann Bottleneck Is Still Here">
-    <meta property="og:description" content="A parallel-computing note about the von Neumann bottleneck, many-core contention, object-capability ownership, and one program spanning cores and devices.">
+    <meta property="og:description" content="One distributed executable can span cores and devices while preserving object-capability ownership, reactive flow, and a coherent programming model.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2022-03-30-the-von-neumann-bottleneck-is-still-here.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2022-03-30",
-                                "dateModified": "2026-07-09",
-                                "description": "A parallel-computing note about the von Neumann bottleneck, many-core contention, object-capability ownership, and one program spanning cores and devices.",
+                                "dateModified": "2026-07-28",
+                                "description": "One distributed executable can span cores and devices while preserving object-capability ownership, reactive flow, and a coherent programming model.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2022-03-30-the-von-neumann-bottleneck-is-still-here.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,27 @@
     <header>The Von Neumann Bottleneck Is Still Here</header>
     <address>March 30, 2022</address>
 
+
+    <section class="abstract">
+        <p>Modern machines added cores, accelerators, clusters, and clouds, yet programmers still assemble them as separate computers contending for shared resources. Brian Greenforest’s architecture replaces that fragmentation with one distributed executable across many cores and devices.</p>
+        <p>The program keeps explicit object-capability ownership while exposing reactive dataflow, statecharts, Verilog structure, and familiar language surfaces inside one homogeneous model.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Turn a Fleet of Machines Into One Program</h1>
+            <p>A conventional core advances through a sequential instruction stream. Multiple cores add contention, messaging, synchronization, and deployment layers that fracture the developer’s view of the application.</p>
+            <p>Cartilage gives each resource an owner, makes sharing explicit, and connects work through reactive relationships. Objects and processes can occupy different physical locations while remaining parts of the same program.</p>
+        </section>
+
+        <section>
+            <h1>Scale Without Losing the Mental Model</h1>
+            <p>A browser session offers a useful analogy: the server can treat each client’s temporary state as a live instance inside the larger application. Cartilage extends that continuity across processors, FPGAs, devices, and network boundaries.</p>
+            <p>Developers and computing researchers can build with this unified model now. Bring a workload whose structure disappears across heterogeneous infrastructure and explore how one distributed program restores clarity.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6915055370902138880" data-linkedin-activity="6915055370902138880" data-linkedin-source="activity:6915055370902138880">
         <h2 id="linkedin-original-6915055370902138880">Originally posted on LinkedIn</h2>
@@ -113,53 +134,13 @@ No more #heterogeneous #computing.
 To make an analogy, if you know about Node.js, imagine that every client session browser state is a temporary instance of a class transparently existing from the point of view of the server-side program as a part of it.</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>The von Neumann bottleneck is not only about memory bandwidth. It is also about the programming model that follows from one instruction stream moving through shared resources.</p>
-        <p>This note points at a harder target: a distributed program that can span cores and devices while preserving ownership, access, state, and reasoning boundaries.</p>
-        <div class="status-box">
-            <p><span class="status-label">Parallel-computing note</span>Originally posted 2022-03-30; expanded here around the programming-model problem.</p>
-            <p><strong>Article focus:</strong> von Neumann bottleneck, many-core contention, object capabilities, distributed state, and multi-device execution.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Bottleneck</h1>
-            <p>Many cores do not automatically solve the single-program problem. They can add contention, synchronization, resource sharing, and operational complexity while leaving the source model hard to reason about.</p>
-            <p>The useful question is how one program can spread across cores and devices without losing ownership, access control, causality, state, and locality.</p>
-        </section>
-
-        <section>
-            <h1>The Programming Target</h1>
-            <p>The note sketches a distributed executable model where object-capability style ownership governs access to resources. The same idea can be viewed through several surfaces: objects, reactive dataflow, statecharts, Verilog-like structure, FPGA placement, or conventional language syntax.</p>
-            <p>The tradeoff is that this is not only a runtime problem. The source language, security model, scheduler, data model, and device boundaries all have to preserve the same ownership story.</p>
-        </section>
-
-        <section>
-            <h1>Browser-State Analogy</h1>
-            <p>The Node.js analogy in the original post was useful: imagine a client session's browser state as a temporary instance that remains visible to the server-side program as part of the same system. The point is continuity of program structure across a network boundary.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-03-23-a-critique-of-fail-fast.html">Fail Fast and Building Large Systems</a>
-        <p>Another dated publication from March 23, 2022.</p>
-        <p>More:</p>
-        <a href="2022-04-06-three-levels-of-a-new-programming-system.html">Three Levels of a New Programming System</a>
-        <p>Another dated publication from April 6, 2022.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6915055370902138880/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From The Von Neumann Bottleneck Is Still Here, read:</strong></p>
+        <a href="2022-04-27-what-cartilage-is-and-is-not.html">What Cartilage Is and Is Not</a>
+        <p>Cartilage concentrates on one consequential goal: replace the Turing-von Neumann programming bottleneck with a scalable machine for reactive, distributed computation. Ordinary silicon, local reconfiguration, and proven SerDes links supply the physical foundation.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6915055370902138880/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

@@ -4,7 +4,7 @@ slug: "where-does-an-information-system-live"
 date: "2022-02-18T03:50:45.394Z"
 original_dates:
   - "2022-02-18T03:50:45.394Z"
-description: "An information system does not live in one repository, database, server, or mind; it lives in the maintained correspondence among a problem, shared models, executable procedures, and coordinated human action."
+description: "An information system lives in the maintained correspondence among a real problem, shared models, external symbols, executable procedures, and coordinated human action."
 status: publication-ready
 ---
 
@@ -12,100 +12,90 @@ status: publication-ready
 
 *February 18, 2022*
 
-Where is an information system?
+An information system has no single address. Code, servers, databases, network packets, screens, documents, policies, and people each carry part of it. The system lives in the mappings that keep those parts about the same problem.
 
-It is tempting to point at the program code, the server, the database, or the packets crossing a network. Each answer identifies something real, but none identifies the whole system.
+Code can survive while the organization forgets its purpose. A database can retain every row while people lose the meaning of its fields. A server can execute flawlessly while solving yesterday's problem. People can also keep work moving after a server fails because their shared model lets them coordinate another route.
 
-Program code can be copied while the organization that understood it disappears. A database can remain intact while its field meanings are forgotten. A server can execute perfectly while solving the wrong problem. Conversely, people can continue operating for a while after a server fails because they still understand the work and can coordinate another way.
-
-The system is not any one of these objects. It is the maintained correspondence among a problem, the models held by the people involved, the symbols stored outside them, the procedures performed by software and people, and the set of possible solutions they can coordinate.
-
-In the most compressed form I know:
+The whole system therefore consists of a maintained correspondence:
 
 > An information system is a distributed understanding of a problem and a coordinated repertoire of actual and possible solutions.
 
-## A database row is an instance from another direction
+That formulation makes every representation accountable to the work it helps people perform.
 
-I reached this question while thinking about SQL and Verilog.
+## A database row offers many useful views
 
-A row in a relational table can resemble an instance: it is one assignment of values to named fields under a schema. In Verilog, an instance is one occurrence of a module in a larger design. In object-oriented software, an instance is commonly understood through the class whose behavior and representation it carries.
+SQL and Verilog illuminate different kinds of instance.
 
-The analogy is useful, but the models are not interchangeable.
+A relational row assigns values to named fields under a schema. A Verilog instance gives one module a distinct place inside a larger circuit. An object-oriented instance carries the representation and behavior of its class.
 
-Relational data becomes powerful because a row does not have to be approached only through one encapsulating object. Queries can classify the same records through different predicates. Joins can relate records according to different keys. A view can project exactly the fields needed for a task without pretending that this projection is the one natural identity of the thing.
+Relational data adds a powerful freedom: people can approach the same row through many legitimate projections. Queries classify records through different predicates. Joins connect records through different keys. Views expose the fields one task needs without declaring that projection the object's only natural identity.
 
-That makes relational thinking especially useful for information systems whose users need several legitimate perspectives. One person sees pending work by location. Another sees the same work by customer. Another sees exceptions, missing dependencies, dates, or responsible parties. These are not necessarily different underlying objects. They are different useful projections of shared relations.
+One person can see pending work by location. Another can see the same work by customer. A third can see exceptions, missing dependencies, dates, or responsible parties. Shared relations support all of these perspectives without duplicating the underlying work.
 
-SQL is not quantum physics, and object-oriented programming is not Newtonian mechanics. Those were exuberant metaphors. The precise point is more valuable: an object interface tends to foreground one boundary, while a relational model makes cross-cutting classification and association explicit.
+An object interface foregrounds one boundary. A relational model foregrounds cross-cutting classification and association. An information system benefits when it can use both deliberately.
 
-## Interfaces should reveal relations, not merely resources
+## Interfaces should reveal relations
 
-User interfaces often begin with resource types: make a page for customers, a page for orders, a page for tasks. That is easy to map onto classes and endpoints, but it may not match the problem a person is trying to solve.
+Many interfaces begin with resource types: customers, orders, tasks, documents. That mapping follows classes and endpoints easily, but people usually arrive with a relation they need to understand:
 
-A person usually needs a relation:
-
-- work that is blocked by a missing item;
+- work blocked by a missing item;
 - commitments involving several parties;
 - records changed since a previous decision;
-- alternatives that satisfy a particular set of constraints;
+- alternatives that satisfy a set of constraints;
 - facts that disagree across records.
 
-The useful screen is therefore a projection of a model, not merely a decorative view of one resource type. Forms are also projections: they expose the part of the model a person is authorized and prepared to change.
+A useful screen projects the model around that relation. A form projects the part that one person has authority and context to change.
 
-This perspective suggests a path toward more automatically generated interfaces. If the schema, relations, constraints, and operations are described well enough, software can generate useful starting views and forms. That does not eliminate interface design. It moves some design effort toward making the model, permissions, and human task explicit.
+Well-described schemas, relations, constraints, permissions, and operations can also generate strong starting views and forms. This moves design effort toward the problem itself: what the data means, which decisions the person must make, and which transformations the system can safely perform.
 
-## External symbols let understanding survive attention
+The interface then shows the structure of the work instead of decorating one resource at a time.
 
-People cannot keep a large shared problem fully present in their minds. A database, document, diagram, ticket, or code repository lets us put part of the model outside ourselves and retrieve it later.
+## External symbols preserve understanding
 
-I sometimes describe a database as a cache between brains. This is an analogy, not a statement about processor-cache semantics. The external record allows one person to encode a distinction and another person to recover it without repeating the entire conversation.
+No person can keep a large shared problem fully present. Databases, documents, diagrams, tickets, and repositories place distinctions outside human attention so another person—or the same person later—can recover them.
 
-Back-end code then performs transformations over those records: checking constraints, calculating consequences, scheduling actions, and moving information between representations. It can preserve consistency more reliably than a person performing the same repetitive operation by hand.
+A database acts like a cache between brains. One participant records a distinction; another retrieves it without replaying the whole conversation. Back-end code transforms those records, checks constraints, calculates consequences, schedules actions, and moves information among representations.
 
-The computer is not merely an inert book while it is running. It has causal effects: it sends, rejects, calculates, controls, and records. But it does not supply the problem's purpose by itself. People and institutions decide what the symbols refer to, which outcomes matter, and whether the automated action remains appropriate.
+Running software also changes the world. It sends, rejects, calculates, controls, and records. People and institutions still supply purpose: they decide what symbols refer to, which outcomes matter, and when an automated action fits the situation.
 
-The machine can enforce “every shipment must reference an order.” It cannot derive from syntax alone whether this organization should ship this object to this person under these circumstances.
+A machine can enforce “every shipment references an order.” The organization decides whether it should ship this object to this person now.
 
-## The system is distributed across representations
+## The system spans representations
 
-Consider a simple field named `status`. On disk it is encoded bits. In a program it may be an enumeration. In a database it is a value constrained by a schema. On a screen it becomes a word, color, or position. In a person's mind it means what can happen next.
+Consider a field named `status`. Storage encodes it as bits. Program code may treat it as an enumeration. A database constrains it through a schema. A screen renders a word, color, or position. A person reads it as a statement about what can happen next.
 
-The information system exists only while those representations continue to correspond well enough.
+The information system works while those representations correspond.
 
-If the screen says “approved” but the procedure treats the record as unreviewed, the system is fractured. If two departments attach different meanings to “complete,” the database has not created shared understanding merely because both write the same string. If a policy changes but the code and forms do not, yesterday's model keeps acting inside today's organization.
+If the screen says “approved” while the procedure treats the record as unreviewed, the system fractures. If two departments give “complete” different meanings, a shared string cannot create shared understanding. If policy changes while code and forms retain the old model, yesterday's rules continue acting inside today's organization.
 
-This is why an information system has no single physical address. Parts of it are in silicon, magnetic storage, paper, conversations, habits, contracts, and expectations. More importantly, it lives in the mappings among those parts.
-
-That does not make the system mystical. The mappings can be inspected:
+The mappings remain concrete enough to inspect:
 
 - What real problem does each field describe?
-- Who is allowed to assert or change it?
+- Who may assert or change it?
 - Which observation makes it true?
 - Which procedure consumes it?
 - What action follows?
-- How is disagreement detected?
-- What must people remember that the software does not represent?
+- How does the system detect disagreement?
+- What must people remember because the software does not represent it?
 
-An answer such as “the system is on the server” hides all of these interfaces.
+These questions locate the information system more accurately than a server rack ever could.
 
-## A model is not its instance
+## A model and an instance answer different questions
 
-The question also exposes an ambiguity in the word *model*.
+The word *model* can name several layers.
 
-A schema is a model of possible records. One database state is an instance under that schema. A program defines possible behavior; one execution traces a particular path. Two deployments may run identical code while participating in different information systems because their users, data meanings, obligations, and surrounding procedures differ.
+A schema describes possible records; one database state instantiates that schema. A program defines possible behavior; one execution follows a particular path. Two deployments can run identical code while serving different information systems because their users, obligations, data meanings, and surrounding procedures differ.
 
-Likewise, two organizations can address similar problems with different models. Their fields may divide reality differently. Their workflows may recognize different states. Comparing the systems requires more than diffing program code: it requires comparing what distinctions they preserve and what actions those distinctions enable.
+Two organizations can address similar problems with different models. Their fields divide reality differently. Their workflows recognize different states. Comparing them requires more than a code diff; it requires comparing which distinctions each system preserves and which actions those distinctions enable.
 
-Identity is therefore layered. We can ask whether two copies contain the same bits, implement the same schema, support the same operations, refer to the same entities, or serve the same coordinated purpose. Each question has a different answer.
+Identity therefore has layers. Two copies may contain the same bits, implement the same schema, support the same operations, refer to the same entities, or serve the same coordinated purpose. Each comparison answers a separate question.
 
-## Systems are problems and their solutions
+## Problems and solutions hold the system together
 
-The phrase “systems are problems and their solutions” can sound too broad, so I use it carefully.
+The problem gives the system its meaningful shape. Shared models reveal relevant parts. Stored symbols preserve those models. Software automates transformations and calculations. Interfaces let people inspect and change representations. Procedures coordinate decisions and action. The repertoire of possible solutions determines how the system responds when the world changes.
 
-The problem gives the system its boundary. The shared models let participants see relevant parts of it. Stored symbols keep those models available. Software automates transformations and calculations. Interfaces let people inspect and change the representations. Procedures coordinate decisions and action. The possible solutions define what the system is prepared to do when the world changes.
+Remove hardware and the system loses a body. Remove records and it loses memory. Remove code and it loses automated behavior. Remove people, meanings, and coordinated purpose, and the remaining mechanism executes as a different thing.
 
-Remove the hardware and the system loses an important body. Remove the records and it loses memory. Remove the code and it loses automated behavior. Remove the people, meanings, and coordinated purpose, and the remaining mechanism may still execute, but it is no longer the same information system.
+To improve an information system, trace one important decision all the way through: the real-world observation, the field or document that records it, the code that transforms it, the screen that presents it, the person who interprets it, and the action that follows. Repair every broken correspondence along that path.
 
-So where does an information system live?
-
-Not in one place. It lives wherever the problem is represented, understood, transformed, and acted upon—and in the fragile, continuously maintained agreement that those different places still mean the same thing.
+That is where the system lives—in the continuously maintained agreement that all these different places still mean the same thing.

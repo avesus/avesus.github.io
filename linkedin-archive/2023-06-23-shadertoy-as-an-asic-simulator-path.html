@@ -6,11 +6,11 @@
     <title>ShaderToy as an ASIC Simulator Path</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A browser/GPU computation note: GLSL, SDFs, and ShaderToy made circuit-like visual simulation and massively parallel kernels directly inspectable in the browser.">
+    <meta name="description" content="GLSL and ShaderToy turn circuit simulation into visible massive parallel computation, linking ASIC architecture, spatial kernels, and interactive 2D and 3D interfaces.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-06-23-shadertoy-as-an-asic-simulator-path.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="ShaderToy as an ASIC Simulator Path">
-    <meta property="og:description" content="A browser/GPU computation note: GLSL, SDFs, and ShaderToy made circuit-like visual simulation and massively parallel kernels directly inspectable in the browser.">
+    <meta property="og:description" content="GLSL and ShaderToy turn circuit simulation into visible massive parallel computation, linking ASIC architecture, spatial kernels, and interactive 2D and 3D interfaces.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-06-23-shadertoy-as-an-asic-simulator-path.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-06-23",
-                                "dateModified": "2026-07-09",
-                                "description": "A browser/GPU computation note: GLSL, SDFs, and ShaderToy made circuit-like visual simulation and massively parallel kernels directly inspectable in the browser.",
+                                "dateModified": "2026-07-28",
+                                "description": "GLSL and ShaderToy turn circuit simulation into visible massive parallel computation, linking ASIC architecture, spatial kernels, and interactive 2D and 3D interfaces.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-06-23-shadertoy-as-an-asic-simulator-path.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,27 @@
     <header>ShaderToy as an ASIC Simulator Path</header>
     <address>June 23, 2023</address>
 
+
+    <section class="abstract">
+        <p>ShaderToy gave Brian Greenforest a new medium for inventing chips: write circuit behavior as a massively parallel GLSL kernel and watch the entire spatial system evolve in the browser.</p>
+        <p>That 2019 shift connected ASIC simulation, signed-distance fields, GPU computation, and decades of 2D and 3D interface work in one immediate visual loop.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Think in Parallel Pixels and Cells</h1>
+            <p>A fragment shader evaluates many locations together. The same execution model fits cellular automata, reconfigurable fabrics, local signal propagation, and spatial control structures.</p>
+            <p>Signed-distance fields add a compact language for geometry, while interactive rendering exposes state and relationships that a conventional waveform may hide.</p>
+        </section>
+
+        <section>
+            <h1>Turn the Browser Into a Hardware Laboratory</h1>
+            <p>GLSL kernels share the massively parallel structure behind CUDA and modern accelerator research. ShaderToy adds instant distribution, iteration, and a community that can inspect the result.</p>
+            <p>Hardware designers, GPU programmers, and interface builders can use this path to visualize a new fabric, teach its behavior, or explore an ASIC architecture before committing to silicon.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7078083792799748096" data-linkedin-activity="7078083792799748096" data-linkedin-source="activity:7078083792799748096">
         <h2 id="linkedin-original-7078083792799748096">Originally posted on LinkedIn</h2>
@@ -131,51 +152,13 @@ https://en.m.wikipedia.org/wiki/Shader</div>
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Browser/GPU note</span>Originally posted 2023-06-23; rewritten here around GLSL as an inspectable simulation surface.</p>
-            <p><strong>Included:</strong> ShaderToy, signed-distance fields, GLSL, visual circuit simulation, GPGPU-style kernels, and why browser-native computation was useful for fabric experiments.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Why GLSL Was Useful</h1>
-            <p>ShaderToy and browser GLSL made it possible to put a small computation on screen quickly: a fragment shader runs many pixels in parallel, updates a visual field, and keeps the program close to the image it produces.</p>
-            <p>For fabric and circuit experiments, that matters. A shader can render local rules, routing, tile state, signed-distance-field geometry, and update behavior without first building a full native simulator UI.</p>
-        </section>
-
-        <section>
-            <h1>Simulation Surface, Not Replacement HDL</h1>
-            <p>GLSL is not Verilog. It does not replace synthesis, timing closure, placement, routing, or hardware verification. It is useful earlier in the path, where the goal is to explore a spatial rule, draw the structure, and see whether the local behavior reads correctly.</p>
-            <p>That is the ASIC-simulator connection in this note: browser/GPU code can carry visual and parallel structure while the idea is still being shaped.</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>The useful result is practical: SDFs and fragment shaders give a compact way to prototype circuit-like visual systems, fabric renderers, and GPU-parallel experiments that can be shared as web pages.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2022-05-01-a-shader-for-nano-fpga-fabric.html">A Shader for Nano-FPGA Fabric</a>
-        <p>A direct fabric-rendering example from the same browser/GPU line of work.</p>
-        <p>More:</p>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From ShaderToy as an ASIC Simulator Path, read:</strong></p>
         <a href="2025-08-19-cheap-pixelless-textures-with-2d-sdfs.html">Cheap Pixelless Textures With 2D SDFs</a>
-        <p>A later source-backed SDF renderer article.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7078083792799748096/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+        <p>Rich animated scenery can emerge from about 500 lines of Python without texture images or a heavyweight 3D renderer. Brian Greenforest’s scanline engine uses two-dimensional signed-distance functions in UV space to create continuous materials and shapes.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7078083792799748096/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

@@ -6,11 +6,11 @@
     <title>Binarized Weights and Efficient Model Hardware</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A machine-learning hardware note about binarized neural networks, BitNet-style scaling, and why model arithmetic matters for specialized accelerators.">
+    <meta name="description" content="Binarized neural weights replace costly arithmetic with switching operations, opening faster specialized chips and a direct bridge between learning and digital logic.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-10-20-binarized-weights-as-a-scaling-breakthrough.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Binarized Weights and Efficient Model Hardware">
-    <meta property="og:description" content="A machine-learning hardware note about binarized neural networks, BitNet-style scaling, and why model arithmetic matters for specialized accelerators.">
+    <meta property="og:description" content="Binarized neural weights replace costly arithmetic with switching operations, opening faster specialized chips and a direct bridge between learning and digital logic.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-10-20-binarized-weights-as-a-scaling-breakthrough.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-10-20",
-                                "dateModified": "2026-07-09",
-                                "description": "A machine-learning hardware note about binarized neural networks, BitNet-style scaling, and why model arithmetic matters for specialized accelerators.",
+                                "dateModified": "2026-07-28",
+                                "description": "Binarized neural weights replace costly arithmetic with switching operations, opening faster specialized chips and a direct bridge between learning and digital logic.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-10-20-binarized-weights-as-a-scaling-breakthrough.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Binarized Weights and Efficient Model Hardware</header>
     <address>October 20, 2023</address>
 
+
+    <section class="abstract">
+        <p>Binarized weights turn neural computation into one of digital hardware’s most natural operations. Multiplication collapses toward sign comparison, memory shrinks, and specialized chips can move far more model through the same area and energy budget.</p>
+        <p>Brian Greenforest connects the Bengio group’s 2015 BinaryConnect work with recurrent-network training, BitNet-style Transformers, and accelerators reporting dramatic speed gains.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Move the Model Toward Boolean Hardware</h1>
+            <p>BinaryConnect constrained weights during propagation while preserving higher-precision values for learning updates. Later binarized networks extended the approach across activations, gradients, and inference.</p>
+            <p>BitNet-style models bring low-bit arithmetic into Transformer scaling. The hardware can replace wide multipliers with compact switching structures and dedicate more silicon to parallel model capacity.</p>
+        </section>
+
+        <section>
+            <h1>Credit the Lineage and Build the Chip</h1>
+            <p>Backpropagation through time enabled recurrent training, and decades of quantization research made low-bit networks practical. Modern work gains power when it names and extends those foundations.</p>
+            <p>ML researchers and ASIC designers can co-design the training rule, numerical format, memory system, and datapath. The opportunity joins mathematical scaling with automated digital-circuit design.</p>
+        </section>
+
+        <section>
+            <h1>Compare Binarized Model Hardware With a Complete Transformer Run</h1>
+            <p>The training run makes the model pipeline executable; the linked BinaryNet research carries the scaling argument into binarized weights and efficient hardware.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a> &middot; <a href="https://lnkd.in/gM2z4Qe5" target="_blank" rel="noopener">https://lnkd.in/gM2z4Qe5</a> &middot; <a href="https://arxiv.org/abs/1511.00363" target="_blank" rel="noopener">https://arxiv.org/abs/1511.00363</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7121209800775929856" data-linkedin-activity="7121209800775929856" data-linkedin-source="activity:7121209800775929856">
         <h2 id="linkedin-original-7121209800775929856">Originally posted on LinkedIn</h2>
@@ -122,50 +149,13 @@ https://lnkd.in/gM2z4Qe5</div>
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-10-20.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Binarized Weights and Efficient Model Hardware</h1>
-            <p>Binarized neural networks showed that useful training and inference can survive with extremely constrained weights. That matters because the arithmetic of a model determines what hardware it can use efficiently.</p>
-            <p>In a conventional neural network, weight precision drives memory traffic, multiplier cost, energy, and placement pressure. Reducing weights to binary or very low precision moves the design toward bit operations, cheaper storage, and accelerator layouts that are harder to reach with full-precision arithmetic.</p>
-            <p>The historical thread runs through backpropagation through time, low-precision training, binarized neural networks, and later transformer variants such as BitNet. The point is not a priority fight; the point is that model architecture and hardware architecture keep shaping each other.</p>
-            <p>For builders, the practical question is what accuracy, training stability, bandwidth, and silicon area are traded for simpler arithmetic. A low-precision model is valuable when those tradeoffs improve the full system, not only when an isolated operation becomes cheaper.</p>
-            <p><a href="https://lnkd.in/gM2z4Qe5" target="_blank" rel="noopener">https://lnkd.in/gM2z4Qe5</a></p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/gM2z4Qe5" target="_blank" rel="noopener">https://lnkd.in/gM2z4Qe5</a></li>
-                <li><a href="https://arxiv.org/abs/1511.00363" target="_blank" rel="noopener">https://arxiv.org/abs/1511.00363</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-09-19-cross-entropy-intuition.html">Cross-Entropy Intuition</a>
-        <p>Another dated publication from September 19, 2023.</p>
-        <p>More:</p>
-        <a href="2023-10-24-many-worlds-and-the-discrete-photon-field-fabric.html">Many-Worlds and the Discrete Photon Field Fabric</a>
-        <p>Another dated publication from October 24, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7121209800775929856/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Binarized Weights and Efficient Model Hardware, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7121209800775929856/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

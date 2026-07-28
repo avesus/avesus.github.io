@@ -6,11 +6,11 @@
     <title>Distributed Reactive Programming for Claytronics</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A distributed-programming note: scalable programmable matter needs explicit resource ownership, spatial allocation, and agreements over local regions.">
+    <meta name="description" content="Claytronics needs a distributed language that allocates computation by physical position, gives local regions owners, and coordinates shared areas without centralizing the fabric.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2019-07-09-distributed-reactive-programming-for-claytronics.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Distributed Reactive Programming for Claytronics">
-    <meta property="og:description" content="A distributed-programming note: scalable programmable matter needs explicit resource ownership, spatial allocation, and agreements over local regions.">
+    <meta property="og:description" content="Claytronics needs a distributed language that allocates computation by physical position, gives local regions owners, and coordinates shared areas without centralizing the fabric.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2019-07-09-distributed-reactive-programming-for-claytronics.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2019-07-09",
-                                "dateModified": "2026-07-09",
-                                "description": "A distributed-programming note: scalable programmable matter needs explicit resource ownership, spatial allocation, and agreements over local regions.",
+                                "dateModified": "2026-07-28",
+                                "description": "Claytronics needs a distributed language that allocates computation by physical position, gives local regions owners, and coordinates shared areas without centralizing the fabric.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2019-07-09-distributed-reactive-programming-for-claytronics.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,38 @@
     <header>Distributed Reactive Programming for Claytronics</header>
     <address>July 9, 2019</address>
 
+    <section class="abstract">
+        <p>Programmable matter turns allocation into geometry. A distributed language must choose not only how much computation a program receives, but where that computation lives, which neighboring material it can influence, and how multiple owners coordinate one moving physical structure.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Every Resource Has an Address in Space</h1>
+            <p><code>malloc()</code> usually chooses any suitable address. <code>fork()</code> usually lets the system choose a processor. Claytronics needs another contract: allocate this region, at these coordinates, beside these neighbors, for this local behavior.</p>
+            <p>Physical position affects communication, force, motion, power, and the shape a collection of catoms can form. The language therefore exposes location as a computational resource instead of hiding it behind a scheduler.</p>
+        </section>
+
+        <section>
+            <h1>Ownership Turns Contention Into Cooperation</h1>
+            <p>Two people can move one box efficiently when each takes a side and both agree on the direction. Two programs need the same clarity. One owner may control the left region, another the right, while a shared protocol coordinates the seam between them.</p>
+            <p>The system tracks whether a region remains available, reserved, managed, damaged, or lost. Those states let local programs adapt without asking one global controller to understand the whole physical object.</p>
+        </section>
+
+        <section>
+            <h1>Code and Material Share One Vocabulary</h1>
+            <p>When code and data use the same reconfigurable material, resource type becomes homogeneous. Geometry, ownership, availability, and current configuration distinguish one allocation from another. Reactive updates then move through local relationships as the physical structure changes.</p>
+            <p>Florian Myter’s underlying-layer work supplied one starting point. A high-level language can build above it by making spatial agreements composable and visible.</p>
+        </section>
+        <section>
+            <h1>Build the Next Layer</h1>
+            <p>The next opportunity lies in a language that can reserve regions, transfer control, recover from lost cells, and coordinate motion across many local owners.</p>
+            <ul>
+                <li><a href="https://lnkd.in/gwSU_Q4" target="_blank" rel="noopener">https://lnkd.in/gwSU_Q4</a></li>
+            </ul>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6554225491195371520" data-linkedin-activity="6554225491195371520" data-linkedin-source="activity:6554225491195371520">
         <h2 id="linkedin-original-6554225491195371520">Originally posted on LinkedIn</h2>
@@ -114,52 +146,15 @@ Imagine working on moving boxes with your friend. You can agree that your friend
         </blockquote>
     </section>
 
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
-
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Distributed-programming note</span>Originally posted 2019-07-09; rewritten here around explicit resource ownership in spatial computation.</p>
-            <p><strong>Included:</strong> reactive state, local regions, allocation by position, available or lost resources, and shared control over areas of influence.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Resource Allocation in Space</h1>
-            <p>Programmable matter is not just distributed computation with more nodes. The resources have location, neighbors, physical limits, failures, and ownership boundaries. A useful language for that substrate has to expose more than values and messages.</p>
-            <p>Allocation becomes spatial. Instead of asking only for a block of memory or a worker, the program needs to ask for a region, a boundary, a local rule, and a way to know whether those resources are available, reserved, damaged, or already under another controller.</p>
-        </section>
-
-        <section>
-            <h1>Shared Regions Need Contracts</h1>
-            <p>The memory analogy is simple: imagine allocating not only a size, but an address range with physical meaning. The process analogy is similar: imagine starting work not only on any core, but at a specific location or inside a specific region.</p>
-            <p>Once multiple behaviors can act on nearby material, the program needs agreements over areas of influence. Without those boundaries, two useful local actions can become contention at the fabric level.</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>This note frames reactive programming as a resource-management problem, not only an event-propagation style. The important parts are locality, ownership, availability, and how state changes without making the whole distributed system opaque.</p>
-            <p>The original post referenced Florian Myter's underlying-layer work at <a href="https://lnkd.in/gwSU_Q4" target="_blank" rel="noopener">https://lnkd.in/gwSU_Q4</a>.</p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/gwSU_Q4" target="_blank" rel="noopener">https://lnkd.in/gwSU_Q4</a></li>
-            </ul>
-        </section>
-
-    </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>A later local-boundary demo for owned reconfiguration regions.</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Runtime-Instantiation Architecture</a>
+        <p>Watch one parent install a child-owned region through local reconfiguration ports.</p>
         <p>More:</p>
         <a href="/wafer-diced-smart-dust-substrate.html">Wafer-Diced Chiplets for Programmable Matter and Claytronics</a>
-        <p>The manufacturing proposal behind the local regions, boundaries, power, and communication discussed here.</p>
+        <p>Carry spatial ownership into a manufacturable substrate for power, communication, and repeated physical cells.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

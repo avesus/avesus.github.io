@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Reconstructing a Shader Pipeline on an iCE40 | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="Translate texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a tiny iCE40 pipeline.">
+    <meta name="description" content="Translate texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a compact iCE40 pipeline.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/miscellanies/reconstructing-a-shader-pipeline-on-an-ice40.html">
     <meta property="og:title" content="Reconstructing a Shader Pipeline on an iCE40">
-    <meta property="og:description" content="Translate texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a tiny iCE40 pipeline.">
+    <meta property="og:description" content="Translate texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a compact iCE40 pipeline.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/miscellanies/reconstructing-a-shader-pipeline-on-an-ice40.html">
     <meta property="article:published_time" content="2026-07-24">
-    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,8 +42,8 @@
             },
             "dateCreated": "2020-01-25T23:45:55.282Z",
             "datePublished": "2026-07-24",
-            "dateModified": "2026-07-24",
-            "description": "A concrete reconstruction plan for translating texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a tiny iCE40 FPGA and external SRAM.",
+            "dateModified": "2026-07-28",
+            "description": "An iCE40, external SRAM, and a four-stage stream make the hidden machinery of a fragment shader visible: neighborhood fetch, retained state, local evaluation, and field commit.",
             "mainEntityOfPage": "https://greenforest.io/miscellanies/reconstructing-a-shader-pipeline-on-an-ice40.html",
             "isPartOf": {
                 "@type": "CollectionPage",
@@ -62,90 +62,98 @@
 
 <body class="article-structured miscellany-article">
     <header><h1 class="page-title">Reconstructing a Shader Pipeline on an iCE40</h1></header>
-    <address><time datetime="2020-01-25">Originally developed January 25, 2020.</time></address>
+    <address><time datetime="2020-01-25">Originally developed January 25, 2020.</time><br><time datetime="2026-07-28">Updated July 28, 2026</time></address>
 
     <section class="abstract">
         <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
-        <p class="lead">A concrete reconstruction plan for translating texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a tiny iCE40 FPGA and external SRAM.</p>
+        <p class="lead">An iCE40, external SRAM, and a four-stage stream make the hidden machinery of a fragment shader visible: neighborhood fetch, retained state, local evaluation, and field commit.</p>
     </section>
 
     <main>
         <section class="article-opening">
-            <p>A fragment shader is a wonderfully strange computer. I give it coordinates, let it read a few texels, perform the same local operation at many positions, and write a new image. The graphics API makes this look like one compact mathematical expression. Underneath it are memory ports, caches, pipelines, address generators, arithmetic, and a great deal of scheduling.</p>
-            <p>I wanted to turn that hidden machine inside out.</p>
-            <p>The target was deliberately small: an iCE40HX1K-class FPGA, a modest display, and external SRAM. I wanted the smallest hardware pipeline that could perform the recognizable work of a shader, with every hidden GPU convenience made visible.</p>
+            <p>A fragment shader hides a whole computer behind one local mathematical expression. Coordinates enter, neighboring texels arrive, the same rule runs at many positions, and a new image appears. Underneath, memory ports, caches, address generators, pipelines, arithmetic, and schedules perform the work.</p>
+            <p>An iCE40HX1K-class FPGA, external SRAM, and a modest display can turn that machine inside out. Every texture read becomes a memory transaction. Every cached value occupies storage. Every parallel operation consumes logic or time. Every output follows an explicit stream.</p>
+            <p>The result makes one recognizable shader path small enough to draw, synthesize, time, and hold.</p>
         </section>
         <section>
-            <h2>Begin With the Cell, Not the Screen</h2>
-            <p>The display I was considering had 176 by 220 physical pixels. Dividing it into blocks of 8 by 8 pixels produces roughly 22 by 27 computational cells. That is small enough to reason about one cell at a time and large enough to show a field evolving.</p>
-            <p>An 8-by-8 block can also carry more information than one ordinary intensity value. A pattern across 64 binary pixels can encode a large state word while the display keeps its ordinary physical contrast and brightness. The extra depth is representational: software or a reader interprets the spatial pattern as a code rather than a brighter black or darker white.</p>
-            <p>That immediately suggests two paths:</p>
+            <h2>Begin with the cell</h2>
+            <p>The considered display has 176 by 220 physical pixels. Dividing it into 8-by-8 blocks yields roughly 22 by 27 computational cells: enough cells to show an evolving field while keeping each one legible.</p>
+            <p>An 8-by-8 block can also carry more information than one intensity. A pattern across 64 binary pixels can encode a large state word while preserving the display's physical black-and-white contrast. The reader or software interprets spatial pattern as code.</p>
+            <p>That creates two display paths:</p>
             <ol>
-                <li>Render ordinary values so the display remains directly readable.</li>
-                <li>Use expanded blocks as visible storage, where a pattern represents internal machine state.</li>
+                <li>Render ordinary values for direct visual reading.</li>
+                <li>Render expanded blocks as visible storage for internal machine state.</li>
             </ol>
-            <p>The second path is less pretty and more interesting. The screen becomes part diagram, part memory dump, and part logic analyzer.</p>
+            <p>The second path turns the screen into diagram, memory view, and logic analyzer at once.</p>
         </section>
         <section>
-            <h2>Translate the Texture Into Memory</h2>
-            <p>The original memory sketch began with an 8-kilobyte working set. On an 8-bit bus, a complete load requires 8,192 transfer cycles. After loading, the machine computes one output cell, emits it immediately, and overlaps output with the loading of later cells.</p>
-            <p>That overlap is the heart of the reconstruction. A shader invocation appears to read arbitrary neighboring texels at once. A small FPGA cannot pretend memory is free. It must schedule reads, retain the neighborhood, and keep the arithmetic pipeline occupied while the next neighborhood arrives.</p>
-            <p>The internal memory budget gives useful landmarks:</p>
+            <h2>Translate texture storage into memory cycles</h2>
+            <p>The original design begins with an 8-kilobyte working set. An 8-bit bus needs 8,192 transfer cycles for a complete load. The pipeline computes one output cell, emits it immediately, and overlaps output with the loading of later cells.</p>
+            <p>That overlap reconstructs the convenience a shader presents. A GPU invocation appears to read arbitrary neighboring texels together. The FPGA schedules those reads, retains the neighborhood, and keeps arithmetic moving while memory supplies the next one.</p>
+            <p>The storage calculations set the scale:</p>
             <ul>
-                <li>Eight bytes per cell gives a 32-by-32 field in 8 kilobytes.</li>
-                <li>Two 32-bit floating-point-like values also consume eight bytes, so one 32-kilobyte SRAM can hold a 64-by-64 two-value field.</li>
-                <li>Ten 32-kilobyte SRAMs provide 320 kilobytes in total: about 202 by 202 cells at eight bytes per cell, or 143 by 143 cells at sixteen bytes per cell.</li>
+                <li>Eight bytes per cell place a 32-by-32 field in 8 kilobytes.</li>
+                <li>Two 32-bit values also consume eight bytes, so one 32-kilobyte SRAM holds a 64-by-64 two-value field.</li>
+                <li>Ten 32-kilobyte SRAMs provide 320 kilobytes: about 202 by 202 cells at eight bytes each, or 143 by 143 cells at sixteen bytes each.</li>
             </ul>
-            <p>Those numbers describe storage capacity. Performance comes from the circuit that addresses ten memories, shares buses, meets timing, and sustains simultaneous reads and writes.</p>
-            <p>At 100 MHz, an ideal eight-bit SRAM port moves 100 megabytes per second before protocol, turnaround, or control overhead. My working target was 28 megabytes per second. That was enough to force a serious streaming design within the bandwidth of the small board.</p>
+            <p>Storage capacity alone does not deliver throughput. The circuit must address ten memories, share buses, meet timing, and sustain simultaneous reads and writes.</p>
+            <p>At 100 MHz, an ideal 8-bit SRAM port moves 100 megabytes per second before protocol, turnaround, and control overhead. The working target of 28 megabytes per second demands a serious stream while leaving practical margin for the board.</p>
         </section>
         <section>
-            <h2>What the GLSL Surface Was Really Saying</h2>
-            <p>The shader-shaped sketch contained familiar pieces:</p>
+            <h2>GLSL names become hardware obligations</h2>
+            <p>The shader-shaped source contains familiar elements:</p>
             <ul>
                 <li>coordinates for two texture reads;</li>
                 <li>two four-component texels;</li>
                 <li>a cache-like array of local records;</li>
-                <li>a small set of input and output signals;</li>
-                <li>a state update selected by Boolean conditions.</li>
+                <li>input and output signals;</li>
+                <li>a Boolean condition that selects the state update.</li>
             </ul>
-            <p>Written in GLSL, these look like variables. In hardware they become obligations.</p>
-            <p>A texture coordinate needs an address calculation. Two texel reads need two ports, two cycles, duplicated memory, or a schedule. A local array needs block RAM, distributed registers, or external memory. A conditional update becomes multiplexers. A floating-point operation becomes either a substantial arithmetic circuit or a different numeric representation chosen for the actual error budget.</p>
-            <p>This is where the tiny FPGA becomes useful as a teacher. It refuses vague words such as “sample,” “cache,” and “parallel.” It asks how many bits, which cycle, which port, and what must remain stable while something else changes.</p>
+            <p>GLSL presents these as variables. Hardware assigns each one a cost.</p>
+            <p>A texture coordinate needs address arithmetic. Two texel reads need two ports, two cycles, duplicated memory, or a schedule. A local array needs block RAM, distributed registers, or external SRAM. A conditional update becomes multiplexers. Floating-point operations need substantial arithmetic circuits or a numeric representation chosen for the actual error budget.</p>
+            <p>The iCE40 makes every word concrete: how many bits, which cycle, which port, and what must remain stable while the pipeline advances.</p>
         </section>
         <section>
-            <h2>A Shader Core Made of Streams</h2>
-            <p>My minimal pipeline has four stages:</p>
+            <h2>Four streams form the shader core</h2>
+            <p>The minimal pipeline has four stages:</p>
             <ol>
-                <li><strong>Fetch:</strong> read the records needed for one output cell.</li>
-                <li><strong>Assemble:</strong> hold those records until the complete neighborhood is present.</li>
-                <li><strong>Evaluate:</strong> run the local rule as Boolean, integer, fixed-point, or carefully bounded arithmetic.</li>
-                <li><strong>Commit:</strong> stream the new record to output memory or directly to the display path.</li>
+                <li><strong>Fetch:</strong> read records for one output cell.</li>
+                <li><strong>Assemble:</strong> retain them until the full neighborhood arrives.</li>
+                <li><strong>Evaluate:</strong> execute the local rule with Boolean, integer, fixed-point, or carefully bounded arithmetic.</li>
+                <li><strong>Commit:</strong> stream the next record into output memory or the display path.</li>
             </ol>
-            <p>Two memory banks can alternate roles. One is the current field; the other receives the next field. After a complete pass, their roles swap. This is the same ping-pong structure used in browser GPGPU, made physically explicit.</p>
-            <p>The machine does not need to hold an entire frame inside its arithmetic pipeline. It needs enough state to keep one local computation moving. If external memory supplies neighborhoods in a predictable order, line buffers and small caches can reuse values instead of reloading them for every cell.</p>
-            <p>That is the hardware version of a shader’s locality. The shader language describes the rule at one coordinate. The memory schedule decides whether that rule becomes practical.</p>
+            <p>Two memory banks alternate roles. One supplies the current field while the other receives the next field. After a complete pass, the banks swap. Browser GPGPU uses the same ping-pong structure; the FPGA exposes its wires, cycles, and storage.</p>
+            <p>The arithmetic pipeline only needs enough state to keep one local computation moving. Predictable neighborhood order lets line buffers and compact caches reuse values instead of fetching them again for every cell.</p>
+            <p>That schedule determines whether the shader rule becomes practical. Locality moves from an assumption in source code into a measured property of the memory system.</p>
         </section>
         <section>
-            <h2>The Toolchain Was Part of the Experiment</h2>
-            <p>The intended build path used the open iCE40 flow: synthesize the Verilog, place and route for the selected package, pack the configuration, and program the device. Each stage answers a different question.</p>
-            <p>Synthesis tells me whether the description maps into available logic. Placement and routing tell me whether the paths fit and meet the requested timing. Packing creates the actual device image. Programming finally turns the proposed machine into a physical one.</p>
-            <p>Bandwidth and clock rate become physical numbers only after the complete loop runs: synthesis, timing, programming, and measurement on the board. Before that loop, they guide the design as targets.</p>
+            <h2>The open toolchain completes the circuit</h2>
+            <p>The build path follows the open iCE40 flow:</p>
+            <ol>
+                <li>Synthesize the Verilog into available logic.</li>
+                <li>Place and route for the selected device and package.</li>
+                <li>Check timing against the requested clock.</li>
+                <li>Pack the routed design into a configuration image.</li>
+                <li>Program the FPGA.</li>
+                <li>Measure the running board.</li>
+            </ol>
+            <p>Each stage transforms the same machine at a different level. Synthesis reports logic mapping. Placement and routing expose congestion and path delay. Packing creates the device image. Programming makes the stream physical.</p>
+            <p>The complete loop turns bandwidth and clock rate into board-level numbers tied to real connectors, memories, and traces. The 28-megabyte-per-second target guides the design; the implemented pipeline supplies the measured result.</p>
         </section>
         <section>
-            <h2>Why Reconstruct It?</h2>
-            <p>Rebuilding a shader pipeline on a tiny FPGA is not a sensible way to beat a GPU at graphics. It is a way to understand what a shader costs.</p>
-            <p>The exercise reveals which parts are essential:</p>
+            <h2>The reconstruction creates a new instrument</h2>
+            <p>This tiny shader core exposes six reusable mechanisms:</p>
             <ul>
                 <li>local state;</li>
                 <li>neighborhood access;</li>
-                <li>repeated rules;</li>
-                <li>explicit storage;</li>
+                <li>one repeated local rule;</li>
+                <li>explicit external storage;</li>
                 <li>a schedule that overlaps memory and arithmetic;</li>
-                <li>a commit boundary between one field and the next.</li>
+                <li>a commit boundary between fields.</li>
             </ul>
-            <p>Once those parts are visible, I can change them. I can replace floating point with a representation suited to the model. I can expose the state on a display. I can attach a real sensor stream instead of a texture. I can decide that one stage deserves dedicated logic while another should remain serialized.</p>
-            <p>The little iCE40 reconstructs one visible path through the graphics processor. That is enough to turn “a shader runs everywhere” from a software incantation into a machine I can draw, synthesize, time, and eventually hold in my hand.</p>
+            <p>Once visible, each mechanism can change independently. Fixed point can replace floating point where the model allows it. The display can expose machine state. A sensor can replace the texture source. Dedicated logic can accelerate one stage while another remains serialized.</p>
+            <p>Build the first complete path around one local rule. Load its neighborhood from SRAM, evaluate it through the four stages, commit into the alternate field, swap banks, and show the result on the 176-by-220 display. Then measure clock, sustained bandwidth, and cell rate.</p>
+            <p>The iCE40 turns shader execution from an opaque service into a machine whose every value has a storage location, every operation has a cycle, and every result has a visible destination.</p>
         </section>
     </main>
 
@@ -158,7 +166,7 @@
         <p>Build the substrate from one multiplexer upward through LUTs, wires, state, timing, and nested regions.</p>
         <p>Nearby:</p>
         <a href="/miscellanies/the-fpga-you-can-debug-from-a-mountain.html">The FPGA You Can Debug from a Mountain</a>
-        <p>A design for a portable and remote FPGA workbench that preserves exact sequential state, inspectable transitions, local safety, and reproducible snapshots.</p>
+        <p>A portable FPGA workbench can capture design, live sequential state, transition history, local stopping, safety controls.</p>
         <a href="/miscellanies/">Browse all 53 Miscellanies</a>
         <a href="/">Back to greenforest.io</a>
     </nav>

@@ -6,11 +6,11 @@
     <title>Optimizer History Around Attention and AdamW</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A model-training note about why transformer history should include optimizer choices: SGD with momentum, Adam, AdamW, RMSProp, schedules, and attention.">
+    <meta name="description" content="Transformer history belongs beside optimizer history, from momentum SGD and RMSProp to Adam, AdamW, schedules, regularization, and large-model training.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-24-optimizer-history-around-attention-and-adamw.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Optimizer History Around Attention and AdamW">
-    <meta property="og:description" content="A model-training note about why transformer history should include optimizer choices: SGD with momentum, Adam, AdamW, RMSProp, schedules, and attention.">
+    <meta property="og:description" content="Transformer history belongs beside optimizer history, from momentum SGD and RMSProp to Adam, AdamW, schedules, regularization, and large-model training.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-24-optimizer-history-around-attention-and-adamw.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-08-24",
-                                "dateModified": "2026-07-09",
-                                "description": "A model-training note about why transformer history should include optimizer choices: SGD with momentum, Adam, AdamW, RMSProp, schedules, and attention.",
+                                "dateModified": "2026-07-28",
+                                "description": "Transformer history belongs beside optimizer history, from momentum SGD and RMSProp to Adam, AdamW, schedules, regularization, and large-model training.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-24-optimizer-history-around-attention-and-adamw.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,33 @@
 <body>
     <header>Optimizer History Around Attention and AdamW</header>
     <address>August 24, 2023</address>
+
+
+    <section class="abstract">
+        <p>Attention changed model architecture, and optimizer design made that architecture trainable at scale. The history runs from momentum SGD in LeNet and ImageNet through RMSProp, Adam, decoupled weight decay, and the 2017 arrival of Transformers and AdamW.</p>
+        <p>Brian Greenforest restores optimization to the center of the Transformer story.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Architecture and Optimization Co-Evolve</h1>
+            <p>Momentum smooths stochastic gradients and carries useful direction across minibatches. Adaptive methods scale updates by running estimates of first and second moments, helping large models navigate parameters with very different gradient statistics.</p>
+            <p>AdamW separates weight decay from the adaptive gradient update. Learning-rate schedules, warmup, normalization, initialization, and batching then interact with the optimizer to determine whether training converges.</p>
+        </section>
+
+        <section>
+            <h1>Read the Training Recipe as Part of the Invention</h1>
+            <p>GPT-1 followed the Transformer one year later and used Adam-family optimization inside a complete recipe. Model diagrams alone cannot explain that result.</p>
+            <p>Researchers and educators can document optimizer, schedule, precision, regularization, and data order with the same care as attention. Those choices carry the history of how large models actually learned.</p>
+        </section>
+
+        <section>
+            <h1>Run Optimizer History Around Attention and AdamW in a Four-Layer Transformer</h1>
+            <p>The complete training run connects this mathematical argument to executable code, data flow, and a working small model.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a> &middot; <a href="https://lnkd.in/gjHJtFHw" target="_blank" rel="noopener">https://lnkd.in/gjHJtFHw</a> &middot; <a href="https://www.reddit.com/r/MachineLearning/comments/l6t97z/d_nextgen_optimizer/" target="_blank" rel="noopener">https://www.reddit.com/r/MachineLearning/comments/l6t97z/d_nextgen_optimizer/</a></p>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7100573860130955265" data-linkedin-activity="7100573860130955265" data-linkedin-source="activity:7100573860130955265">
@@ -136,50 +163,13 @@ https://lnkd.in/gjHJtFHw</div>
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-08-24.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Optimizer History Around Attention and AdamW</h1>
-            <p>Transformer history is usually told as an architecture story, but optimizer choice is part of the mechanism. LeNet-era systems and later ImageNet training made heavy use of SGD with momentum; transformer work arrived in a period where Adam-style methods were already central to large neural-network training.</p>
-            <p>AdamW matters because decoupled weight decay changes how regularization is applied during optimization. That is not a minor implementation detail when training stability, scale, and reproducibility are the actual problem.</p>
-            <p>The useful reading is not that every newer optimizer replaces the older ones. It is that architecture, normalization, initialization, learning-rate schedules, batch size, regularization, and optimizer dynamics form one training system.</p>
-            <p>When a model works, the article should keep those parts connected. Attention was not deployed in isolation; it survived inside a training recipe.</p>
-            <p><a href="https://lnkd.in/gjHJtFHw" target="_blank" rel="noopener">https://lnkd.in/gjHJtFHw</a></p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/gjHJtFHw" target="_blank" rel="noopener">https://lnkd.in/gjHJtFHw</a></li>
-                <li><a href="https://www.reddit.com/r/MachineLearning/comments/l6t97z/d_nextgen_optimizer/" target="_blank" rel="noopener">https://www.reddit.com/r/MachineLearning/comments/l6t97z/d_nextgen_optimizer/</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-08-18-probit-argmax-logit-and-neural-networks.html">Probit, Argmax, Logit, and Neural Networks</a>
-        <p>Another dated publication from August 18, 2023.</p>
-        <p>More:</p>
-        <a href="2023-08-30-functions-prediction-and-autoregression.html">Functions, Prediction, and Autoregression</a>
-        <p>Another dated publication from August 30, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7100573860130955265/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Optimizer History Around Attention and AdamW, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7100573860130955265/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

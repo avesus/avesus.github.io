@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Built Mechanisms and Evidence | Brian Greenforest</title>
-    <meta name="description" content="Inspect Brian Greenforest's FPGA, RF, Ethernet RTL, physical MUX, serial multiplier, WebGL/GLSL, and Cartilage artifacts with evidence boundaries.">
+    <title>Working Systems And Source | Brian Greenforest</title>
+    <meta name="description" content="Run and inspect Brian Greenforest's streaming multiplier, one-pin FPGA radio, Ethernet reprogrammer, physical MUX tiles, WebGL machines, and Cartilage fabric.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/proof-and-artifacts.html">
-    <meta property="og:title" content="Built Mechanisms and Evidence | Brian Greenforest">
-    <meta property="og:description" content="FPGA radio, Ethernet RTL, physical MUX tiles, a streaming multiplier, raw WebGL/GLSL systems, and the Cartilage path.">
+    <meta property="og:title" content="Working Systems And Source | Brian Greenforest">
+    <meta property="og:description" content="FPGA radio, Ethernet RTL, physical MUX tiles, a streaming multiplier, raw WebGL machines, and the Cartilage reconfigurable fabric.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/proof-and-artifacts.html">
         <link rel="icon" href="/favicon.ico">
@@ -21,10 +21,10 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Built Mechanisms and Evidence | Brian Greenforest - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Working Systems And Source | Brian Greenforest - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/proof-and-artifacts.png">
-    <meta name="twitter:image:alt" content="Built Mechanisms and Evidence | Brian Greenforest - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Working Systems And Source | Brian Greenforest - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
@@ -33,8 +33,8 @@
             "@type": "CollectionPage",
             "@id": "https://greenforest.io/proof-and-artifacts.html#webpage",
             "url": "https://greenforest.io/proof-and-artifacts.html",
-            "name": "Built Mechanisms and Evidence",
-            "description": "Public FPGA, RF, Ethernet RTL, physical logic, browser-GPU, arithmetic, and reconfigurable-computing artifacts from Greenforest I/O.",
+            "name": "Working Systems And Source",
+            "description": "FPGA, RF, Ethernet RTL, physical logic, browser-GPU, arithmetic, and reconfigurable-computing systems from Greenforest I/O.",
             "publisher": {
                 "@type": "Organization",
                 "@id": "https://greenforest.io/#organization",
@@ -98,7 +98,7 @@
                 },
                 {
                     "@type": "CreativeWork",
-                    "name": "Cartilage Nested-Instantiation Demo",
+                    "name": "Cartilage Runtime Instantiation in Space",
                     "url": "https://greenforest.io/cartilage-nested-instantiation-demo.html"
                 }
             ]
@@ -108,97 +108,94 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">Built Mechanisms And Evidence</h1></header>
+    <header><h1 class="page-title">Working Systems And Source</h1></header>
 
     <section class="abstract">
-        <p class="lead">Start with the mechanism, then inspect the boundary of the claim.</p>
-        <p>I reconstruct parts of computing that are usually hidden behind an inherited stack: arithmetic schedules, GPU state transitions, configuration paths, routing, timing, and physical process. The strongest public work keeps the circuit, source, run, and limitation close enough for another engineer to challenge or extend it.</p>
-        <p>This is the public workbench, not a substitute for independent verification or silicon signoff.</p>
+        <p class="lead">Choose a mechanism and enter where it works: at the pin, packet, clock, shader pass, circuit tile, or reconfiguration bit.</p>
+        <p>These systems rebuild parts of computing that inherited stacks usually hide. Follow an arithmetic schedule without pipeline bubbles, turn one FPGA pin into a radio, send an FPGA image through Ethernet, compose logic by hand, or install a circuit into a live spatial fabric.</p>
+        <p>Source, schematics, videos, measurements, photographs, and runnable machines make each idea available for use and extension.</p>
     </section>
 
     <main>
         <section>
-            <h2>Three Places To Start</h2>
+            <h2>Three Ways Into The Architecture</h2>
             <div class="capability-grid">
                 <article class="capability-card">
                     <p class="eyebrow">Arithmetic scheduling</p>
                     <h3><a href="serial_multiplier/">Bubbles-Free Bit-Serial Multiplier</a></h3>
-                    <p>The public Logisim artifact is an unsigned positive-number <code>8x8</code> multiplier with an 8-bit LSB-first result, three clocks of fixed latency, and one result bit per clock after fill. Consecutive operand words do not require drain bubbles.</p>
-                    <p><strong>Boundary:</strong> a circuit and composable schedule, not a measured claim that it outperforms inferred multipliers or FPGA DSP blocks.</p>
+                    <p>The Logisim circuit multiplies unsigned positive <code>8x8</code> operands, emits an 8-bit result LSB first, and holds latency to three clocks. After the pipeline fills, one result bit arrives every clock, and consecutive operand words need no drain bubbles.</p>
+                    <p>The schedule turns a narrow serial datapath into continuous arithmetic that engineers can compose into larger streaming systems.</p>
                 </article>
                 <article class="capability-card">
                     <p class="eyebrow">Browser GPU systems</p>
                     <h3><a href="webgl-glsl-computing.html">WebGL And GLSL As A Computing Substrate</a></h3>
-                    <p>Raw WebGL1 and GLSL ES 1.00 work exposes context setup, shader compilation, packed texture state, framebuffer passes, ping-pong updates, and readback across cellular automata and reconfigurable-fabric experiments.</p>
-                    <p><strong>Boundary:</strong> direct implementation evidence, not a cross-browser performance benchmark or a claim that browser simulation is hardware.</p>
+                    <p>Raw WebGL1 and GLSL ES 1.00 turn packed texture state, framebuffer passes, ping-pong updates, and readback into working cellular automata and reconfigurable fabrics.</p>
+                    <p>The browser becomes a spatial-computing machine: every shader pass advances a field of local state transitions in parallel.</p>
                 </article>
                 <article class="capability-card">
                     <p class="eyebrow">Reconfigurable computation</p>
                     <h3><a href="cartilage/">Learn Cartilage, One Chapter At A Time</a></h3>
-                    <p>The ordered path begins with Logisim and LUTs, then builds through CMOS gain, output drivers, clock and event distribution, state machines, timing, metal routing, nested components, and runtime reconfiguration in space.</p>
-                    <p><strong>Boundary:</strong> the path distinguishes teaching models, browser artifacts, matched RTL examples, and still-open device research.</p>
+                    <p>The path begins with Logisim and LUTs, then builds through CMOS gain, output drivers, clock and event distribution, state machines, timing, metal routing, nested components, and runtime reconfiguration in space.</p>
+                    <p>Each chapter connects one layer of the machine to the next, from physical switching to a live fabric that installs new circuitry while it runs.</p>
                 </article>
             </div>
         </section>
 
         <section>
-            <h2>FPGA Systems Evidence</h2>
-            <p>The <a href="fpga-systems.html">FPGA systems map</a> connects work that was previously scattered across radio, arithmetic, archives, and source files.</p>
-            <p>If you need the foundations behind that evidence, <a href="/fpga-verilog/">learn FPGA and Verilog from first principles</a>: Boolean logic through simulation, synthesis, place-and-route, and a programmed iCE40 board.</p>
+            <h2>FPGA Systems From Pin To Product</h2>
+            <p>The <a href="fpga-systems.html">FPGA systems map</a> joins radio, arithmetic, Ethernet, reconfiguration, and source into one engineering path.</p>
+            <p>To build the foundations behind these systems, <a href="/fpga-verilog/">learn FPGA and Verilog from first principles</a>: Boolean logic through simulation, synthesis, place-and-route, and a programmed iCE40 board.</p>
             <div class="capability-grid">
                 <article class="capability-card">
                     <a href="one-pin-quadrature-sdm-transmitter.html"><img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Transmitter waveforms, resonant-tank hardware, and historical spectrum context"></a>
                     <p class="eyebrow">RF transmit</p>
                     <h3><a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM Transmitter</a></h3>
-                    <p>The wrapper traces two one-bit control paths through four carrier phases to one HX8K output and a resonant network. Its CubicSDR capture shows the local signal and a live PTC channel received together by an RTL-SDR Blog V4; fresh calibrated measurements remain open.</p>
+                    <p>Two one-bit control paths select among four carrier phases, then one HX8K output drives a resonant network. A CubicSDR capture records the local signal beside a live PTC channel through an RTL-SDR Blog V4.</p>
                 </article>
                 <article class="capability-card">
                     <a href="how-much-radio-do-you-actually-need.html"><img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="lazy" decoding="async" alt="Illustrated one-pin FPGA FM receiver path from thresholded RF to recovered audio"></a>
                     <p class="eyebrow">RF receive</p>
                     <h3><a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a></h3>
-                    <p>Operating video and a selected UP5K source trail establish FM audio recovery from one logical differential input site through DDR sampling, DDS-controlled one-bit mixing, integration, cross-product demodulation, and sigma-delta output. Receiver calibration remains open.</p>
+                    <p>A single logical differential input site carries thresholded RF into DDR sampling, DDS-controlled one-bit mixing, integration, cross-product demodulation, and sigma-delta audio output. The operating video and selected UP5K source follow that complete receive path.</p>
                 </article>
                 <article class="capability-card">
                     <a href="ethernet-udp-ice40-reprogrammer.html"><img src="ethernet-udp-ice40-reprogrammer/images/port-of-edmonds-working-reprogrammer-waveform-2020.png" width="785" height="1050" loading="lazy" decoding="async" alt="January 2020 working-reprogrammer waveform with green digital traces"></a>
                     <p class="eyebrow">Ethernet and configuration</p>
                     <h3><a href="ethernet-udp-ice40-reprogrammer.html">Ethernet To An Adjacent iCE40</a></h3>
-                    <p>The 2020 multi-file source implements RMII receive, ARP response, fixed-layout IPv4/UDP-carried image ingestion, RAM storage, and direct iCE40LP384 configuration, plus a Linux UDP/XCB/EGL control shell.</p>
+                    <p>The 2020 multi-file source receives RMII Ethernet, answers ARP, ingests a fixed-layout FPGA image through IPv4/UDP, stores it in RAM, and configures an adjacent iCE40LP384 directly. A Linux UDP/XCB/EGL shell controls the path.</p>
                 </article>
                 <article class="capability-card capability-card-wide">
                     <p class="eyebrow">Physical-computing education</p>
                     <h3><a href="physical-mux-tiles/">Physical MUX Tiles</a></h3>
-                    <p>Original photographs establish fabricated role variants, connector-spaced palm-scale assemblies, and manual composition. The proposed STEM/EE path connects the tangible selector alphabet to Logisim and FPGA LUTs without claiming powered operation or classroom validation.</p>
+                    <p>Palm-scale role variants and connector spacing turn a multiplexer into a tangible construction alphabet. Original photographs show the fabricated assemblies and manual compositions; the learning path connects those physical selectors to Logisim and FPGA LUTs.</p>
                 </article>
             </div>
         </section>
 
         <section>
-            <h2>Current Cartilage Proof Package</h2>
-            <div class="status-box">
-                <p><span class="status-label">Runnable bounded proof</span><a href="cartilage-core.html">Cartilage Core: Reconfigurable Fabric in WebGL and SystemVerilog</a></p>
-                <p>The <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> publishes the compact WebGL1 model, editable hardware paper and PDF, local-clocked SystemVerilog RTL, and self-checking Verilator testbench. The checked <code>6x6</code> image receives 252 payload bits plus one apply pulse and settles to an interior-MUX AND circuit.</p>
-                <p><strong>Boundary:</strong> this proves a logical mechanism and one exact installed image. It does not establish silicon signoff, a general compiler, or a general placer/router.</p>
-            </div>
-            <p><a href="cartilage-nested-instantiation-demo.html">Runtime Instantiation in Space</a> shows a bounded daughter region receiving a serial configuration stream from a local parent port. <a href="cartilage-visual-language.html">Cartilage Visual Language</a> documents the current body-role alphabet.</p>
-            <p><a href="cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a> tracks the concrete renderer, region-root, ownership, recovery, simulator, hosting, and teaching work required to turn that bounded proof into a practical visual workstation.</p>
+            <h2>Cartilage Installs A Circuit In Two Implementations</h2>
+            <p><a href="cartilage-core.html">Cartilage Core</a> carries the same compact reconfigurable fabric through WebGL1 and local-clocked SystemVerilog RTL. The <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> includes the browser machine, editable hardware paper and PDF, RTL, and a self-checking Verilator testbench.</p>
+            <p>A <code>6x6</code> image accepts 252 payload bits and one apply pulse, then becomes an interior-MUX AND circuit. The matched implementations make spatial reconfiguration concrete at both the shader and RTL levels.</p>
+            <p><a href="cartilage-nested-instantiation-demo.html">Runtime Instantiation in Space</a> sends a serial configuration stream from a local parent port into a daughter region. <a href="cartilage-visual-language.html">Cartilage Visual Language</a> defines the body-role alphabet that makes those regions readable.</p>
+            <p><a href="cartilage-reconfigurable-computing-roadmap.html">The Cartilage roadmap</a> advances the renderer, region roots, ownership, recovery, simulator, hosting, and teaching system toward a practical visual workstation.</p>
         </section>
 
         <section>
-            <h2>Other Mechanisms And Source Trails</h2>
-            <p><a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a> strips an FM receive chain down to a single FPGA input and preserves the Verilog follow-up with explicit limits.</p>
-            <p><a href="the-missing-maker-fab.html">The Missing Maker Fab</a> defines the process-access problem behind the active-device research program.</p>
-            <p><a href="wafer-diced-smart-dust-substrate.html">Wafer-Diced Chiplets for Programmable Matter and Claytronics</a> connects protected chiplets, near-field links, and spatial computation to the old Claytronics problem.</p>
-            <p><a href="ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a> preserves earlier run and sketch pages as an archive; use the ordered <a href="cartilage/">Cartilage learning path</a> for onboarding.</p>
+            <h2>More Systems Ready To Extend</h2>
+            <p><a href="how-much-radio-do-you-actually-need.html">One-Pin FPGA FM Receiver</a> compresses an FM receive chain into one FPGA input and follows the signal through the Verilog.</p>
+            <p><a href="the-missing-maker-fab.html">The Missing Maker Fab</a> opens a manufacturing path between integrated-circuit simulation and accessible physical fabrication.</p>
+            <p><a href="wafer-diced-smart-dust-substrate.html">Wafer-Diced Chiplets for Programmable Matter and Claytronics</a> joins protected chiplets, near-field links, and spatial computation into a route toward matter that computes through its structure.</p>
+            <p><a href="ai-assisted-cartilage-draft-archive.html">Cartilage Runs And Designs</a> collects executable machines and design studies; the ordered <a href="cartilage/">Cartilage learning path</a> develops the architecture layer by layer.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Read next:</p>
-        <a href="technology-research-and-consulting.html">Work With Brian</a>
-        <p>Bring a difficult technical boundary toward a runnable mechanism.</p>
+        <a href="technology-research-and-consulting.html">Commission Product And R&amp;D Work</a>
+        <p>Turn a difficult systems problem into a working mechanism, product path, or research program.</p>
         <p>More:</p>
         <a href="cartilage/">The Cartilage Learning Path</a>
-        <p>Read the reconfigurable-computing chapters in order.</p>
+        <p>Build the reconfigurable-computing architecture from switching physics to runtime spatial installation.</p>
         <a href="/">Back to greenforest.io</a>
     </nav>
 </body>

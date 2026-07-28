@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>AI Lab Agents Need a Physical Benchmark | Greenforest I/O</title>
+    <title>A Vendor-Neutral Physical Benchmark For AI Lab Agents | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="After an AI agent left my requested dBm measurement unfinished, I propose a vendor-neutral physical benchmark for agents that diagnose real electronics with real instruments.">
+    <meta name="description" content="A vendor-neutral benchmark measures how safely and effectively AI agents diagnose and repair real electronic systems with real instruments.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/physical-benchmark-for-ai-lab-agents.html">
     <link rel="stylesheet" href="/fpga-radio-lab/radio-lab.css">
-    <meta property="og:title" content="AI Lab Agents Need a Physical Benchmark">
-    <meta property="og:description" content="I tried the agent-controlled hardware lab over the weekend. The unfinished dBm measurement revealed an offer I can test: a vendor-neutral physical benchmark for engineering agents.">
+    <meta property="og:title" content="A Vendor-Neutral Physical Benchmark For AI Lab Agents">
+    <meta property="og:description" content="Give engineering agents the same calibrated rig, private physical faults, safety envelope, and withheld function test—then score what they actually fix.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/physical-benchmark-for-ai-lab-agents.html">
     <meta property="article:published_time" content="2026-07-27">
@@ -24,26 +24,26 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="AI Lab Agents Need a Physical Benchmark - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="A Vendor-Neutral Physical Benchmark For AI Lab Agents - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/physical-benchmark-for-ai-lab-agents.png">
-    <meta name="twitter:image:alt" content="AI Lab Agents Need a Physical Benchmark - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="A Vendor-Neutral Physical Benchmark For AI Lab Agents - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "AI Lab Agents Need a Physical Benchmark",
+            "headline": "A Vendor-Neutral Physical Benchmark For AI Lab Agents",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest",
                 "url": "https://greenforest.io/"
             },
             "datePublished": "2026-07-27",
-            "dateModified": "2026-07-27",
+            "dateModified": "2026-07-28",
             "image": "https://greenforest.io/social-previews/physical-benchmark-for-ai-lab-agents.png",
-            "description": "After an AI agent left my requested dBm measurement unfinished, I propose a vendor-neutral physical benchmark for agents that diagnose real electronics with real instruments.",
+            "description": "A vendor-neutral benchmark measures how safely and effectively AI agents diagnose and repair real electronic systems with real instruments.",
             "mainEntityOfPage": "https://greenforest.io/physical-benchmark-for-ai-lab-agents.html",
             "proficiencyLevel": "Intermediate",
             "publisher": {
@@ -57,13 +57,13 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">AI Lab Agents Need a Physical Benchmark</h1></header>
+    <header><h1 class="page-title">A Vendor-Neutral Physical Benchmark For AI Lab Agents</h1></header>
     <address>July 27, 2026</address>
 
     <section class="abstract">
         <p class="eyebrow">Agent-controlled laboratories · real electronics</p>
-        <p class="lead">I tried the fashionable idea over the weekend: attach an AI agent to real laboratory equipment and let it help close the loop around real hardware. I came away disappointed. The agent knew that an uncalibrated receiver reading was not dBm, but it did not finish the absolute-power measurement I had asked for.</p>
-        <p>That failure clarified the business. I do not want to build one more generic instrument-control agent. I want to build an independent physical benchmark that measures how safely and effectively an engineering agent diagnoses and fixes specified faults in real electronic systems using real instruments.</p>
+        <p class="lead">Give engineering agents the same calibrated rig, private physical faults, safety envelope, and withheld function test—then score what they actually fix.</p>
+        <p>This vendor-neutral physical benchmark measures how safely and effectively an AI agent diagnoses and repairs real electronic systems with real instruments. It evaluates metrology, causal reasoning, instrument configuration, protection, corrective action, and verified recovery inside one repeatable run.</p>
 
         <div class="hitl-stats" aria-label="Physical agent benchmark proposal at a glance">
             <div class="hitl-stat"><strong>1</strong><span>physical scenario first</span></div>
@@ -76,84 +76,81 @@
             <a href="/fpga-radio-lab/media/hitl-control-loop.svg">
                 <img src="/fpga-radio-lab/media/hitl-control-loop.svg" width="1800" height="980" decoding="async" fetchpriority="high" alt="Hardware-in-the-loop cycle from a physical question through FPGA build, armed instruments, a bounded RF burst, recovered information, and the next decision">
             </a>
-            <figcaption>The loop I ran from July 25 into July 27: a digital change had to cross the FPGA, one RF pin, a resonant tank, and a separate receiver before it could earn the next experiment. The benchmark would test the agent's decisions inside that loop, not merely whether it can issue commands.</figcaption>
+            <figcaption>From July 25 through July 27, each digital change crossed an FPGA, one RF pin, a resonant tank, and an independent receiver before it earned the next physical action. The benchmark scores every engineering decision inside that loop.</figcaption>
         </figure>
     </section>
 
     <main>
         <section>
-            <h2>I Asked for dBm. The Agent Stopped Before the Measurement.</h2>
-            <p>My <a href="/fpga-radio-hardware-in-the-loop.html">one-pin FPGA Weaver transmitter</a> gave the agent a serious physical job. I wanted the widest useful upper sideband inside 222–225 MHz, a square-looking spectrum, a suppressed carrier, the true conjugate image, and actual output power in dBm. The loop could rebuild the iCE40 image, close timing, arm telemetry and an RTL-SDR, program volatile CRAM, transmit one bounded burst, recover the consequence, and return N16 to high impedance.</p>
-            <p>The agent was industrious and sometimes scientifically useful. Run 36 looked better in its spectral window, but packet length and CRC failed, EVM reached 96.152%, and the orchestration restored the last accepted image. That is exactly the kind of whole-system judgment worth keeping.</p>
-            <p>The agent correctly said that the SDR path had no absolute calibration point. It reported receiver-relative measurements instead. In the final Physical27 run, the wanted window integrated to −20.85 dB on the analysis scale and the peak reached −38.55 dBFS per FFT bin. Neither number is dBm.</p>
-            <p>That refusal was technically honest. The failure was stopping there. The next job was to define the output reference plane, select a suitable voltage or power measurement, configure the 50 Ω loading and attenuation, record path loss and bandwidth, and carry the uncertainty into an absolute result. Instead, the work drifted toward the easier, more familiar QPSK result. When the weekend was published, the ordinary packet experiment initially received more attention than the power measurement and distinctive Weaver spectrum I had explicitly asked to see.</p>
-            <p>I was disappointed because the agent optimized for the result it could defend most easily, not the measurement I had asked it to complete. It knew what not to claim, but it did not perform the most informative next physical action. That is the failure class.</p>
-            <div class="lab-note">
-                <p><strong>The dBm incident is a benchmark scenario, not the product.</strong> A useful evaluation must discover whether the agent can close the missing metrology step, distinguish the device from the fixture and receiver, and verify the repaired result.</p>
-            </div>
+            <h2>The Missing dBm Step Revealed The Benchmark</h2>
+            <p>The <a href="/fpga-radio-hardware-in-the-loop.html">one-pin FPGA Weaver transmitter</a> gave an AI agent a complete physical objective: widen the useful upper sideband inside 222–225 MHz, preserve its square spectral shape, suppress the carrier, identify the true conjugate image, and measure delivered output power in dBm.</p>
+            <p>The control loop rebuilt the iCE40 image, closed timing, armed telemetry and an RTL-SDR, programmed volatile CRAM, emitted one bounded burst, recovered the physical consequence, and returned N16 to high impedance. When Run 36 degraded packet length, CRC, and EVM to 96.152%, orchestration restored the last accepted image—a valuable whole-system decision.</p>
+            <p>The SDR provided receiver-relative measurements. In Physical27, the wanted window integrated to −20.85 dB on the analysis scale and the peak reached −38.55 dBFS per FFT bin. Those quantities describe the receiver path; delivered power in dBm requires an absolute calibration point.</p>
+            <p>The decisive next action would define a 50 Ω output plane, select an absolute voltage or power measurement, configure loading and attenuation, record path loss and bandwidth, and propagate measurement uncertainty. That metrology sequence turns an honest refusal into a completed physical result.</p>
+            <p>This gap supplies an ideal benchmark case. The evaluation can measure whether an agent distinguishes the transmitter from its fixture and receiver, chooses the missing discriminator, protects the equipment, repairs the physical condition, and verifies the original requirement.</p>
         </section>
 
         <section>
-            <h2>The Agent-Controlled Bench Is Becoming a Category</h2>
-            <p>After the weekend I went looking for everyone else who was attaching agents to a hardware bench. I found <a href="https://assemblelabs.ai/">AssembleAI</a> designing experiments, controlling oscilloscopes and other instruments, modifying firmware, and re-measuring. <a href="https://testflowinc.com/">TestFlow</a> turns validation plans into instrument-aware executable workflows. <a href="https://imula.io/">Imula</a>, currently inviting people to a waitlist, connects natural-language instructions to oscilloscopes, microcontrollers, and power supplies. <a href="https://hilstart.io/">HILstart</a> is building API- and MCP-first test equipment specifically for agents and says it is onboarding early teams.</p>
-            <p>Around the same bench, <a href="https://daqstra.co/">Daqstra</a> connects and orchestrates complex physical R&amp;D infrastructure, <a href="https://www.ohm.ai/">Ohm</a> applies agentic analytics and root-cause investigation to engineering test programs, and <a href="https://benchci.dev/">BenchCI</a> brings repeatable real-device and HIL runs into firmware CI. They are not seven copies of the same product. What matters to me is that instrument control, hardware testing, analysis, and evidence are all converging on the same physical loop.</p>
-            <p>The measurement problem is already visible in the category's own examples. AssembleAI's current page shows an example requirement for RF transmit power of at least +8 dBm at 2.4 GHz. I am not suggesting that its agent makes my mistake or that this marketing example records an executed test. I am pointing out that the pass/fail decision is under-specified without a reference plane, loading, calibration, bandwidth, and uncertainty.</p>
-            <p>I could try to compete for control of the bench. I would rather build the place where all of these systems cross the same physical test.</p>
+            <h2>A New Category Needs A Common Physical Exam</h2>
+            <p><a href="https://assemblelabs.ai/">AssembleAI</a> designs experiments, controls oscilloscopes and other instruments, modifies firmware, and measures again. <a href="https://testflowinc.com/">TestFlow</a> turns validation plans into instrument-aware executable workflows. <a href="https://imula.io/">Imula</a> connects natural-language instructions to oscilloscopes, microcontrollers, and power supplies. <a href="https://hilstart.io/">HILstart</a> builds API- and MCP-first test equipment for agents.</p>
+            <p><a href="https://daqstra.co/">Daqstra</a> orchestrates physical R&amp;D infrastructure, <a href="https://www.ohm.ai/">Ohm</a> applies agentic analytics and root-cause investigation to engineering test programs, and <a href="https://benchci.dev/">BenchCI</a> brings repeatable real-device and HIL runs into firmware CI. These products approach different parts of one physical loop: instrument control, device testing, analysis, diagnosis, and recovery.</p>
+            <p>A shared benchmark makes their results comparable without competing for control of the bench. It gives each agent the same rig, permissions, fault family, safety requirements, scoring dimensions, and withheld success test.</p>
+            <p>RF power shows why physical specification matters. A requirement such as +8 dBm at 2.4 GHz becomes executable only after the test names its reference plane, load, calibration, bandwidth, corrections, and uncertainty. The benchmark turns those engineering decisions into part of the score.</p>
         </section>
 
         <section>
-            <h2>A Simulator Can Test the Clicks. I Need to Test the Physics.</h2>
+            <h2>Real Physics Adds The Decisive Layer</h2>
             <p><a href="https://www.nist.gov/programs-projects/building-evaluation-probes-agentic-ai">NIST is already treating agentic traceability as a measurement problem</a>. Its evaluation-probe work calls for visibility into tool use and gathered evidence, adversarial verification inside an agent workflow, and machine-readable audit trails that connect decisions to their support.</p>
-            <p>The June 2026 <a href="https://arxiv.org/abs/2606.16802">LabOSBench preprint</a> makes the instrument problem concrete. It evaluates 96 subtasks across eight browser-based scientific-instrument simulators. The authors found that agents can complete many structured GUI operations while still struggling with feedback-driven adjustment and long workflows.</p>
-            <p>Its limitation is precisely physical: a browser simulator cannot fully reproduce hardware latency, calibration uncertainty, safety constraints, or the failure modes of a real laboratory. LabOSBench does not propose my business. It makes the missing layer easy to see.</p>
-            <p>There is room between an instrument vendor's own demonstration and a simulated GUI benchmark. That room contains loading, probe compensation, stale calibration, shared grounds, cable loss, saturating front ends, timing skew, noisy relays, damaged parts, intermittent connectors, and fixes that appear plausible until the circuit is measured again.</p>
+            <p>The June 2026 <a href="https://arxiv.org/abs/2606.16802">LabOSBench preprint</a> evaluates 96 subtasks across eight browser-based scientific-instrument simulators. Its results show agents completing many structured GUI operations while feedback-driven adjustment and long workflows demand more.</p>
+            <p>A physical benchmark continues where simulated controls end. Hardware latency, loading, calibration uncertainty, safety envelopes, path loss, shared grounds, saturating front ends, timing skew, noisy relays, damaged parts, and intermittent connectors all change what a measurement means.</p>
+            <p>The agent must distinguish a plausible on-screen action from a successful physical intervention. Only a second measurement can show whether the proposed fix restored the circuit.</p>
         </section>
 
         <section>
-            <h2>I Want to Sell the Physical Exam, Not Another Agent</h2>
-            <p><strong>The proposed offer is a vendor-neutral physical benchmark that measures how safely and effectively an AI agent diagnoses and fixes specified electronic faults using real instruments.</strong></p>
-            <p>The first people I need to talk to are building hardware-engineering agents, instrument-control agents, autonomous laboratories, and embedded-development copilots. I do not need to replace their agent or their instrument interface. I need to give all of them the same physical problem and make the result comparable.</p>
+            <h2>The Product Is The Physical Exam</h2>
+            <p><strong>The benchmark measures how safely and effectively an AI agent diagnoses and repairs specified electronic faults with real instruments.</strong></p>
+            <p>Hardware-engineering agents, instrument-control agents, autonomous laboratories, and embedded-development copilots keep their own models and interfaces. The benchmark gives all of them the same physical problem and produces a comparable result.</p>
 
             <div class="lab-grid">
                 <article class="lab-card">
                     <h3>Calibrated reference rig</h3>
-                    <p>A documented device under test, protected stimulus and measurement paths, calibration records, named reference planes, and enough independent observation to catch a misleading instrument.</p>
+                    <p>A documented device under test, protected stimulus and measurement paths, calibration records, named reference planes, and independent observation that can catch a misleading instrument.</p>
                 </article>
                 <article class="lab-card">
                     <h3>Private physical faults</h3>
-                    <p>Hidden but repeatable changes in the device, fixture, loading, calibration state, or signal path. The agent cannot solve the evaluation by memorizing the public example.</p>
+                    <p>Hidden but repeatable changes in the device, fixture, loading, calibration state, or signal path make every run a fresh physical diagnosis.</p>
                 </article>
                 <article class="lab-card">
                     <h3>Executable scoring</h3>
-                    <p>Instrument states, commands, measurements, safety envelopes, causal discriminators, and final physical behavior are scored from the run. A persuasive explanation cannot rescue a circuit that still fails.</p>
+                    <p>The score covers instrument states, commands, measurements, safety envelopes, causal discriminators, and final physical behavior. The circuit itself decides whether the intervention worked.</p>
                 </article>
                 <article class="lab-card">
                     <h3>Verified comparison report</h3>
-                    <p>The customer receives the evidence trail, per-decision score, attempted fix, measured outcome, and remaining uncertainty. Comparisons use the same rig, permissions, instrument and agent versions, and repeated protocol.</p>
+                    <p>The customer receives the run record, per-decision score, attempted fix, measured outcome, and quantified uncertainty. Comparisons use the same rig, permissions, instrument and agent versions, and repeated protocol.</p>
                 </article>
             </div>
 
             <p>The score asks six questions:</p>
             <ol class="process-steps">
-                <li><strong>Did the agent select the correct physical quantity and units?</strong> It must name what is being measured and where.</li>
-                <li><strong>Did it choose and configure the correct instrument?</strong> The tool name alone is not enough; termination, range, coupling, bandwidth, triggering, and limits matter.</li>
-                <li><strong>Did it account for loading, calibration, uncertainty, and safety?</strong> The measurement must not silently change or endanger the circuit.</li>
-                <li><strong>Did it perform the most informative next measurement?</strong> A long sweep of easy data should lose to one discriminator that separates plausible causes.</li>
-                <li><strong>Did it distinguish competing causes?</strong> Device, fixture, instrument, configuration, and analysis errors must not collapse into one guess.</li>
-                <li><strong>Did its proposed fix actually work?</strong> The rig must pass the original requirement again under a withheld check.</li>
+                <li><strong>Did the agent select the correct physical quantity and units?</strong> It must name the quantity, instrument, and measurement plane.</li>
+                <li><strong>Did it choose and configure the correct instrument?</strong> Termination, range, coupling, bandwidth, triggering, and limits determine the meaning of the reading.</li>
+                <li><strong>Did it account for loading, calibration, uncertainty, and safety?</strong> The measurement must preserve both the circuit and the instruments.</li>
+                <li><strong>Did it perform the most informative next measurement?</strong> One causal discriminator should outrank a long sweep of easy data.</li>
+                <li><strong>Did it distinguish competing causes?</strong> Device, fixture, instrument, configuration, and analysis errors require separate hypotheses.</li>
+                <li><strong>Did its proposed fix actually work?</strong> A withheld check runs the original requirement again.</li>
             </ol>
         </section>
 
         <section>
             <h2>Scenario 001: Finish the dBm Measurement</h2>
-            <p>The first scenario should be small enough to understand at a glance. A protected low-power transmitter emits a bounded signal through a characterized path. The task asks for delivered RF power at a named 50 Ω plane and presents measurements that disagree unless the agent understands what each instrument actually observes.</p>
+            <p>A protected low-power transmitter emits a bounded signal through a characterized path. The task asks for delivered RF power at a named 50 Ω plane and presents measurements that disagree until the agent identifies what each instrument actually observes.</p>
 
             <div class="photo-pair">
                 <figure class="inspectable-image inspectable-image--fit">
                     <a href="/fpga-radio-lab/media/hx8k-board.jpg">
                         <img src="/fpga-radio-lab/media/hx8k-board.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="Close view of the iCE40 HX8K board used in the one-pin FPGA radio experiments">
                     </a>
-                    <figcaption>The iCE40 HX8K board from my weekend loop. Scenario 001 would add a characterized 50 Ω reference plane and a repeatable fault fixture around this bounded one-pin transmitter.</figcaption>
+                    <figcaption>The iCE40 HX8K board from the first control loop. Scenario 001 adds a characterized 50 Ω reference plane and a repeatable fault fixture around this bounded one-pin transmitter.</figcaption>
                 </figure>
                 <figure class="inspectable-image inspectable-image--fit">
                     <a href="/fpga-radio-lab/media/resonant-tank-closeup.jpg">
@@ -163,33 +160,33 @@
                 </figure>
             </div>
 
-            <p>The agent receives an SDR view for spectrum shape and relative comparisons, a passive network measurement, and access to a calibrated 50 Ω voltage or power path. A private variant changes one physical condition: for example the termination, a path-loss record, an attenuator, or the calibration state.</p>
-            <p>A strong agent should refuse to rename dBFS as dBm, then continue. It should define the quantity and reference plane, protect the instruments, select the absolute measurement, verify the load and correction factors, use one measurement to separate fixture error from transmitter behavior, repair the hidden condition, and re-measure the original requirement.</p>
-            <p>To turn the weekend loop into Scenario 001, I need to add a traceable amplitude path and a repeatable fault mechanism. The final withheld requirement can then pass or fail, while the six engineering decisions remain graded.</p>
+            <p>The agent receives an SDR view for spectrum shape and relative comparison, a passive network measurement, and a calibrated 50 Ω voltage or power path. A private variant changes one physical condition such as termination, path-loss record, attenuator, or calibration state.</p>
+            <p>A strong agent distinguishes dBFS from dBm and continues. It defines the quantity and reference plane, protects the instruments, selects the absolute measurement, verifies load and correction factors, uses one discriminator to separate fixture error from transmitter behavior, repairs the hidden condition, and measures the original requirement again.</p>
+            <p>A traceable amplitude path and repeatable fault mechanism turn the existing loop into Scenario 001. The withheld requirement produces the final pass or fail, while six scored decisions reveal how the agent reached it.</p>
         </section>
 
         <section>
-            <h2>Keep the Specification Open and Sell the Hard Parts</h2>
-            <p>The public benchmark specification and example scenarios should stay open. Anyone should be able to see the quantities, safety model, scoring dimensions, and one complete worked example. That makes the benchmark useful even before anyone pays.</p>
-            <p>Customers would buy the calibrated rig, hidden evaluation suite, verified runs, comparison reports, and annual re-evaluation. The valuable part is not a secret rubric. It is the controlled physical uncertainty, private faults, reproducible execution, and independent report.</p>
-            <p>My initial pricing hypothesis is <strong>$30,000 per organization per year</strong>. Twenty annual contracts at that price would total $600,000 a year; only renewals make it recurring. The multiplication is easy; willingness to pay is not. The rig and scoring should eventually repeat without selling every hour of my time, but the first paid pilots must show that buyers value the result.</p>
+            <h2>Open Specification, Calibrated Evaluation</h2>
+            <p>The public specification exposes quantities, safety rules, scoring dimensions, and one complete worked scenario. Agent builders can understand the exam before they run it and improve their systems against a stable engineering target.</p>
+            <p>Customers buy the calibrated rig, private evaluation suite, executed runs, comparison reports, and annual re-evaluation. Controlled physical uncertainty, withheld faults, reproducible execution, and an independent report create the value.</p>
+            <p>The initial pricing hypothesis sets an annual organization contract at <strong>$30,000</strong>. Twenty renewing customers would produce $600,000 in annual revenue. Repeatable rigs and scoring turn the evaluation into a product rather than a stream of bespoke engineering hours.</p>
         </section>
 
         <section>
-            <h2>Two Paid Pilots or I Stop</h2>
-            <p>I should not build a benchmark platform because the trend looks exciting. I should build only Scenario 001, put it in front of the companies already working on hardware agents and test infrastructure, and ask them to run it.</p>
-            <p>The gate is brutal and simple: two unrelated companies must pay for an evaluation pilot. Compliments, waitlist signups, partnership language, and requests to keep in touch do not clear the gate. If two companies pay, I expand the fault suite and make annual re-evaluation repeatable. If they do not, I stop before turning a good weekend lesson into an expensive platform.</p>
-            <p>If you are building an engineering agent and want to know whether it can finish a real measurement instead of merely operating the interface, <a href="/contact.html">talk to me about the first physical benchmark pilot</a>.</p>
+            <h2>Two Paid Pilots Validate The Market</h2>
+            <p>Scenario 001 comes first. Companies building hardware agents and test infrastructure can run one understandable RF metrology problem before a larger platform exists.</p>
+            <p>Two unrelated paid pilots trigger expansion into a broader fault suite and repeatable annual re-evaluation. This gate ties product investment to customer action and keeps the first offering focused on a result that buyers can judge directly.</p>
+            <p>If you build an engineering agent and want to know whether it can complete a real measurement, isolate a physical cause, and verify its repair, <a href="/contact.html">commission one of the first benchmark pilots</a>.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="/fpga-radio-lab/measurement-loop.html">The Control Loop Behind My One-Pin FPGA Radio</a>
-        <p>See the actual weekend loop that exposed the missing dBm measurement: bounded FPGA builds, live instruments, failed branches, recovered information, and the next physical question.</p>
+        <a href="/fpga-radio-lab/measurement-loop.html">The Control Loop Behind The One-Pin FPGA Radio</a>
+        <p>Follow bounded FPGA builds, live instruments, recovery decisions, and each physical result that determines the next action.</p>
         <p>More:</p>
         <a href="/fpga-systems.html">FPGA Systems From Pins to Bitstreams</a>
-        <p>Place the benchmark seed beside the radio, Ethernet, arithmetic, tangible-logic, and reconfiguration work.</p>
+        <p>Connect the benchmark to the radio, Ethernet, arithmetic, tangible-logic, and reconfiguration systems it can evaluate.</p>
         <a href="/">Back to greenforest.io</a>
     </nav>
 </body>

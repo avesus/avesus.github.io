@@ -6,7 +6,7 @@ original_dates:
   - "2022-02-21T00:10:18.023Z"
   - "2022-03-09T00:17:45.619Z"
   - "2022-06-13T19:32:35.577Z"
-description: "A metaphysical belief about reality as the memories of God, the soul and outer intention, the one now, and why publication lets thought live again."
+description: "Writing, building, copying, and publishing send thought into future situations where another act of attention can recover it, revise it, and give it new life."
 status: publication-ready
 ---
 
@@ -14,100 +14,102 @@ status: publication-ready
 
 *February 21, 2022, with thoughts added March 9 and June 13, 2022*
 
-I can experience the past only now.
+Publication lets thought live again in a different time, place, person, and problem.
 
-The sentence I wrote yesterday does not transport my former consciousness into the room. It changes the present room. I see marks, reconstruct a context, and think again. The message from yesterday becomes an event today.
+Yesterday’s sentence does not transport an earlier consciousness into the room. Its marks change the present room: a reader reconstructs context and thinks again. The old message becomes a new event.
 
-This ordinary fact supports a strange but useful model: writing, building, copying, and publishing are not merely ways to preserve a finished thought. They are ways to send a thought into situations where it can become different.
+Writing, building, copying, and publishing therefore do more than preserve a completed thought. They send structure into situations where it can develop.
 
-I call that dissemination.
+That process is **dissemination**.
 
-## A Record Is an Address in Time
+## A Record Creates an Address in Time
 
-When I leave a note on my desk, I create a small communication channel between two versions of myself.
+A message on a desk creates a communication channel between two versions of one person.
 
-The earlier version knows something the later version may forget. The later version has experiences the earlier one could not anticipate. The paper gives them a place to meet.
+The earlier version knows something the later version may forget. The later version brings experiences the earlier one could not anticipate. Paper gives them a place to meet.
 
-The note is not the thought itself. It is a reconstruction prompt. If I write only “fix it,” the future reader may not know what *it* was. If I include the failing condition, the intended behavior, and the reason the obvious repair was rejected, I preserve more of the model required to resume.
+The message acts as a reconstruction prompt. “Fix it” preserves too little. A failing condition, intended behavior, and reason for rejecting the obvious repair preserve enough of the model to resume.
 
-Software records behave the same way. A commit message, test, schema, circuit diagram, or saved configuration sends selected structure forward. It cannot preserve everything. It chooses what the future is allowed to recover cheaply.
+Software records perform the same work. Commit messages, tests, schemas, circuit diagrams, and saved configurations carry selected structure forward. Each record chooses which future questions will receive inexpensive answers.
 
-That makes storage an act of design. I am not deciding merely what to keep. I am deciding which future questions the record will be able to answer.
+Storage becomes an act of design for future understanding.
 
-## Copies Exist to Be Revisited
+## Copies Create New Encounters
 
-Copying is often treated as a loss of originality. In thinking, a copy can be the beginning of revision.
+Copying can begin revision.
 
-I print a diagram because the paper gives it a new physical context. I can spread several versions across a table, draw connections that did not fit on a screen, and notice that two supposedly different components share the same boundary. The printed copy is not valuable because it is identical. It is valuable because it can be encountered differently.
+A printed diagram enters a new physical context. Several versions can spread across a table, accept drawn connections, and reveal that supposedly different components share one boundary. The copy gains value because its new setting changes how a mind can encounter it.
 
-A published article works in the same way. The same sequence of words reaches people with different skills, needs, objections, and surroundings. Each reading reconstructs only part of the intended model. Questions and applications expose relations that remained invisible while the work stayed in one mind.
+Published writing creates the same opportunity. The words reach readers with different skills, needs, objections, and surroundings. Each reading reconstructs part of the intended model. Questions and applications reveal relations that one mind could not see alone.
 
-Dissemination therefore has four linked operations:
+Dissemination connects four operations:
 
 1. **Revision** changes a model before it travels.
 2. **Copying** gives the model another physical or social occasion.
 3. **Communication** lets another mind reconstruct it.
-4. **Influence** changes what that mind may think or do next.
+4. **Influence** changes what that mind can think or do next.
 
-The loop can return. A response reaches me, I see my own idea from outside, and revision begins again.
+A response can close the loop by returning the idea from outside and beginning another revision.
 
 ## Reality as Memory
 
-My practical model rests on a metaphysical belief:
+The practical model rests on a metaphysical belief:
 
-**Reality is made of memories of God, and there is only one now.**
+**God’s memories make reality, and only one now exists.**
 
-I mean it metaphysically, not as a decorative metaphor. Matter, position, duration, and relation may be forms that divine memory gives to thought so it can persist, be compared, and generate more thought. A chair, moon, circuit, or tree is not merely *like* a stored record in this picture. It exists within the memory from which reality is made.
+This claim means more than metaphor. Matter, position, duration, and relation may give divine memory persistent forms that thought can compare and develop. In this picture, a chair, moon, circuit, or tree exists within the memory from which reality takes form.
 
-Space lets memories have positions and relations. Time lets one state stand before or after another. Difference lets mind compare. The observable world becomes a place where thought can be recovered, reviewed, and made more cohesive instead of disappearing in the instant it occurs.
+Space gives memories positions and relations. Time orders states. Difference enables comparison. The observable world lets thought return, meet inspection, and acquire greater cohesion.
 
-Metaphysics and experiment play different roles for me. A circuit still answers to measurement, and a physical model still has to meet the world. Metaphysics tells me why keeping and revisiting form might matter; experiment lets matter answer.
+Experiment and metaphysics contribute different powers. Circuits still answer measurement, and physical models still meet the world. Metaphysics explains why preserving and revisiting form matters; experiment lets matter answer.
 
-It does sharpen a practical question:
+This sharpens one practical question:
 
-> What attributes must a thought acquire so another mind can find, distinguish, and revise it?
+> Which attributes let another mind find, distinguish, and revise a thought?
 
-For a document, the attributes may be title, date, creator, location, and version. For a machine, they may be ports, state, dimensions, and behavior. For a promise, they may be people, conditions, and a time.
+A document can carry title, date, creator, location, and version. A machine can expose ports, state, dimensions, and behavior. A promise can name people, conditions, and time.
 
-The artificial attributes are not clutter. They are coordinates for future understanding.
+Those attributes provide coordinates for future understanding.
 
 ## Soul, Mind, and Outer Intention
 
-My metaphysical picture also distinguishes soul from mind:
+The metaphysical picture distinguishes soul from mind:
 
-**My soul wants the same as the universe, but it has no focus. My mind has focus, but it is squashed by outer intention when its will conflicts with it.**
+**Soul wants what the universe wants and carries no narrow focus. Mind supplies focus and meets outer intention whenever private will conflicts with the larger field.**
 
-The soul participates in the direction of the whole without selecting one narrow operation. The mind selects: this boundary, this circuit, this sentence, this next act. Outer intention is the intention expressed by reality beyond my private will. It includes other minds, matter, history, chance, and consequences I did not imagine.
+Soul participates in the whole direction. Mind selects this boundary, circuit, sentence, and next act. **Outer intention** names the intention expressed by other minds, matter, history, chance, and consequences beyond private control.
 
-Focus is powerful because it excludes. To finish a circuit, I must stop considering most possible circuits. To write a sentence, I must choose these words and abandon others. But focus is not sovereignty. When the mind mistakes a narrow choice for command of the whole, the universe can squash the plan.
+Focus gains power by excluding. Finishing a circuit means setting aside most possible circuits. Writing a sentence chooses these words over others. That precision creates form, while outer intention determines how the form meets reality.
 
-The answer is neither passivity nor endless focus. The mind must make a definite thing, then release it into the larger field. Dissemination is the loophole: a finished form travels into another moment, meets conditions its maker could not control, and branches again.
+The mind makes a definite thing and releases it into the larger field. Dissemination provides the route: a finished form enters another moment, encounters conditions its maker could not control, and branches again.
 
-That is why I do not see publication as burial. A public form is a temporary crystallization placed where future attention can strike it.
+Publication becomes temporary crystallization placed where future attention can strike it.
 
-## Evolution as Publication
+## Evolution Publishes Living Form
 
-There is a tempting analogy between evolution and publication.
+Evolution and publication share a productive pattern.
 
-A living form is copied with variation. The environment “reads” the variation through survival and reproduction. Some structures persist and become material for later changes. Biological evolution needs no editor or conscious intention. I use the analogy for one pattern: preservation and change are partners. Perfect preservation cannot adapt. Pure change cannot accumulate.
+A living form copies with variation. The environment reads the variation through survival and reproduction. Some structures persist and become material for later changes. Biological evolution needs no editor or conscious intention.
 
-My own work needs both:
+Preservation and change operate as partners. Perfect preservation cannot adapt; pure change cannot accumulate.
 
-- a stable artifact that another person can inspect;
-- and enough openness that failure, criticism, or a new use can transform the next version.
+Creative work needs both:
 
-The record should be definite enough to disagree with. The process should be alive enough to respond.
+- a stable form another person can inspect;
+- enough openness for failure, criticism, or a new use to transform the next version.
 
-## The One Now Is the Receiving End
+The record becomes definite enough to disagree with and alive enough to generate a response.
 
-**There is only one now.**
+## The One Now Receives Every Message
 
-I mean this as more than the observation that experience happens in the present. In my metaphysical picture, the past is available as memory and the future as possibility, but they are not additional rooms with their own separate nows. Both become active in the one now where reality remembers, chooses, and changes.
+**Only one now exists.**
 
-I live by its consequence: the one now is the receiving end of every channel through time.
+The metaphysical picture treats the past as memory and the future as possibility rather than separate rooms with independent presents. Both become active where reality remembers, chooses, and changes.
 
-That gives me a responsibility when I send. A future reader will not automatically possess my context. They may be tired, hurried, skeptical, or living inside a problem I never imagined. The message needs handles: names, examples, boundaries, and enough of the rejected alternatives to reveal why the chosen shape exists.
+The one now receives every channel through time.
 
-It also gives me freedom when I receive. I am not required to preserve the sender’s thought unchanged, even when the sender was me. I can test it against the new world, keep its living relation, and discard the shell that no longer fits.
+That creates responsibility for the sender. A future reader will arrive with a different context and may face a problem the author never imagined. Names, examples, boundaries, and the reasoning behind the chosen form give the message handles.
 
-The point of a message to the future is not to make the future obey the past. It is to let the past become thinkable again.
+It also gives the receiver creative freedom. No reader must preserve the sender’s thought unchanged, even when sender and receiver occupy different times in one life. The receiver can test the record against a new world, retain its living relation, and transform its form.
+
+A message to the future lets the past become thinkable again.

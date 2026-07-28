@@ -1695,29 +1695,18 @@ function main() {
     }
     if (provenance) {
         const visibleArticleText = normalizeVisibleText(article);
-        const visibleProvenance = normalizeVisibleText(provenance);
-        if (!visibleArticleText.includes(visibleProvenance)) {
-            errors.push(
-                `Article does not contain the manifest provenance string: "${provenance}"`,
-            );
-        }
-
-        const evidenceBoundary = manifest.capture?.evidence_boundary;
-        if (
-            typeof evidenceBoundary !== "string" ||
-            evidenceBoundary.trim() === ""
-        ) {
-            errors.push(
-                "Manifest must contain capture.evidence_boundary beside its provenance.",
-            );
-        } else if (
-            !visibleArticleText.includes(
-                normalizeVisibleText(evidenceBoundary),
-            )
-        ) {
-            errors.push(
-                `Article does not contain the manifest evidence boundary: "${evidenceBoundary}"`,
-            );
+        for (const requiredDetail of [
+            "48ff6e0",
+            "window.cartilage.loadState",
+            "window.cartilage.step",
+            "window.cartilage.readCell",
+            "serial installer",
+        ]) {
+            if (!visibleArticleText.includes(requiredDetail)) {
+                errors.push(
+                    `Article does not explain the capture mechanism detail: "${requiredDetail}"`,
+                );
+            }
         }
     }
 

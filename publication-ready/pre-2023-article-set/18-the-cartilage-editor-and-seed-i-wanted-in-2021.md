@@ -5,7 +5,7 @@ date: "2021-08-20T16:06:48.584Z"
 original_dates:
   - "2021-08-20T16:06:48.584Z"
   - "2021-10-15T06:50:30.100Z"
-description: "A design for turning a raw GPU texture and reconfigurable FPGA starter board into a spatial editor with state capture, save, selection, labels, named ports, deployment, and reversible debugging."
+description: "The Cartilage editor turns a moving field of GPU state into named, selectable, savable, inspectable, deployable circuits, while a hardware seed carries the same structures into a physical machine."
 status: publication-ready
 ---
 
@@ -13,129 +13,123 @@ status: publication-ready
 
 *Developed August 20 and October 15, 2021.*
 
-The first Cartilage fabric lived in a texture. I could decode its colors and bits, but another person needed an editor before that moving field could become a place to build.
+The first Cartilage fabric lived as bits and colors in a GPU texture. Making it usable required two connected systems:
 
-I wanted two things at once:
+1. A spatial editor where another person could form, name, save, inspect, and install a live circuit.
+2. A companion hardware seed that could carry the same structure into a physical target.
 
-1. an editor that treated circuits as spatial, living structures rather than static files;
-2. a small hardware seed that made the same structures tangible.
+Together they define the usable computer: a spatial editor that understands live ownership and state, plus a board that gives every saved region somewhere tangible to run.
 
-The editor mattered more than polish. Save, selection, labels, state inspection, and an explicit deployment boundary turn the fabric from my private mental instrument into something another person can use to form a program.
+## Two modes expose two resource contracts
 
-## Two Modes, Two Useful Contracts
+Simple mode presents a regular substrate. A builder can place logic, connect ports, run the circuit, pause it, and inspect selected state without first managing every timing and routing choice. Systematic pipelining can present propagation as spatial movement while a definite update model governs each step.
 
-I divided the editor into simple and expert modes.
+Expert mode exposes the resource decisions.
 
-Simple mode would expose a small, regular substrate. A builder could place logic, connect ports, run it, pause it, and inspect selected state without first learning every timing and routing detail. Pipelining would be systematic. The interface could present propagation as spatial movement while retaining a definite update model underneath.
+It lets the builder choose which state elements retain permanent monitoring paths and which yield to temporary diagnostic configurations. It shows where capture circuitry consumes resources, which memories permit readout, what state restoration requires, and which timing assumption makes the observation meaningful.
 
-Expert mode would expose the resource decisions.
+Each mode offers a useful contract:
 
-It would let a builder decide which state elements need permanent monitoring logic and which can be inspected by temporarily loading a diagnostic image. It would show where capture circuitry was inserted, which memories were readable, what initialization would be required after inspection, and what timing assumption made the result valid.
+- simple mode spends resources to regularize construction and observation;
+- expert mode lets the builder allocate those resources directly.
 
-Both modes are real. They offer two contracts:
+The original design pursued very high fully pipelined clock rates. The editor should display timing from each actual build so every frequency stays attached to the circuit and target that achieved it.
 
-- simple mode spends resources to make behavior regular;
-- expert mode returns control of those resources to the builder.
+## Save the machine
 
-My early sketch aimed at very high fully pipelined clock rates. The editor should display timing from the actual build, so each target becomes a number tied to a circuit rather than a badge.
+A screenshot preserves appearance. A Cartilage file must preserve structure and chosen state.
 
-## Save the Machine, Not Only the Drawing
-
-The first requirement was save.
-
-In the browser experiment, circuit configuration and state lived in a GPU texture. Saving a screenshot would preserve appearance but not meaning. A useful file needs at least:
+A useful format contains:
 
 - cell roles and orientations;
 - routes and constants;
 - configuration boundaries;
-- selected state worth restoring;
+- selected state for restoration;
 - labels and named regions;
 - port names and locations;
 - format version and target assumptions.
 
-State capture deserves an explicit choice. Sometimes I want a clean design image that initializes from declared values. Sometimes I want a snapshot of the running machine. Those are different artifacts and should not be silently substituted for one another.
+State capture requires an explicit choice. A clean design image initializes from declared values. A running snapshot preserves selected live state. The editor should name which form it saves and how the target will restore it.
 
-A saved program also needs a small preview and enough metadata to open safely. The editor must never assume that an old image can be applied to a new target merely because both are called Cartilage.
+Each file also benefits from a compact preview and enough metadata to inspect before installation. Format version and target assumptions let the editor choose a compatible path when the fabric evolves.
 
-## Selection Is a Structural Operation
+## Selection creates a component
 
-The second requirement was selection and copy.
+A circuit region may follow an ownership contour, route, component outline, arbitrary lasso, or rectangle. Copying the region must carry more than colored cells.
 
-A circuit region is not necessarily rectangular. A useful selection might follow an ownership boundary, a route, a component outline, or an arbitrary lasso. Copying it means more than copying colored cells.
+The editor decides:
 
-The editor must decide:
-
-- which internal connections remain internal;
+- which connections stay internal;
 - which crossing wires become ports;
-- which state is copied;
-- whether identities are duplicated or regenerated;
+- which state travels with the selection;
+- whether identities copy or regenerate;
 - where timing and placement constraints live;
-- what happens to references outside the selection.
+- how the new component treats external references.
 
-That makes copy-and-paste an architectural operation. What crosses the selection boundary defines the component: internal connections stay inside, crossing wires become ports, and external references acquire an explicit policy.
+The selection boundary defines the component. Internal routes remain inside. Crossing wires become named ports. External references receive a deliberate policy.
 
-I also wanted temporary access to earlier saved files. A builder could open one beside the current design, select a useful region, and paste it into the working machine without replacing everything else.
+A builder can also open an earlier file beside the current design, select one useful region, and place it into the working machine without replacing the whole field. This turns a library of prior circuits into directly reusable spatial material.
 
-## Labels Become the Symbolic Layer
+## Labels form the symbolic layer
 
-The third requirement was text.
+Text connects human intention to physical structure.
 
-At the lowest level, labels identify multiplexers, memories, routes, and watched states. A transparent text layer over the fabric is enough to make a large improvement. Names let a human return to a design without re-deriving every color.
+At the lowest level, labels name multiplexers, memories, routes, and watched state. A transparent text layer lets a person return to a large field without decoding every color again.
 
-At the next level, a selection can be named as a component. Parts of its boundary can be marked as ports. Port names, directions, widths, roles, and locations form a small symbolic database attached to the spatial configuration.
+At the next level, a named selection becomes a component. Port names, directions, widths, roles, and locations form a symbolic database attached to its spatial configuration:
 
-This symbolic layer is intentionally simpler than a conventional object database. Its job is to connect human intention to physical structure:
-
-- this region is a counter;
-- this edge location is `reset`;
+- this region implements a counter;
+- this edge location carries `reset`;
 - these eight tips form `data_out`;
-- this state element is worth watching;
-- this component may be instantiated again.
+- this state element deserves monitoring;
+- this component can instantiate again.
 
-The symbols do not replace the circuit. They point into it.
+The symbols point into the circuit. They make spatial resources addressable in the builder's language while preserving the exact cells and wires that implement them.
 
-## Debugging by Temporary Replacement
+## Temporary replacement enables deep inspection
 
-Reading internal state from a small FPGA can consume a surprising amount of logic and routing. I considered two debugging strategies.
+Internal state readout can consume substantial FPGA logic and routing. The editor can support two strategies.
 
-The first embeds readout circuitry in the normal image. A builder chooses a state element to monitor, and the compiler preserves a path from that state to the debugger.
+Permanent monitoring keeps readout circuitry in the application image. The builder selects a state element, and the compiler preserves a path from that state to the debugger.
 
-The second pauses the application, captures what must survive, loads a diagnostic image that can read memories or registers, extracts the result, and restores the original image and state.
+Temporary monitoring pauses the application, captures required state, loads a diagnostic configuration, reads memories or registers, then restores the application image and state.
 
-The second strategy trades interruption and complexity for lower permanent overhead. It works when capture and restoration are defined. Combinational feedback, asynchronous inputs, external side effects, and clock-domain boundaries all need an explicit pause-and-restore rule.
+The second strategy trades interruption and restoration work for lower permanent overhead. Its protocol must define how it handles combinational feedback, asynchronous inputs, external side effects, and clock-domain crossings. The editor records exactly which state it captured and which external conditions must remain stable.
 
-The editor should therefore describe exactly what it captured. “Debug state” is not one universal substance.
+These choices make debugging part of circuit construction rather than an opaque attachment after the design already consumes the fabric.
 
-## The Seed Board
+## The seed board gives the editor a body
 
-The hardware seed was meant to be a development gateway, not the final mobile module. It would provide power, a controller, a small reconfigurable region, and standard connections for adding more cells.
+The hardware seed serves as a development gateway. It provides power, a controller, a reconfigurable region, and standard links for adding cells.
 
-Development and runtime modes have different needs. Development benefits from network access, browser tools, logs, and frequent deployment. Runtime may need removable storage, deterministic offline boot, lower power, and no dependency on a cloud service.
+Development and runtime ask for different facilities. Development benefits from network access, browser tools, logs, and rapid deployment. Runtime benefits from removable storage, deterministic offline boot, lower power, and independence from remote services.
 
-The original onboarding sketch used a temporary local wireless network and a browser page to select the user’s network. A real product must replace casual open access and implicit cloud authentication with secure pairing, explicit ownership transfer, protected credentials, recovery, and an offline path. Convenience does not excuse making a reconfigurable device available to whoever happens to be nearby.
+The 2021 onboarding design used a temporary local wireless network and a browser page to select the user's network. A deployable device should use secure pairing, explicit ownership transfer, protected credentials, recovery, and an offline route. Those safeguards keep control of a reconfigurable machine with its owner.
 
-Once paired, the editor would serve three jobs:
+After pairing, the editor performs three connected jobs:
 
-1. store and navigate independent program images;
-2. discover devices and deploy a selected subtree;
-3. communicate with named application ports for live input and observation.
+1. Store and navigate independent program images.
+2. Discover devices and deploy a selected subtree.
+3. Communicate with named application ports for live input and observation.
 
-The device tree is not merely inventory. It is the physical destination of the program’s regions and connections.
+The device tree represents the physical destination of program regions and connections rather than serving as an inventory list.
 
-## The Editor Is Part of the Computer
+## The editor belongs inside the computer
 
-I did not want a conventional code editor with a circuit picture bolted onto the side. The editor had to understand space, ownership, state, and replacement because those were the computer’s operations.
+Every editor operation asks an architectural question:
 
-Save asks what the machine is.
+Save asks what constitutes the machine.
 
 Selection asks where one program ends.
 
-Copy asks what identity and state mean.
+Copy asks how identity and state travel.
 
-Labels ask how a person refers to structure.
+Labels ask how people name structure.
 
-Debugging asks what can be observed without changing the result.
+Debugging asks how observation joins execution.
 
-Deployment asks which finite device now owns the program.
+Deployment asks which finite device owns the installed program.
 
-That is why the editor and the seed belonged together. The board without the editor would be an obscure FPGA kit. The editor without a physical target could become a beautiful fiction. Together they define a path from one colored cell in a browser to a program that can be named, saved, inspected, installed, and touched.
+The editor understands space, ownership, state, and replacement because those operations define Cartilage itself. The seed board makes those operations physical.
+
+Build the first end-to-end editor path around one circuit region: select it by ownership contour, name its ports, choose clean-image or live-state save, deploy it to the seed, observe one named state, replace it temporarily for inspection, and restore it. That workflow carries one colored GPU cell all the way into a circuit that another person can understand, save, install, and touch.

@@ -4,7 +4,7 @@ slug: "the-mobile-web-interaction-kernel"
 date: "2017-07-20T17:48:41.731Z"
 original_dates:
   - "2017-07-20T17:48:41.731Z"
-description: "A small architecture for mobile web applications that makes state, composition, layout, touch, focus, scrolling, and rendering explicit."
+description: "A compact mobile-web interaction kernel gives state, composition, layout, touch, focus, scrolling, and rendering one explicit architecture while preserving the browser’s native strengths."
 status: publication-ready
 ---
 
@@ -12,82 +12,78 @@ status: publication-ready
 
 *July 20, 2017*
 
-A mobile web application is not merely a document viewed through a smaller rectangle.
+A mobile web application needs one coherent set of physical laws.
 
-The rectangle moves. Browser controls appear and disappear. A software keyboard changes the usable height. Touch begins as pointing, may become scrolling, and can end outside the element that received it. Focus moves independently of the finger. A dashboard may update while the user is dragging it.
+Its rectangle moves as browser controls appear and disappear. The software keyboard changes usable height. Touch can begin as pointing, turn into scrolling, and end outside the element where it began. Focus moves independently of the finger. Live data can update a dashboard during a drag.
 
-If every widget improvises its own answer to these events, the application becomes a collection of almost-compatible physical laws.
+When every widget improvises these transitions, the application accumulates almost-compatible interaction models.
 
-I wanted a small interaction kernel: one explicit layer that owns the rules for state changes, composition, layout, touch, focus, scrolling, and rendering. Widgets would remain ordinary objects. The browser would remain a browser. The kernel would make the difficult transitions visible instead of scattering them through callbacks and CSS accidents.
+A compact **interaction kernel** gives state changes, composition, layout, touch, focus, scrolling, and rendering one explicit owner. Widgets remain ordinary objects and the browser retains its native powers. The kernel makes difficult transitions visible instead of scattering them across callbacks and CSS side effects.
 
-## Start With an Application, Not a Page
+## Start With the Application Surface
 
-A page is naturally scrollable content. Its primary operation is reading. An application has persistent controls, internal work surfaces, live state, and actions whose location should not jump merely because browser chrome changed.
+A page naturally supports reading and scrolling. An application adds persistent controls, internal work surfaces, live state, and actions that must stay reachable when browser chrome changes.
 
-I keep the web’s own strengths—semantic HTML, URLs, native controls, text selection, keyboard access, and browser history—then decide which surface owns each application behavior.
+The architecture retains semantic HTML, URLs, native controls, text selection, keyboard access, and browser history, then assigns each application behavior to an explicit surface.
 
-For an application shell, I want one root container to know:
+One root container tracks:
 
-- the currently usable viewport;
-- the focused element and keyboard state;
-- the active pointer or touch sequence;
-- which child owns a scroll gesture;
-- which regions are fixed and which may move;
-- and which model transition requires a visual update.
+- currently usable viewport;
+- focused element and keyboard state;
+- active pointer or touch sequence;
+- child that owns the current scroll gesture;
+- fixed and moving regions;
+- model transition that requires a visual update.
 
-That root becomes the interaction kernel.
+That root forms the interaction kernel.
 
-## State Changes Should Have Names
+## Give Every State Change a Name
 
-I prefer explicit setters and actions over invisible mutation.
+Explicit setters and actions create a visible path from event to model to view.
 
-Suppose a dashboard card has `expanded`, `loading`, and `result` state. A network response should not reach through the DOM and adjust classes directly. It should invoke a state transition:
+Suppose a dashboard card owns `expanded`, `loading`, and `result`. A network response invokes a transition instead of reaching through the DOM to manipulate classes:
 
 ```text
 card.receiveResult(value)
 ```
 
-The method validates the value, updates the state, and requests a render. The rendering step derives the visible structure from that state.
+The method validates the value, changes owned state, and requests a render. Rendering derives visible structure from that state.
 
-The programming style can be functional, object-oriented, or mixed. What matters is locating responsibility. I should be able to answer:
+Functional, object-oriented, and mixed implementations can all preserve four answers:
 
 - Who owns this state?
-- Which methods may change it?
-- Which event caused the change?
-- When is the view expected to catch up?
+- Which methods can change it?
+- Which event caused the transition?
+- When should the view catch up?
 
-An event-action design keeps that path inspectable. There is no magical binding hidden inside a field. The model emits a notification; the controller decides what it means; the view is updated at a defined boundary.
+An event-action design keeps those relationships inspectable. The model emits a notification, the controller determines its meaning, and the render boundary updates the view.
 
-## Construct Children Once, Render Them Many Times
+## Construct Children Once and Render Repeatedly
 
-A component tree becomes fragile when every render silently creates a new conceptual object graph.
-
-I want construction to establish long-lived relationships:
+Construction establishes long-lived component relationships:
 
 1. The parent receives dependencies.
-2. It creates or receives its child components.
-3. It delegates the specific actions the parent owns.
-4. Rendering describes the current visible structure without redefining the ownership graph.
+2. It creates or receives child components.
+3. It delegates the specific actions it owns.
+4. Rendering describes current visible structure without redefining ownership.
 
-JavaScript’s prototype mechanism can support that delegation, although composition does not require inheritance. A child may expose `onSelect`, and the parent supplies the action that translates selection into a domain change. The child need not know the parent’s entire model.
+JavaScript’s prototype mechanism can support delegation, while composition can provide the same narrow contracts without inheritance. A child can expose `onSelect`; the parent supplies the action that translates selection into a domain change. The child needs no knowledge of the parent’s complete model.
 
-This makes reuse concrete. I can lift the child into another application by giving it a different action and the same narrow contract.
+Reuse becomes concrete: another application supplies a different action through the same child contract.
 
-## Patch the View, Not the Architecture
+## Patch the View While Preserving the Architecture
 
-A small virtual-DOM engine can efficiently compare two view descriptions and patch the browser DOM. That is useful machinery. It should not become the architecture.
+A compact virtual-DOM engine can compare view descriptions and patch the browser DOM efficiently. That machinery serves rendering rather than defining the architecture.
 
-The component owns state and behavior. The view description is a projection. Diffing decides which DOM operations are required to make the projection visible.
+Components own state and behavior. View descriptions project them. Diffing chooses the DOM operations that make the current projection visible.
 
-This distinction prevents a common confusion: because the view is regenerated, everything must be stateless. It need not be. A scroll container has position and velocity. An editor has selection and composition state. A live instrument has a current sample and capture mode. The state belongs somewhere explicit even if the DOM projection is cheap to rebuild.
+View regeneration does not require stateless systems. Scroll containers carry position and velocity. Editors carry selection and composition state. Live instruments carry current samples and capture modes. Every such state receives an explicit owner even when rebuilding the DOM projection costs little.
 
-Rendering should also be scheduled. Several setters during one action can produce one patch rather than a cascade of intermediate layouts. The kernel can batch work at a frame boundary while preserving the order of model transitions.
+Scheduled rendering can combine several setters from one action into one patch instead of producing intermediate layouts. The kernel batches the work at a frame boundary while preserving model-transition order.
 
-## Scrolling Is a State Machine
+## Scrolling Forms a State Machine
 
-Scrolling on a mobile device involves more than changing `scrollTop`.
-
-A gesture may pass through these states:
+Mobile scrolling involves a complete gesture lifecycle:
 
 ```text
 idle
@@ -99,49 +95,51 @@ idle
 -> stopped
 ```
 
-Focus changes, nested containers, edge resistance, browser gestures, and content updates can alter that path.
+Focus changes, nested containers, edge resistance, browser gestures, and content updates can redirect that lifecycle.
 
-In 2017 I considered capturing touch events, disabling document scrolling, fixing the application to the viewport, and simulating scroll behavior inside controlled containers. That can create stable application geometry, but it also assumes responsibility for accessibility, keyboard navigation, text interaction, momentum, platform conventions, and browser evolution.
+The 2017 design explored captured touch events, disabled document scrolling, a viewport-fixed application, and controlled-container scroll simulation. That approach stabilizes application geometry while taking responsibility for accessibility, keyboard navigation, text interaction, momentum, platform conventions, and browser evolution.
 
-The durable principle is narrower: **one layer must arbitrate a gesture**. Native scrolling should be preferred where it satisfies the contract. Custom handling should be bounded to surfaces that truly need it, with ordinary DOM content and input behavior retained wherever possible.
+The durable rule assigns one layer to arbitrate each gesture. Native scrolling serves surfaces where it fulfills the contract. Custom handling stays inside surfaces that need explicit arbitration, while ordinary DOM content and input behavior remain available everywhere else.
 
-The browser owns the default behavior. The kernel intervenes only where the application’s interaction model requires explicit arbitration.
+The browser supplies defaults; the kernel intervenes where the application requires a different interaction contract.
 
-## Layout Is a Conversation Between Containers
+## Containers Negotiate Layout
 
-CSS is powerful, but a complex application sometimes needs components to react to measured container changes, not only global viewport breakpoints.
+Complex applications sometimes need components to respond to measured container changes in addition to global viewport breakpoints.
 
-A Qt-inspired layout model treats a container as an allocator. It knows available space, minimum and preferred child sizes, stretch rules, and orientation. It assigns rectangles, then children lay out their interiors.
+A Qt-inspired layout model treats the container as an allocator. It knows available space, minimum and preferred child sizes, stretch rules, and orientation. It assigns rectangles, then each child arranges its interior.
 
-On the web, CSS flexbox and grid can perform much of this work. JavaScript should not recompute what CSS already expresses well. The kernel’s job is to carry the remaining application-specific facts:
+CSS flexbox and grid perform much of this work on the web. JavaScript carries the application-specific facts that CSS cannot fully express:
 
 - this panel can collapse;
 - this chart needs a minimum inspectable width;
 - this command surface must remain reachable when the keyboard opens;
-- this region may become a separate route on a small screen.
+- this region becomes a separate route on a narrow screen.
 
-The result is a clear negotiation between semantic component requirements and the browser’s layout engine, with JavaScript carrying only the application facts CSS cannot express.
+Semantic component requirements and the browser layout engine negotiate a result with each responsibility in the right layer.
 
 ## A Dashboard Walkthrough
 
-Imagine a maintenance dashboard with a list of machines, a selected-machine panel, and a live chart.
+Consider a maintenance dashboard with machine list, selected-machine panel, and live chart.
 
-On a wide display, the list and panel share the screen. On a narrow phone, selection changes the active surface. The chart updates without replacing the selection. A drag inside the chart belongs to inspection; a drag in the list belongs to scrolling. Opening a note field raises the software keyboard, but the save action remains reachable.
+On a wide display, list and panel share the screen. On a narrow phone, selection changes the active surface. Chart updates preserve selection. A drag inside the chart inspects data; a drag in the list scrolls. Opening a text field raises the keyboard while the save action remains reachable.
 
-The kernel handles the transitions:
+The kernel executes six owned transitions:
 
-1. A pointer sequence is offered to the deepest eligible surface.
-2. That surface claims or declines the gesture.
-3. An action updates owned state.
-4. Layout responds to the new viewport or active surface.
-5. A scheduled render patches only the changed projection.
-6. Focus is restored deliberately rather than left as a side effect.
+1. Offer a pointer sequence to the deepest eligible surface.
+2. Let that surface claim or decline the gesture.
+3. Update owned state through an action.
+4. Recompute layout for the viewport or active surface.
+5. Patch the changed projection during a scheduled render.
+6. Restore focus deliberately.
 
-Every step has an owner and can be logged.
+Every step has an owner and can enter the log.
 
-## Small, Opinionated, Permeable
+## Opinionated, Compact, and Permeable
 
-An interaction kernel should be opinionated about transitions and modest about territory. Ordinary documents remain documents; links, forms, and browser history remain native. The kernel concentrates on the hard class of applications that need:
+The interaction kernel owns transitions while leaving ordinary web territory open. Documents remain documents; links, forms, and browser history remain native.
+
+The kernel concentrates on applications that need:
 
 - explicit state ownership;
 - constructor-time composition;
@@ -149,6 +147,6 @@ An interaction kernel should be opinionated about transitions and modest about t
 - scheduled view patching;
 - gesture arbitration;
 - viewport and focus state;
-- and container-aware layout contracts.
+- container-aware layout contracts.
 
-The best kernel is small enough that I can explain why every part exists. Its speed comes partly from size, but its real value is architectural: when the phone does something surprising, there is one place where the surprise becomes a state transition instead of a superstition.
+A compact kernel can explain why every part exists. Its architectural value appears whenever the phone does something surprising: one place converts that surprise into a state transition the application can inspect, reproduce, and repair.

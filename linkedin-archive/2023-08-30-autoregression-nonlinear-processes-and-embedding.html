@@ -6,11 +6,11 @@
     <title>Autoregression, Nonlinear Processes, and Embedding</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A mathematical note connecting autoregression, nonlinear dynamics, embedding theorems, and why transformer embeddings belong in a longer history of state representation.">
+    <meta name="description" content="Linear autoregression over reconstructed state can model nonlinear dynamics, connecting Whitney and Takens embeddings with modern learned representations.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-30-autoregression-nonlinear-processes-and-embedding.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Autoregression, Nonlinear Processes, and Embedding">
-    <meta property="og:description" content="A mathematical note connecting autoregression, nonlinear dynamics, embedding theorems, and why transformer embeddings belong in a longer history of state representation.">
+    <meta property="og:description" content="Linear autoregression over reconstructed state can model nonlinear dynamics, connecting Whitney and Takens embeddings with modern learned representations.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-30-autoregression-nonlinear-processes-and-embedding.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-08-30",
-                                "dateModified": "2026-07-09",
-                                "description": "A mathematical note connecting autoregression, nonlinear dynamics, embedding theorems, and why transformer embeddings belong in a longer history of state representation.",
+                                "dateModified": "2026-07-28",
+                                "description": "Linear autoregression over reconstructed state can model nonlinear dynamics, connecting Whitney and Takens embeddings with modern learned representations.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-30-autoregression-nonlinear-processes-and-embedding.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Autoregression, Nonlinear Processes, and Embedding</header>
     <address>August 30, 2023</address>
 
+
+    <section class="abstract">
+        <p>A nonlinear process can become tractable when a model embeds its history into a state where simpler prediction works. Brian Greenforest connects linear autoregression over reconstructed state with the longer mathematical lineage behind embedding.</p>
+        <p>Whitney’s 1936 theorem established broad geometric embedding results; Takens’s 1981 theorem showed how delayed observations can reconstruct the state of a dynamical system.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Create State From a History of Measurements</h1>
+            <p>A scalar time series hides the full system that generated it. Delay coordinates collect several past values into one vector, revealing a state space whose geometry can preserve the original dynamics.</p>
+            <p>Autoregression can then operate on that representation. The apparent linear predictor sits one level above a nonlinear process and one level below the observation sequence.</p>
+        </section>
+
+        <section>
+            <h1>Connect Classical Embedding to Learned Embeddings</h1>
+            <p>Transformer embeddings serve a different formal role, yet both traditions search for a representation where relationships become easier to compute.</p>
+            <p>Mathematicians and ML researchers can trace that lineage precisely, compare delay-coordinate and learned spaces, and design models that preserve more of the generating dynamics.</p>
+        </section>
+
+        <section>
+            <h1>Run Autoregression, Nonlinear Processes, and Embedding in a Four-Layer Transformer</h1>
+            <p>The complete training run connects this mathematical argument to executable code, data flow, and a working small model.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7102715324570992640" data-linkedin-activity="7102715324570992640" data-linkedin-source="activity:7102715324570992640">
         <h2 id="linkedin-original-7102715324570992640">Originally posted on LinkedIn</h2>
@@ -105,42 +132,13 @@ Fair not is that it wasn't possible to use until 1981.
 #transformer #attention #gpt #llm #embedding #vectordatabase #vectorsearch #nonlinear #autoregression #linearregression</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-08-30.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Autoregression, Nonlinear Processes, and Embedding</h1>
-            <p>Autoregression predicts future values from earlier values. For nonlinear processes, the hard question is not only the regression rule; it is what state representation makes the process predictable.</p>
-            <p>Embedding theorems matter because they show how the state of a dynamical system can be represented through observations over time. That gives a clean way to think about sequence models: previous samples are not just history; they can carry enough structure to reconstruct useful state.</p>
-            <p>A transformer embedding is not the same object as a dynamical-systems embedding, but the family resemblance is useful. Both ask how raw observations become coordinates in a space where computation becomes possible.</p>
-            <p>The practical point is modest: sequence models inherit older mathematical questions about state, delay, representation, and prediction.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-08-30-functions-prediction-and-autoregression.html">Functions, Prediction, and Autoregression</a>
-        <p>Another dated publication from August 30, 2023.</p>
-        <p>More:</p>
-        <a href="2023-09-19-cross-entropy-intuition.html">Cross-Entropy Intuition</a>
-        <p>Another dated publication from September 19, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7102715324570992640/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Autoregression, Nonlinear Processes, and Embedding, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7102715324570992640/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

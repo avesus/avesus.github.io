@@ -6,11 +6,11 @@
     <title>Cross-Entropy Intuition</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A short mathematical note connecting cross-entropy, negative log-likelihood, matrix exponentials, expectation, and why the target distribution enters the loss.">
+    <meta name="description" content="Cross-entropy connects target distributions, model probabilities, negative log-likelihood, expectation, and the matrix-exponential intuition behind probabilistic learning.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-09-19-cross-entropy-intuition.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Cross-Entropy Intuition">
-    <meta property="og:description" content="A short mathematical note connecting cross-entropy, negative log-likelihood, matrix exponentials, expectation, and why the target distribution enters the loss.">
+    <meta property="og:description" content="Cross-entropy connects target distributions, model probabilities, negative log-likelihood, expectation, and the matrix-exponential intuition behind probabilistic learning.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-09-19-cross-entropy-intuition.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-09-19",
-                                "dateModified": "2026-07-09",
-                                "description": "A short mathematical note connecting cross-entropy, negative log-likelihood, matrix exponentials, expectation, and why the target distribution enters the loss.",
+                                "dateModified": "2026-07-28",
+                                "description": "Cross-entropy connects target distributions, model probabilities, negative log-likelihood, expectation, and the matrix-exponential intuition behind probabilistic learning.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-09-19-cross-entropy-intuition.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Cross-Entropy Intuition</header>
     <address>September 19, 2023</address>
 
+
+    <section class="abstract">
+        <p>Cross-entropy measures how much probability a model assigns to the outcomes the target distribution actually produces. For a one-hot label, the entire loss becomes the negative logarithm of the predicted probability at the correct class.</p>
+        <p>Brian Greenforest connects that familiar training objective with expectation, eigendecomposition, matrix exponentials, and operators from quantum mechanics.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Read the Formula as an Expectation</h1>
+            <p>The general form H(p,q) equals the expectation under target distribution p of negative log q. The law of the unconscious statistician lets the target variable induce that expectation without explicitly constructing a separate distribution over losses.</p>
+            <p>Logarithms turn multiplied probabilities into additive information, and the negative sign rewards probability mass on the observed outcome.</p>
+        </section>
+
+        <section>
+            <h1>Connect Probability With Operator Structure</h1>
+            <p>Matrix exponentials use power series and eigendecomposition to transform operators, while statistical mechanics and quantum theory use exponential forms to construct distributions and evolution.</p>
+            <p>Students can derive cross-entropy from likelihood, calculate its gradient through softmax, and connect everyday model training with the broader mathematics of exponential operators.</p>
+        </section>
+
+        <section>
+            <h1>Run Cross-Entropy Intuition in a Four-Layer Transformer</h1>
+            <p>The complete training run connects this mathematical argument to executable code, data flow, and a working small model.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a> &middot; <a href="https://youtube.com/watch?v=G0Fa5Zl-Z3c&amp;si=WAnY_OIUK80VGAUn" target="_blank" rel="noopener">https://youtube.com/watch?v=G0Fa5Zl-Z3c&amp;si=WAnY_OIUK80VGAUn</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7110044633677631490" data-linkedin-activity="7110044633677631490" data-linkedin-source="activity:7110044633677631490">
         <h2 id="linkedin-original-7110044633677631490">Originally posted on LinkedIn</h2>
@@ -99,60 +126,13 @@
             <div class="linkedin-verbatim-text" data-source-sha256="409fb8f146c9657891290d3fdca78eaf9b5791538ac59528f3f257349ed897bc">To boost your intuition about the formula of cross-entropy (or neg-log-likelihood, as they confusingly call it). These series show up in eigendecomposition and quantum momentum exchange operators quite frequently. If you already know how to raise e to the power of a matrix, this thing will give the depth. And will explain better why we use LOTUS (the Law of unconscious statistician) &quot;chain rule&quot; when take the expectation operator of your y_hat distribution with respect to the training example target E_y[y_hat].</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Cross-entropy is easiest to read as an expectation under the target distribution of the negative log probability assigned by the model.</p>
-        <p>That connection explains why the target enters the loss and why the same expression appears as negative log likelihood in classification training.</p>
-        <div class="status-box">
-            <p><span class="status-label">Mathematical note</span>Originally posted 2023-09-19; expanded here around the loss expression.</p>
-            <p><strong>Article focus:</strong> cross-entropy, negative log likelihood, target distribution, model distribution, expectation, and classification loss.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Loss</h1>
-            <p>For a target distribution <code>p</code> and model distribution <code>q</code>, cross-entropy is the expected value of <code>-log q</code> under <code>p</code>. In a one-hot classification target, that reduces to the negative log probability assigned to the correct class.</p>
-            <p>That is why the same training expression is often called negative log likelihood.</p>
-        </section>
-
-        <section>
-            <h1>Why The Target Matters</h1>
-            <p>The expectation is taken with respect to the target distribution. The model distribution supplies the probabilities being scored, but the target distribution says which outcomes matter for the sample or dataset.</p>
-            <p>This is the useful intuition: the loss punishes the model when it assigns low probability to outcomes the target says should be likely.</p>
-        </section>
-
-        <section>
-            <h1>Where Matrix Exponentials Fit</h1>
-            <p>Softmax contains exponentials, and matrix exponentials appear in other mathematical settings, but cross-entropy itself does not require a quantum or eigendecomposition interpretation. The classification case is already useful: logits become probabilities, and the loss scores those probabilities against the target.</p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://youtube.com/watch?v=G0Fa5Zl-Z3c&amp;si=WAnY_OIUK80VGAUn" target="_blank" rel="noopener">https://youtube.com/watch?v=G0Fa5Zl-Z3c&amp;si=WAnY_OIUK80VGAUn</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-08-30-autoregression-nonlinear-processes-and-embedding.html">Autoregression, Nonlinear Processes, and Embedding</a>
-        <p>Another dated publication from August 30, 2023.</p>
-        <p>More:</p>
-        <a href="2023-10-20-binarized-weights-as-a-scaling-breakthrough.html">Binarized Weights and Efficient Model Hardware</a>
-        <p>Another dated publication from October 20, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7110044633677631490/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Cross-Entropy Intuition, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7110044633677631490/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

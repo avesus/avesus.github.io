@@ -9,11 +9,11 @@
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="description" content="MUX-first logic step: Boolean logic introduced as multiplexer graphs, switching, and explicit operational semantics.">
+    <meta name="description" content="A multiplexer turns one control bit into a concrete choice between two sources, then MUX graphs compose that operation into every Boolean function.">
     <link rel="canonical" href="https://greenforest.io/from-the-ground-up/logic/">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Core logic">
-    <meta property="og:description" content="MUX-first logic step: Boolean logic introduced as multiplexer graphs, switching, and explicit operational semantics.">
+    <meta property="og:description" content="Build Boolean logic from one visible operation: a control bit selecting one of two sources.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/from-the-ground-up/logic/">
     <meta property="og:image" content="https://greenforest.io/social-previews/from-the-ground-up/logic/index.png">
@@ -32,32 +32,17 @@
 
 <header>Core logic</header>
 <section class="abstract">
-    <p><strong>MUX-first logic step:</strong> Boolean logic introduced as multiplexer graphs, switching, and explicit operational semantics.</p>
-    <div class="status-box">
-        <p><span class="status-label">MUX logic step</span>Multiplexer-graph logic framing and early runnable code snippets.</p>
-        <p><strong>Scope:</strong> an origin-sequence step. For the complete Boolean substrate argument, read the Boolean paper page.</p>
-        <p><strong>2020 companion:</strong> <a href="/mux-algebra.html">MUX Algebra</a> develops the MUX-first claim through concrete selector equations, a four-bit configuration, and all 16 LUT2 truth functions.</p>
-    </div>
-    <p>Core Boolean logic is presented based purely on multiplexer graphs</p>
+    <p><strong>One MUX makes logic tangible:</strong> a control bit chooses which source reaches the output.</p>
+    <p>Wire constants, variables, and inverted variables into that choice, then compose the choices into a graph. <a href="/mux-algebra.html">MUX Algebra</a> develops the same rule through selector equations, a four-bit configuration, and all 16 two-input Boolean functions.</p>
 </section>
 
 <main>
     <section>
-        <h1>Introduction</h1>
-        <p>Although modern advancements in science have succeeded in modeling the entire building of mathematics using
-            <a href="https://en.wikipedia.org/wiki/Calculus_of_constructions">Calulus of Constructions"</a>, it's fascinating how far one can go in the process of
-            <a href="https://en.wikipedia.org/wiki/Generalization">generalization</a>.
-        </p>
-
-        <p>The author of this article strongly believes that computation should be built from the ground up, and we already succeed with this profoundly: the entire world of computation we use today is based purely on Multiplexer logic, which commonly known
-            as <a>Register-Transfer-Level</a>.
-        </p>
-
-        <p>Let's explore how this kind of logic allows us to create the entire building of modern mathematics and physics using level-triggered switching only.</p>
-
-        <p>At first, we have to agree on operational semantics, deciding what is time, when things happen, how we order things. An elementary multiplexer is a device which separates "past" from "future". Addition is done using an XOR operation, which requires
-            to invert one of the inputs,
-        </p>
+        <h1>A Control Bit Chooses the Next Value</h1>
+        <p>A two-input multiplexer accepts two candidate sources and one selector. The selector routes exactly one source to the output. That simple operation gives a circuit an explicit decision point.</p>
+        <p>Constants turn the selector into familiar logic. Select between 0 and an input to form AND-like behavior. Select between an input and its inverse to form XOR. Nest more selectors and the graph can express any Boolean table.</p>
+        <p>Formal systems such as the <a href="https://en.wikipedia.org/wiki/Calculus_of_constructions">Calculus of Constructions</a> show how far composition and <a href="https://en.wikipedia.org/wiki/Generalization">generalization</a> can reach. A MUX graph gives that compositional instinct a circuit-level form: each node names a choice, each route carries a value, and time determines when state captures the result.</p>
+        <p>The three returned values below provide the next lesson with a concrete input pattern for binary addition.</p>
 
         <textarea class="code">
 return [0, 1, 0];
@@ -68,6 +53,9 @@ return [0, 1, 0];
 <nav class="article-links" aria-label="Continue reading">
     <p>Next:</p>
     <a href="../addition/">Binary Addition With Multiplexer Graphs</a>
+    <p>Use MUX-composed XOR and carry logic to turn selection into arithmetic.</p>
     <p>More:</p>
-    <a href="../">WebGL and Computation From First Principles</a>
+    <a href="/mux-algebra.html">MUX Algebra</a>
+    <p>See every two-input truth table emerge from one four-source selection rule.</p>
+    <a href="../">Follow the Complete Ground-Up Sequence</a>
 </nav>

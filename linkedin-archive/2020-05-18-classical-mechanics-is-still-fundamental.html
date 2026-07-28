@@ -6,11 +6,11 @@
     <title>Classical Mechanics Is Still Fundamental</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A mechanics note about virtual work, variational calculus, Euler-Lagrange equations, Hamiltonian mechanics, and why classical mechanics still underlies modern modeling.">
+    <meta name="description" content="Classical mechanics supplies virtual work, generalized coordinates, Euler-Lagrange equations, and Hamiltonian action to modern physics, control, optimization, and learning.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2020-05-18-classical-mechanics-is-still-fundamental.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Classical Mechanics Is Still Fundamental">
-    <meta property="og:description" content="A mechanics note about virtual work, variational calculus, Euler-Lagrange equations, Hamiltonian mechanics, and why classical mechanics still underlies modern modeling.">
+    <meta property="og:description" content="Classical mechanics supplies virtual work, generalized coordinates, Euler-Lagrange equations, and Hamiltonian action to modern physics, control, optimization, and learning.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2020-05-18-classical-mechanics-is-still-fundamental.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2020-05-18",
-                                "dateModified": "2026-07-23",
-                                "description": "A mechanics note about virtual work, variational calculus, Euler-Lagrange equations, Hamiltonian mechanics, and why classical mechanics still underlies modern modeling.",
+                                "dateModified": "2026-07-28",
+                                "description": "Classical mechanics supplies virtual work, generalized coordinates, Euler-Lagrange equations, and Hamiltonian action to modern physics, control, optimization, and learning.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2020-05-18-classical-mechanics-is-still-fundamental.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,34 @@
 <body>
     <header>Classical Mechanics Is Still Fundamental</header>
     <address>May 18, 2020</address>
+
+    <section class="abstract">
+        <p>Classical mechanics built the mathematical engine that modern modeling still runs: constraints, virtual work, generalized coordinates, energy, action, and variation. Quantum mechanics, optimal control, field theory, and learning systems reuse that engine because each must select behavior from many possible trajectories.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Virtual Motion Makes Constraints Computable</h1>
+            <p>Huygens, Bernoulli, Euler, Lagrange, and Hamilton turned imagined infinitesimal displacements into a method for reasoning about real machines. Virtual work asks how forces would act through motions that respect a system’s constraints. Generalized coordinates describe those motions without carrying every irrelevant geometric detail.</p>
+            <p>This move lets the model express a pendulum, linked mechanism, fluid, field, or controlled system through the degrees of freedom that can actually change.</p>
+        </section>
+
+        <section>
+            <h1>Action Organizes an Entire Trajectory</h1>
+            <p>The Euler-Lagrange equations derive local equations of motion from a functional over a path. Hamilton’s principle selects stationary action. Hamiltonian mechanics reorganizes the same dynamics around position and momentum. Together they organize the system’s next behavior as a structured optimization over possible histories.</p>
+            <p>Quantum mechanics, field theory, optimal control, reinforcement learning, and variational inference inherit this architecture. They rename the variables as phases, fields, states, policies, or probability densities while retaining variation under constraints.</p>
+        </section>
+
+        <section>
+            <h1>Learn the Engine, Then Reuse It</h1>
+            <p>The linked lecture sequence develops classical mechanics as a living chain of ideas rather than a historical prerequisite to hurry past. Follow virtual displacement into Lagrange’s equations, then carry the same reasoning into the modern system that matters to you.</p>
+            <ul>
+                <li><a href="https://lnkd.in/gpj_T9v" target="_blank" rel="noopener">https://lnkd.in/gpj_T9v</a></li>
+                <li><a href="https://www.youtube.com/playlist?list=PLUHTGp7T4Zn_FU64InC0C8ZsejaxMtO3s" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLUHTGp7T4Zn_FU64InC0C8ZsejaxMtO3s</a></li>
+            </ul>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6668014727395975168" data-linkedin-activity="6668014727395975168" data-linkedin-source="activity:6668014727395975168">
@@ -148,55 +176,15 @@ https://en.wikipedia.org/wiki/Horologium_Oscillatorium</div>
         </section>
     </section>
 
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
-
-    <section class="abstract">
-        <p>Classical mechanics is still central because it gives modern modeling a language for constraints, coordinates, energy, action, and variation.</p>
-        <p>The value is not nostalgia for Newtonian examples. The useful layer is the variational machinery that later appears in quantum mechanics, control theory, optimization, and machine-learning objectives.</p>
-        <div class="status-box">
-            <p><span class="status-label">Mechanics note</span>Originally posted 2020-05-18; expanded here around variational structure.</p>
-            <p><strong>Article focus:</strong> virtual work, constraints, Euler-Lagrange equations, Hamilton's principle, and variational modeling.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Useful Layer</h1>
-            <p>Classical mechanics is often introduced through forces and trajectories, but the deeper reusable layer is constraint and variation. Virtual work, generalized coordinates, Lagrangians, Hamiltonians, and action principles give a way to express a system through the quantities that remain meaningful under change of coordinates.</p>
-            <p>That is why the same mathematical machinery reappears outside the original mechanical examples.</p>
-        </section>
-
-        <section>
-            <h1>Where It Reappears</h1>
-            <p>Euler-Lagrange equations and Hamilton's principle show up in quantum mechanics, field theory, optimal control, reinforcement learning, and variational inference because those areas also need to optimize a functional under constraints.</p>
-            <p>The names change from displacement and velocity to state, action, policy, probability density, phase, or field. The structural question remains: what quantity is being varied, what constraints are respected, and what stationary condition defines the behavior?</p>
-        </section>
-
-        <section>
-            <h1>Source Context</h1>
-            <p>The original post linked a classical-mechanics lecture sequence. It remains useful as context for virtual work and variational mechanics.</p>
-            <p><a href="https://lnkd.in/gpj_T9v" target="_blank" rel="noopener">Classical mechanics lecture sequence</a></p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/gpj_T9v" target="_blank" rel="noopener">https://lnkd.in/gpj_T9v</a></li>
-                <li><a href="https://www.youtube.com/playlist?list=PLUHTGp7T4Zn_FU64InC0C8ZsejaxMtO3s" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLUHTGp7T4Zn_FU64InC0C8ZsejaxMtO3s</a></li>
-            </ul>
-        </section>
-
-    </main>
 
     <nav class="article-links">
         <p>Next:</p>
         <a href="2020-05-18-do-not-skip-variational-calculus.html">Do Not Skip Variational Calculus</a>
-        <p>Another dated publication from May 18, 2020.</p>
+        <p>Extract the variational engine and use it on paths, functions, fields, and objectives far beyond mechanics.</p>
         <p>More:</p>
         <a href="/gravity-through-contradiction.html">Gravity Through Contradiction</a>
-        <p>Use a father-and-son falling-body puzzle to break the rule that heavier objects must fall faster, then separate gravity from air resistance.</p>
+        <p>Enter classical mechanics through Galileo’s joined-body argument and the structure of a decisive physical contradiction.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

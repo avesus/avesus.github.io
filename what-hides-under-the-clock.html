@@ -10,11 +10,11 @@
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/what-hides-under-the-clock.html">
     <meta property="og:title" content="What Hides Under the Clock?">
-    <meta property="og:description" content="Why the clock is not the computation, why removing it does not remove time, and what disciplined digital design puts underneath it.">
+    <meta property="og:description" content="The clock organizes state while switches, paths, delays, registers, feedback, and protocols perform the computation beneath it.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/what-hides-under-the-clock.html">
     <meta property="article:published_time" content="2021-04-11T19:27:45.300Z">
-    <meta property="article:modified_time" content="2026-07-23">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,7 +42,7 @@
             },
             "dateCreated": "2021-04-11T19:27:45.300Z",
             "datePublished": "2021-04-11",
-            "dateModified": "2026-07-23",
+            "dateModified": "2026-07-28",
             "description": "A path from hand-wired logic and impatient FPGA experiments to clocks, state, pipelines, metastability, clock-domain crossings, and GALS design.",
             "mainEntityOfPage": "https://greenforest.io/what-hides-under-the-clock.html",
             "proficiencyLevel": "Intermediate",
@@ -62,92 +62,89 @@
 
     <section class="abstract">
         <p class="eyebrow">Digital design</p>
-        <p class="lead">I spent years trying to escape the clock. The escape taught me what the clock had been doing for me.</p>
-        <p>Feedback, recursion, asynchronous events, metastability, timing closure, clock-domain crossings: the words make digital design sound like several unrelated professions. Underneath them is one physical problem. State changes in real places, signals take time to travel between those places, and a useful machine must decide when a received change is safe to use.</p>
-        <p>This is the path by which I stopped seeing sequential logic as an irritating low-level convention and started seeing it as a beautifully disciplined way to compose computation.</p>
-        <p>The result is a design method I wish my younger self had been handed: how to orchestrate the machine so work gets done, and how to leave the next design team a path they do not have to rediscover from scratch.</p>
+        <p class="lead">Years spent trying to escape the clock revealed the discipline that the clock contributes.</p>
+        <p>Feedback, recursion, asynchronous events, metastability, timing closure, and clock-domain crossings all arise from one physical reality: state changes in actual places, signals take time to travel, and a machine must decide when a received change can drive the next action.</p>
+        <p>Sequential logic turns that reality into a composable method. Local agreements about state, time, and communication let many regions work concurrently while preserving causality.</p>
     </section>
 
     <main>
         <section>
-            <h2>I Started With Wire</h2>
-            <p>In the 1990s I soldered transistors and integrated circuits, drew large circuit diagrams on A1 sheets, etched printed circuit boards, and often skipped the board entirely by wiring components directly to one another.</p>
-            <p>NAND gates, comparators, multiplexers, counters, and Schmitt triggers looked like arrangements of smaller switches. I did not think there was anything mystical inside them. I was right about that.</p>
-            <p>Then I learned programming and discovered the phrase <em>model of computation</em>. Suddenly there were Turing machines, actors, cellular automata, lambda calculus, SKI combinators, interaction nets, processes, threads, recursion, functional programs, reactive programs, and distributed systems. I spent the next twenty years looking for the important difference among them.</p>
-            <p>I was especially drawn to models that compute in many places and can accept new arguments while earlier arguments are still in flight. I wanted to escape the habit of imagining one fixed-size register and one line of source code advancing at a time. I wanted code and data to occupy space together and do useful work there.</p>
-            <p>The difference was not where I first looked. The models provide different disciplines for arranging state, dependencies, and work. The physical machine still has to move signals, hold state, choose among alternatives, and let one event affect the next.</p>
+            <h2>Wire Came Before Abstraction</h2>
+            <p>In the 1990s, I soldered transistors and integrated circuits, drew large schematics on A1 sheets, etched printed circuit boards, and sometimes wired components directly together.</p>
+            <p>NAND gates, comparators, multiplexers, counters, and Schmitt triggers all resolved into arrangements of switches.</p>
+            <p>Programming then opened Turing machines, actors, cellular automata, lambda calculus, SKI combinators, interaction nets, processes, threads, recursion, functional programs, reactive programs, and distributed systems. The next twenty years traced the important differences among them.</p>
+            <p>Models that compute in many places and accept new arguments while earlier work remains in flight offered the richest direction. Code and data could occupy space together instead of advancing through one imagined register and source line at a time.</p>
+            <p>Each model supplies a different discipline for state, dependencies, and work. Every physical realization still moves signals, holds state, selects alternatives, and lets one event affect the next.</p>
         </section>
 
         <section>
-            <h2>The Magic Wand That Pulled Me Back</h2>
-            <p>A friend was building a persistence-of-vision light wand for outdoor performances. Raspberry Pi and Arduino experiments did not give him the sensor-to-light timing he wanted, so he moved the design to an Artix-7 FPGA and documented it in Verilog.</p>
-            <p>I had understood the general idea of an FPGA without having used one. I bought the same Arty board and LED strip, installed Vivado on Debian, followed the project, and made the strip work.</p>
-            <p>Then I got distracted in the most productive possible way.</p>
-            <p>I found the Lattice IceStick and its iCE40HX1K. The open IceStorm work made the configuration format tangible. I read the bitstream documentation, changed place-and-route code, bought several tiny iCE40LP384 parts, and learned to solder QFN packages with hot air. Later, with a microscope and enough patience, I learned to do some of that work with an iron.</p>
-            <p>My software-developer reflex was immediate: change something, run it, see the result. Waiting through a long tool cycle felt intolerable. The Arty board had Ethernet, so I wrote enough ARP and UDP logic to send a new image from my laptop and reprogram an adjacent iCE40. That experiment eventually became the <a href="/ethernet-udp-ice40-reprogrammer.html">Ethernet-to-iCE40 reprogrammer</a>.</p>
+            <h2>A Light Wand Reopened The Hardware Path</h2>
+            <p>A friend moved a persistence-of-vision light wand from Raspberry Pi and Arduino into an Artix-7 FPGA to achieve tighter sensor-to-light timing. His documented Verilog supplied a direct entry point.</p>
+            <p>The same Arty board and LED strip, Vivado on Debian, and the operating design turned FPGA architecture from a concept into a machine.</p>
+            <p>The Lattice IceStick and iCE40HX1K then exposed the lower layers. Open IceStorm documentation made configuration tangible; bitstream study, place-and-route changes, iCE40LP384 parts, QFN hot-air work, and later microscope-guided iron soldering connected logic to the package.</p>
+            <p>The software reflex demanded a fast change-run-observe cycle. Ethernet on the Arty made that possible: custom ARP and UDP RTL received a new image from a laptop and programmed an adjacent iCE40. That path became the <a href="/ethernet-udp-ice40-reprogrammer.html">Ethernet-to-iCE40 reprogrammer</a>.</p>
         </section>
 
         <section>
-            <h2>Fifty Pages Of Verilog</h2>
-            <p>I printed roughly fifty pages of my Verilog and read them away from the editor. The code seemed to say everything twice. Software had trained me to look for calls and assignments: one event happens, then another. The circuit was different. Its equations were continuously sensitive to levels, while its registers accepted new state on edges.</p>
-            <p>I wanted to blame the language. Instead I printed David Harel's 1987 report on statecharts, went somewhere without Internet, and absorbed it between mountain views and hikes. When I came home, I studied Altera's guidance on one-hot finite-state machines. One-hot encoding trades more flip-flops for simpler state decoding and transition logic, which can improve timing on many LUT-rich FPGA architectures. It is not automatically best, but the trade finally made the apparent redundancy legible.</p>
-            <p>That was difficult for the software architect in me. I had spent years discussing object-oriented, functional, distributed, event-driven, streaming, and domain-driven designs. A Don Quixote inside me declared a sacred war against the ugly global-clock windmill.</p>
+            <h2>Fifty Printed Pages Exposed Two Kinds Of Time</h2>
+            <p>Roughly fifty printed pages of Verilog seemed to say everything twice. Software habits looked for calls and assignments in sequence; the circuit kept equations continuously sensitive to levels while registers accepted state on edges.</p>
+            <p>David Harel’s 1987 statecharts report and Altera’s guidance on one-hot finite-state machines made that division legible. One-hot encoding trades flip-flops for simpler decoding and transition logic, often improving timing on LUT-rich FPGA architectures.</p>
+            <p>Years of object-oriented, functional, distributed, event-driven, streaming, and domain-driven design had built strong preferences around abstraction. Hardware demanded a more physical account of when state changes and how logic between those changes settles.</p>
         </section>
 
         <section>
-            <h2>Removing The Clock Does Not Remove Time</h2>
-            <p>I tried asynchronous control and hand-made edge detection. The circuits became harder to reason about. Inputs from outside a local timing domain could still change at unfortunate moments. Feedback could still race. A signal could still arrive after another signal that had been launched later by a different path.</p>
-            <p>The clock had not created those problems. It had given a region of the circuit an agreement about when state was allowed to change.</p>
-            <p>A synchronous region divides the work:</p>
+            <h2>Removing The Clock Leaves Physical Time Behind</h2>
+            <p>Asynchronous control and hand-made edge detection exposed more timing relationships, not fewer. External inputs still changed at difficult moments, feedback still raced, and longer paths could deliver an earlier-launched signal after a later event.</p>
+            <p>The clock gave a circuit region an agreement about when state changes. A synchronous region divides the work:</p>
             <ol>
                 <li>Registers hold the current state.</li>
                 <li>Combinational logic derives candidate next state and outputs.</li>
-                <li>Physical paths are given time to settle.</li>
+                <li>Physical paths receive time to settle.</li>
                 <li>A clock edge commits the next state together.</li>
             </ol>
-            <p>The agreement is local, not magical. The clock itself travels through a physical distribution network. Its arrival differs across the chip. Data paths have minimum and maximum delays. Setup and hold requirements define the safe window around the receiving edge. Timing closure is the work of making the agreement true for the placed and routed circuit, not merely true in an ideal schematic.</p>
+            <p>The clock travels through a physical distribution network and reaches different parts of the chip at different times. Data paths have minimum and maximum delays. Setup and hold requirements define the usable window around each receiving edge. Timing closure makes the local agreement true in the placed and routed circuit.</p>
         </section>
 
         <section>
-            <h2>The Outer World Does Not Share Your Edge</h2>
-            <p>A pushbutton, radio comparator, network link, sensor, or neighboring clock domain does not promise to change neatly between two edges of your local clock. Sampling such a signal can place a receiving flip-flop near its decision threshold. The result may take longer than expected to resolve. That is metastability: not a Boolean third value that software can test, but a physical uncertainty in when the output becomes safely interpretable.</p>
-            <p>For a single slowly changing control bit, a synchronizer chain gives the first register time to resolve before the second register's value reaches sensitive logic. It reduces risk; it does not repeal physics. For a multi-bit value or a stream, independently synchronizing the bits can assemble a word that never existed. Handshakes, Gray-coded pointers, asynchronous FIFOs, and explicit protocols preserve the relationship among the bits.</p>
-            <p>The useful rule is simple: a clock boundary is a communication boundary. Treat it as an interface, not as a wire that happens to be inconvenient.</p>
+            <h2>The Outer World Follows Its Own Time</h2>
+            <p>A pushbutton, radio comparator, network link, sensor, or neighboring clock domain can change near a local sampling edge. The receiving flip-flop may enter metastability and take extra time to resolve—physical uncertainty in when its output becomes usable.</p>
+            <p>For one slowly changing control bit, a synchronizer chain gives the first register time to resolve before the second exposes its value to sensitive logic. Multi-bit values and streams require shared structure: handshakes, Gray-coded pointers, asynchronous FIFOs, and explicit protocols preserve relationships that independent bit synchronizers could destroy.</p>
+            <p>A clock crossing is a communication interface. Its protocol carries meaning between regions that follow different time.</p>
             <p>The <a href="/cartilage/clock-event-reset-distribution.html">clock, event, and reset article</a> develops the register-level pattern. The <a href="/cartilage/clock-regions-and-timing-closure.html">clock-region article</a> follows the same idea into placement, skew, and timing closure.</p>
         </section>
 
         <section>
             <h2>Globally Asynchronous, Locally Synchronous</h2>
-            <p>General relativity had already taught me not to expect one universal time coordinate. Distributed software had already taught me that network delay varies. I was still trying to make one digital-design doctrine cover every scale.</p>
-            <p>Daniel Chapiro's work on globally asynchronous, locally synchronous systems gave the pieces their proper size. A local region may use a clock because the physical extent and timing can be engineered. Separate regions communicate through boundaries that admit delay, buffering, and independent progress.</p>
-            <p>GALS is not a trick for pretending the whole machine is synchronous. It is permission to keep the enormous practical value of synchronous design without claiming a global edge that all physical components observe identically.</p>
+            <p>General relativity rejects one universal time coordinate, and distributed software works with variable network delay. Digital systems also benefit from timing disciplines sized to their physical regions.</p>
+            <p>Daniel Chapiro’s globally asynchronous, locally synchronous architecture gives each region an engineered clock and lets separate regions communicate through interfaces that absorb delay, buffering, and independent progress.</p>
+            <p>GALS preserves the practical value of synchronous design within each island while protocols carry causality between islands.</p>
             <pre><code>local state A -- protocol / buffer -- local state B
      clock A                           clock B</code></pre>
-            <p>Inside each island, timing is a design constraint. Between islands, causality is carried by a protocol.</p>
+            <p>Inside each island, timing acts as a design constraint. A protocol carries causality between islands.</p>
         </section>
 
         <section>
-            <h2>Why Pipelines Feel Like Reactivity</h2>
-            <p>A pipeline can accept a new input before the previous input has reached the end. Each stage performs a bounded transformation and passes registered state onward. The stages are simultaneously busy with different arguments.</p>
-            <p>This is why FPGA computation can feel both massively parallel and naturally reactive. The structure is present in space. Its registers remember progress. New values propagate because the wiring already expresses the dependencies. No instruction pointer has to revisit every operator to ask whether it should run.</p>
-            <p>Control and datapath remain distinct because they answer different questions. The datapath says what values can be transformed and carried. Control says which transformations, captures, and transfers are valid now. Statecharts and one-hot machines can make control legible; pipelined arithmetic can make data movement continuous. The two are partners, not rival religions.</p>
-            <p>My practical recipe became a nested hierarchy of pipelined, buffered DSP datapaths, with soft custom-instruction CPU cores placed where sequential control or irregular work fits better, and Boolean circuits plus explicit protocols connecting the pieces. It is not one universal architecture. It is a way to let each kind of work occupy the structure that suits it without forcing every value through one instruction stream.</p>
+            <h2>Pipelines Make Reactivity Physical</h2>
+            <p>A pipeline accepts a new input before the previous one reaches the end. Each stage transforms bounded state and passes a registered result onward while other stages work on different arguments.</p>
+            <p>FPGA computation feels massively parallel and naturally reactive because the structure occupies space. Registers remember progress, wiring expresses dependencies, and new values propagate without an instruction pointer polling every operator.</p>
+            <p>Datapath and control answer complementary questions. The datapath defines which values move and transform; control defines which captures, transfers, and transformations count now. Statecharts and one-hot machines clarify control while pipelined arithmetic keeps data moving continuously.</p>
+            <p>A nested hierarchy of buffered DSP pipelines can place soft custom-instruction CPU cores where sequential or irregular work fits best, then join everything through Boolean circuits and explicit protocols. Each kind of work occupies the structure that serves it without forcing every value through one instruction stream.</p>
         </section>
 
         <section>
-            <h2>Finite State Eventually Comes Home</h2>
-            <p>A tiny maximum-length linear-feedback shift register made the finite-state lesson visible to me. Four flip-flops and one XOR can walk through a long, apparently irregular sequence before returning to its starting state.</p>
-            <p>The stronger jolt came later. I built a tiny single-instruction processor whose program fit in a very small RAM and could modify its own code. Then I exhaustively ran the instruction combinations that fit. However strange the intermediate behavior looked, the complete RAM state eventually recurred.</p>
-            <p>The broader statement is precise. A closed, deterministic machine with a finite number of possible states must eventually revisit a state. Once it does, the same deterministic future repeats from that point. The machine may have a transient prefix before the cycle; its cycle may be impractically long; an open system may keep receiving new information. But a finite closed deterministic state graph cannot create an endless sequence of never-repeated states.</p>
-            <p>That does not make every algorithm a Gray counter, and it does not make useful computation trivial. It makes state capacity and external input impossible to ignore. Apparent novelty inside a finite machine comes from a long trajectory, a changing environment, randomness, or information entering through an interface.</p>
-            <p>This also changed how I read process calculi and functional reactive systems. Push versus pull is not a metaphysical choice; it is an engineering decision about where state waits, which dependency initiates work, and how far a change must travel. Boolean circuits supply the decisions. Stored state supplies the history. An extensible supply of both is what lets a finite construction grow into a general computer; the <a href="/boolean-algebra-is-all-that-is-required.html">multiplexer construction</a> develops that argument directly.</p>
+            <h2>Finite State Eventually Returns</h2>
+            <p>A maximum-length linear-feedback shift register makes the lesson visible: four flip-flops and one XOR traverse a long, apparently irregular sequence before returning to their starting state.</p>
+            <p>A single-instruction self-modifying processor made it stronger. Its complete program fit in compact RAM, which allowed exhaustive runs across the instruction combinations. However strange the intermediate behavior appeared, the complete RAM state eventually recurred.</p>
+            <p>A closed deterministic machine with finitely many states must eventually revisit one. From that point, the same future repeats. A transient may precede the cycle, the cycle may run for an extraordinary length, and an open system may keep receiving new information. The finite closed state graph still returns.</p>
+            <p>State capacity and external input therefore shape computational novelty. Long trajectories, changing environments, randomness, and new information entering through interfaces all extend what the machine can do.</p>
+            <p>Process calculi and functional reactive systems fit the same physical account. Push versus pull decides where state waits, which dependency initiates work, and how far a change travels. Boolean circuits supply decisions; stored state supplies history. An extensible supply of both lets a finite construction grow into a general computer, as the <a href="/boolean-algebra-is-all-that-is-required.html">multiplexer construction</a> develops directly.</p>
         </section>
 
         <section>
-            <h2>The Jewel Under The Clock</h2>
-            <p>The clock is not the computation. It is a local treaty about when stored state changes. Under that treaty are the real participants: switches, paths, delays, registers, feedback, protocols, and the physical boundary of each timing region.</p>
-            <p>I began by wiring gates without appreciating the model. Then programming buried the gates under twenty years of abstractions. FPGA work brought me back to the same switches with better questions.</p>
-            <p>The abstractions did not disappear. They became physical. Non-tail recursion needs activation state somewhere. A process communicates across a boundary. A reactive dependency becomes wiring or scheduling. A concurrent pipeline occupies several places at once. An asynchronous neighbor needs a protocol. Once those facts are visible, the clock stops looking like a prison. It becomes one very effective instrument in the orchestra.</p>
+            <h2>The Clock Is A Local Treaty</h2>
+            <p>The clock organizes when stored state changes. Beneath that treaty, switches, paths, delays, registers, feedback, protocols, and timing regions perform the computation.</p>
+            <p>Hand-wired gates began the path, twenty years of software abstractions expanded it, and FPGA work returned those abstractions to physical mechanisms.</p>
+            <p>Non-tail recursion stores activation state somewhere. A process communicates across an interface. A reactive dependency becomes wiring or scheduling. A concurrent pipeline occupies several places at once. An asynchronous neighbor uses a protocol. The clock orchestrates those participants without pretending to replace them.</p>
         </section>
     </main>
 

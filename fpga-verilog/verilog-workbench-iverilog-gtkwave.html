@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Build A Verilog Workbench With Icarus Verilog And GTKWave</title>
-    <meta name="description" content="Set up a compact Ubuntu Verilog workbench with Icarus Verilog, GTKWave, Make, and optional Verilator; run the included self-checking counter lab.">
+    <meta name="description" content="Build an Ubuntu Verilog workbench with Icarus Verilog, GTKWave, Make, and Verilator, then run a self-checking four-bit counter.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/fpga-verilog/verilog-workbench-iverilog-gtkwave.html">
     <link rel="icon" href="/favicon.ico">
-    <meta property="og:title" content="Build A Small Verilog Workbench">
-    <meta property="og:description" content="Chapter 4: compile a counter, run a self-checking testbench, write a VCD file, and inspect the result in GTKWave.">
+    <meta property="og:title" content="Build A Complete Verilog Workbench">
+    <meta property="og:description" content="Compile a four-bit counter, run automated checks, write a VCD trace, and inspect every transition in GTKWave.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/fpga-verilog/verilog-workbench-iverilog-gtkwave.html">
     <meta property="article:published_time" content="2026-07-23">
@@ -23,10 +23,10 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Build A Small Verilog Workbench - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Build A Complete Verilog Workbench - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-verilog/verilog-workbench-iverilog-gtkwave.png">
-    <meta name="twitter:image:alt" content="Build A Small Verilog Workbench - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Build A Complete Verilog Workbench - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
@@ -35,8 +35,8 @@
             "@type": "TechArticle",
             "headline": "Build A Verilog Workbench With Icarus Verilog And GTKWave",
             "datePublished": "2026-07-23",
-            "dateModified": "2026-07-23",
-            "description": "A compact Ubuntu setup and a self-checking four-bit counter lab using Icarus Verilog, VVP, VCD, GTKWave, and optional Verilator.",
+            "dateModified": "2026-07-28",
+            "description": "Build a compact Ubuntu HDL workbench and run a self-checking four-bit counter with Icarus Verilog, VVP, VCD, GTKWave, and Verilator.",
             "image": "https://greenforest.io/fpga-verilog/diagrams/verilog-to-bitstream.svg",
             "mainEntityOfPage": "https://greenforest.io/fpga-verilog/verilog-workbench-iverilog-gtkwave.html",
             "isPartOf": {"@type": "CollectionPage", "name": "FPGA And Verilog From First Principles", "url": "https://greenforest.io/fpga-verilog/"},
@@ -47,103 +47,104 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">Build A Small Verilog Workbench With Icarus Verilog And GTKWave</h1></header>
+    <header><h1 class="page-title">Build A Complete Verilog Workbench With Icarus Verilog And GTKWave</h1></header>
     <address>July 23, 2026</address>
 
     <!-- Source ownership: original curriculum paragraphs 55-65. -->
     <section class="abstract">
         <p><span class="eyebrow">FPGA + Verilog · Chapter 4 of 7</span></p>
-        <p class="lead">The first useful HDL environment is small enough to understand completely.</p>
-        <p>Icarus Verilog compiles the design and testbench. <code>vvp</code> runs the compiled simulation. The testbench decides pass or fail and writes a VCD signal trace. GTKWave lets you inspect that trace. Verilator is the next tool when linting, speed, or a C++ host boundary matters.</p>
-        <p><a class="cta-link" href="/fpga-verilog/">See the complete seven-chapter course</a></p>
+        <p class="lead">Four tools turn a Verilog design into a repeatable result you can run, check, and inspect signal by signal.</p>
+        <p>Icarus Verilog compiles the counter and testbench. <code>vvp</code> runs the simulation and automated checks. VCD records the signal history, and GTKWave makes every transition visible. Verilator opens a faster compiled path and a direct C++ integration interface.</p>
+        <p><a class="cta-link" href="/fpga-verilog/">Follow the complete seven-chapter course</a></p>
     </section>
 
     <figure class="concept-diagram">
         <a href="diagrams/verilog-to-bitstream.svg">
             <img src="diagrams/verilog-to-bitstream.svg" width="1200" height="675" loading="eager" decoding="async" alt="Verilog simulation path through Icarus Verilog, VCD, and GTKWave, alongside a separate FPGA implementation path through Yosys, nextpnr, icepack, and a loader">
         </a>
-        <figcaption>Original Greenforest I/O diagram. This chapter follows the upper path. The implementation path is shown only to keep a passing simulation distinct from a configured FPGA.</figcaption>
+        <figcaption>The upper path produces checked behavior and an inspectable waveform. The lower path carries the same RTL through synthesis, place-and-route, bitstream packing, and FPGA loading.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h2>Install The Compact Ubuntu Toolset</h2>
-            <p>On a current Debian or Ubuntu system, begin with the distribution packages:</p>
+            <h2>Install A Complete Workbench In One Command</h2>
+            <p>On a current Debian or Ubuntu system, install the compiler, waveform viewer, and build driver from the distribution packages:</p>
             <pre><code>sudo apt update
 sudo apt install iverilog gtkwave make</code></pre>
-            <p>Package versions depend on the distribution release. Confirm what you actually installed instead of copying a version from a tutorial:</p>
+            <p>Distribution releases carry different package versions, so record the versions that will execute the lab:</p>
             <pre><code>iverilog -V
 vvp -V
 gtkwave --version
 make --version</code></pre>
-            <p>The official <a href="https://steveicarus.github.io/iverilog/" target="_blank" rel="noopener">Icarus Verilog documentation</a> covers the compiler and runtime. GTKWave’s <a href="https://gtkwave.github.io/gtkwave/" target="_blank" rel="noopener">project documentation</a> covers the waveform viewer. If the package in your distribution is too old for a particular language feature, pin a known tool release or a reproducible tool bundle rather than casually mixing several moving source builds.</p>
+            <p>The official <a href="https://steveicarus.github.io/iverilog/" target="_blank" rel="noopener">Icarus Verilog documentation</a> covers the compiler and runtime, while the <a href="https://gtkwave.github.io/gtkwave/" target="_blank" rel="noopener">GTKWave documentation</a> covers signal inspection. When a design needs a newer language feature, pin a known tool release or reproducible bundle so every run uses the same environment.</p>
         </section>
 
         <section>
-            <h2>Keep Logisim Beside The Simulator</h2>
-            <p>The source notes listed Logisim as necessary for Boolean logic study and experiment. That role still holds. Use the actively maintained <a href="https://github.com/logisim-evolution/logisim-evolution" target="_blank" rel="noopener">Logisim-evolution</a> release appropriate for your operating system. Distribution repositories may also provide a package, but its age and package name vary.</p>
-            <p>Logisim and Icarus answer different questions. Logisim makes the hand-built circuit and its wires visible. Icarus executes HDL according to Verilog or SystemVerilog simulation semantics. Rebuilding the same tiny counter both ways is useful: the schematic reveals structure; the HDL testbench makes expected behavior repeatable.</p>
+            <h2>See The Circuit And Execute Its HDL</h2>
+            <p>Use the current <a href="https://github.com/logisim-evolution/logisim-evolution" target="_blank" rel="noopener">Logisim-evolution</a> release for your operating system to keep Boolean structure visible beside the simulator. Distribution repositories may also carry it under release-specific package names.</p>
+            <p>Logisim exposes the counter’s gates, storage, and wires. Icarus executes the Verilog or SystemVerilog description under precise simulation semantics. Rebuilding the same counter both ways joins visible structure with automated, repeatable behavior.</p>
         </section>
 
         <section>
-            <h2>Download The Included Counter Lab</h2>
-            <p>The course publishes a minimal, inspectable lab rather than an unexplained command:</p>
+            <h2>Run The Complete Four-File Counter Lab</h2>
+            <p>Four focused files give the counter a design, an environment, a repeatable command, and a clear result:</p>
             <ul>
-                <li><a href="labs/counter/counter.v"><code>counter.v</code></a> — the parameterized four-bit design;</li>
-                <li><a href="labs/counter/counter_tb.v"><code>counter_tb.v</code></a> — clock, reset, checks, and VCD output;</li>
-                <li><a href="labs/counter/Makefile"><code>Makefile</code></a> — the exact compile and run commands; and</li>
-                <li><a href="labs/counter/README.md"><code>README.md</code></a> — the acceptance result in one place.</li>
+                <li><a href="labs/counter/counter.v"><code>counter.v</code></a> defines the parameterized four-bit circuit;</li>
+                <li><a href="labs/counter/counter_tb.v"><code>counter_tb.v</code></a> supplies the clock, reset, checks, and VCD output;</li>
+                <li><a href="labs/counter/Makefile"><code>Makefile</code></a> captures the exact compile and run commands; and</li>
+                <li><a href="labs/counter/README.md"><code>README.md</code></a> records the expected terminal result.</li>
             </ul>
-            <p>Download those four files into one directory, open a shell there, and run:</p>
+            <p>Place the files in one directory, open a shell there, and run:</p>
             <pre><code>make</code></pre>
-            <p>The Makefile expands the short instruction from the original curriculum into two explicit stages:</p>
+            <p>The Makefile exposes the two stages directly:</p>
             <pre><code>iverilog -g2012 -Wall -s counter_tb \
   -o build/counter_tb counter.v counter_tb.v
 vvp build/counter_tb</code></pre>
-            <p>A passing run ends with:</p>
+            <p>The completed run ends with:</p>
             <pre><code>PASS: reset, five updates, and four-bit wrap verified</code></pre>
-            <p>If you see that message, the simulator checked three claims: reset held the count at zero, five enabled rising edges produced five increments, and eleven more increments wrapped a four-bit value back to zero.</p>
+            <p>That line means the simulator observed reset holding the count at zero, five enabled rising edges producing five increments, and eleven more increments wrapping the four-bit value back to zero.</p>
         </section>
 
         <section>
-            <h2>Read The Testbench As An Experiment</h2>
-            <p>The testbench begins with reset asserted. It waits for two positive clock edges, releases reset on a negative edge so the control is stable before the next active edge, then observes the count after five more positive edges. The short <code>#1</code> delay lets nonblocking register updates settle before the check.</p>
-            <p>The comparison uses case inequality, <code>!==</code>, so an unknown <code>x</code> or high-impedance <code>z</code> is not mistaken for a good result. On failure, <code>$fatal</code> stops the run with both expected and observed values. This is more useful than opening a waveform and deciding by eye that it “looks about right.”</p>
-            <p>The waveform remains valuable because it explains a failure and teaches timing. Open it with:</p>
+            <h2>Read The Testbench As A Timed System</h2>
+            <p>The testbench asserts reset, waits for two positive clock edges, and releases reset on a negative edge so the control settles before the next active edge. It then observes the count after five more positive edges. A short <code>#1</code> delay allows nonblocking register updates to settle before each check.</p>
+            <p>Case inequality, <code>!==</code>, treats an unknown <code>x</code> or high-impedance <code>z</code> as a mismatch. On failure, <code>$fatal</code> stops the run and prints both expected and observed values. The testbench therefore decides the result consistently on every machine.</p>
+            <p>The waveform explains the timing behind that result. Open it with:</p>
             <pre><code>make wave</code></pre>
-            <p>Or run <code>gtkwave counter.vcd</code> directly. Add <code>clk</code>, <code>reset</code>, and <code>count</code> to the view. Set <code>count</code> to binary or unsigned decimal, then verify that each change follows a rising edge after reset is released.</p>
+            <p>Or run <code>gtkwave counter.vcd</code> directly. Add <code>clk</code>, <code>reset</code>, and <code>count</code> to the view, set <code>count</code> to binary or unsigned decimal, and trace each state change from the first rising edge after reset.</p>
         </section>
 
         <section>
-            <h2>Use Verilator At The C++ Boundary</h2>
-            <p>The curriculum’s note—“Verilator: invoke and even embed Verilog in C++”—points to a different execution model. Verilator translates synthesizable Verilog or SystemVerilog into a compiled C++ or SystemC model. It is widely used for fast simulation, linting, and integration with software test harnesses.</p>
-            <p>Install the distribution package to explore it:</p>
+            <h2>Extend The Workbench Through A C++ Host</h2>
+            <p>Verilator translates synthesizable Verilog or SystemVerilog into a compiled C++ or SystemC model. That execution model supports fast simulation, linting, and direct integration with software test harnesses.</p>
+            <p>Install the distribution package and lint the counter:</p>
             <pre><code>sudo apt install verilator
 verilator --version
 verilator --lint-only -Wall counter.v</code></pre>
-            <p>For a real C++ simulation, the host program must construct the model, drive inputs, advance time, evaluate the design, and inspect outputs. That explicit host boundary is powerful, but it is more machinery than the first counter needs. The <a href="https://verilator.org/guide/latest/" target="_blank" rel="noopener">official Verilator guide</a> is the right reference when you make that move.</p>
+            <p>A C++ simulation host constructs the model, drives inputs, advances time, evaluates the design, and inspects outputs. This explicit interface lets a hardware model participate directly in a larger software system. The <a href="https://verilator.org/guide/latest/" target="_blank" rel="noopener">official Verilator guide</a> provides the next steps.</p>
         </section>
 
         <section>
-            <h2>A Guess Is The Start Of The Test</h2>
-            <p>The source notes placed Erik J. Larson’s <em>The Myth of Artificial Intelligence</em>, informed guesses about codebreaking at Bletchley Park, probability, and “first a guess, then testing veracity” beside the setup checklist. Those fragments do not describe another install dependency. They describe an engineering habit.</p>
-            <p>Before every run, state the claim: reset should dominate; count should advance only at rising edges; four bits should wrap after sixteen states. Then make the environment capable of falsifying the claim. A waveform supplies detail; a self-checking condition supplies the verdict.</p>
-            <p>This is the useful relationship among intuition, probability, and verification. An informed guess chooses the next experiment. Repetition and explicit checks determine whether the design deserves trust.</p>
+            <h2>Turn Each Prediction Into An Executable Check</h2>
+            <p>Erik J. Larson’s <em>The Myth of Artificial Intelligence</em>, informed guesses about codebreaking at Bletchley Park, probability, and “first a guess, then testing veracity” all point to the same engineering habit: formulate the expected result before running the tool.</p>
+            <p>For this counter, reset dominates, count advances only at rising edges, and four bits wrap after sixteen states. The testbench encodes those expectations, while the waveform reveals the timing behind every transition.</p>
+            <p>Intuition chooses a productive test sequence. Automated checks make it repeatable, and the recorded signal trace turns each result into an explanation you can inspect.</p>
         </section>
 
-        <section class="reader-note">
-            <h2>What This Lab Does Not Prove</h2>
-            <p>It does not synthesize the design, choose FPGA resources, assign physical pins, place or route anything, close timing, produce a bitstream, or program a board. It proves the stated simulation behavior under this testbench. Chapter 5 names the project boundaries; chapter 7 follows the separate implementation flow.</p>
+        <section>
+            <h2>Carry The Checked RTL Into FPGA Implementation</h2>
+            <p>The workbench delivers executable RTL behavior, automated checks, and a signal trace. Chapter 5 organizes the design, testbench, selected top, and board constraints; chapter 7 carries those files through synthesis, FPGA resource selection, pin assignment, place-and-route, timing, bitstream generation, and board programming.</p>
+            <p>The same division scales from this four-bit counter to pipelined datapaths, peripheral controllers, and hardware models embedded in larger software systems.</p>
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue the FPGA and Verilog course">
-        <p>Next:</p>
+        <p>Organize the next stage:</p>
         <a href="verilog-modules-testbenches-constraints.html">Chapter 5: Anatomy Of A Verilog Project</a>
-        <p>Separate modules, the selected top, a testbench, and board constraints before the project grows.</p>
-        <p>Course:</p>
+        <p>Give modules, the selected top, the testbench, and board constraints distinct jobs.</p>
+        <p>Explore the full sequence:</p>
         <a href="/fpga-verilog/">FPGA And Verilog From First Principles</a>
-        <p>Return to the complete seven-chapter path.</p>
+        <p>Move from visible logic through simulation and into physical FPGA implementation.</p>
     </nav>
 </body>
 

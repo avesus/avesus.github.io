@@ -9,11 +9,11 @@
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="description" content="This sequence rebuilds computation from switching, state, logic, and addition.">
+    <meta name="description" content="Start with a switch, carry state through time, compose Boolean logic, and reach arithmetic through browser code that exposes every mechanism.">
     <link rel="canonical" href="https://greenforest.io/from-the-ground-up/">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="WebGL and Computation From First Principles">
-    <meta property="og:description" content="This sequence rebuilds computation from switching, state, logic, and addition.">
+    <meta property="og:description" content="Follow the switch from physical control through state, Boolean logic, arithmetic, and raw WebGL computation.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/from-the-ground-up/">
     <meta property="og:image" content="https://greenforest.io/social-previews/from-the-ground-up/index.png">
@@ -35,29 +35,24 @@
 <address>2020</address>
 
 <section class="abstract">
-    <p class="lead">This sequence rebuilds computation from switching, state, logic, and addition.</p>
-    <p>It starts from low-level geometry that allows control, then builds a hierarchy of algorithms from the ground up. The exercises are meant to stay close to the physical substrate: relay switches, CMOS transistors, FPGAs, and GPU shaders are different materials for the same logical discipline.</p>
-    <p>(No "cheating" involved! We will be able to reproduce
-        these algorithms virtually anywhere, from relay switches and CMOS transistors, to FPGAs and GPU shaders.)</p>
+    <p class="lead">A switch turns physical control into a computation that can grow.</p>
+    <p>This sequence follows that switch through state, Boolean choice, addition, and raw GPU execution. Relay contacts, CMOS transistors, FPGA lookup tables, and shader fragments use different materials, yet each one gives a concrete home to the same operations.</p>
+    <p>The browser keeps every step visible. Each lesson adds one mechanism and carries it forward into the next.</p>
 </section>
 
 <main>
     <section>
-        <h2>Introduction</h2>
-        <p>The streams of computation let us define and run computation in arbitrary media, including water pipes, billiard balls, dominos processors, GPUs, FPGAs, ordinary CPUs, then quantum computers, and even time machines.</p>
-
-        <p>The concepts we are about to explore will unfold for us in a straightforward manner, where we will be using code to fixate our memory.</p>
+        <h2>Begin With the Act of Control</h2>
+        <p>A valve redirects water. A relay redirects current. A multiplexer redirects a value. Each device chooses what can affect what comes next, and that choice supplies the first useful unit of computation.</p>
+        <p>Code makes the chain inspectable. Run each operation, change an input, and watch the next state follow from the mechanism rather than from a memorized slogan.</p>
 
     </section>
 
     <section>
-        <h2>Analogies</h2>
-        <p>In mathematics, one must to memorize and execute in their head all axioms and theoremes. We will use computer to memorize those for us. We will use ordinary browser available without any installations in every laptop, and even smartphone.</p>
-
-        <p>The principles we are about to explore, will help us to design efficient streams of computations and run sophisticated predictive simulations virtually anywhere, from toy models in browser; up to Vulkan, CUDA, RDNA, ROCm, OpenCL, Verilog, FPGA,
-            and supercomputing large-scale simulations.</p>
-
-        <p>We will move through arithmetics, then over numeric methods of mathematics, and running physical simulations in an attempt to learn how to predict and control the reality around us.</p>
+        <h2>Carry the Same Mechanism Across Materials</h2>
+        <p>The browser supplies a laboratory that already runs on laptops and phones. It can hold symbols, execute rules, display state, and let a reader test every transition immediately.</p>
+        <p>The same habits scale into Vulkan, CUDA, RDNA, ROCm, OpenCL, Verilog, FPGA fabrics, and large simulations: name the state, expose the route, define the update, and account for the physical resources that perform it.</p>
+        <p>Arithmetic opens the path to numerical methods. Numerical methods open the path to models that predict and control physical systems.</p>
     </section>
 
     <section>
@@ -70,27 +65,28 @@
     </section>
 
     <section>
-        <h2>Use This Sequence For</h2>
-        <p>The useful thread is the climb from controlled switching to logic and addition. Read it as a substrate-first path into computation, not as a polished course outline.</p>
+        <h2>Build the Chain One Working Step at a Time</h2>
+        <p>Start with the WebGL scaffold, run the minimum shader, trace control through a switch, assemble MUX-first logic, and finish with binary addition. Each page gives the next page a mechanism it can use.</p>
     </section>
 </main>
 
 <nav class="article-links" aria-label="Ground-up computation sequence">
     <ul>
-        <li><a href="scaffolding.html">Scaffolding</a></li>
-        <li><a href="minimum-webgl.html">Minimum WebGL code</a></li>
-        <li><a href="history.html">History of control</a></li>
+        <li><a href="scaffolding.html">Build the Raw WebGL Computation Scaffold</a></li>
+        <li><a href="minimum-webgl.html">Run One GPU Thread and Read Its 32-Bit Result</a></li>
+        <li><a href="history.html">Begin Computation With a Switch</a></li>
         <li><a href="/general-architecture-of-computation.html">Structure, State, and Structural Change</a></li>
         <li><a href="/computation-is-indirect-control.html">The Switch: Computation as Indirect Control</a></li>
         <li><a href="/mux-algebra.html">MUX Algebra: Every Two-Input Logic Gate From MUXes</a></li>
-        <li><a href="logic/">Logic</a></li>
-        <li><a href="addition/">Addition</a></li>
+        <li><a href="logic/">Compose Boolean Logic From MUX Choices</a></li>
+        <li><a href="addition/">Carry MUX Logic Into Binary Addition</a></li>
         <li><a href="/shader-before-gpu-renderman-ai-hardware.html">A history of programmable shaders: RenderMan, GPUs, CUDA, and AI</a></li>
     </ul>
 
     <p>More:</p>
     <a href="/webgl-glsl-computing.html">Raw WebGL and GLSL for Browser GPU Computation</a>
-    <a href="/">Back to the homepage</a>
+    <p>Take the scaffold into textures, fragment execution, state surfaces, and practical browser computation.</p>
+    <a href="/">Explore Greenforest I/O</a>
 </nav>
 </body>
 

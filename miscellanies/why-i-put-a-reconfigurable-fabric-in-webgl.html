@@ -14,7 +14,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.html">
     <meta property="article:published_time" content="2026-07-24">
-    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,8 +42,8 @@
             },
             "dateCreated": "2021-03-26T02:31:22.646Z",
             "datePublished": "2026-07-24",
-            "dateModified": "2026-07-24",
-            "description": "WebGL gave me a fast, visual way to test the local state and reconfiguration rules of a custom fabric before a chip existed—and exposed exactly where simulation stopped being hardware.",
+            "dateModified": "2026-07-28",
+            "description": "WebGL gave a custom reconfigurable fabric a visible running body: compact cell state, local ownership, streamed configuration, region replacement, editing, and host-stepped execution in an ordinary browser.",
             "mainEntityOfPage": "https://greenforest.io/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.html",
             "isPartOf": {
                 "@type": "CollectionPage",
@@ -62,97 +62,101 @@
 
 <body class="article-structured miscellany-article">
     <header><h1 class="page-title">Why I Put a Reconfigurable Fabric in WebGL</h1></header>
-    <address><time datetime="2021-03-26">March 26, 2021</time></address>
+    <address><time datetime="2021-03-26">March 26, 2021</time><br><time datetime="2026-07-28">Updated July 28, 2026</time></address>
 
     <section class="abstract">
         <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
-        <p class="lead">WebGL gave me a fast, visual way to test the local state and reconfiguration rules of a custom fabric before a chip existed—and exposed exactly where simulation stopped being hardware.</p>
+        <p class="lead">WebGL gave a custom reconfigurable fabric a visible running body: compact cell state, local ownership, streamed configuration, region replacement, editing, and host-stepped execution in an ordinary browser.</p>
     </section>
 
     <main>
         <section class="article-opening">
-            <p>I put a reconfigurable computing fabric in WebGL because I needed to see whether the fabric's rules could produce a programmable machine before I could justify building the machine.</p>
-            <p>I needed to give a custom architecture a body I could run, inspect, edit, and animate before committing it to silicon. Efficiently imitating an FPGA on a GPU was beside the point.</p>
-            <p>The simulator let me exercise the state representation and local update rule directly. Area, timing, power, signal integrity, and physical routing belong to the later implementation in RTL and hardware.</p>
-            <p>WebGL was the shortest route from an architectural idea to a visible field of working cells.</p>
+            <p>WebGL gave an unbuilt reconfigurable fabric a body that could run in any ordinary browser tab. A texture held the machine's compact cell state. A shader updated every cell from its neighborhood. JavaScript supplied editing, instantiation, persistence, and inspection. Buffer swaps made each step visible.</p>
+            <p>That working implementation answered the first architectural question before silicon could: can local state, ownership pointers, configuration streams, and bounded regions form a programmable machine?</p>
+            <p>The purpose never involved imitating an FPGA efficiently on a GPU. WebGL created the shortest path from rules to a visible field where every bit needed a place.</p>
         </section>
         <section>
-            <h2>Three possible prototypes</h2>
-            <p>In 2021 I was considering three directions.</p>
-            <p>The first was to assemble a system from existing FPGAs and maintain a library of precompiled “bitstreamlets.” That could demonstrate remotely loaded hardware functions, but it would inherit the architecture, tools, packaging, and configuration limits of other people's devices. It also implied substantial server, certification, and deployment work before testing the thing I cared about most.</p>
-            <p>The second was to emulate the custom fabric itself. It would be slower than silicon, but it could expose the actual cell rules, local ownership pointers, configuration streams, and region behavior I wanted to evaluate.</p>
-            <p>The third was to fabricate the physical chip.</p>
-            <p>The physical chip was the destination, not a sensible first experiment. The emulator was the useful middle. It was close enough to the proposed architecture to challenge the model and cheap enough to change while the requirements were still moving.</p>
+            <h2>Three routes to the machine</h2>
+            <p>In 2021, three implementation routes competed.</p>
+            <p>One route assembled existing FPGAs and maintained a library of precompiled “bitstreamlets.” That system could load hardware functions remotely, yet it would inherit another vendor's architecture, tools, packaging, and configuration limits. Server, certification, and deployment work would arrive before the custom mechanism received a fair test.</p>
+            <p>A second route implemented the proposed fabric itself in software. It would run more slowly than silicon while exposing the exact cell rules, local ownership pointers, configuration streams, and region behavior that defined the architecture.</p>
+            <p>The third route fabricated the custom chip.</p>
+            <p>The chip remained the destination. The WebGL fabric supplied the decisive middle route: faithful enough to challenge the architecture and flexible enough to change while the machine still took shape.</p>
         </section>
         <section>
-            <h2>Start with an application-shaped example</h2>
-            <p>I was also stuck on the idea that I needed a complete programming language before I could show the architecture.</p>
-            <p>My way out was to permit myself to pretend.</p>
-            <p>Write an application-shaped example first. Let an external user action create a fragment. Put that fragment into a region. Run it as if the dynamic installation path existed. Animate what happened. Once a concrete example worked, I could ask what language constructs generalized from it.</p>
-            <p>This reverses the temptation to design syntax in a vacuum. The example supplies pressure. It reveals which operations are actually needed: make a region, connect ports, install a configuration, preserve state, replace a child, inspect a wire, save a design.</p>
-            <p>I imagined rectangular enclosures with fixed port points along their edges. A person, including a child learning how circuits compose, could create a block and run more code inside the same visual environment. The boxes were not the architecture by themselves. They were a legible way to expose ownership and connection.</p>
-        </section>
-        <section>
-            <h2>Why WebGL fit the cell model</h2>
-            <p>The proposed fabric was locally regular. Each cell had compact state and updated according to nearby state. That shape maps naturally onto texture-based GPU computation.</p>
-            <p>In the browser model, JavaScript could manage the interface, abstract resources, and dynamic instantiation. WebGL shaders could apply the cell update across a rectangular texture. One texture held the current state; another received the next state. Swapping the two buffers represented one host-stepped clock.</p>
-            <p>That is a synchronous simulation technique, not a hardware clock. Every simulated step occurs because the host draws the update pass and swaps state buffers. It is particularly useful for deterministic, parallel experiments in which each output cell reads a bounded neighborhood from the previous step.</p>
-            <p>The browser also collapsed several practical layers into one place:</p>
+            <h2>Begin with an application-shaped construction</h2>
+            <p>A complete programming language once seemed like a prerequisite for showing the fabric. A concrete application reversed that dependency.</p>
+            <p>Start with a user action. Let it create a fragment, allocate a region, install the fragment, connect its ports, run it, and show what changed. The construction reveals the language operations that matter:</p>
             <ul>
-                <li>the editor and visualization;</li>
-                <li>the simulator;</li>
+                <li>create a region;</li>
+                <li>connect named ports;</li>
+                <li>install a configuration;</li>
+                <li>preserve selected state;</li>
+                <li>replace a child;</li>
+                <li>inspect a wire;</li>
+                <li>save the machine.</li>
+            </ul>
+            <p>Rectangular enclosures with fixed port positions gave ownership and connection a readable form. A builder—including a child learning how circuits compose—could create a block and run another construction inside it. The boxes exposed the architecture without pretending to constitute the architecture by themselves.</p>
+            <p>Application pressure keeps syntax honest. Every language feature must earn its place by helping a working region come into existence or interact with another.</p>
+        </section>
+        <section>
+            <h2>WebGL fits the cell model</h2>
+            <p>The fabric uses a locally regular rule. Each cell stores compact state and reads a bounded neighborhood. Texture-based GPU computation maps directly onto that shape.</p>
+            <p>One texture holds current state. Another receives next state. A shader evaluates the update rule across the rectangular field. JavaScript issues the update pass and swaps the two textures, creating one deterministic host-stepped clock.</p>
+            <p>The browser combines several practical layers:</p>
+            <ul>
+                <li>an editor and visualization;</li>
+                <li>a parallel simulator;</li>
                 <li>persistent local design data;</li>
                 <li>a shareable page address;</li>
-                <li>ordinary JavaScript controls around the shader model.</li>
+                <li>ordinary JavaScript controls around the shader machine.</li>
             </ul>
-            <p>I considered browser storage for compact circuit descriptions and state. I did not need a server merely to preserve a small experiment, although browser storage quotas and persistence behavior vary and should never be treated as a fixed architectural guarantee.</p>
-            <p>At that time, WebGL was the broadly deployed browser path for this kind of raw GPGPU work. Today WebGPU offers a more direct compute model where available, but the reason for the WebGL choice remains historically useful: it let me build parallel state updates from first principles in an ordinary browser tab.</p>
+            <p>Browser storage can retain compact designs and selected state. Storage quotas and persistence policies still shape product design, so durable work also needs explicit export.</p>
+            <p>WebGL offered the broad browser route for raw GPGPU work in 2021. WebGPU now offers a more direct compute model on supported systems. The WebGL construction retains its value because it exposes parallel state updates from first principles and keeps the machine inspectable through APIs that reached phones and laptops alike.</p>
         </section>
         <section>
-            <h2>Two interpretation layers</h2>
-            <p>The simulator suggested two different layers that should not be confused.</p>
-            <p>The low layer described the fabric itself:</p>
+            <h2>Two interpretation layers meet in one field</h2>
+            <p>The running fabric separates a physical interpretation layer from a human one.</p>
+            <p>The low layer defines the substrate:</p>
             <ul>
                 <li>neighbor-relative ownership pointers;</li>
                 <li>compact per-cell roles;</li>
-                <li>serial configuration entering through a local port;</li>
-                <li>state propagation and buffer swapping;</li>
+                <li>serial configuration through a local port;</li>
+                <li>state propagation through texture swaps;</li>
                 <li>bounded regions of arbitrary shape;</li>
                 <li>visible wires and configuration paths.</li>
             </ul>
-            <p>At this layer, the “program” is close to a bitstream over a spatial ownership tree. Editing means assigning roles and relationships to cells.</p>
-            <p>The high layer would describe circuits in human terms: names, blocks, input and output variables, instantiation, placement constraints, and connections. A future placer and router could lower that description into the cell configuration.</p>
-            <p>The low layer was already concrete enough to configure by hand. The high layer called for a compiler, placer, and router that could lower named blocks and connections into those cell roles. Keeping the two layers separate let me develop the local mechanism without confusing hand placement with automatic installation of arbitrary Verilog.</p>
+            <p>At this layer, a program resembles a spatial bitstream over an ownership tree. Editing assigns roles and relationships to cells.</p>
+            <p>The high layer names circuits, blocks, variables, ports, placement constraints, and connections. A compiler, placer, and router can lower those human structures into cell roles and routes.</p>
+            <p>Hand configuration made the low layer concrete. The high layer defined the toolchain ahead: take named static modules, allocate suitable regions, place their ports, route connections, and install the resulting configuration. Keeping both layers visible prevents a hand-routed picture from standing in for a general compiler.</p>
         </section>
         <section>
-            <h2>Copies and updates need a moment</h2>
-            <p>Dynamic reconfiguration raises a harder question than drawing a new shape: when does the new state become real?</p>
-            <p>One simple simulation answer is to pause the clock while reading or rewriting a region. Another is double buffering: collect a snapshot or replacement separately, then apply it at a coordinated step. A configuration request can propagate through a deterministic local tree; if route depths are known, the system can calculate when the farthest leaf has received it.</p>
-            <p>I also considered time-tagged updates in which distributed subcircuits receive a future application moment. Such a mechanism must account for clock error, communication delay, metastability, partial failure, and the cost of distributing time. The browser buffer swap helped define the desired semantics; hardware would have to supply the physical synchronization.</p>
-            <p>What the simulation can do is make the semantic choice explicit. Either readers see an old region or a new region at a defined step, or the architecture deliberately exposes intermediate reconfiguration states. Hiding that distinction behind a visual edit would make the model easier to demo and harder to trust.</p>
+            <h2>Copies and replacements need a moment</h2>
+            <p>Dynamic reconfiguration asks a precise temporal question: when does the new region become real?</p>
+            <p>The browser supplies a clean answer through double buffering. Build the next state separately, then swap at a coordinated step. A configuration request can also traverse a deterministic local tree; known route depths let the controller calculate when the farthest leaf receives the stream.</p>
+            <p>Another design can tag updates with a future application moment. Hardware then must account for clock error, communication delay, metastability, partial failure, and time distribution. The buffer swap defines the semantics that such hardware must implement.</p>
+            <p>The architecture can choose one of two readable contracts: observers see either the old region or the new region at a defined step, or observers intentionally see intermediate installation states. The editor must make that choice visible because it governs every dependent circuit.</p>
         </section>
         <section>
-            <h2>What the GPU experiment was for</h2>
-            <p>By September 2021, the purpose of the experiment was clear.</p>
-            <p>Simulating logic out of individual multiplexer-like cells on a GPU is inefficient. Routing detailed circuits by hand becomes a nightmare. The shader already has a powerful arithmetic and data-parallel instruction set; using thousands of shader operations to reproduce primitive gates is not a sensible way to obtain ordinary GPU performance.</p>
-            <p>If the problem is simply to compute on a GPU, write the shader directly.</p>
-            <p>The fabric simulator served a different purpose. It gave a proposed structure for circuit-like computation and reconfiguration a running body. It forced me to represent local ownership, configuration, state, and boundaries precisely enough for the model to move.</p>
-            <p>It also showed that a purely visual “flow” picture was insufficient for large designs. Hardware needs explicit timing and state semantics. A Verilog-like model remained necessary for reasoning about clocked behavior, even if the installation environment around each static module was dynamic.</p>
-            <p>I had initially imagined eliminating event-driven or lazy processing in favor of a uniform synchronous update. That choice makes the simulation simple and regular. It also wastes work when little changes. Event-driven approaches add scheduling complexity but may be far more efficient for sparse activity. The useful mechanism depends on the behavior I need to study.</p>
+            <h2>The GPU makes the architecture tangible</h2>
+            <p>A GPU already supplies powerful arithmetic and data-parallel operations. Rebuilding primitive gates from thousands of shader operations cannot improve ordinary GPU computation. Anyone who only wants GPU results should write the shader directly.</p>
+            <p>The WebGL fabric delivers something else: a running structure for circuit-like computation and reconfiguration. It forces local ownership, configuration, state, ports, and region boundaries into explicit representations that can move on screen.</p>
+            <p>The implementation also exposes the limits of a visual flow picture. Large hardware designs require explicit timing and state semantics. Static Verilog remains valuable for clocked behavior even when the surrounding installation environment changes dynamically.</p>
+            <p>A uniform synchronous update makes the field regular and easy to inspect. Sparse activity may favor event-driven scheduling, which trades that simplicity for less wasted work. The right engine follows the behavior under study; the architecture can support both by keeping state and dependencies explicit.</p>
         </section>
         <section>
-            <h2>Scalability before speed</h2>
-            <p>The WebGL prototype was optimized for conceptual scalability, not execution speed. I wanted repeated local rules, explicit region boundaries, and a model that could grow without replacing its basic vocabulary.</p>
-            <p>That is why a slow browser demonstration could still be valuable. It could answer questions such as:</p>
+            <h2>Scale begins with a repeated local rule</h2>
+            <p>The WebGL fabric optimizes conceptual scale: repeat the same local vocabulary, preserve region boundaries, and let larger structures emerge without changing the substrate.</p>
+            <p>Its working field can answer foundational questions:</p>
             <ul>
-                <li>Can a region own another region through local state?</li>
-                <li>Can configuration enter through a bounded local port?</li>
-                <li>Can the installed roles be replaced coherently?</li>
-                <li>Can the same visual model expose both circuit behavior and its configuration structure?</li>
+                <li>Can local state encode parent-child ownership?</li>
+                <li>Can a bounded port receive a complete configuration?</li>
+                <li>Can a parent replace installed roles coherently?</li>
+                <li>Can one view expose circuit behavior and configuration structure together?</li>
+                <li>Can an application create another live structure before a full language exists?</li>
             </ul>
-            <p>Chip speed and physical cell capacity enter at the next layer: RTL, synthesis, place-and-route, and hardware measurement.</p>
-            <p>Putting the fabric in WebGL made an unbuilt machine concrete enough to run, inspect, and improve before I committed its rules to silicon.</p>
-            <p>I could watch the state swap. I could see the boxes and ports. I could attempt an application before inventing its syntax. And, just as importantly, I could discover which beautiful architectural statements became awkward the moment every bit needed a place to go.</p>
+            <p>RTL, synthesis, place-and-route, and hardware measurement carry the design into chip speed, area, power, and physical routing. The browser workbench supplies the architecture they receive.</p>
+            <p>The next useful move is direct: choose one application-shaped construction, compile or hand-lower its blocks into the texture fabric, run its state changes, replace one child, and save the complete machine. That sequence converts an architectural idea into a repeatable path from browser field to silicon.</p>
         </section>
     </main>
 
@@ -162,7 +166,7 @@
         <p>A first-person history of Cartilage, from event membranes and dynamic cores to ownership trees, spatial programs, wiring, and application-laid clocks.</p>
         <p>Continue:</p>
         <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Turn the WebGL fabric laboratory into an ergonomic simulator and construction environment. Funding and contributors are welcome.</p>
+        <p>Choose a renderer or simulator package and turn the WebGL fabric laboratory into an ergonomic construction environment.</p>
         <p>Nearby:</p>
         <a href="/miscellanies/the-whole-thing-static-verilog-in-a-dynamic-world.html">The Whole Thing: Static Verilog in a Dynamic World</a>
         <p>Static circuit descriptions become a dynamic language when a spatial fabric can install, connect, own, and replace them while it runs.</p>

@@ -6,11 +6,11 @@
     <title>Hessian-Free Methods Did Not Vanish</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="An optimizer-history note about Hessian-free methods, recurrent-network training, and why second-order ideas remain relevant beside AdamW and transformer-era training.">
+    <meta name="description" content="Hessian-free optimization brings curvature into deep-network training and remains relevant beside AdamW through hybrid first- and second-order methods.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-10-24-hessian-free-methods-did-not-vanish.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Hessian-Free Methods Did Not Vanish">
-    <meta property="og:description" content="An optimizer-history note about Hessian-free methods, recurrent-network training, and why second-order ideas remain relevant beside AdamW and transformer-era training.">
+    <meta property="og:description" content="Hessian-free optimization brings curvature into deep-network training and remains relevant beside AdamW through hybrid first- and second-order methods.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-10-24-hessian-free-methods-did-not-vanish.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-10-24",
-                                "dateModified": "2026-07-09",
-                                "description": "An optimizer-history note about Hessian-free methods, recurrent-network training, and why second-order ideas remain relevant beside AdamW and transformer-era training.",
+                                "dateModified": "2026-07-28",
+                                "description": "Hessian-free optimization brings curvature into deep-network training and remains relevant beside AdamW through hybrid first- and second-order methods.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-10-24-hessian-free-methods-did-not-vanish.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Hessian-Free Methods Did Not Vanish</header>
     <address>October 24, 2023</address>
 
+
+    <section class="abstract">
+        <p>Second-order optimization still offers a powerful way to train deep networks. James Martens’s 2010 Hessian-free method used curvature information without forming the full Hessian, and work with Ilya Sutskever applied it to recurrent networks one year later.</p>
+        <p>Brian Greenforest reconnects that lineage with modern AdamW-era training and hybrid methods explored at NERSC and Lawrence Berkeley National Laboratory.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Use Curvature Without Storing the Hessian</h1>
+            <p>Hessian-vector products let an optimizer probe local curvature at the cost of gradient-like operations. Conjugate-gradient iterations then approximate a useful update inside that curved landscape.</p>
+            <p>The method can navigate directions that first-order gradients scale poorly, especially in recurrent systems with long dependencies and difficult curvature.</p>
+        </section>
+
+        <section>
+            <h1>Combine First- and Second-Order Strengths</h1>
+            <p>AdamW offers cheap adaptive steps across immense parameter sets. Hessian-free stages can add targeted curvature when the optimization reaches regions where first-order progress slows.</p>
+            <p>Optimizer researchers can revisit these combinations on current architectures, document the cost and convergence, and restore Hessian-free methods to the active large-model toolbox.</p>
+        </section>
+
+        <section>
+            <h1>Read the Modern Hessian-Free Evidence</h1>
+            <p>The linked paper brings Hessian-free optimization into a current deep-learning setting and makes its continuing technical role explicit.</p>
+            <p><a href="https://lnkd.in/gUvuya3S" target="_blank" rel="noopener">https://lnkd.in/gUvuya3S</a> &middot; <a href="https://arxiv.org/abs/2006.00719" target="_blank" rel="noopener">https://arxiv.org/abs/2006.00719</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7122652775242481664" data-linkedin-activity="7122652775242481664" data-linkedin-source="activity:7122652775242481664">
         <h2 id="linkedin-original-7122652775242481664">Originally posted on LinkedIn</h2>
@@ -111,49 +138,13 @@ https://lnkd.in/gUvuya3S</div>
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-10-24.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Hessian-Free Methods Did Not Vanish</h1>
-            <p>Hessian-free optimization is part of the history of training deep and recurrent networks. Martens' work and later work with Sutskever showed that second-order structure could be useful when ordinary gradient descent struggled with curvature and long dependencies.</p>
-            <p>Those methods did not vanish because they were conceptually wrong. They became less visible as large-scale training practice standardized around first-order methods, better initialization, normalization, hardware-friendly batches, and optimizers such as AdamW.</p>
-            <p>Second-order ideas still matter when curvature, conditioning, and stability determine whether training moves efficiently. Some later work combines those ideas with modern optimizer practice instead of treating them as separate eras.</p>
-            <p>The useful takeaway is historical continuity: transformer-era training did not erase earlier optimization work. It selected pieces that fit the data scale, hardware, and engineering constraints of the moment.</p>
-            <p><a href="https://lnkd.in/gUvuya3S" target="_blank" rel="noopener">https://lnkd.in/gUvuya3S</a></p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://lnkd.in/gUvuya3S" target="_blank" rel="noopener">https://lnkd.in/gUvuya3S</a></li>
-                <li><a href="https://arxiv.org/abs/2006.00719" target="_blank" rel="noopener">https://arxiv.org/abs/2006.00719</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-10-24-many-worlds-and-the-discrete-photon-field-fabric.html">Many-Worlds and the Discrete Photon Field Fabric</a>
-        <p>Another dated publication from October 24, 2023.</p>
-        <p>More:</p>
-        <a href="2023-10-25-the-long-mathematical-path-to-transformers.html">The Long Mathematical Path to Transformers</a>
-        <p>Another dated publication from October 25, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7122652775242481664/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Hessian-Free Methods Did Not Vanish, read:</strong></p>
+        <a href="2023-08-24-optimizer-history-around-attention-and-adamw.html">Optimizer History Around Attention and AdamW</a>
+        <p>Attention changed model architecture, and optimizer design made that architecture trainable at scale. The history runs from momentum SGD in LeNet and ImageNet through RMSProp, Adam, decoupled weight decay, and the 2017 arrival of Transformers and AdamW.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7122652775242481664/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>From Logisim and Multiplexers to LUT1-LUT6 | Cartilage</title>
-    <meta name="description" content="Cartilage chapter one: build lookup tables from a visible 2:1 multiplexer, then connect LUT1-LUT4 to Lattice iCE40 and LUT5-LUT6 to AMD/Xilinx FPGA logic.">
+    <title>Build LUT1-LUT6 From One Visible Multiplexer | Cartilage</title>
+    <meta name="description" content="Build LUT1 through LUT6 from a visible 2:1 multiplexer, then connect the same stored-choice mechanism to Lattice iCE40 and AMD/Xilinx FPGA logic.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/cartilage/logic-to-luts.html">
-    <meta property="og:title" content="From Logisim and Multiplexers to LUT1-LUT6">
-    <meta property="og:description" content="The first Cartilage chapter: a visible path from one multiplexer to the LUT4 and LUT6 logic used in real FPGA families.">
+    <meta property="og:title" content="Build LUT1-LUT6 From One Visible Multiplexer">
+    <meta property="og:description" content="See one selector grow into stored truth tables and the LUT4 and LUT6 logic used across real FPGA families.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage/logic-to-luts.html">
     <meta property="article:published_time" content="2026-07-22">
@@ -22,20 +22,20 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="From Logisim and Multiplexers to LUT1-LUT6 - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Build LUT1-LUT6 from one visible multiplexer - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage/logic-to-luts.png">
-    <meta name="twitter:image:alt" content="From Logisim and Multiplexers to LUT1-LUT6 - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Build LUT1-LUT6 from one visible multiplexer - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "From Logisim and Multiplexers to LUT1-LUT6",
+            "headline": "Build LUT1-LUT6 From One Visible Multiplexer",
             "datePublished": "2026-07-22",
-            "dateModified": "2026-07-23",
-            "description": "A visible construction of lookup tables from a 2:1 multiplexer, connected to LUT4 and LUT6 FPGA logic.",
+            "dateModified": "2026-07-28",
+            "description": "A visible construction of LUT1 through LUT6 from a 2:1 multiplexer, connected to Lattice and AMD/Xilinx FPGA logic.",
             "image": "https://greenforest.io/cartilage/logic-to-luts.svg",
             "mainEntityOfPage": "https://greenforest.io/cartilage/logic-to-luts.html",
             "isPartOf": {
@@ -53,104 +53,104 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">From Logisim And Multiplexers To LUT1-LUT6</h1></header>
+    <header><h1 class="page-title">Build LUT1-LUT6 From One Visible Multiplexer</h1></header>
     <address>July 22, 2026</address>
 
     <section class="abstract">
         <p><span class="eyebrow">Cartilage · Chapter 1</span></p>
-        <p>A lookup table is not an opaque FPGA word. It is stored choices plus a selector.</p>
-        <p>This chapter starts with a visible 2:1 multiplexer, turns it into LUT1, then grows the same idea through LUT2, LUT3, LUT4, LUT5, and LUT6. That is the right first step toward Cartilage: understand the local decision primitive before asking how regions own, route, and replace larger computations.</p>
-        <p><a class="cta-link" href="/cartilage/">See the complete Cartilage learning path</a></p>
+        <p>A lookup table becomes completely legible when you see it as stored choices behind a selector.</p>
+        <p>Start with one visible 2:1 multiplexer, turn it into LUT1, then grow the same mechanism through LUT2, LUT3, LUT4, LUT5, and LUT6. That local decision primitive becomes the foundation for Cartilage regions that own, route, and replace larger computations.</p>
+        <p><a class="cta-link" href="/cartilage/">Open The Complete Cartilage Learning Path</a></p>
     </section>
 
     <figure class="concept-diagram">
         <a href="logic-to-luts.svg">
             <img src="logic-to-luts.svg" width="1200" height="675" alt="Diagram building FPGA lookup tables from a two-input multiplexer and stored truth-table entries">
         </a>
-        <figcaption>Original Greenforest I/O diagram. The device-family facts below link to the official Lattice iCE40 and AMD configurable-logic documentation.</figcaption>
+        <figcaption>Original Greenforest I/O diagram: the selector tree grows from one MUX into FPGA lookup tables, with official Lattice iCE40 and AMD device documentation anchoring each family-specific mechanism.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h2>Begin Where Every Wire Is Visible</h2>
-            <p>Logisim is useful here because it refuses to make the circuit disappear. A wire carries a value. A component transforms it. A clocked component holds state. You can single-step the machine and see which bit moved.</p>
-            <p>The public <a href="/serial_multiplier/">bubbles-free serial multiplier</a> uses legacy Logisim 2.7.1 for exactly that reason: the streaming schedule and repeated serial-adder structure remain inspectable. The actively maintained <a href="https://github.com/logisim-evolution/logisim-evolution" target="_blank" rel="noopener">Logisim-evolution project</a> is a current cross-platform tool for designing and simulating digital logic. The lesson does not depend on one release. It depends on keeping the circuit concrete.</p>
+            <h2>Keep Every Wire, Bit, And State Transition Visible</h2>
+            <p>Logisim keeps the circuit in view. A wire carries a value, a component transforms it, and a clocked component retains state. Single-step control reveals exactly which bit moved.</p>
+            <p>The public <a href="/serial_multiplier/">bubbles-free serial multiplier</a> uses legacy Logisim 2.7.1 so its streaming schedule and repeated serial-adder structure remain directly inspectable. The actively maintained <a href="https://github.com/logisim-evolution/logisim-evolution" target="_blank" rel="noopener">Logisim-evolution project</a> provides a current cross-platform environment for designing and simulating digital logic. Both routes keep the circuit concrete.</p>
         </section>
 
         <section>
-            <h2>One Multiplexer Is One Address Bit</h2>
-            <p>A 2:1 multiplexer has two data inputs, one select input, and one output. The select bit decides which data input reaches the output:</p>
+            <h2>Turn One Multiplexer Into One Address Bit</h2>
+            <p>A 2:1 multiplexer accepts two data inputs and one select input. The select bit chooses which data input reaches the output:</p>
             <p class="formula">Y = S ? D1 : D0</p>
-            <p>Now stop treating <code>D0</code> and <code>D1</code> as live signals. Store two configuration bits there instead. The select input becomes an address. That is LUT1: one input chooses one of two stored truth-table values.</p>
-            <p>If the two stored bits are <code>1, 0</code>, the table is an inverter. If they are <code>0, 1</code>, it is a buffer. <code>0, 0</code> and <code>1, 1</code> are constant zero and constant one. The same selector implements every Boolean function of one input because the configuration supplies the function's complete truth table.</p>
+            <p>Store two configuration bits at <code>D0</code> and <code>D1</code>, then use the select input as an address. LUT1 lets one input choose one of two stored truth-table values.</p>
+            <p>The stored pair <code>1, 0</code> implements an inverter, while <code>0, 1</code> implements a buffer. <code>0, 0</code> and <code>1, 1</code> implement constant zero and constant one. Those four configurations cover every Boolean function of one input.</p>
             <div class="reader-note">
-                <p><strong>Hands-on companion:</strong> the <a href="/physical-mux-tiles/">physical MUX-tile alphabet</a> turns selector inputs, constants, routes, intersections, orientation, and composition into fabricated PCB parts a learner can manipulate before moving into stored LUT bits.</p>
-                <p>The photographs establish real pieces and palm-scale assembly. The project does not yet claim powered operation or classroom validation.</p>
+                <p><strong>Hands-on companion:</strong> the <a href="/physical-mux-tiles/">physical MUX-tile alphabet</a> turns selector inputs, constants, routes, intersections, orientation, and composition into fabricated PCB parts that learners can manipulate before moving into stored LUT bits.</p>
+                <p>The published photographs document real pieces and palm-scale assembly. Powered operation and classroom study define the next physical program.</p>
             </div>
         </section>
 
         <section>
-            <h2>LUT2 And LUT3 Are The Same Machine Grown Outward</h2>
-            <p>A LUT with <code>N</code> inputs stores <code>2^N</code> output bits. The input vector is an address into those stored choices.</p>
+            <h2>Grow The Same Selector Tree Through LUT6</h2>
+            <p>A LUT with <code>N</code> inputs stores <code>2^N</code> output bits. Its input vector addresses one stored choice.</p>
             <div class="article-fact-table" role="table" aria-label="Lookup table sizes">
                 <div class="article-fact-row" role="row">
                     <div class="article-fact-key" role="cell">LUT1</div>
-                    <div role="cell">2 stored bits; every Boolean function of 1 input</div>
+                    <div role="cell">2 stored bits implement every Boolean function of 1 input</div>
                 </div>
                 <div class="article-fact-row" role="row">
                     <div class="article-fact-key" role="cell">LUT2</div>
-                    <div role="cell">4 stored bits; every Boolean function of 2 inputs</div>
+                    <div role="cell">4 stored bits implement every Boolean function of 2 inputs</div>
                 </div>
                 <div class="article-fact-row" role="row">
                     <div class="article-fact-key" role="cell">LUT3</div>
-                    <div role="cell">8 stored bits; every Boolean function of 3 inputs</div>
+                    <div role="cell">8 stored bits implement every Boolean function of 3 inputs</div>
                 </div>
                 <div class="article-fact-row" role="row">
                     <div class="article-fact-key" role="cell">LUT4</div>
-                    <div role="cell">16 stored bits; every Boolean function of 4 inputs</div>
+                    <div role="cell">16 stored bits implement every Boolean function of 4 inputs</div>
                 </div>
                 <div class="article-fact-row" role="row">
                     <div class="article-fact-key" role="cell">LUT5</div>
-                    <div role="cell">32 stored bits; every Boolean function of 5 inputs</div>
+                    <div role="cell">32 stored bits implement every Boolean function of 5 inputs</div>
                 </div>
                 <div class="article-fact-row" role="row">
                     <div class="article-fact-key" role="cell">LUT6</div>
-                    <div role="cell">64 stored bits; every Boolean function of 6 inputs</div>
+                    <div role="cell">64 stored bits implement every Boolean function of 6 inputs</div>
                 </div>
             </div>
-            <p>You can draw LUT2 as a two-level multiplexer tree: one select bit chooses within each pair, and the second chooses between the pair results. LUT3 adds another level. The truth-table definition is stable even when a particular FPGA implements, packs, or shares the physical resources differently.</p>
-            <p>The 2020 article <a href="/mux-algebra.html">MUX Algebra</a> works through this same LUT2 tree as nested conditional notation, enumerates all 16 two-input Boolean functions, and gives a compact four-bit source-pointer encoding.</p>
+            <p>Draw LUT2 as a two-level multiplexer tree: one select bit chooses within each pair, and the second chooses between the pair results. LUT3 adds another level. Each FPGA family can pack or share its physical resources differently while preserving the truth-table definition.</p>
+            <p>The 2020 article <a href="/mux-algebra.html">MUX Algebra</a> expresses this LUT2 tree as nested conditional notation, enumerates all 16 two-input Boolean functions, and defines a compact four-bit source-pointer encoding.</p>
         </section>
 
         <section>
-            <h2>LUT4 Is A Real iCE40 Primitive</h2>
-            <p>Lattice's iCE40 technology library exposes <code>SB_LUT4</code>. Four inputs address a 16-bit <code>LUT_INIT</code> value, and the selected bit becomes the output. The <a href="https://www.latticesemi.com/view_document?document_id=52206" target="_blank" rel="noopener">official iCE40 Technology Library</a> documents both the primitive and the input-to-<code>LUT_INIT</code> mapping.</p>
-            <p>This is the useful bridge from the teaching diagram to a device: LUT4 is not merely a metaphor for logic synthesis. It is a named primitive with a configuration word and an exact address convention.</p>
+            <h2>Meet LUT4 As A Named iCE40 Primitive</h2>
+            <p>Lattice’s iCE40 technology library exposes <code>SB_LUT4</code>. Four inputs address a 16-bit <code>LUT_INIT</code> value, and the selected bit drives the output. The <a href="https://www.latticesemi.com/view_document?document_id=52206" target="_blank" rel="noopener">official iCE40 Technology Library</a> documents both the primitive and the input-to-<code>LUT_INIT</code> mapping.</p>
+            <p>The teaching diagram therefore connects directly to a named device primitive with a configuration word and an exact address convention.</p>
         </section>
 
         <section>
-            <h2>LUT5 And LUT6 Are Real AMD/Xilinx Slice Modes</h2>
-            <p>AMD's 7 Series and UltraScale configurable-logic documentation describes a 6-input LUT that can operate as one LUT6 output or as two LUT5 outputs with shared inputs. The current references are the <a href="https://docs.amd.com/r/en-US/ug474_7Series_CLB/CLB-Overview" target="_blank" rel="noopener">7 Series CLB overview (UG474)</a> and the <a href="https://docs.amd.com/r/en-US/ug574-ultrascale-clb/CLB-Overview" target="_blank" rel="noopener">UltraScale CLB overview (UG574)</a>.</p>
-            <p>The lesson is not that every FPGA is a scaled version of iCE40. Packing, carry chains, storage, distributed RAM, routing, and slice organization differ. The lesson is that a small truth table plus physical routing is a recurring unit of real reconfigurable hardware.</p>
+            <h2>Use LUT5 And LUT6 Inside AMD/Xilinx Slices</h2>
+            <p>AMD’s 7 Series and UltraScale configurable-logic documentation describes a 6-input LUT that operates as one LUT6 output or as two LUT5 outputs with shared inputs. The <a href="https://docs.amd.com/r/en-US/ug474_7Series_CLB/CLB-Overview" target="_blank" rel="noopener">7 Series CLB overview (UG474)</a> and <a href="https://docs.amd.com/r/en-US/ug574-ultrascale-clb/CLB-Overview" target="_blank" rel="noopener">UltraScale CLB overview (UG574)</a> place those modes inside complete slices.</p>
+            <p>FPGA families from iCE40 onward combine truth tables with distinct packing, carry chains, storage, distributed RAM, routing, and slice organization. Across those differences, a compact stored truth table plus physical routing remains a recurring unit of reconfigurable hardware.</p>
         </section>
 
         <section>
-            <h2>Why This Is Only The Substrate</h2>
-            <p>Cartilage must not be flattened into “a MUX fabric.” A lookup table explains how local Boolean choice can be configured. Cartilage adds a different architectural question: how a spatial region owns its boundary, receives a replacement image through a local reconfiguration port, composes a daughter region, and keeps configuration transport visible inside the same fabric.</p>
-            <p>That is why the learning path continues through physical gain, output drive, clock and event distribution, state machines, timing closure, metal wires, nested components, and finally runtime creation of an adjacent daughter region. The LUT is the first tile of the explanation, not the whole architecture.</p>
+            <h2>Let The LUT Open The Larger Architecture</h2>
+            <p>A lookup table explains configurable local Boolean choice. Cartilage extends that primitive into a spatial region that owns its boundary, receives a replacement image through a local reconfiguration port, composes a daughter region, and carries configuration transport inside the same fabric.</p>
+            <p>The learning path now moves through physical gain, output drive, clock and event distribution, state machines, timing closure, metal wires, nested components, and runtime creation of an adjacent daughter region. The LUT supplies the first tile of that complete architecture.</p>
         </section>
 
         <section>
-            <h2>Use The Chapter</h2>
+            <h2>Build The Selector Tree Yourself</h2>
             <ol>
-                <li>Draw one 2:1 multiplexer in Logisim and verify both select states.</li>
-                <li>Replace its data inputs with two constants and configure inverter, buffer, zero, and one.</li>
-                <li>Build LUT2 from three multiplexers and four stored bits.</li>
-                <li>Encode AND, OR, XOR, and a 2:1 MUX as four-bit LUT2 truth tables.</li>
-                <li>Compare your address order with the official <code>SB_LUT4</code> <code>LUT_INIT</code> table before assuming bit numbering.</li>
+                <li>Place one 2:1 multiplexer in Logisim and drive both select states.</li>
+                <li>Tie its data inputs to two constants, then configure inverter, buffer, zero, and one.</li>
+                <li>Assemble LUT2 from three multiplexers and four stored bits.</li>
+                <li>Program AND, OR, XOR, and a 2:1 MUX as four-bit LUT2 truth tables.</li>
+                <li>Check your address order against the official <code>SB_LUT4</code> <code>LUT_INIT</code> table before assigning bit numbers.</li>
             </ol>
             <div class="reader-note">
-                <p>Want to carry these Logisim exercises into a conventional FPGA? <a href="/fpga-verilog/fpga-learning-roadmap.html">Continue from visible logic into Verilog, simulation, synthesis, and a programmed board</a>; return to Cartilage when you are ready to make physical distribution and regional ownership explicit.</p>
+                <p><a href="/fpga-verilog/fpga-learning-roadmap.html">Carry the visible logic into Verilog, simulation, synthesis, and a programmed board</a>, then use Cartilage to make physical distribution and regional ownership explicit.</p>
             </div>
         </section>
     </main>
@@ -158,13 +158,13 @@
     <nav class="article-links" aria-label="Continue the Cartilage learning path">
         <p>Next:</p>
         <a href="cmos-gain-and-output-drivers.html">CMOS Inverters As Amplifiers, Buffers, And Output Drivers</a>
-        <p>Why a logical value needs analog gain, restoration, fanout, and a physical path before it can become a reliable spatial machine.</p>
-        <p>More:</p>
+        <p>Follow a logical value into analog gain, restoration, fanout, and the physical path that makes a spatial machine reliable.</p>
+        <p>Return to the complete sequence:</p>
         <a href="/cartilage/">The Complete Cartilage Learning Path</a>
-        <p>Return to the full sequence and its evidence map.</p>
-        <p>Build next:</p>
+        <p>See how every later chapter carries this selector into distribution, state, timing, routing, and ownership.</p>
+        <p>Build the workstation:</p>
         <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help carry the path from visible MUXes and LUTs into a simulator where learners can build and run Cartilage circuits. Funding and contributors are welcome.</p>
+        <p>Choose a concrete simulator or lesson package that lets learners build and run Cartilage circuits.</p>
     </nav>
 </body>
 

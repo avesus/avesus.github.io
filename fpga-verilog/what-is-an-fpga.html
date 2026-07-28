@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>What Is An FPGA? ASICs, Bitstreams, Logic, And State</title>
-    <meta name="description" content="FPGA fundamentals without the usual category mistakes: ASIC fabrication, field configuration, bitstreams, concurrent Boolean logic, clocks, and D flip-flop state.">
+    <meta name="description" content="See how a factory builds an FPGA fabric, a bitstream selects its LUTs and routes, and flip-flops carry concurrent Boolean logic through time.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/fpga-verilog/what-is-an-fpga.html">
     <link rel="icon" href="/favicon.ico">
     <meta property="og:title" content="What Is An FPGA? Logic, Bitstreams, And State">
-    <meta property="og:description" content="Chapter 1: distinguish fixed fabrication from field configuration, then connect Boolean logic to clocked state.">
+    <meta property="og:description" content="A factory builds the fabric; a bitstream selects its functions and routes; flip-flops turn those choices into a machine with state.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/fpga-verilog/what-is-an-fpga.html">
     <meta property="article:published_time" content="2026-07-23">
@@ -35,8 +35,8 @@
             "@type": "TechArticle",
             "headline": "What Is An FPGA? ASICs, Bitstreams, Logic, And State",
             "datePublished": "2026-07-23",
-            "dateModified": "2026-07-23",
-            "description": "A first-principles explanation of ASIC fabrication, field-programmable routing and logic, bitstreams, concurrent Boolean computation, clocks, and state.",
+            "dateModified": "2026-07-28",
+            "description": "Follow ASIC geometry and FPGA configuration into bitstreams, concurrent Boolean logic, clocked flip-flops, and persistent state.",
             "image": "https://greenforest.io/fpga-verilog/diagrams/hardwired-and-field-programmable.svg",
             "mainEntityOfPage": "https://greenforest.io/fpga-verilog/what-is-an-fpga.html",
             "isPartOf": {"@type": "CollectionPage", "name": "FPGA And Verilog From First Principles", "url": "https://greenforest.io/fpga-verilog/"},
@@ -53,86 +53,86 @@
     <!-- Source ownership: original curriculum paragraphs 4-18. -->
     <section class="abstract">
         <p><span class="eyebrow">FPGA + Verilog · Chapter 1 of 7</span></p>
-        <p class="lead">An FPGA is a manufactured chip whose existing logic roles and routes can be configured after manufacture.</p>
-        <p>That definition contains two different acts: the factory fabricates transistors and metal; a later configuration selects what the programmable resources will do. Verilog can describe hardware for both an ASIC and an FPGA, but the physical commitment at the end of each flow is very different.</p>
-        <p><a class="cta-link" href="/fpga-verilog/">See the complete seven-chapter course</a></p>
+        <p class="lead">A factory builds the programmable fabric; a bitstream later chooses its logic functions, routes, I/O roles, and stored state.</p>
+        <p>Those two acts define the FPGA. Fabrication creates transistors and metal. Configuration connects the existing resources into a working circuit. Verilog can describe both ASIC and FPGA hardware, while each flow makes a different physical commitment.</p>
+        <p><a class="cta-link" href="/fpga-verilog/">Follow the complete logic-to-pins course</a></p>
     </section>
 
     <figure class="concept-diagram">
         <a href="diagrams/hardwired-and-field-programmable.svg">
             <img src="diagrams/hardwired-and-field-programmable.svg" width="1200" height="675" loading="eager" decoding="async" alt="Comparison of an ASIC flow that commits mask geometry and an FPGA flow that creates a reloadable configuration bitstream">
         </a>
-        <figcaption>Original Greenforest I/O diagram. “Hard-wired in the fab; soft-wired in the field” is a useful mnemonic, provided we remember that the FPGA’s configurable circuitry is itself physically fabricated.</figcaption>
+        <figcaption>The ASIC flow commits mask geometry; the FPGA flow produces a reloadable bitstream for circuitry that the factory already built.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h2>Begin With The Silicon, Not The Acronym</h2>
-            <p>Most modern electronic functions are implemented by integrated circuits cut from processed semiconductor wafers. A fabrication plant—the fab—forms devices and patterned interconnect through repeated deposition, lithography, etching, implantation, and related process steps. Those physical structures do not rearrange themselves when the finished chip is powered.</p>
-            <p>An <strong>integrated circuit</strong> is the broad category. An <strong>application-specific integrated circuit</strong>, or ASIC, is designed for a particular application or family of applications. A microprocessor or GPU is an integrated circuit, but calling every chip an ASIC erases useful distinctions. An FPGA is also an integrated circuit. What makes it unusual is not a different substance; it is the configurable architecture built into the silicon.</p>
-            <p>Ross Freeman, a Xilinx cofounder, is credited with the FPGA concept, and the Xilinx XC2064 arrived in 1985 as the first commercial FPGA. “Field-programmable” means that a user can choose the device’s configured function after manufacture—at a lab bench, in a product, or even while a larger system is deployed.</p>
+            <h2>The Fab Builds the Physical Possibilities</h2>
+            <p>A fabrication plant forms devices and patterned interconnect on semiconductor wafers through deposition, lithography, etching, implantation, and related process steps. The finished geometry fixes where transistors and metal exist.</p>
+            <p><strong>Integrated circuit</strong> names the broad category. An <strong>application-specific integrated circuit</strong>, or ASIC, targets a particular application or family. Microprocessors, GPUs, and FPGAs also belong to the integrated-circuit family. The FPGA distinguishes itself through an architecture that invites later configuration.</p>
+            <p>Industry history credits Xilinx cofounder Ross Freeman with the FPGA concept, and Xilinx launched the XC2064 in 1985 as the first commercial FPGA. “Field-programmable” gives the user control over the configured function after manufacture—at a lab bench, inside a product, or during deployment.</p>
         </section>
 
         <section>
-            <h2>Hard-Wired In The Fab</h2>
-            <p>The original manuscript’s phrase is worth keeping: <strong>ASICs are hard-wired in the fab.</strong> For a digital ASIC, an engineer may begin with Verilog or VHDL, but the path does not jump directly from source code to transistors. Synthesis produces a technology-mapped netlist; physical design establishes the floorplan and power network, places cells, builds clock trees, routes signals, and closes timing and physical-verification requirements. Signoff data—often GDSII or OASIS—describes geometry used to make masks for the selected manufacturing process.</p>
-            <p>Three terms must stay separate:</p>
+            <h2>The ASIC Flow Commits Geometry</h2>
+            <p><strong>ASICs become hard-wired in the fab.</strong> Verilog or VHDL can start a digital ASIC flow. Synthesis creates a technology-mapped netlist. Physical design establishes the floorplan and power network, places cells, builds clock trees, routes signals, and closes timing and physical-verification requirements. GDSII or OASIS signoff data describes geometry for masks in the selected manufacturing process.</p>
+            <p>Three distinct ingredients drive that flow:</p>
             <div class="article-fact-table" role="table" aria-label="ASIC implementation vocabulary">
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Process design kit</div><div role="cell">Foundry-specific design rules, device models, verification decks, and related process information</div></div>
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Standard-cell library</div><div role="cell">Characterized logic cells—such as gates, multiplexers, and flip-flops—made for that process</div></div>
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Physical implementation</div><div role="cell">The placement, clocking, routing, extraction, timing, and signoff work that turns the logical netlist into manufacturable geometry</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Process design kit</div><div role="cell">Supplies foundry-specific design rules, device models, verification decks, and related process information</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Standard-cell library</div><div role="cell">Supplies characterized gates, multiplexers, flip-flops, and other logic cells for that process</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Physical implementation</div><div role="cell">Places, clocks, routes, extracts, times, and signs off the logical netlist as manufacturable geometry</div></div>
             </div>
-            <p>Modern process access varies by foundry, node, program, and agreement; it is not governed by one universal “everything below 130 nm is secret” rule. The open <a href="https://skywater-pdk.readthedocs.io/" target="_blank" rel="noopener">SkyWater SKY130 PDK documentation</a> is the public 130 nm reference the manuscript was reaching for. A PDK is not itself a standard-cell library, and an educational shuttle program is not a promise of one free tapeout on a fixed annual schedule.</p>
+            <p>Foundry, node, program, and agreement determine process access. The public <a href="https://skywater-pdk.readthedocs.io/" target="_blank" rel="noopener">SkyWater SKY130 PDK documentation</a> supplies a concrete 130 nm reference. A PDK provides process information; a standard-cell library provides characterized logic cells; a shuttle program organizes shared manufacturing access.</p>
         </section>
 
         <section>
-            <h2>Soft-Wired In The Field</h2>
-            <p>The companion phrase is also worth keeping: <strong>FPGAs are soft-wired in the field.</strong> Verilog or VHDL again describes desired hardware. Synthesis maps that design to the FPGA family’s available primitives; place-and-route selects particular sites and interconnect; a bitstream records the configuration choices.</p>
-            <p>Loading a new bitstream does not manufacture new transistors. It changes values held in configuration memory or related programmable elements. Those values control lookup-table contents, routing switches, I/O modes, clock resources, embedded memories, arithmetic blocks, and other features already built into the device.</p>
-            <p>That distinction explains the FPGA’s experimental power. An ASIC mask commitment is expensive and slow to reverse. An FPGA can usually receive another configuration many times, often in milliseconds to seconds depending on device, image size, and configuration interface. Some systems let one FPGA load another. The site’s <a href="/ethernet-udp-ice40-reprogrammer.html">Ethernet-to-adjacent-iCE40 project</a> is a concrete example: network data is received, stored, and used to drive another FPGA’s configuration pins.</p>
+            <h2>The FPGA Flow Selects Existing Resources</h2>
+            <p><strong>FPGAs become soft-wired in the field.</strong> Synthesis maps Verilog or VHDL onto primitives in one FPGA family. Place-and-route chooses physical sites and interconnect. The resulting bitstream records those choices.</p>
+            <p>Configuration memory controls LUT contents, routing switches, I/O modes, clock resources, embedded memories, arithmetic blocks, and other features that already occupy the silicon. A new bitstream reconnects those resources without manufacturing another chip.</p>
+            <p>That reloadability gives an FPGA extraordinary experimental range. Many devices accept new configurations in milliseconds to seconds, depending on image size and interface. One FPGA can even configure another. The <a href="/ethernet-udp-ice40-reprogrammer.html">Ethernet-to-adjacent-iCE40 project</a> receives network data, stores it, and drives a neighboring FPGA's configuration pins.</p>
         </section>
 
         <section>
-            <h2>The Circuit Is Many Boolean Functions At Once</h2>
-            <p>A software developer often meets a machine as a stream of instructions executed by one or more processor cores. An FPGA invites another view: a spatial network of Boolean functions, storage elements, memories, arithmetic blocks, and wires that operate concurrently.</p>
-            <p>The manuscript described a “forest” of Boolean-function trees whose branches must be shared. That image captures something important. A useful digital design cannot expand every expression into an independent truth table of all possible inputs; the resource count would grow exponentially. Real designs name and reuse intermediate results, register boundaries, buses, memory, hierarchy, and specialized blocks. Synthesis turns that shared logical graph into resources the target device can actually supply.</p>
-            <p>Each combinational output is still only a value—a bit or a vector of bits—computed from current inputs and current state. To make a machine that unfolds through time, the design needs storage.</p>
+            <h2>A Spatial Graph Computes Many Functions at Once</h2>
+            <p>A processor often presents computation as an instruction stream. An FPGA presents a spatial network of Boolean functions, storage elements, memories, arithmetic blocks, and wires that operate concurrently.</p>
+            <p>A forest of Boolean trees captures the structure. Shared branches prevent exponential duplication: designs reuse intermediate results, register boundaries, buses, memory, hierarchy, and specialized blocks. Synthesis maps that shared graph onto resources that the selected device supplies.</p>
+            <p>Combinational logic produces bits and vectors from current inputs and state. Flip-flops let those values persist and drive the following cycle.</p>
         </section>
 
         <section id="a-d-flip-flop-separates-now-from-next">
-            <h2>A D Flip-Flop Separates Now From Next</h2>
-            <p>A positive-edge-triggered D flip-flop samples the value on <code>D</code> when its clock makes the specified transition, then holds that sampled value on <code>Q</code> until a later active edge or control event. That behavioral contract is the portable idea. A particular transistor implementation may use latches, transmission gates, multiplexers, or other structures, so “every D flip-flop is an internal double buffer” is too specific to serve as the definition.</p>
-            <p>For synchronous design, the clean mental model is:</p>
+            <h2>The D Flip-Flop Separates Current State From Next State</h2>
+            <p>A positive-edge-triggered D flip-flop samples <code>D</code> at the active clock edge and holds that value on <code>Q</code> until the next active edge or control event. Device designers may realize that behavior with latches, transmission gates, multiplexers, or other transistor structures.</p>
+            <p>Synchronous design follows one clean sequence:</p>
             <ol>
-                <li>Current register outputs and external inputs feed combinational logic.</li>
-                <li>The combinational network computes candidate next values.</li>
-                <li>At the active clock edge, receiving flip-flops capture those values.</li>
-                <li>The newly stored values become current state for the following cycle.</li>
+                <li>Register outputs and external inputs enter the combinational network.</li>
+                <li>The network calculates candidate next values.</li>
+                <li>Receiving flip-flops capture those candidates at the active clock edge.</li>
+                <li>The captured values drive the following cycle as current state.</li>
             </ol>
-            <p>This is the “old value / new value” insight in the manuscript, made precise. The old state remains observable before the edge; the next-state equations are evaluated from it; the edge commits the next state. A nonblocking assignment in clocked Verilog is designed to express that pattern.</p>
+            <p>Current state remains visible before the edge. Combinational equations calculate candidate next state from it. The edge commits that candidate. A nonblocking assignment in clocked Verilog expresses the same old-value/new-value sequence.</p>
         </section>
 
         <section>
-            <h2>“Massively Parallel Reactive Programming” Is A Bridge</h2>
-            <p>Calling FPGA work <em>massively parallel reactive programming</em> can help a software developer cross the first conceptual gap. Many hardware processes respond to input and state changes, and physically distinct resources can operate during the same clock interval. A processor generally time-multiplexes a smaller number of execution units among many software operations.</p>
-            <p>But the analogy must not become a false limit. Modern CPUs contain multiple cores, pipelines, SIMD units, caches, accelerators, and asynchronous I/O; they do not literally move only one value at a time. Reactive software is neither impossible nor inherently impractical. The FPGA advantage appears when the desired computation benefits from deterministic spatial pipelines, unusual word widths, many simultaneous I/O lanes, cycle-level timing, or a datapath that does not fit a processor’s instruction machinery.</p>
-            <p>Likewise, Verilog is not simply a software reactive framework. Modules and processes exist concurrently, continuous assignments react to their dependencies, and statements inside a procedural block follow the language’s execution semantics. The next chapters replace the analogy with the actual fabric.</p>
+            <h2>Massively Parallel Reactive Programming Opens the Door</h2>
+            <p><em>Massively parallel reactive programming</em> gives software developers a useful first handle. Physically distinct resources respond to inputs and state during the same clock interval, while a processor time-multiplexes a smaller set of execution units across many operations.</p>
+            <p>Modern CPUs also contain cores, pipelines, SIMD units, caches, accelerators, and asynchronous I/O. FPGA strength emerges when a computation rewards deterministic spatial pipelines, unusual word widths, many simultaneous I/O lanes, cycle-level timing, or a datapath outside a processor's instruction machinery.</p>
+            <p>Verilog modules and processes exist concurrently. Continuous assignments react to their dependencies. Statements inside each procedural block follow the language's execution semantics. Chapter 2 now places that model inside the LUT, flip-flop, and routing fabric.</p>
         </section>
 
         <section class="reader-note">
-            <h2>Keep These Two Sentences</h2>
-            <p><strong>ASIC:</strong> the physical design ultimately commits device and interconnect geometry for fabrication.</p>
-            <p><strong>FPGA:</strong> the physical fabric already exists, and the bitstream selects functions and routes within that fabric.</p>
+            <h2>Carry Two Distinctions Forward</h2>
+            <p><strong>ASIC:</strong> physical design commits device and interconnect geometry for fabrication.</p>
+            <p><strong>FPGA:</strong> the factory supplies the physical fabric, and the bitstream selects functions and routes inside it.</p>
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue the FPGA and Verilog course">
         <p>Next:</p>
         <a href="fpga-architecture-luts-flip-flops-routing.html">Chapter 2: Inside An FPGA</a>
-        <p>Zoom from the two-dimensional logic array into local routing, lookup tables, flip-flops, and the boundaries of vendor terminology.</p>
+        <p>Zoom into the LUT, flip-flop, switchbox, local route, clock network, memory, DSP, and I/O resources that make configuration useful.</p>
         <p>Course:</p>
         <a href="/fpga-verilog/">FPGA And Verilog From First Principles</a>
-        <p>Return to the complete seven-chapter path.</p>
+        <p>Return to the seven-chapter path from Boolean logic to a configured physical board.</p>
     </nav>
 </body>
 

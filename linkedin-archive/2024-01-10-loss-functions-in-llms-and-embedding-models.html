@@ -6,11 +6,11 @@
     <title>Loss Functions in LLMs and Embedding Models</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="The choice of loss function is a significant difference between training a generative language model (LLM - Language Model) and training a vector search...">
+    <meta name="description" content="Generative language models optimize token likelihood, while embedding models optimize semantic distance, relevance, ranking, and retrieval geometry.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2024-01-10-loss-functions-in-llms-and-embedding-models.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Loss Functions in LLMs and Embedding Models">
-    <meta property="og:description" content="The choice of loss function is a significant difference between training a generative language model (LLM - Language Model) and training a vector search...">
+    <meta property="og:description" content="Generative language models optimize token likelihood, while embedding models optimize semantic distance, relevance, ranking, and retrieval geometry.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2024-01-10-loss-functions-in-llms-and-embedding-models.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2024-01-10",
-                                "dateModified": "2026-07-09",
-                                "description": "The choice of loss function is a significant difference between training a generative language model (LLM - Language Model) and training a vector search...",
+                                "dateModified": "2026-07-28",
+                                "description": "Generative language models optimize token likelihood, while embedding models optimize semantic distance, relevance, ranking, and retrieval geometry.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2024-01-10-loss-functions-in-llms-and-embedding-models.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,33 @@
 <body>
     <header>Loss Functions in LLMs and Embedding Models</header>
     <address>January 10, 2024</address>
+
+
+    <section class="abstract">
+        <p>Loss functions give generative and retrieval models different mathematical jobs. A language model learns which token should follow a context; an embedding model learns which documents should occupy nearby positions for a query.</p>
+        <p>That distinction defines the two engines inside retrieval-augmented generation.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Generative Loss Learns Sequence Probability</h1>
+            <p>Maximum-likelihood training typically uses token-level cross-entropy. The model raises the probability of each observed next token given the preceding context, then aggregates that objective across sequences.</p>
+            <p>The resulting distribution supports generation, scoring, and conditional continuation. It does not automatically create a retrieval geometry.</p>
+        </section>
+
+        <section>
+            <h1>Embedding Loss Creates Searchable Relationships</h1>
+            <p>Contrastive loss pulls related pairs together and pushes unrelated pairs apart. Triplet loss compares an anchor with one positive and one negative example, while ranking losses directly reward relevant documents above irrelevant ones.</p>
+            <p>Together these objectives create a vector space for semantic search. RAG builders can choose the loss around the retrieval behavior they need and evaluate it separately from the generator.</p>
+        </section>
+
+        <section>
+            <h1>Run Loss Functions in LLMs and Embedding Models in a Four-Layer Transformer</h1>
+            <p>The complete training run connects this mathematical argument to executable code, data flow, and a working small model.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7150963925310750721" data-linkedin-activity="7150963925310750721" data-linkedin-source="activity:7150963925310750721">
@@ -135,56 +162,13 @@ This is in contrast to generative language models, where the focus is on generat
         <p class="linkedin-original-media-note"><strong>Media source note:</strong> The selected group post is guest-gated. This is the authentic attached image from Brian Greenforest’s public twin post, published 10.959 seconds earlier with the same full text.</p>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2024-01-10.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Original Post</h1>
-            <p>The choice of loss function is a significant difference between training a generative language model (LLM - Language Model) and training a vector search embedding model, like the one used in the &quot;Retrieve&quot; phase of the RAG architecture.</p>
-            <p>In the case of generative language models, the objective is often to maximize the likelihood of generating the next token in a sequence, given the context. This is typically done using maximum likelihood estimation (MLE) or related objectives.</p>
-            <p>On the other hand, for vector search embedding models designed for information retrieval tasks, the loss function is tailored to encourage the model to learn representations that place similar documents closer together in the vector space. This is crucial for efficient retrieval during the retrieval phase.</p>
-            <p>Commonly used loss functions include:</p>
-            <p>* Contrastive Loss:<br>
-                This loss function encourages similar documents to have similar representations and dissimilar documents to have dissimilar representations. It often involves pulling positive pairs (similar documents) closer together in the embedding space while pushing negative pairs (dissimilar documents) apart.</p>
-            <p>* Triplet Loss:<br>
-                Triplet loss is another popular choice. It involves selecting a triplet of examples: an anchor (a query or prompt), a positive example (a relevant document), and a negative example (an irrelevant document). The model is then trained to minimize the distance between the anchor and the positive example while maximizing the distance between the anchor and the negative example.</p>
-            <p>* Ranking-based Losses:<br>
-                Various ranking-based losses are used to explicitly capture the notion of relevance. These losses penalize models when the rank order of relevant documents is lower than that of irrelevant documents.</p>
-            <p>These loss functions guide the training process to learn embeddings that capture semantic similarity or relevance between documents. The ultimate goal is to create a vector space where similar documents are close together, facilitating efficient retrieval during the subsequent information retrieval phase.</p>
-            <p>This is in contrast to generative language models, where the focus is on generating coherent and contextually appropriate sequences of tokens.</p>
-            <p>#RAG<br>
-                #embedding<br>
-                #vectorsearch<br>
-                #semanticsearch<br>
-                #ai<br>
-                #mlops</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2024-01-10-training-a-tiny-llama-from-scratch.html">Training a Tiny LLaMA From Scratch</a>
-        <p>Another dated publication from January 10, 2024.</p>
-        <p>More:</p>
-        <a href="2024-01-13-the-closed-photolithography-compute-cycle.html">The Closed Photolithography Compute Cycle</a>
-        <p>Another dated publication from January 13, 2024.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7150963925310750721/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Loss Functions in LLMs and Embedding Models, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7150963925310750721/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

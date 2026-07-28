@@ -5,7 +5,7 @@ date: "2020-03-22T04:24:48.371Z"
 original_dates:
   - "2020-03-22T04:24:48.371Z"
   - "2020-10-26T01:41:02.484Z"
-description: "A tiny stored-program computer built from immediate stores, conditional moves, jumps, and a visible stack, with a bracket checker driving the instruction set to completion."
+description: "A complete stored-program computer can fit on one work surface through immediate stores, conditional moves, jumps, a visible stack, explicit next-state semantics, and a bracket checker that finishes the ISA."
 status: publication-ready
 ---
 
@@ -13,32 +13,32 @@ status: publication-ready
 
 *March 22 and October 26, 2020*
 
-I want a computer that fits in one explanation.
+A complete computer can fit inside one explanation.
 
-Not the smallest instruction count as a stunt. Not a processor made obscure by compressing several hidden operations behind one clever opcode. I want to point to every piece of state, walk through every instruction, follow one complete program, and reach the electrical boundary without saying, “The rest is normal computer stuff.”
+Its instruction set need not chase a stunt minimum or hide many operations inside one opaque opcode. The stronger goal lets a learner point to every persistent state, walk through every instruction, follow one complete program, and reach electrical I/O without delegating the rest to unexplained convention.
 
-This is my 2020 teaching architecture: immediate stores, conditional moves, jumps, a visible stack, and a bracket checker that drives the instruction set toward a complete machine. The whole contract fits on one work surface, including the places where the first transition table must be repaired.
+This 2020 teaching architecture uses immediate stores, conditional moves, jumps, a visible stack, and a bracket checker that drives the instruction set to completion. Its entire contract fits on one work surface, including every transition-table conflict that the final design must resolve.
 
-## Name Every Piece of Persistent State
+## Name Every Persistent State
 
-The processor needs very little internal state:
+The processor carries four kinds of internal state:
 
 - **PC**, the program counter;
 - **SP**, the stack pointer;
-- **comparison flag**, one bit remembered for a conditional branch;
-- and memory visible through explicit regions.
+- **comparison flag**, one remembered condition bit for branching;
+- memory divided into explicit regions.
 
-The stack contains return addresses, arguments, and temporary storage. Most application variables live in memory rather than a large register file. Instructions carry immediate addresses and small immediate values directly.
+The stack stores return addresses, arguments, and temporary values. Application variables live primarily in memory rather than a large register file. Instructions carry immediate addresses and compact immediate values directly.
 
-This is not necessarily fast or compact in bytes. It is compact in concepts. The cost of an operation is easy to see because the machine cannot hide it among dozens of addressing modes.
+This architecture optimizes conceptual visibility rather than byte density or peak speed. Each operation exposes its cost because no collection of hidden addressing modes can absorb it.
 
-## Three Kinds of Move
+## Three Forms of Move
 
-The useful core is a family of stores.
+A family of stores creates the operational core.
 
 ### Store a pointer-sized immediate
 
-Write a full address-sized value into a named memory location. This initializes pointers, counters, and other machine words.
+Write a full address-sized value into a named memory location to initialize pointers, counters, and machine words.
 
 ```text
 memory[destination] <- immediate_word
@@ -46,7 +46,7 @@ memory[destination] <- immediate_word
 
 ### Store a few immediate bits
 
-Write one or several bits into part of a memory word. This is useful for Boolean state, small selectors, and control fields.
+Write one or several bits into part of a memory word for Boolean state, selectors, and control fields.
 
 ```text
 memory[destination][bit_range] <- immediate_bits
@@ -54,39 +54,37 @@ memory[destination][bit_range] <- immediate_bits
 
 ### Store a few bits conditionally
 
-Perform the small store only when a one-bit condition read from memory is true.
+Perform the narrow store only when a one-bit memory condition holds true.
 
 ```text
 if memory[condition_bit] == 1:
     memory[destination][bit_range] <- immediate_bits
 ```
 
-The conditional move is deliberately narrow. It makes predication visible. A program can form decisions by writing selected state rather than branching around every tiny action.
+The conditional move makes predication visible. Programs create decisions by writing selected state instead of branching around each compact action.
 
-These operations do not replace general data movement by themselves. A practical implementation must define how values calculated elsewhere enter memory and how addresses are formed. The proposed vocabulary focuses on configuration-like code in which many useful changes are immediate control values.
+These immediate operations focus on configuration-like code. A complete implementation also defines how calculated values enter memory and how the machine forms addresses.
 
 ## Jumps, Calls, and Returns
 
-Control flow needs a direct jump and conditional forms.
+Control flow adds direct and conditional jumps:
 
 - **jump** loads an immediate target into the PC;
-- **jump-if-false** selects the target when the remembered comparison flag is zero;
-- **jump-if-equal** combines a memory comparison with a branch useful for small predicate routines.
+- **jump-if-false** loads the target when the remembered comparison flag equals zero;
+- **jump-if-equal** combines a memory comparison with a branch for compact predicate routines.
 
-The equality instruction deserves careful specification. It must state which width is compared, when the comparison flag changes, and whether stack correction occurs before or after the target is chosen. A “small” instruction with ambiguous sequencing is larger than a verbose instruction with a precise state table.
+The equality operation states comparison width, flag timing, stack correction order, and target selection as one exact transition. Precise state semantics make the instruction conceptually compact.
 
-Subroutines add:
+Subroutine machinery adds:
 
-- **push immediate**, placing one machine word on the stack;
-- **call**, pushing the following PC and jumping to a target;
-- **return**, restoring the PC;
-- **return-and-drop**, restoring the PC while releasing argument space.
+- **push immediate**, which places one machine word on the stack;
+- **call**, which pushes the following PC and jumps;
+- **return**, which restores the PC;
+- **return-and-drop**, which restores the PC and releases argument space.
 
-Finally, **sleep** stops instruction issue until an external condition resumes the machine.
+Finally, **sleep** stops instruction issue until an external condition resumes execution.
 
-The instruction set is tiny enough that each instruction can be written as simultaneous next-state assignments to PC, SP, memory, and the comparison flag.
-
-Here is that table in a cleaned-up notation. A prime means next state; every assignment on one line happens as one state transition. `nextPC` is the address following the current instruction.
+Every instruction can now take the form of simultaneous next-state assignments to PC, SP, memory, and comparison flag. A prime denotes next state, and every assignment on a row belongs to one transition. `nextPC` names the address after the current instruction.
 
 ```text
 push value:
@@ -131,49 +129,53 @@ memory[address][m:n] <- immediate bits if flag:
     memory[address][m:n]'  = cmpFlag ? bits : memory[address][m:n]
 ```
 
-This is the 2020 transition table, preserved with its old-state and new-state conflict visible. Taken literally, the right side of a simultaneous assignment reads the old state. `jump-if-equal` therefore writes a new comparison into `cmpFlag'` while choosing `SP'` and `PC'` from the previous `cmpFlag`. The conditional move has the same problem: it samples `memory[flagAddress]` into `cmpFlag'` but tests the previous flag, and its row never says how `PC` advances. The repaired instruction will use a named temporary result and an explicit `PC' = nextPC`, so the comparison sampled by this instruction controls this instruction.
+The preserved 2020 table makes two sequencing conflicts visible. Under simultaneous assignment, every right side reads old state. `jump-if-equal` writes the comparison into `cmpFlag'` while choosing `SP'` and `PC'` from the preceding flag. The conditional move likewise samples `memory[flagAddress]` into `cmpFlag'`, tests the preceding flag, and omits advancement of `PC`.
 
-The stack convention also disagrees with itself. `push` writes at the old `SP` and then decrements it, while ordinary `return` reads `memory[SP]`; `jump-if-equal` instead reads `memory[SP + PTR_SZ]`. Those cannot all describe the same downward-growing stack convention. The implementation must either decrement before writing, or consistently read the top at `SP + PTR_SZ`. A small machine earns its size by making inconsistencies like these impossible to hide.
+The repaired operations compute a named temporary comparison, use it for every next-state choice on that instruction, and include `PC' = nextPC` for the conditional move.
 
-## Memory Is Also an Interface
+The stack convention also needs one consistent top address. `push` writes at old `SP` and then decrements, ordinary `return` reads `memory[SP]`, and `jump-if-equal` reads `memory[SP + PTR_SZ]`. A downward-growing stack must either decrement before writing or consistently locate the top at `SP + PTR_SZ`.
 
-I divide memory by responsibility rather than pretending every address is equivalent.
+One visible table lets the implementation resolve every inconsistency before encoding hides it.
+
+## Memory Becomes an Interface
+
+Named memory regions assign responsibility.
 
 ### `.THEIR`
 
-Read-only state arriving from outside: sampled and deglitched inputs, device status, or messages accepted by an interface.
+Read-only external state: sampled and deglitched inputs, device status, and messages accepted by interfaces.
 
 ### `.VISIBLE`
 
-Application state intentionally exposed to the outside: latched outputs, public status, and values another machine may inspect.
+Application state exposed intentionally: latched outputs, public status, and values another machine can inspect.
 
 ### `.HIDDEN`
 
-Private application state, dynamic storage, and—if the design permits it—runtime-modifiable instructions.
+Private application state, dynamic storage, and runtime-modifiable instructions where the architecture permits them.
 
 ### `.IVT`
 
-The read-write interrupt vector table. Keeping it in its own named region makes interrupt entry part of the visible state contract rather than an unexplained jump performed by invisible machinery. Its contract names vector width, priority, atomicity, and the state saved on entry.
+A read-write interrupt vector table. Its separate region makes interrupt entry part of the state contract, including vector width, priority, atomicity, and state saved on entry.
 
 ### `.STACK`
 
-Return addresses, arguments, and temporary allocations associated with nested calls.
+Return addresses, arguments, and temporary allocations for nested calls.
 
 ### `.CODE`
 
-Not ordinary writable runtime memory, but the reset image used to initialize the executable portion of `.HIDDEN`.
+The reset image that initializes the executable portion of `.HIDDEN`, not ordinary writable runtime memory.
 
-These names make a security and composition question visible: who may read or write each state? The implementation can answer it with bounds, privilege rules, I/O timing, reset behavior, and protection against the stack colliding with other memory.
+These regions make security and composition explicit. Bounds, privilege rules, I/O timing, reset behavior, and collision protection determine who can read or write each state.
 
-The point is to include those questions in the drawing of the computer.
+The computer’s drawing now contains those answers.
 
-## Let One Complete Program Finish the ISA
+## One Complete Program Finishes the ISA
 
-A small machine needs a complete example that is more revealing than blinking an LED.
+A bracket checker drives the architecture beyond an LED blink into complete input, control, arithmetic, and output.
 
-The program I chose was a complete assembly routine for a conventional register machine. It takes a zero-terminated string containing `[` and `]` and prints `OK` only when every closing bracket has a preceding unmatched opening bracket and the final number of openings equals the number of closings. Its four registers have explicit jobs: `r0` points to the input, `r1` is the index, `r2` holds the current byte, and `r3` is the depth.
+The program consumes a zero-terminated string containing `[` and `]`. It prints `OK` only when every closing bracket follows an unmatched opening bracket and the final opening count equals the closing count. Four registers have explicit roles: `r0` points to input, `r1` carries the index, `r2` carries the current byte, and `r3` carries depth.
 
-The algorithm is:
+Its algorithm:
 
 ```text
 index = 0
@@ -196,35 +198,35 @@ repeat:
     index = index + 1
 ```
 
-Two failure modes must remain separate.
+Two distinct rejection paths preserve two distinct errors:
 
 ```text
 "]["   -> depth becomes negative: reject immediately
 "[["   -> depth stays positive at end: reject then
 ```
 
-On acceptance it selects the three-byte `OK\n` message. On rejection it selects the seven-byte `NOT OK\n` message. It then performs a write of the chosen message to standard output. That final operation matters: a teaching program is not complete if its “result” remains trapped in an unexplained register.
+Acceptance selects the three-byte `OK\n` message. Rejection selects the seven-byte `NOT OK\n` message. The machine writes the chosen message to standard output so the result reaches an explained interface.
 
-This example exercises the whole path: input memory, indexing, byte loading, comparison, conditional control, arithmetic state, a loop, termination, and visible output.
+This one program exercises input memory, indexing, byte loads, comparisons, conditional control, arithmetic state, looping, termination, and visible output.
 
-Porting it to the small machine tells me exactly which operations the next instruction pass must supply. How are `index` and `depth` incremented? Is arithmetic performed by memory-mapped Boolean hardware, a tiny arithmetic component, or additional instructions? How is an address-plus-index formed? How is one character loaded? What instruction or memory interface emits the selected message?
+Porting it identifies every operation the next ISA pass must supply: incrementing `index` and `depth`; choosing memory-mapped Boolean hardware, an arithmetic component, or instructions; forming address-plus-index; loading one character; and emitting the selected message.
 
-Those questions are why the example belongs beside the instruction-set sketch. The program turns each open choice into a concrete operation that must be drawn.
+The program converts each architectural choice into circuitry that the work surface must show.
 
-## Small Means the Whole Machine Fits
+## The Whole Machine Fits
 
-A computer can have one instruction and still require an enormous explanation of encoding, memory behavior, I/O, and timing. Instruction count is not conceptual size.
+Instruction count alone does not measure conceptual size. Encoding, memory behavior, I/O, and timing all belong to the explanation.
 
-My criterion is stronger. A learner should be able to answer:
+A learner can test the complete machine through seven questions:
 
-1. What state exists before an instruction?
-2. Which parts may the instruction read?
+1. Which state exists before an instruction?
+2. Which state can the instruction read?
 3. Which next-state values does it produce?
 4. When do those values become visible?
-5. How does outside information enter?
+5. How does external information enter?
 6. How does a result leave?
-7. How does the machine stop, reset, and fail?
+7. How does the machine stop, reset, and report failure?
 
-When all seven answers fit on the same work surface as a successfully ported bracket checker, the machine is small enough. The first table supplies the compact control vocabulary and named memory regions. The bracket checker supplies the acceptance program for finishing load, arithmetic, output, and stack semantics.
+When all seven answers share one work surface with a successfully ported bracket checker, the machine fits in the mind. The transition table supplies compact control and named memory. The bracket program completes loading, arithmetic, output, and stack semantics.
 
-The purpose of a tiny computer is to make the first complete computer understandable, so every later optimization begins from a machine a learner can still hold in mind.
+That understandable computer gives every later optimization a foundation whose whole operation remains visible.

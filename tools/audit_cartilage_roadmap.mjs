@@ -11,7 +11,9 @@ const ARTICLE_FILE = "cartilage-reconfigurable-computing-roadmap.html";
 const ARTICLE_ROUTE = `/${ARTICLE_FILE}`;
 const CANONICAL_URL = `https://greenforest.io${ARTICLE_ROUTE}`;
 const PUBLICATION_DATE = "2026-07-24";
+const MODIFIED_DATE = "2026-07-28";
 const HUMAN_DATE = "July 24, 2026";
+const HUMAN_MODIFIED_DATE = "Updated July 28, 2026";
 
 const INTEGRATION_FILES = Object.freeze([
     "cartilage-core.html",
@@ -38,18 +40,18 @@ const STATUS_BY_LOWERCASE = Object.freeze({
 const REQUIRED_CONCEPTS = Object.freeze([
     ["non-reconfigurable", /\bnon[- ]?reconfigurable\b/i],
     ["subtree/block tags", /\b(?:subtree|block)[ -]tags?\b|\btags?\b.{0,45}\b(?:subtree|block)\b/i],
-    ["block boundaries", /\bblock boundar(?:y|ies)\b/i],
+    ["block contours", /\b(?:block|component)\b.{0,35}\b(?:contours?|seams?)\b|\b(?:contours?|seams?)\b.{0,35}\b(?:block|component)\b/i],
     ["block backgrounds", /\bblock backgrounds?\b|\bbackgrounds?\b.{0,35}\bblocks?\b/i],
     ["hover behavior", /\bhover\b/i],
-    ["wire rendering", /\bwire rendering\b|\brender(?:ed|ing)? wires?\b/i],
-    ["wire animation", /\bwire animation\b|\banimat(?:e|ed|ing|ion)\b.{0,35}\bwires?\b|\bwires?\b.{0,35}\banimat(?:e|ed|ing|ion)\b/i],
+    ["wire rendering", /\brender(?:ed|ing)?\b.{0,35}\b(?:wires?|nets?|routes?)\b|\b(?:wires?|nets?|routes?)\b.{0,35}\brender(?:ed|ing)?\b/i],
+    ["propagation animation", /\banimat(?:e|ed|ing|ion)\b.{0,45}\b(?:propagation|signals?|wires?|nets?)\b|\b(?:propagation|signals?|wires?|nets?)\b.{0,45}\banimat(?:e|ed|ing|ion)\b/i],
     ["fanout tracing", /\bfanout trac(?:e|es|ed|ing)\b|\btrac(?:e|es|ed|ing)\b.{0,25}\bfanout\b/i],
-    ["wire names", /\bwire names?\b|\bnamed wires?\b/i],
+    ["net names", /\b(?:name every net|named nets?|net names?|wire labels?)\b/i],
     ["labels", /\blabels?\b/i],
     ["ports", /\bports?\b/i],
     ["larger-than-1x1 granularity", /\blarger[- ]than[- ]1x1\b|\bmore than one cell\b|\bmulti[- ]cell\b/i],
-    ["reconfiguration root", /\breconfiguration roots?\b/i],
-    ["reconfiguration channel", /\breconfiguration channels?\b/i],
+    ["region root", /\b(?:region|multi[- ]cell|logical) roots?\b/i],
+    ["configuration channel", /\bconfiguration channels?\b/i],
     ["ordered spanning tree", /\bordered spanning tree\b/i],
     ["ownership overlap", /\bownership overlap\b|\boverlapping ownership\b/i],
     ["shared objects", /\bshared objects?\b/i],
@@ -58,17 +60,17 @@ const REQUIRED_CONCEPTS = Object.freeze([
     ["4x4 example", /\b4x4\b/i],
     ["one adjacent parent", /\bone adjacent parent\b/i],
     ["sequential serial kill pill", /\bsequential serial kill[- ]pill\b/i],
-    ["boundary collaboration", /\bboundary collaboration\b|\bboundary (?:cells?|tiles?)\b.{0,45}\bcollaborat(?:e|es|ed|ing|ion)\b/i],
+    ["collaborative perimeter recovery", /\b(?:owners?|blocks?)\b.{0,70}\bcollaborat(?:e|es|ed|ing|ion)\b|\bcollaborat(?:e|es|ed|ing|ion)\b.{0,70}\b(?:owners?|blocks?)\b/i],
     ["closed contour", /\bclosed contour\b/i],
-    ["reset to power-on", /\breset[- ]to[- ]power[- ]on\b|\bpower[- ]on reset\b/i],
+    ["restore power-on state", /\b(?:reset|restore)[^.!?]{0,45}\bpower[- ]on\b|\bpower[- ]on[^.!?]{0,45}\b(?:reset|restore|state)\b/i],
     ["play", /\bplay\b/i],
     ["pause", /\bpause\b/i],
     ["save", /\bsave\b/i],
-    ["server hosting", /\bserver hosting\b|\bserver[- ]hosted\b|\bhost(?:ed|ing)\b.{0,30}\bserver\b/i],
-    ["button-driven tutorial", /\bbutton[- ]driven tutorials?\b/i],
-    ["progress tracking", /\bprogress tracking\b/i],
-    ["fundraising", /\bfundrais(?:e|er|ers|ing)\b/i],
-    ["contributors", /\bcontributors?\b/i],
+    ["project hosting", /\bhost(?:ed|ing)?\b.{0,35}\b(?:projects?|server)\b|\bserver infrastructure\b/i],
+    ["tutorial controls", /\btutorial buttons?\b|\blesson controls?\b/i],
+    ["saved progress", /\bsaved progress\b|\bprogress tracking\b/i],
+    ["funding invitation", /\bfund(?:ed|ing)?\b/i],
+    ["collaborators", /\bcollaborat(?:or|ors|e|es|ed|ing|ion)\b|\bcontributions?\b/i],
     ["Logisim replacement", /\bLogisim replacement\b|\breplac(?:e|es|ed|ing)\b.{0,30}\bLogisim\b/i],
 ]);
 
@@ -552,7 +554,7 @@ function metadataAudit(html, tags, audit, sourceLabel) {
         ["og:image", (value) => /^https:\/\/greenforest\.io\/.+/i.test(value), "a greenforest.io image URL"],
         ["twitter:card", (value) => value === "summary_large_image", "summary_large_image"],
         ["article:published_time", (value) => value === PUBLICATION_DATE, PUBLICATION_DATE],
-        ["article:modified_time", (value) => value === PUBLICATION_DATE, PUBLICATION_DATE],
+        ["article:modified_time", (value) => value === MODIFIED_DATE, MODIFIED_DATE],
     ];
 
     for (const [key, predicate, expectation] of requiredMetadata) {
@@ -578,6 +580,10 @@ function metadataAudit(html, tags, audit, sourceLabel) {
         pageText.includes(HUMAN_DATE),
         `${sourceLabel}: visible date must say ${HUMAN_DATE}`,
     );
+    audit.check(
+        pageText.includes(HUMAN_MODIFIED_DATE),
+        `${sourceLabel}: visible modified date must say ${HUMAN_MODIFIED_DATE}`,
+    );
 
     const ldRoots = jsonLdObjects(html, audit, sourceLabel);
     audit.check(ldRoots.length >= 1, `${sourceLabel}: missing JSON-LD`);
@@ -599,8 +605,8 @@ function metadataAudit(html, tags, audit, sourceLabel) {
             `${sourceLabel}: JSON-LD datePublished must be ${PUBLICATION_DATE}`,
         );
         audit.check(
-            articleObject.dateModified === PUBLICATION_DATE,
-            `${sourceLabel}: JSON-LD dateModified must be ${PUBLICATION_DATE}`,
+            articleObject.dateModified === MODIFIED_DATE,
+            `${sourceLabel}: JSON-LD dateModified must be ${MODIFIED_DATE}`,
         );
         const mainEntity =
             typeof articleObject.mainEntityOfPage === "string"
@@ -613,27 +619,35 @@ function metadataAudit(html, tags, audit, sourceLabel) {
     }
 }
 
-function evidenceBoundaryAudit(html, audit, sourceLabel) {
+function currentAndPlannedAudit(html, audit, sourceLabel) {
     const text = visibleText(html);
     audit.check(
-        /\bestablished\b/i.test(text),
-        `${sourceLabel}: proposed-vs-established boundary must visibly say Established`,
+        /\bcurrent foundation\b/i.test(text),
+        `${sourceLabel}: current foundation must be visible`,
     );
     audit.check(
-        /\bproposed\b/i.test(text),
-        `${sourceLabel}: proposed-vs-established boundary must visibly say Proposed`,
+        /\bplanned\b/i.test(text),
+        `${sourceLabel}: planned work packages must remain visible`,
     );
     audit.check(
-        /\bestablished\b.{0,240}\b(?:artifact|evidence|verified|already|current)\b|\b(?:artifact|evidence|verified|already|current)\b.{0,240}\bestablished\b/i.test(
+        /\bcurrent foundation\b.{0,280}\b(?:Cartilage Core|installs?|runs?|circuits?)\b/i.test(
             text,
         ),
-        `${sourceLabel}: Established text must identify current evidence`,
+        `${sourceLabel}: current foundation must name the operating mechanism`,
     );
     audit.check(
-        /\bproposed\b.{0,280}\b(?:not yet|future|roadmap|planned|implementation|continuation)\b|\b(?:not yet|future|roadmap|planned|implementation|continuation)\b.{0,280}\bproposed\b/i.test(
+        /\bplanned\b.{0,180}\b(?:engineering|work|named)?\s*packages?\b|\bpackages?\b.{0,180}\bplanned\b/i.test(
             text,
         ),
-        `${sourceLabel}: Proposed text must make future/not-yet-implemented status explicit`,
+        `${sourceLabel}: planned labels must describe named engineering packages`,
+    );
+    audit.check(
+        (text.match(/\bCompletion test:/gi) || []).length === EXPECTED_TASK_IDS.length,
+        `${sourceLabel}: every planned package must state its completion test`,
+    );
+    audit.check(
+        !/\bDelivered result:/i.test(text),
+        `${sourceLabel}: planned packages must not read as already delivered`,
     );
 }
 
@@ -924,7 +938,7 @@ function articleAudit(html, audit, sourceLabel, { resolveFiles = false } = {}) {
     const tags = parseStartTags(html);
     metadataAudit(html, tags, audit, sourceLabel);
     const taskInfo = taskAudit(html, tags, audit, sourceLabel);
-    evidenceBoundaryAudit(html, audit, sourceLabel);
+    currentAndPlannedAudit(html, audit, sourceLabel);
     conceptAudit(html, audit, sourceLabel);
 
     const references = resolveFiles

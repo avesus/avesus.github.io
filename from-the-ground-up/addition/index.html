@@ -9,11 +9,11 @@
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="description" content="Binary addition step: addition introduced as a small multiplexer-graph teaching block in the ground-up computation sequence.">
+    <meta name="description" content="A full-adder turns three input bits into a sum bit and a carry bit, using the same MUX choices that construct XOR, AND, and OR.">
     <link rel="canonical" href="https://greenforest.io/from-the-ground-up/addition/">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Addition">
-    <meta property="og:description" content="Binary addition step: addition introduced as a small multiplexer-graph teaching block in the ground-up computation sequence.">
+    <meta property="og:description" content="Carry MUX-composed Boolean choices into a full-adder that produces sum and carry bits.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/from-the-ground-up/addition/">
     <meta property="og:image" content="https://greenforest.io/social-previews/from-the-ground-up/addition/index.png">
@@ -32,20 +32,16 @@
 
 <header>Addition</header>
 <section class="abstract">
-    <p><strong>Binary addition step:</strong> addition introduced as a small multiplexer-graph teaching block in the ground-up computation sequence.</p>
-    <div class="status-box">
-        <p><span class="status-label">Addition step</span>Binary addition as a multiplexer-graph teaching step.</p>
-        <p><strong>Scope:</strong> an origin-sequence step, not a complete arithmetic tutorial or verified fabric artifact.</p>
-    </div>
-    <p>Binary numbers addition is presented using multiplexer graphs</p>
-    <p><a href="/mux-algebra.html">MUX Algebra</a> supplies the selector notation used to express inversion, XOR, and every other two-input Boolean function as nested choices.</p>
+    <p><strong>A full-adder gives Boolean choice a numerical consequence:</strong> three input bits produce one sum bit and one carry bit.</p>
+    <p><a href="/mux-algebra.html">MUX Algebra</a> supplies the selector rule for inversion, XOR, AND, OR, and every other two-input Boolean function. Connect those functions around a carry path and one bit position can feed the next.</p>
 </section>
 
 <main>
     <section>
-        <h1>Adding binary numbers</h1>
-        <p>Addition is done using an XOR operation, which requires to invert one of the inputs,
-        </p>
+        <h1>Let the Carry Bit Move the Number Forward</h1>
+        <p>XOR computes the low bit of a two-input sum. AND detects the carry. A full-adder adds the incoming carry, combines the two carry conditions, and sends the result toward the next bit position.</p>
+        <p>A MUX graph can construct each of those Boolean choices. Repeating the graph across bit positions turns one local operation into an adder of any desired width.</p>
+        <p>The three-value sequence below keeps the lesson anchored to an executable input pattern before the course moves into a continuous bit stream.</p>
 
         <textarea class="code">
 return [0, 1, 0];
@@ -56,6 +52,8 @@ return [0, 1, 0];
 <nav class="article-links" aria-label="Continue reading">
     <p>Next:</p>
     <a href="/serial_multiplier/">A Streaming Bit-Serial Multiplier With No Drain Gap</a>
+    <p>See addition become a scheduled datapath that accepts consecutive multiplication inputs without a drain bubble.</p>
     <p>More:</p>
-    <a href="../">WebGL and Computation From First Principles</a>
+    <a href="../">Follow the Complete Ground-Up Sequence</a>
+    <p>Return to the switch, raw WebGL scaffold, and MUX logic that lead into arithmetic.</p>
 </nav>

@@ -6,11 +6,11 @@
     <title>Explaining Cartilage by Comparison With Hadoop</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A Cartilage architecture note comparing distributed data systems with a spatial, reactive fabric: locality, ownership, routing, isolation, and bounded resources.">
+    <meta name="description" content="Cartilage turns the spatial insight of Hadoop into a secure reactive fabric where code, state, routes, ownership, and FPGA resources form one machine.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-03-25-explaining-cartilage-by-comparison-with-hadoop.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Explaining Cartilage by Comparison With Hadoop">
-    <meta property="og:description" content="A Cartilage architecture note comparing distributed data systems with a spatial, reactive fabric: locality, ownership, routing, isolation, and bounded resources.">
+    <meta property="og:description" content="Cartilage turns the spatial insight of Hadoop into a secure reactive fabric where code, state, routes, ownership, and FPGA resources form one machine.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-03-25-explaining-cartilage-by-comparison-with-hadoop.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-03-25",
-                                "dateModified": "2026-07-10",
-                                "description": "A Cartilage architecture note comparing distributed data systems with a spatial, reactive fabric: locality, ownership, routing, isolation, and bounded resources.",
+                                "dateModified": "2026-07-28",
+                                "description": "Cartilage turns the spatial insight of Hadoop into a secure reactive fabric where code, state, routes, ownership, and FPGA resources form one machine.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-03-25-explaining-cartilage-by-comparison-with-hadoop.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Explaining Cartilage by Comparison With Hadoop</header>
     <address>March 25, 2023</address>
 
+
+    <section class="abstract">
+        <p>Hadoop taught computing to respect the physical location of data and the shape of a cluster. Cartilage carries that spatial awareness into executable structure: code, state, routes, ownership, bandwidth, latency, and FPGA resources become parts of one reactive machine.</p>
+        <p>The leap from a data lake to Cartilage replaces ad hoc processors with object-capability membranes and hardware-instantiated behavior.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Move Computation Into Secure Objects</h1>
+            <p>ETL, change-data capture, and streaming systems already organize continuous flows of changing state. Actor systems add isolated processes and message passing, while object capabilities give each process explicit authority over the resources it can reach.</p>
+            <p>Cartilage unifies those ideas in locally placed objects. Each object owns state and ports, reacts to changes, and connects through routes whose physical cost remains visible.</p>
+        </section>
+
+        <section>
+            <h1>Scale From Switching Cells to the Whole Cluster</h1>
+            <p>A sea of FPGAs supplies parallel cellular structure. Bitstreamlets instantiate behavior near the data it uses, while the runtime tracks device shape, rack topology, cable bandwidth, and propagation delay.</p>
+            <p>Brian began this architecture in 2013 to solve the von Neumann bottleneck. Distributed-systems teams, FPGA engineers, and data-platform builders can now bring a workload and help turn ten years of research into a commercial computing fabric.</p>
+        </section>
+
+        <section>
+            <h1>Execute Explaining Cartilage by Comparison With Hadoop Through Cartilage Runtime Instantiation</h1>
+            <p>Cartilage Runtime-Instantiation Architecture carries this system into nested modules that enter and connect inside a live spatial machine.</p>
+            <p><a href="/cartilage-nested-instantiation-demo.html">Cartilage Runtime-Instantiation Architecture</a> &middot; <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> &middot; <a href="/cartilage-core.html">Cartilage Core</a> &middot; <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7045455274496704512" data-linkedin-activity="7045455274496704512" data-linkedin-source="activity:7045455274496704512">
         <h2 id="linkedin-original-7045455274496704512">Originally posted on LinkedIn</h2>
@@ -105,55 +132,13 @@ Cartilage started in the summer of 2013 as an attempt to solve the von Neumann b
 I spent 10 years on a hardcore computer science research without raising funds. It's wild to see how far it went! It's really like Hadoop, but with code instead of data, and low-level switching on transistors, instead of Java VM and HDFS. But very similar idea of spatial awareness of how many resources are locally available, what's the shape of the server rack we're running on, and what are the bandwidth cables and topology and time delays between compute nodes, and overall shape of bigger clusters. But object-oriented reactive programming model with hardware instantiation of FPGA bitstreamlets.</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-03-25.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Explaining Cartilage by Comparison With Hadoop</h1>
-            <p>Hadoop is a useful comparison because it makes locality visible. Data, storage, compute, network topology, and scheduling all matter once a program no longer fits inside one machine.</p>
-            <p>Cartilage asks a related question at a lower level: what happens if the program itself is arranged as a spatial fabric with local ownership, local ports, bounded regions, and explicit routing?</p>
-            <p>The comparison is not one-to-one. Hadoop moves work toward distributed data. Cartilage explores a reactive fabric where small computational regions can be instantiated, connected, isolated, and reconfigured while locality remains part of the model.</p>
-            <p>The useful engineering point is resource awareness. Bandwidth, placement, timing, and boundary ownership are not hidden behind a single global runtime. They are part of the structure the program has to respect.</p>
-            <p>That is why Cartilage belongs beside actor systems, object-capability ideas, reactive streams, and FPGA-style fabrics: all of them care about ownership, communication boundaries, and what can safely change while the system is running.</p>
-        </section>
-        <section class="cartilage-visual-link">
-            <h1>Cartilage Visual Language</h1>
-            <p>The 32 Cartilage cell-role codes are a compact body-type alphabet: reconfiguration port, cross, constants, four wire orientations, and six MUX modes in four orientations. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article shows the rendered key and decodes all 32 codes.</p>
-        </section>
-
-        <section>
-            <h1>Current Mechanism</h1>
-            <p>The current low-level evidence is <a href="/cartilage-core.html">Cartilage Core</a>. Its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> makes the local ownership tree, child port, exact serial install, browser model, and SystemVerilog fabric inspectable. It is one manually specified spatial circuit, not yet a distributed scheduler or a general placement tool.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-03-22-fpgas-claytronics-and-reactive-programming.html">FPGAs, Claytronics, and Reactive Programming</a>
-        <p>Another dated publication from March 22, 2023.</p>
-        <p>More:</p>
-        <a href="2023-03-26-transformers-as-mathematical-optimization.html">Transformers as Mathematical Optimization</a>
-        <p>Another dated publication from March 26, 2023.</p>
-        <p>Current Cartilage program:</p>
-        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Follow the fabric from this comparison into the editor, simulator, ownership, and recovery work. Funding and contributors are welcome.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7045455274496704512/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Explaining Cartilage by Comparison With Hadoop, read:</strong></p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Runtime-Instantiation Architecture</a>
+        <p>Cartilage&amp;rsquo;s runtime-instantiation architecture creates and connects nested modules inside a live spatial machine.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7045455274496704512/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

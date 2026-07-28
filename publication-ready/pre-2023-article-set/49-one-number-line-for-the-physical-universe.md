@@ -4,7 +4,7 @@ slug: "one-number-line-for-the-physical-universe"
 date: "2022-10-28T00:07:36.495Z"
 original_dates:
   - "2022-10-28T00:07:36.495Z"
-description: "How to compute across enormous physical scales without confusing floating-point range, precision, dimensions, and the choice of units."
+description: "A scale-aware numerical interface spans huge physical magnitudes while keeping range, precision, units, uncertainty, representation, and conversions visible."
 status: "publication-ready"
 ---
 
@@ -12,46 +12,40 @@ status: "publication-ready"
 
 *October 28, 2022*
 
-I wanted one numerical representation that could hold a Planck-scale time and an ordinary macroscopic density without treating either as a special case.
+One coherent numerical interface can span the physical universe without asking one naked exponent to replace the physical model.
 
-Take two quantities:
+Consider:
 
 - Planck time, approximately \(5.39 \times 10^{-44}\) seconds;
 - the Loschmidt number, approximately \(2.69 \times 10^{25}\) particles per cubic meter under its defined conditions.
 
-The exponents are separated by about 69 decimal orders of magnitude. A binary32 floating-point number—commonly called `float32`—has a normal positive range beginning around \(10^{-38}\) and extending to around \(10^{38}\). Subnormal values reach lower, at sharply reduced precision.
+About 69 decimal orders of magnitude separate their exponents. Binary32 floating point, commonly called `float32`, has a normal positive range from roughly \(10^{-38}\) to \(10^{38}\), with subnormal values extending lower at reduced precision.
 
-My first instinct was to shift the entire range by a factor of \(10^{-9}\). If one ordinary unit became one nano-unit, perhaps the useful window would slide down far enough to contain the smallest value while retaining the largest.
+One initial idea shifted the complete range by \(10^{-9}\), turning each ordinary unit into a nano-unit. That move exposes the important distinction between relocating a numerical window and expanding the information carried inside it.
 
-That instinct exposes the right problem and the wrong solution.
+## Range and Precision Do Different Work
 
-## Range is not precision
+Floating point has three conceptual fields:
 
-A floating-point number has three conceptual pieces:
+- sign;
+- exponent that selects scale;
+- significand with a finite number of meaningful bits.
 
-- a sign;
-- an exponent that chooses scale;
-- a significand that carries a limited number of meaningful bits.
+Multiplication by \(10^9\) or a switch to nano-units moves data within the exponent range. It neither adds significand bits nor increases the ratio between the largest and smallest simultaneously representable normal values.
 
-Multiplying every value by \(10^9\) or choosing a nano-unit shifts the exponent window occupied by the data. It does not increase the number of meaningful bits. It also does not enlarge the ratio between the largest and smallest simultaneously representable normal values.
+Scaling can prevent underflow or overflow for one calculation while preserving the format’s original precision.
 
-Scaling can prevent underflow or overflow for a particular calculation. It cannot make one format more precise than it is.
+Binary32 carries about seven decimal digits. Near \(10^{25}\), adjacent values sit far apart in absolute terms. Near \(10^{-44}\), subnormal representation loses leading precision, and some hardware or software modes flush the value to zero.
 
-Binary32 carries about seven decimal digits of precision. Near \(10^{25}\), the gap between adjacent representable numbers is enormous in absolute terms. Near \(10^{-44}\), a value may live in the subnormal region, where leading precision is lost and some hardware or software modes may flush it to zero.
+Both physical quantities may fit as binary32 approximations. Meaningful computation still depends on dimensions, conditioning, and required error.
 
-Both numbers can sometimes be stored as approximate binary32 values. That does not mean a calculation combining them is meaningful.
+## Units Belong to the Model
 
-## Units are part of the model
+Planck time and number density occupy different dimensions even though scientific notation can print both.
 
-The Planck time and a number density do not belong on one arithmetic number line merely because both can be written in scientific notation.
+Time and inverse volume cannot enter direct addition or magnitude comparison without a physical relationship. One global exponent offset cannot repair dimensional inconsistency.
 
-One has units of time. The other has units of inverse volume.
-
-Adding them is meaningless. Comparing their magnitudes without choosing a physical relationship is meaningless. A global exponent offset cannot repair dimensional inconsistency.
-
-The right move is usually nondimensionalization.
-
-Choose a characteristic scale for each physical quantity:
+Nondimensionalization gives each quantity an appropriate reference:
 
 \[
 \tau = \frac{t}{t_0}
@@ -61,68 +55,66 @@ Choose a characteristic scale for each physical quantity:
 \nu = \frac{n}{n_0}
 \]
 
-Now \(\tau\) and \(\nu\) are dimensionless ratios. If the characteristic scales are chosen near the values encountered in the problem, the ratios remain near one, where floating-point precision is easiest to reason about.
+The ratios \(\tau\) and \(\nu\) carry no dimensions. Choosing reference scales near problem values keeps those ratios near one, where floating-point precision becomes easiest to reason about.
 
-This does not hide the units. The units live in \(t_0\) and \(n_0\), and the program’s type or data model should retain them.
+Units remain present through \(t_0\), \(n_0\), and the program’s type or data model.
 
-## One offset is rarely enough
+## Give Each Dimension Its Own Scale
 
-Suppose a simulation contains microscopic time steps, astronomical distances, particle counts, and small probabilities. A single global scale forces unrelated quantities into one compromise.
+A simulation may combine microscopic time steps, astronomical distances, particle counts, and low probabilities. One global scale forces unrelated quantities into a needless compromise.
 
-A better representation uses a scale per dimension or per subsystem:
+Scale can follow dimension or subsystem:
 
 - time in characteristic periods;
 - length in characteristic radii or grid spacing;
-- mass in a chosen reference mass;
+- mass in a reference mass;
 - density relative to a baseline;
 - energy relative to a system-specific unit.
 
-Equations are then rewritten in those units. Constants change numerically, but the dimensionless behavior remains.
+Rewriting equations in those units changes numerical constants while preserving dimensionless behavior.
 
-For values that genuinely span extreme dynamic ranges within one quantity, other options exist:
+Quantities with extreme internal dynamic range can use:
 
-- binary64 for more exponent range and precision;
+- binary64 for additional exponent range and precision;
 - logarithmic representation for multiplicative processes;
-- a mantissa plus a separately managed base-ten exponent;
+- mantissa plus separately managed base-ten exponent;
 - arbitrary-precision arithmetic;
 - interval or uncertainty-aware values;
 - separate coarse and fine components;
 - exact integers for counts.
 
-The representation should follow the operations. A log value is excellent for products and terrible for ordinary signed addition. Arbitrary precision helps only if input uncertainty and model error justify the extra digits.
+Operations determine representation. Logarithms serve products but complicate ordinary signed addition. Arbitrary precision adds value when input uncertainty and model error justify the digits.
 
-## Make error travel with the value
+## Make Error Travel With Every Value
 
-Physical constants and measurements are not exact decimal tokens.
+Physical constants and measurements carry more than decimal tokens.
 
-A useful numerical value should carry:
+A useful numerical value includes:
 
 - unit;
 - nominal value;
 - uncertainty or error bound;
 - representation;
-- scale used for computation;
-- provenance of any conversion.
+- computation scale;
+- conversion provenance.
 
-Then each operation can answer two questions:
+Every operation then answers:
 
-1. Is the operation dimensionally valid?
-2. Does the result retain enough precision for the question being asked?
+1. Does dimensional analysis permit the operation?
+2. Does the result retain enough precision for the question?
 
-For example, subtracting two nearly equal large binary32 values can destroy most meaningful digits even though neither value overflows. Multiplying a long sequence can accumulate relative error. Integrating tiny steps can lose increments when they fall below the spacing around a large state value.
+Subtracting nearly equal large binary32 values can erase meaningful digits without overflow. Long multiplication chains accumulate relative error. Integrating minute steps can lose increments below the representable spacing around a large state.
 
-Range is only the first calculation.
+Range starts the calculation; error analysis completes it.
 
-## A scale-aware calculator
+## Build a Scale-Aware Calculator
 
-The tool I want would make these effects visible.
+A scale-aware calculator makes the entire representation visible.
 
-Enter a value such as Planck time. The calculator shows its binary32 encoding, whether it is normal or subnormal, the adjacent representable values, and relative error. Enter the Loschmidt number and see the absolute spacing at that magnitude. Choose a new unit and watch the exponent move without pretending that the significand grew.
+Enter Planck time and see its binary32 encoding, normal or subnormal classification, adjacent representable values, and relative error. Enter the Loschmidt number and see absolute spacing at that magnitude. Change units and watch the exponent move while the significand retains the same capacity.
 
-Then combine quantities in an equation. The tool should reject incompatible units, show the dimensionless form, and estimate how rounding and input uncertainty propagate.
+Then combine quantities in an equation. The tool rejects incompatible dimensions, presents the dimensionless form, and estimates propagation of rounding and input uncertainty.
 
-One number line for the physical universe should not mean forcing everything into one naked float.
+One number line for the physical universe becomes an interface where scale, unit, representation, and error remain visible together.
 
-It should mean one coherent interface where scale, units, representation, and error remain visible together.
-
-The universe spans absurd magnitudes. Our numbers can follow—but only if we stop asking the exponent to do the work of a physical model.
+The universe spans enormous magnitudes. A physically literate number system can follow all of them.

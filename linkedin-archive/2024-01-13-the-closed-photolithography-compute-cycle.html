@@ -6,11 +6,11 @@
     <title>The Closed Photolithography Compute Cycle</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Advanced chipmaking increasingly depends on computation made by the chips it produces: process models, mask correction, scanners, foundries, and GPU hardware in one manufacturing loop.">
+    <meta name="description" content="ASML scanners, TSMC fabrication, computational lithography, and NVIDIA compute form a closed loop in which chips calculate how to manufacture better chips.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2024-01-13-the-closed-photolithography-compute-cycle.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The Closed Photolithography Compute Cycle">
-    <meta property="og:description" content="Advanced chipmaking increasingly depends on computation made by the chips it produces: process models, mask correction, scanners, foundries, and GPU hardware in one manufacturing loop.">
+    <meta property="og:description" content="ASML scanners, TSMC fabrication, computational lithography, and NVIDIA compute form a closed loop in which chips calculate how to manufacture better chips.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2024-01-13-the-closed-photolithography-compute-cycle.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2024-01-13",
-                                "dateModified": "2026-07-09",
-                                "description": "Advanced chipmaking increasingly depends on computation made by the chips it produces: process models, mask correction, scanners, foundries, and GPU hardware in one manufacturing loop.",
+                                "dateModified": "2026-07-28",
+                                "description": "ASML scanners, TSMC fabrication, computational lithography, and NVIDIA compute form a closed loop in which chips calculate how to manufacture better chips.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2024-01-13-the-closed-photolithography-compute-cycle.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>The Closed Photolithography Compute Cycle</header>
     <address>January 13, 2024</address>
 
+
+    <section class="abstract">
+        <p>Advanced chipmaking now forms a computational loop: ASML builds the scanners, TSMC fabricates the chips, computational lithography corrects the masks, and NVIDIA processors supply much of the compute that makes those corrections possible.</p>
+        <p>The chips calculate how to manufacture the next chips, concentrating extraordinary capability inside one tightly coupled industrial cycle.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Computation Pushes Light Beyond the Mask</h1>
+            <p>Diffraction prevents a drawn mask shape from printing directly at advanced geometries. Optical proximity correction and inverse-lithography techniques calculate patterns that produce the intended wafer feature after optics, resist, etch, and process variation act.</p>
+            <p>Those calculations demand immense optimization and simulation. GPU systems manufactured by the same foundries then accelerate the next mask-generation cycle.</p>
+        </section>
+
+        <section>
+            <h1>Open the Loop to More Builders</h1>
+            <p>Confidential process models, proprietary EDA, foundry rules, scanner knowledge, and closed hardware reinforce the cycle. OpenLane, open PDK efforts, SkyWater, RISC-V, and open hardware create entry points at accessible nodes.</p>
+            <p>Foundries, universities, EDA teams, equipment builders, and governments can widen those entry points. Open more of the manufacturing stack and let new chip creators improve the cycle.</p>
+        </section>
+
+        <section>
+            <h1>Build the Fabrication Path Behind The Closed Photolithography Compute Cycle</h1>
+            <p>The Missing Maker Fab carries this work into the tools and processes required to fabricate fast active devices locally.</p>
+            <p><a href="/the-missing-maker-fab.html">The Missing Maker Fab</a> &middot; <a href="https://youtube.com/watch?v=rdlZ8KYVtPU&amp;si=5vFNyqV8kS1q86b2" target="_blank" rel="noopener">https://youtube.com/watch?v=rdlZ8KYVtPU&amp;si=5vFNyqV8kS1q86b2</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7151791401909780482" data-linkedin-activity="7151791401909780482" data-linkedin-source="activity:7151791401909780482">
         <h2 id="linkedin-original-7151791401909780482">Originally posted on LinkedIn</h2>
@@ -101,58 +128,13 @@
 #optics #diffraction #silicon #wafer #cadence #synopsys #mentorgraphics #arm #tsmc #asml #chipshortage #gpu #aichips #apple #samsung #nvidia #intel #amd #qualcomm vs. #riscv #openlane #openpdk #skywater #opensource #openhardware #ip #phd #expertise #science #bleedingedge #innovation</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Advanced computation now helps design the manufacturing path for the next generation of advanced computation.</p>
-        <div class="status-box">
-            <p><span class="status-label">Article focus</span>Computational photolithography closes a manufacturing loop: chips are used to calculate the shapes and process corrections needed to manufacture newer chips.</p>
-            <p><strong>Why it matters:</strong> open design files are only one layer. The process models, masks, scanners, metrology, packaging, and compute budget also decide who can build.</p>
-            <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Loop</h1>
-            <p>Modern photolithography is not only an optical exposure step. The printed wafer pattern depends on correction, simulation, mask generation, process knowledge, scanner behavior, and metrology. Those computations run on the same class of advanced chips that the process is trying to produce next.</p>
-            <p>That is the closed cycle worth noticing. A chip design can be open while the route from design to working silicon remains locked inside expensive tools, foundry recipes, proprietary process models, and scarce machine time. The manufacturing system becomes computational infrastructure, not just factory equipment.</p>
-        </section>
-
-        <section>
-            <h1>The Access Boundary</h1>
-            <p>ASML scanners, TSMC process windows, computational lithography, EDA tools, GPU compute, metrology, and packaging flows form one tightly coupled manufacturing system.</p>
-            <p>Open HDL and open layouts are valuable, but they do not open the whole loop. The printed device still depends on process models, mask correction, equipment calibration, restricted know-how, and enough compute to make the next process step work.</p>
-        </section>
-        <section>
-            <h1>Source Link</h1>
-            <ul>
-                <li><a href="https://youtube.com/watch?v=rdlZ8KYVtPU&amp;si=5vFNyqV8kS1q86b2" target="_blank" rel="noopener">https://youtube.com/watch?v=rdlZ8KYVtPU&amp;si=5vFNyqV8kS1q86b2</a></li>
-            </ul>
-        </section>
-
-        <section>
-            <h1>Manufacturing Boundary</h1>
-            <p>The useful constraint is not only transistor size. It is the whole path from layout to physical device: process, material, optics, mask correction, metrology, packaging, equipment limits, and who can repeat the result. That is why local or civic-scale active-device fabrication is a different problem from simply publishing a chip design.</p>
-        </section>
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From The Closed Photolithography Compute Cycle, read:</strong></p>
         <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a>
-        <p>The local active-device version of the same fabrication boundary.</p>
-        <p>More:</p>
-        <a href="2023-01-05-let-me-make-a-chip-at-home.html">Let Me Make a Chip at Home</a>
-        <p>The ownership version of the question: what active-device process can be taught, repeated, measured, and improved locally?</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7151791401909780482/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+        <p>The maker-fab program defines the local tools and processes needed to fabricate fast active devices, not only package them.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7151791401909780482/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

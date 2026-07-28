@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Nested Components and Spatial Composition | Cartilage</title>
-    <meta name="description" content="Cartilage chapter seven: distinguish ordinary circuit composition from a parent-owned daughter region with its own boundary, configuration surface, identity, and lifetime.">
+    <title>Create Parent-Owned Daughter Machines In Adjacent Space | Cartilage</title>
+    <meta name="description" content="Compose Cartilage components as parent-owned daughter regions with explicit boundaries, local interfaces, independent configuration surfaces, identity, and lifetime.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/cartilage/nested-components-and-composition.html">
-    <meta property="og:title" content="Nested Components and Spatial Composition">
-    <meta property="og:description" content="A child component becomes architectural when it has a bounded region, a local interface, an owner, and an independent configuration surface.">
+    <meta property="og:title" content="Create Parent-Owned Daughter Machines In Adjacent Space">
+    <meta property="og:description" content="Give every child a bounded region, local interface, owner, state, and independent configuration surface.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage/nested-components-and-composition.html">
     <meta property="article:published_time" content="2026-07-22">
@@ -22,20 +22,20 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Nested Components and Spatial Composition - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Parent-owned Cartilage daughter machine in adjacent space - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage/nested-components-and-composition.png">
-    <meta name="twitter:image:alt" content="Nested Components and Spatial Composition - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Parent-owned Cartilage daughter machine in adjacent space - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            "headline": "Nested Components and Spatial Composition",
+            "headline": "Create Parent-Owned Daughter Machines In Adjacent Space",
             "datePublished": "2026-07-22",
-            "dateModified": "2026-07-23",
-            "description": "Ordinary circuit composition versus a parent-owned daughter region with its own boundary, configuration surface, identity, and lifetime.",
+            "dateModified": "2026-07-28",
+            "description": "Cartilage composes parent-owned daughter regions with explicit boundaries, local interfaces, independent configuration surfaces, identity, and lifetime.",
             "image": "https://greenforest.io/cartilage/nested-components-and-composition.svg",
             "mainEntityOfPage": "https://greenforest.io/cartilage/nested-components-and-composition.html",
             "isPartOf": {
@@ -53,82 +53,82 @@
 </head>
 
 <body class="article-structured">
-    <header><h1 class="page-title">Nested Components And Spatial Composition</h1></header>
+    <header><h1 class="page-title">Create Parent-Owned Daughter Machines In Adjacent Space</h1></header>
     <address>July 22, 2026</address>
 
     <section class="abstract">
         <p><span class="eyebrow">Cartilage · Chapter 7</span></p>
-        <p>Source code can nest names without creating a new machine. Spatial composition asks for more: where is the child, which boundary does it own, how does the parent reach it, who may replace it, and where does its state live?</p>
-        <p>Cartilage uses an OOP-like intuition—components with identity, state, interface, and composition—but makes the child a bounded neighboring region connected through explicit local ports.</p>
+        <p>Spatial composition gives every child a location, boundary, owner, interface, state, replacement path, and lifetime inside the machine.</p>
+        <p>Cartilage carries the OOP intuition of identity, state, interface, and composition into hardware by making each child a bounded neighboring region connected through explicit local ports.</p>
     </section>
 
     <figure class="concept-diagram">
         <a href="nested-components-and-composition.svg">
             <img src="nested-components-and-composition.svg" width="1200" height="675" alt="Parent-owned spatial region connected through a local port to an adjacent replaceable daughter region">
         </a>
-        <figcaption>Original Greenforest I/O diagram: ordinary composed logic remains inside the parent; an independently replaceable child has a separate region and configuration surface.</figcaption>
+        <figcaption>Original Greenforest I/O diagram: ordinary composed logic lives inside the parent, while an independently replaceable child occupies its own region and configuration surface.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h2>Composition Is The Useful OOP Analogy</h2>
-            <p>An object can hold state, expose an interface, contain other objects, and preserve identity while its internal state changes. Cartilage borrows that compositional intuition, not the entire semantics of a particular object-oriented language.</p>
-            <p>The important questions are ownership and boundary. A parent knows which child it owns. Communication crosses an interface. The child has local state. Replacement changes the child without requiring every other component to become one flat global object.</p>
-            <p><a href="/reactive-model-composition.html">Reactive Model Composition</a> carries those questions into a complete model of composing agents, private state, streamed deployment, unallocated space, and direct channels between constituents.</p>
+            <h2>Carry Object Composition Into Spatial Hardware</h2>
+            <p>An object holds state, exposes an interface, contains other objects, and preserves identity while its internal state changes. Cartilage carries that compositional intuition into a physical region with explicit ownership.</p>
+            <p>A parent owns a specific child, communication crosses the child’s interface, and replacement changes that child while the larger composition retains its structure.</p>
+            <p><a href="/reactive-model-composition.html">Reactive Model Composition</a> develops the larger model through composing agents, private state, streamed deployment, unallocated space, and direct channels between constituents.</p>
         </section>
 
         <section>
-            <h2>A Named Helper Is Not A Region</h2>
-            <p>A source-language function, macro, class, module, or repeated helper can be expanded into ordinary logic inside the current region. That is useful hierarchy for humans and tools, but it does not automatically create an independently reconfigurable child.</p>
-            <p>The current QuadFlow semantics make this distinction explicit:</p>
+            <h2>Separate Circuit Composition From Region Composition</h2>
+            <p>A compiler can expand a function, macro, class, module, or repeated helper into ordinary logic inside the current region. An independently reconfigurable child adds owned space, a boundary, and a configuration surface.</p>
+            <p>Current QuadFlow semantics express both composition modes directly:</p>
             <div class="article-fact-table" role="table" aria-label="Cartilage composition modes">
                 <div class="article-fact-row" role="row">
                     <div class="article-fact-key" role="cell">Circuit composition</div>
-                    <div role="cell">Cells, constants, MUXes, feedback, routes, and packed local structure remain inside the current region.</div>
+                    <div role="cell">Cells, constants, MUXes, feedback, routes, and packed local structure build the current region.</div>
                 </div>
                 <div class="article-fact-row" role="row">
                     <div class="article-fact-key" role="cell">Region composition</div>
-                    <div role="cell">A parent-owned child membership, boundary bonds, independent configuration surface, and independent internal structure create a daughter region.</div>
+                    <div role="cell">Parent-owned membership, boundary bonds, an independent configuration surface, and internal structure create a daughter region.</div>
                 </div>
             </div>
-            <p>A child region exists only when the concrete configuration declares one. Naming alone does not allocate space.</p>
+            <p>A concrete configuration allocates the child region and declares its owned space.</p>
         </section>
 
         <section>
-            <h2>The Boundary Is Executable</h2>
-            <p>A spatial boundary is made of cells, side connections, ports, and routes. It determines where application values cross, where configuration enters, and which cell owns the transition between parent and child.</p>
-            <p>That makes the interface inspectable. A missing route, wrong orientation, misplaced port, or broken ownership pointer is not hidden inside a global runtime table; it appears in the fabric state and propagation path.</p>
+            <h2>Execute The Interface At The Spatial Boundary</h2>
+            <p>Cells, side connections, ports, and routes form the boundary. Together they determine where application values cross, where configuration enters, and which cell owns each parent-to-child transition.</p>
+            <p>The fabric state and propagation path expose every missing route, wrong orientation, misplaced port, and broken ownership pointer directly at the interface.</p>
         </section>
 
         <section>
-            <h2>Independent Replacement Requires A Configuration Surface</h2>
-            <p>Ordinary application ports carry the computation the child performs. An independently replaceable child also needs a way to receive a new description of what its region should become.</p>
-            <p>In the Cartilage model, a local reconfiguration port connects the parent-facing configuration stream to the daughter's ownership tree. A complete image can replace cell roles inside that bounded region: wires, intersections, constants, MUXes, and port roles. The port is part of the image-dependent spatial mechanism, not a permanent magical pin outside the fabric.</p>
+            <h2>Replace A Child Through Its Local Configuration Surface</h2>
+            <p>Application ports carry the child’s computation. A separate local configuration surface receives the image that defines what the bounded region becomes.</p>
+            <p>In Cartilage, a local reconfiguration port connects the parent-facing stream to the daughter’s ownership tree. One complete image replaces wires, intersections, constants, MUXes, and port roles inside that region. The image-dependent port remains part of the spatial fabric.</p>
         </section>
 
         <section>
-            <h2>Identity And Lifetime Become Spatial Questions</h2>
-            <p>If a child is replaced, what remains the same? Its boundary location may remain while its interior roles change. Its parent relationship may persist while application behavior is replaced. A later configuration could also relocate which cell acts as the port if the architecture and install path support that transition.</p>
-            <p>The current compact Core example proves one manually specified <code>6x6</code> installation through one port arrangement. It does not prove a second install through a relocated port. The broader preserved substrate demonstrates nested spatial behavior, but a general high-level allocator and placer remain separate work.</p>
+            <h2>Give Identity And Lifetime A Spatial Form</h2>
+            <p>A child can retain its boundary location and parent relationship while a replacement image changes its interior roles and application behavior. An installation path that supports port relocation can also move which cell serves as the interface.</p>
+            <p>The current compact Core runs one manually specified <code>6x6</code> installation through one port arrangement. The broader preserved substrate runs nested spatial behavior. A second installation through a relocated port and a general high-level allocator and placer form the next composition layer.</p>
         </section>
 
         <section>
-            <h2>“New Variable” Means Allocate A Neighboring Machine</h2>
-            <p>The teaching analogy is dynamic variable instantiation: a running parent requests a new child, an adjacent bounded region becomes the child's storage and logic, and a local stream defines what the child is. The variable is not an address into hidden global memory; it is a new owned machine occupying space.</p>
-            <p>That is an architectural interpretation of the nested-instantiation line, not a claim that a public high-level <code>new</code> syntax currently compiles into arbitrary Cartilage placement. The next page shows the canonical live artifact and the concrete local mechanism it does establish.</p>
+            <h2>Make “New Variable” Allocate A Neighboring Machine</h2>
+            <p>Dynamic variable instantiation becomes spatial: a running parent requests a child, an adjacent bounded region supplies its storage and logic, and a local stream defines the new machine.</p>
+            <p>A future high-level <code>new</code> operation can target that architecture through allocation and placement. The next page runs the canonical local-port and bounded-region mechanism in the browser.</p>
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue the Cartilage learning path">
         <p>Next:</p>
         <a href="/cartilage-nested-instantiation-demo.html">Runtime Instantiation In Space</a>
-        <p>Inspect the canonical browser/GPU artifact for local ports, bounded daughter regions, and serial replacement.</p>
-        <p>More:</p>
+        <p>Run local ports, bounded daughter regions, and serial replacement in the canonical browser/GPU fabric.</p>
+        <p>Return to the full sequence:</p>
         <a href="/cartilage/">The Complete Cartilage Learning Path</a>
-        <p>Return to the sequence and its current evidence map.</p>
-        <p>Build next:</p>
+        <p>Connect spatial composition back to LUTs, distribution, state, timing, and routed locality.</p>
+        <p>Build the workstation:</p>
         <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help make composed blocks, owned daughter regions, and their boundaries directly editable and reusable. Funding and contributors are welcome.</p>
+        <p>Choose a concrete package that makes composed blocks, owned daughter regions, and their boundaries directly editable and reusable.</p>
     </nav>
 </body>
 

@@ -4,7 +4,7 @@ slug: "a-brain-sized-machine-in-real-units"
 date: "2021-03-27T09:58:34.477Z"
 original_dates:
   - "2021-03-27T09:58:34.477Z"
-description: "A dimensional exercise that turns brain-scale computation into connections, update rates, memory, floor area, power, cooling, and routing."
+description: "A brain-scale machine becomes actionable when connections, update rates, memory, routing, geometry, power, cooling, service, and cost carry real units."
 status: publication-ready
 ---
 
@@ -12,79 +12,79 @@ status: publication-ready
 
 *March 27, 2021*
 
-“Build a computer as powerful as a brain” sounds like a specification until I try to buy the cables.
+A brain-sized computer begins with cables, memory, routes, power, cooling, and floor space—not a single abstract performance number.
 
-Then the phrase falls apart. Powerful in what sense? How many independently changing relationships must the machine retain? How often do they change? How far must a signal travel? How much energy may one transition consume? Where does the heat leave? What does the machine do when one part changes while another is still receiving the previous state?
+“Build a computer as powerful as a brain” opens several architectural questions. Which relationships change independently? How often do they change? How far does each signal travel? How much energy does one transition consume? Where does the heat leave? How does the machine coordinate a new state with receivers that still hold the previous one?
 
-I once forced the question into real units. The worksheet was deliberately rough, and every conversion that broke exposed the same thing: a brain-sized machine is not primarily a large arithmetic engine. It is a physical communication problem with computation embedded throughout it.
+The 2021 worksheet forced every answer into real units. Its conversions reveal a brain-scale machine as a physical communications system with computation distributed throughout it.
 
 ## Begin With Relationships, Not FLOPS
 
-Take two round assumptions: 88 billion neurons and 10,000 connections per neuron. Multiplication gives:
+Start with two round assumptions: 88 billion neurons and 10,000 connections per neuron.
 
 ```text
 88,000,000,000 × 10,000 = 880,000,000,000,000
 ```
 
-That is 880 trillion directed connection slots.
+The multiplication produces 880 trillion directed connection slots.
 
-I use this as a scale marker, not as a conversion between biological synapses and logic gates. Even one bit of state per slot would occupy about 110 terabytes in decimal units. One byte per slot would require about 880 terabytes. Eight bytes of weight, delay, adaptation, or routing state would approach seven petabytes.
+That value marks scale rather than equating biological synapses with logic gates. One bit per slot occupies about 110 terabytes in decimal units. One byte per slot requires about 880 terabytes. Eight bytes for weight, delay, adaptation, or routing state approach seven petabytes.
 
-The range matters more than one dramatic total. Before simulating anything, the representation has already chosen whether the machine is a hundred-terabyte system or a multi-petabyte system.
+Representation alone therefore chooses between a hundred-terabyte system and a multi-petabyte system.
 
-Now assign a modest average of 30 delivered events per connection per second. The resulting upper-bound traffic is about 26 quadrillion deliveries per second. Real activity is sparse, structured, and constrained; not every connection fires independently at that rate. Yet the multiplication exposes the architectural danger. A design that routes every event through a small central memory or a narrow shared bus has lost before its arithmetic begins.
+At a modest average of 30 delivered events per connection per second, the upper-bound traffic reaches about 26 quadrillion deliveries per second. Real activity brings sparsity, structure, and dependent firing, yet the total exposes a decisive architectural requirement: local processing and hierarchical communication must prevent a narrow shared bus or central memory from carrying every event.
 
-## A Neuron Is Not an FPGA
+## A Neuron and an FPGA Reveal Different Geometries
 
-My first comparison treated one neuron’s fan-out as the perimeter of a square logic region. If 10,000 independent connections leave through four equal sides, each side needs 2,500 connection positions. A square 2,500 units wide contains 6.25 million interior positions.
+The first comparison mapped one neuron’s fan-out onto the perimeter of a square logic region. If 10,000 independent connections leave through four equal sides, each side needs 2,500 connection positions. A square 2,500 units wide contains 6.25 million interior positions.
 
-That number resembles the logic capacity of a large programmable device. The resemblance is seductive and almost meaningless.
+That number approaches the logic capacity of a large programmable device and reveals a useful geometric relation.
 
-The square assumes one connection per perimeter position, uniform geometry, no multiplexing, no branching, no three-dimensional escape, and no difference between a synapse, an axon, a routing switch, and a Boolean cell. A neuron is a living electrochemical system. An FPGA is a manufactured digital fabric. Their primitive operations, timing, noise, memory, adaptation, and energy are not interchangeable.
+The square assumes one perimeter position per connection, uniform geometry, no multiplexing, no branching, no three-dimensional escape, and no distinction among a synapse, axon, routing switch, and Boolean cell. Biological neurons and manufactured digital fabrics have different primitive operations, timing, noise, memory, adaptation, and energy.
 
-The square still teaches something important: **surface and interior scale differently**. Area grows with the square of width; perimeter grows linearly. Packing more computation inside a module does not automatically provide the communication surface required to keep it fed.
+The comparison’s power lies in surface scaling. Area grows with width squared while perimeter grows linearly. More computation inside a module does not automatically create the communication surface needed to feed it.
 
-That is why a giant “brain chip” cannot be evaluated by gate count alone. The useful questions include:
+A brain-scale device therefore answers:
 
-- How many signals cross a module boundary?
-- Are they independent, serialized, aggregated, or locally regenerated?
-- How far do they travel?
-- How much state stays beside the computation that uses it?
-- What fraction of the machine exists only to move bits?
+- How many signals cross each module boundary?
+- Do they travel independently, serially, through aggregation, or through local regeneration?
+- How far does each signal travel?
+- How much state remains beside the computation that uses it?
+- Which fraction of the machine moves bits?
+
+Gate count becomes meaningful only inside that geometry.
 
 ## The 2021 VU19P Calculation
 
-My March 2021 worksheet chose one then-current part as a ruler: the Xilinx Virtex UltraScale+ VU19P, listed with roughly nine million logic cells and 4.5 terabits per second of aggregate transceiver bandwidth.
+The March 2021 worksheet used one then-current ruler: the Xilinx Virtex UltraScale+ VU19P with roughly nine million listed logic cells and 4.5 terabits per second of aggregate transceiver bandwidth.
 
-The first pass divided the 550 quadrillion notional logic-cell positions by a 20-million-to-one speed ratio. That ratio came from comparing a 600 MHz device clock with the assumed 30-event-per-second biological rate. After rounding at several stages, the sheet arrived at 30 billion active digital logic cells, or about 3,000 VU19Ps.
+Its first pass divided 550 quadrillion notional logic-cell positions by a 20-million-to-one speed ratio. Comparing a 600 MHz device clock with the assumed 30-event-per-second biological rate produced that ratio. Rounded stages yielded 30 billion active digital logic cells, equivalent to about 3,000 VU19Ps.
 
-Then the pins ruined the clean answer.
+Boundary pins transformed the answer.
 
-If nine million cells form a 3,000-by-3,000 square, its four sides contain 12,000 positions. Moving one bit per position on every 600 MHz cycle would imply 7.2 terabits per second at the boundary. The listed 4.5-terabit rate carries only 7,500 such bit positions per cycle, or 1,875 per side. The side ratio is `1,875 / 3,000 = 0.625`; squaring it gives an effective area factor of about `0.39`.
+Arrange nine million cells as a 3,000-by-3,000 square and the four sides contain 12,000 positions. Sending one bit from every position on every 600 MHz cycle requires 7.2 terabits per second. The listed 4.5-terabit rate carries 7,500 such positions per cycle, or 1,875 per side. The ratio `1,875 / 3,000 = 0.625`; its square gives an effective area factor near `0.39`.
 
-The worksheet therefore replaced the 3,000-device answer with 7,680 devices. At the recorded DigiKey price of $73,074.30 each, the two totals were about $220 million and $560 million respectively.
+Applying that boundary factor changes 3,000 devices into 7,680. At the recorded DigiKey price of $73,074.30 each, the two configurations total about $220 million and $560 million.
 
-Treat those figures as a 2021 calculator. “Logic cell,” neural connection, transceiver bit, and delivered event are unlike units. The 20-million speed ratio assumes perfect time multiplexing. The perimeter model assumes a flat square with uniform traffic. Even the rounded sequence does not reproduce every final digit if recalculated from unrounded inputs.
+This 2021 calculator exposes every consequential conversion. Logic cells, neural connections, transceiver bits, and delivered events measure different things. The 20-million speed ratio represents perfect time multiplexing. The perimeter model assumes flat square geometry and uniform traffic. Rounded intermediate values also explain differences among final digits.
 
-I keep the calculation because it exposes exactly where the fantasy depends on a conversion. Change the event rate, representation, locality, serialization, or device price, and the answer moves. Remove the boundary bandwidth, and the answer becomes meaningless.
+Change event rate, representation, locality, serialization, or device price and the design changes. Add boundary bandwidth, and the arithmetic becomes architecture.
 
-## Clock Rate Does Not Cancel Topology
+## Clock Rate Cannot Cancel Topology
 
-Another tempting shortcut is to divide a biological event rate by a digital clock rate. If a circuit runs millions of times faster than a neural process, perhaps one circuit can impersonate millions of biological relationships.
+Time multiplexing trades switching rate for hardware. One arithmetic unit can update many model elements in sequence, provided the complete system carries their state and communication.
 
-Time multiplexing can indeed trade speed for hardware. One arithmetic unit can update many model elements in sequence. But the trade is not free.
+That state needs storage, fetches, updates, and writeback. Schedulers must preserve dependencies and delays. Sparse event systems need efficient discovery rather than complete scans. A fast core can otherwise spend its cycles waiting for memory and moving work descriptions.
 
-The state for all those elements must live somewhere. It must be fetched, updated, and written back. Dependencies must be scheduled. Delays must remain meaningful. Sparse events must be found without scanning everything. The faster core can spend most of its time waiting for memory or moving descriptions of work.
+Clock speed does not shorten a route between racks, widen a connector, remove serializer delay, or cool a cable driver.
 
-A fast clock does not erase the distance between two racks. It does not enlarge a connector. It does not remove serialization latency. It does not cool a cable driver.
-
-The right conversion is therefore not:
+The complete conversion therefore replaces:
 
 ```text
 brain rate ÷ FPGA rate = number of FPGAs
 ```
 
-It is a complete budget:
+with a system budget:
 
 ```text
 represented state
@@ -97,73 +97,73 @@ represented state
 + cooling
 ```
 
-Only then does clock rate enter.
+Clock rate takes its proper place inside that budget.
 
-## The GPU and Summit Branch
+## GPU and Summit Rulers Describe Different Machines
 
-The same worksheet tried a GPU ruler and obtained a deliberately uncomfortable comparison.
+The same worksheet applied a GPU ruler and produced another concrete system.
 
-It imagined a 30,000-by-30,000-pixel state surface updating 150,000 times per second. Under its mapping, a real-time brain-sized surface would be about two million pixels on a side—described at the time as 494 screens by 878 screens—and would require roughly 400,000 GPUs. With the broad historical price range of $100 to $7,000 per GPU, the sheet recorded a hardware span from $40 million to $3 billion.
+It imagined a 30,000-by-30,000-pixel state surface updating 150,000 times per second. Under that mapping, a real-time brain-sized surface spans about two million pixels on a side—494 screens by 878 screens—and requires roughly 400,000 GPUs. Across the historical range of $100 to $7,000 per GPU, hardware totals run from $40 million to $3 billion.
 
-It then used Summit as a system-scale check. Summit had almost 30,000 GPUs, so the worksheet called for 13 Summit-sized machines, about $4.3 billion at the recorded $325 million per system. Summit’s 250 petabytes of storage exceeded the worksheet’s 63-petabyte state estimate, but the sheet still judged one Summit far short of its desired update rate. It noted the then-planned Frontier figure of 1.5 exaFLOPS at $600 million and projected roughly 2.6 exaFLOPS and $1 billion for its own target.
+Summit provided a facility-scale ruler. With almost 30,000 GPUs, the worksheet required 13 Summit-sized systems: about $4.3 billion at the recorded $325 million per machine. Summit’s 250 petabytes of storage exceeded the worksheet’s 63-petabyte state estimate, while the desired update rate still required greater throughput. The then-planned Frontier figure supplied another comparison at 1.5 exaFLOPS and $600 million; the worksheet projected roughly 2.6 exaFLOPS and $1 billion for its target.
 
-A texture update, a synaptic event, a FLOP, and a connection delivery measure different work, and list prices do not assemble a functioning facility. That disagreement among rulers is the point. A gate-count story, a pixel-update story, and a FLOP story can each produce a confident multibillion-dollar answer while describing different machines.
+A texture update, synaptic event, FLOP, and delivered connection each name different work. The variation among these rulers shows which machine each performance metric actually purchases.
 
-## Turn the Rack Into Part of the Algorithm
+## Make the Rack Part of the Algorithm
 
-Once a machine spans boards, racks, or a room, physical layout becomes a programming constraint.
+Once a machine occupies boards, racks, or a room, physical layout joins the program.
 
-Suppose I divide the model into local regions. Connections within a region are cheap; connections crossing a region boundary consume links, serialization time, and energy. If I partition poorly, a beautiful local compute engine spends its life exporting state. If I partition well, most interactions stay near their storage and only compressed consequences cross the boundary.
+Partition the model into local regions. Interactions within a region stay near their state; boundary crossings consume links, serialization time, and energy. Poor partitioning turns a powerful local engine into a state exporter. Strong partitioning keeps frequent interactions beside storage and sends compressed consequences across regions.
 
-This looks less like buying one larger processor and more like designing a city:
+The machine begins to resemble a city:
 
-- local streets handle frequent short trips;
+- local streets carry frequent short trips;
 - larger roads connect neighborhoods;
 - utilities have capacity and failure boundaries;
 - dense centers need disproportionate cooling and delivery;
 - moving an activity changes traffic elsewhere.
 
-The partition is part of the model. A brain-scale machine needs an explicit account of locality, not a flat list of operations.
+The partition forms part of the brain-scale model rather than an afterthought to a flat operation list.
 
 ## The Cartilage Module Budget
 
-The most concrete branch replaced the commercial device with small Cartilage modules on a 30-millimeter pitch. The worksheet recorded a target of 106,000 logic cells per module. It treated 529 modules as the spatial replacement for one VU19P and used the VU19P price to set a ceiling of $138 per module.
+The most concrete branch replaced the commercial device with Cartilage modules on a 30-millimeter pitch. Each module targeted 106,000 logic cells. The worksheet treated 529 modules as the spatial replacement for one VU19P and used its price to set a $138 ceiling per module.
 
-The rack calculation was equally physical:
+The rack calculation gave every abstraction physical dimensions:
 
-- 26,000 Cartilage modules in a `161 × 161` array;
-- approximately five by five meters of serviceable rack area;
-- 11.5 watts, or 2.3 amperes at five volts, per module;
-- approximately 300 kilowatts per rack;
-- a 13-by-13 conceptual rack array, followed elsewhere by a recorded total of 173 racks;
-- 3,287 server positions;
-- roughly four million modules in a `2,093 × 2,093` field;
-- 464 billion logic cells;
-- and a recorded module cost of $44 million at $10 each, plus $100 million of infrastructure.
+- a `161 × 161` array containing 26,000 Cartilage modules;
+- serviceable rack area measuring approximately five by five meters;
+- per-module demand of 11.5 watts, or 2.3 amperes at five volts;
+- approximately 300 kilowatts for each rack;
+- a conceptual 13-by-13 rack array and a separate recorded total of 173 racks;
+- capacity for 3,287 server positions;
+- a `2,093 × 2,093` field holding roughly four million modules;
+- an aggregate 464 billion logic cells;
+- recorded module cost of $44 million at $10 each, plus $100 million for infrastructure.
 
-A later line allowed 13 watts per module, or 122 microwatts per logic cell. At the rack boundary, the five-volt design implied about 67,000 amperes and approximately 4,500 fifteen-ampere feeds—a `67 × 67` field of power conductors, with only 2.4 modules behind each feed.
+A later line allowed 13 watts per module, equivalent to 122 microwatts per logic cell. At the rack boundary, five volts implies about 67,000 amperes and approximately 4,500 fifteen-ampere feeds—a `67 × 67` field of power conductors with only 2.4 modules behind each feed.
 
-Routing produced another constraint. Dividing 7,500 perimeter bit positions by the worksheet’s 23-to-one pitch factor left 326 connections for a flex cable. If a one-centimeter edge physically held only 31 pads, serialization would need to approach 6 GHz to preserve the assumed rate.
+Routing adds another hard interface. Divide 7,500 perimeter bit positions by the worksheet’s 23-to-one pitch factor and 326 connections remain for a flex cable. If a one-centimeter edge holds only 31 pads, serialization approaches 6 GHz to sustain the assumed rate.
 
-Reconciling the worksheet exposes several mismatches. The exact `2,093 × 2,093` field is 4.38 million modules, which explains the recorded $44 million; “four million” was the coarse label. A module budget of 11.5 watts gives the 300-kilowatt rack, while 13 watts does not. A 13-by-13 array contains 169 racks, not the separately recorded 173 that yields 3,287 nineteen-unit server positions. “Rack” had also stretched into a five-meter service field that no longer resembled an ordinary 19-inch cabinet.
+Reconciliation clarifies the system. The exact `2,093 × 2,093` field totals 4.38 million modules and explains the recorded $44 million, while “four million” serves as the coarse label. A budget of 11.5 watts per module creates the 300-kilowatt rack; 13 watts creates a different total. A 13-by-13 array contains 169 racks, while the separately recorded 173 yields 3,287 nineteen-unit server positions. The word “rack” also expanded into a five-meter service field unlike an ordinary 19-inch cabinet.
 
-Each mismatch points to an interface that needs its own architecture: module-to-module links, power distribution, service access, and the definition of a useful local operation.
+Those relationships define four engineering interfaces that deserve their own architecture: module links, power distribution, service access, and the useful local operation.
 
 ## Power Gives Every Abstraction a Price
 
-The worksheet’s facility total was 52 megawatts over 3,856 square meters—a square about 62 meters on a side—with 173 racks and 3,287 server positions.
+The worksheet’s facility occupies 3,856 square meters—a square about 62 meters on each side—and consumes 52 megawatts across 173 racks and 3,287 server positions.
 
-At 52 megawatts, every hour consumes 52 megawatt-hours. The machine needs electrical distribution, conversion losses, backup behavior, heat rejection, service access, and a site that can accept the load. A design that saves one picojoule on an operation repeated quadrillions of times changes a measurable part of that plant.
+Every hour at 52 megawatts consumes 52 megawatt-hours. Electrical distribution, conversion loss, backup behavior, heat rejection, service access, and site capacity all join the design. Saving one picojoule on an operation repeated quadrillions of times changes a measurable part of the plant.
 
-Conversely, an operation count that ignores data movement is not a power estimate. Moving a bit across a board, through a serializer, or between memory packages can cost more than the local Boolean operation it enables. “Compute efficiency” must include the route.
+Data movement belongs in the same budget. Moving a bit across a board, through a serializer, or between memory packages can consume more energy than the local Boolean operation. Compute efficiency includes the route.
 
-This is one reason I remain interested in spatial and in-memory computation: state, switching, and communication can remain physically near one another, with hierarchy visible instead of hidden behind a uniform address space.
+Spatial and in-memory computation gain importance at this scale because state, switching, and communication can remain physically close, with hierarchy visible instead of concealed behind one uniform address space.
 
 ## Make Every Assumption Earn Its Unit
 
-A useful back-of-the-envelope calculation reveals which assumption dominates the design.
+A useful dimensional calculation identifies the assumption that controls the design.
 
-For a brain-sized machine, I would now keep a ledger with at least these columns:
+The brain-scale ledger needs at least these columns:
 
 | Quantity | Assumption | Unit | Sensitivity |
 |---|---|---|---|
@@ -175,6 +175,6 @@ For a brain-sized machine, I would now keep a ledger with at least these columns
 | energy per transmitted bit | distance/link | joules | high |
 | recoverable failure rate | system design | failures/hour | high |
 
-When the biological comparison is too underspecified to guide hardware, I replace “build a brain” with a concrete target: simulate this network, at this event rate, with this precision, within this power and floor-area envelope.
+A concrete target can replace the broad phrase “build a brain”: simulate this network, at this event rate and precision, inside this power and floor-area envelope.
 
-The moment the machine has units, it becomes less magical and more interesting. The cables enter the theory. So do the power bars, the cooling loops, the floor, and the distance from one state change to the next.
+Once every quantity gains a unit, the machine becomes buildable. Cables enter the theory alongside power bars, cooling loops, floor area, and the distance from one state change to the next.

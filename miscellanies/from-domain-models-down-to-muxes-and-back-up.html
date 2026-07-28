@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>From Domain Models Down to MUXes—and Back Up | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="A walk from diverse domain models through simulation, control and datapath, Boolean relations, multiplexers, state, energy, and physical work.">
+    <meta name="description" content="Every domain consequence can travel through explicit transition rules, control, datapaths, Boolean relations, MUXes, retained state, energy.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/miscellanies/from-domain-models-down-to-muxes-and-back-up.html">
     <meta property="og:title" content="From Domain Models Down to MUXes—and Back Up">
-    <meta property="og:description" content="A walk from diverse domain models through simulation, control and datapath, Boolean relations, multiplexers, state, energy, and physical work.">
+    <meta property="og:description" content="Every domain consequence can travel through explicit transition rules, control, datapaths, Boolean relations, MUXes, retained state, energy.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/miscellanies/from-domain-models-down-to-muxes-and-back-up.html">
     <meta property="article:published_time" content="2026-07-24">
-    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,8 +42,8 @@
             },
             "dateCreated": "2021-03-29T06:32:58.065Z",
             "datePublished": "2026-07-24",
-            "dateModified": "2026-07-24",
-            "description": "A walk from diverse domain models through simulation, control and datapath, Boolean relations, multiplexers, state, energy, and physical work.",
+            "dateModified": "2026-07-28",
+            "description": "Every domain consequence can travel through explicit transition rules, control, datapaths, Boolean relations, MUXes, retained state, energy, and physical work—and return without losing its meaning.",
             "mainEntityOfPage": "https://greenforest.io/miscellanies/from-domain-models-down-to-muxes-and-back-up.html",
             "isPartOf": {
                 "@type": "CollectionPage",
@@ -62,90 +62,87 @@
 
 <body class="article-structured miscellany-article">
     <header><h1 class="page-title">From Domain Models Down to MUXes—and Back Up</h1></header>
-    <address><time datetime="2021-03-29">Developed from March 29 through June 19, 2021</time></address>
+    <address><time datetime="2021-03-29">Developed from March 29 through June 19, 2021</time><br><time datetime="2026-07-28">Updated July 28, 2026</time></address>
 
     <section class="abstract">
         <p class="eyebrow">Circuits, Cartilage, and reconfigurable hardware</p>
-        <p class="lead">A walk from diverse domain models through simulation, control and datapath, Boolean relations, multiplexers, state, energy, and physical work.</p>
+        <p class="lead">Every domain consequence can travel through explicit transition rules, control, datapaths, Boolean relations, MUXes, retained state, energy, and physical work—and return without losing its meaning.</p>
     </section>
 
     <main>
         <section class="article-opening">
-            <p>Every domain is different at the top.</p>
-            <p>A musician thinks in phrases and timbre. A logistics planner thinks in shipments, capacities, and deadlines. A chemist thinks in species, reactions, and conditions. An architect thinks in rooms, structure, utilities, movement, and use.</p>
-            <p>Trying to replace that diversity with one universal programming metaphor produces shallow software. The domain model should remain rich enough to express the distinctions experts actually use.</p>
-            <p>My concern begins one level underneath:</p>
+            <p>A meaningful domain decision can travel all the way down to the MUX that selects it and back up without losing its purpose.</p>
+            <p>Musicians think in phrase and timbre. Logistics planners think in shipments, capacity, and deadlines. Chemists think in species, reactions, and conditions. Architects think in rooms, structure, utilities, movement, and use. Software gains power by preserving those expert distinctions.</p>
+            <p>Under every active domain model sits one machine question:</p>
             <blockquote>
-                <p>What kind of machine can make an arbitrary domain model change state?</p>
+                <p>Which mechanism lets this model change state?</p>
             </blockquote>
-            <p>Following that question downward leads through simulators, algorithms, control, datapaths, Boolean functions, multiplexers, memory, and finally physical work. Following it upward again explains how a tiny switch participates in a meaningful decision.</p>
+            <p>Following the answer downward reveals simulators, algorithms, control, datapaths, Boolean functions, multiplexers, memory, and physical work. Following it upward shows how one switch can participate in a consequential human decision.</p>
         </section>
         <section>
-            <h2>Every Active Model Needs Transition Rules</h2>
-            <p>A domain model becomes executable when it can answer:</p>
+            <h2>Active Models Carry Transition Rules</h2>
+            <p>A domain model becomes executable when it answers:</p>
             <pre><code class="language-text">given this state and this event,
 what state is permitted next?</code></pre>
-            <p>For a shipment, the event may be arrival at a depot. For a building, it may be a person opening a valve or entering a room. For a musical instrument, it may be a key press plus the current envelope state.</p>
-            <p>I use <em>simulator</em> broadly for the mechanism that applies those rules. It need not predict a physical world in floating point. A form validator simulates which records may follow which. A game engine simulates a world. A hardware controller simulates the allowed progression of a protocol.</p>
-            <p>The domain model supplies meanings and invariants. The simulator supplies time.</p>
+            <p>A shipment event can record arrival at a depot. A building event can record a person opening a valve or entering a room. A musical event can combine a key press with current envelope state.</p>
+            <p>The <strong>simulator</strong> applies those transition rules. It need not predict a physical world through floating point. Form validators determine which records can follow others. Game engines advance worlds. Hardware controllers advance protocols through permitted phases.</p>
+            <p>Domain models supply meaning and invariants; simulators supply time.</p>
         </section>
         <section>
-            <h2>Architecture Has a Transformational Stage</h2>
-            <p>Building architecture offers a useful analogy.</p>
-            <p>A plan is instantiated into foundations, walls, rooms, utilities, and connections. That is a transformational stage: a description becomes infrastructure.</p>
-            <p>Then people occupy the building. They walk, sleep, cook, move materials, open doors, and use utilities. That ongoing activity is closer to data and control flow.</p>
-            <p>The constructed building does not execute instructions like a CPU, but it channels behavior. A corridor permits some paths and blocks others. A pipe carries one kind of flow. A locked door makes a state transition conditional.</p>
-            <p>Software and circuits also have these two lives:</p>
+            <h2>Architecture Transforms Descriptions Into Infrastructure</h2>
+            <p>Building architecture gives computation a useful analogy.</p>
+            <p>A plan becomes foundations, walls, rooms, utilities, and connections. Then people occupy that structure: they walk, sleep, cook, move materials, open doors, and use services.</p>
+            <p>The building does not execute CPU instructions, yet its structure channels behavior. Corridors enable some paths and block others. Pipes carry particular flows. Locked doors make transitions conditional.</p>
+            <p>Software and circuits likewise have two lives:</p>
             <ol>
-                <li><strong>configuration:</strong> create the structure that can act;</li>
+                <li><strong>configuration:</strong> construct the structure that can act;</li>
                 <li><strong>operation:</strong> move values through that structure.</li>
             </ol>
-            <p>CPUs configure behavior frequently by fetching instructions. FPGAs configure a spatial circuit less frequently and then let signals flow through it. A dynamically reconfigurable fabric attempts to move the boundary, replacing smaller structural regions while the larger machine continues to exist.</p>
+            <p>CPUs reconfigure behavior frequently through fetched instructions. FPGAs configure spatial circuitry less often and then let signals flow. Dynamically reconfigurable fabrics move the boundary again by replacing local structural regions while the larger machine continues operating.</p>
         </section>
         <section>
-            <h2>Control and Datapath Explain Each Other</h2>
-            <p>Many machines become easier to understand when separated into control and datapath.</p>
-            <p>The datapath holds and transforms values: add, select, compare, shift, store. Control decides which transformation occurs and when.</p>
-            <p>Their conversation has three useful directions:</p>
+            <h2>Control and Datapath Form One Conversation</h2>
+            <p>Control and datapath make many machines easier to understand.</p>
+            <p>The datapath stores and transforms values through selection, addition, comparison, shifting, and memory. Control chooses which transformation occurs and when.</p>
+            <p>Their conversation has three directions:</p>
             <ul>
-                <li><strong>datapath to control:</strong> a decoder or comparison reports a condition;</li>
+                <li><strong>datapath to control:</strong> comparisons and decoders report conditions;</li>
                 <li><strong>control to control:</strong> a finite-state machine selects its next phase;</li>
-                <li><strong>control to datapath:</strong> an algorithm enables a register, chooses an input, or starts an operation.</li>
+                <li><strong>control to datapath:</strong> an algorithm enables registers, chooses inputs, and starts operations.</li>
             </ul>
-            <p>Consider a counter that stops at ten. The register and incrementer form the datapath. A comparison reports <code>count == 10</code>. The controller chooses whether to load the incremented value or preserve the old one.</p>
-            <p>This division is not compulsory. Control can be distributed, encoded as data, or absorbed into a larger relation. It remains an excellent explanatory tool because it shows where a condition becomes a choice.</p>
+            <p>For a counter that stops at ten, the register and incrementer create the datapath. A comparison reports <code>count == 10</code>. The controller either loads the incremented value or preserves the previous one.</p>
+            <p>Architectures can distribute control, encode it as data, or absorb it into a larger relation. The control/datapath view remains powerful because it identifies the point where a condition becomes a choice.</p>
         </section>
         <section>
-            <h2>CPU, GPU, and FPGA Are Different Placements of State Change</h2>
-            <p>The simple caricature says a CPU is sequential, a GPU is parallel, and an FPGA is more parallel. Real processors are more complicated: CPUs execute multiple operations concurrently, GPUs contain control, and FPGAs often time-share resources.</p>
-            <p>The durable distinction is where the programmer places structure.</p>
+            <h2>CPU, GPU, and FPGA Place State Change Differently</h2>
+            <p>CPU, GPU, and FPGA architectures differ most durably in where programmers place structure.</p>
             <h3>CPU</h3>
-            <p>Instructions repeatedly configure a relatively fixed collection of execution machinery. State is concentrated in registers, caches, and memory. General control flow is inexpensive to express.</p>
+            <p>Instructions repeatedly configure a relatively fixed collection of execution units. Registers, caches, and memory concentrate state, while general control flow remains inexpensive to express.</p>
             <h3>GPU</h3>
-            <p>Many lanes apply similar operations across broad data sets. Parallel throughput is high when work is regular and memory access cooperates. Fine, independent control in every lane can be costly.</p>
+            <p>Many lanes apply similar operations across broad data sets. Regular work and cooperative memory access create high throughput; fine independent control across every lane consumes more resources.</p>
             <h3>FPGA</h3>
-            <p>The developer configures spatial Boolean and state machinery. Independent regions can change state concurrently at fine granularity. Routing, timing, and area become visible design resources.</p>
-            <p>A multi-region reconfigurable fabric adds another axis: fine-grained parallel operation plus fine-grained replacement of the operating structure. Its allocator has to name the region, its owner, the configuration path, and the moment the replacement becomes active.</p>
+            <p>Developers configure spatial Boolean and state machinery. Independent regions change concurrently at fine granularity, while routing, timing, and area become explicit resources.</p>
+            <p>A multi-region reconfigurable fabric adds fine-grained replacement to fine-grained parallel operation. Its allocator names each region, owner, configuration path, and commit instant.</p>
         </section>
         <section>
-            <h2>Boolean Functions Are the Reusable Ground</h2>
-            <p>At the lowest logical level, a finite combinational circuit implements a Boolean function. Multiplexers are sufficient to construct any finite Boolean function because a MUX can select the result associated with one variable while its inputs represent the remaining cases.</p>
-            <p>A finite stateless circuit stops at combinational logic. Add retained state and recurrence to obtain general sequential computation; the mathematical model of unbounded Turing computation also supplies an unbounded resource.</p>
-            <p>For practical finite machines, the combination is enough:</p>
+            <h2>Boolean Functions Form Reusable Ground</h2>
+            <p>A finite combinational circuit implements a Boolean function. Multiplexers can construct any finite Boolean function by selecting the result associated with one variable while their inputs represent the remaining cases.</p>
+            <p>Combinational logic produces a finite stateless circuit. Retained state and recurrence create general sequential computation. The mathematical model of unbounded Turing computation additionally assumes an unbounded resource.</p>
+            <p>Practical finite machines need:</p>
             <pre><code class="language-text">Boolean relation
 + stored state
 + repeated transition
 = finite-state computation</code></pre>
-            <p>D flip-flops are one convenient way to store state. Other physical or modeled mechanisms can retain it. One-hot state machines trade more state bits for simple decoding. Counters reuse compact arithmetic structure over time. Hierarchical components let engineers build systems far larger than any one truth table.</p>
-            <p>The power comes from repeating a tiny vocabulary at many scales.</p>
+            <p>D flip-flops provide one state-storage mechanism among several physical and modeled choices. One-hot machines exchange additional state bits for direct decoding. Counters reuse compact arithmetic structure through time. Hierarchical components compose systems far larger than one truth table.</p>
+            <p>A focused vocabulary gains power through repetition across scales.</p>
         </section>
         <section>
-            <h2>State Change Requires Work</h2>
-            <p>A mechanical computer makes the physical foundation obvious. Static pressure alone does not move a lever from one stable position to another. Changing state requires work.</p>
-            <p>Digital abstraction hides this beneath voltage margins and clocks, but it does not repeal it. Charging a capacitance, switching a transistor, moving a magnetic domain, emitting light, and carrying a signal through a wire all involve energy and time.</p>
-            <p>This is where a domain promise acquires a physical price.</p>
-            <p>If the logistics model asks to recompute every route after each package scan, some machine must move the relevant bits. If the architecture model asks for a door to unlock, some actuator must do work. If a reconfigurable circuit asks to replace a region, configuration data must travel and physical state must change.</p>
-            <p>The full chain is:</p>
+            <h2>State Change Performs Physical Work</h2>
+            <p>Mechanical computers show the physical foundation directly. Static pressure cannot move a lever between stable positions; the transition requires work.</p>
+            <p>Digital voltage margins and clocks compress this fact without removing it. Charging capacitance, switching transistors, moving magnetic domains, emitting light, and carrying signals through wire all consume energy and time.</p>
+            <p>This is where every domain promise acquires a physical price.</p>
+            <p>A logistics model that recomputes routes after each package scan moves relevant bits somewhere. A building model that unlocks a door drives an actuator. A reconfigurable circuit that replaces a region transports configuration data and changes physical state.</p>
+            <p>The complete chain:</p>
             <pre><code class="language-text">domain intention
 -&gt; permitted transition
 -&gt; control decision
@@ -156,17 +153,17 @@ what state is permitted next?</code></pre>
         </section>
         <section>
             <h2>Learn the Chain in Both Directions</h2>
-            <p>I would teach this material as a loop rather than a ladder.</p>
-            <p>Start with a visible logic simulator. Build a MUX, register, counter, and small state machine. Put them in an FPGA and observe real I/O. Add the mathematics needed to predict the behavior. Then study routing, packet switching, sorting networks, and dynamic configuration.</p>
-            <p>Finally return to a domain problem and ask:</p>
+            <p>Education can follow the chain as a loop.</p>
+            <p>Begin with visible logic. Build a MUX, register, counter, and finite-state machine. Install them in an FPGA and observe physical I/O. Add the mathematics that predicts their behavior. Continue into routing, packet switching, sorting networks, and dynamic configuration.</p>
+            <p>Then return to a domain problem:</p>
             <ul>
-                <li>Which meanings belong in the model?</li>
-                <li>Which transitions make it executable?</li>
-                <li>Which work should be sequential, parallel, or spatial?</li>
-                <li>Which lower-level constraints must remain visible?</li>
+                <li>Which meanings belong in its model?</li>
+                <li>Which transitions make the model executable?</li>
+                <li>Which work belongs in sequential, parallel, or spatial structure?</li>
+                <li>Which physical constraints must remain visible?</li>
             </ul>
-            <p>Bottom-up education prevents hardware from becoming magic. Top-down return prevents hardware from becoming a collection of tricks.</p>
-            <p>The domain expert should not have to think in MUXes all day. The machine designer should still be able to trace a domain consequence down to the MUX that selects it—and then travel back up without losing the meaning.</p>
+            <p>Bottom-up study makes hardware understandable. The top-down return reconnects every circuit to the outcome it serves.</p>
+            <p>Domain experts can work in their natural vocabulary while machine designers retain the ability to trace a consequence down to its selecting MUX—and carry the same meaning back up.</p>
         </section>
     </main>
 
@@ -179,7 +176,7 @@ what state is permitted next?</code></pre>
         <p>Walk the constructive path from Boolean choices to the lookup tables inside programmable logic.</p>
         <p>Nearby:</p>
         <a href="/miscellanies/a-machine-small-enough-to-explain-all-at-once.html">A Machine Small Enough to Explain All at Once</a>
-        <p>Build a tiny stored-program computer from stores, moves, jumps, and a visible stack, then test it with a bracket checker.</p>
+        <p>Build a complete stored-program computer from stores, moves, jumps, and a visible stack, then test it with a bracket checker.</p>
         <a href="/miscellanies/">Browse all 53 Miscellanies</a>
         <a href="/">Back to greenforest.io</a>
     </nav>

@@ -4,7 +4,7 @@ slug: "speak-in-changes-not-commands"
 date: "2020-04-15T05:29:30.809Z"
 original_dates:
   - "2020-04-15T05:29:30.809Z"
-description: "A voice-programming concept built around compact sound symbols and a language that describes changes to a visible model."
+description: "Voice programming transforms a visible model through sound symbols, references, semantic macros, explicit proposals, layered correction, and reversible commits."
 status: "publication-ready"
 ---
 
@@ -12,107 +12,97 @@ status: "publication-ready"
 
 *April 15, 2020*
 
-I want to write code by speaking, but I do not want to dictate punctuation.
+Voice programming becomes powerful when speech describes structural change instead of dictating punctuation.
 
-Turning a conventional text language into audio is the least interesting version of voice programming. “Open parenthesis, quote, comma, close parenthesis” makes the mouth impersonate a keyboard. It inherits every constraint of a representation designed for eyes and fingers.
+“Pick this up. Put it there. Connect these. Repeat that motion. When this changes, move that. Keep the relationship and replace the object.”
 
-A spoken programming language should begin from the thing voice does well: describe change.
+Those utterances transform a visible model while preserving object identity. The mouth gains a programming medium designed for voice rather than impersonating a keyboard through spoken parentheses, quotes, and commas.
 
-Pick this up. Put it there. Connect these. Repeat that motion. When this changes, move that. Keep the relationship but replace the object.
+## Give Sound a Visible Shape
 
-The program is not a paragraph of commands. It is a model being transformed while I talk.
+Speech vanishes during production; code needs inspectable form.
 
-## Give sound a visible shape
+The first design used dice-like marks to represent sound compactly. Finite positions distinguish categories without forcing every sound through alphabetic transcription. The visual encoding remains quick to scan and precise to correct.
 
-Speech disappears as it is made. Code must remain inspectable.
+Suppose each sound category uses six bits. Five categories then occupy thirty bits in a rough word-sized unit. At 150 spoken words per minute, the stream carries about 75 raw bits per second before boundaries, timing, correction, and redundancy.
 
-My first sketch used dice-like marks as a compact visual representation of sound. A small symbol with a finite number of positions can show distinctions without forcing every sound through the alphabet. I keep the exact encoding open while holding one useful constraint: the visual form should be small enough to scan and explicit enough to correct.
+Human speech contains far richer information, while the calculation isolates the design question:
 
-Suppose a sound category took six bits. Five such categories would occupy thirty bits for a rough word-sized unit. At 150 spoken words per minute, that is about 75 raw bits per second before timing, boundaries, correction, and redundancy. Human speech carries much richer information than that crude calculation, but the exercise exposes the engineering question:
+> Which representation preserves the distinctions this programming language needs?
 
-> What is the smallest representation that preserves the distinctions the programming language actually needs?
+Phonetic transcription offers one option. Constrained grammar and visible context can contribute more. When a screen shows three objects and the speaker says “connect the red output to this input,” the model supplies information that audio need not encode alone.
 
-The answer may not be phonetic transcription. A programming utterance can have a constrained grammar and a visible context. If the screen already shows three objects and I say “connect the red output to this input,” the model supplies information that the audio does not need to encode alone.
+## Build a Language of Changes
 
-## The language of changes
+Most programming languages describe a construction for later execution. A voice language can describe the transformation directly.
 
-Most programming languages describe a construction that will later execute. A voice language can describe the editing operation directly.
-
-Its primitive verbs might be:
+Its primitive verbs:
 
 - **pick** — select a visible object, region, value, or relationship;
 - **put** — move or instantiate the selected thing at a target;
 - **connect** — establish a typed relationship;
-- **cut** — remove a relationship without deleting both ends;
-- **replace** — preserve a role while changing its implementation;
-- **repeat** — turn the last transformation into a reusable operation;
+- **cut** — remove a relationship while preserving its endpoints;
+- **replace** — preserve a role while changing implementation;
+- **repeat** — turn the latest transformation into a reusable operation;
 - **when** — attach a transformation to a state change;
-- **show** — reveal the current expansion or hidden state;
-- **undo** — restore the previous model state.
+- **show** — expose current expansion or hidden state;
+- **undo** — restore the preceding model state.
 
-These are not shell commands. They operate on a structured world whose objects retain identity.
+These operations act on a structured world whose objects retain identity.
 
-If I say, “Pick this counter, put four copies along the edge, connect each carry to the next clock,” the system should show the proposed change before committing it. I can point, speak, inspect, and accept.
+“Pick this counter, put four copies along the edge, connect each carry to the next clock” creates a visible proposal before commit. The user can point, speak, inspect, and accept.
 
-## Reference by attention, not by pathname
+## Reference Through Attention
 
-Voice becomes miserable when every reference requires a long unique name.
+Visible editors already maintain attention:
 
-A visible editor already has attention:
+- object under the pointer;
+- selected region;
+- latest created object;
+- current parent;
+- exposed ports;
+- latest failed connection.
 
-- the object under the pointer;
-- the selected region;
-- the last created object;
-- the current parent;
-- the currently exposed ports;
-- the last failed connection.
+Speech can refine those references instead of replacing them with long unique names. “This output,” “the previous counter,” and “all four children” gain meaning from highlighted candidates.
 
-Spoken words can refine those references instead of replacing them. “This output,” “the previous counter,” and “all four children” are meaningful when the visual state makes their candidates explicit.
+Ambiguity stays visible. If two outputs match, the editor highlights both and asks a focused question before changing the model.
 
-Ambiguity should remain visible. If two outputs match, the editor can highlight both and ask a short question. It should not silently guess and then congratulate itself for understanding natural language.
+## Perform a Macro Once
 
-## Macros should be performed once
+One performed transformation can become a reusable semantic macro.
 
-“Pick it, put it” also suggests a programming method.
+The system records operations and roles rather than mouse coordinates or raw audio. A user names that transformation and applies it to compatible structures.
 
-Perform a transformation once. The system records the semantic operations, not mouse coordinates or raw audio. Give the transformation a name. Apply it to another compatible structure.
+A “watch this port” macro can contain:
 
-A recorded macro might say:
+1. Select a component exposing `data` and `valid`.
+2. Create a monitor beside it.
+3. Connect `data` to the monitor input.
+4. Connect `valid` to capture.
+5. Add the monitor to the current debug group.
 
-1. select a component exposing `data` and `valid`;
-2. create a monitor beside it;
-3. connect `data` to the monitor input;
-4. connect `valid` to capture;
-5. add the monitor to the current debug group.
+The macro stays attached to roles and relationships, so screen movement cannot break it.
 
-The next time I say “watch this port,” the model can propose that transformation. There are no fragile links to screen positions. The macro operates on roles and relationships.
+## Make Correction Part of Syntax
 
-## Correction is part of the syntax
+Voice interfaces become dependable by preserving each interpretation layer:
 
-A voice interface must expect error.
+- audio segment;
+- recognized sound symbols;
+- parsed transformation;
+- affected model region;
+- model state before change.
 
-It should preserve:
+Correction can then target one sound, reference, operation, or complete transaction.
 
-- the audio segment;
-- the recognized sound symbols;
-- the parsed transformation;
-- the affected model region;
-- the model state before the change.
+The core rhythm remains **propose → show → commit**. Routine reversible transformations can accelerate over time, while the model always retains what changed and how to restore the prior state. A recognizer’s confidence alone never authorizes destructive structural change.
 
-Then correction can happen at the right layer. I may fix one sound, choose another object, change the operation, or undo the entire transaction. The system should never make a destructive structural change merely because a recognizer produced a high-confidence word.
+## Voice Frees the Hands
 
-The safest rhythm is propose, show, commit. Routine reversible changes can eventually be committed faster, but the model must always know what changed and how to restore it.
+Speech complements keyboards, pointing, and direct manipulation.
 
-## Voice should free the hands
+An engineer can hold a probe, look at a circuit, and ask the editor to expose state. A builder can describe repetition while positioning an object. A programmer can name an intention faster than navigating a menu.
 
-I do not want speech because keyboards are obsolete. Keyboards are excellent. Pointing is excellent. Direct manipulation is excellent.
+The goal lets a person express a structural transformation, inspect its explicit effect, and retain the resulting program as durable external memory.
 
-Voice adds another channel. I can hold a probe, look at a circuit, and ask the editor to expose a state. I can describe repetition while the hands position an object. I can name an intention more quickly than I can navigate a menu.
-
-The goal is not to make the computer obey more words.
-
-The goal is to let a person express a structural change, see that change become explicit, and keep the resulting program as durable external memory.
-
-Do not make my mouth type.
-
-Let me speak in changes.
+Voice should speak in changes and leave the hands free to build.

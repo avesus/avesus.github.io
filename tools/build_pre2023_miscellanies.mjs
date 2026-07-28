@@ -13,6 +13,7 @@ const SOURCE_ROOT = path.join(
 );
 const OUTPUT_ROOT = path.join(SITE_ROOT, "miscellanies");
 const PUBLICATION_DATE = "2026-07-24";
+const MODIFIED_DATE = "2026-07-28";
 const CHECK = process.argv.includes("--check");
 
 const SHELVES = [
@@ -56,7 +57,7 @@ const SHELVES = [
         schemaType: "Article",
         cornerstone: {
             href: "/general-architecture-of-computation.html",
-            title: "Structure, State, And Structural Change",
+            title: "Structure, State, And The Power To Rebuild A Machine",
             description:
                 "Return to the common machinery underneath models, programs, and physical computation.",
         },
@@ -66,7 +67,7 @@ const SHELVES = [
         title: "Building, Learning, And Creative Work",
         eyebrow: "Building, education, community, and creative tools",
         description:
-            "A small set of practical essays about making boards, teaching whole systems, organizing people, leaving theory, inventing, and playing music.",
+            "Practical essays about making boards, teaching whole systems, organizing people, leaving theory, inventing, and playing music.",
         ids: [44, 45, 46, 51, 50, 48],
         schemaType: "Article",
         cornerstone: {
@@ -86,7 +87,7 @@ const META_DESCRIPTIONS = new Map([
     [5, "Why WebGL became a fast, visual laboratory for testing the local state and reconfiguration rules of a custom spatial fabric."],
     [13, "Failed ideas reveal the search space: what looked plausible, what reality changed, and what another builder can carry into the next attempt."],
     [14, "A graph becomes executable when every arrow has explicit semantics for value, state, direction, timing, and physical cost."],
-    [15, "Translate texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a tiny iCE40 pipeline."],
+    [15, "Translate texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a compact iCE40 pipeline."],
     [16, "An edge FPGA reads a microSD image, streams configuration into a neighboring fabric, and brings networking up after the machine exists."],
     [17, "A blank spatial fabric grows configuration paths, regions, programs, and wires until keyboard commands have assembled a working computer."],
     [18, "Turn a raw GPU texture and FPGA starter board into a spatial editor with saving, selection, labels, named ports, and deployment."],
@@ -100,7 +101,7 @@ const META_DESCRIPTIONS = new Map([
     [26, "Collective intelligence without a central thinker, spanning ecological networks, democracy, bureaucracy, invention, memory, and accountability."],
     [27, "State transitions, bandwidth, clocks, ownership, topology, power, cooling, and allocation all inherit geometry and finite propagation."],
     [28, "Sales, marketing, money, and software become less manipulative when they help people discover and coordinate what they actually need."],
-    [39, "Build a tiny stored-program computer from stores, moves, jumps, and a visible stack, then test it with a bracket checker."],
+    [39, "Build a complete stored-program computer from stores, moves, jumps, and a visible stack, then test it with a bracket checker."],
     [43, "Turn Indo-European and Austronesian resemblances into a test using provenance, regular correspondences, and coincidence rates."],
 ]);
 
@@ -111,8 +112,8 @@ const DIRECT_CONTINUATIONS = new Map([
         description:
             "Build the spatial substrate from one multiplexer upward through logic, state, wires, timing, and nested regions.",
     }],
-    [5, roadmapContinuation("Turn the WebGL fabric laboratory into an ergonomic simulator and construction environment.")],
-    [7, roadmapContinuation("Continue the live-circuit language through the editor, ownership, recovery, and browser-workstation program.")],
+    [5, roadmapContinuation("Choose a renderer or simulator package and turn the WebGL fabric laboratory into an ergonomic construction environment.")],
+    [7, roadmapContinuation("Fund or join the editor, ownership, recovery, or browser-workstation package that carries the live-circuit language forward.")],
     [10, {
         href: "/miscellanies/cartilage-the-architecture-that-rebuilt-itself.html",
         title: "Cartilage: The Architecture That Rebuilt Itself",
@@ -125,10 +126,10 @@ const DIRECT_CONTINUATIONS = new Map([
         description:
             "See how routes, constants, MUXes, ports, orientation, and ownership become a readable visual alphabet.",
     }],
-    [16, roadmapContinuation("Build deterministic startup, larger roots, safer claiming, and recovery from the edge inward.")],
-    [17, roadmapContinuation("Continue from self-grown wires to the editor and simulator needed to build them interactively.")],
-    [18, roadmapContinuation("The roadmap turns this editor design into named nets, contours, saving, stepping, and hosted lessons.")],
-    [20, roadmapContinuation("The architecture now has a public work program for the renderer, ownership, recovery, and simulator.")],
+    [16, roadmapContinuation("Take on deterministic startup, larger roots, controlled allocation, or recovery from the edge inward.")],
+    [17, roadmapContinuation("Build the editor or simulator package that makes self-grown wires interactive.")],
+    [18, roadmapContinuation("Turn this editor design into named nets, contours, saving, stepping, and hosted lessons with Brian.")],
+    [20, roadmapContinuation("Choose a renderer, ownership, recovery, or simulator package and carry the architecture into a working tool.")],
     [23, {
         href: "/mux-algebra.html",
         title: "MUX Algebra",
@@ -147,7 +148,7 @@ function roadmapContinuation(description) {
     return {
         href: "/cartilage-reconfigurable-computing-roadmap.html",
         title: "Cartilage Reconfigurable Computing Roadmap",
-        description: `${description} Funding and contributors are welcome.`,
+        description,
     };
 }
 
@@ -588,7 +589,7 @@ function renderArticle(article) {
         },
         dateCreated: article.date,
         datePublished: PUBLICATION_DATE,
-        dateModified: PUBLICATION_DATE,
+        dateModified: MODIFIED_DATE,
         description: article.description,
         mainEntityOfPage: canonical,
         isPartOf: {
@@ -619,7 +620,7 @@ function renderArticle(article) {
     <meta property="og:type" content="article">
     <meta property="og:url" content="${canonical}">
     <meta property="article:published_time" content="${PUBLICATION_DATE}">
-    <meta property="article:modified_time" content="${PUBLICATION_DATE}">
+    <meta property="article:modified_time" content="${MODIFIED_DATE}">
     <link rel="icon" href="/favicon.ico">
 ${shareMetadata(previewPath, article.title)}
     <script type="application/ld+json">
@@ -630,7 +631,7 @@ ${jsonLd(structuredData)}
 
 <body class="article-structured miscellany-article">
     <header><h1 class="page-title">${escapeHtml(article.title)}</h1></header>
-    <address><time datetime="${publishedDay}">${renderInline(article.dateline)}</time></address>
+    <address><time datetime="${publishedDay}">${renderInline(article.dateline)}</time><br><time datetime="${MODIFIED_DATE}">Updated July 28, 2026</time></address>
 
     <section class="abstract">
         <p class="eyebrow">${escapeHtml(article.shelf.eyebrow)}</p>
@@ -681,7 +682,7 @@ ${items}
         headline: title,
         description,
         datePublished: PUBLICATION_DATE,
-        dateModified: PUBLICATION_DATE,
+        dateModified: MODIFIED_DATE,
         url: canonical,
         author: {
             "@type": "Person",
@@ -720,13 +721,13 @@ ${jsonLd(structuredData)}
 
 <body class="article-structured miscellanies-index">
     <header><h1 class="page-title">Miscellanies</h1></header>
-    <address><time datetime="${PUBLICATION_DATE}">Published July 24, 2026</time></address>
+    <address><time datetime="${PUBLICATION_DATE}">Published July 24, 2026</time> &middot; Updated July 28, 2026</address>
 
     <main>
         <section class="abstract">
             <p class="eyebrow">Fifty-three essays, written before 2023</p>
-            <p class="lead">These are the ideas I kept returning to while I was building circuits, interfaces, physical models, and ways for people to think together.</p>
-            <p>They range from multiplexers and self-reconfiguring machines to quiet communication devices, physical presence, community, language, stars, music, and the discipline of making an idea concrete. Choose a shelf or begin with the first essay that catches you.</p>
+            <p class="lead">Fifty-three essays connect circuits, interfaces, physical models, creative tools, and ways for people to think together.</p>
+            <p>They range from multiplexers and self-reconfiguring machines to quiet communication devices, physical presence, community, language, stars, music, and the discipline of making an idea concrete. Choose a shelf or follow the idea that catches you.</p>
         </section>
 
         <nav class="sitemap-jumps" aria-label="Browse the four Miscellanies shelves">
@@ -742,7 +743,7 @@ ${shelfSections}
         <p>Move from the ideas people reason about to the physical choices that implement them.</p>
         <p>Build what comes next:</p>
         <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Follow the public implementation program. Funding and contributors are welcome.</p>
+        <p>Choose a roadmap package and work with Brian on the editor, compiler, runtime, or physical implementation.</p>
         <a href="/">Back to greenforest.io</a>
     </nav>
 </body>

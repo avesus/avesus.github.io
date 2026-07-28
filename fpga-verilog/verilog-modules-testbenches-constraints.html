@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Anatomy Of A Verilog Project: Top, Testbench, Constraints</title>
-    <meta name="description" content="Understand Verilog source files, the selected synthesis top, the simulation testbench, and the pin, clock, I/O, and timing constraints that bind a design to hardware.">
+    <meta name="description" content="Organize a Verilog project around its synthesis top, simulation testbench, and the pin, clock, I/O, and timing constraints that connect RTL to hardware.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/fpga-verilog/verilog-modules-testbenches-constraints.html">
     <link rel="icon" href="/favicon.ico">
     <meta property="og:title" content="Anatomy Of A Verilog Project">
-    <meta property="og:description" content="Chapter 5: one design, a simulation root, a synthesis root, and a physical constraints contract.">
+    <meta property="og:description" content="One reusable design feeds two complete paths: a simulation harness and a constrained physical FPGA implementation.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/fpga-verilog/verilog-modules-testbenches-constraints.html">
     <meta property="article:published_time" content="2026-07-23">
@@ -35,8 +35,8 @@
             "@type": "TechArticle",
             "headline": "Anatomy Of A Verilog Project: Top Modules, Testbenches, And Constraints",
             "datePublished": "2026-07-23",
-            "dateModified": "2026-07-23",
-            "description": "A precise separation of source files, module hierarchy, the selected synthesis top, the simulation testbench, and physical and timing constraints.",
+            "dateModified": "2026-07-28",
+            "description": "Organize source files, module hierarchy, the selected synthesis top, the simulation testbench, and physical and timing constraints into one coherent FPGA project.",
             "image": "https://greenforest.io/fpga-verilog/diagrams/module-testbench-constraints.svg",
             "mainEntityOfPage": "https://greenforest.io/fpga-verilog/verilog-modules-testbenches-constraints.html",
             "isPartOf": {"@type": "CollectionPage", "name": "FPGA And Verilog From First Principles", "url": "https://greenforest.io/fpga-verilog/"},
@@ -53,37 +53,37 @@
     <!-- Source ownership: original curriculum paragraphs 2, 35, 67-80, and the duplicated language-reference clause in 99. -->
     <section class="abstract">
         <p><span class="eyebrow">FPGA + Verilog · Chapter 5 of 7</span></p>
-        <p class="lead">One design has three different roots: the hardware hierarchy you synthesize, the harness you simulate, and the physical contract you impose on a board.</p>
-        <p>The top module is not a magic filename. A testbench is not the circuit you ship. A constraints file is not Verilog. Keeping those roles separate removes a surprising amount of beginner confusion.</p>
-        <p><a class="cta-link" href="/fpga-verilog/">See the complete seven-chapter course</a></p>
+        <p class="lead">One reusable design can anchor a simulation world and a physical FPGA implementation when each project file has a precise job.</p>
+        <p>The selected top defines the hardware hierarchy, the testbench creates the simulated environment, and the constraints bind named ports and timing intent to a specific board. This separation makes the project easy to build, inspect, and extend.</p>
+        <p><a class="cta-link" href="/fpga-verilog/">Follow the complete seven-chapter course</a></p>
     </section>
 
     <figure class="concept-diagram">
         <a href="diagrams/module-testbench-constraints.svg">
             <img src="diagrams/module-testbench-constraints.svg" width="1200" height="675" loading="eager" decoding="async" alt="One counter module feeding a simulation path with a testbench and waveform checks and a hardware path with board constraints, synthesis, place-and-route, and a bitstream">
         </a>
-        <figcaption>Original Greenforest I/O diagram. The same design module answers two different questions: the testbench asks whether behavior is correct; constraints and implementation ask where the circuit lives and whether it meets physical and timing requirements.</figcaption>
+        <figcaption>The same counter module feeds two paths: a testbench drives and checks its behavior, while board constraints and implementation place the circuit on physical FPGA resources.</figcaption>
     </figure>
 
     <main>
         <section>
-            <h2>Files Are Containers; Modules Form The Design</h2>
-            <p>A Verilog file may contain one module, several modules, or only verification code. Tools care about the declarations they read and the root you select, not whether the filename happens to be <code>top.v</code>.</p>
-            <p>A small course project is easier to navigate when each role has a clear file:</p>
+            <h2>Give Every Project File A Clear Job</h2>
+            <p>A Verilog file can contain one module, several modules, or simulation code. Tools read its declarations and build from the hierarchy root you select; naming the file <code>top.v</code> never selects the top by itself.</p>
+            <p>This compact project layout makes each engineering role visible:</p>
             <pre><code>counter-project/
 ├── counter.v          synthesizable design module
 ├── counter_tb.v       simulation top, stimulus, checks, VCD
 ├── board.pcf          board-revision pin bindings
 ├── timing.sdc         clock and timing intent, when the flow uses it
 └── Makefile           repeatable simulation and build commands</code></pre>
-            <p>The supplied lab has <a href="labs/counter/counter.v"><code>counter.v</code></a>, <a href="labs/counter/counter_tb.v"><code>counter_tb.v</code></a>, and a <a href="labs/counter/Makefile"><code>Makefile</code></a>. It intentionally does not pretend to have a universal <code>board.pcf</code>. Pin numbers, oscillator pins, reset polarity, LED polarity, package, and even the meaning of a board name depend on the exact board revision.</p>
-            <p>For a scratch experiment, putting the design module and the testbench module in one file is legal. Separation is an aid to reasoning and tooling, not a law of the language.</p>
+            <p>The supplied lab includes <a href="labs/counter/counter.v"><code>counter.v</code></a>, <a href="labs/counter/counter_tb.v"><code>counter_tb.v</code></a>, and a <a href="labs/counter/Makefile"><code>Makefile</code></a>. Add the <code>board.pcf</code> only after selecting the exact board revision, because pin numbers, oscillator pins, reset polarity, LED polarity, package, and board naming can all change between revisions.</p>
+            <p>Verilog also permits a design module and testbench module in one file for quick work. Separate files make their different jobs obvious to both the engineer and the build system.</p>
         </section>
 
         <section>
-            <h2>The Synthesis Top Is A Selected Hierarchy Root</h2>
-            <p>The manuscript compares the top module with a software <code>main()</code> function. Keep that only as a rough navigation aid: the top is the root module selected for a particular tool run. It owns the ports at the boundary of the implemented design and instantiates any child modules below it.</p>
-            <p>In the counter lab, <code>counter</code> can be the synthesis top because its <code>clk</code>, <code>reset</code>, and <code>count</code> ports describe the entire hardware boundary. In a board build, a wrapper might instead become the top:</p>
+            <h2>Select The Synthesis Top As The Hardware Root</h2>
+            <p>The top module acts as the root of the hierarchy for one tool run. It owns the implemented design’s external ports and instantiates every child module below them. A software <code>main()</code> offers a rough navigation analogy, but hardware hierarchy gives the top its real meaning.</p>
+            <p>In the counter lab, <code>counter</code> can serve as the synthesis top because <code>clk</code>, <code>reset</code>, and <code>count</code> define the complete hardware interface. A board build can place a wrapper above it:</p>
             <pre><code class="language-verilog">module board_top (
     input  wire       clock_100mhz,
     input  wire       reset_n,
@@ -99,31 +99,29 @@
 
     assign led = count[26:19];
 endmodule</code></pre>
-            <p>The wrapper translates board-facing names and polarity into the reusable counter’s small interface. It also selects slow counter bits so a human can see LEDs change. Whether the LED assignment must be inverted is a board fact, not a Verilog fact.</p>
-            <p>Yosys can be told which root to use—for example, through <code>hierarchy -top board_top</code> or a synthesis command’s <code>-top</code> option. The official <a href="https://yosyshq.readthedocs.io/projects/yosys/en/latest/cmd/hierarchy.html" target="_blank" rel="noopener">Yosys hierarchy documentation</a> describes that selection directly.</p>
+            <p>The wrapper converts board-facing names and active-low reset polarity into the counter’s reusable interface. It also selects slow counter bits that make LED changes visible. The selected board determines whether the LED assignment needs inversion.</p>
+            <p>Select the root in Yosys with <code>hierarchy -top board_top</code> or a synthesis command’s <code>-top</code> option. The official <a href="https://yosyshq.readthedocs.io/projects/yosys/en/latest/cmd/hierarchy.html" target="_blank" rel="noopener">Yosys hierarchy documentation</a> details that selection.</p>
         </section>
 
         <section>
-            <h2>The Simulation Top Is Usually The Testbench</h2>
-            <p>For the supplied Icarus run, <code>counter_tb</code> is the top because it has no external ports and contains the complete simulated world. It creates a clock, controls reset, instantiates <code>counter</code> as the design under test, waits for meaningful events, checks expected outputs, and ends the run.</p>
-            <p>A useful testbench has at least five responsibilities:</p>
+            <h2>Let The Testbench Own The Simulated World</h2>
+            <p>The supplied Icarus run selects <code>counter_tb</code> as its top. This portless module creates the entire simulated world: it generates a clock, controls reset, instantiates <code>counter</code>, waits for meaningful events, checks expected outputs, and ends the run.</p>
+            <p>The testbench performs five essential jobs:</p>
             <ol>
                 <li>Instantiate the design under test and connect every relevant port.</li>
                 <li>Generate clocks, resets, transactions, and corner-case stimulus.</li>
-                <li>Observe outputs at times that respect the simulator’s scheduling rules.</li>
-                <li>Compare observations with explicit expectations and fail loudly on a mismatch.</li>
-                <li>Preserve enough evidence—a message, assertion record, waveform, seed, or transaction log—to reproduce the result.</li>
+                <li>Sample outputs at times that respect the simulator’s scheduling rules.</li>
+                <li>Compare observed values with explicit expectations and stop loudly on a mismatch.</li>
+                <li>Record the message, assertion, waveform, seed, or transaction log needed to reproduce the run.</li>
             </ol>
-            <p>The harness does not have to be Verilog. It may be SystemVerilog, C++ around a Verilator model, cocotb with Python, or another foreign-language interface supported by the simulator. What makes it a testbench is the job it performs, not the file extension.</p>
-            <div class="reader-note">
-                <p><strong>Name, not definition:</strong> “Verilog” was coined from verification and logic. That historical wordplay is worth remembering. It does not mean that every Verilog file is a testbench, and it does not make testbench structure the definition of the language.</p>
-            </div>
+            <p>SystemVerilog, C++ around a Verilator model, cocotb with Python, and other simulator interfaces can all host the harness. Its ability to drive, observe, and decide the result makes it a testbench.</p>
+            <p>“Verilog” joins verification and logic in its name. The language can describe both the synthesizable circuit and the simulation environment, while the selected root and constructs give each module its role.</p>
         </section>
 
         <section>
-            <h2>Constraints Are The Physical And Timing Contract</h2>
-            <p>When a design leaves simulation and targets an FPGA, its top-level port names must meet the package and board. For the open iCE40 flow, a PCF may bind a port such as <code>clock_100mhz</code> or <code>led[0]</code> to a package pin. That is the literal metal-pad connection the manuscript emphasizes.</p>
-            <p>But “constraints” is broader than pin binding. A serious implementation can also carry:</p>
+            <h2>Bind RTL Names To Physical Pins And Timing</h2>
+            <p>FPGA constraints connect top-level port names to the package and board. In the open iCE40 flow, a PCF can bind <code>clock_100mhz</code> or <code>led[0]</code> to a package pin, creating the literal metal-pad connection between RTL and the board.</p>
+            <p>A complete implementation can also specify:</p>
             <ul>
                 <li>clock definitions, periods, waveforms, and generated-clock relationships;</li>
                 <li>I/O standards, drive strength, slew, input and output delays;</li>
@@ -131,40 +129,40 @@ endmodule</code></pre>
                 <li>placement regions or fixed resource locations; and</li>
                 <li>tool- and device-specific implementation directives.</li>
             </ul>
-            <p>Different toolchains divide that information differently. A PCF is chiefly a physical pin-constraint format. An SDC carries timing intent. AMD/Xilinx XDC combines Tcl-based physical and timing constraints. In an iCE40 nextpnr command, a target clock frequency may also enter as <code>--freq</code>. Do not call all of these interchangeable merely because they all constrain implementation.</p>
+            <p>Toolchains divide this information differently. A PCF chiefly binds physical pins. An SDC carries timing intent. AMD/Xilinx XDC combines Tcl-based physical and timing constraints. An iCE40 nextpnr command can also receive its target clock frequency through <code>--freq</code>. Each format contributes a specific part of the implementation contract.</p>
         </section>
 
         <section>
-            <h2>The Same Port Name Crosses Three Worlds</h2>
-            <p>Take <code>clk</code> as an example. In the synthesizable module it is an input used by an edge-sensitive process. In the testbench it is a signal toggled by simulated time. On a board it must connect to the oscillator’s physical pin and receive an implementation clock requirement.</p>
+            <h2>Follow One Clock Name Through Three Worlds</h2>
+            <p>Consider <code>clk</code>. The synthesizable module consumes it in an edge-sensitive process. The testbench toggles it through simulated time. The board constraints connect it to the oscillator pin and define its implementation frequency.</p>
             <div class="article-fact-table" role="table" aria-label="One signal across design, simulation, and board">
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Design</div><div role="cell"><code>input wire clk</code>; state captures on a selected edge.</div></div>
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Simulation</div><div role="cell">The testbench toggles <code>clk</code> with delays and decides when to sample updated state.</div></div>
-                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Board</div><div role="cell">The top-level port binds to an oscillator pad; timing intent tells implementation what frequency the path must meet.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Design</div><div role="cell"><code>input wire clk</code> captures state on the selected edge.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Simulation</div><div role="cell">The testbench toggles <code>clk</code> with delays and samples the updated state.</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Board</div><div role="cell">The top-level port binds to an oscillator pad, and timing intent sets the required frequency.</div></div>
             </div>
-            <p>A passing behavioral test proves none of the board bindings, electrical standards, or timing closure. A clean place-and-route report proves none of your functional assertions. The two paths are complementary evidence.</p>
+            <p>The simulation path establishes behavior under driven cases. The implementation path binds that behavior to physical resources and closes timing. Together they connect the source-level design to an operating FPGA.</p>
         </section>
 
         <section id="language-reference">
-            <h2>The Manuscript’s Canonical Language Reference</h2>
-            <p>The handwritten curriculum linked the same USC EE457 Verilog discussion three times: at the beginning, beside syntax, and beside the later subtleties list. It belongs once, here:</p>
+            <h2>Keep One Strong Language Reference Beside The Project</h2>
+            <p>The USC EE457 Verilog discussion supplies the language reference for the course:</p>
             <p><a href="https://ee.usc.edu/~redekopp/ee457/slides/EE457Unit1b_VerilogDiscussion.pdf" target="_blank" rel="noopener">USC EE457 — Verilog Discussion (PDF)</a></p>
-            <p>Use that discussion for language reading, then use the concrete lab files for executable behavior. For normative SystemVerilog scope and terminology, consult the <a href="https://standards.ieee.org/ieee/1800/7743/" target="_blank" rel="noopener">IEEE 1800 standard page</a>. Later chapters link back here instead of duplicating the same external reference.</p>
+            <p>Read that discussion alongside the executable lab files. For normative SystemVerilog scope and terminology, consult the <a href="https://standards.ieee.org/ieee/1800/7743/" target="_blank" rel="noopener">IEEE 1800 standard page</a>. Later chapters return to this reference as their common language foundation.</p>
         </section>
 
         <section>
-            <h2>Exit Check</h2>
-            <p>You understand the project anatomy when you can answer these without looking at a filename: Which module is the synthesis root? Which module is the simulation root? What generates the clock in each world? Which artifact connects a named LED port to a package pad? Where is the clock requirement stated? Which result demonstrates behavior, and which result demonstrates implementability?</p>
+            <h2>Trace The Complete Project From Source To Pin</h2>
+            <p>Name the synthesis root and simulation root. Identify what generates the clock in each world. Find the file that connects an LED port to a package pad and the constraint that states the clock requirement. Then follow the counter from its reusable module through automated simulation and into a timed physical implementation.</p>
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue the FPGA and Verilog course">
-        <p>Next:</p>
+        <p>Apply the structure to a real device behavior:</p>
         <a href="cd4029b-counter-verilog.html">Chapter 6: Recreate A CD4029B Counter</a>
-        <p>Turn a real datasheet into a behavioral contract, an FPGA-portable design, and self-checking tests.</p>
-        <p>Course:</p>
+        <p>Turn the CD4029B datasheet into an FPGA-portable design and a complete self-checking testbench.</p>
+        <p>Explore the full sequence:</p>
         <a href="/fpga-verilog/">FPGA And Verilog From First Principles</a>
-        <p>Return to the complete seven-chapter path.</p>
+        <p>Move from first-principles logic through simulation and into physical FPGA implementation.</p>
     </nav>
 </body>
 

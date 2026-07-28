@@ -6,11 +6,11 @@
     <title>SerDes, Topology, and Compute Locality</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A compute-topology note: SerDes links, latency, energy, memory movement, and island-style accelerator layouts matter as much as raw core throughput.">
+    <meta name="description" content="Compute scale depends on topology: local meshes can reduce SerDes energy, latency, memory movement, and software complexity created by isolated accelerator islands.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-04-30-burning-i-o-and-melting-the-core.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="SerDes, Topology, and Compute Locality">
-    <meta property="og:description" content="A compute-topology note: SerDes links, latency, energy, memory movement, and island-style accelerator layouts matter as much as raw core throughput.">
+    <meta property="og:description" content="Compute scale depends on topology: local meshes can reduce SerDes energy, latency, memory movement, and software complexity created by isolated accelerator islands.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-04-30-burning-i-o-and-melting-the-core.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-04-30",
-                                "dateModified": "2026-07-09",
-                                "description": "A compute-topology note: SerDes links, latency, energy, memory movement, and island-style accelerator layouts matter as much as raw core throughput.",
+                                "dateModified": "2026-07-28",
+                                "description": "Compute scale depends on topology: local meshes can reduce SerDes energy, latency, memory movement, and software complexity created by isolated accelerator islands.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-04-30-burning-i-o-and-melting-the-core.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,27 @@
     <header>SerDes, Topology, and Compute Locality</header>
     <address>April 30, 2023</address>
 
+
+    <section class="abstract">
+        <p>Raw core throughput cannot compensate for an architecture that burns energy and time moving data between isolated islands. SerDes links, memory traffic, latency, topology, and programming overhead determine whether a massive computer actually scales.</p>
+        <p>Brian Greenforest argues for a return to meshes and lattices where local communication keeps computation close to the state it changes.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Count the Cost of Every Data Highway</h1>
+            <p>A high-speed SerDes consumes power at each endpoint, adds encoding and clock recovery, and introduces distance into every exchange. Large memory writes and irregular dependencies can turn an accelerator’s arithmetic units into waiting machinery.</p>
+            <p>Island-style systems also force developers to partition programs around drivers, memory copies, kernels, and device boundaries. The software inherits the topology’s fragmentation.</p>
+        </section>
+
+        <section>
+            <h1>Design the Fabric Around Locality</h1>
+            <p>A mesh or lattice gives neighboring processes direct paths and lets pipelines advance work continuously. Repetition creates scale without routing every interaction through a distant memory or centralized switch.</p>
+            <p>Chip architects and HPC teams can quantify link energy, latency, utilization, and programming cost together. Build the topology that minimizes the total system burden instead of celebrating the hottest core.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7058581859403780096" data-linkedin-activity="7058581859403780096" data-linkedin-source="activity:7058581859403780096">
         <h2 id="linkedin-original-7058581859403780096">Originally posted on LinkedIn</h2>
@@ -108,51 +129,13 @@
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">Compute-topology note</span>Originally posted 2023-04-30; rewritten here around data movement and accelerator topology.</p>
-            <p><strong>Included:</strong> SerDes links, latency, energy, meshes, accelerator islands, memory movement, and why scalable code depends on topology.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Data Movement Is Architecture</h1>
-            <p>Accelerator performance is not only core throughput. SerDes links, memory movement, packetization, lane count, latency, topology, and synchronization can dominate the useful shape of a system.</p>
-            <p>A design with powerful compute islands connected by expensive data highways asks the software to pay for distance. The programmer has to know where data lives, how often it crosses a link, and whether the work can remain local long enough to justify the transfer.</p>
-        </section>
-
-        <section>
-            <h1>Meshes, Islands, and Locality</h1>
-            <p>Mesh and lattice-style thinking keeps locality visible. Island-style accelerator systems can still work well, but the interconnect becomes part of the programming model. A kernel that looks efficient in isolation may be poor system design if every useful step moves data across a high-cost boundary.</p>
-            <p>The useful question is measurable: how much energy, latency, and engineering complexity are spent moving data compared with computing on it?</p>
-        </section>
-
-        <section>
-            <h1>Useful Scope</h1>
-            <p>This note is not a vendor critique. It is a topology critique. Large-scale computation needs source code and hardware layout to preserve locality, causality, and failure boundaries instead of treating data movement as an invisible detail.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From SerDes, Topology, and Compute Locality, read:</strong></p>
         <a href="2022-05-11-when-one-fpga-is-not-enough.html">When One FPGA Is Not Enough</a>
-        <p>The multi-device version of the same topology problem: partitioning, links, clocks, latency, placement, and routing.</p>
-        <p>More:</p>
-        <a href="2022-05-12-who-is-solving-parallel-source-code.html">Who Is Solving Parallel Source Code?</a>
-        <p>The source-code version: preserving locality and causality when execution spreads across devices.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7058581859403780096/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+        <p>Filling the largest FPGA changes the problem. Logic must cross package boundaries, and every new boundary introduces SerDes links, clock domains, protocols, pipelines, latency, placement, routing, synchronization, power, and engineering cost.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7058581859403780096/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

@@ -6,11 +6,11 @@
     <title>Hilbert-Space Operators as Statistical Models</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A mathematical modeling note connecting data vectors, correlation structure, linear operators, eigenvalues, and Hilbert-space language.">
+    <meta name="description" content="Correlation and mutual-information matrices can become operators on Hilbert-space state vectors, exposing transformations through eigenvalues and eigenvectors.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-01-hilbert-space-operators-as-statistical-models.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Hilbert-Space Operators as Statistical Models">
-    <meta property="og:description" content="A mathematical modeling note connecting data vectors, correlation structure, linear operators, eigenvalues, and Hilbert-space language.">
+    <meta property="og:description" content="Correlation and mutual-information matrices can become operators on Hilbert-space state vectors, exposing transformations through eigenvalues and eigenvectors.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-01-hilbert-space-operators-as-statistical-models.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-08-01",
-                                "dateModified": "2026-07-09",
-                                "description": "A mathematical modeling note connecting data vectors, correlation structure, linear operators, eigenvalues, and Hilbert-space language.",
+                                "dateModified": "2026-07-28",
+                                "description": "Correlation and mutual-information matrices can become operators on Hilbert-space state vectors, exposing transformations through eigenvalues and eigenvectors.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-01-hilbert-space-operators-as-statistical-models.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,27 @@
     <header>Hilbert-Space Operators as Statistical Models</header>
     <address>August 1, 2023</address>
 
+
+    <section class="abstract">
+        <p>Hilbert-space operators become concrete when data supplies the state vectors and correlation structure. Design matrices full of cross-correlation or mutual information can define transformations whose eigenvalues reveal the model’s internal modes.</p>
+        <p>Brian Greenforest connects statistical modeling, operator theory, quantum physics, control theory, tensors, and general relativity through this shared linear-algebraic structure.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Build the Operator From Relationships</h1>
+            <p>A state vector records coordinates in a chosen basis. A Hermitian matrix can act as an operator on that state, preserving real eigenvalues and an orthogonal set of eigenvectors under the right conditions.</p>
+            <p>Correlation and information measurements populate the matrix. The resulting eigensystem identifies directions that the transformation amplifies, suppresses, preserves, or separates.</p>
+        </section>
+
+        <section>
+            <h1>Use One Language Across Disciplines</h1>
+            <p>Quantum observables, covariance analysis, control modes, and geometric tensors all use related operator machinery. Seeing the common structure makes each domain easier to connect and implement.</p>
+            <p>Researchers and educators can map a real design matrix into operator language, interpret its eigensystem, and show where statistical measurements become physical or computational modes.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7092240205918728192" data-linkedin-activity="7092240205918728192" data-linkedin-source="activity:7092240205918728192">
         <h2 id="linkedin-original-7092240205918728192">Originally posted on LinkedIn</h2>
@@ -101,53 +122,13 @@
 #matrices #tensors #operators #controltheory #quantumphysics #generalrelativity</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Many statistical models can be read as operators acting on vector representations of data. Correlation matrices, covariance matrices, transition matrices, and kernel operators all turn observations into a structure that can be decomposed and studied.</p>
-        <p>Hilbert-space language is useful when it keeps the geometry visible: states as vectors, measurements as projections, transformations as operators, and eigenstructure as a way to find stable directions in the model.</p>
-        <div class="status-box">
-            <p><span class="status-label">Mathematical-modeling note</span>Originally posted 2023-08-01; expanded here around operators and statistical structure.</p>
-            <p><strong>Article focus:</strong> vectors, operators, correlation matrices, covariance, eigenvalues, kernels, and Hilbert-space modeling language.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Operator View</h1>
-            <p>A design matrix does more than hold samples. Once it is used to form correlations, covariances, kernels, or transitions, it defines an operator-like object: something that maps one vector representation into another or scores how directions in the data relate.</p>
-            <p>That is why the same language appears in statistics, control, signal processing, quantum mechanics, and numerical methods. The details differ, but the reusable structure is linear transformation on a vector space, often with an inner product that makes angles, projections, and norms meaningful.</p>
-        </section>
-
-        <section>
-            <h1>Why Eigenvalues Show Up</h1>
-            <p>Eigenvalues and eigenvectors are not decorative math. They identify directions that the operator preserves up to scaling. In a covariance matrix, that can reveal dominant variance directions. In a transition operator, it can reveal stable or slowly changing modes. In a physical operator, it can reveal measurable states or conserved structure.</p>
-            <p>The useful connection is practical: once a problem is represented as vectors plus operators, decomposition methods become a way to inspect the model's internal shape.</p>
-        </section>
-
-        <section>
-            <h1>The Limit</h1>
-            <p>The phrase &quot;Hilbert space&quot; can be too broad if it is used loosely. In day-to-day modeling, the starting point is often finite matrices and finite feature vectors. The infinite-dimensional language is valuable when the problem truly needs function spaces, kernels, or limiting arguments.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Hilbert-Space Operators as Statistical Models, read:</strong></p>
         <a href="2023-07-28-lattice-regularization-and-measurement-tensors.html">Lattice Regularization and Measurement Tensors</a>
-        <p>Another dated publication from July 28, 2023.</p>
-        <p>More:</p>
-        <a href="2023-08-11-nvidia-gpus-are-not-universal-computers.html">NVIDIA GPUs Are Not Universal Computers</a>
-        <p>Another dated publication from August 11, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7092240205918728192/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+        <p>Lattice regularization makes a continuous field calculable by placing its degrees of freedom on discrete sites and links. Operators then become transformations of measurable tensor structure rather than distant formal abstractions.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7092240205918728192/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

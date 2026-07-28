@@ -6,11 +6,11 @@
     <title>The Difficulty of Tiny PCBs at Home</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A PCB-process note on why tiny at-home boards are hard: 6 mil traces, 0.35 mm BGAs, repeatability, alignment, etch spread, glue spread, and realistic feature size.">
+    <meta name="description" content="Experiments with lasers, masks, copper, etchant, and conductive paste turned a 0.5 mm repeatability limit into an additive path toward 10 mil multilayer PCB features at home.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2020-10-18-the-difficulty-of-tiny-pcbs-at-home.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="The Difficulty of Tiny PCBs at Home">
-    <meta property="og:description" content="A PCB-process note on why tiny at-home boards are hard: 6 mil traces, 0.35 mm BGAs, repeatability, alignment, etch spread, glue spread, and realistic feature size.">
+    <meta property="og:description" content="Experiments with lasers, masks, copper, etchant, and conductive paste turned a 0.5 mm repeatability limit into an additive path toward 10 mil multilayer PCB features at home.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2020-10-18-the-difficulty-of-tiny-pcbs-at-home.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2020-10-18",
-                                "dateModified": "2026-07-09",
-                                "description": "A PCB-process note on why tiny at-home boards are hard: 6 mil traces, 0.35 mm BGAs, repeatability, alignment, etch spread, glue spread, and realistic feature size.",
+                                "dateModified": "2026-07-28",
+                                "description": "Experiments with lasers, masks, copper, etchant, and conductive paste turned a 0.5 mm repeatability limit into an additive path toward 10 mil multilayer PCB features at home.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2020-10-18-the-difficulty-of-tiny-pcbs-at-home.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,31 @@
     <header>The Difficulty of Tiny PCBs at Home</header>
     <address>October 18, 2020</address>
 
+    <section class="abstract">
+        <p>Tiny PCB fabrication makes repeatability the real product. A laser, printer, photoresist, etchant, silver paste, vinyl, copper film, and adhesive masks all reached the same lesson: every trace, hole, pad, and layer must survive material flow and alignment at the target pitch.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Six Mil Traces Change the Process</h1>
+            <p>The target combined 6 mil PCB features with 0.35 mm BGA geometry. At that scale, a low-cost commercial board house sells extraordinary process control for roughly two dollars per square inch. The value lies in registration, clean holes, isolated pads, plated connections, and consistent yield.</p>
+            <p>The home experiments reached about 0.5 mm as a repeatable multilayer feature size. Below that scale, glue or etchant moved into the electrical geometry, holes lost conduction, neighboring pads bridged, and layer alignment consumed the design margin.</p>
+        </section>
+
+        <section>
+            <h1>Additive Layers Opened Another Route</h1>
+            <p>A 10 mil target and Scotch tape changed the process from copper removal to additive construction. A laser engraver cut a low-adhesion mask. Conductive paste filled the openings under a squeegee. Removing the mask lifted excess particles away while leaving the intended circuit.</p>
+            <p>Repeated masks could build multiple layers without ordinary drilling and etching. Conical breakouts that widened from 10 mil to 12 mil across successive layers created a path toward larger BGA and QFN connections in conductive ink, paper, and tape.</p>
+        </section>
+
+        <section>
+            <h1>The Maker Fab Starts With Process Windows</h1>
+            <p>The sequence matters: seven failed material systems revealed the variables that control the result, then the additive mask converted one of those variables into a repeatable step. The next build can optimize adhesion, paste flow, registration, breakout geometry, drying, and electrical yield.</p>
+            <p><a href="/the-missing-maker-fab.html">The Missing Maker Fab</a> extends this same ambition from PCB interconnects into accessible semiconductor fabrication. Bring a process, measurement, or material that can move the path forward.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6723732436871708672" data-linkedin-activity="6723732436871708672" data-linkedin-source="activity:6723732436871708672">
         <h2 id="linkedin-original-6723732436871708672">Originally posted on LinkedIn</h2>
@@ -132,43 +157,15 @@ Successive layers conical breakout from 10 mils to 12 mils is the way to go to g
         </section>
     </section>
 
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
-
-    <section class="abstract">
-        <p>At-home PCB work becomes a different problem at tiny pitch. The obstacle is not only drawing a trace once; it is making the same trace, hole, pad, and layer alignment repeatably.</p>
-        <p>This note names the process boundary found at the time: around 0.5 mm for repeatable multilayer prototyping, with smaller features failing through non-conducting holes, bridged pads, glue spread, etch spread, or alignment error.</p>
-        <div class="status-box">
-            <p><span class="status-label">PCB process note</span>Originally posted 2020-10-18; expanded here around the repeatability limit.</p>
-            <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
-            <p><strong>Article focus:</strong> 6 mil traces, 0.35 mm BGAs, at-home multilayer process limits, and repeatable feature size.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Boundary</h1>
-            <p>The target cases were small: 6 mil PCB features and 0.35 mm BGA soldering. At that scale, low-cost commercial PCB services begin to look inexpensive because they are selling repeatability, not just copper and substrate.</p>
-            <p>The at-home process experiments included laser cutter, laser printer, photoresist, ferric chloride, silver paste, vinyl layers, copper film, and Avery sticker masks. The observed practical boundary was around 0.5 mm for repeatable multilayer prototyping.</p>
-        </section>
-
-        <section>
-            <h1>Failure Modes</h1>
-            <p>Two failures dominated the note: holes that stopped conducting and neighboring pads that bridged. At small geometry, glue and etchant movement become electrical problems. Alignment and process control matter as much as the nominal feature size.</p>
-            <p>That is the engineering value of the note: home fabrication has to be judged by repeatable yield, not by whether one small feature can be made once.</p>
-        </section>
-
-    </main>
 
     <nav class="article-links">
         <p>Next:</p>
         <a href="2020-10-12-code-and-circuits-in-4d-spacetime.html">Code and Circuits in 4D Spacetime</a>
-        <p>Another dated publication from October 12, 2020.</p>
+        <p>See why every circuit route carries both spatial geometry and timing before fabrication gives it material form.</p>
         <p>More:</p>
         <a href="2020-10-23-diy-bga-and-solderless-multilayer-pcb-tests.html">DIY BGA and Solderless Multilayer PCB Tests</a>
-        <p>Another dated publication from October 23, 2020.</p>
+        <p>Follow the additive process into a 0.4 mm pitch via test with measured resistance and isolation.</p>
         <p>Archive:</p>
         <a href="./">LinkedIn publication index</a>
         <p>Source:</p>

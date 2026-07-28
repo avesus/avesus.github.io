@@ -4,7 +4,7 @@ slug: "play-harmony-at-melody-speed"
 date: "2021-10-07T01:41:39.223Z"
 original_dates:
   - "2021-10-07T01:41:39.223Z"
-description: "A concept for an instrument that separates continuous strumming from robotic chord formation so harmony can be played quickly and comfortably."
+description: "A programmable fret-forming instrument separates excitation from chord geometry, moving through harmony at keyboard speed while retaining physical expression."
 status: "publication-ready"
 ---
 
@@ -12,96 +12,88 @@ status: "publication-ready"
 
 *October 7, 2021*
 
-I love the energy of fast guitar strokes. I do not love what rapid chord changes do to fingers.
+A programmable fretboard can let harmony move at the speed of melody.
 
-The conventional instrument assigns two physically different jobs to the same body. One hand supplies rhythm by plucking or strumming. The other hand must press several strings against exact positions, release them, travel, and form a new shape before the next harmonic event.
+Conventional guitar playing gives one hand rhythm through plucking and strumming while the other presses several strings at precise positions, releases them, travels, and forms another shape before the next harmonic event.
 
-Melody gets keys. Harmony gets hand gymnastics.
+Separating continuous string excitation from chord formation gives each job its own mechanism and gives the player direct control over both.
 
-What if the strings never stopped moving and chord formation became a programmable mechanism?
+## Separate Rhythm From Chord Geometry
 
-## Separate rhythm from chord shape
+The instrument combines two independent systems.
 
-The instrument I imagine has two independent systems.
+The first provides continuous excitation through a rotating pick, reciprocating plectrum, controllable bow, or another mechanism with adjustable rhythm and intensity.
 
-The first produces continuous excitation: a rotating pick, reciprocating plectrum, controllable bow, or another mechanism that keeps the strings sounding at an adjustable rhythm and intensity.
+The second forms chords through compact actuators that press selected strings at selected frets. A keyboard, button grid, or another fast interface lets the player choose each shape.
 
-The second forms chords. Small actuators press selected strings at selected frets. The player chooses chord shapes from a normal keyboard, a compact button grid, or another fast interface.
-
-Now the performance roles are clean:
+The roles become explicit:
 
 - one control selects pitch relationships;
-- another controls rhythm, articulation, and dynamics;
-- the mechanism performs the forceful repetitive motion.
+- another shapes rhythm, articulation, and dynamics;
+- the mechanism supplies repetitive force.
 
-This does not eliminate musicianship. It moves musicianship into timing, voicing, progression, expression, and the design of the instrument’s response.
+Musicianship expands into timing, voicing, progression, expression, and design of the instrument’s response.
 
-## Chords should behave like notes
+## Make Chords Behave Like Notes
 
-A pianist can move from one dense harmony to another with one coordinated gesture. A guitarist must often solve a small path-planning problem with the fingers.
+A pianist can move between dense harmonies with coordinated gestures. The robotic fretboard can give chords the same direct addressability.
 
-The robotic fretboard could make a chord into a directly addressable object. Press a key and the instrument prepares a voicing. Press another and it transitions to the next one. Hold two controls and it can preserve shared notes while moving only the voices that change.
+Press one key and the instrument forms a voicing. Press another and it transitions. Hold two controls and it can preserve shared notes while moving only the voices that change.
 
-That opens several modes:
+Several modes follow:
 
 - **direct chord mode** — each key recalls a complete fingering;
-- **root-plus-quality mode** — choose a root, then major, minor, seventh, suspended, or another structure;
-- **voice-leading mode** — select a target harmony and let the instrument choose the nearest available voicing;
+- **root-plus-quality mode** — choose root and then major, minor, seventh, suspended, or another structure;
+- **voice-leading mode** — choose target harmony and let the instrument select the nearest playable voicing;
 - **manual string mode** — control individual stopped strings for unusual tunings and clusters;
-- **sequence mode** — prepare a progression while retaining live control of rhythm and dynamics.
+- **sequence mode** — prepare a progression while retaining live rhythm and dynamics.
 
-The instrument should always reveal what it is doing. A light or small display can show active frets, note names, and the chosen voicing. The mechanism must not become a black box between the player and harmony.
+A light or compact display reveals active frets, note names, and voicing so the player retains a visible relationship with harmony.
 
-## Continuous does not mean monotonous
+## Continuous Excitation Stays Expressive
 
-An automatic strummer that merely repeats one motion would become tiring quickly.
-
-The excitation system needs expressive variables:
+The excitation system carries more than one repeated stroke:
 
 - stroke rate;
 - direction;
 - depth;
 - force;
-- which strings are struck;
+- struck strings;
 - mute and release timing;
 - accents;
 - interruption and restart;
-- gradual changes rather than only steps.
+- gradual change.
 
-The player might control these with keys, pedals, a pressure surface, or a conventional picking hand. Automation should remove injury and mechanical repetition, not flatten rhythm.
+Keys, pedals, pressure surfaces, or a conventional picking hand can control these variables. Automation removes injurious repetition while preserving rhythmic agency.
 
-There is also no requirement that all strings continue constantly. “Nonstop” means the mechanism can sustain cadence across chord changes without forcing a pause while fingers relocate. Silence remains a musical action.
+Continuous means that the mechanism can sustain cadence across chord changes without waiting for fingers to relocate. Silence remains a musical action, and any string can enter or leave the pattern.
 
-## The difficult part is mechanical
+## Mechanical Design Creates Playability
 
-The concept is simple. A playable device is not.
+Actuators need enough force to prevent buzz while protecting strings, frets, and neck. They must move quickly, release cleanly, remain quiet, tolerate string-height and neck-relief variation, and enter a safe state if power disappears.
 
-Actuators must press with enough force to avoid buzzing but not damage strings, frets, or the neck. They must move quickly, remain quiet, fit close together, and release cleanly. The mechanism must tolerate differences in string height and neck relief. It must fail safely if power disappears.
+Timing connects chord selection to excitation. The mechanism either reaches each shape before the beat or accepts scheduled chord intent slightly ahead of it.
 
-Latency matters. A chord selected on a beat must be formed before the strings are excited for that beat. The system therefore needs either sufficiently fast actuation or a scheduler that receives the next chord slightly early.
+Acoustic noise also shapes the design. Solenoids may click beside resonant strings. Motors, latches, shape-memory materials, pneumatics, and redesigned string geometry each offer different speed, silence, size, and force.
 
-Noise matters too. Solenoids clicking beside acoustic strings could overwhelm the instrument. Motors, latching mechanisms, shape-memory materials, pneumatic systems, or a redesigned string geometry each have different costs.
+The first playable mechanism proves one musically useful transition:
 
-The first prototype should begin with one useful transition that I can play, measure, and hear:
+1. Two or three strings.
+2. A focused set of chord shapes.
+3. One controllable excitation system.
+4. Measured transition time.
+5. Audible comparison of clean and failed presses.
 
-1. two or three strings;
-2. a small set of chord shapes;
-3. one controllable excitation mechanism;
-4. measured transition time;
-5. audible comparison between clean and failed presses.
+Each added actuator earns its place through music.
 
-The mechanism earns complexity by playing music, not by accumulating actuators.
+## An Instrument Redistributes Difficulty
 
-## An instrument can redistribute difficulty
+Every instrument chooses which gestures become easy.
 
-Every musical instrument chooses which actions are easy.
+Pianos simplify discrete pitch selection and resist continuous bending. Violins open continuous pitch and demand exact placement. Guitars make portable harmonic rhythm natural while asking the fretting hand to form shapes under tension.
 
-A piano makes discrete pitch selection easy and continuous pitch bending difficult. A violin makes continuous pitch available and demands precise placement. A guitar makes portable harmonic rhythm wonderful but asks the fretting hand to form shapes under tension.
+This instrument makes rapid harmony direct. The player learns a new relationship among voicing, rhythm controls, and mechanism.
 
-This instrument would make rapid harmony easy. In exchange, the player learns a new relationship among voicing, rhythm controls, and mechanism.
+That exchange can serve people with limited hand strength, repetitive-strain pain, missing fingers, and musical ideas that move faster than conventional chord formation. It can also create a distinctive instrument for performers with full conventional technique.
 
-That trade could help people with limited hand strength, repetitive-strain pain, missing fingers, or simply a musical idea that moves faster than conventional chord formation permits. It could also become a strange instrument for performers with perfectly healthy hands.
-
-I am not trying to build a guitar that plays itself.
-
-I want to build one that lets harmony flow at the speed of an idea.
+The instrument does not play itself. It lets harmony flow at the speed of the player’s idea.

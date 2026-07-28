@@ -14,7 +14,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/miscellanies/definitions-that-can-fail-their-own-tests.html">
     <meta property="article:published_time" content="2026-07-24">
-    <meta property="article:modified_time" content="2026-07-24">
+    <meta property="article:modified_time" content="2026-07-28">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -42,8 +42,8 @@
             },
             "dateCreated": "2020-11-08T23:07:08.056Z",
             "datePublished": "2026-07-24",
-            "dateModified": "2026-07-24",
-            "description": "A programming model in which people create executable definitions, examples, and acceptance criteria while machines search the implementation space and return contradictions or counterexamples.",
+            "dateModified": "2026-07-28",
+            "description": "Executable definitions let people name meaningful boundaries while machines expose contradictions, generate counterexamples, search implementations, and grow a reusable language of tested concepts.",
             "mainEntityOfPage": "https://greenforest.io/miscellanies/definitions-that-can-fail-their-own-tests.html",
             "isPartOf": {
                 "@type": "CollectionPage",
@@ -62,122 +62,117 @@
 
 <body class="article-structured miscellany-article">
     <header><h1 class="page-title">Definitions That Can Fail Their Own Tests</h1></header>
-    <address><time datetime="2020-11-08">Developed November 8, 2020 and September 23, 2021.</time></address>
+    <address><time datetime="2020-11-08">Developed November 8, 2020 and September 23, 2021.</time><br><time datetime="2026-07-28">Updated July 28, 2026</time></address>
 
     <section class="abstract">
         <p class="eyebrow">Software, state, interaction, and communication</p>
-        <p class="lead">A programming model in which people create executable definitions, examples, and acceptance criteria while machines search the implementation space and return contradictions or counterexamples.</p>
+        <p class="lead">Executable definitions let people name meaningful boundaries while machines expose contradictions, generate counterexamples, search implementations, and grow a reusable language of tested concepts.</p>
     </section>
 
     <main>
         <section class="article-opening">
-            <p>Programmers spend enormous energy implementing things that have never been defined well enough to succeed.</p>
-            <p>The function is correct according to one sentence and wrong according to the next. A product owner supplies examples that cannot all be true at once. A model fits the training cases because no one stated what should happen outside them. Then the machine is blamed for faithfully producing the ambiguity it was given.</p>
-            <p>I wanted a programming language whose central object was not the implementation.</p>
-            <p>It was the definition.</p>
-            <p>The human work would be to create a hierarchy of meanings, boundaries, examples, and acceptance criteria. The machine work would be to search for an implementation that satisfies them. The crucial addition is that the definition itself must be executable enough to fail.</p>
+            <p>Software can begin with an executable definition rather than an implementation.</p>
+            <p>People create the meanings, boundaries, examples, and acceptance criteria that make a result valuable. Machines search the implementation space, return counterexamples, expose contradictions, and show where a definition needs another distinction.</p>
+            <p>This reverses a costly pattern. A function can satisfy one sentence while violating the next. Product examples can demand incompatible outcomes. A model can fit every training case while the unstated surrounding behavior remains arbitrary. Executable definitions make that ambiguity answer before implementation absorbs it.</p>
+            <p>The definition becomes the programming language’s central object—and gains enough behavior to test itself.</p>
         </section>
         <section>
-            <h2>A Definition Is More Than a Name</h2>
-            <p>In ordinary programming, a name can conceal anything:</p>
+            <h2>A Definition Creates a Contract</h2>
+            <p>An ordinary program name can conceal any behavior:</p>
             <pre><code class="language-text">calculateRisk()</code></pre>
-            <p>The name suggests meaning. It does not establish it.</p>
-            <p>A useful definition answers several kinds of question:</p>
+            <p>The name suggests meaning. An executable definition establishes it through several kinds of answer:</p>
             <ul>
                 <li>Which inputs belong to the concept?</li>
                 <li>Which outputs or behaviors distinguish success?</li>
-                <li>Which invariants must always hold?</li>
-                <li>Which examples must be accepted?</li>
-                <li>Which counterexamples must be rejected?</li>
-                <li>Which resources, latency, or error limits matter?</li>
-                <li>Which lower-level definitions does this one depend upon?</li>
+                <li>Which invariants always hold?</li>
+                <li>Which examples receive acceptance?</li>
+                <li>Which counterexamples receive rejection?</li>
+                <li>Which resource, latency, or error limits matter?</li>
+                <li>Which lower-level definitions support this one?</li>
             </ul>
-            <p>The answers form a dependency graph. A high-level concept is refined into smaller concepts until some leaves are already implemented, directly measurable, or simple enough to search.</p>
-            <p>This resembles unit-test-driven programming, but tests are not merely attached after a prose requirement. They are one executable face of the definition.</p>
+            <p>These answers form a dependency graph. High-level concepts refine into smaller concepts until the leaves reach existing implementations, direct measurements, or finite search spaces.</p>
+            <p>Tests become one executable face of the meaning rather than an attachment added after prose requirements.</p>
         </section>
         <section>
-            <h2>Let the Definition Answer Back</h2>
-            <p>A test normally fails an implementation. I also want tests that fail the definition.</p>
-            <p>A definition can be defective in several ways:</p>
+            <h2>Let the Definition Diagnose Itself</h2>
+            <p>A definition can identify its own structural problems:</p>
             <ol>
-                <li><strong>Contradictory:</strong> two required examples demand incompatible results for the same conditions.</li>
-                <li><strong>Incomplete:</strong> important inputs have no defined behavior.</li>
-                <li><strong>Non-discriminating:</strong> a trivial implementation passes because the tests never distinguish the intended property.</li>
-                <li><strong>Unmeasurable:</strong> the success criterion invokes a quality no available observation can determine.</li>
-                <li><strong>Environment-dependent:</strong> a requirement assumes timing, data, permissions, or physical resources the target does not have.</li>
-                <li><strong>Overconstrained:</strong> no implementation can satisfy every bound simultaneously.</li>
+                <li><strong>Contradictory:</strong> two required examples demand incompatible results under the same conditions.</li>
+                <li><strong>Coverage gap:</strong> important inputs lack defined behavior.</li>
+                <li><strong>Non-discriminating:</strong> a trivial implementation passes because no case distinguishes the intended property.</li>
+                <li><strong>Unmeasurable:</strong> available observations cannot determine the stated success criterion.</li>
+                <li><strong>Environment-dependent:</strong> the requirement assumes timing, data, permissions, or physical resources absent from the target.</li>
+                <li><strong>Overconstrained:</strong> no implementation can satisfy every bound together.</li>
             </ol>
-            <p>The language should report these failures near the concept that caused them.</p>
-            <p>“No implementation found” is not enough. The system should expose the smallest conflicting set of criteria, a counterexample, or the unbounded area in which many incompatible implementations all pass.</p>
-            <p>That turns specification into an experimental object.</p>
+            <p>The language reports each problem near the concept that introduced it.</p>
+            <p>Instead of stopping at “No implementation found,” the system returns the smallest conflicting criteria, a counterexample, or the region where many incompatible implementations all satisfy the current cases.</p>
+            <p>Specification becomes an interactive experimental object.</p>
         </section>
         <section>
-            <h2>People Create New Boundaries</h2>
-            <p>The difficult step is not searching inside a definition. It is creating a new boundary worth naming.</p>
-            <p>People create definitions through analogy, frustration, taste, play, bodily need, social negotiation, and encounters with materials. We combine old elements in ways that were not requested by the previous vocabulary. We decide that two situations should be treated as the same concept—or that one familiar concept must be split in two.</p>
-            <p>That creative boundary-setting is not captured by optimizing an implementation against a fixed score.</p>
-            <p>A machine can still help. It can notice recurring distinctions, propose clusters, find contradictory uses of a term, generate counterexamples, or show that a proposed definition collapses into an existing one. It can produce candidate definitions.</p>
-            <p>The person or community using the concept must decide whether the new boundary is worth living with.</p>
+            <h2>People Invent the Boundaries</h2>
+            <p>The deepest creative act names a new boundary worth using.</p>
+            <p>People create definitions through analogy, frustration, taste, play, bodily need, social negotiation, and encounters with materials. They combine established elements in ways the previous vocabulary never requested. They decide that two situations belong to one concept—or that one familiar concept contains two importantly different things.</p>
+            <p>That act changes the space in which optimization can operate.</p>
+            <p>Machines can accelerate it by finding recurring distinctions, proposing clusters, locating contradictory uses of a term, generating counterexamples, or showing that a proposed concept collapses into an existing one. They can produce candidate definitions at enormous depth.</p>
+            <p>The person or community using the concept decides whether the new boundary deserves a place in life.</p>
         </section>
         <section>
-            <h2>Machines Search the Boring Depth</h2>
-            <p>Once a definition has executable criteria, many implementation details become search problems.</p>
-            <p>Suppose I define a small packet classifier:</p>
+            <h2>Machines Search the Implementation Depth</h2>
+            <p>Once a definition carries executable criteria, many implementation decisions become search problems.</p>
+            <p>Consider a packet classifier with this contract:</p>
             <ul>
-                <li>all listed examples must be classified correctly;</li>
-                <li>no rule may inspect a forbidden field;</li>
-                <li>evaluation must finish within a fixed budget;</li>
-                <li>the rule set should be no larger than necessary;</li>
-                <li>a supplied set of adversarial packets must be rejected.</li>
+                <li>classify every listed example correctly;</li>
+                <li>inspect no forbidden field;</li>
+                <li>finish evaluation within a fixed budget;</li>
+                <li>use the smallest practical rule set;</li>
+                <li>reject the supplied adversarial packets.</li>
             </ul>
-            <p>A search engine can explore decision trees, Boolean expressions, tables, or small programs. Genetic search may mutate structures. Dynamic programming may reuse optimal subsolutions. Gradient methods may help when the representation and objective are differentiable. A solver may synthesize an exact finite circuit.</p>
-            <p>No method is universal. “Use gradient descent” is not a solution to a discrete specification with hard constraints. “Use genetic programming” does not remove the need for a tractable search space. The definition should expose enough structure to choose an appropriate engine.</p>
-            <p>The aim is to automate routine implementation while keeping the reason for acceptance inspectable.</p>
+            <p>A search engine can explore decision trees, Boolean expressions, tables, or bounded programs. Genetic search can mutate structures. Dynamic programming can reuse optimal subsolutions. Gradient methods can exploit differentiable representations and objectives. A solver can synthesize an exact finite circuit.</p>
+            <p>The definition exposes enough structure to select the engine that matches its search space and hard constraints.</p>
+            <p>Automation can then absorb routine implementation while every acceptance retains an inspectable reason.</p>
         </section>
         <section>
-            <h2>Hierarchy Prevents the Monolith</h2>
-            <p>The worst specification is a giant acceptance test at the outside of a system.</p>
-            <p>It may tell me that the finished application failed. It does not tell me which concept is wrong.</p>
-            <p>Hierarchical definitions let the failure travel to a smaller boundary. A document editor can depend on definitions of selection, identity, range, insertion, undo, persistence, and collaboration. Each of those can depend on lower-level state transitions and invariants.</p>
-            <p>The hierarchy is not merely decomposition for programmers. It gives the search process reusable contracts. If a lower-level definition already has a trusted implementation, the synthesizer does not need to rediscover it inside every high-level candidate.</p>
-            <p>It also lets a definition evolve without erasing history. A new version can state which previous criteria remain, which are replaced, and which data must be migrated.</p>
+            <h2>Hierarchy Makes Concepts Reusable</h2>
+            <p>A giant acceptance test at a system’s outer edge can report failure while hiding the concept that caused it.</p>
+            <p>Hierarchical definitions carry that result toward a smaller boundary. A document editor can depend on selection, identity, range, insertion, undo, persistence, and collaboration. Each can depend on lower-level transitions and invariants.</p>
+            <p>The hierarchy gives both people and synthesizers reusable contracts. Once a lower-level definition has an accepted implementation, higher-level searches can invoke it instead of rediscovering its behavior inside every candidate.</p>
+            <p>Versioned definitions also preserve history. A new version states which previous criteria continue, which relationships change, and which data requires migration.</p>
         </section>
         <section>
-            <h2>A Definition That Adds Definitions</h2>
-            <p>The more ambitious language can extend its own vocabulary.</p>
-            <p>It observes that several definitions repeat the same pattern. It proposes a new abstraction with parameters. It generates tests that compare the abstraction against each original case. If the new concept preserves the required distinctions, it can become a reusable node in the dependency graph.</p>
-            <p>This is a limited and useful form of a cognitive language:</p>
+            <h2>The Language Can Add Definitions</h2>
+            <p>The language can extend its own vocabulary by recognizing repeated structure.</p>
+            <p>It observes a pattern across several definitions, proposes a parameterized abstraction, and generates comparison tests against each original case. When the abstraction preserves every required distinction, it joins the dependency graph as a reusable concept.</p>
+            <p>This produces a practical cognitive language:</p>
             <ol>
-                <li>represent concepts as testable contracts;</li>
-                <li>connect them through dependencies;</li>
-                <li>search implementations;</li>
-                <li>detect repeated structure;</li>
-                <li>propose a new definition;</li>
-                <li>challenge that definition with old and new cases.</li>
+                <li>Represent concepts as testable contracts.</li>
+                <li>Connect them through dependencies.</li>
+                <li>Search implementations.</li>
+                <li>Detect repeated structure.</li>
+                <li>Propose a new definition.</li>
+                <li>Challenge it with established and new cases.</li>
             </ol>
-            <p>The language is not conscious because it performs these operations. It is improving the explicit model through which people and machines coordinate.</p>
+            <p>These operations improve the explicit model through which people and machines coordinate.</p>
         </section>
         <section>
-            <h2>Examples Are Necessary and Dangerous</h2>
-            <p>Examples are how many definitions begin.</p>
+            <h2>Examples Reveal the Boundary</h2>
+            <p>Many definitions begin with examples:</p>
             <ul>
-                <li>“These three shapes are chairs.”</li>
-                <li>“These messages are spam.”</li>
-                <li>“This circuit is stable.”</li>
-                <li>“This response is helpful.”</li>
+                <li>“These three forms count as chairs.”</li>
+                <li>“These messages belong in spam.”</li>
+                <li>“This circuit maintains stability.”</li>
+                <li>“This answer helps.”</li>
             </ul>
-            <p>Examples reveal intention faster than formal prose. They also invite accidental overfitting.</p>
-            <p>For every positive example, I want a nearby negative one. For every boundary, I want a perturbation: if this input changes slightly, should the result remain the same? For every numeric threshold, I want cases on both sides. For every social criterion, I want to know whose judgment supplies the label and what disagreement looks like.</p>
-            <p>A definition becomes useful when nearby examples, perturbations, and disagreements reveal exactly what it includes.</p>
+            <p>Examples communicate intent quickly. Nearby contrasts make that intent precise.</p>
+            <p>For every positive example, add a nearby negative. For every boundary, add a perturbation and ask whether a slight input change should preserve the result. For every numeric threshold, place cases on both sides. For every social criterion, record whose judgment supplies the label and how disagreement appears.</p>
+            <p>Examples, perturbations, and disagreements together reveal exactly what the definition includes.</p>
         </section>
         <section>
             <h2>Creativity Lives Above and Within the Tests</h2>
-            <p>Acceptance criteria do not replace creativity.</p>
-            <p>They create a surface against which a creative proposal can strike. The proposal may satisfy the criteria in an unexpected way. It may reveal that the criteria protect the wrong thing. It may create a new concept that makes the original problem disappear.</p>
-            <p>People can write definitions instead of implementations only if they remain willing to revise the definitions. Otherwise the hierarchy becomes another bureaucracy: perfectly tested nonsense.</p>
-            <p>The machine should search deeply, show counterexamples, and implement the dull parts. The human contribution is not an oracle’s mysterious spark. It is the accountable act of saying:</p>
-            <p><strong>This distinction matters. This example belongs. That one does not. Here is the case that would make me revise the definition.</strong></p>
-            <p>That last sentence is what turns a wish into a programmable idea.</p>
+            <p>Acceptance criteria give creative proposals a surface to strike.</p>
+            <p>A proposal can satisfy the criteria through a new mechanism, reveal that the criteria protect the wrong property, or introduce a concept that transforms the original problem. Definitions remain programmable because people can revise them as understanding grows.</p>
+            <p>The machine searches deeply, returns counterexamples, finds reusable structure, and implements the routine depth. The accountable human contribution declares:</p>
+            <p><strong>This distinction matters. This example belongs. That one does not. Here is the case that would change the definition.</strong></p>
+            <p>That declaration turns intention into an executable idea—and lets the language answer back.</p>
         </section>
     </main>
 
@@ -190,7 +185,7 @@
         <p>Continue with an interface model built around shared state, interpretation, and repair.</p>
         <p>Nearby:</p>
         <a href="/miscellanies/prohibit-action-upon-stale-data.html">Prohibit Action Upon Stale Data</a>
-        <p>A user interface should not carry out a consequential action when the facts shown to the user are no longer the facts the system will act upon.</p>
+        <p>Bind every consequential action to the revision and facts the user actually saw, then show material changes before asking for a fresh decision.</p>
         <a href="/miscellanies/">Browse all 53 Miscellanies</a>
         <a href="/">Back to greenforest.io</a>
     </nav>

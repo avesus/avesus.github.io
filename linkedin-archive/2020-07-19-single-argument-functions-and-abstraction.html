@@ -6,11 +6,11 @@
     <title>Single-Argument Functions and Abstraction</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A programming-language note about single-argument functions, multi-input abstractions, tuples, records, and why useful interfaces need explicit shape.">
+    <meta name="description" content="Teaching structured inputs and outputs from the beginning makes tuples, records, vectors, matrices, APIs, and multivariable mathematics natural tools rather than late exceptions.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2020-07-19-single-argument-functions-and-abstraction.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Single-Argument Functions and Abstraction">
-    <meta property="og:description" content="A programming-language note about single-argument functions, multi-input abstractions, tuples, records, and why useful interfaces need explicit shape.">
+    <meta property="og:description" content="Teaching structured inputs and outputs from the beginning makes tuples, records, vectors, matrices, APIs, and multivariable mathematics natural tools rather than late exceptions.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2020-07-19-single-argument-functions-and-abstraction.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2020-07-19",
-                                "dateModified": "2026-07-09",
-                                "description": "A programming-language note about single-argument functions, multi-input abstractions, tuples, records, and why useful interfaces need explicit shape.",
+                                "dateModified": "2026-07-28",
+                                "description": "Teaching structured inputs and outputs from the beginning makes tuples, records, vectors, matrices, APIs, and multivariable mathematics natural tools rather than late exceptions.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2020-07-19-single-argument-functions-and-abstraction.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,31 @@
     <header>Single-Argument Functions and Abstraction</header>
     <address>July 19, 2020</address>
 
+    <section class="abstract">
+        <p>Real computations accept structured situations and produce structured consequences. Teach that shape from the beginning and multiple inputs, tuples, records, vectors, matrices, tensors, APIs, and physical ports become one continuous idea instead of a series of advanced exceptions.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Interface Shape Carries Meaning</h1>
+            <p>A function that moves a point needs coordinates. A controller needs state, a target, and measured input. A circuit exposes data, clocks, enables, and configuration. The roles among those values define the problem as much as the calculation does.</p>
+            <p>Tuples and product types can package many arguments into one formal object. Currying can transform a multi-argument function into a chain of single-argument functions. Both techniques preserve the underlying shape; good notation should reveal it rather than make learners recover it later.</p>
+        </section>
+
+        <section>
+            <h1>Multiple Inputs Make Abstraction Concrete</h1>
+            <p>Named inputs tell a caller which value acts as source, destination, coordinate, gain, limit, predicate, clock, or configuration. Structured outputs can return a result together with state, error, derivative, provenance, or a next action.</p>
+            <p>That explicit structure makes computation easier to compose and test. It also connects elementary arithmetic directly to multivariable calculus, partial differential equations, tensor algebra, data models, and software interfaces.</p>
+        </section>
+
+        <section>
+            <h1>Reform the First Lesson</h1>
+            <p>Children already understand actions with several participants and several results. Education can name those relationships early, use visual grouping to keep them clear, and let programming tools handle notation that once made generality expensive to teach.</p>
+            <p>Start with inputs, outputs, and roles. The single-argument function then becomes one elegant case inside a richer and more intuitive theory of abstraction.</p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6690625133100572672" data-linkedin-activity="6690625133100572672" data-linkedin-source="activity:6690625133100572672">
         <h2 id="linkedin-original-6690625133100572672">Originally posted on LinkedIn</h2>
@@ -116,53 +141,13 @@ I don't believe that it's an education system conspiracy. We need to reform it.
         </blockquote>
     </section>
 
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>A single-argument function is a useful mathematical simplification, but it is not the whole story of software interfaces. Real programs move structured input through structured output.</p>
-        <p>The useful teaching point is interface shape: tuples, records, vectors, matrices, named fields, and typed data structures are not details added later. They are how a computation says what it needs and what it returns.</p>
-        <div class="status-box">
-            <p><span class="status-label">Programming-language note</span>Originally posted 2020-07-19; expanded here around interface shape.</p>
-            <p><strong>Article focus:</strong> single-argument functions, multiple inputs, return values, tuples, records, type shape, and abstraction.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Constraint</h1>
-            <p>Teaching everything as a single-argument, single-return function can hide the structure of the problem. In a real API, the input may be a record, tuple, vector, matrix, stream, object reference, or message. The output may have the same kind of structure.</p>
-            <p>Currying and product types can reduce many-argument functions to one-argument functions formally, but that does not remove the engineering need to name and organize the data being passed.</p>
-        </section>
-
-        <section>
-            <h1>Why Shape Matters</h1>
-            <p>An interface with multiple named inputs is not merely messier notation. It tells the caller what roles exist: source, destination, clock, limit, predicate, coordinate, gain, state, or configuration.</p>
-            <p>When that shape is hidden, the reader has to recover it from convention. When it is explicit, the computation becomes easier to inspect, test, and change.</p>
-        </section>
-
-        <section>
-            <h1>The Teaching Point</h1>
-            <p>Students should meet structured input and output early. Arithmetic, geometry, programming, physics, and data modeling all use values whose relationships matter.</p>
-            <p>The lesson is not that single-argument functions are wrong. The lesson is that abstraction begins when the shape of the data is made explicit enough to build on.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2020-06-15-quaternions-and-completeness.html">Quaternions and Completeness</a>
-        <p>Another dated publication from June 15, 2020.</p>
-        <p>More:</p>
-        <a href="2020-09-01-lie-algebras-from-algebraic-structures.html">Lie Algebras From Algebraic Structures</a>
-        <p>Another dated publication from September 1, 2020.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6690625133100572672/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Single-Argument Functions and Abstraction, read:</strong></p>
+        <a href="2019-04-24-geometric-algebra-and-matrix-multiplication.html">Geometric Algebra and Matrix Multiplication</a>
+        <p>One algebraic habit connects geometry, matrix computation, dynamical systems, software, and even econometrics: find the transformation, compose it with another, and preserve the structure that gives each quantity meaning.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6690625133100572672/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

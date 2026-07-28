@@ -6,11 +6,11 @@
     <title>An FPGA Cloud for Shared Designs</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A shared-FPGA infrastructure note: running reusable designs while preserving isolation, scheduling, dynamic reconfiguration, and open/proprietary boundaries.">
+    <meta name="description" content="A multi-tenant FPGA cloud can run, share, license, and reuse open or proprietary designs through secure isolation and fast dynamic reconfiguration.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2021-06-22-an-fpga-cloud-for-shared-designs.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="An FPGA Cloud for Shared Designs">
-    <meta property="og:description" content="A shared-FPGA infrastructure note: running reusable designs while preserving isolation, scheduling, dynamic reconfiguration, and open/proprietary boundaries.">
+    <meta property="og:description" content="A multi-tenant FPGA cloud can run, share, license, and reuse open or proprietary designs through secure isolation and fast dynamic reconfiguration.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2021-06-22-an-fpga-cloud-for-shared-designs.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2021-06-22",
-                                "dateModified": "2026-07-09",
-                                "description": "A shared-FPGA infrastructure note: running reusable designs while preserving isolation, scheduling, dynamic reconfiguration, and open/proprietary boundaries.",
+                                "dateModified": "2026-07-28",
+                                "description": "A multi-tenant FPGA cloud can run, share, license, and reuse open or proprietary designs through secure isolation and fast dynamic reconfiguration.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2021-06-22-an-fpga-cloud-for-shared-designs.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>An FPGA Cloud for Shared Designs</header>
     <address>June 22, 2021</address>
 
+
+    <section class="abstract">
+        <p>An FPGA cloud can make hardware designs as deployable and reusable as software services. Brian Greenforest’s platform lets people run, share, license, and compose open or proprietary circuits while the cloud handles placement, isolation, scaling, and reconfiguration.</p>
+        <p>The same environment can host server infrastructure and replace fixed multi-FPGA deployments with plug-and-play capacity.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Fuse Circuit Design With Application Development</h1>
+            <p>Digital designers gain access to full applications instead of spending every cycle on protocols and arithmetic. Software developers gain parallel, composable, reusable, dynamic, and reactive components instead of treating hardware as a remote accelerator.</p>
+            <p>Multi-tenant object capabilities can isolate customers and control sharing. Fast partial reconfiguration can move a design into available regions and reshape capacity around demand.</p>
+        </section>
+
+        <section>
+            <h1>Create the Marketplace for Executable Hardware</h1>
+            <p>Open components can spread through community reuse, while proprietary cores can earn licensing revenue. Customers can combine both inside secure systems and deploy them without owning a fixed FPGA cluster.</p>
+            <p>Brian seeks seed partners, cloud operators, FPGA vendors, and customers with painful processing bottlenecks. Fund the platform, contribute a design, or bring the workload that will show its commercial power.</p>
+        </section>
+
+        <section>
+            <h1>Execute An FPGA Cloud for Shared Designs Through Cartilage Runtime Instantiation</h1>
+            <p>Cartilage Runtime-Instantiation Architecture carries this system into nested modules that enter and connect inside a live spatial machine.</p>
+            <p><a href="/cartilage-nested-instantiation-demo.html">Cartilage Runtime-Instantiation Architecture</a> &middot; <a href="https://greenforest.io" target="_blank" rel="noopener">https://greenforest.io</a> &middot; <a href="http://Greenforest.io" target="_blank" rel="noopener">http://Greenforest.io</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-6813227486244143104" data-linkedin-activity="6813227486244143104" data-linkedin-source="activity:6813227486244143104">
         <h2 id="linkedin-original-6813227486244143104">Originally posted on LinkedIn</h2>
@@ -114,82 +141,13 @@ https://greenforest.io</div>
             </div>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>An FPGA cloud is useful only if shared hardware can run designs without erasing the boundaries that make those designs safe to reuse: isolation, scheduling, bitstream ownership, dynamic reconfiguration, and resource accounting.</p>
-        <p>The useful claim is infrastructure-shaped. Reconfigurable hardware becomes more valuable when designs can be hosted, reused, and composed without forcing every team to own the whole hardware stack.</p>
-        <div class="status-box">
-            <p><span class="status-label">Infrastructure note</span>Originally posted 2021-06-22; expanded here around the shared-hardware architecture.</p>
-            <p><strong>Related:</strong> <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a></p>
-            <p><strong>Article focus:</strong> multi-tenant FPGAs, isolation, scheduling, reusable designs, and dynamic reconfiguration.</p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Infrastructure Problem</h1>
-            <p>FPGA work often stops at the board boundary: one team, one bitstream, one hardware target, one deployment. A shared FPGA environment changes the problem. Designs have to run beside other designs, survive scheduling decisions, and preserve security and ownership boundaries.</p>
-            <p>That makes the cloud layer more than hosting. It has to manage configuration, placement, resource limits, provenance, versioning, test paths, and handoff between software services and hardware regions.</p>
-        </section>
-
-        <section>
-            <h1>What A Shared Fabric Needs</h1>
-            <div class="article-fact-table">
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Isolation</div>
-                    <div>Tenants and designs cannot be allowed to interfere through pins, memory, clocks, configuration state, or side effects.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Reuse</div>
-                    <div>A useful design should be callable, versioned, tested, and reused without every user rebuilding the whole toolchain.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Scheduling</div>
-                    <div>Hardware regions, bitstream load time, data movement, and service latency become shared operational resources.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Reconfiguration</div>
-                    <div>Dynamic reconfiguration has to be explicit enough that a design can change without corrupting neighboring work.</div>
-                </div>
-                <div class="article-fact-row">
-                    <div class="article-fact-key">Open and proprietary work</div>
-                    <div>The platform has to support shared public designs and private designs without confusing disclosure, ownership, or deployment rights.</div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h1>Why It Matters</h1>
-            <p>The note is not a claim that cloud hosting makes hardware design easy. The tradeoff is real: an FPGA cloud reduces some ownership burden while adding infrastructure requirements that ordinary software hosting does not have.</p>
-            <p>The reason to consider it is also real. Parallel and hardware-shaped computation becomes easier to use when verified designs can move from one-off board projects into repeatable hosted services.</p>
-        </section>
-        <section>
-            <h1>Links From the Original Post</h1>
-            <ul>
-                <li><a href="https://greenforest.io" target="_blank" rel="noopener">https://greenforest.io</a></li>
-                <li><a href="http://Greenforest.io" target="_blank" rel="noopener">http://Greenforest.io</a></li>
-            </ul>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2021-06-18-the-isa-as-an-api-you-cannot-extend.html">The ISA as an API You Cannot Extend</a>
-        <p>Another dated publication from June 18, 2021.</p>
-        <p>More:</p>
-        <a href="2021-06-30-turing-von-neumann-boole-and-faggin.html">Turing, Von Neumann, Boole, and Faggin</a>
-        <p>Another dated publication from June 30, 2021.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6813227486244143104/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From An FPGA Cloud for Shared Designs, read:</strong></p>
+        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Runtime-Instantiation Architecture</a>
+        <p>Cartilage&amp;rsquo;s runtime-instantiation architecture creates and connects nested modules inside a live spatial machine.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:6813227486244143104/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

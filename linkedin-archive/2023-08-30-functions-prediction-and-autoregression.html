@@ -6,11 +6,11 @@
     <title>Functions, Prediction, and Autoregression</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A computation note connecting functions, finite-state machines, autoregression, and transformer output: prediction is shaped by representation and state.">
+    <meta name="description" content="Functions, autoregression, state machines, and Transformers reveal distinct ways computation can map inputs, carry state, predict futures, and generate structure.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2023-08-30-functions-prediction-and-autoregression.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Functions, Prediction, and Autoregression">
-    <meta property="og:description" content="A computation note connecting functions, finite-state machines, autoregression, and transformer output: prediction is shaped by representation and state.">
+    <meta property="og:description" content="Functions, autoregression, state machines, and Transformers reveal distinct ways computation can map inputs, carry state, predict futures, and generate structure.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2023-08-30-functions-prediction-and-autoregression.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2023-08-30",
-                                "dateModified": "2026-07-09",
-                                "description": "A computation note connecting functions, finite-state machines, autoregression, and transformer output: prediction is shaped by representation and state.",
+                                "dateModified": "2026-07-28",
+                                "description": "Functions, autoregression, state machines, and Transformers reveal distinct ways computation can map inputs, carry state, predict futures, and generate structure.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2023-08-30-functions-prediction-and-autoregression.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Functions, Prediction, and Autoregression</header>
     <address>August 30, 2023</address>
 
+
+    <section class="abstract">
+        <p>Prediction takes several computational forms. A function maps arguments to values, autoregression maps recent history to future values, and a state machine carries explicit memory through events.</p>
+        <p>Transformers add a learned generative mapping whose continuation can cross domains and produce a structure that no programmer explicitly enumerated.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Functions Become Machines Through State</h1>
+            <p>Boolean functions compose into datapaths, and registers add memory. Harel statecharts organize events and hierarchy, producing parallel reactive systems with enough structure to host conventional von Neumann computation.</p>
+            <p>Autoregressive models carry state implicitly through prior samples. Their prediction depends on both the representation and the selected history window.</p>
+        </section>
+
+        <section>
+            <h1>Generation Extends the Reach of Prediction</h1>
+            <p>A Transformer maps context into a distribution over continuations, then sampling turns that distribution into a new sequence. Learned representations let the continuation connect distant patterns across language and data.</p>
+            <p>Brian compares that generative reach with the creative function embodied by a human software engineer. Researchers can study the relationship between formal computation, learned prediction, and authored meaning.</p>
+        </section>
+
+        <section>
+            <h1>Run Functions, Prediction, and Autoregression in a Four-Layer Transformer</h1>
+            <p>The complete training run connects this mathematical argument to executable code, data flow, and a working small model.</p>
+            <p><a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7102450930406621184" data-linkedin-activity="7102450930406621184" data-linkedin-source="activity:7102450930406621184">
         <h2 id="linkedin-original-7102450930406621184">Originally posted on LinkedIn</h2>
@@ -105,42 +132,13 @@ I only know another mathematical concept that's capable behaving the same way: a
 #LLM #selfattention #computerscience #Turingcomplete</div>
         </blockquote>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <div class="status-box">
-            <p><span class="status-label">LinkedIn post</span>Posted 2023-08-30.</p>
-            <p><strong>Related:</strong> <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Functions, Prediction, and Autoregression</h1>
-            <p>A function maps arguments to values. A regression model estimates that map from data. An autoregressive model uses earlier values as part of the input for the next value.</p>
-            <p>Computers already contain several ways to build this behavior: Boolean functions, finite-state machines, event-driven datapaths, statecharts, CPUs, and GPUs. Each representation exposes a different handle on state, timing, and control.</p>
-            <p>Transformers are still functions in the mathematical sense, but their inputs include context, token history, position, learned embeddings, and attention weights. That makes the generated output less like a simple lookup and more like a computation over assembled state.</p>
-            <p>The engineering question is where that state lives, how it is updated, how much context is retained, and what the model is actually conditioned on when it predicts the next token.</p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2023-08-24-optimizer-history-around-attention-and-adamw.html">Optimizer History Around Attention and AdamW</a>
-        <p>Another dated publication from August 24, 2023.</p>
-        <p>More:</p>
-        <a href="2023-08-30-autoregression-nonlinear-processes-and-embedding.html">Autoregression, Nonlinear Processes, and Embedding</a>
-        <p>Another dated publication from August 30, 2023.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7102450930406621184/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Functions, Prediction, and Autoregression, read:</strong></p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Tiny Transformer Training Run</a>
+        <p>The complete four-layer Transformer run connects the mathematics to executable training code, data flow, and results.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7102450930406621184/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

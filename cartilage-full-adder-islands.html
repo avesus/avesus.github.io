@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, follow">
-    <title>Cartilage Full-Adder Islands</title>
-    <meta name="description" content="A Cartilage visual placement sketch for a full-adder function, with B, A, and Cin routed into local MUX islands and SUM/CARRY routed to the edge.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <title>Cartilage Full-Adder Islands: Spatial MUX Arithmetic</title>
+    <meta name="description" content="Map a one-bit full adder across a 37x37 Cartilage fabric, routing B, A, and Cin through local MUX islands to edge-visible SUM and CARRY outputs.">
     <link rel="canonical" href="https://greenforest.io/cartilage-full-adder-islands.html">
-    <meta property="og:title" content="Cartilage Full-Adder Islands">
-    <meta property="og:description" content="A Cartilage full-adder placement sketch showing the intended local MUX-island mapping for SUM and CARRY.">
+    <meta property="og:title" content="Cartilage Full-Adder Islands: Spatial MUX Arithmetic">
+    <meta property="og:description" content="See one-bit addition decomposed into local inversion, parity, sum, and carry islands inside a 37x37 Cartilage fabric.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-full-adder-islands.html">
         <link rel="icon" href="/favicon.ico">
@@ -21,25 +21,25 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Cartilage Full-Adder Islands - Greenforest I/O share preview">
+    <meta property="og:image:alt" content="Cartilage Full-Adder Islands: Spatial MUX Arithmetic - Greenforest I/O share preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-full-adder-islands.png">
-    <meta name="twitter:image:alt" content="Cartilage Full-Adder Islands - Greenforest I/O share preview">
+    <meta name="twitter:image:alt" content="Cartilage Full-Adder Islands: Spatial MUX Arithmetic - Greenforest I/O share preview">
     <script src="/site-analytics.js" defer></script>
     <!-- greenforest:share-metadata:end -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "Cartilage Full-Adder Islands",
+            "headline": "Cartilage Full-Adder Islands: Spatial MUX Arithmetic",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-06-26",
-            "dateModified": "2026-07-23",
+            "dateModified": "2026-07-28",
             "image": "https://greenforest.io/cartilage-full-adder-islands/cartilage-full-adder-islands.png",
-            "description": "A Cartilage visual placement sketch for a full-adder function, with B, A, and Cin routed into local MUX islands and SUM/CARRY routed to the edge.",
+            "description": "A 37x37 Cartilage placement map that routes B, A, and Cin through local MUX islands to edge-visible SUM and CARRY outputs.",
             "mainEntityOfPage": "https://greenforest.io/cartilage-full-adder-islands.html",
             "publisher": {
                 "@type": "Person",
@@ -51,90 +51,81 @@
 </head>
 
 <body>
-    <header>Cartilage Full-Adder Islands</header>
+    <header><h1>Cartilage Full-Adder Islands: Spatial MUX Arithmetic</h1></header>
     <address>June 26, 2026</address>
 
     <section class="abstract">
-        <p>This is a visual placement sketch for a one-bit full adder.</p>
-        <p>The intended full-adder mapping uses <code>B</code>, <code>A</code>, and <code>Cin</code> as top-edge data inputs, with <code>SUM</code> and <code>CARRY</code> routed to the right edge.</p>
-        <p>The useful part is still the mapping vocabulary: a familiar one-bit arithmetic block decomposed into local wire, constant, intersection, and MUX roles inside the same 32-code Cartilage visual language.</p>
-        <div class="status-box">
-            <p><span class="status-label">Visual placement sketch</span>This page is part of the <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>.</p>
-            <p><strong>Included:</strong> a <code>37x37</code> visual placement sketch, a <code>2960x2960</code> PNG, the intended full-adder equations, and the local MUX-island mapping vocabulary.</p>
-            <p><strong>Sketch focus:</strong> local island notation, edge route intent, and the mapping from full-adder equations into Cartilage cell roles.</p>
-        </div>
+        <p>A one-bit full adder becomes a readable spatial circuit when its parity, sum, and carry equations occupy distinct local MUX islands.</p>
+        <p>This <code>37x37</code> placement map brings <code>B</code>, <code>A</code>, and <code>Cin</code> through the top edge, connects them through wires, constants, intersections, and selectors, and delivers <code>SUM</code> and <code>CARRY</code> at the right edge.</p>
+        <p>The <code>2960x2960</code> image preserves the hand-drawn topology as a precise Cartilage design map with ten semantic labels and the complete full-adder equations.</p>
     </section>
 
     <main>
         <section>
-            <h1>The Rendered Artifact</h1>
+            <h2>Read The Complete 37x37 Placement Map</h2>
             <figure class="inspectable-image">
                 <a href="/cartilage-full-adder-islands/cartilage-full-adder-islands.png">
-                    <img src="/cartilage-full-adder-islands/cartilage-full-adder-islands.png" alt="Cartilage fabric render of a full adder with B, A, and Cin entering from the top and SUM and CARRY leaving to the right">
+                    <img src="/cartilage-full-adder-islands/cartilage-full-adder-islands.png" alt="A 37 by 37 Cartilage placement map routing B, A, and Cin through local selector islands to right-edge SUM and CARRY signals">
                 </a>
-                <figcaption>A 37x37 Cartilage visual placement sketch of an island-style full-adder instantiation.</figcaption>
+                <figcaption>Three top-edge inputs feed local MUX islands; two right-edge routes carry the sum and carry results.</figcaption>
             </figure>
         </section>
 
         <section>
-            <h1>What This Page Shows</h1>
-            <p>The render shows the intended placement vocabulary for a full-adder island: top-edge input routes, local inversion and mux islands, and right-edge output routes.</p>
-            <p>For checked arithmetic behavior, use the <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a>. For the current mechanism and hardware reference, use <a href="/cartilage-core.html">Cartilage Core</a>; use <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">visual language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation demo</a> for the browser-artifact lineage.</p>
+            <h2>Follow One Bit Of Addition Through Space</h2>
+            <p>The map exposes the arithmetic as a route: inputs enter from above, inversion and parity emerge in the first islands, Cin selects the sum, and the carry selector chooses between Cin and A.</p>
+            <p>The <a href="/cartilage-verified-ripple2-adder.html">Cartilage Verified Ripple2 Adder</a> runs this arithmetic pattern across two bits. <a href="/cartilage-core.html">Cartilage Core</a> supplies the current browser and hardware mechanism; <a href="/cartilage2026.html">Cartilage 2026</a>, the <a href="/cartilage-visual-language.html">visual language</a>, and the <a href="/cartilage-nested-instantiation-demo.html">nested-instantiation mechanism</a> connect the map to the larger fabric architecture.</p>
         </section>
 
         <section>
-            <h1>The Boolean Function</h1>
-            <p>The intended placed circuit is the extracted full-adder function, expressed as mux-friendly local equations:</p>
+            <h2>Build The Full Adder From Five Local Selectors</h2>
+            <p>Five MUX-friendly equations define the placed circuit:</p>
             <pre><code>notB  = B ? 0 : 1
 P     = A ? notB : B
 notP  = P ? 0 : 1
 SUM   = Cin ? notP : P
 CARRY = P ? Cin : A</code></pre>
-            <p>These are <a href="/mux-algebra.html">MUX Algebra</a> expressions: every conditional is one selector, and nesting the selectors builds the full-adder function.</p>
-            <p>Equivalently, <code>P</code> is <code>A xor B</code>, <code>SUM</code> is <code>Cin xor P</code>, and <code>CARRY</code> is <code>(A and B) or (Cin and (A xor B))</code>.</p>
+            <p><a href="/mux-algebra.html">MUX Algebra</a> turns every conditional into one selector, so nested selectors implement the entire full-adder function with one local primitive.</p>
+            <p><code>P</code> computes <code>A xor B</code>, <code>SUM</code> computes <code>Cin xor P</code>, and <code>CARRY</code> computes <code>(A and B) or (Cin and (A xor B))</code>.</p>
         </section>
 
         <section>
-            <h1>Data I/O Is Not Reconfiguration I/O</h1>
-            <p>In the sketch, the top-edge inputs and right-edge outputs are ordinary data routes through neighboring fabric cells. They are not reconfiguration-port cells.</p>
-            <p>That distinction matters in Cartilage. Reconfiguration ports are for changing fabric state. This drawing is meant to show a configured arithmetic circuit: data entering over wire cells, flowing through local MUX islands, and exiting over wire cells.</p>
+            <h2>Keep Runtime Data On Ordinary Fabric Routes</h2>
+            <p>Neighboring wire cells carry the top-edge inputs and right-edge outputs as runtime data. Reconfiguration ports separately install or replace fabric roles.</p>
+            <p>The map therefore presents a configured arithmetic circuit: data enters through wire cells, crosses local MUX islands, and exits through wire cells while the configuration plane retains its own ports.</p>
         </section>
 
         <section>
-            <h1>Why The Islands Are Spread Out</h1>
-            <p>The fabric is intentionally over-provisioned. Most cells remain in the constant-zero sea so the labels have readable space and each logic island can be inspected without the picture turning into a dense routing block.</p>
-            <p>The sea is interrupted by the wire cells and intersection cells needed to carry <code>B</code>, <code>A</code>, <code>Cin</code>, <code>P</code>, <code>SUM</code>, and <code>CARRY</code> between islands and to the fabric edge.</p>
+            <h2>Use Space To Reveal Every Logic Island</h2>
+            <p>A constant-zero sea separates the active islands, leaves room for labels, and makes each selector and route legible at full resolution.</p>
+            <p>Wire and intersection cells cut through that sea to carry <code>B</code>, <code>A</code>, <code>Cin</code>, <code>P</code>, <code>SUM</code>, and <code>CARRY</code> between islands and the fabric edge.</p>
         </section>
 
         <section>
-            <h1>Relation To The Hand Sketch</h1>
-            <p>The sketch is based on the hand-drawn full-adder sheet where <code>B</code>, <code>A</code>, and carry-in enter from the top and <code>SUM</code> plus carry-out leave to the right. It is not an OCR transcription of that photograph.</p>
-            <p>The published image is the extracted function mapped into available Cartilage cell roles: constants, wires, intersections, and MUX behavior.</p>
+            <h2>Carry The Hand-Drawn Topology Into Cartilage</h2>
+            <p>The hand-drawn full-adder sheet establishes the spatial composition: <code>B</code>, <code>A</code>, and carry-in enter from the top, while <code>SUM</code> and carry-out leave to the right.</p>
+            <p>The published design map reconstructs that function with Cartilage constants, wires, intersections, and MUX roles.</p>
         </section>
 
         <section>
-            <h1>Render Notes</h1>
-            <p>The rendered lattice is <code>37x37</code> cells. The PNG is <code>2960x2960</code> pixels. It is a cycle-zero initialized-cell schematic with ten semantic labels.</p>
-            <p>Read the white label boxes as human callouts. The underlying fabric vocabulary is still the same Cartilage cell-role alphabet explained in the <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> article.</p>
+            <h2>Decode The Render At Full Resolution</h2>
+            <p>The lattice contains <code>37x37</code> cells, and the PNG spans <code>2960x2960</code> pixels. Cycle-zero initialized roles form the circuit beneath ten semantic labels.</p>
+            <p>White boxes name signals for the reader. The <a href="/cartilage-visual-language.html">Cartilage Visual Language</a> decodes the 32-code cell-role alphabet beneath those callouts.</p>
         </section>
 
         <section>
-            <h1>Where It Fits</h1>
-            <p>The useful part is the local island notation. <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> are the current mechanism and hardware reference. They do not turn this older cycle-zero placement sketch into a driven or verified circuit.</p>
+            <h2>Extend The Island Pattern Into Running Arithmetic</h2>
+            <p>This placement map contributes the local island notation and edge-routing plan. <a href="/cartilage-core.html">Cartilage Core</a> and its <a href="https://github.com/avesus/cartilage-core" target="_blank" rel="noopener">public source repository</a> provide the current browser and hardware mechanism, while the ripple2 page carries the arithmetic into a complete driven run.</p>
         </section>
     </main>
 
     <nav class="article-links">
-        <p>Read next:</p>
-        <a href="/ai-assisted-cartilage-draft-archive.html">Cartilage Run and Sketch Index</a>
-        <p>A guide to the Cartilage run, timeline, and sketch pages.</p>
-        <p>More:</p>
-        <a href="/cartilage-nested-instantiation-demo.html">Cartilage Nested-Instantiation Demo</a>
-        <p>The local-port and bounded-region model behind larger Cartilage fabric examples.</p>
-        <p>Build next:</p>
-        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
-        <p>Help turn this placement vocabulary into routed, driven, traceable circuits inside the current Cartilage workflow. Funding and contributors are welcome.</p>
-        <a href="/">Go back</a>
+        <p>Run the arithmetic next:</p>
+        <a href="/cartilage-verified-ripple2-adder.html">Cartilage Ripple2 Adder: 96 Passing Browser Expectations</a>
+        <p>Watch the local MUX-island pattern become a generated two-bit circuit with edge-visible results.</p>
+        <p>Then open the composition mechanism:</p>
+        <a href="/cartilage-nested-instantiation-demo.html">Runtime Instantiation In Nested Cartilage Regions</a>
+        <p>See local ports stream new roles into bounded daughter regions.</p>
     </nav>
 </body>
 

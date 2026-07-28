@@ -6,11 +6,11 @@
     <title>Nano-Core Logic at the kT Limit</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="A post-CMOS magnetic-logic proposal: cobalt, iron, or nickel nano-core elements near the kT switching limit, differential magnetic-amplifier fabric, cascadability, gain, and process requirements.">
+    <meta name="description" content="Open differential nano-core magnetic logic targets the thermal switching limit, multi-terahertz operation, cascadable gain, and post-CMOS scale.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2025-06-05-nano-core-logic-at-the-kt-limit.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="Nano-Core Logic at the kT Limit">
-    <meta property="og:description" content="A post-CMOS magnetic-logic proposal: cobalt, iron, or nickel nano-core elements near the kT switching limit, differential magnetic-amplifier fabric, cascadability, gain, and process requirements.">
+    <meta property="og:description" content="Open differential nano-core magnetic logic targets the thermal switching limit, multi-terahertz operation, cascadable gain, and post-CMOS scale.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2025-06-05-nano-core-logic-at-the-kt-limit.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2025-06-05",
-                                "dateModified": "2026-07-09",
-                                "description": "A post-CMOS magnetic-logic proposal: cobalt, iron, or nickel nano-core elements near the kT switching limit, differential magnetic-amplifier fabric, cascadability, gain, and process requirements.",
+                                "dateModified": "2026-07-28",
+                                "description": "Open differential nano-core magnetic logic targets the thermal switching limit, multi-terahertz operation, cascadable gain, and post-CMOS scale.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2025-06-05-nano-core-logic-at-the-kt-limit.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -89,6 +89,33 @@
     <header>Nano-Core Logic at the kT Limit</header>
     <address>June 5, 2025</address>
 
+
+    <section class="abstract">
+        <p>Brian Greenforest’s open differential magnetic-amplifier fabric targets a 10,000-fold leap beyond silicon in energy and switching speed. Gapped cobalt nano-cores approach the thermal irreversibility scale while preserving the gain and cascadability that general-purpose logic requires.</p>
+        <p>Iron and nickel offer lower-cost material paths, and thin-film deposition offers a manufacturing route far lighter than a leading-edge CMOS fab.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Turn Magnetic Gain Into a Logic Fabric</h1>
+            <p>Each differential element uses a driven magnetic core to control a larger output response. Complementary paths restore logic levels, reject common disturbance, and let one stage drive the next.</p>
+            <p>Magnonics and spintronics already demonstrate transistor-free gain mechanisms. The architecture organizes those mechanisms into repeatable cells, routes, state, and an FPGA-like programmable fabric.</p>
+        </section>
+
+        <section>
+            <h1>Build the Open Post-Silicon Process</h1>
+            <p>The process must connect core geometry, magnetic gap, anisotropy, thin-film composition, switching energy, frequency, windings, interconnect, and thermal behavior. Cobalt reaches the most aggressive target; iron and nickel broaden cost and fabrication options.</p>
+            <p>Open-hardware builders, device physicists, and process engineers can co-invent the cells and measurement flow. Join the work that can make post-CMOS logic radically colder, faster, and accessible without a $100 million fab.</p>
+        </section>
+
+        <section>
+            <h1>Build the Fabrication Path Behind Nano-Core Logic at the kT Limit</h1>
+            <p>The Missing Maker Fab carries this work into the tools and processes required to fabricate fast active devices locally.</p>
+            <p><a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
+        </section>
+
+    </main>
+
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7336414482144948225" data-linkedin-activity="7336414482144948225" data-linkedin-source="activity:7336414482144948225">
         <h2 id="linkedin-original-7336414482144948225">Originally posted on LinkedIn</h2>
@@ -121,58 +148,13 @@ DM me if you’re ready to co-invent the future of logic. Let’s push past sili
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>This page is a post-CMOS magnetic-logic proposal: nanoscale magnetic core elements, differential magnetic-amplifier behavior, and an open fabric that would have to be cascadable to become useful computing hardware.</p>
-        <p>The performance numbers in the original post set the target for the proposed device class: switching near the energy floor while preserving gain, restoration, and fanout.</p>
-        <div class="status-box">
-            <p><span class="status-label">Device proposal</span>Originally posted 2025-06-05; expanded here around the actual magnetic-logic requirements.</p>
-            <p><strong>Included:</strong> nano-core material choices, kT-limit switching target, differential magnetic-amplifier fabric, cascadability, gain, thin-film process path, and the open-platform question.</p>
-            <p><strong>Article focus:</strong> device requirements for a cascadable magnetic logic fabric: material, kT-scale switching target, gain, fanout, process repeatability, and an open-platform path.</p>
-            <p><strong>Related:</strong> <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>The Device Question</h1>
-            <p>The proposed primitive is a nanoscale magnetic core logic element, with cobalt named as the high-performance material and iron or nickel as cheaper alternatives. The important engineering question is whether those elements can become a cascadable logic family rather than isolated magnetic demonstrations.</p>
-            <p>A useful logic family needs gain, restoration, fanout, noise margin, repeatable switching, routing, clocking or pumping discipline, and a process that can make many matched elements.</p>
-        </section>
-
-        <section>
-            <h1>Fabric Requirement</h1>
-            <p>The original proposal names an open-source differential magnetic-amplifier fabric: FPGA-like flexibility, but with gapped-core nano magnetic amplifiers instead of CMOS gates.</p>
-            <p>That comparison only becomes real if the magnetic cells can drive each other, expose reliable state, and be placed into a regular fabric with testable behavior. Thin-film deposition is the suggested manufacturing direction; the process has to deliver matched cells, routable interconnect, and repeatable tests.</p>
-        </section>
-
-        <section>
-            <h1>Performance Target</h1>
-            <p>The original post talks about four-order power reduction and multi-THz switching. That language names the desired regime: approach the energy floor while keeping enough gain and cascadability for real logic.</p>
-            <p>A strong next artifact would be a material stack, geometry, drive method, switching energy, switching speed, gain, fanout, endurance, and a small cascaded circuit that another lab can reproduce.</p>
-        </section>
-
-
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2024-01-17-teach-microelectronics-in-maker-spaces.html">Teach Microelectronics in Maker Spaces</a>
-        <p>Another dated publication from January 17, 2024.</p>
-        <p>More:</p>
-        <a href="2025-06-29-floating-point-hardware-from-pixar-to-ai-chips.html">Floating-Point Hardware From Pixar to AI Chips</a>
-        <p>Another dated publication from June 29, 2025.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336414482144948225/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From Nano-Core Logic at the kT Limit, read:</strong></p>
+        <a href="/the-missing-maker-fab.html">The Missing Maker Fab</a>
+        <p>The maker-fab program defines the local tools and processes needed to fabricate fast active devices, not only package them.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7336414482144948225/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 

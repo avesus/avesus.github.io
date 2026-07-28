@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(TOOL_DIR, "..");
-const SOURCE_PATH = path.join(
+const ORIGINAL_SOURCE_PATH = path.join(
     ROOT,
     "publication-ready",
     "problems-i-tackle-through-subsidiaries.md",
@@ -22,23 +22,13 @@ const CHECK = process.argv.includes("--check");
 
 const TITLE = "210 Problems We Have Learned to Call Normal";
 const SLUG = "210-problems-we-have-learned-to-call-normal";
-const DATE = "2026-07-24";
+const DATE_PUBLISHED = "2026-07-24";
+const DATE_MODIFIED = "2026-07-28";
 const DISPLAY_DATE = "July 24, 2026";
 const DESCRIPTION =
-    "A 210-problem map of bounded AI authority, live reconfigurable computation, near-sensor systems, physical intelligence, and accessible fabrication.";
+    "A cross-layer map of 210 opportunities for capability-native agency, live reconfigurable physical computation, and minimal-apparatus physical intelligence.";
 const CANONICAL = `https://greenforest.io/${SLUG}.html`;
 const PREVIEW = `https://greenforest.io/social-previews/${SLUG}.png`;
-const PUBLIC_OPENING = [
-    "These problems no longer look like problems. They look like the unavoidable price of building useful AI, machines, instruments, electronics, and infrastructure. That is exactly why I am publishing all 210 at once.",
-    "I plan to create three focused subsidiaries, each attacking a different layer: capability-native agency; live reconfigurable physical computation; and minimal-apparatus physical intelligence.",
-    "In this plan, the same customer industry may appear under more than one subsidiary because each attacks a different layer. A robotics company, for example, can face an authority problem, a computational-structure problem, and an interface-apparatus problem at the same time.",
-    "Read every bullet as beginning with “Of course…” If a sentence feels obvious, ask when and why we accepted the burden it describes as inevitable.",
-];
-const PUBLIC_ORIENTATIONS = [
-    "I plan to build the first subsidiary around systems in which AI agents and autonomous machines possess structurally bounded authority, rather than ambient power constrained by monitoring, policies, and retrospective accountability.",
-    "I plan to build the second around spatial, locally owned, dynamically reconfigurable computation for instruments, robots, satellites, industrial systems, adaptive edge machines, and eventually programmable matter.",
-    "I plan to build the third around near-sensor computation, direct physical interfaces, tiny local learning, unusual active devices, and systems that remove converters, centralized machinery, or inaccessible fabrication where those layers constitute the real burden.",
-];
 
 function escapeHtml(value) {
     return value
@@ -57,36 +47,12 @@ function slugify(value) {
         .replace(/^-|-$/g, "");
 }
 
-function buildPublicSource(originalSource) {
-    const lines = originalSource.replace(/\r\n/g, "\n").trimEnd().split("\n");
-    const firstSection = lines.findIndex((line) => /^1\. /.test(line));
-    if (firstSection === -1) {
-        throw new Error("Original manuscript is missing its first numbered section.");
-    }
-
-    const publicLines = [];
-    for (const paragraph of PUBLIC_OPENING) {
-        publicLines.push(paragraph, "");
-    }
-
-    let sectionIndex = -1;
-    for (const line of lines.slice(firstSection)) {
-        if (/^\d+\. /.test(line)) sectionIndex += 1;
-        if (line.startsWith("What the subsidiary is oriented around:")) {
-            publicLines.push(PUBLIC_ORIENTATIONS[sectionIndex]);
-        } else {
-            publicLines.push(line);
-        }
-    }
-
-    return `${publicLines.join("\n").trimEnd()}\n`;
-}
-
 function renderProblemMap(source) {
     const lines = source.replace(/\r\n/g, "\n").trimEnd().split("\n");
     const rendered = [];
     let index = 0;
     let paragraphIndex = 0;
+    let orientationPending = false;
 
     while (index < lines.length) {
         const line = lines[index];
@@ -99,6 +65,7 @@ function renderProblemMap(source) {
             rendered.push(
                 `            <h2 id="${slugify(line.replace(/^\d+\.\s*/, ""))}">${escapeHtml(line)}</h2>`,
             );
+            orientationPending = true;
             index += 1;
             continue;
         }
@@ -107,6 +74,7 @@ function renderProblemMap(source) {
             rendered.push(
                 `            <h3 id="${slugify(line)}">${escapeHtml(line)}</h3>`,
             );
+            orientationPending = false;
             index += 1;
             continue;
         }
@@ -122,7 +90,7 @@ function renderProblemMap(source) {
         }
 
         let className = "";
-        if (PUBLIC_ORIENTATIONS.includes(line)) {
+        if (orientationPending) {
             className = " class=\"subsidiary-orientation\"";
         } else if (paragraphIndex === 0) {
             className = " class=\"lead problem-thesis\"";
@@ -134,6 +102,7 @@ function renderProblemMap(source) {
             className = " class=\"problem-prefix\"";
         }
         rendered.push(`            <p${className}>${escapeHtml(line)}</p>`);
+        orientationPending = false;
         paragraphIndex += 1;
         index += 1;
     }
@@ -162,8 +131,8 @@ function buildHtml(originalSource, publicSource) {
             name: "Brian Greenforest",
             url: "https://greenforest.io/",
         },
-        datePublished: DATE,
-        dateModified: DATE,
+        datePublished: DATE_PUBLISHED,
+        dateModified: DATE_MODIFIED,
         description: DESCRIPTION,
         mainEntityOfPage: CANONICAL,
         image: PREVIEW,
@@ -198,8 +167,8 @@ function buildHtml(originalSource, publicSource) {
     <meta property="og:description" content="${escapeHtml(DESCRIPTION)}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="${CANONICAL}">
-    <meta property="article:published_time" content="${DATE}">
-    <meta property="article:modified_time" content="${DATE}">
+    <meta property="article:published_time" content="${DATE_PUBLISHED}">
+    <meta property="article:modified_time" content="${DATE_MODIFIED}">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:none -->
@@ -223,21 +192,20 @@ ${JSON.stringify(jsonLd, null, 8).split("\n").map((line) => `        ${line}`).j
 
 <body class="article-structured subsidiary-problem-map">
     <header><h1 class="page-title">${escapeHtml(TITLE)}</h1></header>
-    <address><time datetime="${DATE}">${DISPLAY_DATE}</time></address>
+    <address><time datetime="${DATE_PUBLISHED}">${DISPLAY_DATE}</time></address>
 
     <main>
-        <!-- Edited public edition generated from a preserved original manuscript. -->
         <section data-problem-map data-original-manuscript-sha256="${originalSourceHash}" data-public-source-sha256="${publicSourceHash}">
 ${problemMap}
         </section>
     </main>
 
     <nav class="article-links" aria-label="Continue from this problem map">
-        <p>Choose one of these problems to stop accepting:</p>
-        <a href="technology-research-and-consulting.html">Work with me</a>
-        <p>Bring an authority, computational-structure, or interface-apparatus problem that needs to become a working mechanism.</p>
-        <a href="proof-and-artifacts.html">Open the built mechanisms</a>
-        <p>Run, inspect, and reuse the circuits, fabrics, radio paths, browser-GPU systems, and manufacturing work behind this program.</p>
+        <p>Choose the burden your team is ready to remove.</p>
+        <a href="technology-research-and-consulting.html">Bring Brian the hard boundary</a>
+        <p>Start with the live system, physical constraint, or market consequence. Turn it into a mechanism your team can build, run, and extend.</p>
+        <a href="proof-and-artifacts.html">Explore the working mechanisms</a>
+        <p>Run the circuits, fabrics, radio paths, browser-GPU systems, and manufacturing work that make these directions concrete.</p>
         <a href="/">Back to Greenforest I/O</a>
     </nav>
 </body>
@@ -246,34 +214,22 @@ ${problemMap}
 `;
 }
 
-const originalSource = fs.readFileSync(SOURCE_PATH, "utf8");
-const publicSource = buildPublicSource(originalSource);
+const originalSource = fs.readFileSync(ORIGINAL_SOURCE_PATH, "utf8");
+const publicSource = fs.readFileSync(PUBLIC_SOURCE_PATH, "utf8");
 const expected = buildHtml(originalSource, publicSource);
 
 if (CHECK) {
-    const actualPublicSource = fs.existsSync(PUBLIC_SOURCE_PATH)
-        ? fs.readFileSync(PUBLIC_SOURCE_PATH, "utf8")
-        : "";
     const actual = fs.existsSync(OUTPUT_PATH) ? fs.readFileSync(OUTPUT_PATH, "utf8") : "";
-    let failed = false;
-    if (actualPublicSource !== publicSource) {
-        console.error(`${path.relative(ROOT, PUBLIC_SOURCE_PATH)} is missing or out of date.`);
-        failed = true;
-    }
     if (actual !== expected) {
         console.error(`${path.relative(ROOT, OUTPUT_PATH)} is missing or out of date.`);
-        failed = true;
-    }
-    if (failed) {
         process.exit(1);
     }
     console.log(
-        `Checked ${path.relative(ROOT, PUBLIC_SOURCE_PATH)} and ${path.relative(ROOT, OUTPUT_PATH)} (no changes).`,
+        `Checked ${path.relative(ROOT, OUTPUT_PATH)} against the canonical public Markdown (no changes).`,
     );
 } else {
-    fs.writeFileSync(PUBLIC_SOURCE_PATH, publicSource, "utf8");
     fs.writeFileSync(OUTPUT_PATH, expected, "utf8");
     console.log(
-        `Wrote ${path.relative(ROOT, PUBLIC_SOURCE_PATH)} and ${path.relative(ROOT, OUTPUT_PATH)}.`,
+        `Wrote ${path.relative(ROOT, OUTPUT_PATH)} from ${path.relative(ROOT, PUBLIC_SOURCE_PATH)}.`,
     );
 }

@@ -6,11 +6,11 @@
     <title>An FM Receiver With One FPGA Input Pin</title>
     <meta name="author" content="Brian Greenforest">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <meta name="description" content="Launch note for the one-pin FPGA FM receiver: one logical differential input thresholds RF, DDR decisions become I/Q lanes, and integrate-and-dump plus cross-product processing recovers FM audio.">
+    <meta name="description" content="One FPGA input threshold turns FM RF into transitions; four-phase DDR sampling, XOR mixing, CIC decimation, and cross-product demodulation recover audio.">
     <link rel="canonical" href="https://greenforest.io/linkedin-archive/2026-04-24-an-fm-receiver-with-one-fpga-input-pin.html">
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:title" content="An FM Receiver With One FPGA Input Pin">
-    <meta property="og:description" content="Launch note for the one-pin FPGA FM receiver: one logical differential input thresholds RF, DDR decisions become I/Q lanes, and integrate-and-dump plus cross-product processing recovers FM audio.">
+    <meta property="og:description" content="One FPGA input threshold turns FM RF into transitions; four-phase DDR sampling, XOR mixing, CIC decimation, and cross-product demodulation recover audio.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/linkedin-archive/2026-04-24-an-fm-receiver-with-one-fpga-input-pin.html">
     <meta property="article:author" content="Brian Greenforest">
@@ -43,8 +43,8 @@
                                         "url": "https://greenforest.io/"
                                 },
                                 "datePublished": "2026-04-24",
-                                "dateModified": "2026-07-22",
-                                "description": "Launch note for the one-pin FPGA FM receiver: one logical differential input thresholds RF, DDR decisions become I/Q lanes, and integrate-and-dump plus cross-product processing recovers FM audio.",
+                                "dateModified": "2026-07-28",
+                                "description": "One FPGA input threshold turns FM RF into transitions; four-phase DDR sampling, XOR mixing, CIC decimation, and cross-product demodulation recover audio.",
                                 "mainEntityOfPage": "https://greenforest.io/linkedin-archive/2026-04-24-an-fm-receiver-with-one-fpga-input-pin.html",
                                 "isPartOf": {
                                         "@id": "https://greenforest.io/linkedin-archive/#collection"
@@ -88,6 +88,33 @@
 <body>
     <header>An FM Receiver With One FPGA Input Pin</header>
     <address>April 24, 2026</address>
+
+
+    <section class="abstract">
+        <p>Brian Greenforest built an FM receiver whose RF signal enters one FPGA input. The pin’s digital threshold converts radio frequency into a transition stream, and the reconfigurable fabric carries that stream all the way to recovered audio.</p>
+        <p>The architecture removes the strong external local oscillator, conventional analog mixer, amplitude-preserving RF or IF ADC, sine and cosine tables, and atan2 phase extraction.</p>
+    </section>
+
+    <main>
+        <section>
+            <h1>Turn Threshold Crossings Into Quadrature</h1>
+            <p>Four-phase sampling uses DDR timing to observe the transition stream at staggered phases and form in-phase and quadrature lanes. XOR operations supply the mixing relationships without multiplier-heavy trigonometric synthesis.</p>
+            <p>A CIC path integrates and decimates the high-rate decisions. Cross-product demodulation extracts FM phase change, and sigma-delta output converts the recovered stream into audio.</p>
+        </section>
+
+        <section>
+            <h1>Strip Radio to Its Necessary Structure</h1>
+            <p>The receiver preserves the timing of threshold crossings rather than the full RF amplitude. That choice collapses the familiar analog and numeric stack while retaining the information FM needs.</p>
+            <p>FPGA designers, radio builders, and educators can study the full writeup and Verilog, reproduce the chain, and explore how much more radio can move into one digital threshold.</p>
+        </section>
+
+        <section>
+            <h1>Measure the One-Pin Receiver as a Complete Radio</h1>
+            <p>The companion article connects the one-pin receiver to host-side I/Q processing, SDR measurement, and the complete working radio path.</p>
+            <p><a href="/how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a></p>
+        </section>
+
+    </main>
 
     <!-- linkedin-original:start -->
     <section class="linkedin-original-citation" aria-labelledby="linkedin-original-7453252285146546176" data-linkedin-activity="7453252285146546176" data-linkedin-source="activity:7453252285146546176">
@@ -206,62 +233,13 @@ https://greenforest.io/ will have a direct link to the GitHub, I promise!</div>
             </article>
         </section>
     </section>
-
-    <div class="status-box linkedin-preserved-version" role="note">
-        <p><span class="status-label">Preserved article version</span>The rewritten article follows below, unchanged.</p>
-    </div>
     <!-- linkedin-original:end -->
 
-    <section class="abstract">
-        <p>Launch note for the one-pin FPGA FM receiver article.</p>
-        <div class="status-box">
-            <p><span class="status-label">Receiver article link</span>Originally posted 2026-04-24. The full article gives the receiver path and the Verilog follow-up.</p>
-            <p><strong>Included:</strong> the short publication text, source link, and link to the full writeup.</p>
-            <p><strong>Source correction:</strong> the original post below uses "four-phase sampling" and "CIC" as architecture shorthand. The selected November 15 RTL has one DDR input sampler, fixed I/Q lane construction, and an 80-update rectangular integrate-and-dump stage; it does not instantiate four input samplers or a CIC cascade.</p>
-            <p><strong>Full article:</strong> <a href="/how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a></p>
-        </div>
-    </section>
-
-    <main>
-        <section>
-            <h1>Original Post</h1>
-            <p>I built an FM receiver with one FPGA input pin.</p>
-            <p>Not “one-chip radio.”<br>
-                Not “a tiny SDR module.”</p>
-            <p>One input pin receives the RF.<br>
-                The FPGA threshold turns it into a transition stream.<br>
-                Four-phase sampling recovers quadrature structure.<br>
-                XOR logic handles mixing.<br>
-                A CIC filter downsamples.<br>
-                A cross-product demodulator recovers FM.<br>
-                Sigma-delta output produces audio.</p>
-            <p>What disappears?</p>
-            <p>No strong external local oscillator spraying around the board.<br>
-                No conventional analog mixer front end.<br>
-                No RF/IF amplitude-preserving ADC.<br>
-                No sine/cosine lookup tables.<br>
-                No atan2 phase extractor.</p>
-            <p>The question was not “can I make a toy FM receiver?”<br>
-                The question was:</p>
-            <p>How much of radio is actually necessary?</p>
-            <p>Turns out: less than the inherited stack tells you.</p>
-            <p>Full technical article: <a href="/how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a></p>
-        </section>
-
-    </main>
-
-    <nav class="article-links">
-        <p>Next:</p>
-        <a href="2026-04-15-magnetic-paramp-and-second-harmonic-saturable-core-downconverter.html">Magnetic Paramp and Second-Harmonic Saturable-Core Downconverter</a>
-        <p>Another dated publication from April 15, 2026.</p>
-        <p>More:</p>
-        <a href="2026-04-24-how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a>
-        <p>Another dated publication from April 24, 2026.</p>
-        <p>Archive:</p>
-        <a href="./">LinkedIn publication index</a>
-        <p>Source:</p>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7453252285146546176/" target="_blank" rel="noopener">Original LinkedIn post</a>
-        <a href="/">Back to greenforest.io</a>
+    <nav class="article-links" aria-label="Strongest next read and source">
+        <p><strong>From An FM Receiver With One FPGA Input Pin, read:</strong></p>
+        <a href="/how-much-radio-do-you-actually-need.html">How Much Radio Do You Actually Need?</a>
+        <p>The complete receiver path shows how one FPGA input, host-side I/Q processing, and direct SDR measurement form a working radio system.</p>
+        <p class="article-link-utilities"><a href="./">Browse the full LinkedIn publication archive</a> &middot; <a href="https://www.linkedin.com/feed/update/urn:li:activity:7453252285146546176/" target="_blank" rel="noopener">Join the original LinkedIn conversation</a> &middot; <a href="/">Work With Brian Greenforest</a></p>
     </nav>
 </body>
 
