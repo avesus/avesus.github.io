@@ -21,6 +21,7 @@ SITEMAP_NS = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 PILLARS = {
     "index.html",
     "serial_multiplier/index.html",
+    "serial-binary32-divider/index.html",
     "fpga-systems.html",
     "ethernet-udp-ice40-reprogrammer.html",
     "physical-mux-tiles/index.html",
@@ -131,9 +132,19 @@ class PageParser(HTMLParser):
             self._json_parts.append(data)
 
 
-def tracked_html(root: Path) -> list[Path]:
+def public_html(root: Path) -> list[Path]:
     output = subprocess.check_output(
-        ["git", "ls-files", "*.html"], cwd=root, text=True, encoding="utf-8"
+        [
+            "git",
+            "ls-files",
+            "--cached",
+            "--others",
+            "--exclude-standard",
+            "*.html",
+        ],
+        cwd=root,
+        text=True,
+        encoding="utf-8",
     )
     return [root / Path(*line.split("/")) for line in output.splitlines() if line]
 
@@ -170,7 +181,7 @@ def run(root: Path) -> int:
     warnings: list[str] = []
     pages: dict[str, Page] = {}
 
-    for path in tracked_html(root):
+    for path in public_html(root):
         parser = PageParser(path)
         parser.feed(path.read_text(encoding="utf-8"))
         page = parser.page

@@ -1,0 +1,3 @@
+PASS: pll_216mhz: achieved 240.096039 MHz, constraint 216.029373 MHz
+PASS: MPSSE_SCLK: achieved 134.120178 MHz, constraint 30.000299 MHz
+PASS: complete physical binary32 divider final-report Fmax gate

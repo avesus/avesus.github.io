@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>FPGA Systems, RF, Ethernet RTL &amp; Reconfigurable Hardware | Brian Greenforest</title>
-    <meta name="description" content="Brian Greenforest builds FPGA systems across RF, direct Ethernet and ARP RTL, adjacent-device reconfiguration, streaming arithmetic, physical logic, and Cartilage.">
+    <meta name="description" content="Brian Greenforest builds FPGA systems across RF, Ethernet RTL, reconfiguration, and one-bit arithmetic, including a 3.375M/s 64-bit multiplier and 6.75M/s binary32 divider.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/fpga-systems.html">
     <link rel="icon" href="/favicon.ico">
     <meta property="og:title" content="FPGA Systems From Pins To Bitstreams | Brian Greenforest">
-    <meta property="og:description" content="RF receiver and transmitter paths, direct Ethernet and ARP RTL, adjacent iCE40 reconfiguration, streaming arithmetic, and tangible logic.">
+    <meta property="og:description" content="RF paths, Ethernet and ARP RTL, adjacent iCE40 reconfiguration, a 3.375M/s serial multiplier, a 6.75M/s binary32 divider, and tangible logic.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/fpga-systems.html">
     <!-- greenforest:share-metadata:start -->
@@ -33,7 +33,7 @@
             "@type": "CollectionPage",
             "name": "FPGA Systems From Pins To Bitstreams",
             "url": "https://greenforest.io/fpga-systems.html",
-            "description": "FPGA systems by Brian Greenforest across RF, direct network RTL, configuration transport, streaming arithmetic, tangible logic, and spatial reconfiguration.",
+            "description": "FPGA systems by Brian Greenforest across RF, direct network RTL, configuration transport, continuous one-bit arithmetic, tangible logic, and spatial reconfiguration.",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest",
@@ -56,6 +56,7 @@
         <p class="lead">Complete FPGA systems emerge when pins, protocols, clocks, arithmetic, and configuration become one design.</p>
         <p>This work follows each machine through pin-level signal behavior, packet parsing, clocking, arithmetic schedules, configuration transport, device primitives, open toolchains, and the Linux or browser surface that controls it.</p>
         <div class="cta-row" role="group" aria-label="Explore Brian Greenforest's FPGA systems">
+            <a class="cta-link" href="/serial-binary32-divider/">Binary32 divider</a>
             <a class="cta-link" href="how-much-radio-do-you-actually-need.html">RF receiver</a>
             <a class="cta-link" href="fpga-radio-hardware-in-the-loop.html">One-pin Weaver TX</a>
             <a class="cta-link" href="ethernet-udp-ice40-reprogrammer.html">Ethernet reprogrammer</a>
@@ -81,7 +82,7 @@
         </section>
 
         <section>
-            <h2>Six FPGA Paths From Signal To System</h2>
+            <h2>Seven FPGA Paths From Signal To System</h2>
             <div class="capability-grid">
                 <article id="rf-systems" class="capability-card">
                     <a href="how-much-radio-do-you-actually-need.html"><img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="lazy" decoding="async" alt="Illustrated one-pin FPGA FM receiver path from thresholded RF to recovered audio"></a>
@@ -109,9 +110,16 @@
 
                 <article class="capability-card">
                     <p class="eyebrow">Arithmetic scheduling</p>
-                    <h3><a href="serial_multiplier/">Bubbles-Free Bit-Serial Multiplier</a></h3>
-                    <p>The Logisim <code>8x8</code> unsigned positive-number circuit holds latency to three clocks and emits one LSB-first result bit per clock after fill. Consecutive operand words enter without a drain gap.</p>
-                    <p>The schedule gives narrow streaming graphs a continuous arithmetic building block and maps cleanly toward RTL.</p>
+                    <h3><a href="serial_multiplier/">64-Bit Continuous Serial Multiplier</a></h3>
+                    <p>The SystemVerilog core produces one low 64-bit product every 64 clocks at 216&nbsp;MHz: 3.375&nbsp;million products per second from 254 LUT4s and 635 flip-flops.</p>
+                    <p>Twelve independent cores fit the HX8K and deliver 40.5&nbsp;million products per second. The article publishes the RTL, build, utilization, host verifier, and physical run data.</p>
+                </article>
+
+                <article class="capability-card">
+                    <p class="eyebrow">Binary32 arithmetic</p>
+                    <h3><a href="/serial-binary32-divider/">Binary32 Serial Divider: 6.75 Million Divisions/s</a></h3>
+                    <p>Raw IEEE binary32 words cross the boundary LSB first while significands, exponents, and signs move through one-bit internal streams. A 216&nbsp;MHz HX8K accepts a new finite-normal division every 32 clocks.</p>
+                    <p>Three serial multipliers, eight add/subtract engines, and three comparators turn the continuous schedule into 6.75&nbsp;million correctly rounded finite-normal divisions per second, with open RTL and complete rebuild files.</p>
                 </article>
 
                 <article class="capability-card">
@@ -136,6 +144,7 @@
                 <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lattice targets</div><div role="cell">iCE40 UP5K, HX4K/HX8K, and LP384 source, builds, radio paths, and configuration control</div></div>
                 <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Xilinx target</div><div role="cell">Arty / 7-series Ethernet controller with an adjacent-device reprogrammer</div></div>
                 <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">HDL</div><div role="cell">Verilog and SystemVerilog with PLLs, global buffers, DDR input, RMII, RAM, CRC, and configuration-pin control</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">One-bit arithmetic</div><div role="cell">A 254-LUT4 64-bit low-product multiplier at 3.375M/s and a binary32 divider at 6.75M/s on the HX8K at 216&nbsp;MHz</div></div>
                 <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Open toolchains</div><div role="cell">Yosys, nextpnr, IceStorm, arachne-pnr, IcePack, Verilator, and Logisim</div></div>
                 <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Host systems</div><div role="cell">Linux UDP and epoll, XCB events, EGL/GLES2, raw WebGL/GLSL, and browser-visible tests</div></div>
             </div>

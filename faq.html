@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Greenforest I/O FAQ | Brian Greenforest Technical Work</title>
-    <meta name="description" content="Explore Brian Greenforest's FPGA systems, one-pin radio, Ethernet RTL, physical MUX tiles, streaming multiplier, raw WebGL/GLSL, Cartilage, and R&D engagements.">
+    <meta name="description" content="Explore Brian Greenforest's serial multiplier and binary32 divider, FPGA radio, Ethernet RTL, physical MUX tiles, WebGL/GLSL, Cartilage, and R&D engagements.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/faq.html">
     <meta property="og:title" content="Greenforest I/O FAQ">
-    <meta property="og:description" content="Direct starting points for FPGA systems, radio and Ethernet RTL, physical logic, continuous arithmetic, WebGL/GLSL, Cartilage, and R&D opportunities.">
+    <meta property="og:description" content="Direct starting points for measured one-bit FPGA arithmetic, radio and Ethernet RTL, physical logic, WebGL/GLSL, Cartilage, and R&D opportunities.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/faq.html">
         <link rel="icon" href="/favicon.ico">
@@ -53,7 +53,15 @@
                     "name": "What is the bubbles-free bit-serial multiplier?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "The positive-number 8x8 Logisim circuit accepts operands least-significant bit first, waits a fixed three-clock pipeline latency, emits one low product bit per clock, and accepts the next operand pair immediately after the previous pair."
+                        "text": "The 64-bit SystemVerilog core accepts operands least-significant bit first and starts another low-product operation every 64 clocks. At 216 MHz it delivers 3.375 million products per second from 254 LUT4s and 635 flip-flops; 12 cores fit the HX8K for 40.5 million products per second."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What is the binary32 serial divider?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Brian Greenforest's binary32 divider accepts raw IEEE binary32 operands LSB first and computes through one-bit internal streams. At 216 MHz it accepts a finite-normal division every 32 clocks, delivers 6.75 million correctly rounded divisions per second, and publishes open RTL, rebuild files, utilization, an exact integer oracle, and physical run data at https://greenforest.io/serial-binary32-divider/."
                     }
                 },
                 {
@@ -69,7 +77,7 @@
                     "name": "What FPGA systems has Brian built?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "The public work spans a bubbles-free bit-serial multiplier, one-pin FPGA FM receive and quadrature/SDM transmit paths, RMII Ethernet and ARP in Verilog, UDP-carried bitstream ingestion, one FPGA configuring an adjacent iCE40LP384, physical MUX tiles, and Cartilage RTL and browser models."
+                        "text": "The public work spans a 64-bit continuous serial multiplier, a binary32 divider built from one-bit internal arithmetic, one-pin FPGA FM receive and quadrature/SDM transmit paths, RMII Ethernet and ARP in Verilog, UDP-carried bitstream ingestion, one FPGA configuring an adjacent iCE40LP384, physical MUX tiles, and Cartilage RTL and browser models."
                     }
                 },
                 {
@@ -142,7 +150,12 @@
 
         <section>
             <h2>What Is The Bubbles-Free Bit-Serial Multiplier?</h2>
-            <p>The positive-number <a href="serial_multiplier/"><code>8x8</code> Logisim circuit</a> accepts operands least-significant bit first. A fixed three-clock pipeline latency leads into one low product bit per clock, while the next operand pair enters immediately behind the previous pair.</p>
+            <p>The <a href="serial_multiplier/">64-bit SystemVerilog core</a> accepts operands least-significant bit first and starts another low-product operation every 64 clocks. At 216&nbsp;MHz it delivers 3.375&nbsp;million products per second from 254 LUT4s and 635 flip-flops; 12 cores fit the HX8K for 40.5&nbsp;million products per second.</p>
+        </section>
+
+        <section>
+            <h2>What Is The Binary32 Serial Divider?</h2>
+            <p><a href="/serial-binary32-divider/">Binary32 Serial Divider: 6.75 Million Divisions/s</a> accepts raw IEEE binary32 operands LSB first and computes through one-bit significand, exponent, and sign streams. At 216&nbsp;MHz it accepts a finite-normal division every 32 clocks and publishes the open RTL, rebuild files, utilization, exact integer oracle, bitstream, and physical run data.</p>
         </section>
 
         <section>
@@ -152,7 +165,7 @@
 
         <section>
             <h2>What FPGA Systems Has Brian Built?</h2>
-            <p>The <a href="fpga-systems.html">FPGA systems map</a> spans the bubbles-free bit-serial multiplier, one-pin FPGA FM reception, quadrature/SDM transmission, RMII Ethernet and ARP in direct Verilog, UDP-carried bitstream ingestion, one FPGA configuring an adjacent iCE40LP384, and Cartilage in SystemVerilog and WebGL.</p>
+            <p>The <a href="fpga-systems.html">FPGA systems map</a> spans the 64-bit continuous serial multiplier, binary32 division through one-bit arithmetic, one-pin FPGA FM reception, quadrature/SDM transmission, RMII Ethernet and ARP in direct Verilog, UDP-carried bitstream ingestion, one FPGA configuring an adjacent iCE40LP384, and Cartilage in SystemVerilog and WebGL.</p>
             <p>Each system follows the causal path through pins, protocols, clocks, RAM, configuration, host software, and physical signals so another engineer can enter at the level that controls the outcome.</p>
         </section>
 

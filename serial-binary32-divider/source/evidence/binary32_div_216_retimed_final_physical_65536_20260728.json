@@ -1,0 +1,254 @@
+{
+  "schema": "greenforest-serial-binary32-div216-mpsse/v1",
+  "created_utc": "2026-07-28T20:16:53.075313Z",
+  "execute_requested": true,
+  "interface": "FT2232H channel B D2XX MPSSE SPI mode 0",
+  "mpsse_sclk_hz": 30000000,
+  "divider_clock_hz": 216000000,
+  "record_format": "raw IEEE-754 binary32, fraction/exponent/sign LSB first",
+  "input_pair_order": "numerator bit then denominator bit for bit indices 0..31",
+  "mpsse_edges_per_input_pair_record": 64,
+  "wire_bytes_per_input_pair_record": 8,
+  "divider_clock_edges_per_record": 32,
+  "sustained_core_records_per_second": 6750000,
+  "usb_pair_records_per_second": 468750,
+  "core_clock_enable_or_step_signals": 0,
+  "transaction_load_wait_ready_valid_stall_signals": 0,
+  "input_domain": "finite normal nonzero binary32 only",
+  "scored_result_domain": "finite normal nonzero binary32 only",
+  "oracle": "exact integer ratio; IEEE-754 round-to-nearest ties-to-even",
+  "vector_count": 65536,
+  "vector_seed": 14510763,
+  "usb_repetitions_per_vector": 8,
+  "held_core_record_opportunities": {
+    "numerator": 576,
+    "denominator": 5,
+    "decimal": 115.2
+  },
+  "warmup_usb_records": 16,
+  "tail_usb_records": 2,
+  "wire_bytes": 4194448,
+  "bitstream_file_name": "design.bin",
+  "bitstream_sha256": "804af96defb0cfb9a941d24439ad2b77cff81463a722ea38c05d95ea9fb89152",
+  "rf_out_n16_design_state": "unconditionally_high_impedance",
+  "completed_utc": "2026-07-28T20:16:58.198023Z",
+  "device": {
+    "description": "Dual RS232-HS B",
+    "type": 6,
+    "id_hex": "0x04036010",
+    "serial_redacted": true,
+    "location_id_redacted": true
+  },
+  "received_wire_bytes": 4194448,
+  "elapsed_seconds": 1.31656499998644,
+  "effective_wire_bits_per_second": 25487221.671809297,
+  "outgoing_sha256": "a022c99597572c34e5007af66e29ed81c6c24c76be688bbba2490a7f4489c6c3",
+  "received_sha256": "aa4d43f1966cc609f3fd80418fd0da29a57ec50e4ecce364e427c31ae0c2a48d",
+  "decoded_vector_count": 65536,
+  "duplicate_slot_disagreement_record_count": 0,
+  "duplicate_slot_disagreement_bit_count": 0,
+  "first_duplicate_slot_disagreements": [],
+  "arithmetic_mismatch_count": 0,
+  "first_arithmetic_mismatches": [],
+  "curated_results": [
+    {
+      "numerator_raw_hex": "0x3f800000",
+      "denominator_raw_hex": "0x3f800000",
+      "expected_raw_hex": "0x3f800000",
+      "received_raw_hex": "0x3f800000",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0xbf800000",
+      "denominator_raw_hex": "0x3f800000",
+      "expected_raw_hex": "0xbf800000",
+      "received_raw_hex": "0xbf800000",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x3f800000",
+      "denominator_raw_hex": "0xbf800000",
+      "expected_raw_hex": "0xbf800000",
+      "received_raw_hex": "0xbf800000",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0xbf800000",
+      "denominator_raw_hex": "0xbf800000",
+      "expected_raw_hex": "0x3f800000",
+      "received_raw_hex": "0x3f800000",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x3fc00000",
+      "denominator_raw_hex": "0x3fa00000",
+      "expected_raw_hex": "0x3f99999a",
+      "received_raw_hex": "0x3f99999a",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x3f800000",
+      "denominator_raw_hex": "0x40400000",
+      "expected_raw_hex": "0x3eaaaaab",
+      "received_raw_hex": "0x3eaaaaab",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x40000000",
+      "denominator_raw_hex": "0x40400000",
+      "expected_raw_hex": "0x3f2aaaab",
+      "received_raw_hex": "0x3f2aaaab",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x3f800000",
+      "denominator_raw_hex": "0x41200000",
+      "expected_raw_hex": "0x3dcccccd",
+      "received_raw_hex": "0x3dcccccd",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x3f800001",
+      "denominator_raw_hex": "0x3f800000",
+      "expected_raw_hex": "0x3f800001",
+      "received_raw_hex": "0x3f800001",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x3f800000",
+      "denominator_raw_hex": "0x3f800001",
+      "expected_raw_hex": "0x3f7ffffe",
+      "received_raw_hex": "0x3f7ffffe",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x00800000",
+      "denominator_raw_hex": "0x3f000000",
+      "expected_raw_hex": "0x01000000",
+      "received_raw_hex": "0x01000000",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x01000000",
+      "denominator_raw_hex": "0x40000000",
+      "expected_raw_hex": "0x00800000",
+      "received_raw_hex": "0x00800000",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x7f7fffff",
+      "denominator_raw_hex": "0x40000000",
+      "expected_raw_hex": "0x7effffff",
+      "received_raw_hex": "0x7effffff",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0xff7fffff",
+      "denominator_raw_hex": "0xc0000000",
+      "expected_raw_hex": "0x7effffff",
+      "received_raw_hex": "0x7effffff",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x7f7fffff",
+      "denominator_raw_hex": "0x7f7fffff",
+      "expected_raw_hex": "0x3f800000",
+      "received_raw_hex": "0x3f800000",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x00800000",
+      "denominator_raw_hex": "0x00800000",
+      "expected_raw_hex": "0x3f800000",
+      "received_raw_hex": "0x3f800000",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x00800001",
+      "denominator_raw_hex": "0x00800000",
+      "expected_raw_hex": "0x3f800001",
+      "received_raw_hex": "0x3f800001",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x00ffffff",
+      "denominator_raw_hex": "0x3f800000",
+      "expected_raw_hex": "0x00ffffff",
+      "received_raw_hex": "0x00ffffff",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0xb9bf7f44",
+      "denominator_raw_hex": "0x3d021ba8",
+      "expected_raw_hex": "0xbc3c64fc",
+      "received_raw_hex": "0xbc3c64fc",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x4682c64e",
+      "denominator_raw_hex": "0xd8bea209",
+      "expected_raw_hex": "0xad2f9dd8",
+      "received_raw_hex": "0xad2f9dd8",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0xc15df06c",
+      "denominator_raw_hex": "0x6d6afba6",
+      "expected_raw_hex": "0x9371ca1d",
+      "received_raw_hex": "0x9371ca1d",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x6452b46f",
+      "denominator_raw_hex": "0xf8667cdf",
+      "expected_raw_hex": "0xab6a06fe",
+      "received_raw_hex": "0xab6a06fe",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x88edbdc2",
+      "denominator_raw_hex": "0xaa0d525f",
+      "expected_raw_hex": "0x1e575499",
+      "received_raw_hex": "0x1e575499",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0xe2023338",
+      "denominator_raw_hex": "0x4e293a2e",
+      "expected_raw_hex": "0xd344f617",
+      "received_raw_hex": "0xd344f617",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0xb2206665",
+      "denominator_raw_hex": "0x10b072de",
+      "expected_raw_hex": "0xe0e8b73d",
+      "received_raw_hex": "0xe0e8b73d",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x27e97fd7",
+      "denominator_raw_hex": "0x9546afab",
+      "expected_raw_hex": "0xd2166d82",
+      "received_raw_hex": "0xd2166d82",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0xa7ab7e58",
+      "denominator_raw_hex": "0x927d0b09",
+      "expected_raw_hex": "0x54ad7f5c",
+      "received_raw_hex": "0x54ad7f5c",
+      "match": true
+    },
+    {
+      "numerator_raw_hex": "0x85657f1f",
+      "denominator_raw_hex": "0x021b1535",
+      "expected_raw_hex": "0xc2bd6b24",
+      "received_raw_hex": "0xc2bd6b24",
+      "match": true
+    }
+  ],
+  "close_errors": [],
+  "error": null,
+  "status": "PASS"
+}

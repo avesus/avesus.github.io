@@ -1,0 +1,5 @@
+PASS: 4092 back-to-back nonoverflowing 64x64->64 words, fixed delay=13 clocks
+- sim/tb_full_retime_stream.sv:103: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 525us; walltime 0.389 s; speed 1.347 ms/s
+- Verilator: cpu 0.390 s on 1 threads; alloced 121 MB

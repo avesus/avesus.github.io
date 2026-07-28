@@ -2,7 +2,7 @@
 
 Current repo state after the June 20, 2026 materialization pass:
 
-- Public wrapper/article pages now exist for the serial multiplier, the tiny Transformer run, and the Cartilage nested-instantiation demo.
+- Public article pages now exist for the open 64-bit continuous serial multiplier, the binary32 serial divider built from it, the tiny Transformer run, and the Cartilage nested-instantiation system.
 - `cartilage-core.html` is now the current Cartilage mechanism page, with a clean-clone capture, direct links to `avesus/cartilage-core`, the hardware paper, SystemVerilog RTL, Verilator testbench, and explicit proof boundaries.
 - Draft packets are preserved under `article-drafts/`.
 - The homepage links to article/wrapper pages first and raw artifacts second.
@@ -21,13 +21,12 @@ The old archive draft referenced the external ShaderToy page:
 
 Do not publish a fake thumbnail for it. Local HTTP requests, direct media URL attempts, and headless Edge capture currently hit ShaderToy security verification or 403 responses. Restore this external card only after a real screenshot/thumbnail is available from Brian, from a working browser session, or from an authorized ShaderToy/API path.
 
-### Serial Multiplier
+### Open Serial Arithmetic IP
 
-- Port the Logisim design to Verilog.
-- Add a waveform capture that shows the no-bubble schedule after initial fill.
-- Measure LUT count, Fmax, and timing on at least one FPGA target.
-- Compare against inferred `*` and DSP-backed versions on the same target.
-- Add a public repo or README when the RTL exists.
+- The 64-bit low-product multiplier is implemented in SystemVerilog and published with the RTL, HX8K build, utilization report, host verifier, and physical run data. One core uses 254 LUT4s and 635 flip-flops, accepts another operation every 64 clocks at 216 MHz, and delivers 3.375 million products per second.
+- Twelve independent multiplier cores fit the HX8K and deliver 40.5 million products per second.
+- The binary32 divider carries significand, exponent, and sign through one-bit internal streams, accepts another finite-normal division every 32 clocks at 216 MHz, and delivers 6.75 million correctly rounded divisions per second. Its public package includes the RTL, rebuild files, exact integer oracle, utilization, bitstream, and 65,536-result physical run.
+- A future same-target comparison can place inferred `*` and DSP-backed multiplier implementations beside the serial core when that comparison serves a concrete architecture decision.
 
 ### Cartilage
 

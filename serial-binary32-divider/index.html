@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <title>Binary32 Serial Divider: 6.75 Million Divisions/s | Brian Greenforest</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="An open-source binary32 divider sustains 6.75 million divisions/s through one-bit arithmetic and passes 65,536 physical FPGA cases at 216 MHz.">
+    <link rel="canonical" href="https://greenforest.io/serial-binary32-divider/">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:title" content="A One-Bit-Stream Binary32 Divider Sustains 6.75 Million Divisions Per Second">
+    <meta property="og:description" content="Raw IEEE-754 at the boundary, three serial multipliers inside, one complete result every 32 clocks, and all source available to build on.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/serial-binary32-divider/">
+    <meta property="article:published_time" content="2026-07-28">
+    <meta property="article:modified_time" content="2026-07-28">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/serial-binary32-divider/index.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/serial-binary32-divider/index.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A One-Bit-Stream Binary32 Divider Sustains 6.75 Million Divisions Per Second - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/serial-binary32-divider/index.png">
+    <meta name="twitter:image:alt" content="A One-Bit-Stream Binary32 Divider Sustains 6.75 Million Divisions Per Second - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "A One-Bit-Stream Binary32 Divider Sustains 6.75 Million Divisions Per Second",
+            "description": "An open-source binary32 divider sustains 6.75 million divisions per second through one-bit arithmetic and passes 65,536 physical FPGA cases at 216 MHz.",
+            "datePublished": "2026-07-28",
+            "dateModified": "2026-07-28",
+            "image": "https://greenforest.io/social-previews/serial-binary32-divider/index.png",
+            "isBasedOn": "https://greenforest.io/serial_multiplier/",
+            "license": "https://greenforest.io/serial-binary32-divider/source/LICENSE",
+            "mainEntityOfPage": "https://greenforest.io/serial-binary32-divider/",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">A One-Bit-Stream Binary32 Divider Sustains 6.75 Million Divisions Per Second</h1></header>
+    <address><time datetime="2026-07-28">July 28, 2026</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Open FPGA IP &middot; IEEE-754 binary32 &middot; continuous serial arithmetic</p>
+        <p class="lead">One complete floating-point division leaves this FPGA every 32 clocks.</p>
+        <p>Brian Greenforest built a source-exact binary32 divider whose arithmetic ports are one bit wide. It accepts a fresh raw numerator and denominator every 32 clocks, sustains 6,750,000 divisions per second at 216 MHz, and passed 65,536 physical USB/FPGA cases with every result correct.</p>
+        <p>The design turns the <a href="/serial_multiplier/">continuous serial multiplier</a> into a complete reciprocal, refinement, correction, rounding, exponent, sign, and binary32 packing graph. The RTL, host oracle, constraints, build scripts, reports, verified bitstream, physical result, and complete ZIP are open for study and reuse.</p>
+        <div class="cta-row" role="group" aria-label="Download the binary32 serial divider">
+            <a class="cta-link" href="source/greenforest-binary32-serial-divider-216mhz-20260728.zip" download>Download the complete divider IP</a>
+            <a class="cta-link" href="source/README.md">Open the build README</a>
+            <a class="cta-link" href="source/evidence/binary32_div_216_retimed_final_physical_65536_20260728.json">Inspect the 65,536-case result</a>
+        </div>
+    </section>
+
+    <figure class="concept-diagram">
+        <a href="binary32-serial-divider-flow.svg">
+            <img src="binary32-serial-divider-flow.svg" width="1200" height="660" loading="eager" decoding="async" alt="Flow diagram showing binary32 inputs unpacked into separate one-bit significand, exponent, and sign paths; a reciprocal seed and three serial multipliers form and round the quotient before one final binary32 pack">
+        </a>
+        <figcaption>IEEE-754 is a boundary format here. Significand, exponent, and sign travel as separate fixed-cadence streams and meet only in the final registered pack.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>The Result Is A Divider, Not A Serialized Parallel Divider</h2>
+            <p>A conventional floating-point divider often begins with wide fields, wide operators, transaction controls, and a variable amount of work hidden behind ready/valid handshaking. This architecture begins from a different premise: the surrounding compute graph already speaks in time.</p>
+            <p>Each input word arrives least-significant bit first. The divider consumes one numerator bit and one denominator bit on every arithmetic clock. Thirty-two clocks form a record. After the fixed pipeline fills, every record boundary carries another completed quotient with no load pulse, drain cycle, clock enable, retry, or stall.</p>
+            <div class="stream-schedule" role="img" aria-label="Continuous binary32 divider record schedule">
+Numerator:  n[0] ... n[31] | n'[0] ... n'[31] | n''[0] ...
+Denominator:d[0] ... d[31] | d'[0] ... d'[31] | d''[0] ...
+Result +32 records:
+            q[0] ... q[31] | q'[0] ... q'[31] | q''[0] ...
+                              ^ no empty record between results
+            </div>
+            <p>The boundary latency is exactly 32 records: 1,024 clocks, or 4.740741 microseconds at 216 MHz. Latency determines when the first answer appears. The 32-clock initiation interval determines the sustained rate.</p>
+        </section>
+
+        <section>
+            <h2>The Interface Contract Fits A High-Rate Finite-Normal Compute Graph</h2>
+            <div class="article-fact-table" role="table" aria-label="Binary32 divider interface specification">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Inputs</div><div role="cell">Two raw IEEE-754 binary32 streams, LSB-first</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Output</div><div role="cell">One raw IEEE-754 binary32 stream, LSB-first</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Operating domain</div><div role="cell">Finite, nonzero, normal operands with a finite normal quotient</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Cadence</div><div role="cell">One new operand pair and one steady-state result per 32 clocks</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Rounding</div><div role="cell">IEEE round-to-nearest, ties-to-even</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Arithmetic control</div><div role="cell">Reset plus fixed local phases; no transaction backpressure</div></div>
+            </div>
+            <p>That operating contract lets the silicon serve continuous finite-normal numerical work directly. The graph spends its logic on quotient quality and cadence rather than exception dispatch, subnormal shifting, or a transaction controller. The resulting core contains zero RAM blocks and zero DSP blocks.</p>
+        </section>
+
+        <section>
+            <h2>Binary32 Is Unpacked Once And Packed Once</h2>
+            <p>The raw 32-bit inputs are not repeatedly converted between a floating-point word and internal arithmetic. Each boundary unpack separates three facts exactly once:</p>
+            <ul class="article-facts">
+                <li>The hidden-one 24-bit significand becomes a one-bit serial data stream.</li>
+                <li>The eight exponent bits become an independent one-bit serial stream.</li>
+                <li>The sign becomes a one-bit record sideband.</li>
+            </ul>
+            <p>Those paths remain separate through the graph. The significand path performs reciprocal generation, products, residual correction, and rounding. In parallel, the exponent path evaluates <code>Ea - Eb + 127 - normalization_adjust</code>. The sign path is one XOR followed by fixed delays. They reunite only at the registered output pack.</p>
+            <p>This separation is more than neat organization. It preserves the real shape of floating-point division: sign does not belong in reciprocal arithmetic, and exponent arithmetic does not need to widen the significand graph. Each fact moves through the smallest machinery that can transform it.</p>
+        </section>
+
+        <section>
+            <h2>One Comparison Normalizes The Ratio Without A Leading-One Detector</h2>
+            <p>Normal binary32 operands already supply an implicit leading one. A serial comparison decides whether the numerator significand is smaller than the denominator significand. The graph then selects the numerator directly or left-shifted by one bit so the normalized ratio enters the interval required by the reciprocal path.</p>
+            <p>The same decision becomes the exponent normalization adjustment. No later result scan is needed, so the entire divider uses zero leading-one detectors. A fact established at the entrance controls both the significand and exponent paths at their appropriate fixed phases.</p>
+        </section>
+
+        <section>
+            <h2>Fourteen Non-Restoring Digits Start The Reciprocal</h2>
+            <p>The denominator enters an exact fourteen-digit non-restoring recurrence. It emits a quotient prefix <code>Q</code>, a remainder <code>P</code>, and the delayed denominator while retaining the invariant:</p>
+            <pre class="stream-schedule" aria-label="Exact reciprocal seed invariant">2^37 = Q * B + P</pre>
+            <p>The recurrence is built from 29 scalar add/subtract cells. It does not ask a wide divider operator for an approximate reciprocal. It grows the reciprocal information one decision and one bit-stream recurrence at a time, already aligned to the 32-clock record cadence of the surrounding graph.</p>
+            <p>This seed is good enough to make one refinement step decisive. It also keeps the denominator, quotient prefix, and remainder causally aligned for the products that follow.</p>
+        </section>
+
+        <section>
+            <h2>Three Continuous Serial Multipliers Build The Quotient</h2>
+            <p>The first product multiplies <code>Q</code> by <code>P</code> and emits the shift-23 window needed by the refinement. A serial addition forms:</p>
+            <pre class="stream-schedule" aria-label="Reciprocal refinement equation">X1 = (Q &lt;&lt; 14) + floor((Q * P) / 2^23)</pre>
+            <p>The second product multiplies the normalized numerator <code>A'</code> by <code>X1</code>. Its shift-28 window becomes the initial integer quotient estimate:</p>
+            <pre class="stream-schedule" aria-label="Initial quotient equation">q0 = floor((A' * X1) / 2^28)</pre>
+            <p>The third product computes the low 32 bits of <code>q0 * B</code>. That is precisely the product window needed to form the residual under the graph's proven bound. The residual chooses the fixed quotient correction, and two exact remainder comparisons supply the round decision. The final selection implements round-to-nearest, ties-to-even, including the carry case.</p>
+            <p>All three products inherit the multiplier's essential property: an operand bit enters on every clock, product work continues across record boundaries, and pipeline depth never creates a bubble in the record stream.</p>
+        </section>
+
+        <section>
+            <h2>The Complete Graph Has A Fixed U0-To-U31 Schedule</h2>
+            <div class="article-fact-table" role="table" aria-label="Fixed binary32 divider stage schedule">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">U0-U1</div><div role="cell">Unpack; compare significands; conditionally shift the numerator</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">U1-U16</div><div role="cell">Generate the exact fourteen-digit non-restoring seed</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">U17-U21</div><div role="cell">Compute <code>Q*P</code> and form the refined reciprocal <code>X1</code></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">U22-U26</div><div role="cell">Compute <code>A'*X1</code> and extract the initial quotient <code>q0</code></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">U26-U28</div><div role="cell">Compute low-32 <code>q0*B</code>, the exact residual, and fixed correction</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">U27-U30</div><div role="cell">Compare the remainder and round to nearest, ties to even</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">U0-U30</div><div role="cell">Carry exponent and sign through their independent serial paths</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">U31</div><div role="cell">Pack one registered raw binary32 result stream</div></div>
+            </div>
+            <p>Local one-hot phase rings and registered relays control the arithmetic sites. Registered fanout trees distribute high-dependency data and tag bits. When a route would become long, the architecture spends a fixed pipeline stage and preserves the global 216 MHz cadence.</p>
+        </section>
+
+        <section>
+            <h2>The Machinery Is Countable Down To Scalar Recurrences</h2>
+            <p>At graph level, the divider contains three serial multipliers, eight additional serial add/subtract engines, three serial comparators, and zero leading-one detectors.</p>
+            <p>At physical recurrence level, 192 add/subtract cells perform the work:</p>
+            <ul class="article-facts">
+                <li><strong>155</strong> registered serial full-adder nodes across the three product engines: <code>62 + 62 + 31</code>.</li>
+                <li><strong>29</strong> add/subtract recurrences in the fourteen-digit reciprocal seed.</li>
+                <li><strong>8</strong> graph-level serial add/subtract engines for refinement, residual, correction, quotient choices, exponent subtraction, bias, and normalization adjustment.</li>
+            </ul>
+            <p>The structure is visible in the downloadable RTL. Its build audit rejects behavioral wide multiplication, division, shifts, comparisons, DSP inference, carry macros, gated arithmetic flops, and transaction-control names inside the divider hierarchy.</p>
+        </section>
+
+        <section>
+            <h2>A Physical Probe Found Product Bits Reentering The Next Record</h2>
+            <p>The low-product engine only needs positions 0 through 31 of <code>q0 * B</code>. During physical bring-up, a <code>1.0 / 1.0</code> internal probe returned <code>0xff803fff</code> instead of the required <code>0xff800000</code>. The pattern identified the problem: true product positions 32 through 45 were circulating into phases 0 through 13 of the following record.</p>
+            <p>The correction masks every partial-product term whose indices satisfy <code>i + j &gt;= 32</code> before it can enter the adder tree. The registered carry-clear phases remain unchanged because the issue was truncation aliasing, not carry timing. The corrected probe produced <code>0xff800000</code>, and the full 65,536-vector division run then passed.</p>
+            <p>This is exactly why the package includes both a mathematical oracle and a physical USB path. The probe turned a phase-shaped failure into a local structural fix that is now explicit in <a href="source/rtl/gf_binary32_mul24_ii32.sv">the published multiplier RTL</a>.</p>
+        </section>
+
+        <section>
+            <h2>The Core Uses Logic And State, Not DSP Or RAM</h2>
+            <div class="article-fact-table" role="table" aria-label="Divider FPGA utilization and timing">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Arithmetic core</div><div role="cell">1,247 LUT4; 6,805 DFF; 6,807 / 7,680 logic cells; 0 RAM; 0 DSP</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Complete USB image</div><div role="cell">1,389 LUT4; 7,150 DFF; 7,192 / 7,680 logic cells; 14 I/O; 7 global buffers; 1 PLL; 0 RAM</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Arithmetic clock route in the complete USB image</div><div role="cell">240.096039 MHz achieved for the 216 MHz build</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Sustained rate</div><div role="cell">216,000,000 / 32 = 6,750,000 divisions/s</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Fixed latency</div><div role="cell">1,024 clocks = 4.740741 microseconds at 216 MHz</div></div>
+            </div>
+            <p>The arithmetic core's 6,805 flip-flops are the spatial memory of the schedule: phase rings, bounded fanout trees, delayed streams, local carries, and causal histories. That state turns wide space into narrow time without surrendering throughput.</p>
+            <p><a href="source/UTILIZATION.md">The readable utilization report</a>, <a href="source/build/binary32_div_216_hitl/seed5/nextpnr-report.json">raw nextpnr timing/utilization JSON</a>, and <a href="source/build/binary32_div_216_hitl/seed5/FMAX_GATE.txt">timing gate</a> are published beside the source.</p>
+        </section>
+
+        <section>
+            <h2>65,536 Physical Divisions Returned 65,536 Correct Results</h2>
+            <p>The final 135,100-byte SRAM image ran on the iCE40 HX8K at exactly 216 MHz. An FT2232H channel-B MPSSE link clocked at 30 MHz sent numerator bits followed by denominator bits for binary32 positions 0 through 31. The FPGA returned every quotient bit twice so the host could check both arithmetic and output-slot coherence.</p>
+            <ul class="article-facts">
+                <li><strong>65,536 / 65,536</strong> independent divisions correct.</li>
+                <li><strong>0</strong> arithmetic mismatches.</li>
+                <li><strong>0</strong> duplicate-slot disagreement records and bits.</li>
+                <li><strong>4,194,448 bytes</strong> transmitted and <strong>4,194,448 bytes</strong> received in 1.316565 seconds.</li>
+                <li><strong>25,487,221.67 bit/s</strong> measured effective USB wire rate.</li>
+                <li><strong>14,510,763</strong> deterministic vector seed and eight USB repetitions per vector.</li>
+            </ul>
+            <p>The expected quotient came from exact integer ratio arithmetic with binary32 round-to-nearest, ties-to-even. Host floating-point arithmetic was not used as the oracle, and no HDL emulator stood in for the FPGA result. The N16 RF output remained unconditionally high impedance throughout the run.</p>
+            <p>The programmed bitstream SHA-256 is <code>804af96defb0cfb9a941d24439ad2b77cff81463a722ea38c05d95ea9fb89152</code>. The same image is included in the download package.</p>
+        </section>
+
+        <section>
+            <h2>Everything Needed To Inspect, Build, And Verify It Is Open</h2>
+            <p>The source package is MIT-licensed and organized as a working engineering handoff, not a code excerpt. It contains the four reusable divider RTL files, the physical USB wrapper, HX8K constraints, the 216 MHz timing constraint, the audited build script, exact-integer host oracle, MPSSE and SRAM-programming helpers, selected raw reports, verified bitstream, physical evidence, utilization guide, and a package-local SHA-256 manifest.</p>
+            <div class="article-fact-table" role="table" aria-label="Binary32 divider source downloads">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Complete package</div><div role="cell"><a href="source/greenforest-binary32-serial-divider-216mhz-20260728.zip" download>Download one ZIP with source, tools, reports, evidence, and bitstream</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Divider graph</div><div role="cell"><a href="source/rtl/gf_binary32_divider_stream.sv">gf_binary32_divider_stream.sv</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Serial support</div><div role="cell"><a href="source/rtl/gf_binary32_serial_support.sv">unpack, pack, add/subtract, compare, delay, and phase modules</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Reciprocal seed</div><div role="cell"><a href="source/rtl/gf_binary32_recip_seed14.sv">fourteen-digit non-restoring seed RTL</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Product engines</div><div role="cell"><a href="source/rtl/gf_binary32_mul24_ii32.sv">three II=32 serial multiplier forms</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Physical wrapper</div><div role="cell"><a href="source/rtl/hx8k_mpsse_binary32_div_216_top.sv">HX8K, PLL, CDC, MPSSE, and high-impedance N16 top</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Verification</div><div role="cell"><a href="source/host/verify_mpsse_binary32_div_216.py">exact-integer RNE oracle and physical verifier</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Integrity</div><div role="cell"><a href="source/SHA256SUMS.txt">SHA-256 for every other payload file in the ZIP</a></div></div>
+            </div>
+            <p>Start with <a href="source/README.md">the README</a>. The verifier can run its oracle, rounding, codec, and controlled-vector tests without opening an FTDI device. Hardware access occurs only with the explicit execute option. The build script recreates the audited Yosys, nextpnr, and IceStorm path from the published RTL.</p>
+        </section>
+
+        <section>
+            <h2>Use The Divider As A Beginning</h2>
+            <p>This IP makes a concrete design space available: floating-point arithmetic whose terminal interface is familiar while its internal movement is temporal, scalar, local, and composable. It can be retargeted, widened, wrapped in another transport, embedded in a serial compute graph, used in a class, or studied as a worked example of transforming an algorithm into fixed-phase spatial machinery.</p>
+            <p>Download it, synthesize it, trace the U stages, change the seed, instrument a recurrence, or build another operation from the same stream discipline. If you want Brian to adapt this architecture to a product, FPGA, research program, or custom numerical system, <a href="/contact.html">start the conversation</a>.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Next:</p>
+        <a href="/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Source ASIC IP Is Hard: FMA From RTL To GDSII</a>
+        <p>Carry open arithmetic IP through verification, implementation, physical design, and the realities of reusable silicon delivery.</p>
+        <p>More:</p>
+        <a href="/fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
+        <p>Place the divider beside Brian's radio, network, reconfiguration, and spatial-computing systems.</p>
+        <a href="/serial_multiplier/">The Continuous Serial Multiplier Beneath This Divider</a>
+        <a href="/">Explore Brian Greenforest's Systems And Research</a>
+    </nav>
+</body>
+
+</html>

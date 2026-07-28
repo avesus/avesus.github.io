@@ -1,0 +1,35 @@
+Warning: No PCF file specified; IO pins will be placed automatically
+
+Info: Packing constants..
+Info: Packing IOs..
+Info: Packing LUT-FFs..
+Info:        0 LCs used as LUT4 only
+Info:     3302 LCs used as LUT4 and DFF
+Info: Packing non-LUT FFs..
+Info:     4953 LCs used as DFF only
+Info: Packing carries..
+Info:        0 LCs used as CARRY only
+Info: Packing indirect carry+LUT pairs...
+Info:        0 LUTs merged into carry LCs
+Info: Packing RAMs..
+Info: Placing PLLs..
+Info: Packing special functions..
+Info: Packing PLLs..
+Info: Promoting globals..
+Info: promoting clk_i$SB_IO_IN (fanout 8255)
+Info: promoting rst_i$SB_IO_IN [reset] (fanout 8255)
+Info: Constraining chains...
+Info:        0 LCs used to legalise carry chains.
+Info: Checksum: 0x8a3cb54d
+
+Info: Device utilisation:
+Info: 	         ICESTORM_LC:  8257/ 7680   107%
+Info: 	        ICESTORM_RAM:     0/   32     0%
+Info: 	               SB_IO:    41/  256    16%
+Info: 	               SB_GB:     2/    8    25%
+Info: 	        ICESTORM_PLL:     0/    2     0%
+Info: 	         SB_WARMBOOT:     0/    1     0%
+
+Info: Placed 0 cells based on constraints.
+ERROR: Unable to place cell 'g_core[9].u_mul.g_level[1].g_node[9].g_active.u_add.carry_lut_LC', no BELs remaining to implement cell type 'ICESTORM_LC'
+1 warning, 1 error

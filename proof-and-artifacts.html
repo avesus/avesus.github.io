@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Working Systems And Source | Brian Greenforest</title>
-    <meta name="description" content="Run and inspect Brian Greenforest's streaming multiplier, one-pin FPGA radio, Ethernet reprogrammer, physical MUX tiles, WebGL machines, and Cartilage fabric.">
+    <meta name="description" content="Run, download, and inspect Brian Greenforest's 64-bit serial multiplier, binary32 serial divider, FPGA radio, Ethernet reprogrammer, WebGL machines, and Cartilage fabric.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/proof-and-artifacts.html">
     <meta property="og:title" content="Working Systems And Source | Brian Greenforest">
-    <meta property="og:description" content="FPGA radio, Ethernet RTL, physical MUX tiles, a streaming multiplier, raw WebGL machines, and the Cartilage reconfigurable fabric.">
+    <meta property="og:description" content="Open FPGA arithmetic at 3.375M multiplications/s and 6.75M divisions/s, plus radio, Ethernet RTL, physical logic, WebGL machines, and Cartilage.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/proof-and-artifacts.html">
         <link rel="icon" href="/favicon.ico">
@@ -34,7 +34,7 @@
             "@id": "https://greenforest.io/proof-and-artifacts.html#webpage",
             "url": "https://greenforest.io/proof-and-artifacts.html",
             "name": "Working Systems And Source",
-            "description": "FPGA, RF, Ethernet RTL, physical logic, browser-GPU, arithmetic, and reconfigurable-computing systems from Greenforest I/O.",
+            "description": "Downloadable FPGA arithmetic, RF, Ethernet RTL, physical logic, browser-GPU, and reconfigurable-computing systems from Greenforest I/O.",
             "publisher": {
                 "@type": "Organization",
                 "@id": "https://greenforest.io/#organization",
@@ -47,8 +47,13 @@
             "hasPart": [
                 {
                     "@type": "CreativeWork",
-                    "name": "Bubbles-Free Bit-Serial Multiplier",
+                    "name": "64-Bit Continuous Serial Multiplier",
                     "url": "https://greenforest.io/serial_multiplier/"
+                },
+                {
+                    "@type": "TechArticle",
+                    "name": "Binary32 Serial Divider: 6.75 Million Divisions/s",
+                    "url": "https://greenforest.io/serial-binary32-divider/"
                 },
                 {
                     "@type": "CreativeWork",
@@ -112,19 +117,25 @@
 
     <section class="abstract">
         <p class="lead">Choose a mechanism and enter where it works: at the pin, packet, clock, shader pass, circuit tile, or reconfiguration bit.</p>
-        <p>These systems rebuild parts of computing that inherited stacks usually hide. Follow an arithmetic schedule without pipeline bubbles, turn one FPGA pin into a radio, send an FPGA image through Ethernet, compose logic by hand, or install a circuit into a live spatial fabric.</p>
-        <p>Source, schematics, videos, measurements, photographs, and runnable machines make each idea available for use and extension.</p>
+        <p>These systems rebuild parts of computing that inherited stacks usually hide. Stream a 64-bit product or binary32 quotient through one-bit arithmetic, turn one FPGA pin into a radio, send an FPGA image through Ethernet, compose logic by hand, or install a circuit into a live spatial fabric.</p>
+        <p>The multiplier and divider add open-source RTL, rebuild scripts, utilization reports, exact oracles, and physical run data to the measurements, photographs, videos, and runnable machines available here.</p>
     </section>
 
     <main>
         <section>
-            <h2>Three Ways Into The Architecture</h2>
+            <h2>Four Ways Into The Architecture</h2>
             <div class="capability-grid">
                 <article class="capability-card">
                     <p class="eyebrow">Arithmetic scheduling</p>
-                    <h3><a href="serial_multiplier/">Bubbles-Free Bit-Serial Multiplier</a></h3>
-                    <p>The Logisim circuit multiplies unsigned positive <code>8x8</code> operands, emits an 8-bit result LSB first, and holds latency to three clocks. After the pipeline fills, one result bit arrives every clock, and consecutive operand words need no drain bubbles.</p>
-                    <p>The schedule turns a narrow serial datapath into continuous arithmetic that engineers can compose into larger streaming systems.</p>
+                    <h3><a href="serial_multiplier/">64-Bit Continuous Serial Multiplier</a></h3>
+                    <p>The multiplier accepts a new operand word every 64 clocks at 216&nbsp;MHz and delivers 3.375&nbsp;million low 64-bit products per second from 254 LUT4s and 635 flip-flops.</p>
+                    <p>Twelve cores fit the HX8K for 40.5&nbsp;million products per second. Download the open RTL, FPGA build, utilization report, host verifier, and physical results.</p>
+                </article>
+                <article class="capability-card">
+                    <p class="eyebrow">Correctly rounded binary32</p>
+                    <h3><a href="/serial-binary32-divider/">Binary32 Serial Divider: 6.75 Million Divisions/s</a></h3>
+                    <p>The divider accepts raw binary32 operands LSB first, computes through one-bit significand, exponent, and sign streams, and begins another finite-normal division every 32 clocks at 216&nbsp;MHz.</p>
+                    <p>The physical HX8K run returned the correct quotient in all 65,536 cases. Download the open RTL, rebuild scripts, exact integer oracle, utilization report, bitstream, and run data.</p>
                 </article>
                 <article class="capability-card">
                     <p class="eyebrow">Browser GPU systems</p>

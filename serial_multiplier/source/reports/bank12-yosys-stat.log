@@ -1,0 +1,20 @@
+=== gf_logisim_mul64_low_full_retime ===
+
+   Number of cells:                959
+     SB_DFFR                       634
+     SB_DFFS                         1
+     SB_LUT4                       254
+
+=== gf_mul64_low_full_retime_bank ===
+
+   Number of cells:              11508
+     gf_logisim_mul64_low_full_retime 12
+
+=== design hierarchy ===
+
+   Number of cells:              11508
+     SB_DFFR                      7608
+     SB_DFFS                        12
+     SB_LUT4                      3048
+
+Found and reported 0 problems.

@@ -1,0 +1,223 @@
+Warning: No PCF file specified; IO pins will be placed automatically
+
+Info: Packing constants..
+Info: Packing IOs..
+Info: Packing LUT-FFs..
+Info:        0 LCs used as LUT4 only
+Info:     3048 LCs used as LUT4 and DFF
+Info: Packing non-LUT FFs..
+Info:     4572 LCs used as DFF only
+Info: Packing carries..
+Info:        0 LCs used as CARRY only
+Info: Packing indirect carry+LUT pairs...
+Info:        0 LUTs merged into carry LCs
+Info: Packing RAMs..
+Info: Placing PLLs..
+Info: Packing special functions..
+Info: Packing PLLs..
+Info: Promoting globals..
+Info: promoting clk_i$SB_IO_IN (fanout 7620)
+Info: promoting rst_i$SB_IO_IN [reset] (fanout 7620)
+Info: Constraining chains...
+Info:        0 LCs used to legalise carry chains.
+Info: Checksum: 0xef48c247
+
+Info: Device utilisation:
+Info: 	         ICESTORM_LC:  7622/ 7680    99%
+Info: 	        ICESTORM_RAM:     0/   32     0%
+Info: 	               SB_IO:    38/  256    14%
+Info: 	               SB_GB:     2/    8    25%
+Info: 	        ICESTORM_PLL:     0/    2     0%
+Info: 	         SB_WARMBOOT:     0/    1     0%
+
+Info: Placed 0 cells based on constraints.
+Info: Creating initial analytic placement for 7622 cells, random placement wirelen = 219172.
+Info:     at initial placer iter 0, wirelen = 561
+Info:     at initial placer iter 1, wirelen = 539
+Info:     at initial placer iter 2, wirelen = 539
+Info:     at initial placer iter 3, wirelen = 539
+Info: Running main analytical placer, max placement attempts per cell = 7338280.
+Info:     at iteration #1, type ALL: wirelen solved = 539, spread = 16850, legal = 18190; time = 0.20s
+Info:     at iteration #2, type ALL: wirelen solved = 1488, spread = 11989, legal = 13058; time = 0.14s
+Info:     at iteration #3, type ALL: wirelen solved = 2170, spread = 10355, legal = 11415; time = 0.14s
+Info:     at iteration #4, type ALL: wirelen solved = 3024, spread = 9412, legal = 10497; time = 0.12s
+Info:     at iteration #5, type ALL: wirelen solved = 3608, spread = 8787, legal = 10014; time = 0.19s
+Info:     at iteration #6, type ALL: wirelen solved = 4197, spread = 8401, legal = 9782; time = 0.18s
+Info:     at iteration #7, type ALL: wirelen solved = 4209, spread = 8333, legal = 9703; time = 0.16s
+Info:     at iteration #8, type ALL: wirelen solved = 4588, spread = 7973, legal = 9273; time = 0.17s
+Info:     at iteration #9, type ALL: wirelen solved = 4727, spread = 7923, legal = 9113; time = 0.17s
+Info:     at iteration #10, type ALL: wirelen solved = 4718, spread = 7870, legal = 9261; time = 0.13s
+Info:     at iteration #11, type ALL: wirelen solved = 5065, spread = 7758, legal = 8829; time = 0.12s
+Info:     at iteration #12, type ALL: wirelen solved = 5170, spread = 7666, legal = 8822; time = 0.20s
+Info:     at iteration #13, type ALL: wirelen solved = 5237, spread = 7647, legal = 9297; time = 0.16s
+Info:     at iteration #14, type ALL: wirelen solved = 5352, spread = 7657, legal = 8791; time = 0.16s
+Info:     at iteration #15, type ALL: wirelen solved = 5268, spread = 7615, legal = 8869; time = 0.18s
+Info:     at iteration #16, type ALL: wirelen solved = 5389, spread = 7555, legal = 8779; time = 0.14s
+Info:     at iteration #17, type ALL: wirelen solved = 5340, spread = 7522, legal = 8738; time = 0.12s
+Info:     at iteration #18, type ALL: wirelen solved = 5392, spread = 7525, legal = 8732; time = 0.18s
+Info:     at iteration #19, type ALL: wirelen solved = 5560, spread = 7510, legal = 8369; time = 0.15s
+Info:     at iteration #20, type ALL: wirelen solved = 5408, spread = 7461, legal = 8657; time = 0.24s
+Info:     at iteration #21, type ALL: wirelen solved = 5497, spread = 7514, legal = 8510; time = 0.16s
+Info:     at iteration #22, type ALL: wirelen solved = 5506, spread = 7493, legal = 8411; time = 0.16s
+Info:     at iteration #23, type ALL: wirelen solved = 5555, spread = 7489, legal = 8512; time = 0.15s
+Info:     at iteration #24, type ALL: wirelen solved = 5534, spread = 7507, legal = 8403; time = 0.15s
+Info: HeAP Placer Time: 6.26s
+Info:   of which solving equations: 2.82s
+Info:   of which spreading cells: 1.30s
+Info:   of which strict legalisation: 0.18s
+
+Info: Running simulated annealing placer for refinement.
+Info:   at iteration #1: temp = 0.000000, timing cost = 584, wirelen = 8369
+Info:   at iteration #5: temp = 0.000000, timing cost = 565, wirelen = 7398
+Info:   at iteration #10: temp = 0.000000, timing cost = 544, wirelen = 7155
+Info:   at iteration #13: temp = 0.000000, timing cost = 462, wirelen = 7122
+Info: SA placement time 9.18s
+
+Info: Max frequency for clock 'clk_i$SB_IO_IN_$glb_clk': 401.45 MHz (PASS at 216.00 MHz)
+
+Info: Max delay <async>                         -> posedge clk_i$SB_IO_IN_$glb_clk: 5.56 ns
+Info: Max delay posedge clk_i$SB_IO_IN_$glb_clk -> <async>                        : 3.24 ns
+
+Info: Slack histogram:
+Info:  legend: * represents 104 endpoint(s)
+Info:          + represents [1,104) endpoint(s)
+Info: [  2138,   2190) |+
+Info: [  2190,   2242) |+
+Info: [  2242,   2294) |+
+Info: [  2294,   2346) |+
+Info: [  2346,   2398) |+
+Info: [  2398,   2450) |*+
+Info: [  2450,   2502) |***+
+Info: [  2502,   2554) |*+
+Info: [  2554,   2606) |
+Info: [  2606,   2658) |+
+Info: [  2658,   2710) |
+Info: [  2710,   2762) |
+Info: [  2762,   2814) |
+Info: [  2814,   2866) |
+Info: [  2866,   2918) |
+Info: [  2918,   2970) |
+Info: [  2970,   3022) |
+Info: [  3022,   3074) |************************************************************
+Info: [  3074,   3126) |*************************************************+
+Info: [  3126,   3178) |*********************+
+Info: Checksum: 0x794763f2
+Info: Running timing-driven placement optimisation...
+Info:    Iteration 0...
+Info:    Iteration 1...
+Info:    Iteration 2...
+Info:    Iteration 3...
+Info:    Iteration 4...
+Info:    Iteration 5...
+Info:    Iteration 6...
+Info:    Iteration 7...
+Info:    Iteration 8...
+Info:    Iteration 9...
+Info:    Iteration 10...
+Info:    Iteration 11...
+Info:    Iteration 12...
+Info:    Iteration 13...
+Info:    Iteration 14...
+Info:    Iteration 15...
+Info:    Iteration 16...
+Info:    Iteration 17...
+Info:    Iteration 18...
+Info:    Iteration 19...
+Info:    Iteration 20...
+Info:    Iteration 21...
+Info:    Iteration 22...
+Info:    Iteration 23...
+Info:    Iteration 24...
+Info:    Iteration 25...
+Info:    Iteration 26...
+Info:    Iteration 27...
+Info:    Iteration 28...
+Info:    Iteration 29...
+
+Info: Routing..
+Info: Setting up routing queue.
+Info: Routing 16394 arcs.
+Info:            |   (re-)routed arcs  |   delta    | remaining|       time spent     |
+Info:    IterCnt |  w/ripup   wo/ripup |  w/r  wo/r |      arcs| batch(sec) total(sec)|
+Info:       1000 |       50        949 |   50   949 |     15451|       0.51       0.51|
+Info:       2000 |       50       1949 |    0  1000 |     14451|       0.04       0.55|
+Info:       3000 |       53       2946 |    3   997 |     13454|       0.05       0.60|
+Info:       4000 |       58       3941 |    5   995 |     12460|       0.05       0.64|
+Info:       5000 |       62       4937 |    4   996 |     11464|       0.06       0.71|
+Info:       6000 |       69       5930 |    7   993 |     10472|       0.07       0.78|
+Info:       7000 |       82       6917 |   13   987 |      9490|       0.07       0.85|
+Info:       8000 |      142       7857 |   60   940 |      8556|       0.07       0.92|
+Info:       9000 |      199       8800 |   57   943 |      7622|       0.06       0.98|
+Info:      10000 |      215       9784 |   16   984 |      6639|       0.07       1.05|
+Info:      11000 |      237      10762 |   22   978 |      5670|       0.07       1.12|
+Info:      12000 |      271      11728 |   34   966 |      4717|       0.06       1.18|
+Info:      13000 |      357      12642 |   86   914 |      3833|       0.07       1.25|
+Info:      14000 |      510      13489 |  153   847 |      3045|       0.10       1.35|
+Info:      15000 |      588      14411 |   78   922 |      2146|       0.11       1.45|
+Info:      16000 |      600      15399 |   12   988 |      1160|       0.92       2.38|
+Info:      17000 |      602      16397 |    2   998 |       162|       1.18       3.56|
+Info:      17161 |      602      16559 |    0   162 |         0|       0.40       3.96|
+Info: Routing complete.
+Info: Router1 time 3.96s
+Info: Checksum: 0xd085cb22
+
+Info: Critical path report for clock 'clk_i$SB_IO_IN_$glb_clk' (posedge -> posedge):
+Info: curr total
+Info:  0.5  0.5  Source g_core[11].u_mul.u_clear0.root_buffer_DFFLC.O
+Info:  1.6  2.2    Net g_core[11].u_mul.u_clear0.stage_q[0][0] (27,27) -> (22,28)
+Info:                Sink g_core[11].u_mul.u_clear0.g_level[1].g_node[0].branch_buffer_DFFLC.I0
+Info:                Defined in:
+Info:                  rtl/gf_logisim_mul64_low_full_retime.sv:27.23-27.30
+Info:  0.5  2.7  Setup g_core[11].u_mul.u_clear0.g_level[1].g_node[0].branch_buffer_DFFLC.I0
+Info: 1.0 ns logic, 1.6 ns routing
+
+Info: Critical path report for cross-domain path '<async>' -> 'posedge clk_i$SB_IO_IN_$glb_clk':
+Info: curr total
+Info:  0.0  0.0  Source b_bit_i[5]$sb_io.D_IN_0
+Info:  1.7  1.7    Net b_bit_i[5]$SB_IO_IN (0,24) -> (17,24)
+Info:                Sink g_core[5].u_mul.b_input_delay_q_SB_DFFR_Q_5_DFFLC.I0
+Info:                Defined in:
+Info:                  rtl/gf_mul64_low_full_retime_bank.sv:10.29-10.36
+Info:  0.5  2.1  Setup g_core[5].u_mul.b_input_delay_q_SB_DFFR_Q_5_DFFLC.I0
+Info: 0.5 ns logic, 1.7 ns routing
+
+Info: Critical path report for cross-domain path 'posedge clk_i$SB_IO_IN_$glb_clk' -> '<async>':
+Info: curr total
+Info:  0.5  0.5  Source g_core[1].u_mul.g_level[5].g_node[0].g_active.u_add.sum_lut_LC.O
+Info:  2.2  2.7    Net product_bit_o[1]$SB_IO_OUT (24,14) -> (0,14)
+Info:                Sink product_bit_o[1]$sb_io.D_OUT_0
+Info:                Defined in:
+Info:                  rtl/gf_mul64_low_full_retime_bank.sv:11.29-11.42
+Info: 0.5 ns logic, 2.2 ns routing
+
+Info: Max frequency for clock 'clk_i$SB_IO_IN_$glb_clk': 376.93 MHz (PASS at 216.00 MHz)
+
+Info: Max delay <async>                         -> posedge clk_i$SB_IO_IN_$glb_clk: 2.14 ns
+Info: Max delay posedge clk_i$SB_IO_IN_$glb_clk -> <async>                        : 2.75 ns
+
+Info: Slack histogram:
+Info:  legend: * represents 104 endpoint(s)
+Info:          + represents [1,104) endpoint(s)
+Info: [  1976,   2036) |+
+Info: [  2036,   2096) |
+Info: [  2096,   2156) |
+Info: [  2156,   2216) |
+Info: [  2216,   2276) |
+Info: [  2276,   2336) |+
+Info: [  2336,   2396) |*+
+Info: [  2396,   2456) |+
+Info: [  2456,   2516) |+
+Info: [  2516,   2576) |+
+Info: [  2576,   2636) |
+Info: [  2636,   2696) |**+
+Info: [  2696,   2756) |**+
+Info: [  2756,   2816) |*+
+Info: [  2816,   2876) |+
+Info: [  2876,   2936) |
+Info: [  2936,   2996) |
+Info: [  2996,   3056) |************************************************************
+Info: [  3056,   3116) |*************************************************+
+Info: [  3116,   3176) |*********************+
+1 warning, 0 errors
+
+Info: Program finished normally.

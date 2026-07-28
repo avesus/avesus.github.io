@@ -3,19 +3,19 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <title>One Product Bit Per Clock With No Gap Between Words | Brian Greenforest</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="An 8x8 bit-serial multiplier accepts the next operand immediately and emits one low product bit per clock after a fixed three-clock latency.">
+    <meta name="description" content="An open-source 64-bit serial multiplier sustains 3.375 million products/s per core at 216 MHz; twelve fit on one iCE40 HX8K for 40.5 million/s.">
     <link rel="canonical" href="https://greenforest.io/serial_multiplier/">
+    <link rel="icon" href="/favicon.ico">
     <meta property="og:title" content="One Product Bit Per Clock With No Gap Between Words">
-    <meta property="og:description" content="A bubbles-free Logisim multiplier keeps LSB-first operands and products moving across every word boundary.">
+    <meta property="og:description" content="The original Logisim circuit became a 254-LUT4, 64-bit FPGA core: 3.375 million products/s each and 40.5 million/s across twelve cores.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/serial_multiplier/">
     <meta property="article:published_time" content="2025-07-26">
     <meta property="article:modified_time" content="2026-07-28">
-        <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
     <!-- greenforest:preview-source:serial_multiplier/mul.png -->
     <meta property="og:site_name" content="Greenforest I/O">
@@ -33,126 +33,176 @@
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
-            "@type": "Article",
+            "@type": "TechArticle",
             "headline": "One Product Bit Per Clock With No Gap Between Words",
             "author": {
                 "@type": "Person",
-                "name": "Brian Greenforest"
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
             },
             "datePublished": "2025-07-26",
             "dateModified": "2026-07-28",
             "image": "https://greenforest.io/serial_multiplier/mul.png",
-            "description": "An 8x8 bit-serial multiplier accepts the next operand immediately and emits one low product bit per clock after a fixed three-clock latency.",
+            "description": "An open-source 64-bit serial multiplier sustains 3.375 million products per second per core at 216 MHz; twelve fit on one iCE40 HX8K for 40.5 million per second.",
             "mainEntityOfPage": "https://greenforest.io/serial_multiplier/",
+            "license": "https://greenforest.io/serial_multiplier/source/LICENSE",
             "publisher": {
-                "@type": "Person",
-                "name": "Brian Greenforest"
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
             }
         }
     </script>
     <script src="/common-script.js" type="text/javascript"></script>
 </head>
 
-<body>
+<body class="article-structured">
     <header><h1 class="page-title">One Product Bit Per Clock With No Gap Between Words</h1></header>
-    <address>July 26, 2025 &middot; Updated July 28, 2026</address>
+    <address><time datetime="2025-07-26">July 26, 2025</time> &middot; <time datetime="2026-07-28">Updated July 28, 2026</time></address>
 
     <section class="abstract">
-        <p class="lead">This multiplier never drains between operand words.</p>
-        <p>The 8x8 Logisim circuit accepts positive operands LSB-first. After a fixed three-clock pipeline latency, it emits the low eight product bits at one bit per clock while the next operand enters immediately.</p>
-        <div class="cta-row" role="group" aria-label="Multiplier artifacts">
-            <a class="cta-link" href="serial_july_2025.circ">Download the Logisim circuit</a>
-            <a class="cta-link" href="mul.png">Inspect the full schematic</a>
+        <p class="eyebrow">Open FPGA IP &middot; bit-serial multiplication &middot; continuous compute graphs</p>
+        <p class="lead">The circuit that began in Logisim now multiplies 64-bit words at 3.375 million products per second per core.</p>
+        <p>Brian Greenforest's bubbles-free multiplier consumes one LSB-first A/B bit pair on every 216 MHz clock and emits the low 64 product bits continuously. One core uses 254 LUT4 and 635 flip-flops. Twelve independent cores fit on one iCE40 HX8K, sustaining 40.5 million aggregate low-side products per second.</p>
+        <p>The original Logisim circuit, source-exact retimed SystemVerilog, testbench, build scripts, constraints, utilization and timing reports, verified bitstream, host verifier, and two physical USB results are published together under the MIT license.</p>
+        <div class="cta-row" role="group" aria-label="Download the serial multiplier">
+            <a class="cta-link" href="source/greenforest-bubbles-free-serial-multiplier-20260728.zip" download>Download the complete multiplier IP</a>
+            <a class="cta-link" href="source/README.md">Open the build README</a>
+            <a class="cta-link" href="serial_july_2025.circ" download>Download the original Logisim circuit</a>
         </div>
-        <pre class="stream-schedule" aria-label="Continuous input and output word schedule">A input:           a0 ... a7 | a'0 ... a'7
-B input:           b0 ... b7 | b'0 ... b'7
-Output (+3 clocks): p0 ... p7 | p'0 ... p'7
-                                  ^ no empty clock</pre>
-        <p>The bars mark word boundaries rather than idle cycles. Input word two begins on the clock after bit 7; output word two follows the same cadence at the fixed three-clock offset.</p>
+        <pre class="stream-schedule" aria-label="Continuous 64-bit multiplier input and output schedule">A input:            a[0] ... a[63] | a'[0] ... a'[63]
+B input:            b[0] ... b[63] | b'[0] ... b'[63]
+Product (+13 clocks): p[0] ... p[63] | p'[0] ... p'[63]
+                                         ^ no empty clock</pre>
+        <p>The bars are word boundaries, not idle cycles. The next operand begins immediately after bit 63, and the corresponding product follows on the same cadence at a fixed thirteen-clock offset.</p>
     </section>
 
     <figure class="inspectable-image inspectable-image--fit">
         <a href="mul.png">
-            <img src="mul.png" alt="Logisim schematic of the bit-serial bubbles-free multiplier">
+            <img src="mul.png" width="1918" height="938" loading="eager" decoding="async" alt="Logisim schematic of the original bubbles-free bit-serial multiplier">
         </a>
-        <figcaption>The multiplier datapath in Logisim. Open the image to inspect the full schematic, repeated lanes, and serial reducing adders.</figcaption>
+        <figcaption>The original Logisim multiplier. Its delayed partial products and clocked serial-adder tree became the source structure of the published 64-bit FPGA core.</figcaption>
     </figure>
 
     <main>
         <section>
             <h2>A Compute Graph Needed Multiplication In Stream Form</h2>
-            <p>Brian invented the circuit on July 26, 2025, when a standard Verilog <code>*</code> slowed timing closure and scarce hard multiplier blocks constrained the intended compute graph. The graph needed a streamable arithmetic path instead of another wide immediate product.</p>
-            <p>This design keeps arithmetic narrow, regular, and bit-serial. Every word advances on one cadence, with consecutive operands touching at their boundaries.</p>
+            <p>Brian invented the circuit on July 26, 2025, when a standard Verilog <code>*</code> slowed timing closure and scarce hard multiplier blocks constrained the intended compute graph. The graph needed multiplication that moved like its other signals: one bit per link, one clock per step, every word touching the next.</p>
+            <p>The first complete form was an inspectable 8-by-8 Logisim circuit. It accepts positive operands LSB-first and produces the low eight product bits. Its balanced serial reduction tree creates a fixed three-clock latency while preserving one output bit on every clock after fill.</p>
+            <p>That eight-bit circuit established the architecture. The finished FPGA work carries the same arithmetic structure to 64-bit operands, adds bounded registered fanout and full retiming, and keeps the defining property intact: width changes the amount of spatially repeated machinery, never the continuous word cadence.</p>
         </section>
 
         <section>
-            <h2>The Complete Logisim Circuit Is Here</h2>
-            <p><a href="serial_july_2025.circ">serial_july_2025.circ</a> opens in Logisim 2.7.1. <a href="mul.png">mul.png</a> renders the multiplier, and <a href="add.png">add.png</a> renders its serial adder.</p>
-            <p>The project contains reusable <code>var</code>, <code>add</code>, and <code>mul</code> circuits plus harnesses. <code>var</code> serializes each operand; <code>add</code> holds carry state; <code>mul</code> builds and reduces the partial-product streams.</p>
-        </section>
-
-        <section>
-            <h2>The Schedule Stays Full Across Every Word Boundary</h2>
-            <p>Inputs and outputs travel LSB-first. The rendered 8-bit circuit has three clocks of fixed latency, matching the depth of its balanced serial reduction tree. After fill, a product bit leaves on every clock.</p>
-            <p><em>Bubbles-free</em> means exactly this: operand word two begins immediately after operand word one, and result word two follows result word one without a drain interval.</p>
-            <p>The stream uses power-on phase rather than per-word reset/start framing or ready/valid backpressure. Its surrounding circuit identifies the bit-0 clock and maintains the cadence.</p>
-        </section>
-
-        <section>
-            <h2>Three Reusable Circuits Form The Datapath</h2>
-            <p>The schematic combines three compact roles:</p>
+            <h2>The Original Circuit Remains Directly Inspectable</h2>
+            <p><a href="serial_july_2025.circ">serial_july_2025.circ</a> opens in Logisim 2.7.1. The project contains reusable <code>var</code>, <code>add</code>, and <code>mul</code> circuits plus inspection harnesses. <a href="mul.png">mul.png</a> renders the complete multiplier, and <a href="add.png">add.png</a> renders the serial adder.</p>
             <ul class="article-facts">
-                <li><code>var</code> serializes an 8-bit value into a one-bit stream.</li>
-                <li><code>add</code> is the clocked serial adder and carries the serial carry state.</li>
-                <li><code>mul</code> generates partial-product lanes and reduces them through a balanced tree of serial adders.</li>
-                <li><code>dbg</code>, <code>main</code>, and <code>main2</code> are inspection and harness support.</li>
+                <li><code>var</code> serializes each value into an LSB-first one-bit stream.</li>
+                <li><code>add</code> evaluates a full-adder bit and retains carry as local clocked state.</li>
+                <li><code>mul</code> gates delayed operand streams into partial-product lanes and reduces them through a balanced tree.</li>
+                <li><code>dbg</code>, <code>main</code>, and <code>main2</code> expose the schedule for direct inspection.</li>
             </ul>
-            <p>Delayed and gated bit streams carry partial products directly into the reduction tree. Clocked serial adders retain carry locally, replacing a wide parallel matrix and its long carry chain.</p>
+            <p>The circuit file SHA-256 is <code>3317a9e721381e927b2fd307e1fd4b2139ab05036ef2cbea2129e36f2a74c597</code>. The download package carries that exact circuit beside its FPGA descendant.</p>
         </section>
 
         <section>
-            <h2>Width Adds Lanes Instead Of A Wider Multiplier Block</h2>
-            <p>Resources scale linearly with input width. Wider versions repeat lanes and reduction structure; each doubling of operand width adds one clock to the balanced reduction tree.</p>
-            <p>The rendered circuit maps 8x8 positive inputs to the low eight product bits. Extending the output width preserves the same continuous schedule.</p>
+            <h2>Partial Products Move Through Time Instead Of A Wide Matrix</h2>
+            <p>For each multiplier bit, a lane retains the corresponding A bit and gates it with the appropriately delayed B stream. The resulting one-bit partial-product streams enter pairs of serial adders. Each adder produces one sum bit per clock and keeps only its carry recurrence locally.</p>
+            <p>Six reduction levels combine 64 lanes into one low-product stream. A new A/B bit pair enters while older products occupy every level of the tree. Once filled, the tree behaves like a continuously moving graph, not a transaction that starts, works, drains, and restarts.</p>
+            <p>This is the practical meaning of <em>bubbles-free</em>: the architecture has latency, but no inter-word vacancy. At 216 MHz and 64 clocks per operand, its rate is exact:</p>
+            <pre class="stream-schedule" aria-label="Serial multiplier sustained throughput equation">216,000,000 clocks/s / 64 clocks/product = 3,375,000 products/s</pre>
         </section>
 
         <section>
-            <h2>The Architecture Matches A Streaming Compute Graph</h2>
-            <p>Uniform scheduling, narrow local links, and graph-style composition replace a wide immediate product. Multiplication follows the same bit-stream rhythm as the surrounding arithmetic.</p>
-            <p>Hard multiplier blocks and inferred <code>*</code> operators optimize other design points. This circuit creates a spatially regular alternative for graphs that value cadence, locality, and composability.</p>
+            <h2>The FPGA Translation Preserves The Circuit's Arithmetic</h2>
+            <p>The 64-bit SystemVerilog was reconstructed from the published circuit rather than treating generated companion Verilog as the authority. It preserves 64 A holds, a 64-stage B delay, 64 partial-product lanes, and the 63 serial adders of the balanced reduction tree.</p>
+            <p>The literal eight-bit translation exposed one phase detail worth getting exactly right. Registering the partial-product front end delayed the first diagonal by one clock while carry clears still occurred at the original phase. Moving the carry-clear phase by one clock produced 3,936 correct results across both operand orders for every non-overflowing unsigned eight-bit pair.</p>
+            <p>In the final 64-bit core, A lane <code>n</code> loads at <code>(n + 6) mod 64</code>. The six registered reduction levels take carry-clear sources from phases 1, 3, 5, 7, 9, and 11. That phase relationship is explicit in <a href="source/rtl/gf_logisim_mul64_low_full_retime.sv">the open RTL</a>.</p>
         </section>
 
         <section>
-            <h2>Download The Circuit And Adder</h2>
-            <div class="article-artifact-grid">
-                <a href="serial_july_2025.circ">
-                    <img src="mul.png" alt="Logisim bit-serial multiplier circuit">
-                    Logisim circuit file
-                </a>
-                <a href="add.png">
-                    <img src="add.png" alt="Logisim serial adder circuit">
-                    Serial adder image
-                </a>
+            <h2>Full Retiming Makes Every Dependency Local</h2>
+            <p>The final core bounds every high-fanout path with registers:</p>
+            <ul class="article-facts">
+                <li>A enters a registered binary fanout tree before reaching the 64 phase holds.</li>
+                <li>B receives matching fixed latency before its published 64-stage delay.</li>
+                <li>All 64 partial-product AND results are registered.</li>
+                <li>Every serial-adder reduction level registers its sum.</li>
+                <li>Each carry-clear pulse travels through its own registered binary distribution tree.</li>
+                <li>A local 64-state one-hot ring defines the word phase without a load, enable, or stall path.</li>
+            </ul>
+            <p>The retiming adds a fixed thirteen-clock preload from corresponding input to low-product bit. It does not change the one-bit-per-clock interface or the one-word-per-64-clocks initiation interval. The source can therefore be composed as a scheduled arithmetic engine without importing transaction logic into every multiplier.</p>
+        </section>
+
+        <section>
+            <h2>One Core Is 254 LUT4 And 635 Flip-Flops</h2>
+            <div class="article-fact-table" role="table" aria-label="64-bit serial multiplier core utilization and timing">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">LUT4</div><div role="cell">254 total: 64 partial products, 64 hold MUXes, 126 adder LUTs</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">DFF</div><div role="cell">635 registered phase, data, sum, carry, and fanout states</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Packed logic cells</div><div role="cell">637 / 7,680 in the isolated HX8K fit shell</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Standalone route</div><div role="cell">438.212097 MHz achieved</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Physical clock</div><div role="cell">216 MHz</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Cadence</div><div role="cell">II=64; 3,375,000 low-64 products/s</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Fixed latency</div><div role="cell">13 clocks</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">RAM / DSP</div><div role="cell">0 / 0</div></div>
             </div>
-            <p>Open the circuit to trace clocked carry and partial-product timing, or use the images as a fast schematic reference.</p>
+            <p>The standalone route exceeds twice the physically exercised clock. The 216 MHz operating point turns that timing headroom into a simple uninterrupted cadence while keeping the core's interface completely scalar.</p>
+            <p>Open the <a href="source/UTILIZATION.md">readable utilization report</a>, <a href="source/reports/core-nextpnr-report.json">raw standalone nextpnr report</a>, and <a href="source/reports/core-simulation.log">4,092-word back-to-back simulation result</a>.</p>
         </section>
 
         <section>
-            <h2>Carry The Schedule Onto An FPGA</h2>
-            <p>A Verilog implementation can place this architecture beside inferred <code>*</code> and hard-multiplier paths on one FPGA target, comparing LUT count, Fmax, timing reports, waveforms, and placement.</p>
-            <p><a href="/fpga-verilog/verilog-modules-testbenches-constraints.html">Verilog modules, testbenches, and constraints</a> supplies the project structure; the <a href="/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html">open iCE40 flow</a> carries the comparison from RTL to a board bitstream.</p>
+            <h2>Twelve Independent Cores Fit On One HX8K</h2>
+            <p>The bank sweep instantiates separately controlled copies rather than sharing one arithmetic engine. Twelve cores place as 3,048 LUT4, 7,620 flip-flops, and 7,622 of the HX8K's 7,680 logic cells. The routed bank reaches 376.931763 MHz against its 216 MHz operating constraint.</p>
+            <p>A thirteenth core requires 3,302 LUT4, 8,255 flip-flops, and 8,257 logic cells. That exceeds the physical 7,680-cell fabric, establishing twelve as the exact capacity for this full-retime core on the target device.</p>
+            <pre class="stream-schedule" aria-label="Twelve-core aggregate multiplier rate">12 cores * 3,375,000 products/s/core = 40,500,000 low-64 products/s</pre>
+            <p>The package includes the reusable bank harness, build and placement scripts, the twelve-core synthesis and route reports, and the thirteen-core packing report. The result gives an architect both ends of the design decision: a measured per-core cost and the exact device-scale replication ceiling.</p>
+        </section>
+
+        <section>
+            <h2>Two Physical USB Runs Checked 8,192 Products</h2>
+            <p>The final SRAM image ran the multiplier at exactly 216 MHz on the iCE40 HX8K. An FT2232H channel-B D2XX MPSSE link clocked at 30 MHz supplied operands and returned product snapshots. Four USB repetitions held each vector long enough for the independently clocked arithmetic path and snapshot crossing.</p>
+            <ul class="article-facts">
+                <li><strong>4,096</strong> products in the first deterministic vector set.</li>
+                <li><strong>4,096</strong> products in the independent repeat set.</li>
+                <li><strong>8,192 / 8,192</strong> low-64 products correct.</li>
+                <li><strong>0</strong> arithmetic mismatches.</li>
+                <li><strong>0</strong> selected pair-slot disagreements.</li>
+                <li>Curated cases include <code>48*3=144</code>, <code>56*3=168</code>, <code>7*31=217</code>, and <code>0xffffffff * 0xffffffff = 0xfffffffe00000001</code>.</li>
+            </ul>
+            <p>The N16 RF output remained unconditionally high impedance throughout both runs. The verified bitstream SHA-256 is <code>38f51f3ba5067390b1208ad881212acd287996a869a837048f6280db1d335988</code>.</p>
+            <p>Inspect the <a href="source/evidence/mul64_low_full_retime_mux_216_physical_20260728.json">first physical result</a> and <a href="source/evidence/mul64_low_full_retime_mux_216_physical_repeat_20260728.json">independent repeat</a>. Both reports include curated operands, returned values, hashes, transfer counts, and status.</p>
+        </section>
+
+        <section>
+            <h2>The Complete Open-Source Handoff Is Ready To Rebuild</h2>
+            <p>The MIT-licensed package contains the original Logisim circuit and its self-contained 64-bit SystemVerilog implementation, physical HX8K wrapper, constraints, simulation testbench, iCE40 primitive model, core and bank scripts, host verifier, MPSSE and SRAM-programming helpers, selected raw reports, verified bitstream, physical evidence, utilization guide, and SHA-256 manifest.</p>
+            <div class="article-fact-table" role="table" aria-label="Serial multiplier source downloads">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Complete package</div><div role="cell"><a href="source/greenforest-bubbles-free-serial-multiplier-20260728.zip" download>Download source, tools, reports, evidence, and bitstream as one ZIP</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Core RTL</div><div role="cell"><a href="source/rtl/gf_logisim_mul64_low_full_retime.sv">gf_logisim_mul64_low_full_retime.sv</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Logisim source</div><div role="cell"><a href="source/logisim/serial_july_2025.circ">serial_july_2025.circ</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Physical wrapper</div><div role="cell"><a href="source/rtl/hx8k_mpsse_mul64_low_full_retime_216_top.sv">HX8K, PLL, CDC, MPSSE, and high-impedance N16 top</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Host verification</div><div role="cell"><a href="source/host/verify_mpsse_mul64_low_216.py">deterministic low-product verifier</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Utilization</div><div role="cell"><a href="source/UTILIZATION.md">core, physical image, twelve-core bank, and capacity accounting</a></div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Integrity</div><div role="cell"><a href="source/SHA256SUMS.txt">SHA-256 for every other payload file in the ZIP</a></div></div>
+            </div>
+            <p>Start with <a href="source/README.md">the README</a>. Build one core, run the back-to-back stream simulation, recreate the physical image, or sweep a bank. The source keeps the circuit's phase structure visible enough to modify, teach, and compose.</p>
+        </section>
+
+        <section>
+            <h2>The Multiplier Became A Complete Floating-Point Divider</h2>
+            <p>A useful arithmetic primitive earns its value again when it becomes part of a larger system. Three II=32 variants of this serial product architecture now drive Brian's binary32 reciprocal-refinement graph: <code>Q*P</code>, <code>A'*X1</code>, and the low-32 <code>q0*B</code> residual product.</p>
+            <p>The resulting open-source divider sustains 6.75 million correctly rounded finite-normal binary32 divisions per second at 216 MHz. It passed 65,536 physical USB/FPGA cases and uses no leading-one detector, RAM block, or DSP block.</p>
+            <p><a href="/serial-binary32-divider/">Read the full divider architecture and download every source file</a>. To bring this arithmetic style into another FPGA, product, research program, or compute graph, <a href="/contact.html">contact Brian</a>.</p>
         </section>
     </main>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="/linkedin-archive/2023-11-02-why-open-sourcing-asic-fma-is-hard.html">Why Open-Source ASIC IP Is Hard: FMA From RTL to GDSII</a>
-        <p>Carry arithmetic through RTL, verification, constraints, physical design, and signoff.</p>
+        <a href="/serial-binary32-divider/">A One-Bit-Stream Binary32 Divider Sustains 6.75 Million Divisions Per Second</a>
+        <p>Follow three continuous serial multipliers into reciprocal generation, exact correction, ties-to-even rounding, and a physically verified floating-point result.</p>
         <p>More:</p>
         <a href="/fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
-        <p>See this arithmetic schedule beside RF, network RTL, reconfiguration, and physical logic.</p>
+        <p>See this arithmetic schedule beside Brian's RF, network, reconfiguration, and spatial-computing systems.</p>
         <a href="/boolean-algebra-is-all-that-is-required.html">Boolean Algebra Is All That Is Required</a>
-        <p>Follow Boolean selection from local logic into a self-reconfiguring computational substrate.</p>
         <a href="/">Explore Brian Greenforest's Systems And Research</a>
     </nav>
 </body>

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://greenforest.io/</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/about-greenforest.html</loc>
@@ -26,15 +26,19 @@
   </url>
   <url>
     <loc>https://greenforest.io/faq.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/site-map.html</loc>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/proof-and-artifacts.html</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/fpga-systems.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/what-hides-under-the-clock.html</loc>
@@ -214,7 +218,11 @@
   </url>
   <url>
     <loc>https://greenforest.io/serial_multiplier/</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/serial-binary32-divider/</loc>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/four-layer-tiny-transformer-training-run.html</loc>

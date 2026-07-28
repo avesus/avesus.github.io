@@ -5,7 +5,36 @@
 *.css text eol=lf
 *.html text eol=lf
 *.js text eol=lf
+*.svg text eol=lf
 *.jpeg binary
 *.jpg binary
 *.png binary
 *.woff2 binary
+sitemap.xml text eol=lf
+tools/audit_seo.py text eol=lf
+
+# Preserve the published serial-arithmetic release bytes across platforms.
+serial_multiplier/source/**/*.sv text eol=lf
+serial_multiplier/source/**/*.py text eol=lf
+serial_multiplier/source/**/*.sh text eol=lf
+serial_multiplier/source/**/*.pcf text eol=lf
+serial_multiplier/source/**/*.json text eol=lf
+serial_multiplier/source/**/*.log text eol=lf
+serial_multiplier/source/**/*.txt text eol=lf
+serial_multiplier/source/LICENSE text eol=lf
+serial_multiplier/source/**/*.bin binary
+serial_multiplier/source/*.zip binary
+serial_multiplier/source/evidence/*.json binary
+serial_multiplier/source/logisim/*.circ binary
+serial_multiplier/source/SHA256SUMS.txt binary
+
+serial-binary32-divider/source/**/*.sv text eol=lf
+serial-binary32-divider/source/**/*.py text eol=lf
+serial-binary32-divider/source/**/*.sh text eol=lf
+serial-binary32-divider/source/**/*.pcf text eol=lf
+serial-binary32-divider/source/**/*.json text eol=lf
+serial-binary32-divider/source/**/*.txt text eol=lf
+serial-binary32-divider/source/LICENSE text eol=lf
+serial-binary32-divider/source/**/*.bin binary
+serial-binary32-divider/source/*.zip binary
+serial-binary32-divider/source/evidence/*.json binary

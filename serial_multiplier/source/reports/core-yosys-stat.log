@@ -1,0 +1,19 @@
+=== gf_mul64_low_full_retime_fit_top ===
+
+   Number of wires:                726
+   Number of wire bits:           2462
+   Number of public wires:         726
+   Number of public wire bits:    2462
+   Number of ports:                  5
+   Number of port bits:              5
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                960
+     $scopeinfo                     71
+     SB_DFFR                       634
+     SB_DFFS                         1
+     SB_LUT4                       254
+
+Found and reported 0 problems.
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)

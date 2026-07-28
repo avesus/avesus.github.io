@@ -1,0 +1,20 @@
+# Official Lattice ICE40HX8K-B-EVN, iCE40HX8K-CT256.
+set_io -nowarn CRYSTAL_12MHZ J3
+
+# The RF experiment is out of scope.  N16 remains permanently high impedance.
+set_io -nowarn RF_OUT N16
+
+# FT2232H channel B, directly wired on the board.
+set_io -nowarn MPSSE_SCLK B10
+set_io -nowarn MPSSE_MOSI B12
+set_io -nowarn MPSSE_MISO B13
+set_io -nowarn MPSSE_CS_N A15
+
+set_io -nowarn LED[0] B5
+set_io -nowarn LED[1] B4
+set_io -nowarn LED[2] A2
+set_io -nowarn LED[3] A1
+set_io -nowarn LED[4] C5
+set_io -nowarn LED[5] C4
+set_io -nowarn LED[6] B3
+set_io -nowarn LED[7] C3

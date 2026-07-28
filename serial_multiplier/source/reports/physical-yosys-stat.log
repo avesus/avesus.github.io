@@ -1,0 +1,14 @@
+=== hx8k_mpsse_mul64_low_full_retime_216_top ===
+
+   Number of cells:               2200
+     SB_DFF                        385
+     SB_DFFER                      389
+     SB_DFFR                       889
+     SB_DFFS                         3
+     SB_DFFSR                        7
+     SB_IO                           2
+     SB_LUT4                       449
+     SB_PLL40_2F_CORE                1
+
+Found and reported 0 problems.
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)

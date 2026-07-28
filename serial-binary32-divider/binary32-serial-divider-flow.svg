@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+  <title id="title">Continuous one-bit-stream binary32 divider architecture</title>
+  <desc id="desc">Two raw binary32 input streams split once into significand, exponent, and sign paths. A fixed significand graph uses a reciprocal seed, three serial multipliers, correction, and round-to-nearest ties-to-even. The three paths meet only in the final binary32 pack.</desc>
+  <defs>
+    <style>
+      .bg { fill: #faf8f2; }
+      .box { fill: #fff; stroke: #286f4b; stroke-width: 3; rx: 12; }
+      .accent { fill: #e7f0e2; stroke: #286f4b; stroke-width: 3; rx: 12; }
+      .small { fill: #fff; stroke: #73521c; stroke-width: 2; rx: 10; }
+      .wire { fill: none; stroke: #286f4b; stroke-width: 4; marker-end: url(#arrow); }
+      .side { fill: none; stroke: #73521c; stroke-width: 3; marker-end: url(#arrow-gold); }
+      .label { fill: #10271f; font: 600 23px system-ui, sans-serif; text-anchor: middle; }
+      .detail { fill: #31433c; font: 18px ui-monospace, SFMono-Regular, Consolas, monospace; text-anchor: middle; }
+      .caption { fill: #10271f; font: 700 27px system-ui, sans-serif; text-anchor: middle; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#286f4b"/>
+    </marker>
+    <marker id="arrow-gold" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#73521c"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="660"/>
+  <text class="caption" x="600" y="45">Raw binary32 at the boundaries; one-bit arithmetic inside</text>
+
+  <rect class="accent" x="35" y="90" width="175" height="110"/>
+  <text class="label" x="122" y="125">A / B input</text>
+  <text class="detail" x="122" y="157">32 bits LSB-first</text>
+  <text class="detail" x="122" y="183">II = 32 clocks</text>
+
+  <path class="wire" d="M210 145 H275"/>
+  <rect class="box" x="275" y="90" width="170" height="110"/>
+  <text class="label" x="360" y="126">Unpack once</text>
+  <text class="detail" x="360" y="158">significand</text>
+  <text class="detail" x="360" y="183">exponent / sign</text>
+
+  <path class="wire" d="M445 125 H505"/>
+  <rect class="accent" x="505" y="72" width="235" height="125"/>
+  <text class="label" x="622" y="108">14-digit seed</text>
+  <text class="detail" x="622" y="141">2^37 = Q x B + P</text>
+  <text class="detail" x="622" y="169">non-restoring recurrence</text>
+
+  <path class="wire" d="M740 135 H800"/>
+  <rect class="box" x="800" y="72" width="180" height="125"/>
+  <text class="label" x="890" y="108">Q x P</text>
+  <text class="detail" x="890" y="140">serial multiply 1</text>
+  <text class="detail" x="890" y="168">form X1</text>
+
+  <path class="wire" d="M980 135 H1050 V250 H1005"/>
+  <rect class="box" x="790" y="220" width="215" height="105"/>
+  <text class="label" x="897" y="257">A' x X1</text>
+  <text class="detail" x="897" y="288">serial multiply 2</text>
+  <text class="detail" x="897" y="312">initial q0</text>
+
+  <path class="wire" d="M790 272 H725"/>
+  <rect class="box" x="505" y="220" width="220" height="105"/>
+  <text class="label" x="615" y="257">q0 x B</text>
+  <text class="detail" x="615" y="288">serial multiply 3</text>
+  <text class="detail" x="615" y="312">low 32 bits only</text>
+
+  <path class="wire" d="M505 272 H445"/>
+  <rect class="accent" x="245" y="220" width="200" height="105"/>
+  <text class="label" x="345" y="257">Correct + round</text>
+  <text class="detail" x="345" y="288">exact residual</text>
+  <text class="detail" x="345" y="312">RNE ties-to-even</text>
+
+  <path class="side" d="M360 200 V420 H500"/>
+  <rect class="small" x="500" y="385" width="210" height="80"/>
+  <text class="label" x="605" y="418">Exponent stream</text>
+  <text class="detail" x="605" y="447">Ea - Eb + 127 - adj</text>
+
+  <path class="side" d="M360 200 V535 H500"/>
+  <rect class="small" x="500" y="500" width="210" height="80"/>
+  <text class="label" x="605" y="533">Sign stream</text>
+  <text class="detail" x="605" y="562">one XOR + delay</text>
+
+  <path class="wire" d="M345 325 V365 H805"/>
+  <path class="side" d="M710 425 H805"/>
+  <path class="side" d="M710 540 H805"/>
+  <rect class="accent" x="805" y="365" width="180" height="215"/>
+  <text class="label" x="895" y="414">Pack once</text>
+  <text class="detail" x="895" y="448">U31 boundary</text>
+  <text class="detail" x="895" y="480">fixed 1,024-clock</text>
+  <text class="detail" x="895" y="507">input-to-output</text>
+  <text class="detail" x="895" y="534">latency</text>
+
+  <path class="wire" d="M985 472 H1050"/>
+  <rect class="box" x="1050" y="417" width="120" height="110"/>
+  <text class="label" x="1110" y="452">Result</text>
+  <text class="detail" x="1110" y="483">32 bits</text>
+  <text class="detail" x="1110" y="508">LSB-first</text>
+
+  <text class="detail" x="600" y="625">After fill: one complete division every 32 clocks = 6,750,000 divisions/s at 216 MHz</text>
+</svg>
