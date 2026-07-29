@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Greenforest I/O FAQ | Brian Greenforest Technical Work</title>
-    <meta name="description" content="Explore Brian Greenforest's serial multiplier and binary32 divider, FPGA radio, Ethernet RTL, physical MUX tiles, WebGL/GLSL, Cartilage, and R&D engagements.">
+    <meta name="description" content="Explore Brian Greenforest's 106-channel one-pin FPGA transmitter, serial arithmetic, Ethernet RTL, physical MUX tiles, WebGL/GLSL, Cartilage, and R&D engagements.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/faq.html">
     <meta property="og:title" content="Greenforest I/O FAQ">
-    <meta property="og:description" content="Direct starting points for measured one-bit FPGA arithmetic, radio and Ethernet RTL, physical logic, WebGL/GLSL, Cartilage, and R&D opportunities.">
+    <meta property="og:description" content="Direct starting points for a 106-channel one-pin transmitter, one-bit FPGA arithmetic, Ethernet RTL, physical logic, WebGL/GLSL, Cartilage, and R&D opportunities.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/faq.html">
         <link rel="icon" href="/favicon.ico">
@@ -66,6 +66,14 @@
                 },
                 {
                     "@type": "Question",
+                    "name": "What is the 106-channel one-pin FPGA transmitter?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Brian Greenforest's HX8K synthesizes 106 independently phased and deterministically modulated FM lanes on a 120-slot, 3 MHz grid, reduces them through continuous one-bit I/Q arithmetic, and switches the complete RF result through N16. The MIT-licensed SystemVerilog, constraints, build, hardware guide, and ready-to-load image are at https://greenforest.io/fpga-radio-lab/106-channel-one-pin-transmitter.html."
+                    }
+                },
+                {
+                    "@type": "Question",
                     "name": "What WebGL and GLSL work has Brian done?",
                     "acceptedAnswer": {
                         "@type": "Answer",
@@ -77,7 +85,7 @@
                     "name": "What FPGA systems has Brian built?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "The public work spans a 64-bit continuous serial multiplier, a binary32 divider built from one-bit internal arithmetic, one-pin FPGA FM receive and quadrature/SDM transmit paths, RMII Ethernet and ARP in Verilog, UDP-carried bitstream ingestion, one FPGA configuring an adjacent iCE40LP384, physical MUX tiles, and Cartilage RTL and browser models."
+                        "text": "The public work spans a 106-channel one-pin FPGA transmitter, a 64-bit continuous serial multiplier, a binary32 divider built from one-bit internal arithmetic, one-pin FPGA FM reception, RMII Ethernet and ARP in Verilog, UDP-carried bitstream ingestion, one FPGA configuring an adjacent iCE40LP384, physical MUX tiles, and Cartilage RTL and browser models."
                     }
                 },
                 {
@@ -159,13 +167,19 @@
         </section>
 
         <section>
+            <h2>What Is The 106-Channel One-Pin FPGA Transmitter?</h2>
+            <p><a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html">One FPGA Pin Synthesizes 106 RF Channels Across 3 MHz</a> advances 106 independent 24-bit lane phases, gives them deterministic FM motion, reduces their complex sum through continuous one-bit I/Q arithmetic, and switches the complete RF result through N16.</p>
+            <p>The article inspects the entire 882-line top from channel mask to physical pin. Its MIT-licensed download includes every required SystemVerilog file, board and timing constraints, build and volatile-SRAM load scripts, hardware notes, and the ready-to-load one-second image.</p>
+        </section>
+
+        <section>
             <h2>What WebGL And GLSL Work Has Brian Done?</h2>
             <p>The <a href="webgl-glsl-computing.html">raw WebGL1 and GLSL ES 1.00 systems</a> create contexts, compile shaders, pack state into textures, execute through framebuffer passes, ping-pong updates, and read results back. The same machinery drives cellular automata, logic, arithmetic, and Cartilage-style spatial computation directly in the browser.</p>
         </section>
 
         <section>
             <h2>What FPGA Systems Has Brian Built?</h2>
-            <p>The <a href="fpga-systems.html">FPGA systems map</a> spans the 64-bit continuous serial multiplier, binary32 division through one-bit arithmetic, one-pin FPGA FM reception, quadrature/SDM transmission, RMII Ethernet and ARP in direct Verilog, UDP-carried bitstream ingestion, one FPGA configuring an adjacent iCE40LP384, and Cartilage in SystemVerilog and WebGL.</p>
+            <p>The <a href="fpga-systems.html">FPGA systems map</a> spans the 106-channel one-pin transmitter, 64-bit continuous serial multiplication, binary32 division through one-bit arithmetic, one-pin FPGA FM reception, RMII Ethernet and ARP in direct Verilog, UDP-carried bitstream ingestion, one FPGA configuring an adjacent iCE40LP384, and Cartilage in SystemVerilog and WebGL.</p>
             <p>Each system follows the causal path through pins, protocols, clocks, RAM, configuration, host software, and physical signals so another engineer can enter at the level that controls the outcome.</p>
         </section>
 

@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Working Systems And Source | Brian Greenforest</title>
-    <meta name="description" content="Run, download, and inspect Brian Greenforest's 64-bit serial multiplier, binary32 serial divider, FPGA radio, Ethernet reprogrammer, WebGL machines, and Cartilage fabric.">
+    <meta name="description" content="Run, download, and inspect Brian Greenforest's 106-channel one-pin transmitter, serial multiplier, binary32 divider, Ethernet reprogrammer, WebGL machines, and Cartilage fabric.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/proof-and-artifacts.html">
     <meta property="og:title" content="Working Systems And Source | Brian Greenforest">
-    <meta property="og:description" content="Open FPGA arithmetic at 3.375M multiplications/s and 6.75M divisions/s, plus radio, Ethernet RTL, physical logic, WebGL machines, and Cartilage.">
+    <meta property="og:description" content="Complete source for a 106-channel one-pin FPGA transmitter, open arithmetic at millions of operations per second, Ethernet RTL, WebGL machines, and Cartilage.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/proof-and-artifacts.html">
         <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:none -->
+    <!-- greenforest:preview-source:fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png -->
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:image" content="https://greenforest.io/social-previews/proof-and-artifacts.png">
     <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/proof-and-artifacts.png">
@@ -54,6 +54,11 @@
                     "@type": "TechArticle",
                     "name": "Binary32 Serial Divider: 6.75 Million Divisions/s",
                     "url": "https://greenforest.io/serial-binary32-divider/"
+                },
+                {
+                    "@type": "TechArticle",
+                    "name": "One FPGA Pin Synthesizes 106 RF Channels Across 3 MHz",
+                    "url": "https://greenforest.io/fpga-radio-lab/106-channel-one-pin-transmitter.html"
                 },
                 {
                     "@type": "CreativeWork",
@@ -117,7 +122,7 @@
 
     <section class="abstract">
         <p class="lead">Choose a mechanism and enter where it works: at the pin, packet, clock, shader pass, circuit tile, or reconfiguration bit.</p>
-        <p>These systems rebuild parts of computing that inherited stacks usually hide. Stream a 64-bit product or binary32 quotient through one-bit arithmetic, turn one FPGA pin into a radio, send an FPGA image through Ethernet, compose logic by hand, or install a circuit into a live spatial fabric.</p>
+        <p>These systems rebuild parts of computing that inherited stacks usually hide. Synthesize 106 independently moving RF channels through one FPGA pin, stream a 64-bit product or binary32 quotient through one-bit arithmetic, send an FPGA image through Ethernet, compose logic by hand, or install a circuit into a live spatial fabric.</p>
         <p>The multiplier and divider add open-source RTL, rebuild scripts, utilization reports, exact oracles, and physical run data to the measurements, photographs, videos, and runnable machines available here.</p>
     </section>
 
@@ -158,10 +163,10 @@
             <p>To build the foundations behind these systems, <a href="/fpga-verilog/">learn FPGA and Verilog from first principles</a>: Boolean logic through simulation, synthesis, place-and-route, and a programmed iCE40 board.</p>
             <div class="capability-grid">
                 <article class="capability-card">
-                    <a href="one-pin-quadrature-sdm-transmitter.html"><img src="backdrop_rf.jpeg" width="1279" height="320" loading="lazy" decoding="async" alt="Transmitter waveforms, resonant-tank hardware, and historical spectrum context"></a>
-                    <p class="eyebrow">RF transmit</p>
-                    <h3><a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM Transmitter</a></h3>
-                    <p>Two one-bit control paths select among four carrier phases, then one HX8K output drives a resonant network. A CubicSDR capture records the local signal beside a live PTC channel through an RTL-SDR Blog V4.</p>
+                    <a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html"><img src="fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png" width="2880" height="1980" loading="lazy" decoding="async" alt="Physical spectrum of the complete 106-channel one-pin FPGA transmitter"></a>
+                    <p class="eyebrow">RF transmit · complete source</p>
+                    <h3><a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html">106-Channel One-Pin FPGA Transmitter</a></h3>
+                    <p>One HX8K synthesizes 106 independently phased and deterministically modulated FM lanes, adds them through twin bit-serial I/Q trees, converts the composite to one-bit density streams, and selects the complete RF result onto N16. Download every required RTL, constraint, build, hardware, license, and FPGA-image file.</p>
                 </article>
                 <article class="capability-card">
                     <a href="how-much-radio-do-you-actually-need.html"><img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="lazy" decoding="async" alt="Illustrated one-pin FPGA FM receiver path from thresholded RF to recovered audio"></a>

@@ -38,3 +38,10 @@ serial-binary32-divider/source/LICENSE text eol=lf
 serial-binary32-divider/source/**/*.bin binary
 serial-binary32-divider/source/*.zip binary
 serial-binary32-divider/source/evidence/*.json binary
+
+fpga-radio-lab/source/one-pin-106-channel-transmitter/**/*.sv text eol=lf
+fpga-radio-lab/source/one-pin-106-channel-transmitter/**/*.py text eol=lf
+fpga-radio-lab/source/one-pin-106-channel-transmitter/**/*.pcf text eol=lf
+fpga-radio-lab/source/one-pin-106-channel-transmitter/**/*.txt text eol=lf
+fpga-radio-lab/source/one-pin-106-channel-transmitter/**/*.bin binary
+fpga-radio-lab/source/one-pin-106-channel-transmitter.zip binary

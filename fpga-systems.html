@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>FPGA Systems, RF, Ethernet RTL &amp; Reconfigurable Hardware | Brian Greenforest</title>
-    <meta name="description" content="Brian Greenforest builds FPGA systems across RF, Ethernet RTL, reconfiguration, and one-bit arithmetic, including a 3.375M/s 64-bit multiplier and 6.75M/s binary32 divider.">
+    <meta name="description" content="Brian Greenforest builds FPGA systems across a 106-channel one-pin RF transmitter, Ethernet RTL, reconfiguration, and one-bit arithmetic at millions of operations per second.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/fpga-systems.html">
     <link rel="icon" href="/favicon.ico">
     <meta property="og:title" content="FPGA Systems From Pins To Bitstreams | Brian Greenforest">
-    <meta property="og:description" content="RF paths, Ethernet and ARP RTL, adjacent iCE40 reconfiguration, a 3.375M/s serial multiplier, a 6.75M/s binary32 divider, and tangible logic.">
+    <meta property="og:description" content="A 106-channel one-pin transmitter, FPGA radio reception, Ethernet and ARP RTL, adjacent iCE40 reconfiguration, serial arithmetic, and tangible logic.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/fpga-systems.html">
     <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:backdrop_rf.jpeg -->
+    <!-- greenforest:preview-source:fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png -->
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:image" content="https://greenforest.io/social-previews/fpga-systems.png">
     <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/fpga-systems.png">
@@ -33,7 +33,7 @@
             "@type": "CollectionPage",
             "name": "FPGA Systems From Pins To Bitstreams",
             "url": "https://greenforest.io/fpga-systems.html",
-            "description": "FPGA systems by Brian Greenforest across RF, direct network RTL, configuration transport, continuous one-bit arithmetic, tangible logic, and spatial reconfiguration.",
+            "description": "FPGA systems by Brian Greenforest across 106-channel one-pin RF synthesis, direct network RTL, configuration transport, continuous one-bit arithmetic, tangible logic, and spatial reconfiguration.",
             "author": {
                 "@type": "Person",
                 "name": "Brian Greenforest",
@@ -58,7 +58,7 @@
         <div class="cta-row" role="group" aria-label="Explore Brian Greenforest's FPGA systems">
             <a class="cta-link" href="/serial-binary32-divider/">Binary32 divider</a>
             <a class="cta-link" href="how-much-radio-do-you-actually-need.html">RF receiver</a>
-            <a class="cta-link" href="fpga-radio-hardware-in-the-loop.html">One-pin Weaver TX</a>
+            <a class="cta-link" href="/fpga-radio-lab/106-channel-one-pin-transmitter.html">106-channel one-pin TX</a>
             <a class="cta-link" href="ethernet-udp-ice40-reprogrammer.html">Ethernet reprogrammer</a>
             <a class="cta-link" href="physical-mux-tiles/">Physical MUX tiles</a>
             <a class="cta-link" href="/fpga-verilog/">Learn FPGA And Verilog</a>
@@ -67,10 +67,10 @@
     </section>
 
     <figure class="inspectable-image inspectable-image--fit">
-        <a href="fpga-radio-hardware-in-the-loop.html">
-            <img src="fpga-radio-lab/media/wideband-weaver-triad-july26.png" width="3060" height="1700" loading="eager" decoding="async" alt="Measured wanted upper sideband, true conjugate image, and physical carrier from the one-pin FPGA Weaver transmitter">
+        <a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html">
+            <img src="fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png" width="2880" height="1980" loading="eager" decoding="async" alt="Physical spectrum of 106 independently moving FPGA RF channels across the complete 222 to 225 megahertz grid">
         </a>
-        <figcaption>Two signed one-bit I/Q streams select among four physical 216 MHz phases, carry a Weaver upconversion through N16, and excite a hand-built resonant tank.</figcaption>
+        <figcaption>One HX8K creates 106 concurrent FM lanes on a 120-slot grid, reduces their complex sum through continuous bit-serial arithmetic, and switches the complete 3&nbsp;MHz band through N16.</figcaption>
     </figure>
 
     <main>
@@ -93,11 +93,11 @@
                 </article>
 
                 <article class="capability-card">
-                    <a href="fpga-radio-hardware-in-the-loop.html"><img src="fpga-radio-lab/media/wideband-weaver-triad-july26.png" width="3060" height="1700" loading="lazy" decoding="async" alt="Physical Weaver triad showing the flat wanted band, true conjugate image, and 216 megahertz carrier"></a>
-                    <p class="eyebrow">RF transmit · hardware in the loop</p>
-                    <h3><a href="fpga-radio-hardware-in-the-loop.html">One-Pin FPGA Weaver Transmitter</a></h3>
-                    <p>The HX8K implements four quadrature mixers and a phase-domain summator. The first conversion transforms two baseband I/Q sigma-delta streams; their one-bit results control a four-state selector that realizes the two 216 MHz carrier mixers and their sum on N16.</p>
-                    <p>Physical SDR measurements resolve the square wanted band, carrier, tuned-tank response, and true conjugate image. <a href="one-pin-quadrature-sdm-transmitter.html">Trace the April 2025 one-pin Weaver RTL.</a></p>
+                    <a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html"><img src="fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png" width="2880" height="1980" loading="lazy" decoding="async" alt="Physical 120-slot spectrum with 106 occupied FPGA transmitter channels and 14 deliberate holes"></a>
+                    <p class="eyebrow">RF transmit · 106 concurrent channels</p>
+                    <h3><a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html">106-Channel One-Pin FPGA Transmitter</a></h3>
+                    <p>The HX8K implements 106 independent 24-bit phase engines, deterministic FM motion, twin 128-leaf bit-serial I/Q trees, signed sigma-delta conversion, and a 7.5&nbsp;MHz complex rotation before four 216&nbsp;MHz phases converge on N16.</p>
+                    <p>The complete SystemVerilog, support RTL, constraints, build, volatile-SRAM loader, hardware guide, and ready-to-load image are MIT licensed. <a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html">Own the architecture and build it.</a></p>
                 </article>
 
                 <article class="capability-card">

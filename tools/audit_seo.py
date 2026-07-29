@@ -22,6 +22,7 @@ PILLARS = {
     "index.html",
     "serial_multiplier/index.html",
     "serial-binary32-divider/index.html",
+    "fpga-radio-lab/106-channel-one-pin-transmitter.html",
     "fpga-systems.html",
     "ethernet-udp-ice40-reprogrammer.html",
     "physical-mux-tiles/index.html",

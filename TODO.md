@@ -2,6 +2,7 @@
 
 Current repo state after the June 20, 2026 materialization pass:
 
+- Pattern106 now publishes a complete MIT-licensed HX8K transmitter package: 106 independently phased and deterministically modulated FM lanes on a 120-slot, 3&nbsp;MHz grid, the full 882-line top, all support RTL, constraints, build and SRAM-load scripts, hardware notes, a ready-to-load one-second image, architecture drawing, and the physical 222&ndash;225&nbsp;MHz spectrum.
 - Public article pages now exist for the open 64-bit continuous serial multiplier, the binary32 serial divider built from it, the tiny Transformer run, and the Cartilage nested-instantiation system.
 - `cartilage-core.html` is now the current Cartilage mechanism page, with a clean-clone capture, direct links to `avesus/cartilage-core`, the hardware paper, SystemVerilog RTL, Verilator testbench, and explicit proof boundaries.
 - Draft packets are preserved under `article-drafts/`.

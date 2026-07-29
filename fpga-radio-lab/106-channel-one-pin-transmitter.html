@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <title>106-Channel One-Pin FPGA Transmitter | Brian Greenforest</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="One HX8K synthesizes 106 independently phased FM channels across 3 MHz, reduces them through bit-serial I/Q, and transmits the complete band from one FPGA pin.">
+    <link rel="canonical" href="https://greenforest.io/fpga-radio-lab/106-channel-one-pin-transmitter.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:title" content="One FPGA Pin Synthesizes 106 RF Channels Across 3 MHz">
+    <meta property="og:description" content="Full SystemVerilog, build, board constraints, ready-to-load image, and a physical 120-slot spectrum from one HX8K and one switched RF pin.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/fpga-radio-lab/106-channel-one-pin-transmitter.html">
+    <meta property="article:published_time" content="2026-07-28">
+    <meta property="article:modified_time" content="2026-07-28">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png -->
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:image" content="https://greenforest.io/social-previews/fpga-radio-lab/106-channel-one-pin-transmitter.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/fpga-radio-lab/106-channel-one-pin-transmitter.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="One FPGA Pin Synthesizes 106 RF Channels Across 3 MHz - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/fpga-radio-lab/106-channel-one-pin-transmitter.png">
+    <meta name="twitter:image:alt" content="One FPGA Pin Synthesizes 106 RF Channels Across 3 MHz - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "One FPGA Pin Synthesizes 106 RF Channels Across 3 MHz",
+            "description": "One HX8K synthesizes 106 independently phased and deterministically modulated FM channels across a 3 MHz grid, reduces them through continuous bit-serial I/Q arithmetic, and transmits the complete band from one switched FPGA pin.",
+            "datePublished": "2026-07-28",
+            "dateModified": "2026-07-28",
+            "image": "https://greenforest.io/fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png",
+            "isBasedOn": "https://greenforest.io/one-pin-quadrature-sdm-transmitter.html",
+            "license": "https://greenforest.io/fpga-radio-lab/source/one-pin-106-channel-transmitter/LICENSE.txt",
+            "mainEntityOfPage": "https://greenforest.io/fpga-radio-lab/106-channel-one-pin-transmitter.html",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            }
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">One FPGA Pin Synthesizes 106 RF Channels Across 3 MHz</h1></header>
+    <address><time datetime="2026-07-28">July 28, 2026</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Open RF IP &middot; iCE40HX8K &middot; 106-channel complex synthesis</p>
+        <p class="lead">This is an entire frequency-agile transmitter fabric converging on one physical pin.</p>
+        <p>Brian Greenforest fit 106 independently phased, deterministically modulated FM lanes into one HX8K. They occupy a 120-slot grid from 222.0125 to 224.9875&nbsp;MHz, preserve fourteen deliberate holes, and produce 4.5&nbsp;million complete 24-bit I/Q samples per second. Two one-bit sigma-delta streams then drive a four-phase 216&nbsp;MHz Weaver selector whose complete RF result leaves through N16.</p>
+        <p>No runtime multiplier, waveform ROM, block RAM, parallel bank of DAC pins, or external I/Q modulator creates the band. The channel plan, modulation, phase accumulation, complex addition, density conversion, frequency translation, finite transmit window, and live status are FPGA logic. The complete SystemVerilog and rebuild package are MIT licensed so you can change the mask, modulation family, channel spacing, burst length, output network, or product around it.</p>
+        <div class="cta-row" role="group" aria-label="Download and inspect the 106-channel transmitter">
+            <a class="cta-link" href="/fpga-radio-lab/source/one-pin-106-channel-transmitter.zip" download>Download the complete transmitter</a>
+            <a class="cta-link" href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/rtl/gf_pattern106_iq24_lean_one_shot_top.sv">Open the 882-line transmitter RTL</a>
+            <a class="cta-link" href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/README.md">Build it on an HX8K</a>
+        </div>
+    </section>
+
+    <figure class="inspectable-image">
+        <a href="/fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png">
+            <img src="/fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png" width="2880" height="1980" loading="eager" decoding="async" fetchpriority="high" alt="Physical receiver spectrum of Brian Greenforest's Pattern106 transmitter across the complete 222 to 225 megahertz grid, a close 500 kilohertz view, and all 120 integrated slot powers with 106 occupied positions and 14 holes">
+        </a>
+        <figcaption>The complete Pattern106 physical view. Orange is the guarded one-second RF window; blue is RF-off from the same acquisition. Gray columns are the fourteen requested holes. The lower panel walks every 25&nbsp;kHz slot monotonically from 222 to 225&nbsp;MHz. The plotted scale is receiver-relative, preserving the actual band shape and slot geometry seen by the SDR.</figcaption>
+    </figure>
+
+    <main>
+        <section>
+            <h2>Reason First: This Is 106 Radios Sharing One Arithmetic Rhythm</h2>
+            <p>The startling part is not the channel count by itself. It is that all 106 channels are alive concurrently, each with its own 24-bit translation phase, deterministic initial phase, modulation identity, and true quadrature waveform, while the implementation spends only one bit of arithmetic width at each local recurrence.</p>
+            <p>A conventional reading of “106 channels” suggests 106 wide NCO adders, 106 sine tables, 212 multipliers for complex mixing, a broad parallel adder fabric, and a multi-bit DAC. This source builds a different machine. Twenty-four clocks are one arithmetic word. On each clock, every active lane advances one bit of its center-plus-deviation sum, one bit of its phase accumulation, and one bit of its I/Q contribution. The entire array keeps time together.</p>
+            <p>The design contains 474 concurrent one-bit addition recurrences: eight modulation accumulators, 106 center-plus-deviation adders, 106 per-lane phase accumulators, and 254 nodes in the twin I/Q reduction trees. Width becomes time without making the lanes take turns. That distinction is the magnitude: the arithmetic is serial inside every channel and spatial across all channels.</p>
+        </section>
+
+        <figure class="concept-diagram">
+            <a href="/fpga-radio-lab/media/106-channel-one-pin-transmitter-architecture.svg">
+                <img src="/fpga-radio-lab/media/106-channel-one-pin-transmitter-architecture.svg" width="1400" height="760" loading="lazy" decoding="async" alt="Architecture diagram from a 120-slot plan through 106 bit-serial lane engines, twin I and Q reduction trees, signed sigma-delta, 7.5 megahertz rotation, four 216 megahertz phases, N16, and the resonant output network">
+            </a>
+            <figcaption>All 106 lane engines move at once. The trees reduce their current I and Q bits, one word emerges every 24 clocks, and the final phase machine turns that complex word stream into timed charge at one pin.</figcaption>
+        </figure>
+
+        <section>
+            <h2>The Entire 3 MHz Plan Comes From One Integer Equation</h2>
+            <p>The channelizer's complex sample rate falls directly out of its serial word:</p>
+            <pre class="stream-schedule" aria-label="Pattern106 complex sample rate">108,000,000 serial clocks/s ÷ 24 bits = 4,500,000 complex samples/s</pre>
+            <p>Lane zero begins at &minus;1.4875&nbsp;MHz complex baseband. Lane 119 ends at +1.4875&nbsp;MHz. The source advances by 25&nbsp;kHz per lane with:</p>
+            <pre class="stream-schedule" aria-label="Pattern106 channel tuning equation">bin  = -119 + 2 × lane
+tune = round(bin × 2^24 / 360)</pre>
+            <p>The denominator 360 is the exact relationship between a 12.5&nbsp;kHz half-step and the 4.5&nbsp;MHz complex sample rate. The odd-valued bin sequence therefore lands at &minus;1,487,500, &minus;1,462,500, and onward through +1,487,500&nbsp;Hz without a stored frequency table.</p>
+            <p>A common +7.5&nbsp;MHz complex rotation moves that baseband around 223.5&nbsp;MHz on the 216&nbsp;MHz physical clock. The first and last centers become 222.0125 and 224.9875&nbsp;MHz. The edges of their 25&nbsp;kHz slots are exactly 222 and 225&nbsp;MHz: one contiguous 3&nbsp;MHz canvas.</p>
+        </section>
+
+        <section>
+            <h2>A 120-Bit Mask Draws Both Signal And Silence</h2>
+            <p><code>CHANNEL_MASK</code> is the plan. Its 106 one-bits instantiate active lane hardware; its fourteen zero-bits become deliberate holes. The active positions are:</p>
+            <pre class="stream-schedule" aria-label="Pattern106 active and empty channel positions">Active: 0–1, 3–7, 11, 15–21, 23–26, 30–109, 113–119
+Holes:  2, 8–10, 12–14, 22, 27–29, 110–112</pre>
+            <p>This is more powerful than muting samples after synthesis. The generate condition removes an inactive lane from the implemented transmitter. Change one mask constant and the physical array itself changes. The spectrum illustration's gray columns are those same fourteen source-level decisions carried all the way to the receiver view.</p>
+        </section>
+
+        <section>
+            <h2>Every Lane Owns A Real 24-Bit Phase Accumulator</h2>
+            <p>Each occupied lane begins with <code>0x123456 + lane × 0x9e3779</code>, giving the grid a deterministic spread of starting phases. Two iCE40 LUTs serialize the lane's compile-time center word locally. An eight-way registered selector chooses the current deviation bit. One serial full adder forms center plus deviation; a second one-bit recurrence accumulates that tuning word into phase.</p>
+            <p>The carries clear at explicit word boundaries. <code>tune_word_start</code>, <code>phase_word_start</code>, and <code>lane_word_start</code> are intentionally offset by one clock each so the selector, tune addition, phase snapshot, and waveform bits arrive in causal order. Fifteen local 24-cycle counters each serve eight lanes, containing the frame-index fanout instead of stretching one chip-wide control net across the array.</p>
+            <p>Only the top three phase bits are needed for the emitted waveform. They select one of eight points around a complex octagon. That is enough angular resolution to create a true I/Q phasor while keeping the lane's output logic tiny.</p>
+        </section>
+
+        <section>
+            <h2>The Complex Octagon Gives Every Channel Equal Weight</h2>
+            <p>The axial points are <code>(±65,536, 0)</code> and <code>(0, ±65,536)</code>. The diagonal points are <code>(±46,341, ±46,341)</code>, the integer form of the same radius at 45 degrees. Every lane therefore contributes the same intended complex magnitude while its phase moves around the octagon.</p>
+            <p>That amplitude is deliberately generous and safe. Even if all 106 lanes align on one Cartesian axis, the sum is 6,946,816. A signed 24-bit word reaches 8,388,607, leaving 1.638&nbsp;dB of headroom. No limiter or wide post-sum scaling stage is needed.</p>
+            <p>The two lookup functions emit I and Q independently. They are not mirrored copies or a duplicated scalar stream. At 0 degrees the lane is +I; at 90 degrees it is +Q; the diagonal states carry both components with the correct signs. Complex direction exists before the lanes ever meet.</p>
+        </section>
+
+        <section>
+            <h2>Eight Counters Give 106 Channels Distinct Motion</h2>
+            <p>Eight shared 24-bit modulation accumulators use signed step magnitudes 17, 23, 29, 35, 41, 47, 53, and 59. At 4.5&nbsp;million updates per second, their fundamental cycles span 4.5598 through 15.8251&nbsp;Hz. Four three-bit slices reuse those phase streams at 1×, 2×, 4×, and 8× rates, extending the profile cycles through 126.6003&nbsp;Hz.</p>
+            <p>The lane number itself selects a unique tuple:</p>
+            <pre class="stream-schedule" aria-label="Pattern106 deterministic modulation identity">bank       = lane mod 8
+rate slice = floor(lane / 8) mod 4
+profile    = floor(lane / 32)</pre>
+            <p>Profile zero passes the selected three-bit bank state directly; profile one complements it. The modulation accumulator direction alternates with bank parity, so both mappings carry forward and reverse motion across the lane set. Profile two traverses a triangle. In profile three, even lanes follow an eight-state sine-shaped path and odd lanes combine two phase banks. Initial phases add another deterministic separation.</p>
+            <p>All profiles share eight instantaneous tuning offsets from &minus;45,000 through +45,000 phase-word units. At 4.5&nbsp;MS/s that is &plusmn;12,069.940567&nbsp;Hz: 24,139.881134&nbsp;Hz from minimum to maximum inside each 25&nbsp;kHz slot, with 860.118866&nbsp;Hz between neighboring instantaneous ranges. The result is a deliberately dense wall of individually moving FM lanes, not 106 copies of one oscillator state.</p>
+        </section>
+
+        <section>
+            <h2>Two 128-Leaf Trees Add 212 Live Bits Every Clock</h2>
+            <p>Every active lane emits one current I bit and one current Q bit. Those 212 bits enter two balanced binary trees. Each tree has 128 leaves and seven registered levels: 64 adders, then 32, 16, 8, 4, 2, and 1. That is 127 serial additions for I and another 127 for Q.</p>
+            <p>The word-start pulse is delayed one register per level, so each one-bit full adder knows exactly when to discard the previous word's carry. Tree depth changes latency, not cadence. After the pipeline fills, the roots emit one I bit and one Q bit on every 108&nbsp;MHz clock.</p>
+            <p>The output registers rebuild those roots into two signed 24-bit words. Every twenty-fourth bit raises a strobe, toggles the sample marker, and increments the serial-word epoch. One new complex composite therefore appears at 4.5&nbsp;MS/s continuously.</p>
+            <p>This is the same Greenforest serial-arithmetic principle used by the <a href="/serial_multiplier/">continuous 64-bit multiplier</a>, expanded here into a complete radio array: thousands of local state transitions produce wide mathematical behavior without carrying a wide result bus through every stage.</p>
+        </section>
+
+        <section>
+            <h2>Two Signed Sigma-Delta Loops Replace The DAC Bus</h2>
+            <p>The 24-bit composite I and Q values feed two first-order signed sigma-delta loops at 108&nbsp;MHz. Each loop keeps a 26-bit error state, compares its sign, emits one bit, and feeds back either +2<sup>23</sup> or &minus;2<sup>23</sup>. Pulse density now carries the signed component value.</p>
+            <p>Q is negated before conversion to choose the desired complex translation direction. The two resulting bits are not yet the RF output. Together they are a four-state complex word: the instantaneous sign choice for I and Q. The next stage rotates that complete word rather than mixing the components through separate multiplier chains.</p>
+        </section>
+
+        <section>
+            <h2>Five Steps Through 144 States Create The 7.5 MHz Translation</h2>
+            <p>The Gray-quadrant DDS advances by five in a modulo-144 phase space on every 216&nbsp;MHz clock:</p>
+            <pre class="stream-schedule" aria-label="Pattern106 common frequency translation">216 MHz × 5 / 144 = 7.5 MHz</pre>
+            <p>Four phase regions transform <code>(I,Q)</code> into <code>(I,Q)</code>, <code>(Q,−I)</code>, <code>(−I,−Q)</code>, and <code>(−Q,I)</code>. That is a table-free complex rotation. The pair coming out of the DDS addresses four physical PLL phases: 0, 90, 180, and 270 degrees of the 216&nbsp;MHz clock.</p>
+            <p>The selector is the Weaver sum in phase form. Its selected clock phase already embodies the two component mixes and their algebraic combination. <a href="/one-pin-quadrature-sdm-transmitter.html">The original one-pin quadrature transmitter</a> develops that phase-domain sum from first principles; <a href="/fpga-radio-lab/one-pin-qpsk-signal-path.html">the QPSK signal-path article</a> follows the same four-phase boundary from complex bits to N16.</p>
+        </section>
+
+        <section>
+            <h2>N16 Drives Charge, Releases, And Lets The Tank Sing</h2>
+            <p>The final <code>SB_IO</code> has constant data input one. The modulated RF bit controls output enable. A selected interval drives N16 high; the complementary interval returns it to high impedance. The pin never has to force the resonant node low.</p>
+            <p>N16 feeds a coupling path and magnetically coupled resonant network. Each enabled edge contributes timed charge. Between edges, electric and magnetic energy continue exchanging in the tank. Digital phase selection determines when energy arrives; resonant matter determines how that energy persists and emerges as RF. The FPGA and tank are one transmitter mechanism.</p>
+            <p>That is why one pin can carry a complete 3&nbsp;MHz complex band. It is not imitating a 48-bit parallel DAC interface. It is controlling the phase and timing of physical energy directly.</p>
+        </section>
+
+        <section>
+            <h2>The One-Second Window Is Part Of The Circuit</h2>
+            <p>The top-level parameter <code>RF_COMPILE_ARMED</code> defaults to zero. An armed build still waits for synchronized PLL lock, a 256-cycle startup interval, and channelizer readiness. Only then does <code>gf_one_shot_burst_gate</code> permit N16 to switch.</p>
+            <p>The standard window is 108,000,000 cycles at 108&nbsp;MHz: exactly one second. During that interval the channelizer delivers 4,500,000 complete complex samples. When the counter expires, <code>burst_done</code> remains asserted and N16 remains high impedance until the FPGA is configured again.</p>
+            <p>The red LED derives from the same transmit window. A coherent 16-byte MPSSE frame reports PLL lock, reset, readiness, active/done state, outputs-off state, activity, consumed sample count, serial epoch, profile B5, configuration epoch 7, and the active-channel count. The transmitter operates autonomously; telemetry lets an instrument host watch the silicon without becoming part of the RF datapath.</p>
+        </section>
+
+        <section>
+            <h2>How To Read The Physical Spectrum</h2>
+            <p>The top panel spans all 120 slots from 222 to 225&nbsp;MHz. It overlays the guarded RF-on interval in orange with the RF-off intervals from the same receiver acquisition in blue. The dotted 223.5&nbsp;MHz line marks the common translation center; the center response is retained rather than erased.</p>
+            <p>The middle panel opens the required 222.5&ndash;223.0&nbsp;MHz region. It makes the dense comb-like modulation structure and selected gray hole groups easier to see. Both traces use 91 equal Welch frames per state, so the visual comparison is formed from matching amounts of receiver time.</p>
+            <p>The bottom panel integrates receiver-relative power in every 25&nbsp;kHz slot. Green bars name the 106 positions requested by the HDL mask; gray regions name the fourteen holes. Because the slots are ordered monotonically from low to high frequency, the physical picture can be read directly against the lane number and <code>CHANNEL_MASK</code> in the source.</p>
+        </section>
+
+        <section>
+            <h2>The 882-Line File, Inspected From Top To Pin</h2>
+            <div class="article-fact-table" role="table" aria-label="Source map for the Pattern106 transmitter">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lines 17–44</div><div role="cell"><code>gf_signed_sdm24_lean</code>: signed 24-bit sample to one-bit density stream</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lines 48–99</div><div role="cell">Registered 8-way selector and the constant-false branch's 16-way selector</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lines 101–264</div><div role="cell">Channelizer constants, tuning equation, modulation profiles, and octagonal I/Q functions</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lines 266–385</div><div role="cell">24-clock word rhythm, rotating constants, eight bit-serial modulation counters, and local frame counters</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lines 391–547</div><div role="cell">A readable dynamic-lookup alternative under <code>if (1'b0)</code>; it produces no implemented hardware</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lines 548–650</div><div role="cell"><code>g_lane_ring</code>: the active 106-lane center serializer, deviation selector, serial tune adder, NCO, and I/Q generator</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lines 653–734</div><div role="cell">Twin 128-leaf serial trees and 24-bit composite reconstruction</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Lines 736–880</div><div role="cell">HX8K PLL, 108&nbsp;MHz domain, one-shot gate, SDMs, 7.5&nbsp;MHz rotation, four-phase selector, N16, LED, and telemetry</div></div>
+            </div>
+            <p>The synthesis closure adds two compact files. <a href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/rtl/gf_pattern106_support.sv"><code>gf_pattern106_support.sv</code></a> supplies the serial adder, one-shot gate, quadrant DDS, and four-phase selector. <a href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/rtl/gf_mpsse_snapshot16_lean.sv"><code>gf_mpsse_snapshot16_lean.sv</code></a> supplies the cross-clock coherent telemetry frame. There are no hidden generated HDL files behind the top.</p>
+        </section>
+
+        <section>
+            <h2>The HX8K Is 89 Percent Full And Still Keeps The Rhythm</h2>
+            <div class="article-fact-table" role="table" aria-label="Pattern106 FPGA implementation">
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Target</div><div role="cell">Official Lattice ICE40HX8K-B-EVN, iCE40HX8K-CT256</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Placed logic</div><div role="cell">6,902 / 7,680 logic cells (89%)</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Synthesized cells</div><div role="cell">4,570 LUT4; 5,334 flip-flops; 233 carry cells</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">Hard resources</div><div role="cell">0 block RAM; 1 PLL; 4 global buffers; 7 I/O</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">108 MHz serial route</div><div role="cell">109.05 MHz achieved</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">216 MHz phase route</div><div role="cell">244.20 MHz achieved for the 216.03 MHz clock</div></div>
+                <div class="article-fact-row" role="row"><div class="article-fact-key" role="cell">30 MHz telemetry route</div><div role="cell">166.50 MHz achieved</div></div>
+            </div>
+            <p>The build explicitly rejects runtime multiplication and block-RAM inference. The capacity goes into lane state, serial arithmetic, local timing, registered reduction, and the physical phase path. The clean public source rebuild produces the same ready-to-load FPGA image used for the spectrum above.</p>
+        </section>
+
+        <section>
+            <h2>Download It, Change It, Put It On A Board</h2>
+            <div class="download-grid">
+                <article class="download-card">
+                    <h3>Complete source package</h3>
+                    <p>All RTL, constraints, build and SRAM-load scripts, hardware notes, MIT terms, and the ready-to-load one-second image.</p>
+                    <a class="primary-download" href="/fpga-radio-lab/source/one-pin-106-channel-transmitter.zip" download>Download the ZIP</a>
+                </article>
+                <article class="download-card">
+                    <h3>Main transmitter RTL</h3>
+                    <p>Open the complete channel plan, 106 active lane generators, serial trees, SDMs, clocking, burst gate, and N16 boundary.</p>
+                    <a class="primary-download" href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/rtl/gf_pattern106_iq24_lean_one_shot_top.sv">Read the SystemVerilog</a>
+                </article>
+                <article class="download-card">
+                    <h3>Build and hardware guide</h3>
+                    <p>Install Yosys, nextpnr-ice40, and IceStorm; build armed or high-impedance; load volatile SRAM; connect the switched output correctly.</p>
+                    <a class="primary-download" href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/README.md">Open README.md</a>
+                    <p><a href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/HARDWARE.md">Open the hardware connection</a></p>
+                </article>
+                <article class="download-card">
+                    <h3>Ready-to-load FPGA image</h3>
+                    <p>Load the one-second Pattern106 image into volatile HX8K SRAM with the included <code>iceprog -S</code> helper.</p>
+                    <a class="primary-download" href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/bitstream/pattern106_iq24_lean_mpsse_v3_1s.bin" download>Download the bitstream</a>
+                </article>
+                <article class="download-card">
+                    <h3>Board constraints</h3>
+                    <p>Exact CT256 pins for the 12&nbsp;MHz crystal, N16, LED, and FT2232H channel-B telemetry, plus all clock declarations.</p>
+                    <a class="primary-download" href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/constraints/hx8k_tx_n16_led_mpsse_telemetry.pcf">Open the PCF</a>
+                    <p><a href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/constraints/timing_one_shot_mpsse_telemetry.py">Open timing constraints</a></p>
+                </article>
+                <article class="download-card">
+                    <h3>MIT: use it commercially</h3>
+                    <p>Use, copy, modify, merge, publish, distribute, sublicense, and sell copies. Keep the copyright and permission notice.</p>
+                    <a class="primary-download" href="/fpga-radio-lab/source/one-pin-106-channel-transmitter/LICENSE.txt">Read the license</a>
+                </article>
+            </div>
+
+            <p>After extraction, the complete armed build is one command:</p>
+            <pre class="stream-schedule" aria-label="Build the Pattern106 one-second transmitter">RF_COMPILE_ARMED=1 BURST_CYCLES_108=108000000 bash ./build.sh</pre>
+            <p>Then load volatile SRAM:</p>
+            <pre class="stream-schedule" aria-label="Load the Pattern106 transmitter into volatile SRAM">bash ./program_sram.sh build/pattern106_iq24_lean_mpsse_v3.bin</pre>
+            <p>Change <code>CHANNEL_MASK</code> for a new spectral stencil, then update the telemetry frame's active-channel-count byte to match. Change the lane tuning equation for a different grid. Replace the deterministic profiles with your modulation. Retarget the phase selector or output network. The architecture is public precisely so the next transmitter does not have to begin from a black box.</p>
+        </section>
+
+        <section>
+            <h2>Build The Next Impossible Radio</h2>
+            <p>This source makes a 106-channel RF canvas available as ordinary editable logic. It can become a channel emulator, compact signal source, multi-tone instrument, deterministic interferer for a shielded bench, coded beacon family, test-vector generator, or the frequency fabric inside a larger radio system.</p>
+            <p>If you want Brian to adapt this architecture to another band, FPGA, channel plan, waveform family, instrument, product, or research program, <a href="/contact.html">start the conversation</a>. Bring the spectrum you want to own and the physical boundary it must cross.</p>
+        </section>
+    </main>
+
+    <nav class="article-links">
+        <p>Next:</p>
+        <a href="/fpga-radio-lab/measurement-loop.html">Take The RTL Through The Physical RF Loop</a>
+        <p>Move from source, timing, and a volatile FPGA image through one bounded transmission, receiver capture, interpretation, and the next hardware decision.</p>
+        <p>More:</p>
+        <a href="/fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
+        <p>Continue through Brian Greenforest's serial arithmetic, radio, Ethernet, configuration, physical logic, and spatial-computing systems.</p>
+    </nav>
+</body>
+
+</html>

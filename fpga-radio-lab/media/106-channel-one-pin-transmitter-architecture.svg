@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Architecture of the 106-channel one-pin FPGA transmitter</title>
+  <desc id="desc">A 120-slot frequency grid selects 106 active serial NCO lanes. Two 128-leaf adder trees form 24-bit I and Q, sigma-delta loops turn them into one-bit streams, a 7.5 megahertz quadrant rotation selects four phases of a 216 megahertz clock, and N16 switches a resonant output network.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071b24"/>
+      <stop offset="1" stop-color="#102d38"/>
+    </linearGradient>
+    <linearGradient id="lane" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1fb98a"/>
+      <stop offset="1" stop-color="#70e0b9"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f2b84b"/>
+    </marker>
+    <style>
+      .title{font:700 34px system-ui,-apple-system,Segoe UI,sans-serif;fill:#f6fbfd}
+      .sub{font:500 18px system-ui,-apple-system,Segoe UI,sans-serif;fill:#b9d3dc}
+      .head{font:700 20px system-ui,-apple-system,Segoe UI,sans-serif;fill:#f6fbfd}
+      .body{font:500 16px system-ui,-apple-system,Segoe UI,sans-serif;fill:#d9e8ed}
+      .number{font:800 30px system-ui,-apple-system,Segoe UI,sans-serif;fill:#72e6bd}
+      .box{fill:#123a47;stroke:#4c8392;stroke-width:2}
+      .hot{fill:#4b2f13;stroke:#f2b84b;stroke-width:2}
+      .wire{fill:none;stroke:#f2b84b;stroke-width:4;marker-end:url(#arrow)}
+      .fine{fill:none;stroke:#78a9b6;stroke-width:2}
+    </style>
+  </defs>
+  <rect width="1400" height="760" rx="26" fill="url(#bg)"/>
+  <text x="60" y="64" class="title">106 complete RF lanes become one switched FPGA pin</text>
+  <text x="60" y="98" class="sub">No runtime multiplier · no waveform ROM · no block RAM · one 24-clock complex sample cadence</text>
+
+  <rect x="55" y="145" width="205" height="218" rx="18" class="box"/>
+  <text x="78" y="181" class="head">Frequency plan</text>
+  <text x="78" y="222" class="number">120 slots</text>
+  <text x="78" y="250" class="body">25 kHz spacing</text>
+  <text x="78" y="281" class="number">106 on</text>
+  <text x="78" y="309" class="body">14 intentional holes</text>
+  <g transform="translate(78 326)">
+    <rect width="9" height="18" fill="#70e0b9"/><rect x="12" width="9" height="18" fill="#70e0b9"/>
+    <rect x="24" width="9" height="18" fill="#657781"/><rect x="36" width="9" height="18" fill="#70e0b9"/>
+    <rect x="48" width="9" height="18" fill="#70e0b9"/><rect x="60" width="9" height="18" fill="#70e0b9"/>
+    <rect x="72" width="9" height="18" fill="#657781"/><rect x="84" width="9" height="18" fill="#657781"/>
+    <rect x="96" width="9" height="18" fill="#70e0b9"/><rect x="108" width="9" height="18" fill="#70e0b9"/>
+    <rect x="120" width="9" height="18" fill="#70e0b9"/><rect x="132" width="9" height="18" fill="#70e0b9"/>
+    <rect x="144" width="9" height="18" fill="#657781"/><rect x="156" width="9" height="18" fill="#70e0b9"/>
+  </g>
+
+  <path d="M260 254 H304" class="wire"/>
+
+  <rect x="310" y="130" width="258" height="248" rx="18" class="box"/>
+  <text x="334" y="169" class="head">106 concurrent lane engines</text>
+  <text x="334" y="212" class="body">24-bit center + deviation</text>
+  <text x="334" y="242" class="body">24-bit serial phase accumulator</text>
+  <text x="334" y="272" class="body">unique initial phase</text>
+  <text x="334" y="302" class="body">8-state constant-magnitude I/Q</text>
+  <rect x="334" y="325" width="204" height="20" rx="10" fill="url(#lane)"/>
+  <text x="436" y="340" text-anchor="middle" style="font:700 13px system-ui;fill:#05271d">108 MHz one-bit recurrences</text>
+
+  <path d="M568 218 H612" class="wire"/>
+  <path d="M568 300 H612" class="wire"/>
+
+  <rect x="618" y="130" width="196" height="248" rx="18" class="box"/>
+  <text x="642" y="169" class="head">Twin reductions</text>
+  <path d="M648 211 H681 L715 238 L749 211 H783" class="fine"/>
+  <path d="M648 286 H681 L715 259 L749 286 H783" class="fine"/>
+  <text x="642" y="326" class="body">128-leaf serial tree for I</text>
+  <text x="642" y="352" class="body">128-leaf serial tree for Q</text>
+
+  <path d="M814 254 H858" class="wire"/>
+
+  <rect x="864" y="145" width="206" height="218" rx="18" class="box"/>
+  <text x="888" y="184" class="head">Complex composite</text>
+  <text x="888" y="229" class="number">24 + 24 bit</text>
+  <text x="888" y="260" class="body">signed I and Q</text>
+  <text x="888" y="302" class="number">4.5 MS/s</text>
+  <text x="888" y="330" class="body">one word / 24 clocks</text>
+
+  <path d="M1070 254 H1114" class="wire"/>
+
+  <rect x="1120" y="130" width="225" height="248" rx="18" class="box"/>
+  <text x="1144" y="169" class="head">RF phase machine</text>
+  <text x="1144" y="211" class="body">signed I/Q sigma-delta</text>
+  <text x="1144" y="241" class="body">+7.5 MHz quadrant rotation</text>
+  <text x="1144" y="271" class="body">0° · 90° · 180° · 270°</text>
+  <text x="1144" y="313" class="number">216 MHz</text>
+  <text x="1144" y="341" class="body">four physical clock phases</text>
+
+  <path d="M1232 378 V422" class="wire"/>
+  <rect x="1065" y="430" width="335" height="115" rx="18" class="hot"/>
+  <text x="1091" y="470" class="head">N16: drive high or release</text>
+  <text x="1091" y="500" class="body">timed charge → resonant network</text>
+  <text x="1091" y="527" class="body">one pin carries the complete band</text>
+
+  <rect x="55" y="430" width="950" height="115" rx="18" class="box"/>
+  <text x="80" y="468" class="head">Clock and record geometry</text>
+  <text x="80" y="508" class="body">12 MHz crystal</text>
+  <path d="M205 501 H250" class="wire"/>
+  <text x="266" y="508" class="body">PLL: 216 MHz + 90°</text>
+  <path d="M452 501 H497" class="wire"/>
+  <text x="513" y="508" class="body">÷2: 108 MHz serial fabric</text>
+  <path d="M728 501 H773" class="wire"/>
+  <text x="789" y="508" class="body">24 clocks = 1 complex sample</text>
+
+  <rect x="55" y="592" width="1290" height="108" rx="18" fill="#0b222c" stroke="#315b68" stroke-width="2"/>
+  <text x="80" y="632" class="head">The complete movement</text>
+  <text x="80" y="674" class="body">3 MHz channel plan → 474 concurrent one-bit additions → complex I/Q → density-coded phase → one-second finite RF window</text>
+</svg>

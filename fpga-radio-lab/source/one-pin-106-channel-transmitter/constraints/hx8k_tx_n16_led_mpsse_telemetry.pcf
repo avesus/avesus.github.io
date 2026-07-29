@@ -1,0 +1,10 @@
+# Official Lattice iCE40HX8K-B-EVN, iCE40HX8K-CT256.
+set_io -nowarn CRYSTAL_12MHZ J3
+set_io -nowarn RF_OUT N16
+set_io -nowarn LED_R B5
+
+# Board-wired FT2232H channel B, SPI mode 0.
+set_io -nowarn MPSSE_SCLK B10
+set_io -nowarn MPSSE_MOSI B12
+set_io -nowarn MPSSE_MISO B13
+set_io -nowarn MPSSE_CS_N A15

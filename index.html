@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Brian Greenforest | FPGA, Radio, WebGL &amp; Cartilage Inventions</title>
-    <meta name="description" content="Explore Brian Greenforest's FPGA arithmetic at 3.375M multiplications/s and 6.75M binary32 divisions/s, one-pin radio, Ethernet RTL, WebGL, Cartilage, and semiconductor inventions.">
+    <meta name="description" content="Explore Brian Greenforest's 106-channel one-pin FPGA transmitter, FPGA arithmetic at 3.375M multiplications/s and 6.75M binary32 divisions/s, Ethernet RTL, WebGL, Cartilage, and semiconductor inventions.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/">
     <link rel="icon" href="/favicon.ico">
     <meta property="og:title" content="Brian Greenforest | FPGA, Radio, WebGL &amp; Cartilage Inventions">
-    <meta property="og:description" content="Open one-bit FPGA arithmetic, one-pin radio, Ethernet RTL, raw browser GPU computation, physical logic, Cartilage, and semiconductor fabrication.">
+    <meta property="og:description" content="A 106-channel one-pin FPGA transmitter, open one-bit arithmetic, Ethernet RTL, raw browser GPU computation, physical logic, Cartilage, and semiconductor fabrication.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://greenforest.io/">
     <!-- greenforest:share-metadata:start -->
@@ -135,12 +135,12 @@
 
     <main>
         <section class="abstract">
-            <p class="lead">One-bit arithmetic produces 3.375&nbsp;million 64-bit products or 6.75&nbsp;million binary32 quotients per second on an HX8K. One FPGA pin carries complete radio paths. Cartilage installs and replaces spatial circuit regions. Raw WebGL turns a browser texture into a visible computing machine.</p>
+            <p class="lead">One FPGA pin synthesizes 106 independently moving RF channels across 3&nbsp;MHz. One-bit arithmetic produces 3.375&nbsp;million 64-bit products or 6.75&nbsp;million binary32 quotients per second on an HX8K. Cartilage installs and replaces spatial circuit regions. Raw WebGL turns a browser texture into a visible computing machine.</p>
             <p>Greenforest I/O develops the mechanism itself—circuit, shader, fabric, RTL, board, or physical process—so an engineer can run it, understand it, and carry it into a product or research program.</p>
             <div class="cta-row" role="group" aria-label="Start with Brian Greenforest's work">
                 <a class="cta-link" href="/serial-binary32-divider/">Divide at 6.75M/s</a>
                 <a class="cta-link" href="serial_multiplier/">Stream the multiplier</a>
-                <a class="cta-link" href="fpga-systems.html">Open the FPGA systems</a>
+                <a class="cta-link" href="/fpga-radio-lab/106-channel-one-pin-transmitter.html">Build the 106-channel transmitter</a>
                 <a class="cta-link" href="webgl-glsl-computing.html">Run raw WebGL compute</a>
                 <a class="cta-link" href="cartilage/">Build upward to Cartilage</a>
                 <a class="cta-link" href="technology-research-and-consulting.html">Commission hard R&amp;D</a>
@@ -192,11 +192,11 @@
 
             <div class="capability-grid">
                 <article class="capability-card">
-                    <a href="fpga-radio-hardware-in-the-loop.html"><img src="fpga-radio-lab/media/wideband-weaver-triad-july26.png" width="3060" height="1700" loading="lazy" decoding="async" alt="The measured square upper sideband, true conjugate image, and physical carrier of Brian Greenforest's one-pin FPGA Weaver transmitter"></a>
-                    <span class="eyebrow">RF transmit &middot; physical feedback</span>
-                    <h3><a href="fpga-radio-hardware-in-the-loop.html">Four quadrature mixers converge on one FPGA RF pin</a></h3>
-                    <p>Two baseband I/Q sigma-delta streams perform the first Weaver conversion. Their one-bit results drive a four-state selector, which realizes both 216&nbsp;MHz carrier mixers and sums their phases before pin N16 excites a tuned tank. The complete path produced 29.44&nbsp;dB image separation in the narrow wanted lane.</p>
-                    <p><a href="one-pin-quadrature-sdm-transmitter.html">Open the April 2025 one-pin Weaver RTL</a></p>
+                    <a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html"><img src="fpga-radio-lab/media/106-channel-one-pin-transmitter-physical-spectrum.png" width="2880" height="1980" loading="lazy" decoding="async" alt="Physical spectrum of 106 independently moving FPGA RF channels across a 120-slot, 3 megahertz grid"></a>
+                    <span class="eyebrow">RF transmit &middot; 106 concurrent channels</span>
+                    <h3><a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html">One FPGA pin synthesizes 106 RF channels across 3 MHz</a></h3>
+                    <p>The HX8K advances 106 independent 24-bit lane phases, reduces their live I/Q contributions through 254 bit-serial tree nodes, and turns the complete 4.5&nbsp;MS/s complex band into four-phase RF timing on N16.</p>
+                    <p><a href="/fpga-radio-lab/106-channel-one-pin-transmitter.html">Inspect every stage and download the complete MIT-licensed transmitter</a></p>
                 </article>
 
                 <article class="capability-card">
