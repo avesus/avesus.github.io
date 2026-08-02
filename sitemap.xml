@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://greenforest.io/</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/about-greenforest.html</loc>
@@ -30,11 +30,11 @@
   </url>
   <url>
     <loc>https://greenforest.io/site-map.html</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/proof-and-artifacts.html</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/fpga-systems.html</loc>
@@ -122,7 +122,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/mux-algebra.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/privacy.html</loc>
@@ -134,51 +134,59 @@
   </url>
   <url>
     <loc>https://greenforest.io/cartilage2026.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-core.html</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-reconfigurable-computing-roadmap.html</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage-circuit-workstation.html</loc>
+    <lastmod>2026-08-01</lastmod>
+  </url>
+  <url>
+    <loc>https://greenforest.io/cartilage-multiplier-demo/</loc>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/logic-to-luts.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/cmos-gain-and-output-drivers.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/clock-event-reset-distribution.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/statecharts-and-one-hot-fsms.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/clock-regions-and-timing-closure.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/metal-wires.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage/nested-components-and-composition.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/reactive-model-composition.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/webgl-glsl-computing.html</loc>
@@ -190,11 +198,11 @@
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-verified-ripple2-adder.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-visual-language.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/the-missing-maker-fab.html</loc>
@@ -218,7 +226,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/boolean-algebra-is-all-that-is-required.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/serial_multiplier/</loc>
@@ -238,7 +246,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/cartilage-nested-instantiation-demo.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/blog/</loc>
@@ -286,7 +294,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/cellular-automata-2019/</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/cellular-automata-2019/cartilage.html</loc>
@@ -411,7 +419,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/miscellanies/the-cartilage-editor-and-seed-i-wanted-in-2021.html</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/miscellanies/the-universe-is-connections.html</loc>
@@ -419,7 +427,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/miscellanies/cartilage-the-architecture-that-rebuilt-itself.html</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/miscellanies/time-memory-and-the-one-now.html</loc>
@@ -737,7 +745,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2023-03-25-explaining-cartilage-by-comparison-with-hadoop.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2023-03-22-fpgas-claytronics-and-reactive-programming.html</loc>
@@ -801,7 +809,7 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-05-cartilage-transputers-and-cellmatrix.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-05-05-fpgas-as-reactive-parallel-beauty.html</loc>
@@ -821,11 +829,11 @@
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-27-a-short-term-cartilage-project-structure.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-27-what-cartilage-is-and-is-not.html</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-08-01</lastmod>
   </url>
   <url>
     <loc>https://greenforest.io/linkedin-archive/2022-04-27-reactive-programming-implies-distributed-systems.html</loc>
