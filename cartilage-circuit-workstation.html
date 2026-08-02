@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Run Cartilage in the Browser: Open Multiplier and Private Workstation</title>
-    <meta name="description" content="Run an open self-contained Cartilage multiplier, then request access to the private circuit workstation for editing, loading, saving, sharing, and cross-device development.">
+    <meta name="description" content="Run and edit a self-contained Cartilage multiplier, initialize a GND fabric, place cell roles locally, then request private access for loading, saving, sharing, and cross-device development.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/cartilage-circuit-workstation.html">
     <meta property="og:title" content="Run Cartilage in the Browser: Open Multiplier and Private Workstation">
-    <meta property="og:description" content="A routed low-nibble Cartilage multiplier now runs as one open browser artifact. Private workstation access adds circuit editing, loading, saving, and ongoing cross-device stream development.">
+    <meta property="og:description" content="Run the routed multiplier or initialize an all-GND Cartilage fabric and place cell roles locally. Private access adds loading, saving, sharing, and ongoing cross-device stream development.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/cartilage-circuit-workstation.html">
     <meta property="article:published_time" content="2026-08-01">
@@ -68,8 +68,8 @@
     <address>August 1, 2026</address>
 
     <section class="abstract">
-        <p class="lead">A complete routed low-nibble multiplier now opens as one self-contained Cartilage machine—no account, no backend, and no installation.</p>
-        <p>The public artifact places a deterministic <code>4×4</code> unsigned multiplier into a <code>256×256</code> WebGL fabric. Change <code>A</code> and <code>B</code>, watch the signals cross the visible field, inspect individual cells, pause propagation, zoom into the route, and reset the entire machine from the circuit embedded in the page.</p>
+        <p class="lead">A complete routed low-nibble multiplier and its cell-role editor now open as one self-contained Cartilage machine—no account, no backend, and no installation.</p>
+        <p>Run the deterministic <code>4×4</code> unsigned multiplier in its <code>256×256</code> WebGL fabric, or initialize the fabric with GND and build directly. The public role menu places GND, PWR, crossings, wires, MUXes, ports, parent pointers, and tile walls by tapping or dragging across cells.</p>
         <div class="cta-row" role="group" aria-label="Cartilage workstation actions">
             <a class="cta-link" href="/cartilage-multiplier-demo/">Run the open multiplier</a>
             <a class="cta-link" href="https://www.linkedin.com/in/briangreenforest" target="_blank" rel="noopener">Request the private demo on LinkedIn</a>
@@ -81,12 +81,12 @@
             <h2>One Click Opens The Circuit Itself</h2>
             <figure class="inspectable-image inspectable-image--fit">
                 <a href="/cartilage-multiplier-demo/">
-                    <img src="/cartilage-multiplier-demo/cartilage-multiplier-demo.png" width="1440" height="900" loading="eager" decoding="async" alt="A 256 by 256 Cartilage WebGL fabric containing the open low-nibble multiplier, with operand, pause, reset, zoom, inspection, and private-workbench controls">
+                    <img src="/cartilage-multiplier-demo/cartilage-multiplier-demo.png" width="1440" height="900" loading="eager" decoding="async" alt="A 256 by 256 Cartilage WebGL fabric containing the open low-nibble multiplier, with operand, New GND, role placement, pause, reset, zoom, and inspection controls">
                 </a>
-                <figcaption>The open artifact contains the multiplier state inside the HTML. Reloading restores the original circuit; nothing is fetched from the private workstation.</figcaption>
+                <figcaption>The open artifact contains the multiplier state and cell editor inside the HTML. Start a GND fabric, place roles locally, and reload whenever you want the original multiplier back.</figcaption>
             </figure>
             <p>The page is not a screenshot or a remote video. It is the running frontend, substantially refactored from the July 31 Cartilage workbench at commit <code>ee2bf38</code>. The two WebGL state planes begin from one embedded native fabric image and continue through the same ping-pong computation engine used by that pinned research build.</p>
-            <p>The public version deliberately has one circuit and one purpose. It has no login form, slot selector, Load button, Save button, credential, private address, server endpoint, browser storage, or driver-source evaluator. The multiplier demo’s only initial network request is the HTML document itself.</p>
+            <p>The public version deliberately has no login form, slot selector, Load button, Save button, credential, private address, server endpoint, browser storage, or driver-source evaluator. Those removals do not restrict authorship: New GND, the complete role menu, cell inspection, and manual role placement all work without authentication. The demo’s only initial network request is the HTML document itself.</p>
         </section>
 
         <section>
@@ -119,8 +119,8 @@
 
         <section>
             <h2>The Private Workstation Opens The Full Authoring Loop</h2>
-            <p>The open multiplier is the public front door. I also make the full authenticated Cartilage workstation available as a private demo for people who want to work with the fabric rather than view one prepared circuit.</p>
-            <p>Private-demo users can edit cell roles, load circuits, save named circuits and revisions, return to saved work, and let friends or colleagues with private access load the same named save and enter a pin-relay room. The username and password are shared directly, never published into the open artifact.</p>
+            <p>The open multiplier already includes local circuit authoring. I also make the authenticated Cartilage workstation available as a private demo for people who want persistence and shared continuity beyond one browser session.</p>
+            <p>Private-demo users keep the same cell-role editing and add circuit loading, named saves and revisions, return access to saved work, and the ability for friends or colleagues with private access to load the same named save and enter a pin-relay room. The username and password are shared directly, never published into the open artifact.</p>
             <div class="reader-note">
                 <p><strong>Want access?</strong> <a href="https://www.linkedin.com/in/briangreenforest" target="_blank" rel="noopener">Reach out to Brian Greenforest on LinkedIn</a> and ask for the private Cartilage demo username and password.</p>
             </div>
@@ -134,7 +134,7 @@
 
         <section>
             <h2>Open The Multiplier, Then Ask For The Workbench</h2>
-            <p>Start with the public multiplier. Change the operands, let the signal wave settle, inspect the MUXes and routes, and reload to recover the embedded circuit. If you want to edit, load, save, share, or follow the physical-streaming work, the private workstation is the next step.</p>
+            <p>Start with the public multiplier, or press New GND and build with the role menu. Change cells freely, inspect the result, and reload to recover the embedded multiplier. If you want to load, save, revisit, and share named circuits or follow the physical-streaming work, the private workstation is the next step.</p>
             <div class="cta-row" role="group" aria-label="Open and private Cartilage demo links">
                 <a class="cta-link" href="/cartilage-multiplier-demo/">Open the self-contained multiplier</a>
                 <a class="cta-link" href="https://www.linkedin.com/in/briangreenforest" target="_blank" rel="noopener">Message Brian on LinkedIn</a>

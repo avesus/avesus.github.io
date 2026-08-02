@@ -9,9 +9,9 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <meta name="description" content="Run self-contained 4x4 unsigned inputs with a low-nibble Cartilage product in WebGL. The circuit is embedded in this page; no account, backend, Load, or Save is present.">
+  <meta name="description" content="Run the self-contained low-nibble multiplier or initialize an all-GND Cartilage fabric and place cell roles locally. No account, backend, Load, or Save is present.">
   <meta property="og:title" content="Cartilage 4x4 Low-Nibble Multiplier — Open Browser Demo">
-  <meta property="og:description" content="Change two four-bit inputs and watch their low product bits propagate through one self-contained Cartilage WebGL fabric.">
+  <meta property="og:description" content="Run the routed multiplier or initialize an all-GND Cartilage fabric and place GND, PWR, wire, crossing, MUX, port, parent, and wall roles locally.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://greenforest.io/cartilage-multiplier-demo/">
   <link rel="canonical" href="https://greenforest.io/cartilage-multiplier-demo/">
@@ -5045,6 +5045,7 @@ let phaseShift = 30;
 
 const playPauseButton = window.document.getElementById('play-pause');
 const resetButton = window.document.getElementById('reset-demo');
+const newGndButton = window.document.getElementById('new-gnd-fabric');
 const zoomOutButton = window.document.getElementById('zoom-out');
 const zoomInButton = window.document.getElementById('zoom-in');
 const zoomFitButton = window.document.getElementById('zoom-fit');
@@ -5512,10 +5513,20 @@ const roleOptionButtons = [...rolePicker.querySelectorAll('[data-cell-role]')];
 
 window.g_app.selectedCellRoleId = null;
 
+const updateRolePickerMaxHeight = () => {
+  const controlsRect = window.document.getElementById('fabric-controls').getBoundingClientRect();
+  rolePicker.style.maxHeight = `${Math.max(120, window.innerHeight - controlsRect.bottom - 16)}px`;
+};
+
 const setRolePickerOpen = open => {
   rolePicker.hidden = !open;
   rolePickerToggleButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (open) updateRolePickerMaxHeight();
 };
+
+window.addEventListener('resize', () => {
+  if (!rolePicker.hidden) updateRolePickerMaxHeight();
+});
 
 const selectCellRole = roleId => {
   const role = roleId ? cellEditRoles[roleId] : null;
@@ -5727,9 +5738,81 @@ window.g_app.applyCellRole = (cellX, cellY, roleId = window.g_app.selectedCellRo
 };
 
 const multiplierOperands = { a: 0, b: 0, revision: 0 };
+const demoTitle = window.document.querySelector('.demo-title');
 const operandAValue = window.document.getElementById('operand-a-value');
 const operandBValue = window.document.getElementById('operand-b-value');
 const multiplierProduct = window.document.getElementById('multiplier-product');
+const multiplierOperandButtons = [
+  window.document.getElementById('operand-a-down'),
+  window.document.getElementById('operand-a-up'),
+  window.document.getElementById('operand-b-down'),
+  window.document.getElementById('operand-b-up')
+];
+
+const uploadWholeFabricTexture = textureBytes => {
+  const previousActiveTexture = gl.getParameter(gl.ACTIVE_TEXTURE);
+  gl.activeTexture(gl.TEXTURE0);
+  const previousTexture0 = gl.getParameter(gl.TEXTURE_BINDING_2D);
+  for (const fabricTexture of gpgpuTexture) {
+    gl.bindTexture(gl.TEXTURE_2D, fabricTexture.texture);
+    gl.texSubImage2D(
+      gl.TEXTURE_2D,
+      0,
+      0,
+      0,
+      storageTextureWidth,
+      storageTextureHeight,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      textureBytes
+    );
+  }
+  gl.bindTexture(gl.TEXTURE_2D, previousTexture0);
+  gl.activeTexture(previousActiveTexture);
+};
+
+const initializeGndFabric = () => {
+  newGndButton.disabled = true;
+  try {
+    const gndTexture = buildNativeGndTexture();
+    installNativeTileMetadata(gndTexture, buildFullFabricTileTree());
+    data.set(gndTexture);
+    uploadWholeFabricTexture(gndTexture);
+
+    edgeDataBits.fill(0);
+    edgeEntropySourceMask.fill(0);
+    fabricBoundaryInputBits.fill(0);
+    fabricBoundaryOutputBits.fill(0);
+    fabricBoundaryPackedWords.fill(0);
+    edgeReconfClockBit = 0;
+    edgeReconfFrame = 0;
+    currentRotationPhase = 1;
+    currentRotationPhase2 = 1;
+    Object.assign(window.g_app.reconfigurationControl, {
+      clock: 0, data: 0, enabled: 0, side: 0, index: 0
+    });
+    Object.assign(window.g_app.reconfigurationControl2, {
+      clock: 0, data: 0, enabled: 0, side: 0, index: 0
+    });
+
+    multiplierOperands.revision += 1;
+    multiplierOperandButtons.forEach(button => {
+      button.disabled = true;
+      button.title = 'Reload to restore the embedded multiplier';
+    });
+    demoTitle.textContent = 'Cartilage GND Fabric';
+    multiplierProduct.textContent = 'P low = —';
+    cellInspector.textContent = 'No cell';
+    window.g_app.setPropagationPaused(false);
+    selectCellRole('togglePower');
+    setRolePickerOpen(true);
+    setDemoStatus('Editable GND fabric - choose a role, then tap or drag to place cells', 'dirty');
+  } finally {
+    newGndButton.disabled = false;
+  }
+};
+
+window.g_app.initializeGndFabric = initializeGndFabric;
 
 const readMultiplierProduct = () => {
   let product = 0;
@@ -5774,14 +5857,16 @@ const adjustMultiplierOperand = (name, delta) => {
   applyMultiplierOperands();
 };
 
-window.document.getElementById('operand-a-down').addEventListener(
+multiplierOperandButtons[0].addEventListener(
   'click', () => adjustMultiplierOperand('a', -1));
-window.document.getElementById('operand-a-up').addEventListener(
+multiplierOperandButtons[1].addEventListener(
   'click', () => adjustMultiplierOperand('a', 1));
-window.document.getElementById('operand-b-down').addEventListener(
+multiplierOperandButtons[2].addEventListener(
   'click', () => adjustMultiplierOperand('b', -1));
-window.document.getElementById('operand-b-up').addEventListener(
+multiplierOperandButtons[3].addEventListener(
   'click', () => adjustMultiplierOperand('b', 1));
+
+newGndButton.addEventListener('click', initializeGndFabric);
 
 rolePickerToggleButton.addEventListener('click', () => {
   setRolePickerOpen(rolePicker.hidden);
@@ -8562,7 +8647,7 @@ canvas.is-panning {
   border-radius: 8px;
   background: rgba(250, 250, 250, 0.94);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
-  overflow-y: auto;
+  overflow: visible;
   overscroll-behavior: contain;
   user-select: none;
 }
@@ -8866,11 +8951,12 @@ canvas.is-panning {
 }
          </style></head>
 <body>
-  <canvas id="0" width="16" height="16" draggable="false" aria-label="Running Cartilage multiplier fabric"></canvas>
-  <div id="fabric-controls" aria-label="Multiplier controls">
+  <canvas id="0" width="16" height="16" draggable="false" aria-label="Editable Cartilage fabric"></canvas>
+  <div id="fabric-controls" aria-label="Cartilage fabric controls">
     <strong class="demo-title">4x4 Low-Nibble Multiplier</strong>
     <button id="play-pause" type="button" aria-pressed="false">Pause</button>
     <button id="reset-demo" type="button">Reset</button>
+    <button id="new-gnd-fabric" type="button" title="Replace the current circuit with an editable all-GND fabric">New GND</button>
     <span class="operand-control" aria-label="Operand A">
       <span>A</span>
       <button id="operand-a-down" type="button" aria-label="Decrease operand A">-</button>
