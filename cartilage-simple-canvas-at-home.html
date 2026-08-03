@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Cartilage At Home: Download One HTML File And Build Circuits Offline</title>
+    <meta name="description" content="Download the complete Cartilage Simple Canvas, open it without internet access, author labeled circuits, debug waveforms, and keep every circuit as a local JSON file.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/cartilage-simple-canvas-at-home.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:title" content="Cartilage At Home: Download One HTML File And Build Circuits Offline">
+    <meta property="og:description" content="The whole Cartilage editor and fabric fit in one downloadable HTML file. Build offline and keep your circuits as files you control.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage-simple-canvas-at-home.html">
+    <meta property="article:published_time" content="2026-08-03">
+    <meta property="article:modified_time" content="2026-08-03">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:image" content="https://greenforest.io/social-previews/cartilage-simple-canvas-at-home.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/cartilage-simple-canvas-at-home.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Cartilage At Home: Download One HTML File And Build Circuits Offline - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-simple-canvas-at-home.png">
+    <meta name="twitter:image:alt" content="Cartilage At Home: Download One HTML File And Build Circuits Offline - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Cartilage At Home: Download One HTML File And Build Circuits Offline",
+            "description": "A step-by-step guide to downloading Cartilage Simple Canvas, authoring circuits offline, labeling signals and regions, inspecting waveforms, and saving or opening local circuit files.",
+            "datePublished": "2026-08-03",
+            "dateModified": "2026-08-03",
+            "mainEntityOfPage": "https://greenforest.io/cartilage-simple-canvas-at-home.html",
+            "image": "https://greenforest.io/social-previews/cartilage-simple-canvas-at-home.png",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "@id": "https://greenforest.io/#organization",
+                "name": "Greenforest I/O",
+                "legalName": "Solid State Pros LLC",
+                "url": "https://greenforest.io/"
+            },
+            "about": {
+                "@type": "SoftwareApplication",
+                "name": "Cartilage Simple Canvas",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Any computer or mobile device with a WebGL browser",
+                "url": "https://greenforest.io/cartilage-simple-canvas/",
+                "downloadUrl": "https://greenforest.io/cartilage-simple-canvas/index.html",
+                "isAccessibleForFree": true
+            },
+            "keywords": [
+                "Cartilage",
+                "offline circuit editor",
+                "reconfigurable computing",
+                "self-contained HTML",
+                "circuit simulator",
+                "WebGL"
+            ]
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        body.cartilage-at-home section,
+        body.cartilage-at-home figcaption {
+            text-align: left;
+            -webkit-hyphens: none;
+            hyphens: none;
+        }
+
+        .download-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.2rem 0;
+            padding: 1.1rem;
+            border: 2px solid #1a6f59;
+            background: #effbf6;
+        }
+
+        .download-panel h2,
+        .download-panel p {
+            margin: 0;
+        }
+
+        .download-panel h2 {
+            font-family: "Spectral", serif;
+            font-size: 24px;
+            font-weight: normal;
+        }
+
+        body.cartilage-at-home .download-panel h2::before {
+            content: none;
+            counter-increment: none;
+        }
+
+        .download-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 0.55rem;
+        }
+
+        .download-actions .cta-link {
+            margin: 0;
+            text-align: center;
+        }
+
+        .download-actions .cta-link--primary {
+            border-color: #0c624d;
+            background: #126a55;
+            color: #fff;
+        }
+
+        .two-files {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+            margin: 1rem 0 1.35rem;
+        }
+
+        .file-card {
+            min-width: 0;
+            padding: 0.95rem 1rem;
+            border: 1px solid #adc0b9;
+            background: #fff;
+        }
+
+        .file-card strong {
+            display: block;
+            margin-bottom: 0.35rem;
+            color: #155140;
+            font: 800 15px/1.25 "Inconsolata", monospace;
+        }
+
+        .file-card p {
+            margin: 0;
+        }
+
+        .home-steps {
+            display: grid;
+            gap: 0.8rem;
+            margin: 1rem 0 1.4rem;
+            padding: 0;
+            list-style: none;
+            counter-reset: home-step;
+        }
+
+        .home-steps > li {
+            display: grid;
+            grid-template-columns: 52px minmax(0, 1fr);
+            gap: 0.8rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid #b8c7c2;
+            background: #fff;
+            counter-increment: home-step;
+        }
+
+        .home-steps > li::before {
+            content: counter(home-step, decimal-leading-zero);
+            color: #14705a;
+            font: 800 28px/1 "Inconsolata", monospace;
+        }
+
+        .home-step-copy h3,
+        .home-step-copy p {
+            margin: 0;
+        }
+
+        .home-step-copy h3 {
+            margin-bottom: 0.3rem;
+            color: #173e34;
+            font-family: "Spectral", serif;
+            font-size: 21px;
+            font-weight: normal;
+        }
+
+        .control-name {
+            display: inline-block;
+            padding: 0.08rem 0.32rem;
+            border: 1px solid #7f938c;
+            border-radius: 3px;
+            background: #f5f8f7;
+            font: 700 0.92em/1.35 "Inconsolata", monospace;
+        }
+
+        .save-warning {
+            margin: 1rem 0;
+            padding: 0.85rem 1rem;
+            border-left: 5px solid #b56b16;
+            background: #fff8ec;
+        }
+
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0 1.4rem;
+        }
+
+        .example-grid article {
+            min-width: 0;
+            padding: 0.8rem 0.9rem;
+            border-top: 4px solid #2a8870;
+            background: #f2f8f5;
+        }
+
+        .example-grid h3,
+        .example-grid p {
+            margin: 0;
+        }
+
+        .example-grid h3 {
+            margin-bottom: 0.25rem;
+            font-size: 17px;
+        }
+
+        @media (max-width: 900px) {
+            .download-panel,
+            .two-files,
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download-actions {
+                justify-content: flex-start;
+            }
+
+            .home-steps > li {
+                grid-template-columns: 40px minmax(0, 1fr);
+                padding: 0.8rem;
+            }
+
+            .home-steps > li::before {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body class="article-structured cartilage-at-home">
+    <header><h1 class="page-title">Cartilage At Home: Download One HTML File And Build Circuits Offline</h1></header>
+    <address>August 3, 2026</address>
+
+    <section class="abstract">
+        <p class="lead">Cartilage Simple Canvas is a complete circuit fabric and editor you can download, keep, open from your own computer, and use without an account or internet connection.</p>
+        <p>The app is one HTML file. Your circuits are separate JSON files. You decide where those files live, how many versions to keep, and who receives a copy.</p>
+        <div class="download-panel">
+            <div>
+                <h2>Take The Complete App Home</h2>
+                <p>Run it online first, or download the same full-featured file now.</p>
+            </div>
+            <div class="download-actions" role="group" aria-label="Cartilage Simple Canvas actions">
+                <a class="cta-link cta-link--primary" href="/cartilage-simple-canvas/index.html" download="cartilage-simple-canvas.html">Download The Complete HTML App</a>
+                <a class="cta-link" href="/cartilage-simple-canvas/">Open It Online</a>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section>
+            <h2>Two Kinds Of Files Put You In Control</h2>
+            <div class="two-files">
+                <article class="file-card">
+                    <strong>cartilage-simple-canvas.html</strong>
+                    <p>This is the entire app: fabric, shaders, editor, labels, waveform viewer, examples, file controls, and built-in guide. It imports no script, stylesheet, font, image, or circuit from anywhere else.</p>
+                </article>
+                <article class="file-card">
+                    <strong>your-circuit.cartilage.json</strong>
+                    <p>This is one circuit: its current texture, dimensions, format, and view. Make as many circuit files and dated copies as you want. Open any one through the app’s file picker.</p>
+                </article>
+            </div>
+            <p>Put the HTML app in Documents, Downloads, a USB drive, or any folder you prefer. Your circuit files do not have to sit beside it. The file picker can open them from anywhere your browser can access.</p>
+        </section>
+
+        <section>
+            <h2>Your First Circuit In Seven Steps</h2>
+            <ol class="home-steps">
+                <li>
+                    <div class="home-step-copy">
+                        <h3>Open The App</h3>
+                        <p>Double-click <code>cartilage-simple-canvas.html</code>, or use Open With and choose a WebGL-capable browser. The routed five-MUX full adder appears immediately. The <span class="control-name">Start here</span> guide explains the controls inside the file itself.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="home-step-copy">
+                        <h3>Choose An Example Or A Blank Fabric</h3>
+                        <p>Use <span class="control-name">1. Choose a circuit</span>. The built-in collection includes a full adder, every MUX permutation, a causal timing ring, a low-nibble multiplier, one- and two-target prototype inheritance, and a blank authoring fabric. <span class="control-name">New blank fabric</span> clears the current geometry after asking whether to download your work first.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="home-step-copy">
+                        <h3>Place Circuit Roles Directly</h3>
+                        <p>Open <span class="control-name">Role: Inspect</span>. Choose GND, PWR, a crossing, a directional wire, or one of the MUX roles. Tap a cell on mobile, or click and drag on a computer. Return to Inspect whenever you want to read a cell instead of changing it.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="home-step-copy">
+                        <h3>Name Signals And Structure</h3>
+                        <p>Choose <span class="control-name">Name signals / regions</span>. Signal names belong to individual cells. Physical objects begin at reconfiguration ports. Logical regions and module instances describe meaningful subdivisions of the same circuit tree. These names are encoded into the fabric metadata that saves and streams with the circuit.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="home-step-copy">
+                        <h3>Watch What The Circuit Does</h3>
+                        <p>Pin a named signal to the waveform list, then open <span class="control-name">Debug waveforms</span>. Up to ten signal names can be watched. Home, rewind, freeze trace, and step move through captured observations while the fabric itself keeps running.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="home-step-copy">
+                        <h3>Save The Circuit To Your Computer</h3>
+                        <p>Press <span class="control-name">Save circuit file</span>. Your browser downloads a <code>.cartilage.json</code> file. Rename it descriptively and add a date when you want an immutable checkpoint, such as <code>adder-labeled-2026-08-03.cartilage.json</code>.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="home-step-copy">
+                        <h3>Resume Later</h3>
+                        <p>Open the HTML app again and choose <span class="control-name">Open circuit file</span>. Select your JSON file. Its dimensions, roles, MUX state, ownership, ports, signal names, and region structure return to the live fabric.</p>
+                    </div>
+                </li>
+            </ol>
+            <div class="save-warning">
+                <strong>Save before closing the tab or discarding an edited circuit.</strong> The app intentionally does not hide your main circuit in localStorage or IndexedDB. When it detects unsaved edits before switching examples or clearing the fabric, it offers Cancel, Discard, or Download JSON first.
+            </div>
+        </section>
+
+        <section>
+            <h2>What The Built-In Circuits Are For</h2>
+            <div class="example-grid">
+                <article>
+                    <h3>Five-MUX Full Adder</h3>
+                    <p>Start here to inspect a compact routed Boolean circuit with readable names and regions.</p>
+                </article>
+                <article>
+                    <h3>All MUX Permutations</h3>
+                    <p>See each directional MUX role in one catalog before placing roles in your own fabric.</p>
+                </article>
+                <article>
+                    <h3>Causal Timing Ring</h3>
+                    <p>Open Debug waveforms and follow named phases as signals propagate one local transition at a time.</p>
+                </article>
+                <article>
+                    <h3>Low-Nibble Multiplier</h3>
+                    <p>Explore a larger routed circuit while learning pan, zoom, Fit, inspection, labels, and saved views.</p>
+                </article>
+                <article>
+                    <h3>Prototype Inheritance</h3>
+                    <p>Study a source physical object, a routed controller, and a target reconfiguration port inside the same two-dimensional fabric.</p>
+                </article>
+                <article>
+                    <h3>Parallel Prototype Inheritance</h3>
+                    <p>See two independent internal routes aimed at separate targets without turning the edge into a special programming bus.</p>
+                </article>
+                <article>
+                    <h3>Blank Authoring Fabric</h3>
+                    <p>Begin your own circuit with stationary 4×4 blocks, direct role editing, labels, regions, resize, and local files.</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>Resize, Read, Write, And Reuse</h2>
+            <p><span class="control-name">Resize fabric</span> adds or removes complete 4×4 blocks independently on the left, right, top, or bottom. Shrinking warns before clipping cells. Expanding changes physical route lengths, so timing changes exactly where a larger physical fabric should change it.</p>
+            <p><span class="control-name">Port read / write</span> exposes the ordinary native reconfiguration-port stream. <span class="control-name">Copy / instantiate</span> marks a port-rooted source and one or more routed targets. These are the same fabric features in every circuit file; examples do not receive private JavaScript behavior.</p>
+        </section>
+
+        <section>
+            <h2>Use It On A Phone, Tablet, Laptop, Or Desktop</h2>
+            <p>On a computer, click the download button and keep the HTML file in your preferred folder. On Android, use the browser download. On iPhone or iPad, if Safari opens the HTML instead of saving it directly, use Share and Save to Files. You can also use the browser’s Save Page command because every required resource is already inside the page.</p>
+            <p>The controls fit a phone in portrait orientation. Pan the fabric with touch, use Fit to recover the whole circuit, and collapse the Start here guide whenever you want the canvas unobstructed.</p>
+        </section>
+
+        <section>
+            <h2>Send Someone A Working Cartilage Machine</h2>
+            <p>Share <code>cartilage-simple-canvas.html</code> by itself and the recipient receives the complete authoring tool plus all built-in examples. Add one of your <code>.cartilage.json</code> files and they receive your circuit too. They do not need your account, your server, or access to any private address.</p>
+            <div class="download-panel">
+                <div>
+                    <h2>Build Your First Saved Circuit</h2>
+                    <p>Take the app, name one signal, pin its waveform, and download the circuit file.</p>
+                </div>
+                <div class="download-actions">
+                    <a class="cta-link cta-link--primary" href="/cartilage-simple-canvas/index.html" download="cartilage-simple-canvas.html">Download Cartilage Simple Canvas</a>
+                    <a class="cta-link" href="/cartilage-simple-canvas/">Use It In This Browser</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Learn the architecture:</p>
+        <a href="/cartilage/">The Complete Cartilage Learning Path</a>
+        <p>Build from one MUX through wires, timing, nested components, and spatial reconfiguration.</p>
+        <p>Follow development:</p>
+        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
+        <p>See the remaining path from browser authoring to physical fabrics and connected devices.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>
