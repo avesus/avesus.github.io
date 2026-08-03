@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Cartilage Canvas: Self-Modifying Circuits In One HTML File</title>
+    <meta name="description" content="Run, author, label, inspect, save, open, resize, and reconfigure a Cartilage fabric locally. Distributed reflection metadata and seven circuits live in one self-contained HTML file.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/cartilage-canvas-self-modifying-circuits.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:title" content="Cartilage Canvas: Self-Modifying Circuits In One HTML File">
+    <meta property="og:description" content="The live fabric, editor, debugger, distributed reflection decoder, local file workflow, and seven circuits now run from one downloadable HTML document.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/cartilage-canvas-self-modifying-circuits.html">
+    <meta property="article:published_time" content="2026-08-03">
+    <meta property="article:modified_time" content="2026-08-03">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:image" content="https://greenforest.io/social-previews/cartilage-canvas-self-modifying-circuits.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/cartilage-canvas-self-modifying-circuits.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Cartilage Canvas: Self-Modifying Circuits In One HTML File - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/cartilage-canvas-self-modifying-circuits.png">
+    <meta name="twitter:image:alt" content="Cartilage Canvas: Self-Modifying Circuits In One HTML File - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Cartilage Canvas: Self-Modifying Circuits In One HTML File",
+            "description": "A self-contained Cartilage fabric with direct circuit authoring, distributed runtime reflection metadata, causal waveform debugging, local JSON files, resize, native port streaming, and endogenous prototype inheritance examples.",
+            "datePublished": "2026-08-03",
+            "dateModified": "2026-08-03",
+            "mainEntityOfPage": "https://greenforest.io/cartilage-canvas-self-modifying-circuits.html",
+            "image": "https://greenforest.io/social-previews/cartilage-canvas-self-modifying-circuits.png",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "@id": "https://greenforest.io/#organization",
+                "name": "Greenforest I/O",
+                "legalName": "Solid State Pros LLC",
+                "url": "https://greenforest.io/"
+            },
+            "about": {
+                "@type": "SoftwareApplication",
+                "name": "Cartilage Canvas",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Web browser",
+                "url": "https://greenforest.io/cartilage-canvas/",
+                "browserRequirements": "WebGL 1 and local file open/download support"
+            },
+            "keywords": [
+                "Cartilage",
+                "reconfigurable computing",
+                "self-modifying circuits",
+                "runtime reflection",
+                "WebGL",
+                "GLSL",
+                "spatial computing"
+            ]
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        body.cartilage-canvas-article section,
+        body.cartilage-canvas-article figcaption {
+            text-align: left;
+            -webkit-hyphens: none;
+            hyphens: none;
+        }
+
+        .canvas-launch {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.2rem 0;
+            padding: 1rem 1.1rem;
+            border: 1px solid #37645a;
+            background: #102d27;
+            color: #f3fff9;
+        }
+
+        .canvas-launch p {
+            margin: 0;
+        }
+
+        .canvas-launch .cta-link {
+            margin: 0;
+            border-color: #a8e8d1;
+            background: #f6fffb;
+            color: #123c32;
+            white-space: nowrap;
+        }
+
+        .canvas-facts,
+        .reflection-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin: 1rem 0 1.4rem;
+        }
+
+        .canvas-fact,
+        .reflection-card {
+            min-width: 0;
+            padding: 0.85rem 0.95rem;
+            border: 1px solid #aebeb8;
+            background: #fff;
+        }
+
+        .canvas-fact strong,
+        .reflection-card strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #17483d;
+            font-family: "Inconsolata", monospace;
+        }
+
+        .reflection-card p,
+        .canvas-fact p {
+            margin: 0;
+        }
+
+        .stream-path {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.45rem;
+            margin: 1rem 0 1.4rem;
+            padding: 0;
+            list-style: none;
+            counter-reset: stream-step;
+        }
+
+        .stream-path li {
+            position: relative;
+            min-width: 0;
+            padding: 0.8rem 0.7rem;
+            border-top: 4px solid #1a8870;
+            background: #edf6f2;
+            counter-increment: stream-step;
+        }
+
+        .stream-path li::before {
+            content: counter(stream-step, decimal-leading-zero);
+            display: block;
+            margin-bottom: 0.3rem;
+            color: #14705e;
+            font-family: "Inconsolata", monospace;
+            font-weight: bold;
+        }
+
+        .record-layout {
+            display: grid;
+            grid-template-columns: 80fr 16fr 2fr 3fr 1fr 32fr;
+            min-height: 62px;
+            margin: 1rem 0 0.45rem;
+            border: 1px solid #233d36;
+        }
+
+        .record-layout span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+            padding: 0.4rem 0.2rem;
+            border-right: 1px solid #233d36;
+            overflow-wrap: anywhere;
+            text-align: center;
+            font: 700 11px/1.2 "Inconsolata", monospace;
+        }
+
+        .record-layout span:last-child {
+            border-right: 0;
+            background: #d8f2e8;
+        }
+
+        .proof-strip {
+            margin: 1rem 0;
+            padding: 0.9rem 1rem;
+            border-left: 5px solid #1a8870;
+            background: #f1f7f4;
+        }
+
+        .proof-strip p {
+            margin: 0.35rem 0;
+        }
+
+        @media (max-width: 760px) {
+            .canvas-launch,
+            .canvas-facts,
+            .reflection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .canvas-launch .cta-link {
+                justify-self: start;
+                white-space: normal;
+            }
+
+            .stream-path {
+                grid-template-columns: 1fr;
+            }
+
+            .record-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .record-layout span {
+                justify-content: flex-start;
+                border-right: 0;
+                border-bottom: 1px solid #233d36;
+                padding: 0.55rem 0.7rem;
+                text-align: left;
+            }
+
+            .record-layout span:last-child {
+                border-bottom: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="article-structured cartilage-canvas-article">
+    <header><h1 class="page-title">Cartilage Canvas: Self-Modifying Circuits In One HTML File</h1></header>
+    <address>August 3, 2026</address>
+
+    <section class="abstract">
+        <p class="lead">The live fabric, direct editor, waveform debugger, distributed reflection decoder, local file workflow, and seven working circuits now travel together in one self-contained HTML document.</p>
+        <p><a href="/cartilage-canvas/">Cartilage Canvas</a> opens without an account or server session. Save the page itself and it continues to work locally. Open a circuit JSON file, edit its texture through the fabric controls, stream native records through reconfiguration ports, and download the current texture again.</p>
+        <div class="canvas-launch">
+            <p><strong>Enter the fabric.</strong> The routed five-MUX full adder opens first; a blank authoring fabric, MUX catalog, timing ring, multiplier, and one- and two-target prototype inheritance circuits are built in.</p>
+            <a class="cta-link" href="/cartilage-canvas/">Open Cartilage Canvas</a>
+        </div>
+    </section>
+
+    <main>
+        <section>
+            <h2>The Texture Is The Program And The File</h2>
+            <p>Cartilage Canvas does not mirror a circuit into browser storage. Its local file contains one current source texture, the fabric dimensions, the native ownership-format identifier, and the pan and zoom view. Open parses that texture into the running fabric. Save serializes the current source texture into a downloadable JSON file that can be opened again.</p>
+            <div class="canvas-facts">
+                <div class="canvas-fact">
+                    <strong>One current plane</strong>
+                    <p>The file carries the current causal source plane, not a second hidden circuit model or a JavaScript annotation database.</p>
+                </div>
+                <div class="canvas-fact">
+                    <strong>Ordinary local files</strong>
+                    <p>Open uses the browser file input. Save uses a Blob download. IndexedDB, localStorage, sessionStorage, and server persistence are absent.</p>
+                </div>
+                <div class="canvas-fact">
+                    <strong>Works from disk</strong>
+                    <p>The HTML has inline CSS, JavaScript, shaders, examples, and initial textures. Its content-security policy rejects network connections.</p>
+                </div>
+                <div class="canvas-fact">
+                    <strong>Save-defined geometry</strong>
+                    <p>Resize adds or removes complete 4×4 blocks on any side. Geometry belongs to the file rather than to a numbered example slot.</p>
+                </div>
+            </div>
+            <p>The causal rule remains simple: one complete source texture is read-only, one complete destination texture is write-only, and every animation frame flips them once. Direct editing queues a patch for that ordinary transition. The fabric never halts.</p>
+        </section>
+
+        <section>
+            <h2>Names Live In The Same Bits As The Circuit</h2>
+            <p>Runtime reflection is not a JavaScript ID map laid over anonymous cells. Every native 4×4 block contributes four metadata bytes to its reconfiguration-port-rooted physical tree. Native postorder joins those bytes into one distributed local database. The renderer decodes that database from the current texture.</p>
+            <div class="record-layout" role="img" aria-label="A 134-bit native block record containing 80 application-role bits, 16 MUX snapshot bits, two parent bits, three wall bits, one port bit, and 32 distributed metadata bits">
+                <span>80 roles</span>
+                <span>16 snapshots</span>
+                <span>2 parent</span>
+                <span>3 walls</span>
+                <span>1 port</span>
+                <span>32 metadata</span>
+            </div>
+            <p><small>One native block record is exactly 134 bits. The final 32 bits are streamed and installed with every other field.</small></p>
+            <div class="reflection-grid">
+                <div class="reflection-card">
+                    <strong>Physical object name</strong>
+                    <p>The port-rooted tree names the physical object that can be read or replaced through that port.</p>
+                </div>
+                <div class="reflection-card">
+                    <strong>Per-cell signal name</strong>
+                    <p>A compact postorder ordinal plus local cell number locates a sparse signal label and its waveform flag.</p>
+                </div>
+                <div class="reflection-card">
+                    <strong>Logical subregion</strong>
+                    <p>Run-length encoded postorder membership describes a named subdivision without creating another ownership forest.</p>
+                </div>
+                <div class="reflection-card">
+                    <strong>Module instance</strong>
+                    <p>The same distributed stream can identify a named instance spanning selected blocks inside the one physical tree.</p>
+                </div>
+            </div>
+            <p>The decoder rebuilds a viewport-indexed rendering cache: visible row runs, exposed region boundaries, sparse cell labels, physical-root captions, and up to ten waveform names. Colors are derived deterministically from decoded names. They are presentation, not hidden authority.</p>
+        </section>
+
+        <section>
+            <h2>Prototype Inheritance Is Homogeneous And Two-Dimensional</h2>
+            <p>A source component does not need an edge-only loader or a JavaScript copy operation. Instantiated application MUXes and wires can read one source port-rooted tree and carry its native records to a target reconfiguration port anywhere the application wires reach. Multiple routed controllers can do this in parallel.</p>
+            <ol class="stream-path" aria-label="Native prototype inheritance path">
+                <li>Application wires reach the source port.</li>
+                <li>The source tree emits native records in postorder.</li>
+                <li>Every adjacent port remains a hard traversal barrier.</li>
+                <li>Routed application wires carry the stream to one or more targets.</li>
+                <li>One final edge applies roles, snapshots, ownership, ports, and reflection metadata together.</li>
+            </ol>
+            <p>The entry block is an ordinary record, not a privileged root record. A final edge may reparent the old tree, split it into multiple new physical regions, turn every block into a port, or create an inaccessible cycle. Once the source metadata is installed, the target’s labels and region names appear because the texture changed—not because JavaScript recognized a particular example.</p>
+        </section>
+
+        <section>
+            <h2>Debugging Watches Causal Frames Without Pausing The Fabric</h2>
+            <p>Pin any decoded per-cell signal label to the expandable waveform dashboard. Home, rewind, freeze-trace, and step controls move through captured observations while the underlying fabric continues one causal transition per rendered frame. Up to ten reflected signal names remain visible beside their digital traces.</p>
+            <p>Shape, read, and write overlays also come from controller state in the just-swapped source plane. Cyan, blue, and amber decoration covers the complete participating 4×4 block. Traversal never decorates an adjacent port or anything behind it.</p>
+        </section>
+
+        <section>
+            <h2>The Release Gate Exercises The Real Boundaries</h2>
+            <div class="proof-strip">
+                <p><strong>Standalone page:</strong> mobile role and label authoring, waveform names, fractional pan positions, local <code>file://</code> startup, one-texture JSON round trip, resize, and automatic reflection refresh after a native final apply passed.</p>
+                <p><strong>Native 4×4 substrate:</strong> all 24 foundational checks passed, including one transition per frame, complete perimeter delivery, fresh ownership state, claim without configuration rewrite, hard port barriers, and homogeneous save-independent shaders.</p>
+                <p><strong>Endogenous inheritance:</strong> configured MUXes and wires streamed the complete 134-bit source record. The destination applied at frame 4,965 and remained correct through frame 5,030, with no source, destination, host-control, or boundary-input violation. The fixture’s unchanged failure horizon was frame 5,504.</p>
+            </div>
+            <p>These checks separate three different facts: the substrate can transport native records; a host can drive an edge-visible port; and an instantiated circuit inside the fabric can perform the read-to-install sequence itself. The prototype examples are built for the third fact.</p>
+        </section>
+
+        <section>
+            <h2>Open It, Save It, Change It, Stream It</h2>
+            <p>Start with the full adder, inspect the reflected physical tree, pin a signal, and step through its captured waveform. Open the prototype circuit to follow native source and target ports. Switch to the blank fabric to place roles directly, name signals, mark logical subdivisions, resize the geometry, and save the resulting texture as your own local file.</p>
+            <div class="canvas-launch">
+                <p>The public canvas needs no account, private endpoint, internal address, iframe, external script, or browser database.</p>
+                <a class="cta-link" href="/cartilage-canvas/">Run The Self-Contained Fabric</a>
+            </div>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue reading">
+        <p>Next:</p>
+        <a href="/cartilage-reconfigurable-computing-roadmap.html">Cartilage Reconfigurable Computing Roadmap</a>
+        <p>Continue from runtime reflection and prototype installation into labels, ownership recovery, physical endpoints, and scalable circuit authoring.</p>
+        <p>Foundations:</p>
+        <a href="/cartilage/">The Complete Cartilage Learning Path</a>
+        <p>Build from MUXes and wires through timing, physical blocks, composition, and spatial reconfiguration.</p>
+        <a href="/">Back to greenforest.io</a>
+    </nav>
+</body>
+
+</html>
