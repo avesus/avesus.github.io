@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
   <meta name="theme-color" content="#f4efe4">
   <meta name="referrer" content="no-referrer">
   <link rel="icon" href="data:,">
@@ -33,7 +33,7 @@
     }
     * { box-sizing: border-box; }
     html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--paper); color: var(--ink); }
-    button, select, input { font: inherit; color: inherit; }
+    button, select, input { font: inherit; color: inherit; touch-action: manipulation; }
     button, select, input[type="number"], input[type="text"] {
       min-height: 36px;
       border: 1px solid var(--line);
@@ -61,6 +61,8 @@
       min-height: 54px;
       padding: 8px max(8px, env(safe-area-inset-left)) 8px max(8px, env(safe-area-inset-right));
       overflow-x: auto;
+      overscroll-behavior-x: contain;
+      touch-action: pan-x;
       white-space: nowrap;
       background: rgba(244, 239, 228, .97);
       border-bottom: 1px solid var(--line);
@@ -242,7 +244,15 @@
     @media (max-width: 760px) {
       #toolbar .brand span, #status { display: none; }
       #role-select { width: 170px; }
-      #side-panel { top: 8px; right: 8px; }
+      #side-panel {
+        top: 8px;
+        right: 8px;
+        width: min(272px, calc(100% - 16px));
+        max-height: min(42vh, 300px);
+        padding: 10px;
+      }
+      #side-panel h3 { margin-top: 9px; }
+      #cell-summary { font-size: 11px; line-height: 1.3; }
     }
   </style>
 </head>
@@ -253,6 +263,7 @@
       <button id="run" type="button" aria-pressed="false" title="Run or pause (Space)">Run</button>
       <button id="step" type="button" title="One causal transition (.)">Step</button>
       <button id="reset-state" type="button" title="Clear live outputs, keep roles">Reset state</button>
+      <button id="toggle-driver" type="button" aria-pressed="true" title="Toggle the circuit's main input between GND and PWR">Input: PWR</button>
       <div class="separator"></div>
       <button id="component-menu-toggle" type="button" aria-expanded="false" aria-controls="component-menu">Component: Inspect</button>
       <select id="role-select" aria-label="Cell role" hidden></select>
@@ -273,6 +284,7 @@
       <select id="example-select" aria-label="Example">
         <option value="blank">Blank fabric</option>
         <option value="path" selected>Routed signal path + MUX</option>
+        <option value="switch">Interactive 0/1 MUX selector</option>
         <option value="atlas">32-role visual key</option>
       </select>
       <button id="load-example" type="button">Load example</button>
@@ -330,7 +342,6 @@
       <div id="hud">
         <output id="coord" class="hud-chip">motif — · kite —</output>
         <output id="frame" class="hud-chip">frame 0</output>
-        <output id="renderer-output" class="hud-chip">renderer starting…</output>
       </div>
       <div id="fatal" hidden></div>
     </section>
@@ -372,7 +383,7 @@
         <li>Out-of-bounds inputs are zero. There is no clamp, seam, or torus.</li>
         <li>Up to eight labeled probes can record local-edge outputs.</li>
       </ul>
-      <p><strong>Edit:</strong> select a role, then click or drag. Select “Inspect” to inspect, label, or probe a cell. Use the mouse wheel to zoom. Right-drag, middle-drag, or Alt-drag to pan.</p>
+      <p><strong>Edit:</strong> select a role, then click or drag. Select “Inspect” to inspect, label, or probe a cell. Toggle <strong>Input</strong> between GND and PWR to drive the active example. On touch screens, tap to inspect or place, drag one finger to pan, and pinch to zoom. With a mouse, use the wheel to zoom and right-drag, middle-drag, or Alt-drag to pan.</p>
       <p><strong>Keys:</strong> <span class="kbd">Space</span> run/pause, <span class="kbd">.</span> step, <span class="kbd">F</span> fit, <span class="kbd">Ctrl/Cmd Z</span> undo.</p>
       <p>Saved files use format <code>cartilage-rhombitrihex-canvas</code>, state version 5, and topology version 1. This app rejects orthogonal textures instead of silently changing their meaning.</p>
       <div class="dialog-actions"><button value="default" type="submit">Close</button></div>
@@ -547,6 +558,7 @@ uniform vec2 uSelected;
 uniform float uHasSelected;
 
 const float H = 0.86602540378443864676;
+const float SIGNAL_DISC_RADIUS = 0.108;
 
 float byteValue(float v) {
   return floor(v * 255.0 + 0.5);
@@ -696,14 +708,11 @@ float selectorShoeMask(
 ) {
   vec2 direction = normalize(center - port);
   vec2 tangent = vec2(-direction.y, direction.x);
-  float portDistance = max(length(center - port), 0.000001);
-  float standOff = engaged > 0.5
-    ? max(0.5 * cssPixel, 0.5 * thin)
-    : max(1.2 * cssPixel, 2.0 * thin + 0.012);
-  float travel = clamp(1.0 - (ringRadius + standOff) / portDistance, 0.18, 0.76);
-  vec2 shoeCenter = mix(port, center, travel);
+  vec2 shoeCenter = engaged > 0.5
+    ? ringPort(center, port, ringRadius)
+    : port;
   float stem = strokeMask(p, port, shoeCenter, thin, aaPixel);
-  float shoeHalfLength = max(2.2 * cssPixel, 0.029);
+  float shoeHalfLength = max(3.0 * cssPixel, 0.043);
   float shoe = strokeMask(
     p,
     shoeCenter - shoeHalfLength * tangent,
@@ -877,7 +886,7 @@ void main() {
     vec2 onePort = edgePort(oneEdge, input0, input1, input2, input3);
     float selectorValue = renderIncoming(cell, selectorEdge);
     vec2 selectedPort = selectorValue > 0.5 ? onePort : zeroPort;
-    float ringRadius = max(0.052, 2.8 * cssPixel);
+    float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
     float ringWidth = live > 0.5 ? max(1.0 * cssPixel, 0.0105) : max(0.50 * cssPixel, 0.0058);
 
     color = mix(color, ink, fanoutMask(
@@ -897,10 +906,10 @@ void main() {
     color = mix(color, body, selectedHalo);
     float selectedCore = strokeMask(world, selectedPort, center, core, aaPixel);
     color = mix(color, ink, selectedCore);
-    color = mix(color, ink, discMask(world, center, max(0.0105, 1.25 * core), aaPixel));
+    color = mix(color, ink, discMask(world, center, max(0.018, 1.5 * core), aaPixel));
   } else if (ground < 0.5) {
     if (mode > 0.5 && mode < 1.5) {
-      float ringRadius = max(0.038, 2.3 * cssPixel);
+      float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
       float ringWidth = live > 0.5 ? max(0.85 * cssPixel, 0.0085) : max(0.50 * cssPixel, 0.0052);
       color = mix(color, ink, fanoutMask(
         world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
@@ -911,9 +920,9 @@ void main() {
       color = mix(color, body, wireHalo);
       float wireCore = strokeMask(world, wirePort, center, core, aaPixel);
       color = mix(color, ink, wireCore);
-      color = mix(color, ink, discMask(world, center, max(0.0095, 1.20 * core), aaPixel));
+      color = mix(color, ink, discMask(world, center, max(0.018, 1.5 * core), aaPixel));
     } else if (mode < 0.5 && orientation < 0.5) {
-      float ringRadius = max(0.052, 2.8 * cssPixel);
+      float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
       float ringWidth = live > 0.5 ? max(1.0 * cssPixel, 0.0105) : max(0.50 * cssPixel, 0.0058);
       color = mix(color, portInk, fanoutMask(
         world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
@@ -922,11 +931,11 @@ void main() {
       float portBranchHalo = strokeMask(world, input0, center, halo, aaPixel);
       color = mix(color, body, portBranchHalo);
       color = mix(color, portInk, strokeMask(world, input0, center, core, aaPixel));
-      color = mix(color, portInk, discMask(world, center, max(0.0105, 1.25 * core), aaPixel));
+      color = mix(color, portInk, discMask(world, center, max(0.018, 1.5 * core), aaPixel));
       color = mix(color, portInk,
         selectorShoeMask(world, input1, center, live, ringRadius, thin, cssPixel, aaPixel));
     } else {
-      float ringRadius = max(0.050, 2.8 * cssPixel);
+      float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
       float sourceWidth = orientation > 2.5 ? max(1.0 * cssPixel, 0.0105) : max(0.50 * cssPixel, 0.0058);
       color = mix(color, ink, fanoutMask(
         world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
@@ -936,7 +945,7 @@ void main() {
   }
 
   if (ground > 0.5 && selected > 0.5) {
-    float ringRadius = max(0.050, 2.8 * cssPixel);
+    float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
     color = mix(color, ink, fanoutMask(
       world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
     ));
@@ -958,6 +967,8 @@ void main() {
   var LATTICE = "rhombitrihex-kite";
   var TOPOLOGY_VERSION = 1;
   var H = Math.sqrt(3) / 2;
+  var SIGNAL_DISC_RADIUS = 0.108;
+  var PICKER_SIGNAL_DISC_RADIUS = 10.8;
   var MIN_COLS = 2;
   var MAX_COLS = 160;
   var MIN_ROWS = 2;
@@ -1010,6 +1021,7 @@ void main() {
   var componentMenu = $("component-menu");
   var componentMenuToggle = $("component-menu-toggle");
   var runButton = $("run");
+  var driverButton = $("toggle-driver");
   var waveToggle = $("wave-toggle");
   var sidePanel = $("side-panel");
   var summary = $("cell-summary");
@@ -1425,15 +1437,10 @@ void main() {
       var length = Math.max(0.0001, Math.hypot(dx, dy));
       var direction = { x: dx / length, y: dy / length };
       var tangent = { x: -direction.y, y: direction.x };
-      var standOff = engaged ? 0.6 : 3.4;
-      var travel = Math.max(0.18, Math.min(0.76, 1 - (radius + standOff) / length));
-      var shoeCenter = {
-        x: port.x + dx * travel,
-        y: port.y + dy * travel
-      };
+      var shoeCenter = engaged ? ringPoint(port, radius) : port;
       segment(port, shoeCenter, 1.3, color);
-      segment({ x: shoeCenter.x - tangent.x * 3.3, y: shoeCenter.y - tangent.y * 3.3 },
-        { x: shoeCenter.x + tangent.x * 3.3, y: shoeCenter.y + tangent.y * 3.3 },
+      segment({ x: shoeCenter.x - tangent.x * 4.8, y: shoeCenter.y - tangent.y * 4.8 },
+        { x: shoeCenter.x + tangent.x * 4.8, y: shoeCenter.y + tangent.y * 4.8 },
         1.8, color);
     };
     var crossBubble = function (a, b) {
@@ -1453,7 +1460,7 @@ void main() {
       context.fillRect(3, 3, cssSize - 6, cssSize - 6);
       var mode = Number(kind.slice(3));
       var glyph = muxRoleGeometry(mode, orientation);
-      var muxRadius = 7.4;
+      var muxRadius = PICKER_SIGNAL_DISC_RADIUS;
       for (var muxOutput = 0; muxOutput < 4; muxOutput += 1) {
         outputLine(muxOutput, muxRadius);
       }
@@ -1463,7 +1470,7 @@ void main() {
       activeInput(glyph.zero, muxBody, "#111111", true);
       selectorShoe(glyph.selector, muxRadius, false, "#111111");
     } else if (kind === "wire") {
-      var wireRadius = 5.6;
+      var wireRadius = PICKER_SIGNAL_DISC_RADIUS;
       for (var wireEdge = 0; wireEdge < 4; wireEdge += 1) {
         outputLine(wireEdge, wireRadius);
       }
@@ -1491,7 +1498,7 @@ void main() {
       crossBubble(c1, c3);
       crossBubble(c3i, c1o);
     } else if (kind === "pwr" || kind === "gnd") {
-      var sourceRadius = 7.2;
+      var sourceRadius = PICKER_SIGNAL_DISC_RADIUS;
       for (var sourceEdge = 0; sourceEdge < 4; sourceEdge += 1) {
         outputLine(sourceEdge, sourceRadius);
       }
@@ -1499,7 +1506,7 @@ void main() {
     } else if (kind === "port") {
       var portInk = "#5c2874";
       var portBody = "#e1d3f1";
-      var pickerPortRing = 7.4;
+      var pickerPortRing = PICKER_SIGNAL_DISC_RADIUS;
       context.fillStyle = portBody;
       context.fillRect(3, 3, cssSize - 6, cssSize - 6);
       for (var portEdge = 0; portEdge < 4; portEdge += 1) {
@@ -1873,6 +1880,59 @@ void main() {
     return true;
   }
 
+  function activeDriverCell() {
+    var marked = model.labels.find(function (label) {
+      if (!label.driver || !validCell(label.x, label.y)) return false;
+      var role = model.roles[indexOf(label.x, label.y)];
+      return role === ROLE.GND || role === ROLE.PWR;
+    });
+    if (!marked) {
+      marked = model.labels.find(function (label) {
+        if (!/^(?:SOURCE|INPUT|DRIVER|SELECT)$/i.test(label.text || "") ||
+            !validCell(label.x, label.y)) return false;
+        var role = model.roles[indexOf(label.x, label.y)];
+        return role === ROLE.GND || role === ROLE.PWR;
+      });
+    }
+    if (marked) return { x: marked.x, y: marked.y, label: marked };
+    if (model.selected && validCell(model.selected.x, model.selected.y)) {
+      var selectedRole = model.roles[indexOf(model.selected.x, model.selected.y)];
+      if (selectedRole === ROLE.GND || selectedRole === ROLE.PWR) {
+        return { x: model.selected.x, y: model.selected.y, label: cellLabel(model.selected.x, model.selected.y) };
+      }
+    }
+    return null;
+  }
+
+  function updateDriverButton() {
+    var driver = activeDriverCell();
+    if (!driver) {
+      driverButton.disabled = true;
+      driverButton.textContent = "Input: —";
+      driverButton.setAttribute("aria-pressed", "false");
+      driverButton.title = "Select a GND or PWR kite to use it as an input";
+      return;
+    }
+    var powered = model.roles[indexOf(driver.x, driver.y)] === ROLE.PWR;
+    driverButton.disabled = false;
+    driverButton.textContent = "Input: " + (powered ? "PWR" : "GND");
+    driverButton.setAttribute("aria-pressed", String(powered));
+    driverButton.title = "Toggle " + (driver.label && driver.label.text || "the selected input") +
+      " from " + (powered ? "PWR to GND" : "GND to PWR");
+  }
+
+  function toggleDriver() {
+    var driver = activeDriverCell();
+    if (!driver) return;
+    var index = indexOf(driver.x, driver.y);
+    var nextRole = model.roles[index] === ROLE.PWR ? ROLE.GND : ROLE.PWR;
+    pushHistory();
+    setRoleAt(driver.x, driver.y, nextRole);
+    updateDriverButton();
+    setStatus((driver.label && driver.label.text || "Input") + " → " +
+      (nextRole === ROLE.PWR ? "PWR" : "GND") + " · run or step to propagate");
+  }
+
   function snapshot() {
     return {
       cols: model.cols,
@@ -1990,14 +2050,48 @@ void main() {
       }
     }
     model.labels = [
-      { x: start.x, y: start.y, text: "SOURCE", color: "#111111", probe: true, edge: 0 },
+      { x: start.x, y: start.y, text: "SOURCE", color: "#111111", probe: true, edge: 0, driver: true },
       { x: end.x, y: end.y, text: "PATH_END", color: "#111111", probe: true, edge: 0 }
     ];
     rebuildStateTextures();
     for (var settle = 0; settle < path.length + 4; settle += 1) stepOnce();
     fitFabric();
     $("example-select").value = "path";
+    updateDriverButton();
     setStatus("Routed demo loaded · select a component, then click a tile to edit");
+  }
+
+  function loadMuxSelectorExample() {
+    makeBlank(6, 4);
+    var mux = encodeCell(2, 1, 0);
+    var mode = 2;
+    var orientation = 0;
+    var glyph = muxRoleGeometry(mode, orientation);
+    var selector = neighborOf(mux.x, mux.y, glyph.selector);
+    var zero = neighborOf(mux.x, mux.y, glyph.zero);
+    var one = neighborOf(mux.x, mux.y, glyph.one);
+    var output = neighborOf(mux.x, mux.y, glyph.output);
+    if (!selector || !zero || !one || !output) {
+      throw new Error("The interactive MUX example does not fit this fabric.");
+    }
+    model.roles[indexOf(mux.x, mux.y)] = mode * 4 + orientation;
+    model.roles[indexOf(selector.x, selector.y)] = ROLE.GND;
+    model.roles[indexOf(zero.x, zero.y)] = ROLE.GND;
+    model.roles[indexOf(one.x, one.y)] = ROLE.PWR;
+    model.roles[indexOf(output.x, output.y)] = 4 + output.edge;
+    model.labels = [
+      { x: selector.x, y: selector.y, text: "SELECT", color: "#111111", probe: true, edge: selector.edge, driver: true },
+      { x: zero.x, y: zero.y, text: "D0 = 0", color: "#111111", probe: false, edge: zero.edge },
+      { x: one.x, y: one.y, text: "D1 = 1", color: "#111111", probe: false, edge: one.edge },
+      { x: mux.x, y: mux.y, text: "MUX", color: "#111111", probe: false, edge: glyph.output },
+      { x: output.x, y: output.y, text: "MUX_OUT", color: "#111111", probe: true, edge: 0 }
+    ];
+    rebuildStateTextures();
+    for (var settle = 0; settle < 4; settle += 1) stepOnce();
+    fitFabric();
+    $("example-select").value = "switch";
+    updateDriverButton();
+    setStatus("Interactive MUX loaded · toggle Input, then run or step");
   }
 
   function loadAtlasExample() {
@@ -2026,6 +2120,7 @@ void main() {
     setRunning(false);
     pushHistory();
     if (id === "path") loadSignalPathExample();
+    else if (id === "switch") loadMuxSelectorExample();
     else if (id === "atlas") loadAtlasExample();
     else {
       makeBlank(24, 14);
@@ -2148,6 +2243,7 @@ void main() {
         text: String(label.text || "").slice(0, 40),
         color: /^#[0-9a-f]{6}$/i.test(String(label.color || "")) ? label.color : "#111111",
         probe: Boolean(label.probe),
+        driver: Boolean(label.driver),
         edge: Math.max(0, Math.min(3, Number(label.edge) | 0))
       };
     }).filter(Boolean) : [];
@@ -2266,6 +2362,7 @@ void main() {
     return model.labels.find(function (label) { return label.x === x && label.y === y; }) || null;
   }
   function updateInspector() {
+    updateDriverButton();
     if (!model.selected || !validCell(model.selected.x, model.selected.y)) {
       sidePanel.hidden = true;
       summary.textContent = "No cell selected.";
@@ -2425,6 +2522,10 @@ void main() {
     return { x: center.x + dx * radius / length, y: center.y + dy * radius / length };
   }
 
+  function signalDiscRadius() {
+    return Math.max(1.6, model.camera.scale * SIGNAL_DISC_RADIUS);
+  }
+
   function drawStateRing(ctx, center, radius, high, compact, ink, body) {
     ctx.beginPath();
     ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
@@ -2449,12 +2550,8 @@ void main() {
     var length = Math.max(0.0001, Math.hypot(dx, dy));
     var direction = { x: dx / length, y: dy / length };
     var tangent = { x: -direction.y, y: direction.x };
-    var standOff = engaged
-      ? Math.max(0.5, thin * 0.25)
-      : Math.max(1.2, thin + model.camera.scale * 0.012);
-    var travel = Math.max(0.18, Math.min(0.76, 1 - (ringRadius + standOff) / length));
-    var shoeCenter = pointBetween(port, center, travel);
-    var foot = Math.max(2.2, model.camera.scale * 0.029);
+    var shoeCenter = engaged ? screenRingPort(center, port, ringRadius) : port;
+    var foot = Math.max(3.0, model.camera.scale * 0.043);
     strokeSegment(ctx, port, shoeCenter, thin, color);
     strokeSegment(ctx, {
       x: shoeCenter.x - tangent.x * foot,
@@ -2469,7 +2566,7 @@ void main() {
     strokeSegment(ctx, port, center, haloWidth, body);
     strokeSegment(ctx, port, center, coreWidth, ink);
     ctx.beginPath();
-    ctx.arc(center.x, center.y, Math.max(1.15, model.camera.scale * 0.0105), 0, Math.PI * 2);
+    ctx.arc(center.x, center.y, Math.max(1.5, model.camera.scale * 0.018), 0, Math.PI * 2);
     ctx.fillStyle = ink;
     ctx.fill();
   }
@@ -2496,7 +2593,7 @@ void main() {
     var thin = Math.max(1.0, model.camera.scale * 0.0088);
     var coreWidth = Math.max(2.0, model.camera.scale * 0.0148);
     var haloWidth = coreWidth + Math.max(1.5, model.camera.scale * 0.0084);
-    var ringRadius = Math.max(2.8, model.camera.scale * 0.052);
+    var ringRadius = signalDiscRadius();
     var selector = cpuIncoming(model.cpuOutputs, x, y, glyph.selector);
     var selectedEdge = selector ? glyph.one : glyph.zero;
 
@@ -2516,7 +2613,7 @@ void main() {
     var thin = Math.max(1.0, model.camera.scale * 0.0088);
     var coreWidth = Math.max(2.0, model.camera.scale * 0.0148);
     var haloWidth = coreWidth + Math.max(1.35, model.camera.scale * 0.0084);
-    var ringRadius = Math.max(2.3, model.camera.scale * 0.038);
+    var ringRadius = signalDiscRadius();
     drawOutputArms(ctx, center, outputPorts, ringRadius, thin, ink);
     drawStateRing(ctx, center, ringRadius, Boolean(outputs), true, ink, body);
     drawActiveInput(ctx, inputPorts[orientation], center, coreWidth, haloWidth, ink, body);
@@ -2583,14 +2680,14 @@ void main() {
           var portThin = Math.max(1.0, model.camera.scale * 0.0088);
           var portCore = Math.max(2.0, model.camera.scale * 0.0148);
           var portHalo = portCore + Math.max(1.5, model.camera.scale * 0.0084);
-          var portRing = Math.max(2.8, model.camera.scale * 0.052);
+          var portRing = signalDiscRadius();
           drawOutputArms(ctx, center, outputPorts, portRing, portThin, portInk);
           drawStateRing(ctx, center, portRing, Boolean(outputs), false, portInk, portBody);
           drawActiveInput(ctx, inputPorts[0], center, portCore, portHalo, portInk, portBody);
           drawSelectorShoe(ctx, inputPorts[1], center, Boolean(outputs), portRing, portThin, portInk);
         } else {
           var sourceThin = Math.max(1.0, model.camera.scale * 0.0088);
-          var sourceRing = Math.max(2.8, model.camera.scale * 0.050);
+          var sourceRing = signalDiscRadius();
           drawOutputArms(ctx, center, outputPorts, sourceRing, sourceThin, "#111111");
           drawStateRing(ctx, center, sourceRing, role === ROLE.PWR, false,
             "#111111", glyphBody);
@@ -2642,7 +2739,7 @@ void main() {
         if (center.x < -30 || center.y < -30 || center.x > rect.width + 30 || center.y > rect.height + 30) return;
         var outputPorts = geometry.outputPorts.map(worldToScreen);
         var thin = Math.max(1.0, model.camera.scale * 0.0088);
-        var ringRadius = Math.max(2.8, model.camera.scale * 0.050);
+        var ringRadius = signalDiscRadius();
         drawOutputArms(ctx, center, outputPorts, ringRadius, thin, "#111111");
         drawStateRing(ctx, center, ringRadius, false, false, "#111111", "#fffdf8");
       });
@@ -2694,6 +2791,9 @@ void main() {
   var paintLastPoint = null;
   var spaceHeld = false;
   var pointerInside = false;
+  var touchPointers = new Map();
+  var touchGesture = null;
+  var TOUCH_PAN_THRESHOLD = 6;
   function pointerPoint(event) {
     var rect = overlay.getBoundingClientRect();
     return { x: event.clientX - rect.left, y: event.clientY - rect.top };
@@ -2710,6 +2810,101 @@ void main() {
   function clearHover() {
     model.hover = null;
     coordOutput.textContent = "motif — · kite —";
+  }
+  function touchPair() {
+    return Array.from(touchPointers.values()).slice(0, 2);
+  }
+  function touchCenter(points) {
+    return {
+      x: (points[0].x + points[1].x) / 2,
+      y: (points[0].y + points[1].y) / 2
+    };
+  }
+  function touchDistance(points) {
+    return Math.max(1, Math.hypot(points[1].x - points[0].x, points[1].y - points[0].y));
+  }
+  function beginPinchGesture() {
+    var points = touchPair();
+    if (points.length < 2) return;
+    var center = touchCenter(points);
+    touchGesture = {
+      mode: "pinch",
+      anchor: screenToWorld(center.x, center.y),
+      startCenter: center,
+      startDistance: touchDistance(points),
+      startScale: model.camera.scale,
+      hadPinch: true
+    };
+    viewport.classList.add("is-panning");
+  }
+  function beginTouch(event, point) {
+    touchPointers.set(event.pointerId, point);
+    overlay.setPointerCapture(event.pointerId);
+    if (touchPointers.size === 1) {
+      touchGesture = { mode: "pending", start: point, last: point, hadPinch: false };
+    } else {
+      beginPinchGesture();
+    }
+    event.preventDefault();
+  }
+  function moveTouch(event, point) {
+    if (!touchPointers.has(event.pointerId)) return;
+    touchPointers.set(event.pointerId, point);
+    if (touchPointers.size >= 2) {
+      if (!touchGesture || touchGesture.mode !== "pinch") beginPinchGesture();
+      var points = touchPair();
+      var center = touchCenter(points);
+      var scale = Math.max(3, Math.min(240,
+        touchGesture.startScale * touchDistance(points) / touchGesture.startDistance));
+      model.camera.scale = scale;
+      model.camera.x = center.x - touchGesture.anchor.x * scale;
+      model.camera.y = center.y - touchGesture.anchor.y * scale;
+      event.preventDefault();
+      return;
+    }
+    if (!touchGesture) return;
+    var moved = Math.hypot(point.x - touchGesture.start.x, point.y - touchGesture.start.y);
+    if (touchGesture.mode === "pending" && moved >= TOUCH_PAN_THRESHOLD) {
+      touchGesture.mode = "pan";
+      viewport.classList.add("is-panning");
+    }
+    if (touchGesture.mode === "pan") {
+      model.camera.x += point.x - touchGesture.last.x;
+      model.camera.y += point.y - touchGesture.last.y;
+      event.preventDefault();
+    }
+    touchGesture.last = point;
+  }
+  function finishTouch(event, cancelled) {
+    if (!touchPointers.has(event.pointerId)) return;
+    var point = pointerPoint(event);
+    touchPointers.set(event.pointerId, point);
+    var shouldTap = !cancelled && touchPointers.size === 1 && touchGesture &&
+      touchGesture.mode === "pending" && !touchGesture.hadPinch;
+    touchPointers.delete(event.pointerId);
+    if (touchPointers.size >= 2) {
+      beginPinchGesture();
+    } else if (touchPointers.size === 1) {
+      var remaining = Array.from(touchPointers.values())[0];
+      touchGesture = { mode: "pan", start: remaining, last: remaining, hadPinch: true };
+      viewport.classList.add("is-panning");
+    } else {
+      touchGesture = null;
+      viewport.classList.remove("is-panning");
+    }
+    if (shouldTap) {
+      var cell = screenToCell(point.x, point.y);
+      if (roleSelect.value === "inspect") {
+        selectCell(cell);
+      } else {
+        pushHistory();
+        lastPaintKey = null;
+        paintAt(point);
+        lastPaintKey = null;
+      }
+    }
+    clearHover();
+    event.preventDefault();
   }
   function paintAt(point) {
     var cell = screenToCell(point.x, point.y);
@@ -2746,6 +2941,10 @@ void main() {
   overlay.addEventListener("pointerdown", function (event) {
     overlay.focus({ preventScroll: true });
     var point = pointerPoint(event);
+    if (event.pointerType === "touch") {
+      beginTouch(event, point);
+      return;
+    }
     var panning = event.button === 1 || event.button === 2 || event.altKey || spaceHeld;
     if (panning) {
       panPointer = event.pointerId;
@@ -2773,10 +2972,14 @@ void main() {
   overlay.addEventListener("pointerenter", function () { pointerInside = true; });
   overlay.addEventListener("pointerleave", function () {
     pointerInside = false;
-    if (paintPointer === null && panPointer === null) clearHover();
+    if (paintPointer === null && panPointer === null && touchPointers.size === 0) clearHover();
   });
   overlay.addEventListener("pointermove", function (event) {
     var point = pointerPoint(event);
+    if (event.pointerType === "touch") {
+      moveTouch(event, point);
+      return;
+    }
     updateHover(point);
     if (event.pointerId === panPointer) {
       model.camera.x += point.x - panLast.x;
@@ -2791,6 +2994,10 @@ void main() {
     }
   });
   function endPointer(event) {
+    if (event.pointerType === "touch") {
+      finishTouch(event, event.type !== "pointerup");
+      return;
+    }
     if (event.pointerId === paintPointer) {
       paintPointer = null;
       lastPaintKey = null;
@@ -2808,6 +3015,9 @@ void main() {
   overlay.addEventListener("pointercancel", endPointer);
   overlay.addEventListener("lostpointercapture", endPointer);
   overlay.addEventListener("contextmenu", function (event) { event.preventDefault(); });
+  ["gesturestart", "gesturechange", "gestureend"].forEach(function (type) {
+    viewport.addEventListener(type, function (event) { event.preventDefault(); }, { passive: false });
+  });
   overlay.addEventListener("wheel", function (event) {
     var point = pointerPoint(event);
     zoomAt(Math.exp(-event.deltaY * 0.0015), point.x, point.y);
@@ -2855,6 +3065,7 @@ void main() {
     setRunning(!model.running);
     setStatus(model.running ? "Running" : "Paused");
   });
+  driverButton.addEventListener("click", toggleDriver);
   $("step").addEventListener("click", function () { stepOnce(); setStatus("One causal transition"); });
   $("reset-state").addEventListener("click", function () {
     setRunning(false);
@@ -2871,6 +3082,9 @@ void main() {
   });
   $("zoom-out").addEventListener("click", function () {
     zoomAt(0.8, viewport.clientWidth / 2, viewport.clientHeight / 2);
+  });
+  ["zoom-in", "zoom-out", "fit"].forEach(function (id) {
+    $(id).addEventListener("dblclick", function (event) { event.preventDefault(); });
   });
   $("load-example").addEventListener("click", function () { loadExample($("example-select").value); });
   $("save").addEventListener("click", downloadState);
@@ -3076,7 +3290,6 @@ void main() {
     loadSignalPathExample();
     markNewStateClean();
     updateUndoButtons();
-    $("renderer-output").textContent = gl ? "WebGL 1.0 + GLSL" : "Canvas 2D + CPU";
     if (!gl) {
       setStatus("Routed demo loaded · Canvas 2D compatibility renderer · editing is active");
     }
