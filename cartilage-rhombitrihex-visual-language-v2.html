@@ -263,7 +263,6 @@
       <button id="run" type="button" aria-pressed="false" title="Run or pause (Space)">Run</button>
       <button id="step" type="button" title="One causal transition (.)">Step</button>
       <button id="reset-state" type="button" title="Clear live outputs, keep roles">Reset state</button>
-      <button id="toggle-driver" type="button" aria-pressed="true" title="Toggle the circuit's main input between GND and PWR">Input: PWR</button>
       <div class="separator"></div>
       <button id="component-menu-toggle" type="button" aria-expanded="false" aria-controls="component-menu">Component: Inspect</button>
       <select id="role-select" aria-label="Cell role" hidden></select>
@@ -383,7 +382,7 @@
         <li>Out-of-bounds inputs are zero. There is no clamp, seam, or torus.</li>
         <li>Up to eight labeled probes can record local-edge outputs.</li>
       </ul>
-      <p><strong>Edit:</strong> select a role, then click or drag. Select “Inspect” to inspect, label, or probe a cell. Toggle <strong>Input</strong> between GND and PWR to drive the active example. On touch screens, tap to inspect or place, drag one finger to pan, and pinch to zoom. With a mouse, use the wheel to zoom and right-drag, middle-drag, or Alt-drag to pan.</p>
+      <p><strong>Edit:</strong> select a role, then click or drag. Choose <strong>GND / PWR</strong> and tap a kite to toggle that kite. Select “Inspect” to inspect, label, or probe a cell. On touch screens, tap to inspect or place, drag one finger to pan, and pinch to zoom. With a mouse, use the wheel to zoom and right-drag, middle-drag, or Alt-drag to pan.</p>
       <p><strong>Keys:</strong> <span class="kbd">Space</span> run/pause, <span class="kbd">.</span> step, <span class="kbd">F</span> fit, <span class="kbd">Ctrl/Cmd Z</span> undo.</p>
       <p>Saved files use format <code>cartilage-rhombitrihex-canvas</code>, state version 5, and topology version 1. This app rejects orthogonal textures instead of silently changing their meaning.</p>
       <div class="dialog-actions"><button value="default" type="submit">Close</button></div>
@@ -1021,7 +1020,6 @@ void main() {
   var componentMenu = $("component-menu");
   var componentMenuToggle = $("component-menu-toggle");
   var runButton = $("run");
-  var driverButton = $("toggle-driver");
   var waveToggle = $("wave-toggle");
   var sidePanel = $("side-panel");
   var summary = $("cell-summary");
@@ -1044,6 +1042,7 @@ void main() {
     gl = null;
   }
   if (!gl && !gpuFallbackReason) gpuFallbackReason = "WebGL 1.0 is unavailable";
+  if (!gl) canvas.style.visibility = "hidden";
 
   var model = {
     cols: 24,
@@ -1268,6 +1267,12 @@ void main() {
     if (kind.indexOf("mux") === 0) return Number(kind.slice(3)) * 4 + edge;
     return null;
   }
+  function roleCodeForEdit(kind, edge, x, y) {
+    if (kind === "togglePower") {
+      return model.roles[indexOf(x, y)] === ROLE.PWR ? ROLE.GND : ROLE.PWR;
+    }
+    return roleCode(kind, edge);
+  }
   function describeRole(code) {
     var mode = Math.floor(code / 4);
     var orientation = code & 3;
@@ -1301,6 +1306,7 @@ void main() {
   function populateRoles() {
     var basic = [
       ["inspect", "Inspect"],
+      ["togglePower", "GND / PWR"],
       ["port", "Reconfiguration port (role 0)"],
       ["gnd", "GND"],
       ["pwr", "PWR"],
@@ -1325,7 +1331,7 @@ void main() {
 
   function componentFamily(kind) {
     if (kind === "port") return "port";
-    if (kind === "pwr") return "power";
+    if (kind === "pwr" || kind === "togglePower") return "power";
     if (kind === "cross") return "cross";
     if (kind === "wire") return "wire";
     if (kind.indexOf("mux") === 0) return "mux";
@@ -1334,6 +1340,7 @@ void main() {
 
   function componentLabel(kind, edge) {
     if (kind === "inspect") return "Inspect";
+    if (kind === "togglePower") return "GND / PWR";
     if (kind === "port") return "PORT";
     if (kind === "gnd") return "GND";
     if (kind === "pwr") return "PWR";
@@ -1350,6 +1357,10 @@ void main() {
     componentMenuToggle.setAttribute("aria-expanded", "false");
     componentMenu.hidden = true;
     viewport.classList.toggle("tool-armed", kind !== "inspect");
+    if (kind !== "inspect" && model.selected) {
+      model.selected = null;
+      updateInspector();
+    }
     componentMenu.querySelectorAll(".component-option").forEach(function (button) {
       button.setAttribute(
         "aria-pressed",
@@ -1497,6 +1508,23 @@ void main() {
       crossBubble(c2i, c0o);
       crossBubble(c1, c3);
       crossBubble(c3i, c1o);
+    } else if (kind === "togglePower") {
+      var toggleRadius = 7.4;
+      context.beginPath();
+      context.arc(center.x - 10, center.y, toggleRadius, 0, Math.PI * 2);
+      context.fillStyle = "#ffffff";
+      context.fill();
+      context.strokeStyle = "#111111";
+      context.lineWidth = 1.5;
+      context.stroke();
+      segment({ x: center.x - 0.5, y: center.y }, { x: center.x + 0.5, y: center.y }, 1.4);
+      context.beginPath();
+      context.arc(center.x + 10, center.y, toggleRadius, 0, Math.PI * 2);
+      context.fillStyle = "#ffffff";
+      context.fill();
+      context.strokeStyle = "#111111";
+      context.lineWidth = 4.0;
+      context.stroke();
     } else if (kind === "pwr" || kind === "gnd") {
       var sourceRadius = PICKER_SIGNAL_DISC_RADIUS;
       for (var sourceEdge = 0; sourceEdge < 4; sourceEdge += 1) {
@@ -1540,11 +1568,11 @@ void main() {
     name.textContent = componentLabel(kind, edge);
     var detail = document.createElement("span");
     detail.className = "component-detail";
-    detail.textContent = kind === "inspect"
-      ? "select a kite"
-      : (kind.indexOf("mux") === 0
-        ? muxRoleDetail(Number(kind.slice(3)), edge)
-        : (kind === "wire" ? "input e" + edge + " · four outputs" : "role code " + roleCode(kind, edge)));
+    if (kind === "inspect") detail.textContent = "select a kite";
+    else if (kind === "togglePower") detail.textContent = "tap each kite: PWR ↔ GND";
+    else if (kind.indexOf("mux") === 0) detail.textContent = muxRoleDetail(Number(kind.slice(3)), edge);
+    else if (kind === "wire") detail.textContent = "input e" + edge + " · four outputs";
+    else detail.textContent = "role code " + roleCode(kind, edge);
     copy.appendChild(name);
     copy.appendChild(detail);
     button.appendChild(glyphCanvas);
@@ -1565,6 +1593,7 @@ void main() {
     var muxGrid = $("component-mux-grid");
     [
       ["inspect", 0],
+      ["togglePower", 0],
       ["port", 0],
       ["gnd", 0],
       ["pwr", 0],
@@ -1880,59 +1909,6 @@ void main() {
     return true;
   }
 
-  function activeDriverCell() {
-    var marked = model.labels.find(function (label) {
-      if (!label.driver || !validCell(label.x, label.y)) return false;
-      var role = model.roles[indexOf(label.x, label.y)];
-      return role === ROLE.GND || role === ROLE.PWR;
-    });
-    if (!marked) {
-      marked = model.labels.find(function (label) {
-        if (!/^(?:SOURCE|INPUT|DRIVER|SELECT)$/i.test(label.text || "") ||
-            !validCell(label.x, label.y)) return false;
-        var role = model.roles[indexOf(label.x, label.y)];
-        return role === ROLE.GND || role === ROLE.PWR;
-      });
-    }
-    if (marked) return { x: marked.x, y: marked.y, label: marked };
-    if (model.selected && validCell(model.selected.x, model.selected.y)) {
-      var selectedRole = model.roles[indexOf(model.selected.x, model.selected.y)];
-      if (selectedRole === ROLE.GND || selectedRole === ROLE.PWR) {
-        return { x: model.selected.x, y: model.selected.y, label: cellLabel(model.selected.x, model.selected.y) };
-      }
-    }
-    return null;
-  }
-
-  function updateDriverButton() {
-    var driver = activeDriverCell();
-    if (!driver) {
-      driverButton.disabled = true;
-      driverButton.textContent = "Input: —";
-      driverButton.setAttribute("aria-pressed", "false");
-      driverButton.title = "Select a GND or PWR kite to use it as an input";
-      return;
-    }
-    var powered = model.roles[indexOf(driver.x, driver.y)] === ROLE.PWR;
-    driverButton.disabled = false;
-    driverButton.textContent = "Input: " + (powered ? "PWR" : "GND");
-    driverButton.setAttribute("aria-pressed", String(powered));
-    driverButton.title = "Toggle " + (driver.label && driver.label.text || "the selected input") +
-      " from " + (powered ? "PWR to GND" : "GND to PWR");
-  }
-
-  function toggleDriver() {
-    var driver = activeDriverCell();
-    if (!driver) return;
-    var index = indexOf(driver.x, driver.y);
-    var nextRole = model.roles[index] === ROLE.PWR ? ROLE.GND : ROLE.PWR;
-    pushHistory();
-    setRoleAt(driver.x, driver.y, nextRole);
-    updateDriverButton();
-    setStatus((driver.label && driver.label.text || "Input") + " → " +
-      (nextRole === ROLE.PWR ? "PWR" : "GND") + " · run or step to propagate");
-  }
-
   function snapshot() {
     return {
       cols: model.cols,
@@ -2050,19 +2026,18 @@ void main() {
       }
     }
     model.labels = [
-      { x: start.x, y: start.y, text: "SOURCE", color: "#111111", probe: true, edge: 0, driver: true },
+      { x: start.x, y: start.y, text: "SOURCE", color: "#111111", probe: true, edge: 0 },
       { x: end.x, y: end.y, text: "PATH_END", color: "#111111", probe: true, edge: 0 }
     ];
     rebuildStateTextures();
     for (var settle = 0; settle < path.length + 4; settle += 1) stepOnce();
     fitFabric();
     $("example-select").value = "path";
-    updateDriverButton();
     setStatus("Routed demo loaded · select a component, then click a tile to edit");
   }
 
   function loadMuxSelectorExample() {
-    makeBlank(6, 4);
+    makeBlank(4, 3);
     var mux = encodeCell(2, 1, 0);
     var mode = 2;
     var orientation = 0;
@@ -2080,9 +2055,9 @@ void main() {
     model.roles[indexOf(one.x, one.y)] = ROLE.PWR;
     model.roles[indexOf(output.x, output.y)] = 4 + output.edge;
     model.labels = [
-      { x: selector.x, y: selector.y, text: "SELECT", color: "#111111", probe: true, edge: selector.edge, driver: true },
-      { x: zero.x, y: zero.y, text: "D0 = 0", color: "#111111", probe: false, edge: zero.edge },
-      { x: one.x, y: one.y, text: "D1 = 1", color: "#111111", probe: false, edge: one.edge },
+      { x: selector.x, y: selector.y, text: "SELECT", color: "#111111", probe: true, edge: selector.edge },
+      { x: zero.x, y: zero.y, text: "D0", color: "#111111", probe: false, edge: zero.edge },
+      { x: one.x, y: one.y, text: "D1", color: "#111111", probe: false, edge: one.edge },
       { x: mux.x, y: mux.y, text: "MUX", color: "#111111", probe: false, edge: glyph.output },
       { x: output.x, y: output.y, text: "MUX_OUT", color: "#111111", probe: true, edge: 0 }
     ];
@@ -2090,8 +2065,7 @@ void main() {
     for (var settle = 0; settle < 4; settle += 1) stepOnce();
     fitFabric();
     $("example-select").value = "switch";
-    updateDriverButton();
-    setStatus("Interactive MUX loaded · toggle Input, then run or step");
+    setStatus("Interactive MUX loaded · choose GND / PWR, then tap SELECT and step");
   }
 
   function loadAtlasExample() {
@@ -2243,7 +2217,6 @@ void main() {
         text: String(label.text || "").slice(0, 40),
         color: /^#[0-9a-f]{6}$/i.test(String(label.color || "")) ? label.color : "#111111",
         probe: Boolean(label.probe),
-        driver: Boolean(label.driver),
         edge: Math.max(0, Math.min(3, Number(label.edge) | 0))
       };
     }).filter(Boolean) : [];
@@ -2362,7 +2335,6 @@ void main() {
     return model.labels.find(function (label) { return label.x === x && label.y === y; }) || null;
   }
   function updateInspector() {
-    updateDriverButton();
     if (!model.selected || !validCell(model.selected.x, model.selected.y)) {
       sidePanel.hidden = true;
       summary.textContent = "No cell selected.";
@@ -2755,13 +2727,14 @@ void main() {
       var measured = ctx.measureText(text).width;
       var x = center.x + 8;
       var y = center.y - 8;
+      var probeBadgeWidth = label.probe ? 13 : 0;
       ctx.fillStyle = "rgba(255,253,248,.88)";
-      ctx.fillRect(x - 4, y - 12, measured + 8, 17);
+      ctx.fillRect(x - 4, y - 12, measured + 8 + probeBadgeWidth, 17);
       ctx.fillStyle = "#111111";
       ctx.fillText(text, x, y);
       if (label.probe) {
         ctx.beginPath();
-        ctx.arc(center.x, center.y, 3.5, 0, Math.PI * 2);
+        ctx.arc(x + measured + 7, y - 4, 3.5, 0, Math.PI * 2);
         ctx.fillStyle = PORT_COLORS[label.edge];
         ctx.fill();
       }
@@ -2911,10 +2884,11 @@ void main() {
     if (!cell) return;
     var key = cell.x + "," + cell.y;
     if (key === lastPaintKey) return;
-    var code = roleCode(roleSelect.value, Number(edgeSelect.value));
+    var code = roleCodeForEdit(
+      roleSelect.value, Number(edgeSelect.value), cell.x, cell.y);
     if (setRoleAt(cell.x, cell.y, code)) {
       lastPaintKey = key;
-      selectCell(cell);
+      if (roleSelect.value !== "togglePower") selectCell(cell);
       setStatus("Edited " + key + " · " + describeRole(code));
     }
   }
@@ -3065,7 +3039,6 @@ void main() {
     setRunning(!model.running);
     setStatus(model.running ? "Running" : "Paused");
   });
-  driverButton.addEventListener("click", toggleDriver);
   $("step").addEventListener("click", function () { stepOnce(); setStatus("One causal transition"); });
   $("reset-state").addEventListener("click", function () {
     setRunning(false);
@@ -3246,7 +3219,8 @@ void main() {
       }
       event.preventDefault();
     } else if (event.key === "Enter" && model.selected && roleSelect.value !== "inspect") {
-      var code = roleCode(roleSelect.value, Number(edgeSelect.value));
+      var code = roleCodeForEdit(
+        roleSelect.value, Number(edgeSelect.value), model.selected.x, model.selected.y);
       pushHistory();
       setRoleAt(model.selected.x, model.selected.y, code);
       updateInspector();
