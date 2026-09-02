@@ -376,7 +376,7 @@
         <li>CROSS is internal: it joins opposite pairs <code>(0,2)</code> and <code>(1,3)</code>.</li>
         <li>Non-CROSS roles broadcast one result to all four outputs.</li>
         <li>Role code 0 is the editable local reconfiguration <code>PORT</code>.</li>
-        <li>MUX geometry is structural: the selector shoe is <code>S</code>, the two other input lanes are <code>D0</code>/<code>D1</code>, and the ring gap plus heavy branch move to the selected data input when <code>S</code> changes. WIRE has one paired input lane; every ordinary role has four thin broadcast outputs.</li>
+        <li>MUX geometry is structural: the selector shoe is <code>S</code>, the two other input lanes are <code>D0</code>/<code>D1</code>, and the ring gap plus selected branch move to the chosen data input when <code>S</code> changes. Every signal path is narrow at GND and thick at PWR, including the four broadcast outputs.</li>
         <li>Each motif has six spatial kite sites derived from coordinates. The stored two-bit orientation remains one of four role rotations. For WIRE it selects the local input edge; for MUX it selects the historical permutation orientation.</li>
         <li>Simulation uses exactly two state planes: read the previous plane, write the next plane, then flip them.</li>
         <li>Out-of-bounds inputs are zero. There is no clamp, seam, or torus.</li>
@@ -684,6 +684,10 @@ float ringMask(vec2 p, vec2 center, float radius, float halfWidth, float pixel) 
   return 1.0 - smoothstep(halfWidth, halfWidth + pixel, abs(length(p - center) - radius));
 }
 
+float signalWidth(float high, float lowWidth, float highWidth) {
+  return mix(lowWidth, highWidth, step(0.5, high));
+}
+
 vec2 ringPort(vec2 center, vec2 port, float radius) {
   vec2 ray = port - center;
   return center + ray * (radius / max(length(ray), 0.000001));
@@ -692,12 +696,16 @@ vec2 ringPort(vec2 center, vec2 port, float radius) {
 float fanoutMask(
   vec2 p, vec2 center, float radius,
   vec2 o0, vec2 o1, vec2 o2, vec2 o3,
-  float thin, float pixel
+  float outputs, float lowWidth, float highWidth, float pixel
 ) {
-  float a = strokeMask(p, ringPort(center, o0, radius), o0, thin, pixel);
-  float b = strokeMask(p, ringPort(center, o1, radius), o1, thin, pixel);
-  float c = strokeMask(p, ringPort(center, o2, radius), o2, thin, pixel);
-  float d = strokeMask(p, ringPort(center, o3, radius), o3, thin, pixel);
+  float a = strokeMask(p, ringPort(center, o0, radius), o0,
+    signalWidth(bitAt(outputs, 0.0), lowWidth, highWidth), pixel);
+  float b = strokeMask(p, ringPort(center, o1, radius), o1,
+    signalWidth(bitAt(outputs, 1.0), lowWidth, highWidth), pixel);
+  float c = strokeMask(p, ringPort(center, o2, radius), o2,
+    signalWidth(bitAt(outputs, 2.0), lowWidth, highWidth), pixel);
+  float d = strokeMask(p, ringPort(center, o3, radius), o3,
+    signalWidth(bitAt(outputs, 3.0), lowWidth, highWidth), pixel);
   return max(max(a, b), max(c, d));
 }
 
@@ -805,7 +813,6 @@ void main() {
   float live = step(0.5, outputs);
   float selected = uHasSelected > 0.5 &&
     abs(cell.x - uSelected.x) < 0.5 && abs(cell.y - uSelected.y) < 0.5 ? 1.0 : 0.0;
-  float ground = mode < 0.5 && orientation > 1.5 && orientation < 2.5 ? 1.0 : 0.0;
 
   vec3 color = vec3(1.0, 0.992, 0.973);
   if (mode < 0.5 && orientation < 0.5) color = vec3(0.882, 0.827, 0.945);
@@ -824,21 +831,27 @@ void main() {
   vec2 output2 = mix(p2, p3, 0.66);
   vec2 output3 = mix(p3, p0, 0.66);
 
-  float thin = max(0.50 * cssPixel, 0.0044);
-  float core = max(1.0 * cssPixel, 0.0074);
-  float halo = core + max(0.75 * cssPixel, 0.0042);
+  float lowStroke = max(0.52 * cssPixel, 0.0052);
+  float highStroke = max(1.55 * cssPixel, 0.0180);
+  float lowRingWidth = max(0.62 * cssPixel, 0.0062);
+  float highRingWidth = max(1.72 * cssPixel, 0.0200);
+  float haloGap = max(0.75 * cssPixel, 0.0042);
   vec3 ink = vec3(0.067);
   vec3 portInk = vec3(0.361, 0.157, 0.455);
 
   if (mode < 0.5 && orientation > 0.5 && orientation < 1.5) {
-    float underA = strokeMask(world, input0, output2, thin, aaPixel);
-    float underB = strokeMask(world, input2, output0, thin, aaPixel);
+    float underState = max(bitAt(outputs, 0.0), bitAt(outputs, 2.0));
+    float underWidth = signalWidth(underState, lowStroke, highStroke);
+    float underA = strokeMask(world, input0, output2, underWidth, aaPixel);
+    float underB = strokeMask(world, input2, output0, underWidth, aaPixel);
     float under = max(underA, underB);
     color = mix(color, ink, under);
     color = mix(color, body, discMask(world, center,
-      max(1.45 * cssPixel, 2.90 * thin), aaPixel));
-    float overA = strokeMask(world, input1, output3, thin, aaPixel);
-    float overB = strokeMask(world, input3, output1, thin, aaPixel);
+      max(1.45 * cssPixel, 1.35 * underWidth), aaPixel));
+    float overState = max(bitAt(outputs, 1.0), bitAt(outputs, 3.0));
+    float overWidth = signalWidth(overState, lowStroke, highStroke);
+    float overA = strokeMask(world, input1, output3, overWidth, aaPixel);
+    float overB = strokeMask(world, input3, output1, overWidth, aaPixel);
     float over = max(overA, overB);
     color = mix(color, ink, over);
     float bubbleRadius = max(0.018, 1.65 * cssPixel);
@@ -852,7 +865,7 @@ void main() {
     float bubbleState3 = bitAt(outputs, 1.0);
     float lowBubbleWidth = 0.5 * max(
       0.9 * cssPixel,
-      min(0.55 * bubbleRadius, 2.0 * thin)
+      min(0.55 * bubbleRadius, 2.0 * lowStroke)
     );
     float lowBubble0 = 1.0 - bubbleState0;
     float lowBubble2 = 1.0 - bubbleState2;
@@ -884,72 +897,85 @@ void main() {
     vec2 zeroPort = edgePort(zeroEdge, input0, input1, input2, input3);
     vec2 onePort = edgePort(oneEdge, input0, input1, input2, input3);
     float selectorValue = renderIncoming(cell, selectorEdge);
+    float zeroValue = renderIncoming(cell, zeroEdge);
+    float oneValue = renderIncoming(cell, oneEdge);
+    float selectedValue = selectorValue > 0.5 ? oneValue : zeroValue;
     vec2 selectedPort = selectorValue > 0.5 ? onePort : zeroPort;
     float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
-    float ringWidth = live > 0.5 ? max(1.0 * cssPixel, 0.0105) : max(0.50 * cssPixel, 0.0058);
+    float ringWidth = signalWidth(live, lowRingWidth, highRingWidth);
 
     color = mix(color, ink, fanoutMask(
-      world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
+      world, center, ringRadius, output0, output1, output2, output3,
+      outputs, lowStroke, highStroke, aaPixel
     ));
     float zeroStub = strokeMask(world, zeroPort,
-      ringPort(center, zeroPort, ringRadius + max(1.2 * cssPixel, 0.012)), thin, aaPixel);
+      ringPort(center, zeroPort, ringRadius + max(1.2 * cssPixel, 0.012)),
+      signalWidth(zeroValue, lowStroke, highStroke), aaPixel);
     float oneStub = strokeMask(world, onePort,
-      ringPort(center, onePort, ringRadius + max(1.2 * cssPixel, 0.012)), thin, aaPixel);
+      ringPort(center, onePort, ringRadius + max(1.2 * cssPixel, 0.012)),
+      signalWidth(oneValue, lowStroke, highStroke), aaPixel);
     float selectorShoe = selectorShoeMask(
-      world, selectorPort, center, selectorValue, ringRadius, thin, cssPixel, aaPixel
+      world, selectorPort, center, selectorValue, ringRadius,
+      signalWidth(selectorValue, lowStroke, highStroke), cssPixel, aaPixel
     );
     color = mix(color, ink, max(max(zeroStub, oneStub), selectorShoe));
     color = mix(color, ink, ringMask(world, center, ringRadius, ringWidth, aaPixel));
 
-    float selectedHalo = strokeMask(world, selectedPort, center, halo, aaPixel);
+    float selectedWidth = signalWidth(selectedValue, lowStroke, highStroke);
+    float selectedHalo = strokeMask(world, selectedPort, center,
+      selectedWidth + haloGap, aaPixel);
     color = mix(color, body, selectedHalo);
-    float selectedCore = strokeMask(world, selectedPort, center, core, aaPixel);
+    float selectedCore = strokeMask(world, selectedPort, center, selectedWidth, aaPixel);
     color = mix(color, ink, selectedCore);
-    color = mix(color, ink, discMask(world, center, max(0.018, 1.5 * core), aaPixel));
-  } else if (ground < 0.5) {
-    if (mode > 0.5 && mode < 1.5) {
-      float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
-      float ringWidth = live > 0.5 ? max(0.85 * cssPixel, 0.0085) : max(0.50 * cssPixel, 0.0052);
-      color = mix(color, ink, fanoutMask(
-        world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
-      ));
-      color = mix(color, ink, ringMask(world, center, ringRadius, ringWidth, aaPixel));
-      vec2 wirePort = edgePort(orientation, input0, input1, input2, input3);
-      float wireHalo = strokeMask(world, wirePort, center, halo, aaPixel);
-      color = mix(color, body, wireHalo);
-      float wireCore = strokeMask(world, wirePort, center, core, aaPixel);
-      color = mix(color, ink, wireCore);
-      color = mix(color, ink, discMask(world, center, max(0.018, 1.5 * core), aaPixel));
-    } else if (mode < 0.5 && orientation < 0.5) {
-      float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
-      float ringWidth = live > 0.5 ? max(1.0 * cssPixel, 0.0105) : max(0.50 * cssPixel, 0.0058);
-      color = mix(color, portInk, fanoutMask(
-        world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
-      ));
-      color = mix(color, portInk, ringMask(world, center, ringRadius, ringWidth, aaPixel));
-      float portBranchHalo = strokeMask(world, input0, center, halo, aaPixel);
-      color = mix(color, body, portBranchHalo);
-      color = mix(color, portInk, strokeMask(world, input0, center, core, aaPixel));
-      color = mix(color, portInk, discMask(world, center, max(0.018, 1.5 * core), aaPixel));
-      color = mix(color, portInk,
-        selectorShoeMask(world, input1, center, live, ringRadius, thin, cssPixel, aaPixel));
-    } else {
-      float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
-      float sourceWidth = orientation > 2.5 ? max(1.0 * cssPixel, 0.0105) : max(0.50 * cssPixel, 0.0058);
-      color = mix(color, ink, fanoutMask(
-        world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
-      ));
-      color = mix(color, ink, ringMask(world, center, ringRadius, sourceWidth, aaPixel));
-    }
-  }
-
-  if (ground > 0.5 && selected > 0.5) {
+    color = mix(color, ink, discMask(world, center,
+      max(0.018, 1.16 * selectedWidth), aaPixel));
+  } else if (mode > 0.5 && mode < 1.5) {
     float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
+    float ringWidth = signalWidth(live, lowRingWidth, highRingWidth);
     color = mix(color, ink, fanoutMask(
-      world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
+      world, center, ringRadius, output0, output1, output2, output3,
+      outputs, lowStroke, highStroke, aaPixel
     ));
-    color = mix(color, ink, ringMask(world, center, ringRadius,
-      max(0.50 * cssPixel, 0.0058), aaPixel));
+    color = mix(color, ink, ringMask(world, center, ringRadius, ringWidth, aaPixel));
+    vec2 wirePort = edgePort(orientation, input0, input1, input2, input3);
+    float wireValue = renderIncoming(cell, orientation);
+    float wireWidth = signalWidth(wireValue, lowStroke, highStroke);
+    float wireHalo = strokeMask(world, wirePort, center, wireWidth + haloGap, aaPixel);
+    color = mix(color, body, wireHalo);
+    float wireCore = strokeMask(world, wirePort, center, wireWidth, aaPixel);
+    color = mix(color, ink, wireCore);
+    color = mix(color, ink, discMask(world, center,
+      max(0.018, 1.16 * wireWidth), aaPixel));
+  } else if (mode < 0.5 && orientation < 0.5) {
+    float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
+    float ringWidth = signalWidth(live, lowRingWidth, highRingWidth);
+    color = mix(color, portInk, fanoutMask(
+      world, center, ringRadius, output0, output1, output2, output3,
+      outputs, lowStroke, highStroke, aaPixel
+    ));
+    color = mix(color, portInk, ringMask(world, center, ringRadius, ringWidth, aaPixel));
+    float portInputValue = renderIncoming(cell, 0.0);
+    float portInputWidth = signalWidth(portInputValue, lowStroke, highStroke);
+    float portBranchHalo = strokeMask(world, input0, center,
+      portInputWidth + haloGap, aaPixel);
+    color = mix(color, body, portBranchHalo);
+    color = mix(color, portInk,
+      strokeMask(world, input0, center, portInputWidth, aaPixel));
+    color = mix(color, portInk, discMask(world, center,
+      max(0.018, 1.16 * portInputWidth), aaPixel));
+    float portControlValue = renderIncoming(cell, 1.0);
+    color = mix(color, portInk, selectorShoeMask(
+      world, input1, center, portControlValue, ringRadius,
+      signalWidth(portControlValue, lowStroke, highStroke), cssPixel, aaPixel));
+  } else {
+    float ringRadius = max(SIGNAL_DISC_RADIUS, 1.6 * cssPixel);
+    float sourceWidth = signalWidth(live, lowRingWidth, highRingWidth);
+    color = mix(color, ink, fanoutMask(
+      world, center, ringRadius, output0, output1, output2, output3,
+      outputs, lowStroke, highStroke, aaPixel
+    ));
+    color = mix(color, ink,
+      ringMask(world, center, ringRadius, sourceWidth, aaPixel));
   }
 
   gl_FragColor = vec4(color, 1.0);
@@ -2498,21 +2524,33 @@ void main() {
     return Math.max(1.6, model.camera.scale * SIGNAL_DISC_RADIUS);
   }
 
-  function drawStateRing(ctx, center, radius, high, compact, ink, body) {
+  function signalStrokeWidth(high) {
+    return high
+      ? Math.max(3.1, model.camera.scale * 0.036)
+      : Math.max(1.0, model.camera.scale * 0.0104);
+  }
+
+  function signalRingWidth(high) {
+    return high
+      ? Math.max(3.4, model.camera.scale * 0.040)
+      : Math.max(1.2, model.camera.scale * 0.0124);
+  }
+
+  function drawStateRing(ctx, center, radius, high, ink, body) {
     ctx.beginPath();
     ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
     ctx.fillStyle = body;
     ctx.fill();
     ctx.strokeStyle = ink;
-    ctx.lineWidth = high
-      ? Math.max(compact ? 1.7 : 2.0, model.camera.scale * (compact ? 0.017 : 0.021))
-      : Math.max(1.0, model.camera.scale * (compact ? 0.0104 : 0.0116));
+    ctx.lineWidth = signalRingWidth(high);
     ctx.stroke();
   }
 
-  function drawOutputArms(ctx, center, outputPorts, ringRadius, width, color) {
-    outputPorts.forEach(function (port) {
-      strokeSegment(ctx, screenRingPort(center, port, ringRadius), port, width, color);
+  function drawOutputArms(ctx, center, outputPorts, ringRadius, outputs, color) {
+    outputPorts.forEach(function (port, edge) {
+      var high = Boolean((outputs >> edge) & 1);
+      strokeSegment(ctx, screenRingPort(center, port, ringRadius), port,
+        signalStrokeWidth(high), color);
     });
   }
 
@@ -2534,11 +2572,14 @@ void main() {
     }, Math.max(1.2, thin * 1.22), color);
   }
 
-  function drawActiveInput(ctx, port, center, coreWidth, haloWidth, ink, body) {
+  function drawActiveInput(ctx, port, center, high, ink, body) {
+    var coreWidth = signalStrokeWidth(high);
+    var haloWidth = coreWidth + Math.max(1.5, model.camera.scale * 0.0084);
     strokeSegment(ctx, port, center, haloWidth, body);
     strokeSegment(ctx, port, center, coreWidth, ink);
     ctx.beginPath();
-    ctx.arc(center.x, center.y, Math.max(1.5, model.camera.scale * 0.018), 0, Math.PI * 2);
+    ctx.arc(center.x, center.y,
+      Math.max(1.5, model.camera.scale * 0.018, coreWidth * 0.58), 0, Math.PI * 2);
     ctx.fillStyle = ink;
     ctx.fill();
   }
@@ -2562,33 +2603,33 @@ void main() {
     var glyph = muxRoleGeometry(mode, orientation);
     var ink = "#111111";
     var body = fallbackCellColor(role);
-    var thin = Math.max(1.0, model.camera.scale * 0.0088);
-    var coreWidth = Math.max(2.0, model.camera.scale * 0.0148);
-    var haloWidth = coreWidth + Math.max(1.5, model.camera.scale * 0.0084);
     var ringRadius = signalDiscRadius();
     var selector = cpuIncoming(model.cpuOutputs, x, y, glyph.selector);
+    var zeroValue = cpuIncoming(model.cpuOutputs, x, y, glyph.zero);
+    var oneValue = cpuIncoming(model.cpuOutputs, x, y, glyph.one);
     var selectedEdge = selector ? glyph.one : glyph.zero;
+    var selectedValue = selector ? oneValue : zeroValue;
 
-    drawOutputArms(ctx, center, outputPorts, ringRadius, thin, ink);
+    drawOutputArms(ctx, center, outputPorts, ringRadius, outputs, ink);
     [glyph.zero, glyph.one].forEach(function (edge) {
       var port = inputPorts[edge];
       var end = screenRingPort(center, port, ringRadius + Math.max(1.2, model.camera.scale * 0.012));
-      strokeSegment(ctx, port, end, thin, ink);
+      var high = edge === glyph.zero ? zeroValue : oneValue;
+      strokeSegment(ctx, port, end, signalStrokeWidth(high), ink);
     });
-    drawStateRing(ctx, center, ringRadius, Boolean(outputs), false, ink, body);
-    drawActiveInput(ctx, inputPorts[selectedEdge], center, coreWidth, haloWidth, ink, body);
-    drawSelectorShoe(ctx, inputPorts[glyph.selector], center, selector, ringRadius, thin, ink);
+    drawStateRing(ctx, center, ringRadius, Boolean(outputs), ink, body);
+    drawActiveInput(ctx, inputPorts[selectedEdge], center, selectedValue, ink, body);
+    drawSelectorShoe(ctx, inputPorts[glyph.selector], center, selector, ringRadius,
+      signalStrokeWidth(selector), ink);
   }
 
   function drawWireFabricGlyph(ctx, x, y, center, inputPorts, outputPorts, orientation, outputs, body) {
     var ink = "#111111";
-    var thin = Math.max(1.0, model.camera.scale * 0.0088);
-    var coreWidth = Math.max(2.0, model.camera.scale * 0.0148);
-    var haloWidth = coreWidth + Math.max(1.35, model.camera.scale * 0.0084);
     var ringRadius = signalDiscRadius();
-    drawOutputArms(ctx, center, outputPorts, ringRadius, thin, ink);
-    drawStateRing(ctx, center, ringRadius, Boolean(outputs), true, ink, body);
-    drawActiveInput(ctx, inputPorts[orientation], center, coreWidth, haloWidth, ink, body);
+    var inputValue = cpuIncoming(model.cpuOutputs, x, y, orientation);
+    drawOutputArms(ctx, center, outputPorts, ringRadius, outputs, ink);
+    drawStateRing(ctx, center, ringRadius, Boolean(outputs), ink, body);
+    drawActiveInput(ctx, inputPorts[orientation], center, inputValue, ink, body);
   }
 
   function drawFabricOverlay(ctx, rect, outlineOnly) {
@@ -2617,31 +2658,31 @@ void main() {
           ctx.fill();
         }
 
-        var groundIsExplicit = role !== ROLE.GND || Boolean(cellLabel(x, y)) ||
-          Boolean(model.selected && model.selected.x === x && model.selected.y === y);
-        if (!groundIsExplicit) continue;
-
         var inputPorts = geometry.inputPorts.map(worldToScreen);
         var outputPorts = geometry.outputPorts.map(worldToScreen);
         var glyphBody = isSelected ? "#eeeae2" : "#fffdf8";
         if (role === ROLE.CROSS) {
-          var crossWidth = Math.max(1.0, model.camera.scale * 0.0088);
-          strokeSegment(ctx, inputPorts[0], outputPorts[2], crossWidth);
-          strokeSegment(ctx, inputPorts[2], outputPorts[0], crossWidth);
+          var crossLowWidth = signalStrokeWidth(false);
+          var cross02High = Boolean((outputs & 1) || ((outputs >> 2) & 1));
+          var cross13High = Boolean(((outputs >> 1) & 1) || ((outputs >> 3) & 1));
+          var cross02Width = signalStrokeWidth(cross02High);
+          var cross13Width = signalStrokeWidth(cross13High);
+          strokeSegment(ctx, inputPorts[0], outputPorts[2], cross02Width);
+          strokeSegment(ctx, inputPorts[2], outputPorts[0], cross02Width);
           ctx.beginPath();
-          ctx.arc(center.x, center.y, Math.max(1.45, crossWidth * 1.45), 0, Math.PI * 2);
+          ctx.arc(center.x, center.y, Math.max(1.45, cross02Width * 0.68), 0, Math.PI * 2);
           ctx.fillStyle = glyphBody;
           ctx.fill();
-          strokeSegment(ctx, inputPorts[1], outputPorts[3], crossWidth);
-          strokeSegment(ctx, inputPorts[3], outputPorts[1], crossWidth);
+          strokeSegment(ctx, inputPorts[1], outputPorts[3], cross13Width);
+          strokeSegment(ctx, inputPorts[3], outputPorts[1], cross13Width);
           drawCrossBubble(ctx, pointBetween(inputPorts[0], outputPorts[2], 0.34),
-            Boolean((outputs >> 2) & 1), crossWidth, "#111111", glyphBody);
+            Boolean((outputs >> 2) & 1), crossLowWidth, "#111111", glyphBody);
           drawCrossBubble(ctx, pointBetween(inputPorts[2], outputPorts[0], 0.34),
-            Boolean(outputs & 1), crossWidth, "#111111", glyphBody);
+            Boolean(outputs & 1), crossLowWidth, "#111111", glyphBody);
           drawCrossBubble(ctx, pointBetween(inputPorts[1], outputPorts[3], 0.34),
-            Boolean((outputs >> 3) & 1), crossWidth, "#111111", glyphBody);
+            Boolean((outputs >> 3) & 1), crossLowWidth, "#111111", glyphBody);
           drawCrossBubble(ctx, pointBetween(inputPorts[3], outputPorts[1], 0.34),
-            Boolean((outputs >> 1) & 1), crossWidth, "#111111", glyphBody);
+            Boolean((outputs >> 1) & 1), crossLowWidth, "#111111", glyphBody);
         } else if (mode === 1) {
           drawWireFabricGlyph(ctx, x, y, center, inputPorts, outputPorts, orientation, outputs, glyphBody);
         } else if (mode > 1) {
@@ -2649,19 +2690,18 @@ void main() {
         } else if (role === ROLE.PORT) {
           var portInk = "#5c2874";
           var portBody = fallbackCellColor(role);
-          var portThin = Math.max(1.0, model.camera.scale * 0.0088);
-          var portCore = Math.max(2.0, model.camera.scale * 0.0148);
-          var portHalo = portCore + Math.max(1.5, model.camera.scale * 0.0084);
           var portRing = signalDiscRadius();
-          drawOutputArms(ctx, center, outputPorts, portRing, portThin, portInk);
-          drawStateRing(ctx, center, portRing, Boolean(outputs), false, portInk, portBody);
-          drawActiveInput(ctx, inputPorts[0], center, portCore, portHalo, portInk, portBody);
-          drawSelectorShoe(ctx, inputPorts[1], center, Boolean(outputs), portRing, portThin, portInk);
+          var portInputValue = cpuIncoming(model.cpuOutputs, x, y, 0);
+          var portControlValue = cpuIncoming(model.cpuOutputs, x, y, 1);
+          drawOutputArms(ctx, center, outputPorts, portRing, outputs, portInk);
+          drawStateRing(ctx, center, portRing, Boolean(outputs), portInk, portBody);
+          drawActiveInput(ctx, inputPorts[0], center, portInputValue, portInk, portBody);
+          drawSelectorShoe(ctx, inputPorts[1], center, portControlValue, portRing,
+            signalStrokeWidth(portControlValue), portInk);
         } else {
-          var sourceThin = Math.max(1.0, model.camera.scale * 0.0088);
           var sourceRing = signalDiscRadius();
-          drawOutputArms(ctx, center, outputPorts, sourceRing, sourceThin, "#111111");
-          drawStateRing(ctx, center, sourceRing, role === ROLE.PWR, false,
+          drawOutputArms(ctx, center, outputPorts, sourceRing, outputs, "#111111");
+          drawStateRing(ctx, center, sourceRing, role === ROLE.PWR,
             "#111111", glyphBody);
         }
       }
@@ -2697,26 +2737,6 @@ void main() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, rect.width, rect.height);
     if (!gl) drawFabricOverlay(ctx, rect, false);
-    else {
-      // The substrate defaults to CONST 0 and stays visually quiet. A labeled
-      // CONST 0 (for example role 02 in the atlas) is explicit and gets its glyph.
-      ctx.save();
-      ctx.lineJoin = "round";
-      ctx.lineCap = "round";
-      model.labels.forEach(function (label) {
-        if (!validCell(label.x, label.y) || model.roles[indexOf(label.x, label.y)] !== ROLE.GND) return;
-        if (model.selected && model.selected.x === label.x && model.selected.y === label.y) return;
-        var geometry = geometryOf(label.x, label.y);
-        var center = worldToScreen(geometry.center);
-        if (center.x < -30 || center.y < -30 || center.x > rect.width + 30 || center.y > rect.height + 30) return;
-        var outputPorts = geometry.outputPorts.map(worldToScreen);
-        var thin = Math.max(1.0, model.camera.scale * 0.0088);
-        var ringRadius = signalDiscRadius();
-        drawOutputArms(ctx, center, outputPorts, ringRadius, thin, "#111111");
-        drawStateRing(ctx, center, ringRadius, false, false, "#111111", "#fffdf8");
-      });
-      ctx.restore();
-    }
 
     model.labels.forEach(function (label) {
       if (!validCell(label.x, label.y)) return;
