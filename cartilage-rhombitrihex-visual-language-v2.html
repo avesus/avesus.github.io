@@ -1,0 +1,3104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4efe4">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="data:,">
+  <title>Cartilage Rhombitrihex Visual Language v2 — Offline</title>
+  <meta name="description" content="A self-contained offline Cartilage editor and simulator on the four-neighbor Rhombitrihex kite lattice.">
+  <!--
+    Offline Rhombitrihex fork of Cartilage Simple Canvas.
+    Public source and visual contracts consulted:
+      greenforest.io/cartilage-simple-canvas-at-home.html
+      greenforest.io/cartilage-visual-language.html
+      greenforest.io/mux-algebra.html
+    This file has no network dependency. It does not load the source page, a CDN,
+    a service, an account, or any other application.
+  -->
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4efe4;
+      --paper-2: #fffdf8;
+      --ink: #191816;
+      --muted: #6a655c;
+      --line: #c9c0af;
+      --accent: #0b766f;
+      --accent-2: #9a5e10;
+      --danger: #a12626;
+      --shadow: 0 10px 35px rgba(45, 37, 24, .16);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--paper); color: var(--ink); }
+    button, select, input { font: inherit; color: inherit; }
+    button, select, input[type="number"], input[type="text"] {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper-2);
+    }
+    button { padding: 6px 10px; cursor: pointer; }
+    button:hover { border-color: #8f8574; }
+    button:focus-visible, select:focus-visible, input:focus-visible {
+      outline: 3px solid rgba(11, 118, 111, .28);
+      outline-offset: 1px;
+    }
+    button[aria-pressed="true"], .tool-active {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    button:disabled { opacity: .45; cursor: default; }
+    #app { display: grid; grid-template-rows: auto 1fr auto; width: 100%; height: 100%; }
+    #toolbar {
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 54px;
+      padding: 8px max(8px, env(safe-area-inset-left)) 8px max(8px, env(safe-area-inset-right));
+      overflow-x: auto;
+      white-space: nowrap;
+      background: rgba(244, 239, 228, .97);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 2px 10px rgba(45, 37, 24, .08);
+    }
+    #toolbar .brand { display: flex; align-items: baseline; gap: 7px; margin-right: 6px; }
+    #toolbar .brand strong { font-size: 15px; letter-spacing: .01em; }
+    #toolbar .brand span { color: var(--muted); font-size: 11px; }
+    .separator { width: 1px; height: 28px; flex: 0 0 auto; background: var(--line); margin: 0 3px; }
+    #role-select { width: 205px; }
+    #edge-select { width: 210px; }
+    #example-select { width: 154px; }
+    #viewport { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: #fbfaf6; touch-action: none; }
+    #gl-canvas, #overlay {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #gl-canvas { background: #fbfaf6; }
+    #overlay { z-index: 2; touch-action: none; }
+    #viewport.is-panning, #viewport.is-panning #overlay { cursor: grabbing; }
+    #viewport.is-painting, #viewport.is-painting #overlay { cursor: crosshair; }
+    #viewport.tool-armed #overlay { cursor: crosshair; }
+    #component-menu {
+      position: fixed;
+      z-index: 15;
+      top: 60px;
+      left: max(8px, env(safe-area-inset-left));
+      width: min(760px, calc(100% - 16px));
+      max-height: calc(100% - 76px);
+      overflow: auto;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 253, 248, .99);
+      box-shadow: var(--shadow);
+    }
+    #component-menu[hidden] { display: none; }
+    #component-menu h2 { margin: 0; font-size: 16px; }
+    #component-menu h3 {
+      margin: 12px 0 6px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .component-menu-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+      gap: 6px;
+    }
+    .component-option {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr);
+      align-items: center;
+      gap: 8px;
+      min-height: 68px;
+      padding: 4px 8px 4px 4px;
+      text-align: left;
+      font-weight: 650;
+      border-left-width: 6px;
+    }
+    .component-glyph { display: block; width: 58px; height: 58px; }
+    .component-copy { display: grid; gap: 2px; min-width: 0; }
+    .component-name { font-weight: 750; }
+    .component-detail {
+      color: var(--muted);
+      font: 10px/1.25 ui-monospace, SFMono-Regular, Menlo, monospace;
+      white-space: normal;
+    }
+    .component-option[aria-pressed="true"] .component-detail { color: rgba(255,255,255,.82); }
+    .component-option[data-family="basic"],
+    .component-option[data-family="power"],
+    .component-option[data-family="cross"],
+    .component-option[data-family="wire"] { border-left-color: #24211d; }
+    .component-option[data-family="mux"] { border-left-color: #a77a3c; }
+    .component-option[data-family="port"] { border-left-color: #7b4b91; }
+    .component-option[aria-pressed="true"] {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    #hud {
+      position: absolute;
+      z-index: 3;
+      left: 12px;
+      bottom: 12px;
+      display: flex;
+      gap: 7px;
+      pointer-events: none;
+    }
+    .hud-chip {
+      padding: 5px 8px;
+      border: 1px solid rgba(118, 108, 90, .45);
+      border-radius: 7px;
+      background: rgba(255, 253, 248, .9);
+      color: #4d493f;
+      font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+      box-shadow: 0 2px 8px rgba(45, 37, 24, .08);
+    }
+    #side-panel {
+      position: absolute;
+      z-index: 4;
+      top: 12px;
+      right: 12px;
+      width: min(340px, calc(100% - 24px));
+      max-height: calc(100% - 24px);
+      overflow: auto;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 253, 248, .96);
+      box-shadow: var(--shadow);
+    }
+    #side-panel[hidden] { display: none; }
+    #side-panel h2, #side-panel h3 { margin: 0 0 8px; }
+    #side-panel h2 { font-size: 16px; }
+    #side-panel h3 { margin-top: 14px; font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    #cell-summary { margin: 0; white-space: pre-wrap; font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .field-row { display: grid; grid-template-columns: 1fr auto; gap: 7px; margin-top: 7px; }
+    .field-row input { min-width: 0; padding: 6px 8px; }
+    .panel-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    #wave-wrap {
+      min-height: 0;
+      padding: 5px 10px max(5px, env(safe-area-inset-bottom));
+      background: #1e201f;
+      border-top: 1px solid #000;
+    }
+    #wave-wrap[hidden] { display: none; }
+    #wave-canvas { display: block; width: 100%; height: 116px; }
+    #status {
+      flex: 0 0 auto;
+      max-width: 260px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    dialog {
+      width: min(560px, calc(100% - 28px));
+      max-height: calc(100% - 28px);
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 0;
+      background: var(--paper-2);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+    }
+    dialog::backdrop { background: rgba(26, 23, 18, .45); }
+    .dialog-body { padding: 18px; }
+    .dialog-body h2 { margin: 0 0 10px; }
+    .dialog-body p, .dialog-body li { font-size: 14px; line-height: 1.5; }
+    .dialog-body code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .resize-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .resize-grid label { display: grid; gap: 5px; font-size: 13px; color: var(--muted); }
+    .resize-grid input { width: 100%; padding: 6px 8px; }
+    .kbd { display: inline-block; padding: 1px 5px; border: 1px solid #b8af9f; border-bottom-width: 2px; border-radius: 4px; background: #fff; font: 11px ui-monospace, monospace; }
+    .port-key { display: grid; grid-template-columns: auto 1fr; gap: 5px 8px; align-items: center; }
+    .port-dot { width: 11px; height: 11px; border-radius: 50%; }
+    #fatal {
+      position: absolute;
+      z-index: 20;
+      inset: 20px;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+      color: #fff;
+      background: rgba(103, 20, 20, .94);
+      border-radius: 12px;
+      white-space: pre-wrap;
+    }
+    #fatal[hidden] { display: none; }
+    @media (max-width: 760px) {
+      #toolbar .brand span, #status { display: none; }
+      #role-select { width: 170px; }
+      #side-panel { top: 8px; right: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <main id="app">
+    <nav id="toolbar" aria-label="Rhombitrihex fabric controls">
+      <div class="brand"><strong>Cartilage</strong><span>Rhombitrihex visual language v2</span></div>
+      <button id="run" type="button" aria-pressed="false" title="Run or pause (Space)">Run</button>
+      <button id="step" type="button" title="One causal transition (.)">Step</button>
+      <button id="reset-state" type="button" title="Clear live outputs, keep roles">Reset state</button>
+      <div class="separator"></div>
+      <button id="component-menu-toggle" type="button" aria-expanded="false" aria-controls="component-menu">Component: Inspect</button>
+      <select id="role-select" aria-label="Cell role" hidden></select>
+      <select id="edge-select" aria-label="Role orientation" hidden>
+        <option value="0">orientation o0 · WIRE input e0</option>
+        <option value="1">orientation o1 · WIRE input e1</option>
+        <option value="2">orientation o2 · WIRE input e2</option>
+        <option value="3">orientation o3 · WIRE input e3</option>
+      </select>
+      <button id="undo" type="button" disabled title="Undo (Ctrl/Cmd+Z)">Undo</button>
+      <button id="redo" type="button" disabled title="Redo (Ctrl/Cmd+Shift+Z)">Redo</button>
+      <div class="separator"></div>
+      <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+      <button id="fit" type="button">Fit</button>
+      <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+      <button id="resize" type="button">Resize</button>
+      <div class="separator"></div>
+      <select id="example-select" aria-label="Example">
+        <option value="blank">Blank fabric</option>
+        <option value="path" selected>Routed signal path + MUX</option>
+        <option value="atlas">32-role visual key</option>
+      </select>
+      <button id="load-example" type="button">Load example</button>
+      <button id="save" type="button">Save JSON</button>
+      <button id="open" type="button">Open JSON</button>
+      <input id="open-file" type="file" accept="application/json,.json,.cartilage.json" hidden>
+      <button id="wave-toggle" type="button" aria-pressed="false">Waveforms</button>
+      <button id="help" type="button">Help</button>
+      <output id="status" aria-live="polite">Starting…</output>
+    </nav>
+
+    <section id="component-menu" role="dialog" aria-label="Select a component to place" hidden>
+      <div class="component-menu-head">
+        <h2>Place a component</h2>
+        <button id="component-menu-close" type="button">Close</button>
+      </div>
+      <h3>Inspect and constants</h3>
+      <div id="component-basic-grid" class="component-grid"></div>
+      <h3>WIRE — choose its local input edge</h3>
+      <div id="component-wire-grid" class="component-grid"></div>
+      <h3>MUX — six modes × four orientations</h3>
+      <div id="component-mux-grid" class="component-grid"></div>
+    </section>
+
+    <section id="viewport" aria-label="Editable Rhombitrihex fabric">
+      <canvas id="gl-canvas"></canvas>
+      <canvas id="overlay" tabindex="0" role="application" aria-label="Rhombitrihex fabric editor. Arrow keys move across local edges e0 through e3."></canvas>
+      <aside id="side-panel" hidden>
+        <h2>Selected kite</h2>
+        <pre id="cell-summary">No cell selected.</pre>
+        <h3>Label and probe</h3>
+        <div class="field-row">
+          <input id="label-text" type="text" maxlength="40" placeholder="Signal label" aria-label="Signal label text">
+          <button id="set-label" type="button">Set</button>
+        </div>
+        <div class="panel-actions">
+          <button id="toggle-probe" type="button">Add probe</button>
+          <select id="probe-edge" aria-label="Probe output edge">
+            <option value="0">probe e0</option>
+            <option value="1">probe e1</option>
+            <option value="2">probe e2</option>
+            <option value="3">probe e3</option>
+          </select>
+          <button id="delete-label" type="button">Delete label</button>
+          <button id="close-panel" type="button">Close</button>
+        </div>
+        <h3>Local edge order</h3>
+        <div class="port-key">
+          <span class="port-dot" style="background:#111"></span><span>e0: vertex → next midpoint</span>
+          <span class="port-dot" style="background:#111"></span><span>e1: next midpoint → centroid</span>
+          <span class="port-dot" style="background:#111"></span><span>e2: centroid → previous midpoint</span>
+          <span class="port-dot" style="background:#111"></span><span>e3: previous midpoint → vertex</span>
+        </div>
+      </aside>
+      <div id="hud">
+        <output id="coord" class="hud-chip">motif — · kite —</output>
+        <output id="frame" class="hud-chip">frame 0</output>
+        <output id="renderer-output" class="hud-chip">renderer starting…</output>
+      </div>
+      <div id="fatal" hidden></div>
+    </section>
+
+    <section id="wave-wrap" hidden aria-label="Signal waveforms">
+      <canvas id="wave-canvas"></canvas>
+    </section>
+  </main>
+
+  <dialog id="resize-dialog">
+    <form method="dialog" class="dialog-body" id="resize-form">
+      <h2>Resize complete motifs</h2>
+      <p>The finite fabric is a parallelogram of six-kite motifs. Resize preserves every overlapping <code>(i,j,kite)</code> site. It does not wrap or reinterpret local ports.</p>
+      <div class="resize-grid">
+        <label>Motif columns<input id="resize-cols" type="number" min="2" max="160" step="1" required></label>
+        <label>Motif rows<input id="resize-rows" type="number" min="2" max="120" step="1" required></label>
+      </div>
+      <div class="dialog-actions">
+        <button id="resize-cancel" type="button">Cancel</button>
+        <button id="resize-apply" type="submit">Resize</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="help-dialog">
+    <form method="dialog" class="dialog-body">
+      <h2>Rhombitrihex Cartilage</h2>
+      <p>This file runs directly from <code>file:///</code>. It is one local HTML file. Its JavaScript, WebGL shaders, styles, examples, editor, simulator, JSON codec, labels, and waveform probes are embedded.</p>
+      <p>Each primitive rhombus contains two equilateral triangles. Each triangle is divided at its centroid and three edge midpoints. The result is six congruent kites. Each kite has four local ports.</p>
+      <ul>
+        <li>Texture packing: <code>u=3i+k</code>, <code>v=2j+t</code>, spatial kite index <code>p=3t+k</code>.</li>
+        <li>Adjacency depends on the kite site. The neighbor sees reciprocal edge <code>3−e</code>.</li>
+        <li>CROSS is internal: it joins opposite pairs <code>(0,2)</code> and <code>(1,3)</code>.</li>
+        <li>Non-CROSS roles broadcast one result to all four outputs.</li>
+        <li>Role code 0 is the editable local reconfiguration <code>PORT</code>.</li>
+        <li>MUX geometry is structural: the selector shoe is <code>S</code>, the two other input lanes are <code>D0</code>/<code>D1</code>, and the ring gap plus heavy branch move to the selected data input when <code>S</code> changes. WIRE has one paired input lane; every ordinary role has four thin broadcast outputs.</li>
+        <li>Each motif has six spatial kite sites derived from coordinates. The stored two-bit orientation remains one of four role rotations. For WIRE it selects the local input edge; for MUX it selects the historical permutation orientation.</li>
+        <li>Simulation uses exactly two state planes: read the previous plane, write the next plane, then flip them.</li>
+        <li>Out-of-bounds inputs are zero. There is no clamp, seam, or torus.</li>
+        <li>Up to eight labeled probes can record local-edge outputs.</li>
+      </ul>
+      <p><strong>Edit:</strong> select a role, then click or drag. Select “Inspect” to inspect, label, or probe a cell. Use the mouse wheel to zoom. Right-drag, middle-drag, or Alt-drag to pan.</p>
+      <p><strong>Keys:</strong> <span class="kbd">Space</span> run/pause, <span class="kbd">.</span> step, <span class="kbd">F</span> fit, <span class="kbd">Ctrl/Cmd Z</span> undo.</p>
+      <p>Saved files use format <code>cartilage-rhombitrihex-canvas</code>, state version 5, and topology version 1. This app rejects orthogonal textures instead of silently changing their meaning.</p>
+      <div class="dialog-actions"><button value="default" type="submit">Close</button></div>
+    </form>
+  </dialog>
+
+  <script id="quad-vertex" type="x-shader/x-vertex">
+attribute vec2 aPosition;
+void main() {
+  gl_Position = vec4(aPosition, 0.0, 1.0);
+}
+  </script>
+
+  <script id="compute-fragment" type="x-shader/x-fragment">
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+uniform sampler2D uState;
+uniform vec2 uSize;
+
+float byteValue(float v) {
+  return floor(v * 255.0 + 0.5);
+}
+
+float bitAt(float bits, float edge) {
+  float divisor = edge < 0.5 ? 1.0 : (edge < 1.5 ? 2.0 : (edge < 2.5 ? 4.0 : 8.0));
+  return mod(floor(bits / divisor), 2.0);
+}
+
+float validCell(vec2 cell) {
+  return cell.x >= 0.0 && cell.y >= 0.0 && cell.x < uSize.x && cell.y < uSize.y ? 1.0 : 0.0;
+}
+
+vec4 readCell(vec2 cell) {
+  if (validCell(cell) < 0.5) return vec4(0.0);
+  return texture2D(uState, (floor(cell) + 0.5) / uSize);
+}
+
+void neighborOf(vec2 cell, float edge, out vec2 neighbor, out float reciprocal, out float valid) {
+  float x = floor(cell.x);
+  float y = floor(cell.y);
+  float k = mod(x, 3.0);
+  float t = mod(y, 2.0);
+  float i = floor(x / 3.0);
+  float j = floor(y / 2.0);
+  float phase = 3.0 * t + k;
+  float nextPhase = phase;
+  float di = 0.0;
+  float dj = 0.0;
+
+  if (phase < 0.5) {
+    if (edge < 0.5) { nextPhase = 5.0; dj = -1.0; }
+    else if (edge < 1.5) { nextPhase = 1.0; }
+    else if (edge < 2.5) { nextPhase = 2.0; }
+    else { nextPhase = 3.0; di = -1.0; }
+  } else if (phase < 1.5) {
+    if (edge < 0.5) { nextPhase = 3.0; }
+    else if (edge < 1.5) { nextPhase = 2.0; }
+    else if (edge < 2.5) { nextPhase = 0.0; }
+    else { nextPhase = 4.0; dj = -1.0; }
+  } else if (phase < 2.5) {
+    if (edge < 0.5) { nextPhase = 4.0; di = -1.0; }
+    else if (edge < 1.5) { nextPhase = 0.0; }
+    else if (edge < 2.5) { nextPhase = 1.0; }
+    else { nextPhase = 5.0; }
+  } else if (phase < 3.5) {
+    if (edge < 0.5) { nextPhase = 0.0; di = 1.0; }
+    else if (edge < 1.5) { nextPhase = 4.0; }
+    else if (edge < 2.5) { nextPhase = 5.0; }
+    else { nextPhase = 1.0; }
+  } else if (phase < 4.5) {
+    if (edge < 0.5) { nextPhase = 1.0; dj = 1.0; }
+    else if (edge < 1.5) { nextPhase = 5.0; }
+    else if (edge < 2.5) { nextPhase = 3.0; }
+    else { nextPhase = 2.0; di = 1.0; }
+  } else {
+    if (edge < 0.5) { nextPhase = 2.0; }
+    else if (edge < 1.5) { nextPhase = 3.0; }
+    else if (edge < 2.5) { nextPhase = 4.0; }
+    else { nextPhase = 0.0; dj = 1.0; }
+  }
+
+  float ni = i + di;
+  float nj = j + dj;
+  float nk = mod(nextPhase, 3.0);
+  float nt = floor(nextPhase / 3.0);
+  neighbor = vec2(3.0 * ni + nk, 2.0 * nj + nt);
+  reciprocal = 3.0 - edge;
+  valid = validCell(neighbor);
+}
+
+float incoming(vec2 cell, float edge) {
+  vec2 neighbor;
+  float reciprocal;
+  float valid;
+  neighborOf(cell, edge, neighbor, reciprocal, valid);
+  if (valid < 0.5) return 0.0;
+  float outputs = byteValue(readCell(neighbor).g);
+  return bitAt(outputs, reciprocal);
+}
+
+float muxAction(float modeCode, float l, float r, float b, float t) {
+  float mode = 7.0 - modeCode;
+  if (mode < 0.5) return l > 0.5 ? b : t;
+  if (mode < 1.5) return l > 0.5 ? t : b;
+  if (mode < 2.5) return l > 0.5 ? r : t;
+  if (mode < 3.5) return l > 0.5 ? t : r;
+  if (mode < 4.5) return l > 0.5 ? r : b;
+  return l > 0.5 ? b : r;
+}
+
+void main() {
+  vec2 cell = floor(gl_FragCoord.xy);
+  vec4 source = readCell(cell);
+  float role = byteValue(source.r);
+  float orientation = mod(role, 4.0);
+  float mode = floor(role / 4.0);
+
+  float a0 = incoming(cell, 0.0);
+  float a1 = incoming(cell, 1.0);
+  float a2 = incoming(cell, 2.0);
+  float a3 = incoming(cell, 3.0);
+  float o0 = 0.0;
+  float o1 = 0.0;
+  float o2 = 0.0;
+  float o3 = 0.0;
+
+  if (mode < 0.5) {
+    if (orientation > 0.5 && orientation < 1.5) {
+      o0 = a2;
+      o1 = a3;
+      o2 = a0;
+      o3 = a1;
+    } else if (orientation > 2.5) {
+      o0 = 1.0; o1 = 1.0; o2 = 1.0; o3 = 1.0;
+    }
+  } else {
+    float value = 0.0;
+    if (mode < 1.5) {
+      value = orientation < 0.5 ? a0 : (orientation < 1.5 ? a1 : (orientation < 2.5 ? a2 : a3));
+    } else if (orientation > 2.5) {
+      value = muxAction(mode, a0, a2, a3, a1);
+    } else if (orientation > 1.5) {
+      value = muxAction(mode, a1, a3, a0, a2);
+    } else if (orientation > 0.5) {
+      value = muxAction(mode, a2, a0, a1, a3);
+    } else {
+      value = muxAction(mode, a3, a1, a2, a0);
+    }
+    o0 = value; o1 = value; o2 = value; o3 = value;
+  }
+
+  float packedOutputs = o0 + 2.0 * o1 + 4.0 * o2 + 8.0 * o3;
+  gl_FragColor = vec4(source.r, packedOutputs / 255.0, source.b, 1.0);
+}
+  </script>
+
+  <script id="render-fragment" type="x-shader/x-fragment">
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+uniform sampler2D uState;
+uniform vec2 uSize;
+uniform vec2 uViewport;
+uniform float uDevicePixelRatio;
+uniform vec3 uCamera;
+uniform vec2 uSelected;
+uniform float uHasSelected;
+
+const float H = 0.86602540378443864676;
+
+float byteValue(float v) {
+  return floor(v * 255.0 + 0.5);
+}
+
+float bitAt(float bits, float edge) {
+  float divisor = edge < 0.5 ? 1.0 : (edge < 1.5 ? 2.0 : (edge < 2.5 ? 4.0 : 8.0));
+  return mod(floor(bits / divisor), 2.0);
+}
+
+float validCell(vec2 cell) {
+  return cell.x >= 0.0 && cell.y >= 0.0 && cell.x < uSize.x && cell.y < uSize.y ? 1.0 : 0.0;
+}
+
+vec4 readCell(vec2 cell) {
+  if (validCell(cell) < 0.5) return vec4(0.0);
+  return texture2D(uState, (floor(cell) + 0.5) / uSize);
+}
+
+void renderNeighborOf(vec2 cell, float edge, out vec2 neighbor, out float reciprocal, out float valid) {
+  float x = floor(cell.x);
+  float y = floor(cell.y);
+  float k = mod(x, 3.0);
+  float t = mod(y, 2.0);
+  float i = floor(x / 3.0);
+  float j = floor(y / 2.0);
+  float phase = 3.0 * t + k;
+  float nextPhase = phase;
+  float di = 0.0;
+  float dj = 0.0;
+  if (phase < 0.5) {
+    if (edge < 0.5) { nextPhase = 5.0; dj = -1.0; }
+    else if (edge < 1.5) { nextPhase = 1.0; }
+    else if (edge < 2.5) { nextPhase = 2.0; }
+    else { nextPhase = 3.0; di = -1.0; }
+  } else if (phase < 1.5) {
+    if (edge < 0.5) { nextPhase = 3.0; }
+    else if (edge < 1.5) { nextPhase = 2.0; }
+    else if (edge < 2.5) { nextPhase = 0.0; }
+    else { nextPhase = 4.0; dj = -1.0; }
+  } else if (phase < 2.5) {
+    if (edge < 0.5) { nextPhase = 4.0; di = -1.0; }
+    else if (edge < 1.5) { nextPhase = 0.0; }
+    else if (edge < 2.5) { nextPhase = 1.0; }
+    else { nextPhase = 5.0; }
+  } else if (phase < 3.5) {
+    if (edge < 0.5) { nextPhase = 0.0; di = 1.0; }
+    else if (edge < 1.5) { nextPhase = 4.0; }
+    else if (edge < 2.5) { nextPhase = 5.0; }
+    else { nextPhase = 1.0; }
+  } else if (phase < 4.5) {
+    if (edge < 0.5) { nextPhase = 1.0; dj = 1.0; }
+    else if (edge < 1.5) { nextPhase = 5.0; }
+    else if (edge < 2.5) { nextPhase = 3.0; }
+    else { nextPhase = 2.0; di = 1.0; }
+  } else {
+    if (edge < 0.5) { nextPhase = 2.0; }
+    else if (edge < 1.5) { nextPhase = 3.0; }
+    else if (edge < 2.5) { nextPhase = 4.0; }
+    else { nextPhase = 0.0; dj = 1.0; }
+  }
+  float ni = i + di;
+  float nj = j + dj;
+  neighbor = vec2(3.0 * ni + mod(nextPhase, 3.0), 2.0 * nj + floor(nextPhase / 3.0));
+  reciprocal = 3.0 - edge;
+  valid = validCell(neighbor);
+}
+
+float renderIncoming(vec2 cell, float edge) {
+  vec2 neighbor;
+  float reciprocal;
+  float valid;
+  renderNeighborOf(cell, edge, neighbor, reciprocal, valid);
+  if (valid < 0.5) return 0.0;
+  return bitAt(byteValue(readCell(neighbor).g), reciprocal);
+}
+
+vec2 edgePort(float edge, vec2 p0, vec2 p1, vec2 p2, vec2 p3) {
+  if (edge < 0.5) return p0;
+  if (edge < 1.5) return p1;
+  if (edge < 2.5) return p2;
+  return p3;
+}
+
+void muxPortRoles(
+  float mode, float orientation,
+  out float selectorEdge, out float zeroEdge, out float oneEdge, out float outputEdge
+) {
+  float r;
+  float b;
+  float t;
+  if (orientation < 0.5) {
+    selectorEdge = 3.0; r = 1.0; b = 2.0; t = 0.0;
+  } else if (orientation < 1.5) {
+    selectorEdge = 2.0; r = 0.0; b = 1.0; t = 3.0;
+  } else if (orientation < 2.5) {
+    selectorEdge = 1.0; r = 3.0; b = 0.0; t = 2.0;
+  } else {
+    selectorEdge = 0.0; r = 2.0; b = 3.0; t = 1.0;
+  }
+  if (mode < 2.5) { zeroEdge = r; oneEdge = b; outputEdge = t; }
+  else if (mode < 3.5) { zeroEdge = b; oneEdge = r; outputEdge = t; }
+  else if (mode < 4.5) { zeroEdge = r; oneEdge = t; outputEdge = b; }
+  else if (mode < 5.5) { zeroEdge = t; oneEdge = r; outputEdge = b; }
+  else if (mode < 6.5) { zeroEdge = b; oneEdge = t; outputEdge = r; }
+  else { zeroEdge = t; oneEdge = b; outputEdge = r; }
+}
+
+float segmentDistance(vec2 p, vec2 a, vec2 b) {
+  vec2 ab = b - a;
+  float h = clamp(dot(p - a, ab) / max(dot(ab, ab), 0.000001), 0.0, 1.0);
+  return length(p - (a + h * ab));
+}
+
+float strokeMask(vec2 p, vec2 a, vec2 b, float halfWidth, float pixel) {
+  return 1.0 - smoothstep(halfWidth, halfWidth + pixel, segmentDistance(p, a, b));
+}
+
+float discMask(vec2 p, vec2 center, float radius, float pixel) {
+  return 1.0 - smoothstep(radius, radius + pixel, length(p - center));
+}
+
+float ringMask(vec2 p, vec2 center, float radius, float halfWidth, float pixel) {
+  return 1.0 - smoothstep(halfWidth, halfWidth + pixel, abs(length(p - center) - radius));
+}
+
+vec2 ringPort(vec2 center, vec2 port, float radius) {
+  vec2 ray = port - center;
+  return center + ray * (radius / max(length(ray), 0.000001));
+}
+
+float fanoutMask(
+  vec2 p, vec2 center, float radius,
+  vec2 o0, vec2 o1, vec2 o2, vec2 o3,
+  float thin, float pixel
+) {
+  float a = strokeMask(p, ringPort(center, o0, radius), o0, thin, pixel);
+  float b = strokeMask(p, ringPort(center, o1, radius), o1, thin, pixel);
+  float c = strokeMask(p, ringPort(center, o2, radius), o2, thin, pixel);
+  float d = strokeMask(p, ringPort(center, o3, radius), o3, thin, pixel);
+  return max(max(a, b), max(c, d));
+}
+
+float selectorShoeMask(
+  vec2 p, vec2 port, vec2 center, float engaged, float ringRadius, float thin,
+  float cssPixel, float aaPixel
+) {
+  vec2 direction = normalize(center - port);
+  vec2 tangent = vec2(-direction.y, direction.x);
+  float portDistance = max(length(center - port), 0.000001);
+  float standOff = engaged > 0.5
+    ? max(0.5 * cssPixel, 0.5 * thin)
+    : max(1.2 * cssPixel, 2.0 * thin + 0.012);
+  float travel = clamp(1.0 - (ringRadius + standOff) / portDistance, 0.18, 0.76);
+  vec2 shoeCenter = mix(port, center, travel);
+  float stem = strokeMask(p, port, shoeCenter, thin, aaPixel);
+  float shoeHalfLength = max(2.2 * cssPixel, 0.029);
+  float shoe = strokeMask(
+    p,
+    shoeCenter - shoeHalfLength * tangent,
+    shoeCenter + shoeHalfLength * tangent,
+    max(0.6 * cssPixel, 1.22 * thin),
+    aaPixel
+  );
+  return max(stem, shoe);
+}
+
+void locate(
+  vec2 world,
+  out vec2 cell,
+  out float phase,
+  out vec2 center,
+  out vec2 p0,
+  out vec2 p1,
+  out vec2 p2,
+  out vec2 p3
+) {
+  float sj = world.y / H;
+  float j = floor(sj);
+  float ri = world.x - 0.5 * sj;
+  float i = floor(ri);
+  float a = ri - i;
+  float b = sj - j;
+  float t = a + b <= 1.0 ? 0.0 : 1.0;
+
+  vec2 base = vec2(i + 0.5 * j, H * j);
+  vec2 axisA = vec2(1.0, 0.0);
+  vec2 axisB = vec2(0.5, H);
+  vec2 q0;
+  vec2 q1;
+  vec2 q2;
+  vec3 lambda;
+  if (t < 0.5) {
+    q0 = base;
+    q1 = base + axisA;
+    q2 = base + axisB;
+    lambda = vec3(1.0 - a - b, a, b);
+  } else {
+    q0 = base + axisA;
+    q1 = base + axisA + axisB;
+    q2 = base + axisB;
+    lambda = vec3(1.0 - b, a + b - 1.0, 1.0 - a);
+  }
+
+  float k = 0.0;
+  if (lambda.y > lambda.x && lambda.y >= lambda.z) k = 1.0;
+  else if (lambda.z > lambda.x && lambda.z > lambda.y) k = 2.0;
+
+  vec2 qk = k < 0.5 ? q0 : (k < 1.5 ? q1 : q2);
+  vec2 qNext = k < 0.5 ? q1 : (k < 1.5 ? q2 : q0);
+  vec2 qPrev = k < 0.5 ? q2 : (k < 1.5 ? q0 : q1);
+  vec2 centroid = (q0 + q1 + q2) / 3.0;
+  p0 = qk;
+  p1 = 0.5 * (qk + qNext);
+  p2 = centroid;
+  p3 = 0.5 * (qPrev + qk);
+  center = qk + (7.0 / 12.0) * (centroid - qk);
+  phase = 3.0 * t + k;
+  cell = vec2(3.0 * i + k, 2.0 * j + t);
+}
+
+void main() {
+  vec2 screen = vec2(
+    gl_FragCoord.x / uDevicePixelRatio,
+    uViewport.y - gl_FragCoord.y / uDevicePixelRatio
+  );
+  vec2 world = (screen - uCamera.xy) / uCamera.z;
+
+  vec2 cell;
+  float phase;
+  vec2 center;
+  vec2 p0;
+  vec2 p1;
+  vec2 p2;
+  vec2 p3;
+  locate(world, cell, phase, center, p0, p1, p2, p3);
+
+  if (validCell(cell) < 0.5) {
+    gl_FragColor = vec4(vec3(1.0, 0.992, 0.973), 1.0);
+    return;
+  }
+
+  vec4 state = readCell(cell);
+  float role = byteValue(state.r);
+  float outputs = byteValue(state.g);
+  float orientation = mod(role, 4.0);
+  float mode = floor(role / 4.0);
+  float live = step(0.5, outputs);
+  float selected = uHasSelected > 0.5 &&
+    abs(cell.x - uSelected.x) < 0.5 && abs(cell.y - uSelected.y) < 0.5 ? 1.0 : 0.0;
+  float ground = mode < 0.5 && orientation > 1.5 && orientation < 2.5 ? 1.0 : 0.0;
+
+  vec3 color = vec3(1.0, 0.992, 0.973);
+  if (mode < 0.5 && orientation < 0.5) color = vec3(0.882, 0.827, 0.945);
+  else if (mode > 1.5) color = vec3(0.965, 0.910, 0.788);
+  else if (selected > 0.5) color = vec3(0.933, 0.918, 0.886);
+  vec3 body = color;
+
+  float cssPixel = 1.0 / max(uCamera.z, 1.0);
+  float aaPixel = cssPixel / max(uDevicePixelRatio, 1.0);
+  vec2 input0 = mix(p0, p1, 0.34);
+  vec2 input1 = mix(p1, p2, 0.34);
+  vec2 input2 = mix(p2, p3, 0.34);
+  vec2 input3 = mix(p3, p0, 0.34);
+  vec2 output0 = mix(p0, p1, 0.66);
+  vec2 output1 = mix(p1, p2, 0.66);
+  vec2 output2 = mix(p2, p3, 0.66);
+  vec2 output3 = mix(p3, p0, 0.66);
+
+  float thin = max(0.50 * cssPixel, 0.0044);
+  float core = max(1.0 * cssPixel, 0.0074);
+  float halo = core + max(0.75 * cssPixel, 0.0042);
+  vec3 ink = vec3(0.067);
+  vec3 portInk = vec3(0.361, 0.157, 0.455);
+
+  if (mode < 0.5 && orientation > 0.5 && orientation < 1.5) {
+    float underA = strokeMask(world, input0, output2, thin, aaPixel);
+    float underB = strokeMask(world, input2, output0, thin, aaPixel);
+    float under = max(underA, underB);
+    color = mix(color, ink, under);
+    color = mix(color, body, discMask(world, center,
+      max(1.45 * cssPixel, 2.90 * thin), aaPixel));
+    float overA = strokeMask(world, input1, output3, thin, aaPixel);
+    float overB = strokeMask(world, input3, output1, thin, aaPixel);
+    float over = max(overA, overB);
+    color = mix(color, ink, over);
+    float bubbleRadius = max(0.018, 1.65 * cssPixel);
+    vec2 bubble0 = mix(input0, output2, 0.34);
+    vec2 bubble2 = mix(input2, output0, 0.34);
+    vec2 bubble1 = mix(input1, output3, 0.34);
+    vec2 bubble3 = mix(input3, output1, 0.34);
+    float bubbleState0 = bitAt(outputs, 2.0);
+    float bubbleState2 = bitAt(outputs, 0.0);
+    float bubbleState1 = bitAt(outputs, 3.0);
+    float bubbleState3 = bitAt(outputs, 1.0);
+    float lowBubbleWidth = 0.5 * max(
+      0.9 * cssPixel,
+      min(0.55 * bubbleRadius, 2.0 * thin)
+    );
+    float lowBubble0 = 1.0 - bubbleState0;
+    float lowBubble2 = 1.0 - bubbleState2;
+    float lowBubble1 = 1.0 - bubbleState1;
+    float lowBubble3 = 1.0 - bubbleState3;
+    color = mix(color, body, lowBubble0 * discMask(world, bubble0, bubbleRadius, aaPixel));
+    color = mix(color, ink, max(
+      bubbleState0 * discMask(world, bubble0, bubbleRadius, aaPixel),
+      lowBubble0 * ringMask(world, bubble0, bubbleRadius, lowBubbleWidth, aaPixel)));
+    color = mix(color, body, lowBubble2 * discMask(world, bubble2, bubbleRadius, aaPixel));
+    color = mix(color, ink, max(
+      bubbleState2 * discMask(world, bubble2, bubbleRadius, aaPixel),
+      lowBubble2 * ringMask(world, bubble2, bubbleRadius, lowBubbleWidth, aaPixel)));
+    color = mix(color, body, lowBubble1 * discMask(world, bubble1, bubbleRadius, aaPixel));
+    color = mix(color, ink, max(
+      bubbleState1 * discMask(world, bubble1, bubbleRadius, aaPixel),
+      lowBubble1 * ringMask(world, bubble1, bubbleRadius, lowBubbleWidth, aaPixel)));
+    color = mix(color, body, lowBubble3 * discMask(world, bubble3, bubbleRadius, aaPixel));
+    color = mix(color, ink, max(
+      bubbleState3 * discMask(world, bubble3, bubbleRadius, aaPixel),
+      lowBubble3 * ringMask(world, bubble3, bubbleRadius, lowBubbleWidth, aaPixel)));
+  } else if (mode > 1.5) {
+    float selectorEdge;
+    float zeroEdge;
+    float oneEdge;
+    float outputEdge;
+    muxPortRoles(mode, orientation, selectorEdge, zeroEdge, oneEdge, outputEdge);
+    vec2 selectorPort = edgePort(selectorEdge, input0, input1, input2, input3);
+    vec2 zeroPort = edgePort(zeroEdge, input0, input1, input2, input3);
+    vec2 onePort = edgePort(oneEdge, input0, input1, input2, input3);
+    float selectorValue = renderIncoming(cell, selectorEdge);
+    vec2 selectedPort = selectorValue > 0.5 ? onePort : zeroPort;
+    float ringRadius = max(0.052, 2.8 * cssPixel);
+    float ringWidth = live > 0.5 ? max(1.0 * cssPixel, 0.0105) : max(0.50 * cssPixel, 0.0058);
+
+    color = mix(color, ink, fanoutMask(
+      world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
+    ));
+    float zeroStub = strokeMask(world, zeroPort,
+      ringPort(center, zeroPort, ringRadius + max(1.2 * cssPixel, 0.012)), thin, aaPixel);
+    float oneStub = strokeMask(world, onePort,
+      ringPort(center, onePort, ringRadius + max(1.2 * cssPixel, 0.012)), thin, aaPixel);
+    float selectorShoe = selectorShoeMask(
+      world, selectorPort, center, selectorValue, ringRadius, thin, cssPixel, aaPixel
+    );
+    color = mix(color, ink, max(max(zeroStub, oneStub), selectorShoe));
+    color = mix(color, ink, ringMask(world, center, ringRadius, ringWidth, aaPixel));
+
+    float selectedHalo = strokeMask(world, selectedPort, center, halo, aaPixel);
+    color = mix(color, body, selectedHalo);
+    float selectedCore = strokeMask(world, selectedPort, center, core, aaPixel);
+    color = mix(color, ink, selectedCore);
+    color = mix(color, ink, discMask(world, center, max(0.0105, 1.25 * core), aaPixel));
+  } else if (ground < 0.5) {
+    if (mode > 0.5 && mode < 1.5) {
+      float ringRadius = max(0.038, 2.3 * cssPixel);
+      float ringWidth = live > 0.5 ? max(0.85 * cssPixel, 0.0085) : max(0.50 * cssPixel, 0.0052);
+      color = mix(color, ink, fanoutMask(
+        world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
+      ));
+      color = mix(color, ink, ringMask(world, center, ringRadius, ringWidth, aaPixel));
+      vec2 wirePort = edgePort(orientation, input0, input1, input2, input3);
+      float wireHalo = strokeMask(world, wirePort, center, halo, aaPixel);
+      color = mix(color, body, wireHalo);
+      float wireCore = strokeMask(world, wirePort, center, core, aaPixel);
+      color = mix(color, ink, wireCore);
+      color = mix(color, ink, discMask(world, center, max(0.0095, 1.20 * core), aaPixel));
+    } else if (mode < 0.5 && orientation < 0.5) {
+      float ringRadius = max(0.052, 2.8 * cssPixel);
+      float ringWidth = live > 0.5 ? max(1.0 * cssPixel, 0.0105) : max(0.50 * cssPixel, 0.0058);
+      color = mix(color, portInk, fanoutMask(
+        world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
+      ));
+      color = mix(color, portInk, ringMask(world, center, ringRadius, ringWidth, aaPixel));
+      float portBranchHalo = strokeMask(world, input0, center, halo, aaPixel);
+      color = mix(color, body, portBranchHalo);
+      color = mix(color, portInk, strokeMask(world, input0, center, core, aaPixel));
+      color = mix(color, portInk, discMask(world, center, max(0.0105, 1.25 * core), aaPixel));
+      color = mix(color, portInk,
+        selectorShoeMask(world, input1, center, live, ringRadius, thin, cssPixel, aaPixel));
+    } else {
+      float ringRadius = max(0.050, 2.8 * cssPixel);
+      float sourceWidth = orientation > 2.5 ? max(1.0 * cssPixel, 0.0105) : max(0.50 * cssPixel, 0.0058);
+      color = mix(color, ink, fanoutMask(
+        world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
+      ));
+      color = mix(color, ink, ringMask(world, center, ringRadius, sourceWidth, aaPixel));
+    }
+  }
+
+  if (ground > 0.5 && selected > 0.5) {
+    float ringRadius = max(0.050, 2.8 * cssPixel);
+    color = mix(color, ink, fanoutMask(
+      world, center, ringRadius, output0, output1, output2, output3, thin, aaPixel
+    ));
+    color = mix(color, ink, ringMask(world, center, ringRadius,
+      max(0.50 * cssPixel, 0.0058), aaPixel));
+  }
+
+  gl_FragColor = vec4(color, 1.0);
+}
+  </script>
+
+  <script>
+(function () {
+  "use strict";
+
+  var FORMAT = "cartilage-rhombitrihex-canvas";
+  var FORMAT_VERSION = 1;
+  var STATE_VERSION = 5;
+  var LATTICE = "rhombitrihex-kite";
+  var TOPOLOGY_VERSION = 1;
+  var H = Math.sqrt(3) / 2;
+  var MIN_COLS = 2;
+  var MAX_COLS = 160;
+  var MIN_ROWS = 2;
+  var MAX_ROWS = 120;
+  var HISTORY_LIMIT = 40;
+  var WAVE_LIMIT = 240;
+  var PROBE_LIMIT = 8;
+  var ROLE = Object.freeze({
+    PORT: 0,
+    GND: 2,
+    PWR: 3,
+    CROSS: 1
+  });
+  var PHASE_ROTATION = Object.freeze([0, 2, 4, 1, 3, 5]);
+  var PORT_COLORS = Object.freeze(["#111111", "#111111", "#111111", "#111111"]);
+  var MUX_MODE_CONNECTIONS = Object.freeze({
+    2: Object.freeze({ zero: "r", one: "b", output: "t" }),
+    3: Object.freeze({ zero: "b", one: "r", output: "t" }),
+    4: Object.freeze({ zero: "r", one: "t", output: "b" }),
+    5: Object.freeze({ zero: "t", one: "r", output: "b" }),
+    6: Object.freeze({ zero: "b", one: "t", output: "r" }),
+    7: Object.freeze({ zero: "t", one: "b", output: "r" })
+  });
+  var MUX_ORIENTATION_EDGES = Object.freeze([
+    Object.freeze({ l: 3, r: 1, b: 2, t: 0 }),
+    Object.freeze({ l: 2, r: 0, b: 1, t: 3 }),
+    Object.freeze({ l: 1, r: 3, b: 0, t: 2 }),
+    Object.freeze({ l: 0, r: 2, b: 3, t: 1 })
+  ]);
+  var NEIGHBORS = Object.freeze([
+    Object.freeze([[5, 0, -1, 3], [1, 0, 0, 2], [2, 0, 0, 1], [3, -1, 0, 0]]),
+    Object.freeze([[3, 0, 0, 3], [2, 0, 0, 2], [0, 0, 0, 1], [4, 0, -1, 0]]),
+    Object.freeze([[4, -1, 0, 3], [0, 0, 0, 2], [1, 0, 0, 1], [5, 0, 0, 0]]),
+    Object.freeze([[0, 1, 0, 3], [4, 0, 0, 2], [5, 0, 0, 1], [1, 0, 0, 0]]),
+    Object.freeze([[1, 0, 1, 3], [5, 0, 0, 2], [3, 0, 0, 1], [2, 1, 0, 0]]),
+    Object.freeze([[2, 0, 0, 3], [3, 0, 0, 2], [4, 0, 0, 1], [0, 0, 1, 0]])
+  ]);
+
+  var $ = function (id) { return document.getElementById(id); };
+  var canvas = $("gl-canvas");
+  var overlay = $("overlay");
+  var viewport = $("viewport");
+  var waveCanvas = $("wave-canvas");
+  var fatal = $("fatal");
+  var statusOutput = $("status");
+  var coordOutput = $("coord");
+  var frameOutput = $("frame");
+  var roleSelect = $("role-select");
+  var edgeSelect = $("edge-select");
+  var componentMenu = $("component-menu");
+  var componentMenuToggle = $("component-menu-toggle");
+  var runButton = $("run");
+  var waveToggle = $("wave-toggle");
+  var sidePanel = $("side-panel");
+  var summary = $("cell-summary");
+  var labelText = $("label-text");
+  var probeEdge = $("probe-edge");
+  var openFile = $("open-file");
+
+  var gl = null;
+  var gpuFallbackReason = "";
+  try {
+    gl = canvas.getContext("webgl", {
+      alpha: false,
+      antialias: false,
+      depth: false,
+      stencil: false,
+      preserveDrawingBuffer: false
+    }) || canvas.getContext("experimental-webgl");
+  } catch (contextError) {
+    gpuFallbackReason = contextError && contextError.message ? contextError.message : String(contextError);
+    gl = null;
+  }
+  if (!gl && !gpuFallbackReason) gpuFallbackReason = "WebGL 1.0 is unavailable";
+
+  var model = {
+    cols: 24,
+    rows: 14,
+    roles: null,
+    labels: [],
+    selected: null,
+    hover: null,
+    running: false,
+    frame: 0,
+    dirty: false,
+    revision: 1,
+    cleanRevision: 1,
+    nextRevision: 2,
+    camera: { x: 20, y: 20, scale: 42 },
+    history: [],
+    future: [],
+    waveformVisible: false,
+    samples: Object.create(null),
+    cpuOutputs: null
+  };
+
+  function markDirty() {
+    model.revision = model.nextRevision++;
+    model.dirty = model.revision !== model.cleanRevision;
+  }
+  function markCurrentClean() {
+    model.cleanRevision = model.revision;
+    model.dirty = false;
+  }
+  function markNewStateClean() {
+    model.revision = model.nextRevision++;
+    model.cleanRevision = model.revision;
+    model.dirty = false;
+  }
+
+  var gpu = {
+    computeProgram: null,
+    renderProgram: null,
+    computeUniforms: null,
+    renderUniforms: null,
+    quad: null,
+    textures: [],
+    framebuffers: [],
+    source: 0,
+    stateWidth: 0,
+    stateHeight: 0
+  };
+
+  function setStatus(text, isError) {
+    statusOutput.textContent = text;
+    statusOutput.style.color = isError ? "var(--danger)" : "";
+  }
+
+  function fail(error) {
+    var message = error && error.message ? error.message : String(error);
+    fatal.hidden = false;
+    fatal.textContent = "Rhombitrihex Canvas stopped safely.\n\n" + message;
+    setStatus("Stopped: " + message, true);
+    console.error(error);
+  }
+
+  function storageWidth() { return model.cols * 3; }
+  function storageHeight() { return model.rows * 2; }
+  function cellCount() { return storageWidth() * storageHeight(); }
+  function indexOf(x, y) { return y * storageWidth() + x; }
+  function phaseOf(x, y) { return (y & 1) * 3 + (x % 3); }
+  function decodeCell(x, y) {
+    return {
+      i: Math.floor(x / 3),
+      j: Math.floor(y / 2),
+      t: y & 1,
+      k: x % 3,
+      phase: phaseOf(x, y)
+    };
+  }
+  function encodeCell(i, j, phase) {
+    return { x: 3 * i + (phase % 3), y: 2 * j + Math.floor(phase / 3) };
+  }
+  function validCell(x, y) {
+    return Number.isInteger(x) && Number.isInteger(y) &&
+      x >= 0 && y >= 0 && x < storageWidth() && y < storageHeight();
+  }
+  function neighborOf(x, y, edge) {
+    if (!validCell(x, y) || edge < 0 || edge > 3) return null;
+    var decoded = decodeCell(x, y);
+    var entry = NEIGHBORS[decoded.phase][edge];
+    var cell = encodeCell(decoded.i + entry[1], decoded.j + entry[2], entry[0]);
+    if (!validCell(cell.x, cell.y)) return null;
+    return { x: cell.x, y: cell.y, edge: entry[3], phase: entry[0] };
+  }
+
+  function vertex(i, j) {
+    return { x: i + 0.5 * j, y: H * j };
+  }
+  function add(a, b) { return { x: a.x + b.x, y: a.y + b.y }; }
+  function scale(a, s) { return { x: a.x * s, y: a.y * s }; }
+  function midpoint(a, b) { return scale(add(a, b), 0.5); }
+  function geometryOf(x, y) {
+    var d = decodeCell(x, y);
+    var a = vertex(d.i, d.j);
+    var right = vertex(d.i + 1, d.j);
+    var down = vertex(d.i, d.j + 1);
+    var far = vertex(d.i + 1, d.j + 1);
+    var q = d.t === 0 ? [a, right, down] : [right, far, down];
+    var qk = q[d.k];
+    var qNext = q[(d.k + 1) % 3];
+    var qPrev = q[(d.k + 2) % 3];
+    var centroid = scale(add(add(q[0], q[1]), q[2]), 1 / 3);
+    var polygon = [qk, midpoint(qk, qNext), centroid, midpoint(qPrev, qk)];
+    var center = add(qk, scale({ x: centroid.x - qk.x, y: centroid.y - qk.y }, 7 / 12));
+    var ports = [];
+    var inputPorts = [];
+    var outputPorts = [];
+    polygon.forEach(function (point, edge) {
+      var next = polygon[(edge + 1) % 4];
+      var side = { x: next.x - point.x, y: next.y - point.y };
+      ports.push(midpoint(point, next));
+      inputPorts.push(add(point, scale(side, 0.34)));
+      outputPorts.push(add(point, scale(side, 0.66)));
+    });
+    return {
+      polygon: polygon,
+      center: center,
+      ports: ports,
+      inputPorts: inputPorts,
+      outputPorts: outputPorts,
+      phase: d.phase,
+      i: d.i,
+      j: d.j,
+      t: d.t,
+      k: d.k
+    };
+  }
+
+  function worldToCell(worldX, worldY) {
+    var sj = worldY / H;
+    var j = Math.floor(sj);
+    var ri = worldX - 0.5 * sj;
+    var i = Math.floor(ri);
+    var a = ri - i;
+    var b = sj - j;
+    var t = a + b <= 1 ? 0 : 1;
+    var lambda = t === 0
+      ? [1 - a - b, a, b]
+      : [1 - b, a + b - 1, 1 - a];
+    var k = 0;
+    if (lambda[1] > lambda[0] && lambda[1] >= lambda[2]) k = 1;
+    else if (lambda[2] > lambda[0] && lambda[2] > lambda[1]) k = 2;
+    var x = 3 * i + k;
+    var y = 2 * j + t;
+    return validCell(x, y) ? { x: x, y: y } : null;
+  }
+
+  function worldToScreen(point) {
+    return {
+      x: model.camera.x + point.x * model.camera.scale,
+      y: model.camera.y + point.y * model.camera.scale
+    };
+  }
+  function screenToWorld(x, y) {
+    return {
+      x: (x - model.camera.x) / model.camera.scale,
+      y: (y - model.camera.y) / model.camera.scale
+    };
+  }
+  function screenToCell(x, y) {
+    var world = screenToWorld(x, y);
+    return worldToCell(world.x, world.y);
+  }
+  function fabricBounds() {
+    return { minX: 0, minY: 0, maxX: model.cols + 0.5 * model.rows, maxY: H * model.rows };
+  }
+
+  function verifyTopology() {
+    var width = storageWidth();
+    var height = storageHeight();
+    var close = function (a, b) {
+      return Math.hypot(a.x - b.x, a.y - b.y) < 1e-9;
+    };
+    for (var y = 0; y < height; y += 1) {
+      for (var x = 0; x < width; x += 1) {
+        var geometry = geometryOf(x, y);
+        var roundTrip = worldToCell(geometry.center.x, geometry.center.y);
+        if (!roundTrip || roundTrip.x !== x || roundTrip.y !== y) {
+          throw new Error("Lattice center does not round-trip at " + x + "," + y + ".");
+        }
+        for (var edge = 0; edge < 4; edge += 1) {
+          var neighbor = neighborOf(x, y, edge);
+          if (!neighbor) continue;
+          if (neighbor.edge !== 3 - edge) {
+            throw new Error("Reciprocal edge mismatch at " + x + "," + y + "/e" + edge + ".");
+          }
+          var reverse = neighborOf(neighbor.x, neighbor.y, neighbor.edge);
+          if (!reverse || reverse.x !== x || reverse.y !== y || reverse.edge !== edge) {
+            throw new Error("Non-reciprocal lattice edge at " + x + "," + y + "/e" + edge + ".");
+          }
+          var other = geometryOf(neighbor.x, neighbor.y);
+          var a = geometry.polygon[edge];
+          var b = geometry.polygon[(edge + 1) % 4];
+          var otherA = other.polygon[neighbor.edge];
+          var otherB = other.polygon[(neighbor.edge + 1) % 4];
+          if (!close(a, otherB) || !close(b, otherA)) {
+            throw new Error("Adjacent kite edges do not share one segment at " + x + "," + y + "/e" + edge + ".");
+          }
+          if (!close(geometry.inputPorts[edge], other.outputPorts[neighbor.edge]) ||
+              !close(geometry.outputPorts[edge], other.inputPorts[neighbor.edge])) {
+            throw new Error("Input/output lanes do not meet reciprocally at " + x + "," + y + "/e" + edge + ".");
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  function roleCode(kind, edge) {
+    if (kind === "port") return ROLE.PORT;
+    if (kind === "gnd") return ROLE.GND;
+    if (kind === "pwr") return ROLE.PWR;
+    if (kind === "cross") return ROLE.CROSS;
+    if (kind === "wire") return 4 + edge;
+    if (kind.indexOf("mux") === 0) return Number(kind.slice(3)) * 4 + edge;
+    return null;
+  }
+  function describeRole(code) {
+    var mode = Math.floor(code / 4);
+    var orientation = code & 3;
+    if (mode === 0) {
+      if (orientation === 1) return "CROSS";
+      if (orientation === 2) return "GND";
+      if (orientation === 3) return "PWR";
+      return "PORT";
+    }
+    if (mode === 1) return "WIRE from e" + orientation;
+    return "MUX mode " + mode + ", orientation " + orientation;
+  }
+
+  function muxRoleGeometry(mode, orientation) {
+    var local = MUX_MODE_CONNECTIONS[mode];
+    var edges = MUX_ORIENTATION_EDGES[orientation];
+    return {
+      selector: edges.l,
+      zero: edges[local.zero],
+      one: edges[local.one],
+      output: edges[local.output]
+    };
+  }
+
+  function muxRoleDetail(mode, orientation) {
+    var glyph = muxRoleGeometry(mode, orientation);
+    return "S e" + glyph.selector + " · 0 e" + glyph.zero +
+      " · 1 e" + glyph.one + " · out e" + glyph.output;
+  }
+
+  function populateRoles() {
+    var basic = [
+      ["inspect", "Inspect"],
+      ["port", "Reconfiguration port (role 0)"],
+      ["gnd", "GND"],
+      ["pwr", "PWR"],
+      ["cross", "CROSS"],
+      ["wire", "WIRE from selected edge"]
+    ];
+    basic.forEach(function (entry) {
+      var option = document.createElement("option");
+      option.value = entry[0];
+      option.textContent = entry[1];
+      roleSelect.appendChild(option);
+    });
+    for (var mode = 2; mode <= 7; mode += 1) {
+      var mux = document.createElement("option");
+      mux.value = "mux" + mode;
+      mux.textContent = "MUX mode " + mode + " / selected orientation";
+      roleSelect.appendChild(mux);
+    }
+    roleSelect.value = "inspect";
+    populateComponentMenu();
+  }
+
+  function componentFamily(kind) {
+    if (kind === "port") return "port";
+    if (kind === "pwr") return "power";
+    if (kind === "cross") return "cross";
+    if (kind === "wire") return "wire";
+    if (kind.indexOf("mux") === 0) return "mux";
+    return "basic";
+  }
+
+  function componentLabel(kind, edge) {
+    if (kind === "inspect") return "Inspect";
+    if (kind === "port") return "PORT";
+    if (kind === "gnd") return "GND";
+    if (kind === "pwr") return "PWR";
+    if (kind === "cross") return "CROSS";
+    if (kind === "wire") return "WIRE from e" + edge;
+    return "MUX " + kind.slice(3) + " · o" + edge;
+  }
+
+  function selectPlacementTool(kind, edge) {
+    roleSelect.value = kind;
+    edgeSelect.value = String(edge);
+    var label = componentLabel(kind, edge);
+    componentMenuToggle.textContent = "Component: " + label;
+    componentMenuToggle.setAttribute("aria-expanded", "false");
+    componentMenu.hidden = true;
+    viewport.classList.toggle("tool-armed", kind !== "inspect");
+    componentMenu.querySelectorAll(".component-option").forEach(function (button) {
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.kind === kind && Number(button.dataset.edge) === edge)
+      );
+    });
+    setStatus(kind === "inspect"
+      ? "Inspect mode"
+      : label + " armed · click or drag on individual kites");
+    overlay.focus({ preventScroll: true });
+  }
+
+  function pickerEdgeVector(edge) {
+    if (edge === 0) return { x: -1, y: 0 };
+    if (edge === 1) return { x: 0, y: -1 };
+    if (edge === 2) return { x: 0, y: 1 };
+    return { x: 1, y: 0 };
+  }
+
+  function drawPickerGlyph(canvasElement, kind, orientation) {
+    var cssSize = 58;
+    var pixelScale = Math.min(Math.max(window.devicePixelRatio || 1, 1), 2);
+    canvasElement.width = cssSize * pixelScale;
+    canvasElement.height = cssSize * pixelScale;
+    var context = canvasElement.getContext("2d");
+    context.scale(pixelScale, pixelScale);
+    context.lineCap = "round";
+    context.lineJoin = "round";
+    var center = { x: cssSize / 2, y: cssSize / 2 };
+    var point = function (edge, distance, lane) {
+      var vector = pickerEdgeVector(edge);
+      var tangent = { x: -vector.y, y: vector.x };
+      return {
+        x: center.x + vector.x * distance + tangent.x * (lane || 0),
+        y: center.y + vector.y * distance + tangent.y * (lane || 0)
+      };
+    };
+    var segment = function (a, b, width, color) {
+      context.beginPath();
+      context.moveTo(a.x, a.y);
+      context.lineTo(b.x, b.y);
+      context.strokeStyle = color || "#111111";
+      context.lineWidth = width;
+      context.stroke();
+    };
+    var ringPoint = function (port, radius) {
+      var dx = port.x - center.x;
+      var dy = port.y - center.y;
+      var length = Math.max(0.0001, Math.hypot(dx, dy));
+      return { x: center.x + dx * radius / length, y: center.y + dy * radius / length };
+    };
+    var outputLine = function (edge, radius, color) {
+      var port = point(edge, 24, 3.2);
+      segment(ringPoint(port, radius), port, 1.2, color);
+    };
+    var ring = function (radius, high, color, body) {
+      context.beginPath();
+      context.arc(center.x, center.y, radius, 0, Math.PI * 2);
+      context.fillStyle = body || "#ffffff";
+      context.fill();
+      context.strokeStyle = color || "#111111";
+      context.lineWidth = high ? 4.0 : 1.8;
+      context.stroke();
+    };
+    var inactiveInput = function (edge, radius, color) {
+      var port = point(edge, 24, -3.2);
+      segment(port, ringPoint(port, radius + 2.2), 1.2, color);
+    };
+    var activeInput = function (edge, body, color, value) {
+      var port = point(edge, 24, -3.2);
+      var end = value ? center : ringPoint(port, 2.8);
+      segment(port, end, 4.6, body);
+      segment(port, end, 2.2, color);
+      if (value) {
+        context.beginPath();
+        context.arc(center.x, center.y, 2.1, 0, Math.PI * 2);
+        context.fillStyle = color;
+        context.fill();
+      }
+    };
+    var selectorShoe = function (edge, radius, engaged, color) {
+      var port = point(edge, 24, -3.2);
+      var dx = center.x - port.x;
+      var dy = center.y - port.y;
+      var length = Math.max(0.0001, Math.hypot(dx, dy));
+      var direction = { x: dx / length, y: dy / length };
+      var tangent = { x: -direction.y, y: direction.x };
+      var standOff = engaged ? 0.6 : 3.4;
+      var travel = Math.max(0.18, Math.min(0.76, 1 - (radius + standOff) / length));
+      var shoeCenter = {
+        x: port.x + dx * travel,
+        y: port.y + dy * travel
+      };
+      segment(port, shoeCenter, 1.3, color);
+      segment({ x: shoeCenter.x - tangent.x * 3.3, y: shoeCenter.y - tangent.y * 3.3 },
+        { x: shoeCenter.x + tangent.x * 3.3, y: shoeCenter.y + tangent.y * 3.3 },
+        1.8, color);
+    };
+    var crossBubble = function (a, b) {
+      var bubble = { x: a.x + (b.x - a.x) * 0.34, y: a.y + (b.y - a.y) * 0.34 };
+      context.beginPath();
+      context.arc(bubble.x, bubble.y, 2.4, 0, Math.PI * 2);
+      context.fillStyle = "#ffffff";
+      context.fill();
+      context.strokeStyle = "#111111";
+      context.lineWidth = 1.2;
+      context.stroke();
+    };
+
+    if (kind.indexOf("mux") === 0) {
+      var muxBody = "#f6e8c9";
+      context.fillStyle = muxBody;
+      context.fillRect(3, 3, cssSize - 6, cssSize - 6);
+      var mode = Number(kind.slice(3));
+      var glyph = muxRoleGeometry(mode, orientation);
+      var muxRadius = 7.4;
+      for (var muxOutput = 0; muxOutput < 4; muxOutput += 1) {
+        outputLine(muxOutput, muxRadius);
+      }
+      inactiveInput(glyph.zero, muxRadius);
+      inactiveInput(glyph.one, muxRadius);
+      ring(muxRadius, false, "#111111", muxBody);
+      activeInput(glyph.zero, muxBody, "#111111", true);
+      selectorShoe(glyph.selector, muxRadius, false, "#111111");
+    } else if (kind === "wire") {
+      var wireRadius = 5.6;
+      for (var wireEdge = 0; wireEdge < 4; wireEdge += 1) {
+        outputLine(wireEdge, wireRadius);
+      }
+      ring(wireRadius, false, "#111111", "#ffffff");
+      activeInput(orientation, "#ffffff", "#111111", true);
+    } else if (kind === "cross") {
+      var c0 = point(0, 24, -3.2);
+      var c2 = point(2, 24, 3.2);
+      var c2i = point(2, 24, -3.2);
+      var c0o = point(0, 24, 3.2);
+      var c1 = point(1, 24, -3.2);
+      var c3 = point(3, 24, 3.2);
+      var c3i = point(3, 24, -3.2);
+      var c1o = point(1, 24, 3.2);
+      segment(c0, c2, 1.4);
+      segment(c2i, c0o, 1.4);
+      context.beginPath();
+      context.arc(center.x, center.y, 2.3, 0, Math.PI * 2);
+      context.fillStyle = "#ffffff";
+      context.fill();
+      segment(c1, c3, 1.4);
+      segment(c3i, c1o, 1.4);
+      crossBubble(c0, c2);
+      crossBubble(c2i, c0o);
+      crossBubble(c1, c3);
+      crossBubble(c3i, c1o);
+    } else if (kind === "pwr" || kind === "gnd") {
+      var sourceRadius = 7.2;
+      for (var sourceEdge = 0; sourceEdge < 4; sourceEdge += 1) {
+        outputLine(sourceEdge, sourceRadius);
+      }
+      ring(sourceRadius, kind === "pwr", "#111111", "#ffffff");
+    } else if (kind === "port") {
+      var portInk = "#5c2874";
+      var portBody = "#e1d3f1";
+      var pickerPortRing = 7.4;
+      context.fillStyle = portBody;
+      context.fillRect(3, 3, cssSize - 6, cssSize - 6);
+      for (var portEdge = 0; portEdge < 4; portEdge += 1) {
+        outputLine(portEdge, pickerPortRing, portInk);
+      }
+      ring(pickerPortRing, false, portInk, portBody);
+      activeInput(0, portBody, portInk, true);
+      selectorShoe(1, pickerPortRing, false, portInk);
+    } else {
+      context.strokeStyle = "#77716a";
+      context.lineWidth = 1.4;
+      context.strokeRect(11, 11, 36, 36);
+    }
+  }
+
+  function addComponentButton(grid, kind, edge) {
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "component-option";
+    button.dataset.kind = kind;
+    button.dataset.edge = String(edge);
+    button.dataset.family = componentFamily(kind);
+    button.setAttribute("aria-pressed", "false");
+    var glyphCanvas = document.createElement("canvas");
+    glyphCanvas.className = "component-glyph";
+    glyphCanvas.setAttribute("aria-hidden", "true");
+    var copy = document.createElement("span");
+    copy.className = "component-copy";
+    var name = document.createElement("span");
+    name.className = "component-name";
+    name.textContent = componentLabel(kind, edge);
+    var detail = document.createElement("span");
+    detail.className = "component-detail";
+    detail.textContent = kind === "inspect"
+      ? "select a kite"
+      : (kind.indexOf("mux") === 0
+        ? muxRoleDetail(Number(kind.slice(3)), edge)
+        : (kind === "wire" ? "input e" + edge + " · four outputs" : "role code " + roleCode(kind, edge)));
+    copy.appendChild(name);
+    copy.appendChild(detail);
+    button.appendChild(glyphCanvas);
+    button.appendChild(copy);
+    button.title = kind === "inspect"
+      ? "Click a kite to inspect it"
+      : "Select, then click or drag on the fabric to place this component";
+    button.addEventListener("click", function () {
+      selectPlacementTool(kind, edge);
+    });
+    grid.appendChild(button);
+    drawPickerGlyph(glyphCanvas, kind, edge);
+  }
+
+  function populateComponentMenu() {
+    var basicGrid = $("component-basic-grid");
+    var wireGrid = $("component-wire-grid");
+    var muxGrid = $("component-mux-grid");
+    [
+      ["inspect", 0],
+      ["port", 0],
+      ["gnd", 0],
+      ["pwr", 0],
+      ["cross", 0]
+    ].forEach(function (entry) {
+      addComponentButton(basicGrid, entry[0], entry[1]);
+    });
+    for (var edge = 0; edge < 4; edge += 1) {
+      addComponentButton(wireGrid, "wire", edge);
+    }
+    for (var mode = 2; mode <= 7; mode += 1) {
+      for (var orientation = 0; orientation < 4; orientation += 1) {
+        addComponentButton(muxGrid, "mux" + mode, orientation);
+      }
+    }
+    selectPlacementTool("inspect", 0);
+  }
+
+  function compileShader(type, source, label) {
+    var shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      var log = gl.getShaderInfoLog(shader);
+      gl.deleteShader(shader);
+      throw new Error(label + " shader did not compile:\n" + log);
+    }
+    return shader;
+  }
+  function createProgram(fragmentId, label) {
+    var vertex = compileShader(gl.VERTEX_SHADER, $("quad-vertex").textContent, label + " vertex");
+    var fragment = compileShader(gl.FRAGMENT_SHADER, $(fragmentId).textContent, label + " fragment");
+    var program = gl.createProgram();
+    gl.attachShader(program, vertex);
+    gl.attachShader(program, fragment);
+    gl.bindAttribLocation(program, 0, "aPosition");
+    gl.linkProgram(program);
+    gl.deleteShader(vertex);
+    gl.deleteShader(fragment);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      var log = gl.getProgramInfoLog(program);
+      gl.deleteProgram(program);
+      throw new Error(label + " program did not link:\n" + log);
+    }
+    return program;
+  }
+  function uniform(program, name) {
+    var location = gl.getUniformLocation(program, name);
+    if (location === null) throw new Error("Missing shader uniform " + name + ".");
+    return location;
+  }
+
+  function packedStateBytes() {
+    var bytes = new Uint8Array(cellCount() * 4);
+    for (var n = 0; n < model.roles.length; n += 1) {
+      bytes[n * 4] = model.roles[n];
+      bytes[n * 4 + 1] = model.roles[n] === ROLE.PWR ? 15 : 0;
+      bytes[n * 4 + 2] = 0;
+      bytes[n * 4 + 3] = 255;
+    }
+    return bytes;
+  }
+  function createTexture(bytes) {
+    var texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+    gl.texImage2D(
+      gl.TEXTURE_2D, 0, gl.RGBA,
+      storageWidth(), storageHeight(), 0,
+      gl.RGBA, gl.UNSIGNED_BYTE, bytes
+    );
+    return texture;
+  }
+  function createFramebuffer(texture) {
+    var framebuffer = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+    if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {
+      throw new Error("The RGBA8 simulation framebuffer is incomplete.");
+    }
+    return framebuffer;
+  }
+  function destroyStateTextures() {
+    if (!gl) {
+      gpu.framebuffers = [];
+      gpu.textures = [];
+      return;
+    }
+    gpu.framebuffers.forEach(function (framebuffer) { gl.deleteFramebuffer(framebuffer); });
+    gpu.textures.forEach(function (texture) { gl.deleteTexture(texture); });
+    gpu.framebuffers = [];
+    gpu.textures = [];
+  }
+  function rebuildStateTextures(initialBytes) {
+    destroyStateTextures();
+    var expectedLength = cellCount() * 4;
+    var bytes = initialBytes ? new Uint8Array(initialBytes) : packedStateBytes();
+    if (bytes.length !== expectedLength) {
+      throw new Error("The live RGBA8 plane has " + bytes.length + " bytes; expected " + expectedLength + ".");
+    }
+    model.cpuOutputs = new Uint8Array(cellCount());
+    for (var n = 0; n < model.cpuOutputs.length; n += 1) {
+      model.cpuOutputs[n] = bytes[n * 4 + 1];
+    }
+    if (!gl) {
+      gpu.source = 0;
+      gpu.stateWidth = storageWidth();
+      gpu.stateHeight = storageHeight();
+      model.frame = 0;
+      clearWaveSamples();
+      return;
+    }
+    gpu.textures = [createTexture(bytes), createTexture(bytes)];
+    gpu.framebuffers = [createFramebuffer(gpu.textures[0]), createFramebuffer(gpu.textures[1])];
+    gpu.source = 0;
+    gpu.stateWidth = storageWidth();
+    gpu.stateHeight = storageHeight();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    model.frame = 0;
+    clearWaveSamples();
+  }
+  function readCurrentStateBytes() {
+    if (!gl) {
+      var fallbackBytes = packedStateBytes();
+      for (var n = 0; n < model.cpuOutputs.length; n += 1) {
+        fallbackBytes[n * 4 + 1] = model.cpuOutputs[n];
+      }
+      return fallbackBytes;
+    }
+    var bytes = new Uint8Array(cellCount() * 4);
+    var previousFramebuffer = gl.getParameter(gl.FRAMEBUFFER_BINDING);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, gpu.framebuffers[gpu.source]);
+    gl.readPixels(0, 0, storageWidth(), storageHeight(), gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, previousFramebuffer);
+    return bytes;
+  }
+  function uploadEditedCell(x, y) {
+    if (!gl) {
+      if (model.cpuOutputs) {
+        model.cpuOutputs[indexOf(x, y)] = model.roles[indexOf(x, y)] === ROLE.PWR ? 15 : 0;
+      }
+      return;
+    }
+    var role = model.roles[indexOf(x, y)];
+    var bytes = new Uint8Array([role, role === ROLE.PWR ? 15 : 0, 0, 255]);
+    gpu.textures.forEach(function (texture) {
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+      gl.texSubImage2D(gl.TEXTURE_2D, 0, x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+    });
+    gl.bindTexture(gl.TEXTURE_2D, null);
+  }
+
+  function bindQuad(program) {
+    gl.useProgram(program);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gpu.quad);
+    gl.enableVertexAttribArray(0);
+    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+  }
+
+  function cpuIncoming(outputs, x, y, edge) {
+    var neighbor = neighborOf(x, y, edge);
+    if (!neighbor) return 0;
+    return (outputs[indexOf(neighbor.x, neighbor.y)] >> neighbor.edge) & 1;
+  }
+
+  function cpuMuxAction(mode, l, r, b, t) {
+    var action = 7 - mode;
+    if (action === 0) return l ? b : t;
+    if (action === 1) return l ? t : b;
+    if (action === 2) return l ? r : t;
+    if (action === 3) return l ? t : r;
+    if (action === 4) return l ? r : b;
+    return l ? b : r;
+  }
+
+  function stepCpu() {
+    // Two-plane update: read the complete previous plane, write a fresh next plane, then flip.
+    var source = model.cpuOutputs || new Uint8Array(cellCount());
+    var target = new Uint8Array(cellCount());
+    for (var y = 0; y < storageHeight(); y += 1) {
+      for (var x = 0; x < storageWidth(); x += 1) {
+        var role = model.roles[indexOf(x, y)];
+        var orientation = role & 3;
+        var mode = Math.floor(role / 4);
+        var a0 = cpuIncoming(source, x, y, 0);
+        var a1 = cpuIncoming(source, x, y, 1);
+        var a2 = cpuIncoming(source, x, y, 2);
+        var a3 = cpuIncoming(source, x, y, 3);
+        var packed = 0;
+        if (mode === 0) {
+          if (orientation === 1) packed = a2 | (a3 << 1) | (a0 << 2) | (a1 << 3);
+          else if (orientation === 3) packed = 15;
+        } else {
+          var value;
+          if (mode === 1) value = [a0, a1, a2, a3][orientation];
+          else if (orientation === 3) value = cpuMuxAction(mode, a0, a2, a3, a1);
+          else if (orientation === 2) value = cpuMuxAction(mode, a1, a3, a0, a2);
+          else if (orientation === 1) value = cpuMuxAction(mode, a2, a0, a1, a3);
+          else value = cpuMuxAction(mode, a3, a1, a2, a0);
+          packed = value ? 15 : 0;
+        }
+        target[indexOf(x, y)] = packed;
+      }
+    }
+    model.cpuOutputs = target;
+    model.frame += 1;
+    sampleWaveforms();
+  }
+
+  function stepOnce() {
+    if (!gl) {
+      stepCpu();
+      return;
+    }
+    // Two-plane update: gpu.source is previous; target is next; the final assignment flips them.
+    var target = 1 - gpu.source;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, gpu.framebuffers[target]);
+    gl.viewport(0, 0, storageWidth(), storageHeight());
+    bindQuad(gpu.computeProgram);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, gpu.textures[gpu.source]);
+    gl.uniform1i(gpu.computeUniforms.state, 0);
+    gl.uniform2f(gpu.computeUniforms.size, storageWidth(), storageHeight());
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    gpu.source = target;
+    model.frame += 1;
+    sampleWaveforms();
+  }
+  function render() {
+    if (!gl) return;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    bindQuad(gpu.renderProgram);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, gpu.textures[gpu.source]);
+    gl.uniform1i(gpu.renderUniforms.state, 0);
+    gl.uniform2f(gpu.renderUniforms.size, storageWidth(), storageHeight());
+    gl.uniform2f(gpu.renderUniforms.viewport, canvas.clientWidth, canvas.clientHeight);
+    gl.uniform1f(gpu.renderUniforms.devicePixelRatio, canvas.width / Math.max(canvas.clientWidth, 1));
+    gl.uniform3f(gpu.renderUniforms.camera, model.camera.x, model.camera.y, model.camera.scale);
+    gl.uniform2f(
+      gpu.renderUniforms.selected,
+      model.selected ? model.selected.x : -1,
+      model.selected ? model.selected.y : -1
+    );
+    gl.uniform1f(gpu.renderUniforms.hasSelected, model.selected ? 1 : 0);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+
+  function initGpu() {
+    if (!gl) return;
+    try {
+      gpu.computeProgram = createProgram("compute-fragment", "compute");
+      gpu.renderProgram = createProgram("render-fragment", "render");
+    } catch (shaderError) {
+      gpuFallbackReason = shaderError && shaderError.message ? shaderError.message : String(shaderError);
+      console.warn("Using the Canvas 2D compatibility renderer.", shaderError);
+      gl = null;
+      return;
+    }
+    gpu.computeUniforms = {
+      state: uniform(gpu.computeProgram, "uState"),
+      size: uniform(gpu.computeProgram, "uSize")
+    };
+    gpu.renderUniforms = {
+      state: uniform(gpu.renderProgram, "uState"),
+      size: uniform(gpu.renderProgram, "uSize"),
+      viewport: uniform(gpu.renderProgram, "uViewport"),
+      devicePixelRatio: uniform(gpu.renderProgram, "uDevicePixelRatio"),
+      camera: uniform(gpu.renderProgram, "uCamera"),
+      selected: uniform(gpu.renderProgram, "uSelected"),
+      hasSelected: uniform(gpu.renderProgram, "uHasSelected")
+    };
+    gpu.quad = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, gpu.quad);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1, -1, 1, -1, -1, 1, 1, 1
+    ]), gl.STATIC_DRAW);
+    gl.disable(gl.BLEND);
+    gl.disable(gl.DEPTH_TEST);
+    gl.disable(gl.CULL_FACE);
+    // RGBA8 channels are state bits, not colors. Dithering would corrupt
+    // exact output nibbles during the ping-pong compute pass.
+    gl.disable(gl.DITHER);
+  }
+
+  function blankRoles(cols, rows) {
+    var roles = new Uint8Array(cols * 3 * rows * 2);
+    roles.fill(ROLE.GND);
+    return roles;
+  }
+  function makeBlank(cols, rows) {
+    model.cols = cols;
+    model.rows = rows;
+    model.roles = blankRoles(cols, rows);
+    model.labels = [];
+    model.selected = null;
+    rebuildStateTextures();
+    fitFabric();
+    updateInspector();
+  }
+  function setRoleAt(x, y, code) {
+    if (!validCell(x, y) || code === null || code < 0 || code > 31) return false;
+    var index = indexOf(x, y);
+    if (model.roles[index] === code) return false;
+    model.roles[index] = code;
+    uploadEditedCell(x, y);
+    markDirty();
+    return true;
+  }
+
+  function snapshot() {
+    return {
+      cols: model.cols,
+      rows: model.rows,
+      roles: model.roles.slice(),
+      labels: JSON.parse(JSON.stringify(model.labels)),
+      texture: readCurrentStateBytes(),
+      frame: model.frame,
+      camera: Object.assign({}, model.camera),
+      samples: JSON.parse(JSON.stringify(model.samples)),
+      revision: model.revision
+    };
+  }
+  function restoreSnapshot(state) {
+    setRunning(false);
+    model.cols = state.cols;
+    model.rows = state.rows;
+    model.roles = state.roles.slice();
+    model.labels = JSON.parse(JSON.stringify(state.labels));
+    model.selected = null;
+    model.camera = Object.assign({}, state.camera);
+    model.revision = state.revision;
+    model.dirty = model.revision !== model.cleanRevision;
+    rebuildStateTextures(state.texture);
+    model.frame = state.frame;
+    model.samples = JSON.parse(JSON.stringify(state.samples));
+    updateInspector();
+    drawWaveforms();
+  }
+  function pushHistory() {
+    model.history.push(snapshot());
+    if (model.history.length > HISTORY_LIMIT) model.history.shift();
+    model.future.length = 0;
+    updateUndoButtons();
+  }
+  function undo() {
+    if (!model.history.length) return;
+    model.future.push(snapshot());
+    restoreSnapshot(model.history.pop());
+    updateUndoButtons();
+    setStatus("Undo");
+  }
+  function redo() {
+    if (!model.future.length) return;
+    model.history.push(snapshot());
+    restoreSnapshot(model.future.pop());
+    updateUndoButtons();
+    setStatus("Redo");
+  }
+  function updateUndoButtons() {
+    $("undo").disabled = model.history.length === 0;
+    $("redo").disabled = model.future.length === 0;
+  }
+
+  function shortestCellPath(start, target) {
+    var queue = [{ x: start.x, y: start.y }];
+    var head = 0;
+    var previous = Object.create(null);
+    var startKey = start.x + "," + start.y;
+    var targetKey = target.x + "," + target.y;
+    previous[startKey] = null;
+    while (head < queue.length) {
+      var current = queue[head++];
+      var currentKey = current.x + "," + current.y;
+      if (currentKey === targetKey) break;
+      for (var edge = 0; edge < 4; edge += 1) {
+        var next = neighborOf(current.x, current.y, edge);
+        if (!next) continue;
+        var nextKey = next.x + "," + next.y;
+        if (Object.prototype.hasOwnProperty.call(previous, nextKey)) continue;
+        previous[nextKey] = { x: current.x, y: current.y, inputEdge: next.edge };
+        queue.push({ x: next.x, y: next.y });
+      }
+    }
+    if (!Object.prototype.hasOwnProperty.call(previous, targetKey)) {
+      throw new Error("The routed example could not cross the Rhombitrihex fabric.");
+    }
+    var path = [];
+    var cursor = { x: target.x, y: target.y };
+    while (cursor) {
+      var key = cursor.x + "," + cursor.y;
+      var link = previous[key];
+      path.push({ x: cursor.x, y: cursor.y, inputEdge: link ? link.inputEdge : 0 });
+      cursor = link ? { x: link.x, y: link.y } : null;
+    }
+    path.reverse();
+    return path;
+  }
+
+  function muxRoleForRoute(zeroEdge, outputEdge) {
+    for (var mode = 2; mode <= 7; mode += 1) {
+      for (var orientation = 0; orientation < 4; orientation += 1) {
+        var glyph = muxRoleGeometry(mode, orientation);
+        if (glyph.zero === zeroEdge && glyph.output === outputEdge) {
+          return mode * 4 + orientation;
+        }
+      }
+    }
+    throw new Error("No MUX permutation joins route edges e" + zeroEdge + " and e" + outputEdge + ".");
+  }
+
+  function loadSignalPathExample() {
+    makeBlank(24, 14);
+    var start = encodeCell(2, 11, 0);
+    var end = encodeCell(21, 2, 5);
+    var path = shortestCellPath(start, end);
+    model.roles[indexOf(start.x, start.y)] = ROLE.PWR;
+    var muxIndex = Math.max(2, Math.min(path.length - 2, Math.floor(path.length * 0.55)));
+    for (var n = 1; n < path.length; n += 1) {
+      if (n === muxIndex) {
+        var nextOutputEdge = 3 - path[n + 1].inputEdge;
+        model.roles[indexOf(path[n].x, path[n].y)] = muxRoleForRoute(path[n].inputEdge, nextOutputEdge);
+      } else {
+        model.roles[indexOf(path[n].x, path[n].y)] = 4 + path[n].inputEdge;
+      }
+    }
+    model.labels = [
+      { x: start.x, y: start.y, text: "SOURCE", color: "#111111", probe: true, edge: 0 },
+      { x: end.x, y: end.y, text: "PATH_END", color: "#111111", probe: true, edge: 0 }
+    ];
+    rebuildStateTextures();
+    for (var settle = 0; settle < path.length + 4; settle += 1) stepOnce();
+    fitFabric();
+    $("example-select").value = "path";
+    setStatus("Routed demo loaded · select a component, then click a tile to edit");
+  }
+
+  function loadAtlasExample() {
+    makeBlank(10, 6);
+    for (var code = 0; code < 32; code += 1) {
+      var atlasColumn = code % 8;
+      var atlasRow = Math.floor(code / 8);
+      var cell = encodeCell(1 + atlasColumn, 1 + atlasRow, code % 6);
+      model.roles[indexOf(cell.x, cell.y)] = code;
+      model.labels.push({
+        x: cell.x,
+        y: cell.y,
+        text: String(code).padStart(2, "0"),
+        color: "#111111",
+        probe: false,
+        edge: 0
+      });
+    }
+    rebuildStateTextures();
+    fitFabric();
+    setStatus("Loaded 32-role visual key");
+  }
+
+  function loadExample(id) {
+    if (model.dirty && !window.confirm("Replace the current unsaved fabric?")) return;
+    setRunning(false);
+    pushHistory();
+    if (id === "path") loadSignalPathExample();
+    else if (id === "atlas") loadAtlasExample();
+    else {
+      makeBlank(24, 14);
+      setStatus("Loaded blank fabric");
+    }
+    markNewStateClean();
+  }
+
+  function base64FromBytes(bytes) {
+    var parts = [];
+    var chunk = 0x8000;
+    for (var i = 0; i < bytes.length; i += chunk) {
+      parts.push(String.fromCharCode.apply(null, bytes.subarray(i, i + chunk)));
+    }
+    return btoa(parts.join(""));
+  }
+  function bytesFromBase64(text) {
+    var binary = atob(text);
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+    return bytes;
+  }
+  function statePayload() {
+    return {
+      version: STATE_VERSION,
+      lattice: LATTICE,
+      topologyVersion: TOPOLOGY_VERSION,
+      latticeOrigin: { i: 0, j: 0, phase: 0 },
+      geometry: {
+        motifColumns: model.cols,
+        motifRows: model.rows,
+        storageWidth: storageWidth(),
+        storageHeight: storageHeight(),
+        cellsPerMotif: 6,
+        localPortsPerCell: 4
+      },
+      roles: base64FromBytes(model.roles),
+      texture: base64FromBytes(readCurrentStateBytes()),
+      frame: model.frame,
+      labels: model.labels.map(function (label) { return Object.assign({}, label); }),
+      view: {
+        panX: model.camera.x,
+        panY: model.camera.y,
+        scale: model.camera.scale
+      }
+    };
+  }
+  function downloadState() {
+    var envelope = {
+      format: FORMAT,
+      formatVersion: FORMAT_VERSION,
+      generatedAt: new Date().toISOString(),
+      state: statePayload()
+    };
+    var blob = new Blob([JSON.stringify(envelope, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement("a");
+    link.href = url;
+    link.download = "rhombitrihex-fabric.cartilage.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    markCurrentClean();
+    setStatus("Saved local JSON");
+  }
+  function normalizeLoaded(envelope) {
+    if (!envelope || envelope.format !== FORMAT || envelope.formatVersion !== FORMAT_VERSION) {
+      throw new Error("This is not a " + FORMAT + " format-version " + FORMAT_VERSION + " file.");
+    }
+    var state = envelope.state;
+    if (!state || state.version !== STATE_VERSION || state.lattice !== LATTICE ||
+        state.topologyVersion !== TOPOLOGY_VERSION) {
+      throw new Error("The file is not Rhombitrihex state version 5 / topology version 1. Orthogonal textures are not reinterpreted.");
+    }
+    var geometry = state.geometry || {};
+    var cols = Number(geometry.motifColumns);
+    var rows = Number(geometry.motifRows);
+    if (!Number.isInteger(cols) || !Number.isInteger(rows) ||
+        cols < MIN_COLS || cols > MAX_COLS || rows < MIN_ROWS || rows > MAX_ROWS ||
+        geometry.storageWidth !== cols * 3 || geometry.storageHeight !== rows * 2 ||
+        geometry.cellsPerMotif !== 6 || geometry.localPortsPerCell !== 4) {
+      throw new Error("The saved motif geometry is invalid.");
+    }
+    var roles = bytesFromBase64(String(state.roles || ""));
+    if (roles.length !== cols * 3 * rows * 2) {
+      throw new Error("The saved role atlas has " + roles.length + " bytes; expected " + (cols * 3 * rows * 2) + ".");
+    }
+    for (var i = 0; i < roles.length; i += 1) {
+      if (roles[i] > 31) throw new Error("Role code " + roles[i] + " is outside the five-bit role map.");
+    }
+    var texture;
+    if (typeof state.texture === "string" && state.texture) {
+      texture = bytesFromBase64(state.texture);
+      if (texture.length !== roles.length * 4) {
+        throw new Error("The saved live RGBA8 plane has the wrong byte length.");
+      }
+      for (var texel = 0; texel < roles.length; texel += 1) {
+        if (texture[texel * 4] !== roles[texel]) {
+          throw new Error("The role atlas and live RGBA8 plane disagree at texel " + texel + ".");
+        }
+        if (texture[texel * 4 + 1] > 15) {
+          throw new Error("The live output nibble is invalid at texel " + texel + ".");
+        }
+      }
+    } else {
+      texture = new Uint8Array(roles.length * 4);
+      for (var roleIndex = 0; roleIndex < roles.length; roleIndex += 1) {
+        texture[roleIndex * 4] = roles[roleIndex];
+        texture[roleIndex * 4 + 3] = 255;
+      }
+    }
+    var labels = Array.isArray(state.labels) ? state.labels.map(function (label) {
+      var x = Number(label.x);
+      var y = Number(label.y);
+      if (!Number.isInteger(x) || !Number.isInteger(y) || x < 0 || y < 0 || x >= cols * 3 || y >= rows * 2) return null;
+      return {
+        x: x,
+        y: y,
+        text: String(label.text || "").slice(0, 40),
+        color: /^#[0-9a-f]{6}$/i.test(String(label.color || "")) ? label.color : "#111111",
+        probe: Boolean(label.probe),
+        edge: Math.max(0, Math.min(3, Number(label.edge) | 0))
+      };
+    }).filter(Boolean) : [];
+    var labelSites = new Set();
+    labels.forEach(function (label) {
+      var key = label.x + "," + label.y;
+      if (labelSites.has(key)) {
+        throw new Error("The saved file has more than one label at site " + key + ".");
+      }
+      labelSites.add(key);
+    });
+    if (labels.filter(function (label) { return label.probe; }).length > PROBE_LIMIT) {
+      throw new Error("The saved file exceeds the " + PROBE_LIMIT + "-probe limit.");
+    }
+    var view = state.view || {};
+    return {
+      cols: cols,
+      rows: rows,
+      roles: roles,
+      texture: texture,
+      frame: Number.isInteger(state.frame) && state.frame >= 0 ? state.frame : 0,
+      labels: labels,
+      camera: {
+        x: Number.isFinite(view.panX) ? Math.max(-100000, Math.min(100000, view.panX)) : 20,
+        y: Number.isFinite(view.panY) ? Math.max(-100000, Math.min(100000, view.panY)) : 20,
+        scale: Number.isFinite(view.scale) ? Math.max(3, Math.min(240, view.scale)) : 42
+      }
+    };
+  }
+  function applyLoaded(loaded) {
+    setRunning(false);
+    pushHistory();
+    model.cols = loaded.cols;
+    model.rows = loaded.rows;
+    model.roles = loaded.roles;
+    model.labels = loaded.labels;
+    model.camera = loaded.camera;
+    model.selected = null;
+    rebuildStateTextures(loaded.texture);
+    model.frame = loaded.frame;
+    markNewStateClean();
+    updateInspector();
+    setStatus("Opened local Rhombitrihex JSON");
+  }
+
+  function resizeFabric(cols, rows) {
+    cols = Number(cols);
+    rows = Number(rows);
+    if (!Number.isInteger(cols) || !Number.isInteger(rows) ||
+        cols < MIN_COLS || cols > MAX_COLS || rows < MIN_ROWS || rows > MAX_ROWS) {
+      throw new Error("Motif dimensions must be " + MIN_COLS + "–" + MAX_COLS + " columns and " + MIN_ROWS + "–" + MAX_ROWS + " rows.");
+    }
+    setRunning(false);
+    pushHistory();
+    var oldCols = model.cols;
+    var oldRows = model.rows;
+    var oldWidth = oldCols * 3;
+    var oldRoles = model.roles;
+    var oldTexture = readCurrentStateBytes();
+    var oldFrame = model.frame;
+    var oldSamples = model.samples;
+    var next = blankRoles(cols, rows);
+    var nextTexture = new Uint8Array(cols * 3 * rows * 2 * 4);
+    for (var fresh = 0; fresh < next.length; fresh += 1) {
+      nextTexture[fresh * 4] = ROLE.GND;
+      nextTexture[fresh * 4 + 3] = 255;
+    }
+    var copyCols = Math.min(oldCols, cols);
+    var copyRows = Math.min(oldRows, rows);
+    for (var j = 0; j < copyRows; j += 1) {
+      for (var i = 0; i < copyCols; i += 1) {
+        for (var phase = 0; phase < 6; phase += 1) {
+          var oldCell = { x: 3 * i + phase % 3, y: 2 * j + Math.floor(phase / 3) };
+          var nextCell = oldCell;
+          var oldIndex = oldCell.y * oldWidth + oldCell.x;
+          var nextIndex = nextCell.y * cols * 3 + nextCell.x;
+          next[nextIndex] = oldRoles[oldIndex];
+          nextTexture.set(oldTexture.subarray(oldIndex * 4, oldIndex * 4 + 4), nextIndex * 4);
+        }
+      }
+    }
+    model.cols = cols;
+    model.rows = rows;
+    model.roles = next;
+    model.labels = model.labels.filter(function (label) {
+      return label.x < cols * 3 && label.y < rows * 2;
+    });
+    model.selected = null;
+    markDirty();
+    rebuildStateTextures(nextTexture);
+    model.frame = oldFrame;
+    model.samples = oldSamples;
+    fitFabric(false);
+    updateInspector();
+    setStatus("Resized to " + cols + "×" + rows + " complete motifs");
+  }
+
+  function fitFabric(recordChange) {
+    var bounds = fabricBounds();
+    var padding = 34;
+    var width = Math.max(1, viewport.clientWidth - padding * 2);
+    var height = Math.max(1, viewport.clientHeight - padding * 2);
+    model.camera.scale = Math.max(3, Math.min(240,
+      Math.min(width / (bounds.maxX - bounds.minX), height / (bounds.maxY - bounds.minY))));
+    model.camera.x = (viewport.clientWidth - (bounds.maxX - bounds.minX) * model.camera.scale) / 2;
+    model.camera.y = (viewport.clientHeight - (bounds.maxY - bounds.minY) * model.camera.scale) / 2;
+  }
+  function zoomAt(factor, x, y) {
+    var before = screenToWorld(x, y);
+    model.camera.scale = Math.max(3, Math.min(240, model.camera.scale * factor));
+    model.camera.x = x - before.x * model.camera.scale;
+    model.camera.y = y - before.y * model.camera.scale;
+  }
+
+  function cellLabel(x, y) {
+    return model.labels.find(function (label) { return label.x === x && label.y === y; }) || null;
+  }
+  function updateInspector() {
+    if (!model.selected || !validCell(model.selected.x, model.selected.y)) {
+      sidePanel.hidden = true;
+      summary.textContent = "No cell selected.";
+      return;
+    }
+    var x = model.selected.x;
+    var y = model.selected.y;
+    var d = decodeCell(x, y);
+    var code = model.roles[indexOf(x, y)];
+    var mode = Math.floor(code / 4);
+    var orientation = code & 3;
+    var roleDetail = mode > 1 ? "\nMUX      " + muxRoleDetail(mode, orientation) : "";
+    var liveBytes = readCurrentStateBytes();
+    var outputBits = liveBytes[indexOf(x, y) * 4 + 1];
+    var neighbors = [0, 1, 2, 3].map(function (edge) {
+      var n = neighborOf(x, y, edge);
+      return "e" + edge + "→" + (n ? n.x + "," + n.y + "/e" + n.edge : "boundary");
+    }).join("\n");
+    summary.textContent =
+      "storage  " + x + "," + y + "\n" +
+      "logical  (" + d.i + "," + d.j + ",t" + d.t + ",k" + d.k + ")\n" +
+      "kite     " + d.phase + " · rotation " + (PHASE_ROTATION[d.phase] * 60) + "°\n" +
+      "role     " + code + " · " + describeRole(code) + "\n" +
+      "outputs  " + outputBits.toString(2).padStart(4, "0") + roleDetail + "\n" +
+      neighbors;
+    var label = cellLabel(x, y);
+    labelText.value = label ? label.text : "";
+    probeEdge.value = String(label ? label.edge : 0);
+    $("toggle-probe").textContent = label && label.probe ? "Remove probe" : "Add probe";
+    sidePanel.hidden = false;
+  }
+  function selectCell(cell) {
+    model.selected = cell;
+    updateInspector();
+  }
+
+  function clearWaveSamples() {
+    model.samples = Object.create(null);
+    drawWaveforms();
+  }
+  function probeKey(label) { return label.x + "," + label.y + "," + label.edge; }
+  function sampleWaveforms() {
+    var probes = model.labels.filter(function (label) { return label.probe; }).slice(0, PROBE_LIMIT);
+    if (!probes.length) return;
+    if (!gl) {
+      probes.forEach(function (label) {
+        var outputs = model.cpuOutputs[indexOf(label.x, label.y)];
+        var value = (outputs >> label.edge) & 1;
+        var key = probeKey(label);
+        var samples = model.samples[key] || (model.samples[key] = []);
+        samples.push(value);
+        if (samples.length > WAVE_LIMIT) samples.shift();
+      });
+      if (model.waveformVisible) drawWaveforms();
+      return;
+    }
+    var minX = Math.min.apply(null, probes.map(function (label) { return label.x; }));
+    var maxX = Math.max.apply(null, probes.map(function (label) { return label.x; }));
+    var minY = Math.min.apply(null, probes.map(function (label) { return label.y; }));
+    var maxY = Math.max.apply(null, probes.map(function (label) { return label.y; }));
+    var readWidth = maxX - minX + 1;
+    var readHeight = maxY - minY + 1;
+    var pixels = new Uint8Array(readWidth * readHeight * 4);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, gpu.framebuffers[gpu.source]);
+    gl.readPixels(minX, minY, readWidth, readHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    probes.forEach(function (label) {
+      var offset = ((label.y - minY) * readWidth + label.x - minX) * 4;
+      var value = (pixels[offset + 1] >> label.edge) & 1;
+      var key = probeKey(label);
+      var samples = model.samples[key] || (model.samples[key] = []);
+      samples.push(value);
+      if (samples.length > WAVE_LIMIT) samples.shift();
+    });
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    if (model.waveformVisible) drawWaveforms();
+  }
+  function drawWaveforms() {
+    if (!model.waveformVisible) return;
+    var rect = waveCanvas.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var width = Math.max(1, Math.floor(rect.width * dpr));
+    var height = Math.max(1, Math.floor(rect.height * dpr));
+    if (waveCanvas.width !== width || waveCanvas.height !== height) {
+      waveCanvas.width = width;
+      waveCanvas.height = height;
+    }
+    var ctx = waveCanvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    ctx.fillStyle = "#1e201f";
+    ctx.fillRect(0, 0, rect.width, rect.height);
+    var probes = model.labels.filter(function (label) { return label.probe; }).slice(0, PROBE_LIMIT);
+    if (!probes.length) {
+      ctx.fillStyle = "#b9beb9";
+      ctx.font = "12px system-ui";
+      ctx.fillText("No probes. Inspect a kite, set a label, then add a probe.", 10, 22);
+      return;
+    }
+    var laneHeight = rect.height / probes.length;
+    probes.forEach(function (label, lane) {
+      var key = probeKey(label);
+      var samples = model.samples[key] || [];
+      var top = lane * laneHeight;
+      var high = top + laneHeight * 0.25;
+      var low = top + laneHeight * 0.72;
+      ctx.strokeStyle = "rgba(255,255,255,.10)";
+      ctx.beginPath();
+      ctx.moveTo(0, top + laneHeight - 1);
+      ctx.lineTo(rect.width, top + laneHeight - 1);
+      ctx.stroke();
+      ctx.fillStyle = PORT_COLORS[label.edge];
+      ctx.font = "11px ui-monospace, monospace";
+      ctx.fillText((label.text || (label.x + "," + label.y)) + " e" + label.edge, 7, top + 13);
+      if (!samples.length) return;
+      var plotLeft = 118;
+      var dx = Math.max(1, (rect.width - plotLeft - 8) / Math.max(WAVE_LIMIT - 1, 1));
+      var start = Math.max(0, samples.length - WAVE_LIMIT);
+      ctx.strokeStyle = PORT_COLORS[label.edge];
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      for (var n = start; n < samples.length; n += 1) {
+        var px = plotLeft + (n - start) * dx;
+        var py = samples[n] ? high : low;
+        if (n === start) ctx.moveTo(px, py);
+        else {
+          ctx.lineTo(px, samples[n - 1] ? high : low);
+          ctx.lineTo(px, py);
+        }
+      }
+      ctx.stroke();
+    });
+  }
+
+  function fallbackCellColor(role) {
+    if (role === ROLE.PORT) return "#e1d3f1";
+    if (role >= 8) return "#f6e8c9";
+    return "#fffdf8";
+  }
+
+  function pointBetween(a, b, amount) {
+    return { x: a.x + (b.x - a.x) * amount, y: a.y + (b.y - a.y) * amount };
+  }
+
+  function strokeSegment(ctx, a, b, width, color) {
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = color || "#111111";
+    ctx.lineWidth = width;
+    ctx.stroke();
+  }
+
+  function screenRingPort(center, port, radius) {
+    var dx = port.x - center.x;
+    var dy = port.y - center.y;
+    var length = Math.max(0.0001, Math.hypot(dx, dy));
+    return { x: center.x + dx * radius / length, y: center.y + dy * radius / length };
+  }
+
+  function drawStateRing(ctx, center, radius, high, compact, ink, body) {
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = body;
+    ctx.fill();
+    ctx.strokeStyle = ink;
+    ctx.lineWidth = high
+      ? Math.max(compact ? 1.7 : 2.0, model.camera.scale * (compact ? 0.017 : 0.021))
+      : Math.max(1.0, model.camera.scale * (compact ? 0.0104 : 0.0116));
+    ctx.stroke();
+  }
+
+  function drawOutputArms(ctx, center, outputPorts, ringRadius, width, color) {
+    outputPorts.forEach(function (port) {
+      strokeSegment(ctx, screenRingPort(center, port, ringRadius), port, width, color);
+    });
+  }
+
+  function drawSelectorShoe(ctx, port, center, engaged, ringRadius, thin, color) {
+    var dx = center.x - port.x;
+    var dy = center.y - port.y;
+    var length = Math.max(0.0001, Math.hypot(dx, dy));
+    var direction = { x: dx / length, y: dy / length };
+    var tangent = { x: -direction.y, y: direction.x };
+    var standOff = engaged
+      ? Math.max(0.5, thin * 0.25)
+      : Math.max(1.2, thin + model.camera.scale * 0.012);
+    var travel = Math.max(0.18, Math.min(0.76, 1 - (ringRadius + standOff) / length));
+    var shoeCenter = pointBetween(port, center, travel);
+    var foot = Math.max(2.2, model.camera.scale * 0.029);
+    strokeSegment(ctx, port, shoeCenter, thin, color);
+    strokeSegment(ctx, {
+      x: shoeCenter.x - tangent.x * foot,
+      y: shoeCenter.y - tangent.y * foot
+    }, {
+      x: shoeCenter.x + tangent.x * foot,
+      y: shoeCenter.y + tangent.y * foot
+    }, Math.max(1.2, thin * 1.22), color);
+  }
+
+  function drawActiveInput(ctx, port, center, coreWidth, haloWidth, ink, body) {
+    strokeSegment(ctx, port, center, haloWidth, body);
+    strokeSegment(ctx, port, center, coreWidth, ink);
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, Math.max(1.15, model.camera.scale * 0.0105), 0, Math.PI * 2);
+    ctx.fillStyle = ink;
+    ctx.fill();
+  }
+
+  function drawCrossBubble(ctx, point, high, thin, ink, body) {
+    var radius = Math.max(1.65, model.camera.scale * 0.018);
+    ctx.beginPath();
+    ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = high ? ink : body;
+    ctx.fill();
+    if (!high) {
+      ctx.strokeStyle = ink;
+      ctx.lineWidth = Math.max(0.9, Math.min(radius * 0.55, thin));
+      ctx.stroke();
+    }
+  }
+
+  function drawMuxFabricGlyph(ctx, x, y, center, inputPorts, outputPorts, role, outputs) {
+    var mode = Math.floor(role / 4);
+    var orientation = role & 3;
+    var glyph = muxRoleGeometry(mode, orientation);
+    var ink = "#111111";
+    var body = fallbackCellColor(role);
+    var thin = Math.max(1.0, model.camera.scale * 0.0088);
+    var coreWidth = Math.max(2.0, model.camera.scale * 0.0148);
+    var haloWidth = coreWidth + Math.max(1.5, model.camera.scale * 0.0084);
+    var ringRadius = Math.max(2.8, model.camera.scale * 0.052);
+    var selector = cpuIncoming(model.cpuOutputs, x, y, glyph.selector);
+    var selectedEdge = selector ? glyph.one : glyph.zero;
+
+    drawOutputArms(ctx, center, outputPorts, ringRadius, thin, ink);
+    [glyph.zero, glyph.one].forEach(function (edge) {
+      var port = inputPorts[edge];
+      var end = screenRingPort(center, port, ringRadius + Math.max(1.2, model.camera.scale * 0.012));
+      strokeSegment(ctx, port, end, thin, ink);
+    });
+    drawStateRing(ctx, center, ringRadius, Boolean(outputs), false, ink, body);
+    drawActiveInput(ctx, inputPorts[selectedEdge], center, coreWidth, haloWidth, ink, body);
+    drawSelectorShoe(ctx, inputPorts[glyph.selector], center, selector, ringRadius, thin, ink);
+  }
+
+  function drawWireFabricGlyph(ctx, x, y, center, inputPorts, outputPorts, orientation, outputs, body) {
+    var ink = "#111111";
+    var thin = Math.max(1.0, model.camera.scale * 0.0088);
+    var coreWidth = Math.max(2.0, model.camera.scale * 0.0148);
+    var haloWidth = coreWidth + Math.max(1.35, model.camera.scale * 0.0084);
+    var ringRadius = Math.max(2.3, model.camera.scale * 0.038);
+    drawOutputArms(ctx, center, outputPorts, ringRadius, thin, ink);
+    drawStateRing(ctx, center, ringRadius, Boolean(outputs), true, ink, body);
+    drawActiveInput(ctx, inputPorts[orientation], center, coreWidth, haloWidth, ink, body);
+  }
+
+  function drawFabricOverlay(ctx, rect, outlineOnly) {
+    ctx.save();
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    for (var y = 0; y < storageHeight(); y += 1) {
+      for (var x = 0; x < storageWidth(); x += 1) {
+        var geometry = geometryOf(x, y);
+        var points = geometry.polygon.map(worldToScreen);
+        var center = worldToScreen(geometry.center);
+        if (center.x < -30 || center.y < -30 || center.x > rect.width + 30 || center.y > rect.height + 30) continue;
+        var role = model.roles[indexOf(x, y)];
+        var mode = Math.floor(role / 4);
+        var orientation = role & 3;
+        var outputs = model.cpuOutputs ? model.cpuOutputs[indexOf(x, y)] : 0;
+        var isSelected = Boolean(model.selected && model.selected.x === x && model.selected.y === y);
+        if (!outlineOnly && (role === ROLE.PORT || role >= 8 || isSelected)) {
+          ctx.beginPath();
+          ctx.moveTo(points[0].x, points[0].y);
+          for (var pointIndex = 1; pointIndex < points.length; pointIndex += 1) {
+            ctx.lineTo(points[pointIndex].x, points[pointIndex].y);
+          }
+          ctx.closePath();
+          ctx.fillStyle = role === ROLE.PORT || role >= 8 ? fallbackCellColor(role) : "#eeeae2";
+          ctx.fill();
+        }
+
+        var groundIsExplicit = role !== ROLE.GND || Boolean(cellLabel(x, y)) ||
+          Boolean(model.selected && model.selected.x === x && model.selected.y === y);
+        if (!groundIsExplicit) continue;
+
+        var inputPorts = geometry.inputPorts.map(worldToScreen);
+        var outputPorts = geometry.outputPorts.map(worldToScreen);
+        var glyphBody = isSelected ? "#eeeae2" : "#fffdf8";
+        if (role === ROLE.CROSS) {
+          var crossWidth = Math.max(1.0, model.camera.scale * 0.0088);
+          strokeSegment(ctx, inputPorts[0], outputPorts[2], crossWidth);
+          strokeSegment(ctx, inputPorts[2], outputPorts[0], crossWidth);
+          ctx.beginPath();
+          ctx.arc(center.x, center.y, Math.max(1.45, crossWidth * 1.45), 0, Math.PI * 2);
+          ctx.fillStyle = glyphBody;
+          ctx.fill();
+          strokeSegment(ctx, inputPorts[1], outputPorts[3], crossWidth);
+          strokeSegment(ctx, inputPorts[3], outputPorts[1], crossWidth);
+          drawCrossBubble(ctx, pointBetween(inputPorts[0], outputPorts[2], 0.34),
+            Boolean((outputs >> 2) & 1), crossWidth, "#111111", glyphBody);
+          drawCrossBubble(ctx, pointBetween(inputPorts[2], outputPorts[0], 0.34),
+            Boolean(outputs & 1), crossWidth, "#111111", glyphBody);
+          drawCrossBubble(ctx, pointBetween(inputPorts[1], outputPorts[3], 0.34),
+            Boolean((outputs >> 3) & 1), crossWidth, "#111111", glyphBody);
+          drawCrossBubble(ctx, pointBetween(inputPorts[3], outputPorts[1], 0.34),
+            Boolean((outputs >> 1) & 1), crossWidth, "#111111", glyphBody);
+        } else if (mode === 1) {
+          drawWireFabricGlyph(ctx, x, y, center, inputPorts, outputPorts, orientation, outputs, glyphBody);
+        } else if (mode > 1) {
+          drawMuxFabricGlyph(ctx, x, y, center, inputPorts, outputPorts, role, outputs);
+        } else if (role === ROLE.PORT) {
+          var portInk = "#5c2874";
+          var portBody = fallbackCellColor(role);
+          var portThin = Math.max(1.0, model.camera.scale * 0.0088);
+          var portCore = Math.max(2.0, model.camera.scale * 0.0148);
+          var portHalo = portCore + Math.max(1.5, model.camera.scale * 0.0084);
+          var portRing = Math.max(2.8, model.camera.scale * 0.052);
+          drawOutputArms(ctx, center, outputPorts, portRing, portThin, portInk);
+          drawStateRing(ctx, center, portRing, Boolean(outputs), false, portInk, portBody);
+          drawActiveInput(ctx, inputPorts[0], center, portCore, portHalo, portInk, portBody);
+          drawSelectorShoe(ctx, inputPorts[1], center, Boolean(outputs), portRing, portThin, portInk);
+        } else {
+          var sourceThin = Math.max(1.0, model.camera.scale * 0.0088);
+          var sourceRing = Math.max(2.8, model.camera.scale * 0.050);
+          drawOutputArms(ctx, center, outputPorts, sourceRing, sourceThin, "#111111");
+          drawStateRing(ctx, center, sourceRing, role === ROLE.PWR, false,
+            "#111111", glyphBody);
+        }
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawTransientKite(ctx, cell, dashed, opacity) {
+    if (!cell || !validCell(cell.x, cell.y)) return;
+    var points = geometryOf(cell.x, cell.y).polygon.map(worldToScreen);
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (var n = 1; n < points.length; n += 1) ctx.lineTo(points[n].x, points[n].y);
+    ctx.closePath();
+    if (typeof ctx.setLineDash === "function") ctx.setLineDash(dashed ? [4, 3] : []);
+    ctx.strokeStyle = "rgba(17,17,17," + opacity + ")";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawOverlay() {
+    var rect = overlay.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var width = Math.max(1, Math.floor(rect.width * dpr));
+    var height = Math.max(1, Math.floor(rect.height * dpr));
+    if (overlay.width !== width || overlay.height !== height) {
+      overlay.width = width;
+      overlay.height = height;
+    }
+    var ctx = overlay.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, rect.width, rect.height);
+    if (!gl) drawFabricOverlay(ctx, rect, false);
+    else {
+      // The substrate defaults to CONST 0 and stays visually quiet. A labeled
+      // CONST 0 (for example role 02 in the atlas) is explicit and gets its glyph.
+      ctx.save();
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      model.labels.forEach(function (label) {
+        if (!validCell(label.x, label.y) || model.roles[indexOf(label.x, label.y)] !== ROLE.GND) return;
+        if (model.selected && model.selected.x === label.x && model.selected.y === label.y) return;
+        var geometry = geometryOf(label.x, label.y);
+        var center = worldToScreen(geometry.center);
+        if (center.x < -30 || center.y < -30 || center.x > rect.width + 30 || center.y > rect.height + 30) return;
+        var outputPorts = geometry.outputPorts.map(worldToScreen);
+        var thin = Math.max(1.0, model.camera.scale * 0.0088);
+        var ringRadius = Math.max(2.8, model.camera.scale * 0.050);
+        drawOutputArms(ctx, center, outputPorts, ringRadius, thin, "#111111");
+        drawStateRing(ctx, center, ringRadius, false, false, "#111111", "#fffdf8");
+      });
+      ctx.restore();
+    }
+
+    model.labels.forEach(function (label) {
+      if (!validCell(label.x, label.y)) return;
+      var center = worldToScreen(geometryOf(label.x, label.y).center);
+      if (center.x < -80 || center.y < -30 || center.x > rect.width + 80 || center.y > rect.height + 30) return;
+      ctx.font = "600 11px system-ui";
+      var text = label.text || "probe";
+      var measured = ctx.measureText(text).width;
+      var x = center.x + 8;
+      var y = center.y - 8;
+      ctx.fillStyle = "rgba(255,253,248,.88)";
+      ctx.fillRect(x - 4, y - 12, measured + 8, 17);
+      ctx.fillStyle = "#111111";
+      ctx.fillText(text, x, y);
+      if (label.probe) {
+        ctx.beginPath();
+        ctx.arc(center.x, center.y, 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = PORT_COLORS[label.edge];
+        ctx.fill();
+      }
+    });
+    drawTransientKite(ctx, model.selected, false, 0.62);
+    if (!model.selected || !model.hover ||
+        model.selected.x !== model.hover.x || model.selected.y !== model.hover.y) {
+      drawTransientKite(ctx, model.hover, true, 0.42);
+    }
+  }
+
+  function resizeCanvases() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var rect = canvas.getBoundingClientRect();
+    var width = Math.max(1, Math.floor(rect.width * dpr));
+    var height = Math.max(1, Math.floor(rect.height * dpr));
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+    }
+  }
+
+  var paintPointer = null;
+  var panPointer = null;
+  var panLast = null;
+  var lastPaintKey = null;
+  var paintLastPoint = null;
+  var spaceHeld = false;
+  var pointerInside = false;
+  function pointerPoint(event) {
+    var rect = overlay.getBoundingClientRect();
+    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+  }
+  function updateHover(point) {
+    model.hover = screenToCell(point.x, point.y);
+    if (!model.hover) {
+      coordOutput.textContent = "motif — · kite —";
+      return;
+    }
+    var d = decodeCell(model.hover.x, model.hover.y);
+    coordOutput.textContent = "motif " + d.i + "," + d.j + " · kite " + d.phase + " · e0…e3";
+  }
+  function clearHover() {
+    model.hover = null;
+    coordOutput.textContent = "motif — · kite —";
+  }
+  function paintAt(point) {
+    var cell = screenToCell(point.x, point.y);
+    if (!cell) return;
+    var key = cell.x + "," + cell.y;
+    if (key === lastPaintKey) return;
+    var code = roleCode(roleSelect.value, Number(edgeSelect.value));
+    if (setRoleAt(cell.x, cell.y, code)) {
+      lastPaintKey = key;
+      selectCell(cell);
+      setStatus("Edited " + key + " · " + describeRole(code));
+    }
+  }
+  function paintSegment(point) {
+    if (!paintLastPoint) {
+      paintAt(point);
+      paintLastPoint = point;
+      return;
+    }
+    var dx = point.x - paintLastPoint.x;
+    var dy = point.y - paintLastPoint.y;
+    var distance = Math.hypot(dx, dy);
+    var spacing = Math.max(2, model.camera.scale * 0.07);
+    var steps = Math.max(1, Math.ceil(distance / spacing));
+    for (var sample = 1; sample <= steps; sample += 1) {
+      paintAt({
+        x: paintLastPoint.x + dx * sample / steps,
+        y: paintLastPoint.y + dy * sample / steps
+      });
+    }
+    paintLastPoint = point;
+  }
+
+  overlay.addEventListener("pointerdown", function (event) {
+    overlay.focus({ preventScroll: true });
+    var point = pointerPoint(event);
+    var panning = event.button === 1 || event.button === 2 || event.altKey || spaceHeld;
+    if (panning) {
+      panPointer = event.pointerId;
+      panLast = point;
+      overlay.setPointerCapture(event.pointerId);
+      viewport.classList.add("is-panning");
+      event.preventDefault();
+      return;
+    }
+    if (event.button !== 0) return;
+    var cell = screenToCell(point.x, point.y);
+    if (roleSelect.value === "inspect") {
+      selectCell(cell);
+      return;
+    }
+    pushHistory();
+    paintPointer = event.pointerId;
+    lastPaintKey = null;
+    paintLastPoint = point;
+    overlay.setPointerCapture(event.pointerId);
+    viewport.classList.add("is-painting");
+    paintAt(point);
+    event.preventDefault();
+  });
+  overlay.addEventListener("pointerenter", function () { pointerInside = true; });
+  overlay.addEventListener("pointerleave", function () {
+    pointerInside = false;
+    if (paintPointer === null && panPointer === null) clearHover();
+  });
+  overlay.addEventListener("pointermove", function (event) {
+    var point = pointerPoint(event);
+    updateHover(point);
+    if (event.pointerId === panPointer) {
+      model.camera.x += point.x - panLast.x;
+      model.camera.y += point.y - panLast.y;
+      panLast = point;
+      updateHover(point);
+      event.preventDefault();
+    } else if (event.pointerId === paintPointer && (event.buttons & 1)) {
+      var events = typeof event.getCoalescedEvents === "function" ? event.getCoalescedEvents() : [];
+      events.concat([event]).forEach(function (sample) { paintSegment(pointerPoint(sample)); });
+      event.preventDefault();
+    }
+  });
+  function endPointer(event) {
+    if (event.pointerId === paintPointer) {
+      paintPointer = null;
+      lastPaintKey = null;
+      paintLastPoint = null;
+      viewport.classList.remove("is-painting");
+    }
+    if (event.pointerId === panPointer) {
+      panPointer = null;
+      panLast = null;
+      viewport.classList.remove("is-panning");
+    }
+    if (event.pointerType === "touch" || !pointerInside) clearHover();
+  }
+  overlay.addEventListener("pointerup", endPointer);
+  overlay.addEventListener("pointercancel", endPointer);
+  overlay.addEventListener("lostpointercapture", endPointer);
+  overlay.addEventListener("contextmenu", function (event) { event.preventDefault(); });
+  overlay.addEventListener("wheel", function (event) {
+    var point = pointerPoint(event);
+    zoomAt(Math.exp(-event.deltaY * 0.0015), point.x, point.y);
+    updateHover(point);
+    event.preventDefault();
+  }, { passive: false });
+
+  componentMenuToggle.addEventListener("click", function () {
+    componentMenu.hidden = !componentMenu.hidden;
+    componentMenuToggle.setAttribute("aria-expanded", String(!componentMenu.hidden));
+    if (!componentMenu.hidden) {
+      var active = componentMenu.querySelector('.component-option[aria-pressed="true"]');
+      var focusTarget = active || componentMenu.querySelector(".component-option");
+      if (focusTarget) focusTarget.focus();
+    }
+  });
+  $("component-menu-close").addEventListener("click", function () {
+    componentMenu.hidden = true;
+    componentMenuToggle.setAttribute("aria-expanded", "false");
+    componentMenuToggle.focus();
+  });
+  document.addEventListener("pointerdown", function (event) {
+    if (!componentMenu.hidden &&
+        !componentMenu.contains(event.target) &&
+        !componentMenuToggle.contains(event.target)) {
+      componentMenu.hidden = true;
+      componentMenuToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !componentMenu.hidden) {
+      componentMenu.hidden = true;
+      componentMenuToggle.setAttribute("aria-expanded", "false");
+      componentMenuToggle.focus();
+      event.preventDefault();
+    }
+  });
+
+  function setRunning(running) {
+    model.running = Boolean(running);
+    runButton.textContent = model.running ? "Pause" : "Run";
+    runButton.setAttribute("aria-pressed", String(model.running));
+  }
+  runButton.addEventListener("click", function () {
+    setRunning(!model.running);
+    setStatus(model.running ? "Running" : "Paused");
+  });
+  $("step").addEventListener("click", function () { stepOnce(); setStatus("One causal transition"); });
+  $("reset-state").addEventListener("click", function () {
+    setRunning(false);
+    pushHistory();
+    rebuildStateTextures();
+    markDirty();
+    setStatus("Live outputs reset; roles preserved");
+  });
+  $("undo").addEventListener("click", undo);
+  $("redo").addEventListener("click", redo);
+  $("fit").addEventListener("click", function () { fitFabric(true); });
+  $("zoom-in").addEventListener("click", function () {
+    zoomAt(1.25, viewport.clientWidth / 2, viewport.clientHeight / 2);
+  });
+  $("zoom-out").addEventListener("click", function () {
+    zoomAt(0.8, viewport.clientWidth / 2, viewport.clientHeight / 2);
+  });
+  $("load-example").addEventListener("click", function () { loadExample($("example-select").value); });
+  $("save").addEventListener("click", downloadState);
+  $("open").addEventListener("click", function () {
+    if (model.dirty && !window.confirm("Replace the current unsaved fabric? You can still Undo after opening.")) return;
+    setRunning(false);
+    openFile.click();
+  });
+  openFile.addEventListener("change", function () {
+    var file = openFile.files && openFile.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      try {
+        applyLoaded(normalizeLoaded(JSON.parse(String(reader.result))));
+      } catch (error) {
+        window.alert(error.message);
+        setStatus(error.message, true);
+      } finally {
+        openFile.value = "";
+      }
+    };
+    reader.onerror = function () {
+      setStatus("Could not read the selected local file.", true);
+      openFile.value = "";
+    };
+    reader.readAsText(file);
+  });
+  $("resize").addEventListener("click", function () {
+    $("resize-cols").value = String(model.cols);
+    $("resize-rows").value = String(model.rows);
+    $("resize-dialog").showModal();
+  });
+  $("resize-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    try {
+      resizeFabric($("resize-cols").value, $("resize-rows").value);
+      $("resize-dialog").close();
+    } catch (error) {
+      window.alert(error.message);
+    }
+  });
+  $("resize-cancel").addEventListener("click", function () { $("resize-dialog").close(); });
+  $("help").addEventListener("click", function () { $("help-dialog").showModal(); });
+  waveToggle.addEventListener("click", function () {
+    model.waveformVisible = !model.waveformVisible;
+    $("wave-wrap").hidden = !model.waveformVisible;
+    waveToggle.setAttribute("aria-pressed", String(model.waveformVisible));
+    drawWaveforms();
+  });
+  $("close-panel").addEventListener("click", function () {
+    model.selected = null;
+    updateInspector();
+    overlay.focus({ preventScroll: true });
+  });
+  $("set-label").addEventListener("click", function () {
+    if (!model.selected) return;
+    var text = labelText.value.trim().slice(0, 40);
+    pushHistory();
+    var label = cellLabel(model.selected.x, model.selected.y);
+    if (!label) {
+      label = { x: model.selected.x, y: model.selected.y, text: text || "signal", color: "#111111", probe: false, edge: Number(probeEdge.value) };
+      model.labels.push(label);
+    } else {
+      label.text = text || "signal";
+      label.edge = Number(probeEdge.value);
+    }
+    markDirty();
+    updateInspector();
+    setStatus("Label set");
+  });
+  $("delete-label").addEventListener("click", function () {
+    if (!model.selected) return;
+    var index = model.labels.findIndex(function (label) {
+      return label.x === model.selected.x && label.y === model.selected.y;
+    });
+    if (index < 0) return;
+    pushHistory();
+    model.labels.splice(index, 1);
+    markDirty();
+    updateInspector();
+    clearWaveSamples();
+  });
+  $("toggle-probe").addEventListener("click", function () {
+    if (!model.selected) return;
+    var label = cellLabel(model.selected.x, model.selected.y);
+    var addingProbe = !label || !label.probe;
+    var probeCount = model.labels.filter(function (candidate) { return candidate.probe; }).length;
+    if (addingProbe && probeCount >= PROBE_LIMIT) {
+      setStatus("Probe limit is " + PROBE_LIMIT + ".", true);
+      return;
+    }
+    pushHistory();
+    if (!label) {
+      label = {
+        x: model.selected.x,
+        y: model.selected.y,
+        text: labelText.value.trim().slice(0, 40) || ("cell_" + model.selected.x + "_" + model.selected.y),
+        color: "#111111",
+        probe: true,
+        edge: Number(probeEdge.value)
+      };
+      model.labels.push(label);
+    } else {
+      label.probe = !label.probe;
+      label.edge = Number(probeEdge.value);
+    }
+    markDirty();
+    clearWaveSamples();
+    updateInspector();
+  });
+  probeEdge.addEventListener("change", function () {
+    if (!model.selected) return;
+    var label = cellLabel(model.selected.x, model.selected.y);
+    var nextEdge = Number(probeEdge.value);
+    if (label && label.edge !== nextEdge) {
+      pushHistory();
+      label.edge = nextEdge;
+      markDirty();
+      clearWaveSamples();
+    }
+  });
+
+  function shortcutSurface(event) {
+    var target = event.target;
+    if (!target) return true;
+    if (target.isContentEditable) return false;
+    var tag = target.tagName;
+    if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA" ||
+        tag === "BUTTON" || tag === "A") return false;
+    if (target.closest && target.closest("dialog[open]")) return false;
+    return target === document.body || target === overlay || target === canvas || target === viewport;
+  }
+  window.addEventListener("keydown", function (event) {
+    if (!shortcutSurface(event)) return;
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "z") {
+      if (event.shiftKey) redo(); else undo();
+      event.preventDefault();
+      return;
+    }
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.code === "Space") {
+      if (!event.repeat) runButton.click();
+      spaceHeld = true;
+      event.preventDefault();
+    } else if (event.key === ".") {
+      stepOnce();
+      event.preventDefault();
+    } else if (event.key.toLowerCase() === "f") {
+      fitFabric(true);
+      event.preventDefault();
+    } else if (["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"].includes(event.key)) {
+      var edgeByKey = { ArrowLeft: 0, ArrowUp: 1, ArrowRight: 2, ArrowDown: 3 };
+      if (!model.selected) {
+        selectCell(encodeCell(Math.floor(model.cols / 2), Math.floor(model.rows / 2), 0));
+      } else {
+        var next = neighborOf(model.selected.x, model.selected.y, edgeByKey[event.key]);
+        if (next) selectCell({ x: next.x, y: next.y });
+      }
+      event.preventDefault();
+    } else if (event.key === "Enter" && model.selected && roleSelect.value !== "inspect") {
+      var code = roleCode(roleSelect.value, Number(edgeSelect.value));
+      pushHistory();
+      setRoleAt(model.selected.x, model.selected.y, code);
+      updateInspector();
+      event.preventDefault();
+    }
+  });
+  window.addEventListener("keyup", function (event) {
+    if (event.code === "Space") spaceHeld = false;
+  });
+  window.addEventListener("blur", function () { spaceHeld = false; });
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState !== "visible") spaceHeld = false;
+  });
+  window.addEventListener("beforeunload", function (event) {
+    if (!model.dirty) return;
+    event.preventDefault();
+    event.returnValue = "";
+  });
+
+  function animate() {
+    try {
+      resizeCanvases();
+      if (model.running) stepOnce();
+      render();
+      drawOverlay();
+      frameOutput.textContent = "frame " + model.frame;
+    } catch (error) {
+      model.running = false;
+      runButton.textContent = "Run";
+      runButton.setAttribute("aria-pressed", "false");
+      fail(error);
+      return;
+    }
+    requestAnimationFrame(animate);
+  }
+
+  try {
+    populateRoles();
+    initGpu();
+    verifyTopology();
+    loadSignalPathExample();
+    markNewStateClean();
+    updateUndoButtons();
+    $("renderer-output").textContent = gl ? "WebGL 1.0 + GLSL" : "Canvas 2D + CPU";
+    if (!gl) {
+      setStatus("Routed demo loaded · Canvas 2D compatibility renderer · editing is active");
+    }
+    window.CartilageRhombitrihex = Object.freeze({
+      format: FORMAT,
+      stateVersion: STATE_VERSION,
+      topologyVersion: TOPOLOGY_VERSION,
+      neighborOf: neighborOf,
+      worldToCell: worldToCell,
+      geometryOf: geometryOf,
+      verifyTopology: verifyTopology,
+      state: statePayload,
+      step: stepOnce,
+      fit: fitFabric,
+      renderer: function () { return gl ? "WebGL 1.0 + GLSL" : "Canvas 2D + CPU"; },
+      fallbackReason: function () { return gpuFallbackReason; }
+    });
+    requestAnimationFrame(animate);
+  } catch (error) {
+    fail(error);
+  }
+}());
+  </script>
+</body>
+</html>
