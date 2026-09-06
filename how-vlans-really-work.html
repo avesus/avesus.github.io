@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Your VLAN Is Not Your Rack: How VLANs Really Work | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A frame-by-frame explanation of access ports, 802.1Q trunks, MAC learning, routing, VXLAN, and why a VLAN crossing shared Cisco and Juniper infrastructure is not a physical LAN you own.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/how-vlans-really-work.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:title" content="Your VLAN Is Not Your Rack: How VLANs Really Work">
+    <meta property="og:description" content="A VLAN is a distributed forwarding agreement, not a private bundle of wires. Follow one Ethernet frame through the switches, trunks, gateways, and overlays that make the LAN exist.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/how-vlans-really-work.html">
+    <meta property="article:published_time" content="2026-09-05">
+    <meta property="article:modified_time" content="2026-09-05">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:image" content="https://greenforest.io/social-previews/how-vlans-really-work.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/how-vlans-really-work.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Your VLAN Is Not Your Rack: How VLANs Really Work - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/how-vlans-really-work.png">
+    <meta name="twitter:image:alt" content="Your VLAN Is Not Your Rack: How VLANs Really Work - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "Your VLAN Is Not Your Rack: How VLANs Really Work",
+            "description": "A frame-by-frame explanation of access ports, 802.1Q trunks, MAC learning, routing, VXLAN, and why a VLAN crossing shared Cisco and Juniper infrastructure is not a physical LAN you own.",
+            "datePublished": "2026-09-05",
+            "dateModified": "2026-09-05",
+            "mainEntityOfPage": "https://greenforest.io/how-vlans-really-work.html",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            },
+            "about": [
+                "Virtual LANs",
+                "IEEE 802.1Q",
+                "Ethernet switching",
+                "Cisco switching",
+                "Juniper switching",
+                "VXLAN",
+                "Network segmentation",
+                "Network ownership"
+            ]
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        .vlan-path {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin: 1.2rem 0 0.65rem;
+        }
+
+        .vlan-hop {
+            min-width: 0;
+            padding: 0.9rem;
+            border: 1px solid rgba(94, 169, 118, 0.52);
+            border-radius: 0.55rem;
+            background: rgba(15, 35, 26, 0.58);
+        }
+
+        .vlan-hop strong,
+        .vlan-hop span {
+            display: block;
+        }
+
+        .vlan-hop strong {
+            margin-bottom: 0.35rem;
+        }
+
+        .vlan-hop span {
+            font-size: 0.86em;
+            line-height: 1.35;
+            opacity: 0.86;
+        }
+
+        .frame-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.32rem;
+            margin: 1.1rem 0 0.65rem;
+            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+            font-size: 0.86em;
+        }
+
+        .frame-field {
+            flex: 1 1 7.5rem;
+            padding: 0.75rem 0.6rem;
+            border: 1px solid rgba(176, 221, 190, 0.45);
+            border-radius: 0.35rem;
+            text-align: center;
+        }
+
+        .frame-field--tag {
+            border-color: rgba(255, 200, 91, 0.88);
+            background: rgba(110, 70, 5, 0.32);
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: minmax(9rem, 0.75fr) minmax(0, 1.65fr);
+            gap: 0.45rem 1rem;
+            margin: 1rem 0;
+        }
+
+        .control-grid dt,
+        .control-grid dd {
+            margin: 0;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(176, 221, 190, 0.2);
+        }
+
+        .control-grid dt {
+            font-weight: 700;
+        }
+
+        @media (max-width: 1100px) {
+            .vlan-path {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 760px) {
+            .vlan-path {
+                grid-template-columns: 1fr;
+            }
+
+            .control-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .control-grid dt {
+                padding-bottom: 0.1rem;
+                border-bottom: 0;
+            }
+
+            .control-grid dd {
+                padding-top: 0.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">Your VLAN Is Not Your Rack: How VLANs Really Work</h1></header>
+    <address><time datetime="2026-09-05">September 5, 2026</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Ethernet, segmentation, and physical ownership</p>
+        <p class="lead">A VLAN is a distributed forwarding agreement, not a private bundle of wires.</p>
+        <p>When one logical LAN crosses dozens of Juniper switches and hundreds of Cisco switches, the locked rack is only one endpoint. The LAN exists because every participating port, bridge, trunk, gateway, and overlay agrees about where its frames belong.</p>
+        <p class="key-line"><strong>A VLAN can give you a useful network boundary without giving you physical ownership of the network that implements it.</strong></p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>Lock the rack. Label every patch cable. Put the servers, power distribution, console, and top-of-rack switch behind steel. That gives you physical control of important equipment.</p>
+            <p>Now follow the uplink.</p>
+            <p>If it joins a VLAN carried through a campus, colocation facility, or data-center fabric, the Ethernet outside the rack is assembled by infrastructure you may neither possess nor administer. Redundant paths can move the traffic without touching your rack. An operator can extend or prune the VLAN at another switch. A gateway can sit in another building. A modern overlay can carry the frame through a routed IP spine whose middle switches never see your VLAN number at all.</p>
+            <p>The phrase <em>my LAN</em> can therefore name four different things: devices you own, a Layer&nbsp;2 forwarding domain assigned to you, a security policy enforced for you, or a physical network under your exclusive control. Those are not interchangeable.</p>
+        </section>
+
+        <section>
+            <h2>A VLAN Is A Distributed Forwarding Agreement</h2>
+            <p>An Ethernet switch receives a frame, learns where its source MAC address appeared, and decides where the destination should go. A VLAN gives that decision a separate context. Instead of one switch-wide forwarding domain, the switch maintains multiple logical bridge domains over the same ports, switching silicon, backplane, and uplinks.</p>
+            <p>VLAN&nbsp;317 is not a cable. It is an identifier attached to a set of rules:</p>
+            <ul>
+                <li>which incoming ports or authenticated devices place frames into the domain;</li>
+                <li>which trunks are permitted to carry it;</li>
+                <li>which forwarding database the destination lookup uses;</li>
+                <li>which ports receive broadcasts and unknown destinations;</li>
+                <li>where the Layer&nbsp;3 gateway for the domain lives; and</li>
+                <li>how the domain maps into a provider service, QinQ tag, or VXLAN segment.</li>
+            </ul>
+            <p>The number is locally significant. Two disconnected networks can both use VLAN&nbsp;317 without sharing anything. One service can also translate VLAN&nbsp;317 into another tag or overlay identifier along the way. The service boundary comes from the complete mapping, not from possession of the number.</p>
+            <p>A VLAN and an IP subnet are also different objects. The VLAN controls Layer&nbsp;2 Ethernet forwarding. The subnet controls Layer&nbsp;3 IP addressing and routing. Administrators commonly map one subnet to one VLAN because that is legible, but Ethernet does not discover that relationship from the IP prefix.</p>
+        </section>
+
+        <section>
+            <h2>Follow One Frame Across The Fabric</h2>
+            <p>Suppose Server&nbsp;A and Server&nbsp;B belong to VLAN&nbsp;317 and the same IP subnet. Server&nbsp;A needs Server&nbsp;B's MAC address, so it emits an ARP broadcast.</p>
+
+            <figure>
+                <div class="vlan-path" role="img" aria-label="An untagged Ethernet frame leaves Server A, is classified into VLAN 317 by a Cisco access switch, crosses tagged trunks and a mixed Cisco-Juniper fabric, is stripped of its tag at an access port, and reaches Server B untagged">
+                    <div class="vlan-hop">
+                        <strong>Server A</strong>
+                        <span>Ordinary untagged Ethernet frame</span>
+                    </div>
+                    <div class="vlan-hop">
+                        <strong>Access switch</strong>
+                        <span>Ingress port classifies the frame into VLAN 317</span>
+                    </div>
+                    <div class="vlan-hop">
+                        <strong>Trunks and fabric</strong>
+                        <span>802.1Q tag, bridge context, or mapped overlay carries the identity</span>
+                    </div>
+                    <div class="vlan-hop">
+                        <strong>Egress switch</strong>
+                        <span>VLAN membership selects the destination access port</span>
+                    </div>
+                    <div class="vlan-hop">
+                        <strong>Server B</strong>
+                        <span>Ordinary untagged Ethernet frame</span>
+                    </div>
+                </div>
+                <figcaption>The endpoint can see one familiar Ethernet LAN while every device in the middle performs a separate classification, forwarding, and egress decision.</figcaption>
+            </figure>
+
+            <ol>
+                <li><strong>Server A normally sends no VLAN tag.</strong> Its cable terminates on an access port. The access-port configuration says that untagged data arriving there belongs to VLAN&nbsp;317. A hypervisor, router, firewall, or VLAN-aware server can instead use a trunk and generate tags itself.</li>
+                <li><strong>The first switch assigns an internal bridge context.</strong> It learns that Server&nbsp;A's source MAC address is reachable through that access port in VLAN&nbsp;317.</li>
+                <li><strong>The switch floods the ARP broadcast only through forwarding ports that belong to VLAN&nbsp;317.</strong> Classic bridging treats broadcasts and usually unknown unicasts this way. Spanning tree shapes the active Layer&nbsp;2 path, while EVPN and suppression mechanisms can reduce or replace some data-plane flooding.</li>
+                <li><strong>A trunk can insert an IEEE&nbsp;802.1Q tag.</strong> That lets one physical link multiplex frames from many VLANs while preserving their separate forwarding contexts.</li>
+                <li><strong>Every participating bridge repeats the local decision.</strong> It checks VLAN membership, learns the source, looks up the destination, and forwards or floods on the active ports for that domain.</li>
+                <li><strong>The final access port removes the VLAN context from the wire.</strong> Server&nbsp;B receives an ordinary Ethernet frame. Its reply teaches the fabric the return path, so later known unicast traffic can travel only to the selected port instead of being flooded.</li>
+            </ol>
+            <p>Conceptually, the useful forwarding entry is <code>(bridge domain, MAC address) &rarr; egress port</code>. A MAC address learned in VLAN&nbsp;317 does not automatically become a destination in VLAN&nbsp;418.</p>
+        </section>
+
+        <section>
+            <h2>The Tag Is Only Four Bytes</h2>
+            <p>An 802.1Q trunk inserts a four-byte field after the source MAC address. Two bytes identify the tag protocol. The other two carry three priority bits, one drop-eligibility bit, and a twelve-bit VLAN identifier.</p>
+
+            <div class="frame-strip" role="img" aria-label="Ethernet frame with destination MAC, source MAC, 802.1Q tag protocol identifier, priority drop eligibility and VLAN identifier, followed by EtherType and payload">
+                <span class="frame-field">Destination MAC<br>6 bytes</span>
+                <span class="frame-field">Source MAC<br>6 bytes</span>
+                <span class="frame-field frame-field--tag">TPID 0x8100<br>2 bytes</span>
+                <span class="frame-field frame-field--tag">PCP + DEI + VID<br>2 bytes</span>
+                <span class="frame-field">EtherType + payload</span>
+            </div>
+
+            <p>The twelve-bit VID supplies ordinary VLAN IDs 1 through 4094. The priority bits can influence queuing. None of those bits names an owner, authenticates a sender, encrypts a payload, identifies a building, or records an end-to-end path.</p>
+            <p>The tag is not even present everywhere. It is commonly absent on access links, represented as internal metadata inside a switching ASIC, added on trunks, removed on egress, rewritten at a service edge, nested inside QinQ, or mapped to a VXLAN Network Identifier. The VLAN is the forwarding behavior that survives those transformations.</p>
+        </section>
+
+        <section>
+            <h2>Every Switch Recreates The VLAN Locally</h2>
+            <p>A large Layer&nbsp;2 network does not need one switch to know a complete physical story for every frame. Each switch needs a consistent local answer.</p>
+            <dl class="control-grid">
+                <dt>Ingress classification</dt>
+                <dd>Which VLAN or bridge domain receives an untagged, tagged, authenticated, or policy-matched frame?</dd>
+
+                <dt>Membership</dt>
+                <dd>May this access port or trunk carry the domain, and is the current topology state forwarding or blocked?</dd>
+
+                <dt>Learning</dt>
+                <dd>On which local port was the source MAC most recently observed in this bridge context?</dd>
+
+                <dt>Destination lookup</dt>
+                <dd>Is the destination known, flooded within the domain, filtered, mirrored, or handed to a gateway?</dd>
+
+                <dt>Egress transformation</dt>
+                <dd>Should the frame leave untagged, retain a tag, receive a new tag, or enter an encapsulation?</dd>
+            </dl>
+            <p>Spanning Tree Protocols prevent a bridged topology with redundant links from endlessly circulating replicated frames by selecting an active loop-free forwarding topology. Link aggregation can combine links. Chassis virtualization and multichassis link aggregation can make several physical devices look like one edge. None of this changes the basic point: the endpoint's one LAN is produced by coordinated state spread across the fabric.</p>
+        </section>
+
+        <section>
+            <h2>A Large Mixed-Vendor Fabric Moves The Trust Boundary</h2>
+            <p>In one rack, a patch cable is visible and a switch port is close enough to touch. Across dozens of Juniper switches and hundreds of Cisco switches, the same logical LAN depends on far more than the rack door:</p>
+            <ul>
+                <li>the allowed-VLAN list on every possible trunk path;</li>
+                <li>native-VLAN and tagging behavior at each interconnection;</li>
+                <li>spanning-tree, link-aggregation, or EVPN state;</li>
+                <li>the switch configurations, automation systems, and credentials that can change membership;</li>
+                <li>the location and policy of the SVI, IRB interface, router, or firewall that serves as the gateway;</li>
+                <li>monitoring, port mirroring, packet capture, and lawful or operational access to the infrastructure; and</li>
+                <li>the physical custody of every cable, optic, line card, switch, and management console on the path.</li>
+            </ul>
+            <p>The fabric can be exceptionally reliable precisely because traffic is not married to one physical path. A failed link or switch can move the service elsewhere. That resilience also means that the rack owner cannot infer the current path from the local patch panel.</p>
+            <p>An operator with sufficient authority can extend the VLAN to a new access port, alter the allowed list, move the gateway, configure a mirror destination, or change the overlay mapping. That may be appropriate operation of a managed network. It is still administrative control outside the rack.</p>
+        </section>
+
+        <section>
+            <h2>The Native VLAN Is Where Defaults Betray Intuition</h2>
+            <p>Both Cisco and Juniper implement 802.1Q, but interoperability does not make every default identical.</p>
+            <p>Cisco's current IOS&nbsp;XE trunk documentation describes untagged traffic as belonging to the port's native VLAN, with VLAN&nbsp;1 as the default native VLAN. Juniper's Junos documentation describes trunk data as tagged by default and untagged data as dropped unless a native VLAN is configured on the documented platforms. Once a native VLAN is configured, its traffic can leave a trunk untagged.</p>
+            <p>A native-VLAN mismatch can therefore classify the same untagged frame into different domains at the two ends. An accidentally negotiated or unnecessarily permissive trunk can expose VLANs that were never intended at an endpoint. Double-tagging attacks exploit particular native-VLAN and forwarding conditions.</p>
+            <p>The practical rule is not to fear mixed vendors. It is to make the contract explicit: set access ports statically, disable unwanted trunk negotiation, define the native or untagged behavior at both ends, restrict each trunk to the VLANs it needs, and verify operational state from both devices. Platform and release details matter.</p>
+        </section>
+
+        <section>
+            <h2>VXLAN Can Make The Middle Pure Layer 3</h2>
+            <p>A modern data-center fabric may stop carrying your 802.1Q VLAN after the top-of-rack leaf.</p>
+            <p>The ingress VXLAN Tunnel Endpoint maps the local bridge domain to a 24-bit VXLAN Network Identifier, wraps the Ethernet frame in UDP/IP, and sends it across a routed underlay. Spine switches forward the outer IP packet using ordinary Layer&nbsp;3 routes. A remote VTEP removes the outer headers and restores the destination bridge context.</p>
+            <pre aria-label="VLAN to VXLAN packet path"><code>rack VLAN 317
+    &darr; map at ingress VTEP
+VXLAN VNI 10317 inside UDP/IP
+    &darr; route across the IP underlay
+remote VTEP maps VNI 10317
+    &darr;
+remote rack VLAN 317</code></pre>
+            <p>BGP EVPN can distribute MAC and IP reachability among those edges, reducing dependence on data-plane flooding and letting the overlay use multiple routed paths. From the server, the result can still look like one adjacent Ethernet LAN.</p>
+            <p>This is the sharpest demonstration that logical adjacency and physical locality have separated. The spine may carry your frame without knowing your VLAN ID, your subnet, or your rack. VXLAN expands and scales the mapping; it does not by itself encrypt or authenticate the tenant payload.</p>
+        </section>
+
+        <section>
+            <h2>A Broadcast Boundary Is Not A Confidentiality Boundary</h2>
+            <p>VLAN segmentation is real and useful. Correctly configured, it keeps ordinary Layer&nbsp;2 forwarding and flooding inside the selected bridge domain. Traffic between VLANs must pass through a Layer&nbsp;3 function where routing policy, ACLs, or firewalls can be applied.</p>
+            <p>That does not make the VLAN a cryptographic security protocol. A basic VLAN does not authenticate endpoints, encrypt frames, prevent an authorized administrator from changing membership, or stop two ordinary peers in the same VLAN from reaching one another. It can also be weakened by an exposed trunk, a native-VLAN error, an overly broad allowed list, a compromised switch, or a malicious endpoint exploiting unprotected Layer&nbsp;2 control behavior.</p>
+            <p>A serious secure-LAN design names the property it needs and applies the control that creates it:</p>
+            <dl class="control-grid">
+                <dt>Who may attach?</dt>
+                <dd>Static access-port configuration, disabled unused ports, 802.1X or NAC, and tightly controlled trunk negotiation.</dd>
+
+                <dt>Where may frames go?</dt>
+                <dd>Restricted trunk lists, explicit bridge membership, Layer&nbsp;3 ACLs or firewalls, VRFs, VLAN ACLs, private VLANs, and microsegmentation.</dd>
+
+                <dt>Can local peers impersonate infrastructure?</dt>
+                <dd>DHCP snooping, Dynamic ARP Inspection, IP source validation, router-advertisement protections, endpoint firewalls, and monitored address learning where supported.</dd>
+
+                <dt>Who can read or alter traffic in transit?</dt>
+                <dd>End-to-end TLS, SSH, IPsec, or another authenticated encryption scheme; MACsec can protect supported Ethernet links.</dd>
+
+                <dt>Who can change the network?</dt>
+                <dd>Exclusive or scoped administrative authority, role-based access, reviewed automation, versioned configuration, audit logs, and controlled physical management access.</dd>
+            </dl>
+            <p>The phrase <em>secure VLAN</em> is meaningful only as shorthand for that larger system of controls.</p>
+        </section>
+
+        <section>
+            <h2>Physical Ownership Has A Concrete Test</h2>
+            <p>You physically own a LAN when you control the relevant medium and the machinery that decides where its frames go.</p>
+            <ul>
+                <li>You possess or contractually control every switch and link inside the claimed boundary.</li>
+                <li>You control the management plane, credentials, software images, configuration history, and recovery process.</li>
+                <li>You know where Layer&nbsp;2 ends and where routing begins.</li>
+                <li>No outside operator can silently add a port, mirror traffic, or move the gateway inside that boundary.</li>
+                <li>You control the keys when confidentiality or origin authentication is part of the claim.</li>
+                <li>You can observe, test, repair, and replace the path without relying on an unseen control plane.</li>
+            </ul>
+            <p>A provider-operated VLAN can still be dependable, well isolated, and entirely appropriate. It is a network service you use, not a physical network you exclusively possess. Precision about that boundary makes the security design stronger because encryption, authentication, monitoring, and contracts can cover the portions that physical custody does not.</p>
+        </section>
+
+        <section>
+            <h2>If The Requirement Is One Secure Physical Rack LAN</h2>
+            <p>Keep the protected Layer&nbsp;2 domain inside equipment you control. Put its switch, gateway, and firewall in the rack. Make the external handoff Layer&nbsp;3 rather than accepting an externally managed trunk into the sensitive broadcast domain. Keep the switch management path under your credentials, restrict console access, and encrypt every flow that crosses the handoff.</p>
+            <p>That architecture makes the demarcation visible:</p>
+            <pre aria-label="Physical rack LAN demarcation"><code>[servers] -- [rack switch] -- [rack gateway / firewall] | routed, encrypted boundary | [outside network]</code></pre>
+            <p>Redundancy can remain physically owned if both switches, both links, the gateway pair, and their management plane stay inside the controlled boundary. If an outside fabric supplies the redundancy, then the service can be resilient without becoming physically yours.</p>
+        </section>
+
+        <section>
+            <h2>Ask For The Path, Not Just The VLAN Number</h2>
+            <p>Before accepting “you are on VLAN&nbsp;317” as a security or ownership answer, ask:</p>
+            <ol>
+                <li>Which access ports, trunks, switches, bridge domains, and VTEPs can carry it?</li>
+                <li>Is the endpoint port access, trunk, or dynamically assigned?</li>
+                <li>What happens to tagged and untagged frames at each demarcation?</li>
+                <li>Where is the default gateway, and what enforces inter-VLAN policy?</li>
+                <li>Is the Layer&nbsp;2 domain stretched across racks, buildings, or sites?</li>
+                <li>Does the service map into QinQ, VPLS, VXLAN, or EVPN?</li>
+                <li>Who can change membership, configure a mirror, or retrieve a packet capture?</li>
+                <li>Which protections limit same-VLAN lateral movement and spoofing?</li>
+                <li>Where does authenticated encryption begin and end?</li>
+                <li>How are configuration changes, failovers, MAC moves, and topology changes audited?</li>
+            </ol>
+            <p>Those answers describe the network you actually have.</p>
+        </section>
+
+        <section>
+            <h2>Follow Both The Frame And The Authority</h2>
+            <p>A VLAN number tells a bridge which forwarding context to consult. It does not tell you where the frame traveled, who can alter the path, who may observe the infrastructure, or who owns the medium.</p>
+            <p>The Ethernet frame may begin untagged, gain VLAN&nbsp;317, cross a Cisco trunk, enter a Juniper bridge domain, become VNI&nbsp;10317 over a routed spine, return to VLAN&nbsp;317, and arrive untagged. To both servers, it was one LAN.</p>
+            <p>To understand ownership, follow a second path beside the frame: configuration authority, management access, physical custody, monitoring power, and cryptographic keys.</p>
+            <p class="key-line"><strong>You own the rack because you possess it. You own the LAN only as far as you own—or can independently secure and verify—the machinery that makes the LAN exist.</strong></p>
+        </section>
+
+        <section>
+            <h2>Primary References</h2>
+            <ul>
+                <li><a href="https://standards.ieee.org/ieee/802.1Q/10323/" target="_blank" rel="noopener">IEEE 802.1Q-2022: Bridges and Bridged Networks</a></li>
+                <li><a href="https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/lyr2-fwd/vlan/vlan-configuration-guide/configure-vlan-trunks.html" target="_blank" rel="noopener">Cisco IOS XE 17: Configure VLAN Trunking</a></li>
+                <li><a href="https://www.juniper.net/documentation/us/en/software/junos/multicast-l2/topics/topic-map/bridging-and-vlans.html" target="_blank" rel="noopener">Juniper Junos OS: Bridging and VLANs</a></li>
+                <li><a href="https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/statement/native-vlan-id-edit-interfaces-qfx-series.html" target="_blank" rel="noopener">Juniper Junos OS: <code>native-vlan-id</code></a></li>
+                <li><a href="https://www.rfc-editor.org/rfc/rfc7348.html" target="_blank" rel="noopener">RFC 7348: Virtual eXtensible Local Area Network (VXLAN)</a></li>
+                <li><a href="https://www.rfc-editor.org/rfc/rfc8365.html" target="_blank" rel="noopener">RFC 8365: A Network Virtualization Overlay Solution Using EVPN</a></li>
+                <li><a href="https://standards.ieee.org/ieee/802.1AE/7154/" target="_blank" rel="noopener">IEEE 802.1AE-2018: MAC Security (MACsec)</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue from Your VLAN Is Not Your Rack">
+        <p>Next:</p>
+        <a href="/miscellanies/the-infrastructure-we-hide-and-the-tools-we-should-own.html">The Infrastructure We Hide, and the Tools We Should Own</a>
+        <p>Carry the same ownership test from Ethernet into energy, computation, repair, and fabrication.</p>
+        <p>More:</p>
+        <a href="/fpga-systems.html">FPGA Systems: RF, Ethernet RTL, and Reconfigurable Hardware</a>
+        <p>Follow Ethernet below the managed switch into direct RMII, ARP, UDP, and FPGA configuration machinery.</p>
+    </nav>
+</body>
+
+</html>
