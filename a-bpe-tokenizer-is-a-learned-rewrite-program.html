@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>A BPE Tokenizer Is a Learned Rewrite Program | Greenforest I/O</title>
+    <meta name="author" content="Brian Greenforest">
+    <meta name="description" content="A mechanism-first explanation of BPE tokenizer training, inference-time encoding, token IDs, embeddings, byte fallback, and why detokenization is simply lookup and join.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://greenforest.io/a-bpe-tokenizer-is-a-learned-rewrite-program.html">
+    <link rel="icon" href="/favicon.ico">
+    <meta property="og:site_name" content="Greenforest I/O">
+    <meta property="og:title" content="A BPE Tokenizer Is a Learned Rewrite Program">
+    <meta property="og:description" content="Training discovers an ordered list of useful joins. Encoding replays that history. Decoding simply puts the bytes back together.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://greenforest.io/a-bpe-tokenizer-is-a-learned-rewrite-program.html">
+    <meta property="article:published_time" content="2026-09-05">
+    <meta property="article:modified_time" content="2026-09-05">
+    <!-- greenforest:share-metadata:start -->
+    <!-- greenforest:preview-source:none -->
+    <meta property="og:image" content="https://greenforest.io/social-previews/a-bpe-tokenizer-is-a-learned-rewrite-program.png">
+    <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/a-bpe-tokenizer-is-a-learned-rewrite-program.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A BPE Tokenizer Is a Learned Rewrite Program - Greenforest I/O share preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://greenforest.io/social-previews/a-bpe-tokenizer-is-a-learned-rewrite-program.png">
+    <meta name="twitter:image:alt" content="A BPE Tokenizer Is a Learned Rewrite Program - Greenforest I/O share preview">
+    <script src="/site-analytics.js" defer></script>
+    <!-- greenforest:share-metadata:end -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": "A BPE Tokenizer Is a Learned Rewrite Program",
+            "description": "A mechanism-first explanation of BPE tokenizer training, inference-time encoding, token IDs, embeddings, byte fallback, and why detokenization is simply lookup and join.",
+            "datePublished": "2026-09-05",
+            "dateModified": "2026-09-05",
+            "mainEntityOfPage": "https://greenforest.io/a-bpe-tokenizer-is-a-learned-rewrite-program.html",
+            "author": {
+                "@type": "Person",
+                "name": "Brian Greenforest",
+                "url": "https://greenforest.io/"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Greenforest I/O",
+                "url": "https://greenforest.io/"
+            },
+            "about": [
+                "Byte Pair Encoding",
+                "Tokenization",
+                "SentencePiece",
+                "TinyStories",
+                "Language models",
+                "UTF-8",
+                "Subword tokenization"
+            ]
+        }
+    </script>
+    <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        .job-grid,
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin: 1.2rem 0;
+        }
+
+        .job-card,
+        .detail-card {
+            min-width: 0;
+            padding: 1rem;
+            border: 1px solid #d2d8d0;
+            border-radius: 0.55rem;
+            background: #faf8f2;
+            text-align: left;
+        }
+
+        .job-card strong,
+        .job-card span,
+        .detail-card strong,
+        .detail-card span {
+            display: block;
+        }
+
+        .job-card strong,
+        .detail-card strong {
+            margin-bottom: 0.35rem;
+        }
+
+        .job-card span,
+        .detail-card span {
+            font-size: 0.9em;
+            line-height: 1.42;
+        }
+
+        .job-number {
+            width: 2rem;
+            height: 2rem;
+            margin-bottom: 0.7rem;
+            display: grid !important;
+            place-items: center;
+            border-radius: 50%;
+            background: #315e40;
+            color: #fff;
+            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+            font-weight: 700;
+        }
+
+        .machine-flow,
+        .lifecycle-flow,
+        .decode-flow {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+            gap: 0.55rem;
+            margin: 1.25rem 0 0.65rem;
+        }
+
+        .flow-step {
+            min-width: 0;
+            padding: 0.9rem 0.75rem;
+            border: 1px solid #aebcad;
+            border-radius: 0.5rem;
+            background: #fff;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            display: grid;
+            place-items: center;
+            color: #315e40;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .flow-step strong,
+        .flow-step span {
+            display: block;
+        }
+
+        .flow-step strong {
+            margin-bottom: 0.35rem;
+        }
+
+        .flow-step span {
+            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+            font-size: 0.8em;
+            line-height: 1.35;
+        }
+
+        .flow-step--tokenizer {
+            border-color: #39734a;
+            background: #eef7f0;
+        }
+
+        .flow-step--model {
+            border-color: #9b6c20;
+            background: #fff7e6;
+        }
+
+        .boundary-label {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 0.35rem 0 1rem;
+            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+            font-size: 0.82em;
+            text-align: center;
+        }
+
+        .boundary-label span:first-child {
+            color: #315e40;
+        }
+
+        .boundary-label span:last-child {
+            color: #795112;
+        }
+
+        .byte-strip,
+        .token-stream,
+        .real-token-line {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            margin: 0.8rem 0;
+            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+        }
+
+        .byte-chip,
+        .token-chip {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 2.15rem;
+            min-height: 2.15rem;
+            padding: 0.34rem 0.45rem;
+            border: 1px solid #aebcad;
+            border-radius: 0.4rem;
+            background: #fff;
+            line-height: 1.15;
+        }
+
+        .token-chip--merged {
+            border-color: #39734a;
+            background: #e6f3e9;
+            font-weight: 700;
+        }
+
+        .token-chip--selected {
+            border-color: #9b6c20;
+            background: #fff0cf;
+        }
+
+        .token-id {
+            margin-top: 0.2rem;
+            color: #657067;
+            font-size: 0.68em;
+            font-weight: 400;
+        }
+
+        .ellipsis-chip {
+            padding: 0 0.25rem;
+            font-weight: 700;
+        }
+
+        .merge-rounds {
+            margin: 1.15rem 0;
+            border-top: 1px solid #d2d8d0;
+        }
+
+        .merge-round {
+            display: grid;
+            grid-template-columns: minmax(7.5rem, 0.38fr) minmax(0, 1.62fr);
+            gap: 1rem;
+            align-items: center;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid #d2d8d0;
+        }
+
+        .merge-rule {
+            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+            font-size: 0.88em;
+            line-height: 1.4;
+        }
+
+        .merge-rule strong,
+        .merge-rule span {
+            display: block;
+        }
+
+        .merge-tree {
+            padding: 0.8rem;
+            border: 1px solid #d2d8d0;
+            border-radius: 0.55rem;
+            background: #faf8f2;
+        }
+
+        .merge-tree svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .merge-tree .edge {
+            stroke: #78927c;
+            stroke-width: 3;
+        }
+
+        .merge-tree .node {
+            fill: #fff;
+            stroke: #78927c;
+            stroke-width: 2;
+        }
+
+        .merge-tree .node--learned {
+            fill: #e6f3e9;
+            stroke: #39734a;
+        }
+
+        .merge-tree .node--final {
+            fill: #fff0cf;
+            stroke: #9b6c20;
+        }
+
+        .merge-tree text {
+            fill: #203127;
+            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+            text-anchor: middle;
+        }
+
+        .merge-tree .piece-label {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .merge-tree .id-label {
+            font-size: 14px;
+        }
+
+        .rank-label {
+            display: inline-block;
+            min-width: 5.8rem;
+            color: #315e40;
+            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+            font-size: 0.82em;
+            font-weight: 700;
+        }
+
+        .inference-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #d2d8d0;
+        }
+
+        .inference-row:last-child {
+            border-bottom: 0;
+        }
+
+        .join-symbol {
+            color: #315e40;
+            font-weight: 700;
+        }
+
+        .real-token-line {
+            gap: 0.5rem;
+        }
+
+        .real-token-line .token-chip {
+            min-width: 3.25rem;
+            padding: 0.5rem 0.6rem;
+        }
+
+        .decode-plus {
+            color: #315e40;
+            font-weight: 700;
+        }
+
+        .code-panel {
+            box-sizing: border-box;
+            max-width: 100%;
+            margin: 1.2rem 0;
+            padding: 1rem;
+            overflow-x: auto;
+            border: 1px solid #d2d8d0;
+            border-radius: 0.5rem;
+            background: #f7f7f4;
+            white-space: pre;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .code-panel code {
+            white-space: pre;
+        }
+
+        .source-list li {
+            margin-bottom: 0.65rem;
+        }
+
+        @media (max-width: 900px) {
+            .job-grid,
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .machine-flow,
+            .lifecycle-flow,
+            .decode-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .boundary-label {
+                display: none;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .merge-round {
+                grid-template-columns: 1fr;
+            }
+
+            .merge-round {
+                gap: 0.3rem;
+            }
+
+            .rank-label {
+                width: 100%;
+            }
+
+            .code-panel {
+                padding: 0.75rem;
+                font-size: 13px;
+            }
+
+            .merge-tree .piece-label {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body class="article-structured">
+    <header><h1 class="page-title">A BPE Tokenizer Is a Learned Rewrite Program</h1></header>
+    <address><time datetime="2026-09-05">September 5, 2026</time></address>
+
+    <section class="abstract">
+        <p class="eyebrow">Tokenization, training, and inference</p>
+        <p class="lead">Training discovers useful joins. Encoding replays them. Decoding puts the bytes back together.</p>
+        <p>A Byte Pair Encoding tokenizer is a small rewrite program learned from a corpus. Its trainer discovers an ordered list of adjacent joins; its encoder runs that frozen program on new text; and its decoder performs a direct ID-to-bytes lookup.</p>
+        <p class="key-line"><strong>The difficult direction is deciding how text should be joined. Once the token IDs exist, detokenization is only lookup, concatenate, and decode.</strong></p>
+    </section>
+
+    <main>
+        <section class="article-opening">
+            <p>Most tokenizer explanations begin with a finished vocabulary. They show that a word such as <code>tokenizer</code> becomes two or three fragments, then move on to attention and matrix multiplication.</p>
+            <p>That skips the interesting machine.</p>
+            <p>A BPE tokenizer has three distinct jobs. Confusing them makes the algorithm feel arbitrary; separating them makes the whole system mechanical.</p>
+
+            <div class="job-grid" aria-label="The three jobs of a BPE tokenizer">
+                <div class="job-card">
+                    <span class="job-number">1</span>
+                    <strong>Train</strong>
+                    <span>Read a representative corpus and learn a vocabulary plus an ordered history of useful merges.</span>
+                </div>
+                <div class="job-card">
+                    <span class="job-number">2</span>
+                    <strong>Encode</strong>
+                    <span>Begin with safe base symbols, replay the frozen merge priorities, and return integer token IDs.</span>
+                </div>
+                <div class="job-card">
+                    <span class="job-number">3</span>
+                    <strong>Decode</strong>
+                    <span>Map each integer ID to its stored bytes, join the bytes in order, and decode the resulting string.</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Tokens Are IDs Before They Are Vectors</h2>
+            <p>A tokenizer produces integers. The neural network turns those integers into vectors later.</p>
+
+            <figure>
+                <div class="machine-flow" role="img" aria-label="Input text is encoded into token IDs, which the model maps to embedding vectors. The model later produces logits, from which a token ID is selected and decoded into text.">
+                    <div class="flow-step">
+                        <strong>Raw text</strong>
+                        <span>"training"</span>
+                    </div>
+                    <span class="flow-arrow" aria-hidden="true">→</span>
+                    <div class="flow-step flow-step--tokenizer">
+                        <strong>Tokenizer</strong>
+                        <span>[4521]</span>
+                    </div>
+                    <span class="flow-arrow" aria-hidden="true">→</span>
+                    <div class="flow-step flow-step--model">
+                        <strong>Embedding lookup</strong>
+                        <span>E[4521] → vector</span>
+                    </div>
+                    <span class="flow-arrow" aria-hidden="true">→</span>
+                    <div class="flow-step flow-step--model">
+                        <strong>Transformer</strong>
+                        <span>vectors → hidden state</span>
+                    </div>
+                </div>
+                <div class="boundary-label" aria-hidden="true">
+                    <span>Text and token-ID machinery</span>
+                    <span>Learned vector machinery</span>
+                </div>
+                <figcaption>The tokenizer ends at the integer ID. The embedding layer is where the neural model begins.</figcaption>
+            </figure>
+
+            <p>If token ID <code>7131</code> enters a model, the embedding layer retrieves row <code>7131</code> from an embedding matrix. That row is a learned vector. On the output side, a hidden vector is projected into one score, or logit, for every token in the vocabulary. Sampling or argmax selects another integer ID. Only then does the detokenizer look up the text piece belonging to that ID.</p>
+            <p>The detokenizer does not invert the embedding vector. It never needs to see it. Even when a model ties its input embedding and output weights, text reconstruction remains an ID-to-bytes operation.</p>
+        </section>
+
+        <section>
+            <h2>The TinyStories Script Exposes The Lifecycle</h2>
+            <p>Andrej Karpathy's <a href="https://github.com/karpathy/llama2.c/blob/master/tinystories.py#L861-L1003" target="_blank" rel="noopener"><code>tinystories.py</code></a> makes the tokenizer's place in language-model training unusually visible.</p>
+            <p>The script first collects raw TinyStories text. It trains a custom SentencePiece BPE vocabulary on part of that corpus. It then loads the frozen tokenizer, encodes every story into integer IDs, and writes those IDs to binary files for language-model training.</p>
+
+            <figure>
+                <div class="lifecycle-flow" role="img" aria-label="Raw TinyStories text trains a tokenizer once. The tokenizer is frozen, used to encode all stories into token IDs, and those IDs train the Transformer.">
+                    <div class="flow-step">
+                        <strong>Story corpus</strong>
+                        <span>raw UTF-8 text</span>
+                    </div>
+                    <span class="flow-arrow" aria-hidden="true">→</span>
+                    <div class="flow-step flow-step--tokenizer">
+                        <strong>Train once</strong>
+                        <span>vocabulary + priorities</span>
+                    </div>
+                    <span class="flow-arrow" aria-hidden="true">→</span>
+                    <div class="flow-step flow-step--tokenizer">
+                        <strong>Encode all stories</strong>
+                        <span>text → integer IDs</span>
+                    </div>
+                    <span class="flow-arrow" aria-hidden="true">→</span>
+                    <div class="flow-step flow-step--model">
+                        <strong>Train the model</strong>
+                        <span>IDs → vectors → predictions</span>
+                    </div>
+                </div>
+                <figcaption>The language model never participates in choosing BPE merges. Tokenizer training is a separate statistical pass over text.</figcaption>
+            </figure>
+
+            <p>Karpathy's configuration also exposes decisions hidden by many high-level APIs: BPE is selected explicitly; character coverage is complete; digits may be split; byte fallback is enabled; and normalization is set to identity. These choices determine what information reaches the model before the first Transformer weight is updated.</p>
+            <p>SentencePiece and byte-level GPT tokenizers differ in their exact starting symbols and boundary rules. SentencePiece normally begins from normalized Unicode symbols and represents spaces with a visible marker such as <code>▁</code>, while byte fallback guarantees a route for characters outside the learned pieces. A pure byte-level BPE begins with all 256 possible byte values. The pair-merging heart is the same, but these are not identical implementations.</p>
+            <p>For the clearest mechanical example, we can use the byte-level version from Karpathy's <a href="https://github.com/karpathy/minbpe" target="_blank" rel="noopener"><code>minBPE</code></a>.</p>
+        </section>
+
+        <section>
+            <h2>Start With An Alphabet That Cannot Fail</h2>
+            <p>Every Unicode string can be encoded as UTF-8 bytes, and every byte is an integer from 0 through 255. A byte-level tokenizer can therefore begin with a complete 256-token vocabulary.</p>
+
+            <figure>
+                <div class="byte-strip" role="img" aria-label="A byte-level tokenizer begins with token IDs 0 through 255, including ASCII token 97 for a and token 98 for b.">
+                    <span class="byte-chip">0<span class="token-id">0x00</span></span>
+                    <span class="byte-chip">1<span class="token-id">0x01</span></span>
+                    <span class="ellipsis-chip">…</span>
+                    <span class="byte-chip">a<span class="token-id">97</span></span>
+                    <span class="byte-chip">b<span class="token-id">98</span></span>
+                    <span class="byte-chip">c<span class="token-id">99</span></span>
+                    <span class="byte-chip">d<span class="token-id">100</span></span>
+                    <span class="ellipsis-chip">…</span>
+                    <span class="byte-chip">255<span class="token-id">0xFF</span></span>
+                </div>
+                <figcaption>The initial byte vocabulary is already complete. BPE training adds efficient shortcuts without losing the fallback alphabet.</figcaption>
+            </figure>
+
+            <p>Before any training, this is already a lossless tokenizer. It is simply inefficient. An English word may require one token for almost every character, and a non-ASCII character may require several UTF-8 byte tokens.</p>
+            <p>BPE training adds shortcuts. Each shortcut gives a new token ID to a pair of adjacent pieces that occurs often. Later shortcuts may join earlier shortcuts, so the learned vocabulary becomes hierarchical.</p>
+        </section>
+
+        <section>
+            <h2>Training Learns One Merge At A Time</h2>
+            <p>Use Karpathy's deliberately small training string:</p>
+            <pre class="code-panel" aria-label="BPE toy training corpus"><code>aaabdaaabac</code></pre>
+            <p>At the start, ASCII characters and UTF-8 bytes are the same visible units:</p>
+            <div class="token-stream" aria-label="Initial byte tokens">
+                <span class="token-chip">a</span><span class="token-chip">a</span><span class="token-chip">a</span><span class="token-chip">b</span><span class="token-chip">d</span><span class="token-chip">a</span><span class="token-chip">a</span><span class="token-chip">a</span><span class="token-chip">b</span><span class="token-chip">a</span><span class="token-chip">c</span>
+            </div>
+            <p>The trainer counts every adjacent pair. The pair <code>a a</code> occurs four times, more than any other pair, so the trainer creates token <code>256</code> for the byte string <code>aa</code>. Call it <code>Z</code> for readability. It then replaces non-overlapping occurrences of that pair and repeats the count.</p>
+
+            <figure>
+                <div class="merge-rounds" role="img" aria-label="Three BPE training rounds merge a plus a into token Z 256, a plus b into token Y 257, and Z plus Y into token X 258 representing aaab.">
+                    <div class="merge-round">
+                        <div class="merge-rule"><strong>Rank 0</strong><span>a + a → Z / 256</span><span>count: 4</span></div>
+                        <div class="token-stream">
+                            <span class="token-chip token-chip--merged">Z<span class="token-id">aa</span></span><span class="token-chip">a</span><span class="token-chip">b</span><span class="token-chip">d</span><span class="token-chip token-chip--merged">Z<span class="token-id">aa</span></span><span class="token-chip">a</span><span class="token-chip">b</span><span class="token-chip">a</span><span class="token-chip">c</span>
+                        </div>
+                    </div>
+                    <div class="merge-round">
+                        <div class="merge-rule"><strong>Rank 1</strong><span>a + b → Y / 257</span><span>count: 2</span></div>
+                        <div class="token-stream">
+                            <span class="token-chip">Z</span><span class="token-chip token-chip--merged">Y<span class="token-id">ab</span></span><span class="token-chip">d</span><span class="token-chip">Z</span><span class="token-chip token-chip--merged">Y<span class="token-id">ab</span></span><span class="token-chip">a</span><span class="token-chip">c</span>
+                        </div>
+                    </div>
+                    <div class="merge-round">
+                        <div class="merge-rule"><strong>Rank 2</strong><span>Z + Y → X / 258</span><span>count: 2</span></div>
+                        <div class="token-stream">
+                            <span class="token-chip token-chip--selected">X<span class="token-id">aaab</span></span><span class="token-chip">d</span><span class="token-chip token-chip--selected">X<span class="token-id">aaab</span></span><span class="token-chip">a</span><span class="token-chip">c</span>
+                        </div>
+                    </div>
+                </div>
+                <figcaption>Each accepted pair becomes one new vocabulary item. The rewritten stream determines which pairs can exist in the next round.</figcaption>
+            </figure>
+
+            <p>There is a useful detail in the first round. The count includes overlapping candidates: <code>aaa</code> contains two adjacent <code>aa</code> pairs. A left-to-right replacement cannot use the middle <code>a</code> twice, so four counted candidates produce two non-overlapping replacements in this corpus.</p>
+
+            <figure class="merge-tree">
+                <svg viewBox="0 0 820 430" role="img" aria-labelledby="merge-tree-title merge-tree-desc">
+                    <title id="merge-tree-title">The learned construction tree for token 258</title>
+                    <desc id="merge-tree-desc">Token 258 represents aaab and joins token 256 for aa with token 257 for ab. Those tokens are each built from base byte tokens.</desc>
+                    <line class="edge" x1="410" y1="78" x2="255" y2="180"></line>
+                    <line class="edge" x1="410" y1="78" x2="565" y2="180"></line>
+                    <line class="edge" x1="255" y1="228" x2="150" y2="330"></line>
+                    <line class="edge" x1="255" y1="228" x2="330" y2="330"></line>
+                    <line class="edge" x1="565" y1="228" x2="490" y2="330"></line>
+                    <line class="edge" x1="565" y1="228" x2="670" y2="330"></line>
+
+                    <rect class="node node--final" x="325" y="28" width="170" height="72" rx="12"></rect>
+                    <text class="piece-label" x="410" y="58">aaab</text>
+                    <text class="id-label" x="410" y="83">token 258 · rank 2</text>
+
+                    <rect class="node node--learned" x="175" y="170" width="160" height="68" rx="12"></rect>
+                    <text class="piece-label" x="255" y="199">aa</text>
+                    <text class="id-label" x="255" y="222">token 256 · rank 0</text>
+
+                    <rect class="node node--learned" x="485" y="170" width="160" height="68" rx="12"></rect>
+                    <text class="piece-label" x="565" y="199">ab</text>
+                    <text class="id-label" x="565" y="222">token 257 · rank 1</text>
+
+                    <rect class="node" x="95" y="320" width="110" height="62" rx="12"></rect>
+                    <text class="piece-label" x="150" y="348">a</text>
+                    <text class="id-label" x="150" y="370">byte 97</text>
+
+                    <rect class="node" x="275" y="320" width="110" height="62" rx="12"></rect>
+                    <text class="piece-label" x="330" y="348">a</text>
+                    <text class="id-label" x="330" y="370">byte 97</text>
+
+                    <rect class="node" x="435" y="320" width="110" height="62" rx="12"></rect>
+                    <text class="piece-label" x="490" y="348">a</text>
+                    <text class="id-label" x="490" y="370">byte 97</text>
+
+                    <rect class="node" x="615" y="320" width="110" height="62" rx="12"></rect>
+                    <text class="piece-label" x="670" y="348">b</text>
+                    <text class="id-label" x="670" y="370">byte 98</text>
+                </svg>
+                <figcaption>Learned tokens are recursive constructions. Token 258 can exist only because tokens 256 and 257 were learned first.</figcaption>
+            </figure>
+
+            <p>After three rounds, training has produced an ordered merge table:</p>
+            <pre class="code-panel" aria-label="Learned BPE merge table"><code>rank 0: (97, 97)   -&gt; 256     # a  + a  -&gt; aa
+rank 1: (97, 98)   -&gt; 257     # a  + b  -&gt; ab
+rank 2: (256, 257) -&gt; 258     # aa + ab -&gt; aaab</code></pre>
+            <p>It has also produced the reverse vocabulary needed for decoding:</p>
+            <pre class="code-panel" aria-label="Reverse BPE vocabulary"><code>256 -&gt; b"aa"
+257 -&gt; b"ab"
+258 -&gt; b"aaab"</code></pre>
+            <p>The essential training loop is:</p>
+            <ol>
+                <li>Represent the corpus as current token IDs.</li>
+                <li>Count adjacent token pairs.</li>
+                <li>Select the most frequent pair, with a deterministic tie rule.</li>
+                <li>Assign its concatenation a new token ID.</li>
+                <li>Replace non-overlapping occurrences of the pair.</li>
+                <li>Record the merge's rank.</li>
+                <li>Repeat until the vocabulary reaches its target size or no useful pairs remain.</li>
+            </ol>
+            <p>The statistics must be recomputed because every accepted merge changes the neighborhood. Joining <code>a a</code> does not merely remove one possible pair; it creates new candidates involving <code>aa</code>.</p>
+            <p>This is why BPE training is fun to watch. A flat alphabet grows a construction tree in public. Common bytes become fragments, fragments become syllable-like pieces, pieces become words, and very common words may join surrounding spaces or punctuation. The trainer has no concept of a syllable, word, or meaning. It only rewards reusable adjacency.</p>
+        </section>
+
+        <section>
+            <h2>Encoding New Text Replays The Learned History</h2>
+            <p>Now give the frozen tokenizer text it did not train on:</p>
+            <pre class="code-panel" aria-label="Unseen inference text"><code>aaabac</code></pre>
+            <p>The encoder starts from bytes, just as the trainer did. It does <strong>not</strong> count which pairs are common in this new string. It consults the merge table learned earlier.</p>
+
+            <figure>
+                <div role="img" aria-label="Inference starts from a a a b a c, then applies learned ranks zero, one, and two to produce token X followed by a and c.">
+                    <div class="inference-row">
+                        <span class="rank-label">Start</span>
+                        <span class="token-chip">a</span><span class="token-chip">a</span><span class="token-chip">a</span><span class="token-chip">b</span><span class="token-chip">a</span><span class="token-chip">c</span>
+                    </div>
+                    <div class="inference-row">
+                        <span class="rank-label">Rank 0</span>
+                        <span class="token-chip token-chip--merged">Z<span class="token-id">aa</span></span><span class="token-chip">a</span><span class="token-chip">b</span><span class="token-chip">a</span><span class="token-chip">c</span>
+                    </div>
+                    <div class="inference-row">
+                        <span class="rank-label">Rank 1</span>
+                        <span class="token-chip">Z</span><span class="token-chip token-chip--merged">Y<span class="token-id">ab</span></span><span class="token-chip">a</span><span class="token-chip">c</span>
+                    </div>
+                    <div class="inference-row">
+                        <span class="rank-label">Rank 2</span>
+                        <span class="token-chip token-chip--selected">X<span class="token-id">258 / aaab</span></span><span class="token-chip">a<span class="token-id">97</span></span><span class="token-chip">c<span class="token-id">99</span></span>
+                    </div>
+                </div>
+                <figcaption>The unseen text becomes <code>[258, 97, 99]</code> by executing the old rules—not by learning new ones.</figcaption>
+            </figure>
+
+            <p>At each step, the encoder examines adjacent pairs that currently exist and chooses the applicable learned merge with the best priority. In a classic BPE table, that means the earliest training rank. It replaces the pair, checks the new neighbors, and continues until no learned rule applies.</p>
+            <p>This is not simply “take the longest vocabulary item that matches.” The vocabulary alone is insufficient when pieces overlap. If both <code>ab</code> and <code>bc</code> exist and the input is <code>abc</code>, the learned priority decides whether <code>a+b</code> or <code>b+c</code> happens first. The history that created the vocabulary is part of the tokenizer.</p>
+            <p>Karpathy's minimal encoder expresses the rule directly: among adjacent pairs, choose the pair with the lowest merge index. SentencePiece stores a score for each BPE piece and uses the highest-priority valid join. Production implementations use heaps and caches rather than repeatedly scanning the whole sequence, but they are executing the frozen tokenizer model, not learning from the prompt.</p>
+        </section>
+
+        <section>
+            <h2>A Real Tokenization From One Of My Models</h2>
+            <p>One of my own 8,192-piece SentencePiece BPE models encodes:</p>
+            <pre class="code-panel" aria-label="Sentence passed to the trained tokenizer"><code>Tokenizer training is fun.</code></pre>
+            <p>as these pieces and IDs:</p>
+
+            <figure>
+                <div class="real-token-line" role="img" aria-label="The sentence Tokenizer training is fun is split into nine pieces, each shown with its token ID.">
+                    <span class="token-chip">T<span class="token-id">7131</span></span>
+                    <span class="token-chip">ok<span class="token-id">1301</span></span>
+                    <span class="token-chip">en<span class="token-id">286</span></span>
+                    <span class="token-chip">iz<span class="token-id">635</span></span>
+                    <span class="token-chip">er<span class="token-id">298</span></span>
+                    <span class="token-chip token-chip--merged">▁training<span class="token-id">4521</span></span>
+                    <span class="token-chip token-chip--merged">▁is<span class="token-id">344</span></span>
+                    <span class="token-chip token-chip--merged">▁fun<span class="token-id">667</span></span>
+                    <span class="token-chip">.<span class="token-id">7122</span></span>
+                </div>
+                <figcaption>The space marker belongs to the following piece; the numeric IDs are stable addresses in this tokenizer's vocabulary.</figcaption>
+            </figure>
+
+            <p>A different tokenizer could assign entirely different IDs and boundaries to the same sentence. The <code>▁</code> symbol is SentencePiece's visible representation of whitespace. It distinguishes <code>training</code> at a word boundary from the same letters in another position while keeping reconstruction mechanical.</p>
+            <p>The model did not discover an English grammar rule for <code>tokenizer</code>. It found reusable corpus fragments: <code>T</code>, <code>ok</code>, <code>en</code>, <code>iz</code>, and <code>er</code>.</p>
+            <p>Once language-model training begins, the tokenizer must be frozen. Changing the vocabulary afterward would change what every ID means. Embedding row <code>7131</code> cannot continue learning the same thing if <code>7131</code> suddenly names a different byte sequence.</p>
+        </section>
+
+        <section>
+            <h2>Detokenization Is The Easy Direction</h2>
+            <p>The merge order is needed to choose a segmentation while encoding. It is not needed to decode. Every ordinary token ID already points to its complete byte string.</p>
+
+            <figure>
+                <div class="decode-flow" role="img" aria-label="Token IDs 258, 97, and 99 map directly to byte strings aaab, a, and c, which concatenate into the text aaabac.">
+                    <div class="flow-step flow-step--tokenizer">
+                        <strong>258</strong>
+                        <span>b"aaab"</span>
+                    </div>
+                    <span class="flow-arrow" aria-hidden="true">+</span>
+                    <div class="flow-step flow-step--tokenizer">
+                        <strong>97</strong>
+                        <span>b"a"</span>
+                    </div>
+                    <span class="flow-arrow" aria-hidden="true">+</span>
+                    <div class="flow-step flow-step--tokenizer">
+                        <strong>99</strong>
+                        <span>b"c"</span>
+                    </div>
+                    <span class="flow-arrow" aria-hidden="true">→</span>
+                    <div class="flow-step">
+                        <strong>Join and decode</strong>
+                        <span>"aaabac"</span>
+                    </div>
+                </div>
+                <figcaption>Decoding never asks which merge happened first. The final token ID already names its full byte sequence.</figcaption>
+            </figure>
+
+            <p>In Python, the byte-level core fits on one line plus UTF-8 conversion:</p>
+            <pre class="code-panel" aria-label="Minimal byte-level detokenizer"><code>def decode(ids, vocab):
+    raw = b"".join(vocab[token_id] for token_id in ids)
+    return raw.decode("utf-8", errors="replace")</code></pre>
+            <p>Concatenating bytes before decoding UTF-8 is important. A Unicode character may have been split across several tokens, so decoding each token independently can corrupt text that is perfectly valid after the byte sequences are joined.</p>
+            <p>SentencePiece makes the same simplicity visible at the piece-string level:</p>
+            <pre class="code-panel" aria-label="Minimal SentencePiece string reconstruction"><code>text = "".join(pieces).replace("▁", " ")</code></pre>
+            <p>Real implementations also decide what to do with control tokens such as beginning-of-sequence, end-of-sequence, roles, or padding. “Lossless” is relative to normalization: if a tokenizer normalizes two different Unicode spellings into one form before encoding, decoding reconstructs that normalized form. Karpathy's TinyStories configuration uses identity normalization, avoiding that particular transformation.</p>
+        </section>
+
+        <section>
+            <h2>The Whole Educational Tokenizer</h2>
+            <p>This complete byte-level implementation exposes training, inference-time encoding, and decoding without regex boundaries, special tokens, file formats, or performance optimizations:</p>
+            <pre class="code-panel" aria-label="Complete educational byte-level BPE tokenizer in Python"><code>from collections import Counter
+
+
+def merge_pair(ids, pair, new_id):
+    """Replace non-overlapping occurrences of pair from left to right."""
+    out = []
+    i = 0
+    while i &lt; len(ids):
+        if i + 1 &lt; len(ids) and (ids[i], ids[i + 1]) == pair:
+            out.append(new_id)
+            i += 2
+        else:
+            out.append(ids[i])
+            i += 1
+    return out
+
+
+def train_bpe(text, vocab_size):
+    if vocab_size &lt; 256:
+        raise ValueError("A byte-level vocabulary needs the 256 base bytes")
+
+    ids = list(text.encode("utf-8"))
+    vocab = {i: bytes([i]) for i in range(256)}
+    merges = {}  # adjacent pair -&gt; new token ID; ID order is merge rank
+
+    for new_id in range(256, vocab_size):
+        counts = Counter(zip(ids, ids[1:]))
+        if not counts:
+            break
+
+        # Highest frequency, then lexicographically smallest pair on a tie.
+        pair = min(counts, key=lambda p: (-counts[p], p))
+        ids = merge_pair(ids, pair, new_id)
+        merges[pair] = new_id
+        vocab[new_id] = vocab[pair[0]] + vocab[pair[1]]
+
+    return merges, vocab
+
+
+def encode(text, merges):
+    ids = list(text.encode("utf-8"))
+
+    while len(ids) &gt;= 2:
+        adjacent = set(zip(ids, ids[1:]))
+        candidates = [(merges[pair], pair)
+                      for pair in adjacent if pair in merges]
+        if not candidates:
+            break
+
+        new_id, pair = min(candidates)  # earliest learned merge wins
+        ids = merge_pair(ids, pair, new_id)
+
+    return ids
+
+
+def decode(ids, vocab):
+    raw = b"".join(vocab[token_id] for token_id in ids)
+    return raw.decode("utf-8", errors="replace")</code></pre>
+            <p>The toy run is:</p>
+            <pre class="code-panel" aria-label="Running the educational BPE tokenizer"><code>merges, vocab = train_bpe("aaabdaaabac", vocab_size=259)
+ids = encode("aaabac", merges)
+
+print(ids)                 # [258, 97, 99]
+print(decode(ids, vocab))  # aaabac</code></pre>
+            <p>This is enough to expose the invariant. A production tokenizer changes data structures and policy, not the central mechanism.</p>
+        </section>
+
+        <section>
+            <h2>Production Tokenizers Add Policy Around The Core</h2>
+            <p>The educational implementation permits merges across every neighboring byte, including spaces, punctuation, and document boundaries. Practical tokenizers add controls around that loop.</p>
+            <div class="detail-grid">
+                <div class="detail-card"><strong>Normalization</strong><span>Chooses whether Unicode forms, case, and whitespace are preserved or mapped into a canonical input.</span></div>
+                <div class="detail-card"><strong>Boundary rules</strong><span>Divide text into chunks so merges cannot cross selected letter, number, punctuation, or whitespace boundaries.</span></div>
+                <div class="detail-card"><strong>Byte fallback</strong><span>Guarantees that characters outside the learned Unicode pieces still have a reversible representation.</span></div>
+                <div class="detail-card"><strong>Special tokens</strong><span>Reserve atomic IDs for sequence boundaries, roles, padding, tools, or media without treating them as ordinary prose.</span></div>
+                <div class="detail-card"><strong>Deterministic ties</strong><span>Ensure that equal pair counts produce the same later vocabulary on every repeatable training run.</span></div>
+                <div class="detail-card"><strong>Optional sampling</strong><span>Can vary segmentation during model training through techniques such as BPE dropout; ordinary inference remains deterministic.</span></div>
+            </div>
+            <p>GPT-style regex tokenizers separate categories before BPE so that a merge cannot cross a forbidden boundary. SentencePiece keeps whitespace visible as a normal symbol and can train directly from raw sentences. A byte-level vocabulary is complete by construction; a Unicode-piece tokenizer needs an unknown-token policy or byte fallback for characters outside its learned inventory.</p>
+        </section>
+
+        <section>
+            <h2>BPE Optimizes Reusable Adjacency, Not Meaning</h2>
+            <p>BPE often discovers pieces that resemble prefixes, suffixes, roots, words, or punctuation patterns. That is an effect of frequency, not linguistic understanding.</p>
+            <p>Each accepted merge reduces the number of symbols needed to represent occurrences of one adjacent pattern. Repeating that greedy choice tends to create a reusable codebook that shortens sequences on the training distribution. It is compression-like, but it is not a complete file-compression system: language models usually represent token IDs with fixed-width integers internally, and a larger vocabulary also enlarges the embedding table and output projection.</p>
+            <p>Vocabulary size is a direct engineering tradeoff:</p>
+            <ul>
+                <li>A larger vocabulary usually produces shorter token sequences and gives frequent patterns direct IDs.</li>
+                <li>A smaller vocabulary produces longer sequences but reduces vocabulary-dependent parameters and retains more compositional reuse.</li>
+                <li>A vocabulary trained on the wrong domain may waste entries on irrelevant patterns while fragmenting the text the model actually needs to learn.</li>
+            </ul>
+            <p>Karpathy's TinyStories script captures the practical response: train a compact tokenizer on the kind of text the model will see, then measure the resulting story lengths before choosing the model's context and storage format.</p>
+            <p>Useful validation is concrete: test exact round trips, unseen Unicode, whitespace, malformed-input policy, atomic special tokens, determinism, and token counts on held-out prose, code, numbers, and every language the model must support. Tokens per word is not enough across languages; bytes per token and tokens per character expose different failure modes.</p>
+        </section>
+
+        <section>
+            <h2>Keep The Four Machines Separate</h2>
+            <p>A BPE tokenizer is not a dictionary of words, and it is not a neural network.</p>
+            <p><strong>The trainer is a compiler.</strong> It reads a corpus and emits an ordered rewrite program plus a vocabulary.</p>
+            <p><strong>The encoder is an interpreter.</strong> It begins with safe base symbols and executes every learned join that applies, in learned-priority order.</p>
+            <p><strong>The embedding layer is a separate machine.</strong> It turns the encoder's integer IDs into vectors for the Transformer.</p>
+            <p><strong>The decoder is a table lookup and a join.</strong> It does not need pair counts, merge ranks, gradients, or vectors.</p>
+            <p class="key-line"><strong>Training discovers the joins. Inference obeys their history. Decoding simply puts the pieces back together.</strong></p>
+        </section>
+
+        <section>
+            <h2>Primary Sources And Implementations</h2>
+            <ul class="source-list">
+                <li>Andrej Karpathy, <a href="https://github.com/karpathy/llama2.c/blob/master/tinystories.py#L861-L1003" target="_blank" rel="noopener"><code>llama2.c/tinystories.py</code></a>, for the custom TinyStories SentencePiece training and pretokenization pipeline.</li>
+                <li>Andrej Karpathy, <a href="https://github.com/karpathy/minbpe" target="_blank" rel="noopener"><code>minBPE</code></a>, for a compact byte-level implementation of training, encoding, and decoding.</li>
+                <li>Rico Sennrich, Barry Haddow, and Alexandra Birch, <a href="https://aclanthology.org/P16-1162/" target="_blank" rel="noopener"><cite>Neural Machine Translation of Rare Words with Subword Units</cite></a>, for the adaptation of BPE to open-vocabulary neural text processing.</li>
+                <li>Taku Kudo and John Richardson, <a href="https://arxiv.org/abs/1808.06226" target="_blank" rel="noopener"><cite>SentencePiece: A simple and language independent subword tokenizer and detokenizer for Neural Text Processing</cite></a>, for direct training from raw sentences and reversible whitespace handling.</li>
+            </ul>
+        </section>
+    </main>
+
+    <nav class="article-links" aria-label="Continue from A BPE Tokenizer Is a Learned Rewrite Program">
+        <p>Next:</p>
+        <a href="/four-layer-tiny-transformer-training-run.html">Four-Layer Transformer Trained On A CPU</a>
+        <p>Follow the integer tokens into a complete 834,644-parameter generative Transformer run, from model geometry and training loss to story output.</p>
+        <p>More:</p>
+        <a href="/site-map.html#publishing">Software, Interaction, AI, And Publishing</a>
+        <p>Continue through the systems that carry models, machine behavior, and technical thought between people.</p>
+    </nav>
+</body>
+
+</html>
