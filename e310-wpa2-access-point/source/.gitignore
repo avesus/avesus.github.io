@@ -1,0 +1,8 @@
+**/build/
+*.log
+*.jou
+*.str
+*.pcap
+*.key
+private/
+clockInfo.txt
