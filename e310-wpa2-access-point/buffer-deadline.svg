@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="470" viewBox="0 0 1120 470" role="img" aria-labelledby="title desc">
+<title id="title">A receive block can outlast the ACK budget</title>
+<desc id="desc">Calculated example, 256-sample completed blocks at 20 million samples per second. The decisive last sample of a frame is first in a new block at time zero. The other 255 samples take 12.75 microseconds to arrive. Software cannot read the completed block until after the nominal 10 microsecond ACK start. CPU work and transmit latency are additional.</desc>
+<rect width="1120" height="470" fill="#faf8f2"/>
+<g font-family="Arial,sans-serif" fill="#111">
+<text x="48" y="48" font-size="27" font-weight="700">The sample is received. The host still cannot read it.</text>
+<text x="48" y="82" font-size="18" fill="#444">Calculated alignment example · 20 MS/s · completed blocks of 256 samples</text>
+<path d="M64 135H1024" stroke="#555" stroke-width="2"/>
+<g stroke="#555" stroke-width="2"><path d="M64 128V143M304 128V143M544 128V143M664 128V143M829 128V143M1024 128V143"/></g>
+<g font-size="18"><text x="64" y="119" text-anchor="middle">0</text><text x="304" y="119" text-anchor="middle">4</text><text x="544" y="119" text-anchor="middle">8</text><text x="664" y="119" text-anchor="middle">10</text><text x="829" y="119" text-anchor="middle">12.75</text><text x="1024" y="119" text-anchor="middle">16 µs</text></g>
+<path d="M64 147V310" stroke="#234e67" stroke-width="3"/>
+<path d="M664 147V325" stroke="#9a2d21" stroke-width="3" stroke-dasharray="7 5"/>
+<path d="M829 147V300" stroke="#234e67" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="65" y="173" width="599" height="48" fill="#e8efe6"/>
+<text x="88" y="203" font-size="20" fill="#1a492b">Nominal receive-end → ACK-start interval</text>
+<rect x="65" y="239" width="764" height="49" fill="#dce6ed"/>
+<text x="88" y="270" font-size="20" fill="#17394e">Wait for the remaining 255 samples in the receive block</text>
+<path d="M830 264H1024" stroke="#17394e" stroke-width="3"/>
+<path d="M1012 258L1024 264L1012 270" fill="none" stroke="#17394e" stroke-width="3"/>
+<text x="852" y="245" font-size="17">CPU + TX delay</text>
+<text x="64" y="341" font-size="18" fill="#17394e">Final frame sample;</text><text x="64" y="365" font-size="18" fill="#17394e">first in this block</text>
+<text x="664" y="350" text-anchor="middle" font-size="19" font-weight="700" fill="#9a2d21">ACK should start</text>
+<text x="845" y="311" font-size="18" fill="#17394e">Block available</text>
+<path d="M48 396H1072" stroke="#c8c3b7"/>
+<text x="48" y="436" font-size="22" font-weight="700">255 samples ÷ 20 MS/s = 12.75 µs of waiting, before any CPU work.</text>
+</g>
+</svg>
