@@ -1,0 +1,26 @@
+<section id="build"><h2>Build and run the reference</h2>
+<p>The <a href="greenforest-wpa2-ap-source.zip" download>source archive</a> contains the C++ protocol and crypto, receiver and serial arithmetic, ACK/CTS engine, waveform player, transport, E310 shell, constraints and build scripts. The <a href="source.html">inline browser</a> embeds every source file with individual downloads.</p>
+<p>The <a href="verify-article-examples.mjs" download>worked-example checker</a> runs with <code>node verify-article-examples.mjs</code>. It checks the published key vectors, CRC residue, Barker/sample mapping, packet lengths and arithmetic resource differences without accessing a radio.</p>
+<p>Unzip into a writable directory. With MSVC C++ Build Tools and CMake 3.24 or newer, run these commands from a normal Windows command prompt:</p>
+<pre><code>build-windows.cmd
+wifi_e310_link\build\windows-packets\gf_e310_windows_ap.exe --help</code></pre>
+<p>The build includes protocol, transport, receive-event and host-core tests without opening a radio. For the E310 FPGA image, run:</p>
+<pre><code>powershell -NoProfile -ExecutionPolicy Bypass -File build-e310-fpga.ps1 -Vivado C:\VitisVivado\2026.1\Vivado\bin\vivado.bat</code></pre>
+<p>The script selects the compact implementation and produces the bitstream, utilization and timing reports; it does not program the board. The reference targets <code>xc7z020clg484-3</code> and the E310's legacy Linux 3.14/UHD 3.10.1.1 device interface. A newer MPM image needs a matching board adapter, not this shell loaded blindly into it.</p>
+<p>Build the ARM adapter using <code>build-arm.sh</code> with a C++20 ARM Linux toolchain. The supplied README gives the tested E310 SDK environment command. Keep its matching loader/runtime in a project directory rather than replacing the board's system C library.</p>
+<h3>Bring up the radio side first</h3>
+<p>The reference's device setup order is: arm the independent processor watchdog guard; load the stock radio image; initialize the RF device with legacy UHD while retaining that device owner; set the receive delay; load the custom image; verify its registers and processor-management access; initialize the RFIC against that shell; arm capture; start the packet agent; hand the serial connection to Windows. The archive retains the setup and recovery helpers. On stop, disable RF, restore the stock image, release the device owner, then disarm the guard after recovery.</p>
+<p>This is board-specific setup, not a function performed by the Windows launcher. Once the compatible packet adapter is running, close any other terminal using its COM port. Create a UTF-8 text file without a BOM containing your chosen 8–63-byte passphrase, then run:</p>
+<pre><code>run-host.cmd COM10 C:\radio-config\ap.key</code></pre>
+<p>Replace COM10 with the adapter's port. Join <code>PLUTO-2.4</code> using the same passphrase and open <code>http://192.168.44.1/</code>. The example page is included. Native options configure SSID, channel, server IP, station count, page, beacon interval and a stop file. Ctrl+C requests RF shutdown; a lost host connection expires the local lease.</p>
+<h3>Locate a failed transition</h3>
+<div class="table-wrap"><table><thead><tr><th>Symptom</th><th>Next boundary to inspect</th></tr></thead><tbody>
+<tr><td>No SSID</td><td>Beacon waveform, frequency, preamble, rate/channel information and FCS.</td></tr>
+<tr><td>SSID visible; no join</td><td>Incoming PLCP/FCS, destination match, ACK timing, authentication and association response.</td></tr>
+<tr><td>Password complaint</td><td>M1–M4 delivery, exact key/SSID bytes, PTK ordering, MIC and wrapped key data.</td></tr>
+<tr><td>Keys established; no address</td><td>CCMP nonce, authenticated header and replay state, then DHCP transaction and reply.</td></tr>
+<tr><td>Address assigned; no page</td><td>ARP, TCP handshake, segmented request, response sequence numbers and sleeping-client queue.</td></tr>
+<tr><td>Response transmitted; incomplete page</td><td>Client acknowledgments, retransmission and the complete received HTTP body.</td></tr>
+</tbody></table></div>
+<p>For studying CPU receiver arithmetic separately, the <a href="cpu-only-source.html">offline DSSS workbench</a> and <a href="greenforest-cpu-dsss-workbench.zip" download>its source archive</a> remain available. They process files; they are not the live access point described above.</p>
+</section>

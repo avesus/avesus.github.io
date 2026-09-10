@@ -24,6 +24,14 @@
   text-align: left;
 }
 #gf-radio .contents a { display: inline-flex; align-items: center; min-height: 44px; }
+#gf-radio .anchor-alias { display: block; height: 0; }
+#gf-radio .packet-strip { display: flex; flex-wrap: wrap; gap: 6px; margin: 1.5rem 0; text-align: left; }
+#gf-radio .packet-strip > span { flex: 1 1 140px; padding: 12px; border: 1px solid #a99b8c; background: #faf8f2; color: #111; font-size: 19px; line-height: 1.4; }
+#gf-radio .packet-stack, #gf-radio .exchange { margin: 1.5rem 0; border-left: 3px solid #520; text-align: left; }
+#gf-radio :is(.packet-stack,.exchange) > :is(div,p) { margin: 0; padding: 12px 16px; border-bottom: 1px solid #d7d7d7; background: #faf8f2; color: #111; font-size: 20px; line-height: 1.5; overflow-wrap: anywhere; }
+#gf-radio .table-wrap code { overflow-wrap: anywhere; }
+#gf-radio .packet-strip b, #gf-radio .packet-stack small { display: block; }
+#gf-radio .packet-stack div div { margin-top: 10px; padding-left: 12px; border-left: 1px solid #a99b8c; }
 /* Fit the entire drawing between the page edges / parallax gutters.
    The article text keeps its normal measure; a click opens the larger viewer. */
 #gf-radio figure.inspectable-image {
