@@ -1,0 +1,821 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><title>Complete source — Greenforest CPU-only PHY workbench</title><link rel="stylesheet" href="article.css?v=20260910"><script src="/common-script.js" defer></script></head><body class="article-structured" id="gf-radio"><main><p><a href="./">← Implementation walkthrough</a></p><header><h1 class="page-title">CPU-only PHY workbench</h1></header><p>Incremental C++ receiver, raw-I/Q ACK preparation, and CPU timing probes. This workbench reads files and transmits nothing; use the main article download for the working FPGA-assisted AP.</p><p>11 files. All text below is embedded in this page: no source-viewer service, login or network fetch is needed to expand a file. Build outputs and private configuration are excluded.</p><p><a href="greenforest-cpu-dsss-workbench.zip" download>Download the full source ZIP</a> · <a href="cpu-only-source/README.md">Build and run instructions</a></p><label for="filter">Find a file</label><input id="filter" type="search" placeholder="receiver, protocol, serial, README…"><p id="count" aria-live="polite"></p><details class="source-file" id="file-0" data-name=".gitignore"><summary>.gitignore · 4 lines</summary><p><a href="cpu-only-source/.gitignore" download>Download this file</a> · <a href="#file-0">Permanent section link</a></p><pre><code>/build/
+*.bin
+*.pcap
+</code></pre></details>
+<details class="source-file" id="file-1" data-name="cmakelists.txt"><summary>CMakeLists.txt · 12 lines</summary><p><a href="cpu-only-source/CMakeLists.txt" download>Download this file</a> · <a href="#file-1">Permanent section link</a></p><pre><code>cmake_minimum_required(VERSION 3.20)
+project(greenforest_cpu_phy LANGUAGES CXX)
+add_executable(cpu_dsss_probe cpu_dsss_probe.cpp)
+target_compile_features(cpu_dsss_probe PRIVATE cxx_std_20)
+if(MSVC)
+  target_compile_options(cpu_dsss_probe PRIVATE /O2 /W4 /WX /wd4324)
+else()
+  target_compile_options(cpu_dsss_probe PRIVATE -O3 -Wall -Wextra -Werror)
+endif()
+enable_testing()
+add_test(NAME cpu_dsss_selftest COMMAND cpu_dsss_probe)
+</code></pre></details>
+<details class="source-file" id="file-2" data-name="license"><summary>LICENSE · 26 lines</summary><p><a href="cpu-only-source/LICENSE" download>Download this file</a> · <a href="#file-2">Permanent section link</a></p><pre><code>MIT License
+
+Copyright (c) 2026 Brian Greenforest
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Scope: original Greenforest code and documentation. Third-party files retain
+their own licenses, described in THIRD_PARTY.md. This notice does not relicense
+Ettus code, system crypto libraries, development tools, or vendor primitives.
+</code></pre></details>
+<details class="source-file" id="file-3" data-name="readme.md"><summary>README.md · 94 lines</summary><p><a href="cpu-only-source/README.md" download>Download this file</a> · <a href="#file-3">Permanent section link</a></p><pre><code># CPU-only DSSS receiver and response workbench
+
+This separate download implements the incremental receiver and ACK/CTS waveform
+preparation in C++. It does not program an FPGA, open a radio, or transmit. The
+main article's other source download remains the working WPA2 AP implementation.
+
+## Build and run on Windows
+
+Install Visual Studio 2022 with Desktop development with C++, and CMake 3.20+.
+Run `build-windows.cmd` from a normal command prompt. It builds Release and runs
+the self-test. The binary is `build\Release\cpu_dsss_probe.exe`.
+
+```
+build\Release\cpu_dsss_probe.exe
+build\Release\cpu_dsss_probe.exe your-iq16le.bin 200 64 128
+```
+
+Arguments are input file, repetitions, samples per software call, and minimum
+rolling-20-sample mean of `abs(I)+abs(Q)`. Zero disables energy gating. The lab
+capture used 128 in the original signed IQ16 scale; that is not a universal RF
+threshold, dBm value, or receiver sensitivity specification. Choose the threshold
+from your own retained noise and signal samples, or start with zero.
+
+Input is signed little-endian I16,Q16 at exactly 20,000,000 complex samples/s.
+The receiver supports long-preamble, 1-Mb/s Barker DSSS, including PLCP SERVICE=04.
+Other sample rates or Wi-Fi receive modes need corresponding PHY changes.
+The main article's raw-capture helper can retain an E310 input file. Existing
+private lab I/Q is not included: obtain your own capture from your radio.
+
+## Run the same source on Cortex-A9
+
+Use an ARM hard-float C++20 toolchain and sysroot compatible with the target.
+The lab used the E310 OpenEmbedded 4.9.0.0 SDK (GCC 11.5), Cortex-A9/NEON flags
+from its environment script, and the existing private application runtime.
+
+```
+source /path/to/sdk/environment-setup-cortexa9t2hf-neon-oe-linux-gnueabi
+bash build-arm.sh
+```
+
+Copy `build/cpu_dsss_probe_arm` and your IQ file to the E310. With matching
+system libraries, run `./cpu_dsss_probe_arm your-iq16le.bin 200 64 128`.
+For the article's legacy Linux installation, use its private application loader:
+
+```
+/home/root/greenforest-e310/runtime/lib/ld-linux-armhf.so.3 \
+  --library-path /home/root/greenforest-e310/runtime/lib \
+  ./cpu_dsss_probe_arm your-iq16le.bin 200 64 128
+```
+
+Do not replace the board's system libc to run this benchmark. If the private
+runtime has not been installed, use a matching toolchain/runtime first.
+The process tries CPU-1 affinity and `mlockall(MCL_CURRENT)` and reports the return
+codes. It does not change CPU frequency, Linux scheduling policy, IRQ routing,
+kernel, boot files, or power management. Affinity and memory locks end with it.
+
+## What the code does
+
+`cpu_dsss_rx.hpp` maintains a sample history across arbitrary input chunks,
+correlates the same 20-sample Barker template as the working radio, chooses a
+symbol phase, differentially detects DBPSK, descrambles, validates PLCP CRC-16,
+assembles PSDU bytes, and accumulates FCS. Its first-difference recurrence is
+mathematically identical to the direct FIR. Quiet spans use a CPU NEON test on
+ARM; no sample values are altered. Once timing is held, history is copied in
+spans and only the selected symbol phase needs a correlation.
+
+`cpu_ack_planner.hpp` observes the early MAC header and prepares a complete
+6,080-sample ACK/CTS waveform on the CPU. A cache avoids regenerating identical
+replies. The final decision checks FCS, addresses, minimum frame length, QoS ACK
+policy, and a CPU-calculated timestamp. Bad-FCS and late candidates are rejected.
+The replay uses a synthetic sample-time argument to this decision; that argument
+must come from a real radio timeline when connecting a transport.
+
+`cpu_dsss_probe.cpp` tests chunk/phase boundaries, corrupt FCS, sparse FIR
+equivalence, and a CPU-generated ACK decoded back through the receiver. It then
+decodes the supplied recording and separately measures throughput without
+per-block clock reads and instrumented block durations. The old ARM clock read
+itself costs about 0.7 us, so the two measurements must not be conflated.
+The receiver-only throughput loop excludes ACK preparation, sample DMA and
+packet forwarding. ACK generation and selection are timed separately once.
+
+## Next transport contract
+
+Keep only RF electrical I/O, CDC, raw-I/Q FIFO/DMA, a radio sample counter,
+generic CPU-timestamped sample playback and fault shutdown in FPGA. No waveform
+expansion, PHY parsing, FCS, address classification, or automatic SIFS selection.
+Data buffers must be owned until DMA completion; cache slots cannot be recycled
+while an outstanding transmission references them. Carry discontinuity/overflow
+events into the receiver reset path, and reject replies whose deadlines passed.
+
+The current workbench has no such transport connected. Its proposed timestamp
+is not a measurement of RF turnaround. Physical frame-end/ACK timing, a
+plumbing-only image, and ESP association/HTTP are the next integration steps.
+</code></pre></details>
+<details class="source-file" id="file-4" data-name="build-arm.sh"><summary>build-arm.sh · 11 lines</summary><p><a href="cpu-only-source/build-arm.sh" download>Download this file</a> · <a href="#file-4">Permanent section link</a></p><pre><code>#!/bin/bash
+set -euo pipefail
+cd &quot;$(dirname &quot;$0&quot;)&quot;
+# Source the Cortex-A9 OpenEmbedded SDK environment first. Its CXX includes
+# the cross-compiler, CPU/FPU flags, and matching --sysroot. Do not quote it as
+# a single executable name. This is the same invocation used on the lab build.
+: &quot;${CXX:?Source your ARM hard-float SDK environment first}&quot;
+mkdir -p build
+$CXX -std=c++20 -O3 -Wall -Wextra -Werror -Wno-psabi cpu_dsss_probe.cpp -o build/cpu_dsss_probe_arm
+file build/cpu_dsss_probe_arm
+</code></pre></details>
+<details class="source-file" id="file-5" data-name="build-windows.cmd"><summary>build-windows.cmd · 9 lines</summary><p><a href="cpu-only-source/build-windows.cmd" download>Download this file</a> · <a href="#file-5">Permanent section link</a></p><pre><code>@echo off
+setlocal
+cmake -S &quot;%~dp0.&quot; -B &quot;%~dp0build&quot; -A x64
+if errorlevel 1 exit /b 1
+cmake --build &quot;%~dp0build&quot; --config Release --parallel 4
+if errorlevel 1 exit /b 1
+ctest --test-dir &quot;%~dp0build&quot; -C Release --output-on-failure
+exit /b %errorlevel%
+</code></pre></details>
+<details class="source-file" id="cpu-ack" data-name="cpu_ack_planner.hpp"><summary>cpu_ack_planner.hpp · 101 lines</summary><p><a href="cpu-only-source/cpu_ack_planner.hpp" download>Download this file</a> · <a href="#cpu-ack">Permanent section link</a></p><pre><code>#pragma once
+// MIT, Brian Greenforest. All Wi-Fi response semantics execute on the CPU.
+// A future transport consumes only IQ samples and generic sample timestamps.
+#include &quot;cpu_dsss_rx.hpp&quot;
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;optional&gt;
+
+namespace gf::cpu_phy {
+using Mac=std::array&lt;std::uint8_t,6&gt;;
+struct RawReply {
+    const IQ* iq=nullptr;
+    std::size_t sample_count=0;
+    std::uint64_t start_sample=0;
+    unsigned slot=0;
+};
+class AckPlanner {
+public:
+    static constexpr unsigned samples_per_reply=(24+14)*8*20;
+    static constexpr unsigned slots=8;
+    explicit AckPlanner(Mac ap):ap_(ap) {}
+    std::uint64_t generated=0,hits=0,rejected=0,approved=0;
+    void byte(const Frame&amp; partial) {
+        if(partial.size==1) staged_=nullptr;
+        if(partial.size!=16 || !addressed(partial)) return;
+        const auto fc=partial.bytes[0];
+        const unsigned type=(fc&gt;&gt;2)&amp;3,subtype=fc&gt;&gt;4;
+        const bool rts=type==1 &amp;&amp; subtype==11,ps_poll=type==1 &amp;&amp; subtype==10;
+        if(type!=0 &amp;&amp; type!=2 &amp;&amp; !rts &amp;&amp; !ps_poll) return;
+        const unsigned duration=partial.bytes[2]|(unsigned(partial.bytes[3])&lt;&lt;8);
+        if(ps_poll &amp;&amp; (duration&amp;0xc000)!=0xc000) return;
+        const std::uint16_t reply_duration=rts &amp;&amp; duration&gt;314?std::uint16_t(duration-314):0;
+        const std::uint8_t response_fc=rts?0xc4:0xd4;
+        Mac peer{};std::copy_n(partial.bytes.begin()+10,6,peer.begin());
+        if(peer[0]&amp;1) return;
+        for(unsigned n=0;n&lt;slots;++n) if(cache_[n].valid &amp;&amp; cache_[n].peer==peer &amp;&amp; cache_[n].fc==response_fc &amp;&amp; cache_[n].duration==reply_duration) {
+            staged_=&amp;cache_[n];staged_slot_=n;++hits;return;
+        }
+        staged_slot_=next_slot_;next_slot_=(next_slot_+1)%slots;
+        staged_=&amp;cache_[staged_slot_];staged_-&gt;valid=false;
+        staged_-&gt;peer=peer;staged_-&gt;fc=response_fc;staged_-&gt;duration=reply_duration;
+        render(*staged_);staged_-&gt;valid=true;++generated;
+    }
+    std::optional&lt;RawReply&gt; finish(const Frame&amp; f, std::uint64_t now_sample) {
+        // Never accepts optimistic FCS, stale cache state, multicast, or a late
+        // reply. PHY end_sample still requires measured RF delay calibration.
+        auto* slot=staged_;staged_=nullptr;
+        if(!slot || !slot-&gt;valid || !f.fcs_ok || !addressed(f)) {++rejected;return std::nullopt;}
+        const unsigned type=(f.bytes[0]&gt;&gt;2)&amp;3,subtype=f.bytes[0]&gt;&gt;4;
+        if(type==1) {
+            if((subtype!=10 &amp;&amp; subtype!=11) || f.size!=20) {++rejected;return std::nullopt;}
+        } else {
+            unsigned header=24;
+            if(type==2 &amp;&amp; (f.bytes[1]&amp;3)==3) header+=6;
+            if(type==2 &amp;&amp; (subtype&amp;8)) {
+                if(f.size&lt;header+6 || (f.bytes[header]&amp;0x60)) {++rejected;return std::nullopt;}
+                header+=2;
+                if(f.bytes[1]&amp;0x80) header+=4;
+            }
+            if(f.size&lt;header+4) {++rejected;return std::nullopt;}
+        }
+        const auto target=f.end_sample+200; // CPU computes 10 us at 20 MS/s.
+        if(now_sample&gt;=target) {++rejected;return std::nullopt;}
+        ++approved;
+        return RawReply{slot-&gt;iq.data(),slot-&gt;iq.size(),target,staged_slot_};
+    }
+private:
+    struct Slot {
+        bool valid=false;Mac peer{};std::uint8_t fc=0;std::uint16_t duration=0;
+        alignas(64) std::array&lt;IQ,samples_per_reply&gt; iq{};
+    };
+    Mac ap_;
+    std::array&lt;Slot,slots&gt; cache_{};
+    Slot* staged_=nullptr;
+    unsigned next_slot_=0,staged_slot_=0;
+    bool addressed(const Frame&amp; f) const {
+        return f.size&gt;=16 &amp;&amp; !(f.bytes[0]&amp;3) &amp;&amp; !(f.bytes[4]&amp;1) &amp;&amp; std::equal(ap_.begin(),ap_.end(),f.bytes.begin()+4);
+    }
+    static void render(Slot&amp; s) {
+        std::array&lt;std::uint8_t,38&gt; plain{};
+        std::fill_n(plain.begin(),16,std::uint8_t(0xff));plain[16]=0xa0;plain[17]=0xf3;
+        plain[18]=0x0a;plain[20]=14*8;
+        std::uint16_t crc16=0xffff;
+        for(unsigned k=18;k&lt;22;++k) for(unsigned b=0;b&lt;8;++b) crc16=crc16_bit(crc16,plain[k]&gt;&gt;b);
+        crc16^=0xffff;plain[22]=std::uint8_t(crc16);plain[23]=std::uint8_t(crc16&gt;&gt;8);
+        plain[24]=s.fc;plain[26]=std::uint8_t(s.duration);plain[27]=std::uint8_t(s.duration&gt;&gt;8);
+        std::copy(s.peer.begin(),s.peer.end(),plain.begin()+28);
+        std::uint32_t crc32=0xffffffffu;
+        for(unsigned k=24;k&lt;34;++k) crc32=crc32_byte(crc32,plain[k]);
+        crc32^=0xffffffffu;for(unsigned b=0;b&lt;4;++b) plain[34+b]=std::uint8_t(crc32&gt;&gt;(8*b));
+        unsigned scrambler=0x5d,phase=0,index=0;
+        for(auto p:plain) for(unsigned b=0;b&lt;8;++b) {
+            const unsigned bit=((p&gt;&gt;b)^(scrambler&gt;&gt;3)^(scrambler&gt;&gt;6))&amp;1u;
+            scrambler=((scrambler&lt;&lt;1)|bit)&amp;127u;phase^=bit;
+            for(unsigned sample=0;sample&lt;20;++sample)
+                s.iq[index++]={std::int16_t((phase?-8192:8192)*signs[sample]),0};
+        }
+    }
+};
+} // namespace gf::cpu_phy
+</code></pre></details>
+<details class="source-file" id="cpu-probe" data-name="cpu_dsss_probe.cpp"><summary>cpu_dsss_probe.cpp · 168 lines</summary><p><a href="cpu-only-source/cpu_dsss_probe.cpp" download>Download this file</a> · <a href="#cpu-probe">Permanent section link</a></p><pre><code>// MIT, Brian Greenforest. Software replay/CPU cost probe; never transmits RF.
+#include &quot;cpu_dsss_rx.hpp&quot;
+#include &quot;cpu_ack_planner.hpp&quot;
+#include &quot;e310_host_waveform.hpp&quot;
+#include &lt;algorithm&gt;
+#include &lt;chrono&gt;
+#include &lt;cstdio&gt;
+#include &lt;fstream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#ifdef __linux__
+#include &lt;sched.h&gt;
+#include &lt;sys/mman.h&gt;
+#include &lt;time.h&gt;
+#endif
+using gf::cpu_phy::IQ;
+using gf::cpu_phy::Receiver;
+using gf::cpu_phy::Frame;
+static std::uint64_t nanos() {
+#ifdef __linux__
+    timespec t{}; if(clock_gettime(CLOCK_MONOTONIC_RAW,&amp;t)) throw std::runtime_error(&quot;clock_gettime failed&quot;);
+    return std::uint64_t(t.tv_sec)*1000000000ull+std::uint64_t(t.tv_nsec);
+#else
+    return std::chrono::duration_cast&lt;std::chrono::nanoseconds&gt;(std::chrono::steady_clock::now().time_since_epoch()).count();
+#endif
+}
+static std::vector&lt;IQ&gt; waveform(const std::vector&lt;std::uint8_t&gt;&amp; psdu) {
+    const auto encoded=gf::e310::waveform::encode(psdu);
+    std::vector&lt;IQ&gt; iq;
+    for(std::size_t n=12;n&lt;encoded.size();++n) for(unsigned bit=0;bit&lt;8;++bit) for(unsigned s=0;s&lt;20;++s) {
+        const auto value=8192*gf::cpu_phy::signs[s]*(((encoded[n]&gt;&gt;bit)&amp;1u)?-1:1);
+        iq.push_back({std::int16_t(value),0});
+    }
+    return iq;
+}
+static std::vector&lt;std::uint8_t&gt; ack_frame() {
+    std::vector&lt;std::uint8_t&gt; p{0xd4,0,0,0,2,0x47,0x46,0x41,0x50,0x32};
+    auto crc=std::uint32_t(0xffffffff);
+    for(auto b:p) crc=gf::cpu_phy::crc32_byte(crc,b);
+    crc^=0xffffffffu;for(unsigned k=0;k&lt;4;++k)p.push_back(std::uint8_t(crc&gt;&gt;(8*k)));
+    return p;
+}
+static void selftest() {
+    std::array&lt;IQ,2021&gt; random{};
+    std::uint32_t state=12345;
+    for(auto&amp; x:random) {state=state*1664525u+1013904223u;x.i=std::int16_t(state&gt;&gt;16);state=state*1664525u+1013904223u;x.q=std::int16_t(state&gt;&gt;16);}
+    auto corr=gf::cpu_phy::correlate(random.data());
+    for(unsigned n=1;n+20&lt;=random.size();++n) {
+        corr=gf::cpu_phy::correlate_next(random.data()+n,corr);
+        const auto expected=gf::cpu_phy::correlate(random.data()+n);
+        if(corr.i!=expected.i || corr.q!=expected.q) throw std::runtime_error(&quot;Sparse FIR identity failed&quot;);
+    }
+    const auto p=ack_frame();
+    auto input=waveform(p);input.resize(input.size()+100);
+    for(unsigned floor:{0u,128u}) for(unsigned offset=0;offset&lt;20;++offset) for(auto block:{1u,16u,20u,31u,64u,257u}) {
+        auto shifted=std::vector&lt;IQ&gt;(offset+64);shifted.insert(shifted.end(),input.begin(),input.end());
+        Receiver r(floor);unsigned valid=0;
+        for(std::size_t n=0;n&lt;shifted.size();n+=block) r.consume(&amp;shifted[n],std::min&lt;std::size_t&gt;(block,shifted.size()-n),[&amp;](const Frame&amp; f){
+            if(f.fcs_ok &amp;&amp; f.size==p.size() &amp;&amp; std::equal(p.begin(),p.end(),f.bytes.begin())) ++valid;
+        });
+        if(valid!=1) throw std::runtime_error(&quot;Chunk/phase selftest failed offset=&quot;+std::to_string(offset)+&quot; block=&quot;+std::to_string(block)+&quot; valid=&quot;+std::to_string(valid));
+    }
+    auto damaged=p;damaged[4]^=1;auto bad=waveform(damaged);bad.resize(bad.size()+100);
+    Receiver r;r.consume(bad.data(),bad.size(),[](const Frame&amp; f){if(f.fcs_ok) throw std::runtime_error(&quot;Bad FCS accepted&quot;);});
+    if(r.counts.frames!=1 || r.counts.fcs_ok) throw std::runtime_error(&quot;Bad FCS test did not decode a frame&quot;);
+    const gf::cpu_phy::Mac ap{2,0x47,0x46,0x41,0x50,0x31};
+    gf::cpu_phy::AckPlanner planner(ap);
+    Frame received;received.size=16;received.bytes[0]=8;
+    std::copy(ap.begin(),ap.end(),received.bytes.begin()+4);
+    std::copy(ap.begin(),ap.end(),received.bytes.begin()+10);received.bytes[15]=0x32;
+    planner.byte(received);received.size=28;received.fcs_ok=true;received.end_sample=10000;
+    const auto reply=planner.finish(received,received.end_sample);
+    if(!reply || reply-&gt;start_sample!=10200 || reply-&gt;sample_count!=6080) throw std::runtime_error(&quot;CPU ACK preparation failed&quot;);
+    unsigned acks=0;Receiver check;
+    check.consume(reply-&gt;iq,reply-&gt;sample_count,[&amp;](const Frame&amp; f){if(f.fcs_ok &amp;&amp; f.size==14 &amp;&amp; f.bytes[0]==0xd4 &amp;&amp; f.bytes[9]==0x32) ++acks;});
+    if(acks!=1) throw std::runtime_error(&quot;CPU-produced raw ACK waveform decode failed&quot;);
+    received.size=16;planner.byte(received);received.size=28;received.fcs_ok=false;
+    if(planner.finish(received,10000)) throw std::runtime_error(&quot;CPU ACK on bad FCS&quot;);
+    received.size=16;planner.byte(received);received.size=28;received.fcs_ok=true;
+    if(planner.finish(received,10200)) throw std::runtime_error(&quot;CPU ACK accepted missed timestamp&quot;);
+    std::puts(&quot;CPU_DSSS_SELFTEST_PASS phase_offsets=20 chunk_sizes=6 bad_fcs_rejected=true physical_rf=false&quot;);
+    std::puts(&quot;CPU_ACK_SELFTEST_PASS raw_samples=6080 fcs_rechecked=true bad_fcs_veto=true late_veto=true hardware_playback=false&quot;);
+}
+int main(int argc,char** argv) {
+    try {
+        selftest();
+        if(argc==1) return 0;
+        if(argc&lt;2 || argc&gt;5) throw std::runtime_error(&quot;Use [IQ16LE_FILE [REPEATS [BLOCK_SAMPLES [MIN_MEAN_ABS_IQ]]]]&quot;);
+        const unsigned repeats=argc&gt;2?unsigned(std::stoul(argv[2])):500;
+        const unsigned block=argc&gt;3?unsigned(std::stoul(argv[3])):20;
+        const unsigned floor=argc&gt;4?unsigned(std::stoul(argv[4])):0;
+        if(floor&gt;65536) throw std::runtime_error(&quot;Invalid mean absolute IQ floor&quot;);
+        if(!repeats || repeats&gt;100000 || !block || block&gt;16384) throw std::runtime_error(&quot;Invalid benchmark limits&quot;);
+        std::ifstream file(argv[1],std::ios::binary|std::ios::ate);
+        if(!file) throw std::runtime_error(&quot;Cannot open IQ file&quot;);
+        const auto length=file.tellg();
+        if(length&lt;=0 || length&gt;67108864 || (std::size_t(length)%sizeof(IQ))) throw std::runtime_error(&quot;Invalid IQ file length&quot;);
+        std::vector&lt;IQ&gt; iq(std::size_t(length)/sizeof(IQ));file.seekg(0);file.read(reinterpret_cast&lt;char*&gt;(iq.data()),length);
+        if(!file) throw std::runtime_error(&quot;IQ file read failed&quot;);
+        Receiver inspect(floor);
+        inspect.consume(iq.data(),iq.size(),[](const Frame&amp; f){std::printf(&quot;CPU_DSSS_FRAME end_sample=%llu bytes=%zu fcs_ok=%u\n&quot;,(unsigned long long)f.end_sample,f.size,unsigned(f.fcs_ok));});
+        std::printf(&quot;CPU_DSSS_INPUT samples=%zu sfd=%llu plcp_ok=%llu plcp_bad=%llu frames=%llu fcs_ok=%llu idle_samples=%llu min_mean_abs_iq=%u input=replayed_iq live_rf=false\n&quot;,iq.size(),(unsigned long long)inspect.counts.sfd,(unsigned long long)inspect.counts.plcp_ok,(unsigned long long)inspect.counts.plcp_bad,(unsigned long long)inspect.counts.frames,(unsigned long long)inspect.counts.fcs_ok,(unsigned long long)inspect.counts.idle_samples,floor);
+        gf::cpu_phy::AckPlanner planner({2,0x47,0x46,0x41,0x50,0x31});
+        Receiver reply_receiver(floor);
+        std::uint64_t cold_ns=0,decision_ns=0;
+        reply_receiver.consume(iq.data(),iq.size(),[&amp;](const Frame&amp; f){
+            const auto t=nanos();const auto candidate=planner.finish(f,f.end_sample);decision_ns=nanos()-t;
+            if(candidate) std::printf(&quot;CPU_ACK_CANDIDATE frame_end_sample=%llu first_tx_sample=%llu iq_samples=%zu sent=false transport_not_connected=true\n&quot;,(unsigned long long)f.end_sample,(unsigned long long)candidate-&gt;start_sample,candidate-&gt;sample_count);
+        },[&amp;](const Frame&amp; partial){
+            if(partial.size==16) {const auto t=nanos();planner.byte(partial);cold_ns=nanos()-t;}
+            else planner.byte(partial);
+        });
+        std::printf(&quot;CPU_ACK_REPLAY generated=%llu approved=%llu prepare_ns=%llu decision_ns=%llu timing_includes_clock_overhead=true proves_air_sifs=false\n&quot;,(unsigned long long)planner.generated,(unsigned long long)planner.approved,(unsigned long long)cold_ns,(unsigned long long)decision_ns);
+        std::vector&lt;std::uint64_t&gt; times,locked_times,search_times;
+        const auto blocks=repeats*((iq.size()+block-1)/block);
+        times.reserve(blocks);locked_times.reserve(blocks);search_times.reserve(blocks);
+        std::uint64_t checksum=0,search_samples=0,locked_samples=0;
+#ifdef __linux__
+        cpu_set_t cpus;CPU_ZERO(&amp;cpus);CPU_SET(1,&amp;cpus);
+        const int affinity=sched_setaffinity(0,sizeof(cpus),&amp;cpus);
+        const int locked=mlockall(MCL_CURRENT); // No scheduler/power/clock/kernel changes.
+        std::printf(&quot;CPU_DSSS_ENV affinity_cpu1_rc=%d mlock_current_rc=%d cpu=%d\n&quot;,affinity,locked,sched_getcpu());
+#endif
+        // Separate throughput measurement: no clock read per block. A clock
+        // syscall twice per 1-us block must not be mistaken for decoder cost.
+        const auto raw_start=nanos();
+        for(unsigned pass=0;pass&lt;repeats;++pass) {
+            Receiver r(floor);
+            for(std::size_t n=0;n&lt;iq.size();n+=block)
+                r.consume(&amp;iq[n],std::min&lt;std::size_t&gt;(block,iq.size()-n),[&amp;](const Frame&amp; f){checksum+=f.fcs_ok+f.size+f.end_sample;});
+        }
+        const auto raw_elapsed=nanos()-raw_start;
+        std::printf(&quot;CPU_DSSS_THROUGHPUT samples=%llu elapsed_ns=%llu msps=%.3f block=%u per_block_clock=false proves_air_sifs=false\n&quot;,(unsigned long long)(iq.size()*repeats),(unsigned long long)raw_elapsed,double(iq.size())*repeats*1000.0/double(raw_elapsed),block);
+        std::vector&lt;std::uint64_t&gt; empty_clock;empty_clock.reserve(1000);
+        for(unsigned k=0;k&lt;1000;++k) {const auto t=nanos();empty_clock.push_back(nanos()-t);}
+        std::sort(empty_clock.begin(),empty_clock.end());
+        std::printf(&quot;CPU_DSSS_CLOCK median_ns=%llu max_ns=%llu\n&quot;,(unsigned long long)empty_clock[500],(unsigned long long)empty_clock.back());
+        const auto start=nanos();
+        for(unsigned pass=0;pass&lt;repeats;++pass) {
+            Receiver r(floor);
+            for(std::size_t n=0;n&lt;iq.size();n+=block) {
+                const auto size=std::min&lt;std::size_t&gt;(block,iq.size()-n);
+                const auto locked_before=r.counts.locked_samples;
+                const auto t=nanos();
+                r.consume(&amp;iq[n],size,[&amp;](const Frame&amp; f){checksum+=f.fcs_ok+f.size+f.end_sample;});
+                const auto elapsed_block=nanos()-t;
+                times.push_back(elapsed_block);
+                if(r.counts.locked_samples-locked_before==size) locked_times.push_back(elapsed_block);
+                else if(r.counts.locked_samples==locked_before) search_times.push_back(elapsed_block);
+            }
+            search_samples+=r.counts.search_samples;locked_samples+=r.counts.locked_samples;
+        }
+        const auto elapsed=nanos()-start;
+        std::sort(times.begin(),times.end());
+        const auto stage=[](const char* name,std::vector&lt;std::uint64_t&gt;&amp; v){
+            if(v.empty()) return;
+            std::sort(v.begin(),v.end());
+            std::printf(&quot;CPU_DSSS_STAGE name=%s blocks=%zu p50_ns=%llu p99_ns=%llu max_ns=%llu includes_clock_instrumentation=true\n&quot;,name,v.size(),(unsigned long long)v[v.size()/2],(unsigned long long)v[(v.size()-1)*99/100],(unsigned long long)v.back());
+        };
+        stage(&quot;locked&quot;,locked_times);stage(&quot;search_or_idle&quot;,search_times);
+        std::uint64_t over10=0,overbudget=0;for(auto ns:times){over10+=ns&gt;10000;overbudget+=ns&gt;block*50ull;}
+        const auto p=[&amp;](double q){return times[std::min(times.size()-1,std::size_t(q*double(times.size()-1)))];};
+        std::printf(&quot;CPU_DSSS_BENCH samples=%llu elapsed_ns=%llu msps=%.3f block=%u blocks=%zu p50_ns=%llu p99_ns=%llu p999_ns=%llu max_ns=%llu over_10us=%llu over_sample_budget=%llu search_samples=%llu locked_samples=%llu checksum=%llu includes_clock_instrumentation=true proves_air_sifs=false\n&quot;,(unsigned long long)(iq.size()*repeats),(unsigned long long)elapsed,double(iq.size())*repeats*1000.0/double(elapsed),block,times.size(),(unsigned long long)p(.50),(unsigned long long)p(.99),(unsigned long long)p(.999),(unsigned long long)times.back(),(unsigned long long)over10,(unsigned long long)overbudget,(unsigned long long)search_samples,(unsigned long long)locked_samples,(unsigned long long)checksum);
+        return 0;
+    } catch(const std::exception&amp; e) {std::fprintf(stderr,&quot;fatal: %s\n&quot;,e.what());return 1;}
+}
+</code></pre></details>
+<details class="source-file" id="cpu-receiver" data-name="cpu_dsss_rx.hpp"><summary>cpu_dsss_rx.hpp · 211 lines</summary><p><a href="cpu-only-source/cpu_dsss_rx.hpp" download>Download this file</a> · <a href="#cpu-receiver">Permanent section link</a></p><pre><code>#pragma once
+// MIT, Brian Greenforest. CPU-only incremental 20-MS/s, 1-Mb/s long DSSS PHY.
+// No FPGA-derived timing, decoded bytes, FCS, or frame classifications are inputs.
+#include &lt;array&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+#if defined(__ARM_NEON)
+#include &lt;arm_neon.h&gt;
+#endif
+
+namespace gf::cpu_phy {
+struct IQ { std::int16_t i, q; };
+static_assert(sizeof(IQ)==4);
+struct Correlation { std::int32_t i, q; };
+constexpr std::array&lt;int,20&gt; signs{1,1,-1,-1,1,1,1,1,-1,-1,1,1,1,1,1,-1,-1,-1,-1,-1};
+inline Correlation correlate(const IQ* x) {
+    Correlation r{};
+    for(unsigned k=0;k&lt;20;++k) { r.i+=std::int32_t(x[k].i)*signs[k]; r.q+=std::int32_t(x[k].q)*signs[k]; }
+    return r;
+}
+inline Correlation correlate_next(const IQ* x, Correlation previous) {
+    // Exact sparse first difference of the same FIR, not a new RF filter.
+    // x[0..19] is the current window; x[-1] is its departing sample.
+    previous.i+=-std::int32_t(x[19].i)-x[-1].i+2*(std::int32_t(x[14].i)-x[9].i+x[7].i-x[3].i+x[1].i);
+    previous.q+=-std::int32_t(x[19].q)-x[-1].q+2*(std::int32_t(x[14].q)-x[9].q+x[7].q-x[3].q+x[1].q);
+    return previous;
+}
+inline std::uint16_t crc16_bit(std::uint16_t c, unsigned b) {
+    return std::uint16_t((c&gt;&gt;1)^(((c^b)&amp;1)?0x8408u:0u));
+}
+constexpr auto crc32_table=[] {
+    std::array&lt;std::uint32_t,256&gt; t{};
+    for(unsigned n=0;n&lt;256;++n) {
+        auto c=std::uint32_t(n);
+        for(unsigned b=0;b&lt;8;++b) c=(c&gt;&gt;1)^((c&amp;1)?0xedb88320u:0u);
+        t[n]=c;
+    }
+    return t;
+}();
+inline std::uint32_t crc32_byte(std::uint32_t c, std::uint8_t b) { return (c&gt;&gt;8)^crc32_table[(c^b)&amp;255u]; }
+struct Frame {
+    std::array&lt;std::uint8_t,4095&gt; bytes{};
+    std::size_t size=0;
+    // Exclusive end of the last selected 20-sample correlation window.
+    // Analog/channel/filter group delay is not calibrated by this timestamp.
+    std::uint64_t end_sample=0;
+    bool fcs_ok=false;
+};
+class Receiver {
+public:
+    explicit Receiver(unsigned minimum_mean_abs=0):minimum_mean_abs_(minimum_mean_abs) {}
+    struct Counters { std::uint64_t samples=0, search_samples=0, locked_samples=0, idle_samples=0, sfd=0, plcp_ok=0, plcp_bad=0, frames=0, fcs_ok=0; } counts;
+    template&lt;class OnFrame&gt; void consume(const IQ* samples, std::size_t count, OnFrame&amp;&amp; on_frame) {
+        consume(samples,count,on_frame,[](const Frame&amp;){});
+    }
+    template&lt;class OnFrame, class OnByte&gt; void consume(const IQ* samples, std::size_t count, OnFrame&amp;&amp; on_frame, OnByte&amp;&amp; on_byte) {
+        for(std::size_t k=0;k&lt;count;++k) {
+            const bool hold=ones_&gt;=8 || sfd_budget_ || state_!=Search;
+            // Exact quiet fast path: all previous 20 and all new eight samples
+            // individually lie below the configured mean-energy threshold.
+            // Therefore no intervening rolling-20 mean can cross that threshold.
+            if(!hold &amp;&amp; minimum_mean_abs_ &amp;&amp; quiet_history_&gt;=20 &amp;&amp; count-k&gt;=8) {
+                if(quiet8(samples+k,minimum_mean_abs_)) {
+                    copy_history(samples+k,8);
+                    counts.samples+=8;counts.search_samples+=8;counts.idle_samples+=8;
+                    phase_=(phase_+8)%20;energy_valid_=previous_sample_correlated_=false;
+                    k+=7;continue;
+                }
+                quiet_history_=0;
+            }
+            if(hold &amp;&amp; phase_!=candidate_) {
+                const auto distance=(candidate_+20-phase_)%20;
+                const auto skip=std::min&lt;std::size_t&gt;(distance,count-k);
+                copy_history(samples+k,skip);
+                counts.samples+=skip;counts.locked_samples+=skip;
+                phase_=(phase_+unsigned(skip))%20;
+                energy_valid_=previous_sample_correlated_=false;
+                quiet_history_=0;
+                k+=skip-1;continue;
+            }
+            // Duplicated power-of-two ring gives a contiguous last-20 window.
+            history_[cursor_]=history_[cursor_+32]=samples[k];
+            cursor_=(cursor_+1)&amp;31u;
+            ++counts.samples;
+            const auto phase=phase_;
+            if(++phase_==20) phase_=0;
+            if(hold) ++counts.locked_samples; else ++counts.search_samples;
+            if(counts.samples&lt;20) continue;
+            if(hold &amp;&amp; phase!=candidate_) {previous_sample_correlated_=false;continue;}
+            const auto* window=&amp;history_[cursor_+12];
+            if(!hold &amp;&amp; minimum_mean_abs_) {
+                if(magnitude(window[19])&lt;minimum_mean_abs_) {if(quiet_history_&lt;20) ++quiet_history_;}
+                else quiet_history_=0;
+                if(!energy_valid_) { energy_=0;for(unsigned n=0;n&lt;20;++n) energy_+=magnitude(window[n]); }
+                else energy_=energy_+magnitude(window[19])-magnitude(window[-1]);
+                energy_valid_=true;
+                if(energy_&lt;20u*minimum_mean_abs_) {
+                    ++counts.idle_samples;previous_sample_correlated_=false;
+                    if(!idle_) {search_again();have_previous_=false;scrambler_=0;idle_=true;}
+                    continue;
+                }
+                idle_=false;
+            } else {energy_valid_=false;quiet_history_=0;}
+            const auto c=previous_sample_correlated_?correlate_next(window,last_correlation_):correlate(window);
+            last_correlation_=c;previous_sample_correlated_=true;
+            if(!hold) {
+                auto&amp; score=scores_[phase];
+                score=score-(score&gt;&gt;4)+unsigned(c.i&lt;0?-c.i:c.i)+unsigned(c.q&lt;0?-c.q:c.q);
+                if(phase==best_phase_) best_score_=score;
+                if(score&gt;best_score_) { best_score_=score; best_phase_=phase; }
+                if(phase==19 &amp;&amp; candidate_!=best_phase_) {
+                    candidate_=best_phase_; have_previous_=false; scrambler_=0;
+                    ones_=sfd_budget_=sfd_shift_=0;
+                    continue;
+                }
+                if(phase!=candidate_) continue;
+            }
+            const auto dot=std::int64_t(c.i)*previous_.i+std::int64_t(c.q)*previous_.q;
+            previous_=c;
+            if(!have_previous_) {have_previous_=true;continue;}
+            const unsigned scrambled=dot&lt;0;
+            const unsigned bit=(scrambled^(scrambler_&gt;&gt;3)^(scrambler_&gt;&gt;6))&amp;1u;
+            scrambler_=((scrambler_&lt;&lt;1)|scrambled)&amp;127u;
+            if(state_==Search) {
+                const bool begin=!bit &amp;&amp; ones_&gt;=87;
+                if(bit) {if(ones_&lt;255) ++ones_;} else ones_=0;
+                if(begin) {sfd_shift_=0;sfd_budget_=31;}
+                else if(sfd_budget_) {sfd_shift_=((sfd_shift_&lt;&lt;1)|bit)&amp;65535u;--sfd_budget_;}
+                if((begin || sfd_budget_) &amp;&amp; sfd_shift_==0x05cf) {
+                    ++counts.sfd;state_=Plcp;index_=0;plcp_.fill(0);plcp_crc_=0xffff;
+                    ones_=sfd_budget_=sfd_shift_=0;
+                }
+            } else if(state_==Plcp) {
+                plcp_[index_/8]|=std::uint8_t(bit&lt;&lt;(index_%8));
+                if(index_&lt;32) plcp_crc_=crc16_bit(plcp_crc_,bit);
+                if(++index_==48) {
+                    const unsigned length=unsigned(plcp_[2])|(unsigned(plcp_[3])&lt;&lt;8);
+                    const unsigned crc=unsigned(plcp_[4])|(unsigned(plcp_[5])&lt;&lt;8);
+                    if(plcp_[0]==0x0a &amp;&amp; !(plcp_[1]&amp;0xfbu) &amp;&amp; length &amp;&amp; !(length&amp;7) &amp;&amp; length/8&lt;=frame_.bytes.size() &amp;&amp; crc==(plcp_crc_^65535u)) {
+                        ++counts.plcp_ok;state_=Psdu;expected_=length/8;
+                        frame_.size=0;frame_.fcs_ok=false;index_=0;byte_=0;fcs_=0xffffffffu;
+                    } else {++counts.plcp_bad;search_again();}
+                }
+            } else {
+                byte_|=std::uint8_t(bit&lt;&lt;index_);
+                if(++index_==8) {
+                    frame_.bytes[frame_.size++]=byte_;fcs_=crc32_byte(fcs_,byte_);
+                    frame_.end_sample=counts.samples;
+                    on_byte(frame_);
+                    index_=0;byte_=0;
+                    if(frame_.size==expected_) {
+                        ++counts.frames; frame_.end_sample=counts.samples;
+                        frame_.fcs_ok=frame_.size&gt;=4 &amp;&amp; fcs_==0xdebb20e3u;
+                        if(frame_.fcs_ok) ++counts.fcs_ok;
+                        on_frame(frame_);search_again();
+                    }
+                }
+            }
+        }
+    }
+private:
+    enum State { Search, Plcp, Psdu } state_=Search;
+    alignas(32) std::array&lt;IQ,64&gt; history_{};
+    std::array&lt;std::uint32_t,20&gt; scores_{};
+    unsigned cursor_=0,phase_=0,candidate_=0,best_phase_=0,best_score_=0;
+    bool have_previous_=false;
+    Correlation previous_{};
+    Correlation last_correlation_{};
+    bool previous_sample_correlated_=false;
+    unsigned scrambler_=0,ones_=0,sfd_budget_=0,sfd_shift_=0,index_=0,expected_=0;
+    std::array&lt;std::uint8_t,6&gt; plcp_{};
+    std::uint16_t plcp_crc_=0xffff;
+    std::uint32_t fcs_=0xffffffffu;
+    std::uint8_t byte_=0;
+    Frame frame_{};
+    unsigned minimum_mean_abs_=0,energy_=0,quiet_history_=0;
+    bool energy_valid_=false,idle_=false;
+    static unsigned magnitude(IQ x) {return unsigned(x.i&lt;0?-std::int32_t(x.i):x.i)+unsigned(x.q&lt;0?-std::int32_t(x.q):x.q);}
+    static bool quiet8(const IQ* p,unsigned threshold) {
+#if defined(__ARM_NEON)
+        if(threshold&lt;65536) {
+            const auto pair=vld2q_s16(reinterpret_cast&lt;const std::int16_t*&gt;(p));
+            const auto ai=vreinterpretq_u16_s16(vabsq_s16(pair.val[0]));
+            const auto aq=vreinterpretq_u16_s16(vabsq_s16(pair.val[1]));
+            // Saturation at 65535 cannot turn &gt;=threshold into &lt;threshold.
+            const auto mask=vcltq_u16(vqaddq_u16(ai,aq),vdupq_n_u16(std::uint16_t(threshold)));
+            const auto both=vand_u32(vreinterpret_u32_u16(vget_low_u16(mask)),vreinterpret_u32_u16(vget_high_u16(mask)));
+            return (vget_lane_u32(both,0)&amp;vget_lane_u32(both,1))==0xffffffffu;
+        }
+#endif
+        for(unsigned k=0;k&lt;8;++k) if(magnitude(p[k])&gt;=threshold) return false;
+        return true;
+    }
+    void copy_history(const IQ* source,std::size_t size) {
+        std::size_t copied=0;
+        while(copied&lt;size) {
+            const auto take=std::min&lt;std::size_t&gt;(32-cursor_,size-copied);
+            std::memcpy(&amp;history_[cursor_],source+copied,take*sizeof(IQ));
+            std::memcpy(&amp;history_[cursor_+32],source+copied,take*sizeof(IQ));
+            cursor_=(cursor_+unsigned(take))&amp;31u;copied+=take;
+        }
+    }
+    void search_again() {
+        state_=Search; ones_=sfd_budget_=sfd_shift_=0;
+        scores_.fill(0); best_score_=0;best_phase_=0;
+    }
+};
+} // namespace gf::cpu_phy
+</code></pre></details>
+<details class="source-file" id="host-waveform" data-name="e310_host_waveform.hpp"><summary>e310_host_waveform.hpp · 56 lines</summary><p><a href="cpu-only-source/e310_host_waveform.hpp" download>Download this file</a> · <a href="#host-waveform">Permanent section link</a></p><pre><code>#pragma once
+// Lossless, compact description of the current rectangular 20 MS/s waveform.
+// This is NOT arbitrary IQ streaming. Windows owns PLCP, scrambling, DBPSK,
+// Barker spreading and the 11:20 sampling pattern; hardware only plays it.
+#include &quot;e310_packet_wire.hpp&quot;
+#include &lt;array&gt;
+
+namespace gf::e310::waveform {
+constexpr std::uint32_t kCapability = 0x57463230u; // WF20, GP0 offset 0x27c
+constexpr std::size_t kHeaderBytes = 12;
+constexpr std::size_t kMaxPsdu = wire::kMaxPayload - kHeaderBytes - 24;
+inline void validate(const wire::Bytes&amp; data) {
+    if(data.size() &lt;= kHeaderBytes || data.size() &gt; wire::kMaxPayload ||
+       data[3] != 20 || (data[2] &amp; 0xf0))
+        throw std::runtime_error(&quot;Invalid WF20 waveform description&quot;);
+}
+inline wire::Bytes encode(const wire::Bytes&amp; psdu) {
+    if(psdu.empty() || psdu.size() &gt; kMaxPsdu)
+        throw std::runtime_error(&quot;Host waveform PSDU exceeds 1..4059 bytes&quot;);
+    wire::Bytes plain(16,0xff); // long SYNC, 128 ones
+    plain.push_back(0xa0); plain.push_back(0xf3); // long SFD, LSB first
+    const auto duration=static_cast&lt;std::uint16_t&gt;(psdu.size()*8);
+    std::array&lt;std::uint8_t,4&gt; plcp{0x0a,0,std::uint8_t(duration),std::uint8_t(duration&gt;&gt;8)};
+    std::uint16_t crc=0xffff;
+    for(auto byte:plcp) {
+        plain.push_back(byte);
+        for(unsigned bit=0;bit&lt;8;++bit) {
+            const bool mix=(crc^(byte&gt;&gt;bit))&amp;1;
+            crc=static_cast&lt;std::uint16_t&gt;((crc&gt;&gt;1)^(mix?0x8408:0));
+        }
+    }
+    crc^=0xffff;
+    plain.push_back(std::uint8_t(crc)); plain.push_back(std::uint8_t(crc&gt;&gt;8));
+    plain.insert(plain.end(),psdu.begin(),psdu.end());
+    wire::Bytes out(kHeaderBytes+plain.size(),0);
+    constexpr std::array&lt;bool,11&gt; negative{false,true,false,false,true,false,false,false,true,true,true};
+    std::uint32_t pattern=0;
+    for(unsigned sample=0;sample&lt;20;++sample)
+        if(negative[sample*11/20]) pattern|=1u&lt;&lt;sample;
+    wire::put(out,0,pattern,3); out[3]=20;
+    wire::put(out,4,0x00002000,4); // I=+8192, Q=0, no precision reduction
+    wire::put(out,8,0x0000e000,4); // I=-8192, Q=0
+    std::uint8_t state=0x5d;
+    bool phase=false;
+    for(std::size_t index=0;index&lt;plain.size();++index) {
+        for(unsigned bit=0;bit&lt;8;++bit) {
+            const auto scrambled=((plain[index]&gt;&gt;bit)^(state&gt;&gt;3)^(state&gt;&gt;6))&amp;1u;
+            state=static_cast&lt;std::uint8_t&gt;(((state&lt;&lt;1)|scrambled)&amp;0x7f);
+            phase^=scrambled!=0;
+            out[kHeaderBytes+index]|=std::uint8_t(unsigned(phase)&lt;&lt;bit);
+        }
+    }
+    return out;
+}
+} // namespace gf::e310::waveform
+</code></pre></details>
+<details class="source-file" id="wire" data-name="e310_packet_wire.hpp"><summary>e310_packet_wire.hpp · 123 lines</summary><p><a href="cpu-only-source/e310_packet_wire.hpp" download>Download this file</a> · <a href="#wire">Permanent section link</a></p><pre><code>#pragma once
+// Transport-independent Windows &lt;-&gt; E310 PSDU link. This is not a Wi-Fi PHY.
+// COBS-delimited packets carry a version, type, session, sequence and CRC32.
+// All Wi-Fi PSDUs include their FCS. No credentials belong in the radio agent.
+#include &lt;algorithm&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;functional&gt;
+#include &lt;stdexcept&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+
+namespace gf::e310::wire {
+using Bytes = std::vector&lt;std::uint8_t&gt;;
+constexpr std::size_t kHeader = 24;
+constexpr std::size_t kMaxPayload = 4095;
+constexpr std::size_t kMaxEncoded = kHeader + kMaxPayload + 32;
+constexpr std::uint32_t kRxEventCapability = 0x45563130u; // EV10: byte/first/last in LE16
+constexpr std::uint32_t kCounterSnapshotCapability = 0x43523131u; // CR11: eleven native words
+constexpr std::size_t kRxBatchEvents = 128;
+enum class Kind : std::uint8_t {
+    hello=1, initialize=2, ready=3, rx_psdu=4, tx_psdu=5,
+    tx_done=6, ping=7, pong=8, stop=9, stopped=10, fault=11, tx_waveform=12,
+    rx_events=13, counter_snapshot=14
+};
+struct Message {
+    Kind kind=Kind::hello;
+    std::uint64_t session=0;
+    std::uint32_t sequence=0;
+    Bytes payload;
+};
+inline std::uint32_t crc_byte(std::uint32_t crc, std::uint8_t byte) {
+    crc ^= byte;
+    for(int i=0;i&lt;8;++i) crc=(crc&gt;&gt;1)^((crc&amp;1)?0xedb88320u:0u);
+    return crc;
+}
+inline std::uint32_t checksum(const Bytes&amp; raw) {
+    std::uint32_t crc=0xffffffffu;
+    for(std::size_t i=0;i&lt;raw.size();++i)
+        if(i&lt;20 || i&gt;=kHeader) crc=crc_byte(crc,raw[i]);
+    return crc^0xffffffffu;
+}
+inline void put(Bytes&amp; raw,std::size_t at,std::uint64_t value,std::size_t count) {
+    for(std::size_t i=0;i&lt;count;++i) raw.at(at+i)=static_cast&lt;std::uint8_t&gt;(value&gt;&gt;(8*i));
+}
+inline std::uint64_t get(const Bytes&amp; raw,std::size_t at,std::size_t count) {
+    std::uint64_t value=0;
+    for(std::size_t i=0;i&lt;count;++i) value|=std::uint64_t(raw.at(at+i))&lt;&lt;(8*i);
+    return value;
+}
+inline Bytes encode(const Message&amp; message) {
+    if(message.payload.size()&gt;kMaxPayload) throw std::runtime_error(&quot;PSDU link payload too large&quot;);
+    Bytes raw(kHeader+message.payload.size(),0);
+    raw[0]='G'; raw[1]='F'; raw[2]='A'; raw[3]='P'; raw[4]=1;
+    raw[5]=static_cast&lt;std::uint8_t&gt;(message.kind);
+    put(raw,6,message.payload.size(),2); put(raw,8,message.session,8);
+    put(raw,16,message.sequence,4);
+    std::copy(message.payload.begin(),message.payload.end(),raw.begin()+kHeader);
+    put(raw,20,checksum(raw),4);
+    Bytes encoded(1,0);
+    encoded.reserve(kMaxEncoded+1);
+    std::size_t code_at=0;
+    std::uint8_t code=1;
+    for(auto byte:raw) {
+        if(byte==0) {
+            encoded[code_at]=code; code_at=encoded.size(); encoded.push_back(0); code=1;
+        } else {
+            encoded.push_back(byte);
+            if(++code==255) {
+                encoded[code_at]=code; code_at=encoded.size(); encoded.push_back(0); code=1;
+            }
+        }
+    }
+    encoded[code_at]=code;
+    encoded.push_back(0);
+    return encoded;
+}
+class Decoder {
+    Bytes encoded_;
+    bool discard_=false;
+    std::uint64_t rejected_=0;
+    bool decode(Message&amp; message) {
+        Bytes raw;
+        raw.reserve(kHeader+kMaxPayload);
+        std::size_t offset=0;
+        while(offset&lt;encoded_.size()) {
+            const auto code=encoded_[offset++];
+            if(code==0 || offset+code-1&gt;encoded_.size()) return false;
+            for(unsigned i=1;i&lt;code;++i) raw.push_back(encoded_[offset++]);
+            if(code!=255 &amp;&amp; offset&lt;encoded_.size()) raw.push_back(0);
+            if(raw.size()&gt;kHeader+kMaxPayload) return false;
+        }
+        if(raw.size()&lt;kHeader || raw[0]!='G' || raw[1]!='F' || raw[2]!='A' ||
+           raw[3]!='P' || raw[4]!=1 || raw[5]&lt;1 || raw[5]&gt;14 ||
+           get(raw,6,2)!=raw.size()-kHeader || get(raw,20,4)!=checksum(raw)) return false;
+        message.kind=static_cast&lt;Kind&gt;(raw[5]);
+        message.session=get(raw,8,8);
+        message.sequence=static_cast&lt;std::uint32_t&gt;(get(raw,16,4));
+        message.payload.assign(raw.begin()+kHeader,raw.end());
+        return true;
+    }
+public:
+    Decoder() { encoded_.reserve(kMaxEncoded); }
+    std::uint64_t rejected() const { return rejected_; }
+    template&lt;class Handler&gt; void feed(const std::uint8_t* bytes,std::size_t size,Handler&amp;&amp; handler) {
+        for(std::size_t i=0;i&lt;size;++i) {
+            if(bytes[i]==0) {
+                if(!discard_ &amp;&amp; !encoded_.empty()) {
+                    Message message;
+                    const bool valid=decode(message);
+                    encoded_.clear(); // A handler exception must not poison the next frame.
+                    if(valid) handler(std::move(message)); else ++rejected_;
+                }
+                encoded_.clear(); discard_=false;
+            } else if(!discard_) {
+                if(encoded_.size()==kMaxEncoded) { ++rejected_; encoded_.clear(); discard_=true; }
+                else encoded_.push_back(bytes[i]);
+            }
+        }
+    }
+};
+} // namespace gf::e310::wire
+</code></pre></details></main><script>
+const filter=document.getElementById('filter'), entries=[...document.querySelectorAll('.source-file')];
+filter.addEventListener('input',()=>{let n=0; for(const e of entries){e.hidden=!e.dataset.name.includes(filter.value.toLowerCase());if(!e.hidden)n++;}document.getElementById('count').textContent=n+' files';});
+function reveal(){const e=document.getElementById(location.hash.slice(1));if(e?.matches('details')){e.hidden=false;e.open=true;requestAnimationFrame(()=>e.scrollIntoView());}}
+addEventListener('hashchange',reveal);reveal();
+addEventListener('load',()=>Promise.resolve(window.greenforestReady).then(reveal));
+</script></body></html>
