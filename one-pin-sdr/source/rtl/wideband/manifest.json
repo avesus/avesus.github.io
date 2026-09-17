@@ -1,0 +1,68 @@
+{
+  "bitstream_sha256": "989b0bfc98c9ead2ae31e8eada66158522c79ff82b1e7b2890a2c3be498eb844",
+  "arithmetic_policy": "No inferred add/subtract/multiply wider than4bits; optimized elaborated-netlist gate includes transport; registered Wallace popcounts; nibble-skewed DDS and CIC",
+  "sdr_capture": {
+    "record_bytes": 131090,
+    "raw_format": "R1",
+    "dual_format": null,
+    "raw_words": 65536,
+    "raw_bits_per_word": 16,
+    "raw_sample_rate_nominal": 408000000,
+    "raw_order": "16-bit words chronological; bit15 first; original DDR ordering retained",
+    "channels": [],
+    "control": "R raw; F integrated I/Q; C lossless full-band zero runs; P stop; S health",
+    "limitation": "Nominal clocks and burst gaps; analog RF response and amplitude uncalibrated",
+    "filter": "Matched4-RF-sample sliding integration before second DDS; stride2",
+    "filtered_format": "F2",
+    "filtered_samples": 131072,
+    "filtered_rate_hz": 204000000,
+    "compressed_format": null,
+    "compressed_max_events": 32766,
+    "compressed_max_rf_words": 2097152,
+    "compressed_crc": "CRC16-CCITT over actual pre-encoding RF words, MSB first, init FFFF",
+    "deep_format": "E3",
+    "deep_record_bytes": 131106,
+    "deep_max_chunks": 64,
+    "deep_max_events": 2097152,
+    "deep_max_rf_words": 33554432
+  },
+  "clock_profile": {
+    "sampler_hz": 204000000,
+    "processing_hz": 25500000,
+    "crystal_hz": 12000000,
+    "calibrated": false
+  },
+  "interstage_filter": {
+    "kind": "matched sliding boxcar",
+    "rf_taps": 4,
+    "rf_stride": 2,
+    "input_rate_hz": 408000000,
+    "output_complex_rate_hz": 204000000,
+    "first_lo_hz": 102000000,
+    "second_lo_hz": 51000000,
+    "sample_quadrature": true,
+    "filter_before_second_mixer": true,
+    "periodic_reset": false,
+    "packed_lossless": true,
+    "scale": "stored I/Q = exact four-product result /2",
+    "raw_witness": "16 exact input bits paired with8 complex outputs; first output needs preceding guard bits"
+  },
+  "audio_pin": 2,
+  "differential_pair": [
+    4,
+    3
+  ],
+  "psram_burst_bytes": 128,
+  "bias_servo": {
+    "pad": 4,
+    "pulse_ns": 39.21568627450981,
+    "minimum_spacing_clocks": 128,
+    "rolling_rf_bits": 4096,
+    "stride_bits": 1024,
+    "runtime_profile": 5,
+    "runtime_target_ones": 0.75,
+    "arm": "G",
+    "stop_sink": "H",
+    "pause_telemetry": "P"
+  }
+}

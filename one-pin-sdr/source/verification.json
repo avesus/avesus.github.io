@@ -1,0 +1,24 @@
+{
+  "replay": {
+    "full_input_crc_matched": true,
+    "complex_samples": 1048550,
+    "wav_sha256": "e7c33e4b95e0614bae1d87e4e472479e80748dcd316eccec340f6fde1c9dc025",
+    "matches_published_wav": true
+  },
+  "versions": {
+    "python": "3.12.10",
+    "numpy": "2.2.6",
+    "scipy": "1.18.1",
+    "matplotlib": "3.10.3"
+  },
+  "bitstreams": {
+    "listen": {
+      "rebuild_byte_identical": true,
+      "sha256": "5a3829b8e07c5952e06de75521484f883aac591263b3555b023dc515c3b51bc4"
+    },
+    "wideband": {
+      "rebuild_byte_identical": true,
+      "sha256": "989b0bfc98c9ead2ae31e8eada66158522c79ff82b1e7b2890a2c3be498eb844"
+    }
+  }
+}

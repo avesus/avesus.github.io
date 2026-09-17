@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>One-Pin SDR: Wideband Capture, Clear FM and FPGA-Controlled Bias</title><meta name="description" content="Explore simultaneous DC–204 MHz capture and listen to 106.5 MHz FM through one FPGA input without an external LNA. Download the complete Verilog, autonomous bias controller, circuit, bridge and host code."><meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://greenforest.io/one-pin-sdr-fpga-bias-control.html"><link rel="icon" href="/favicon.ico">
+<meta property="og:title" content="One-Pin SDR: Wideband Capture, Clear FM and FPGA-Controlled Bias"><meta property="og:description" content="Explore simultaneous DC–204 MHz capture and listen to 106.5 MHz FM through one FPGA input without an external LNA. Download the complete Verilog, autonomous bias controller, circuit, bridge and host code."><meta property="og:type" content="article"><meta property="og:url" content="https://greenforest.io/one-pin-sdr-fpga-bias-control.html"><meta property="og:site_name" content="Greenforest I/O">
+<meta property="og:image" content="https://greenforest.io/social-previews/one-pin-sdr-fpga-bias-control.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="One-pin FM reception with autonomous FPGA bias"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://greenforest.io/social-previews/one-pin-sdr-fpga-bias-control.png">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "One-Pin SDR: Wideband Capture, Clear FM and FPGA-Controlled Bias",
+  "description": "Explore simultaneous DC–204 MHz capture and listen to 106.5 MHz FM through one FPGA input without an external LNA. Download the complete Verilog, autonomous bias controller, circuit, bridge and host code.",
+  "datePublished": "2026-09-17",
+  "dateModified": "2026-09-17",
+  "image": "https://greenforest.io/one-pin-sdr/media/received-audio.png",
+  "mainEntityOfPage": "https://greenforest.io/one-pin-sdr-fpga-bias-control.html",
+  "author": {
+    "@type": "Person",
+    "name": "Brian Greenforest",
+    "url": "https://greenforest.io/"
+  },
+  "isBasedOn": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
+  "associatedMedia": {
+    "@type": "AudioObject",
+    "name": "106.5 MHz one-pin FPGA reception",
+    "contentUrl": "https://greenforest.io/one-pin-sdr/media/106-5-mhz.wav",
+    "encodingFormat": "audio/wav",
+    "duration": "PT2.620S"
+  }
+}</script><script src="/site-analytics.js" defer></script><script src="/common-script.js"></script>
+<style>.audio-card{background:#edf7f1;border:1px solid #b9d5c6;border-radius:12px;padding:1.4rem;margin:1.5rem 0}.audio-card audio{width:100%;display:block}.audio-card span{font-size:.9em}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{padding:.75rem;text-align:left;vertical-align:top;border-bottom:1px solid #cdd9d2}pre.math{font-size:clamp(.8rem,1.6vw,1rem)}img{max-width:100%;height:auto}code{overflow-wrap:anywhere}.article-structured pre{max-width:100%;overflow-x:auto;box-sizing:border-box}</style>
+</head><body class="article-structured"><header><h1 class="page-title">One-Pin SDR: Wideband Capture, Clear FM and FPGA-Controlled Bias</h1></header><address>September 17, 2026</address>
+<section class="abstract"><p class="eyebrow">One FPGA input · no external LNA · autonomous bias · open source</p><p class="lead">The FPGA receives the radio—and maintains the threshold that makes reception work.</p><p>An antenna, a differential input and a small bias circuit feed a numerical receiver on pico-ice. Inspect the simultaneous DC–204 MHz capture, listen to the actual 106.5 MHz recording, then download the complete implementation.</p><div class="cta-row"><a class="cta-link" href="#wideband">See the full spectrum</a><a class="cta-link" href="#listen">Play the received audio</a><a class="cta-link" href="#download">Download the source</a></div></section>
+<main>
+<section id="listen"><h2>Listen to the receiver</h2>
+<p>This is the exact clip I listened to: beautiful, extremely high sound quality. The antenna goes directly through a coupling capacitor to the FPGA’s differential input. There is <strong>no external LNA</strong>. The signal generator is off. The FPGA maintains the input bias itself.</p>
+<div class="audio-card"><p><strong>106.5 MHz · 2.620 seconds · actual received audio</strong></p><audio controls preload="metadata" aria-label="Play the actual 106.5 MHz FM recording"><source src="one-pin-sdr/media/106-5-mhz.wav" type="audio/wav">Your browser can download the WAV below.</audio><p><a href="one-pin-sdr/media/106-5-mhz.wav" download>Download the unchanged WAV</a> <span>· 503,034 bytes · 48 kHz mono float32</span></p></div>
+<p>The PC recovered this sound from 1,048,550 signed I/Q pairs captured over one continuous 2.632-second interval. The file uses one constant listening gain. It contains no repeated passages or filled-in samples. The package includes the received I/Q and the command that regenerates this very WAV, byte for byte.</p>
+<figure><a href="one-pin-sdr/media/received-audio.png"><img src="one-pin-sdr/media/received-audio.png" width="2800" height="1600" alt="Waveform and 0 to 15 kilohertz spectrogram of the actual 2.620-second received FM audio"></a><figcaption>The waveform and spectrogram come from the unchanged audio above. Open the full-resolution PNG to inspect the time and frequency structure.</figcaption></figure></section>
+
+<section id="wideband"><h2>The whole DC–204 MHz span, captured at once</h2>
+<p>The antenna signal supplies one continuous stream of threshold decisions. This full-band recording retains <strong>86,180,752 actual decisions over 211.227 ms</strong>: the entire nominal DC–204 MHz first Nyquist zone at once, with no frequency sweep and no selected-channel decimation. FM listening is one application of that stream.</p>
+<p>There was <strong>no external LNA</strong> in this capture. The FPGA’s internal feedback controller regulated the capacitor on the second differential input, using its 75% target profile. The ADC bus was isolated, the generator was off, and neither ADC nor PC feedback ran the loop.</p>
+<figure><a href="one-pin-sdr/media/full-band-spectrum.png"><img src="one-pin-sdr/media/full-band-spectrum.png" width="8192" height="3600" loading="lazy" alt="Simultaneous DC to 204 megahertz physical spectrum and waterfall with no external LNA and autonomous FPGA threshold control"></a><figcaption>One physical acquisition, across the full frequency axis. Open the 8,192-pixel PNG. The full-record FFT has 4.734 Hz bin spacing; the waterfall uses shorter, contiguous windows to expose changes in time. Peaks are retained when reducing bins to display columns.</figcaption></figure>
+<p><a href="one-pin-sdr/media/full-band-spectrum.png" download>Download the full-resolution spectrum and waterfall</a> · <a href="one-pin-sdr/source/fullband/packet.bin" download>Download the unchanged full-band capture</a> · <a href="one-pin-sdr/source/fullband/report.json">Capture and controller details</a></p>
+<p>Every reconstructed RF word passes the original hardware input CRC: 15,687. The source package includes the lossless decoder and plotting command. Levels are expressed relative to comparator decisions; the trace preserves strong lines, broad structure and spurs together. Identifying individual emissions is a separate demodulation task, and the full-band acquisition remains available for it.</p></section>
+
+<section><h2>From a one-pin FM receiver to an inspectable SDR</h2>
+<p>My <a href="how-much-radio-do-you-actually-need.html">original one-pin FM receiver</a> put the oscillator and quadrature processing inside the FPGA. A differential input supplied threshold decisions; digital mixing and integration recovered the program. Its final sigma-delta output drove analog audio.</p>
+<p>This version opens the numerical signal path to the PC. The analog audio pin stays high impedance. The FPGA exports the actual I/Q words before audio conversion, while a separate full-band image retains the RF decisions themselves. Audio demodulation, Fourier analysis and display run on the host.</p>
+<p>The new piece at the physical boundary is equally useful: the same FPGA that observes the input now controls its operating point. A 47 µF capacitor holds V_REF. The controller counts comparator decisions and makes short, low-only corrections. The ESP8266 was a measurement instrument during development; it does not run this feedback loop.</p>
+<figure><a href="one-pin-sdr/media/architecture.svg"><img src="one-pin-sdr/media/architecture.png" width="1520" height="992" loading="lazy" alt="The threshold sampler branches into full-band acquisition and a selected numerical I/Q path with FM audio on the PC"></a><figcaption>Two downloadable images share the physical input and autonomous bias mechanism. Full-band RF retention and the longer selected-channel recording have different storage and transfer requirements.</figcaption></figure></section>
+
+<section id="circuit"><h2>The circuit is small enough to follow completely</h2>
+<figure><a href="one-pin-sdr/media/circuit.svg"><img src="one-pin-sdr/media/circuit.svg" width="1200" height="810" loading="lazy" alt="Antenna AC-coupled to FPGA pin 3 and biased through 100 kiloohms from 1.240 volts; pin 4 holds a 47 microfarad capacitor and is regulated by weak charging and brief sink pulses"></a><figcaption>The actual receiving circuit. Pin numbers are iCE40UP5K SG48 package numbers; use the pico-ice board schematic to find the corresponding connections.</figcaption></figure>
+<p>The RF-bearing input is package pin 3, AC-coupled to the antenna and biased through 100 kΩ from the measured 1.240 V reference. The other differential input, pin 4, carries the 47 µF capacitor. These are separate bias nodes: the 100 kΩ resistor does not connect the two inputs together.</p>
+<p>The reference is supplied from the existing 3.3 V rail through 470 Ω. The nominal resistor current is (3.3 − 1.24) / 470 = <strong>4.38 mA</strong>. The exact reference part and antenna coupling-capacitor value were not recorded; the hardware guide records the measured reference voltage and connections.</p>
+<p>During reception the ADC bus and generator are isolated from V_REF. The NodeMCU’s reference rail remains powered, with Wi-Fi off and ADC conversions paused. Neither its measurements nor PC commands are needed to maintain bias after the FPGA is armed.</p>
+<p>The bench circuit directly connects the storage capacitor to the pad. A deployment board should give the actuator a defined current-limiting path and verify its pulse current and ringing. The <a href="one-pin-sdr/source/docs/HARDWARE.md">hardware notes</a> preserve the exact short-pulse setup and explain that change.</p></section>
+
+<section><h2>The FPGA regulates the threshold it observes</h2>
+<p>The useful feedback signal was already present: the comparator’s stream of zeros and ones. A registered population-count tree feeds a nonresetting running sum. Four delayed snapshots turn it into a rolling count of 4,096 decisions, updated every 1,024 decisions.</p>
+<pre class="math"><code>d[k] = S[k] − S[k − 4096]
+D[k] = d[k] / 4096</code></pre>
+<p>In this wiring, increasing the capacitor voltage increases the reported ones fraction. The controller therefore requests sinking above the upper threshold and stops requesting it below the lower threshold. Between them it retains its previous request. The clip used target 5: <strong>75% ones</strong>, with thresholds at 71.875% and 78.125%. Reception determines the useful operating point; an automatic 50% target is not a substitute for finding it.</p>
+<p>The actuator never drives high. The configured weak charging path raises the capacitor; one processing-clock low pulse lowers it. At 25.5 MHz that pulse lasts <strong>39.216 ns</strong>, with at least 128 clocks between pulses. Warmup and an explicit arm gate the output.</p>
+<pre class="math"><code>ΔQ ≈ (V_REF / R_sink) · t_pulse
+ΔV ≈ ΔQ / C</code></pre>
+<p>Using the approximately 40 Ω output resistance observed on the bench, a pulse at 1.24 V corresponds to about 31 mA initial current, 1.216 nC and a 25.87 µV step on nominal 47 µF. These are actuator estimates, not a guaranteed pad-current rating. The source exposes the pulse width, spacing, hysteresis and default-disarmed state.</p>
+<p>In a measured 15-second interval with no host commands and the ADC disconnected, the earlier midpoint profile maintained a mean of 49.356% ones. Subsequent selectable profiles brought the operating-point choice into the same autonomous controller. Its target register is a setup control, not a PC-rate regulator.</p></section>
+
+<section><h2>One bit is an observation; the accumulation is the measurement</h2>
+<p>A threshold decision can be written as b[n] = 1{v[n] &gt; θ[n]}. It records which side of the threshold the input occupies. Crossing time carries phase and frequency; the distribution of many crossings also depends on threshold and amplitude.</p>
+<p>For an ideal sine of amplitude A, known gain G and a fixed nonzero threshold θ within its excursion, the fraction D of a cycle above threshold is:</p>
+<pre class="math"><code>D = arccos(θ / (G A)) / π
+A = θ / (G cos(π D))</code></pre>
+<p>This single-tone relationship shows why threshold control matters. At an ideal zero threshold, different sine amplitudes produce the same 50% duty fraction. A known offset makes the crossing fraction amplitude-sensitive. With multiple stations, the measured correlations belong to the combined thresholded waveform; gain, reference and the input transfer relationship provide the route to amplitude reconstruction.</p>
+<p>The implementation keeps the numerical words wide: the listening capture contains signed 32-bit I and 32-bit Q. Those words preserve the accumulated calculation. Calibrated RF amplitude follows from the physical transfer model rather than from the word-size label alone.</p></section>
+
+<section><h2>Preserve the four products—and filter between the translations</h2>
+<p>The nominal 204 MHz DDR input produces 408 million threshold decisions per second. Fixed ordering and inversion form quadrature around 102 MHz. In the listening image, matched integration of 16 RF decisions precedes the second mixers.</p>
+<p>A 49-bit DDS running at 25.5 MHz supplies the tuning offset. The exact word for the included 106.5 MHz image is:</p>
+<pre class="math"><code>M = round((106.5 MHz − 102 MHz) · 2^49 / 25.5 MHz)
+  = 99,344,109,427,290</code></pre>
+<p>The top phase bits supply quadrature signs, distributed through registered duplication trees. If A and B are the integrated input quadratures and C and S are the DDS signs, the actual source combines:</p>
+<pre class="math"><code>II = A·C     QQ = B·S     IQ = A·S     QI = B·C
+I_out = QQ − II
+Q_out = IQ + QI</code></pre>
+<p>All four products, their signs, the lane order and their pipeline alignment matter. Matched filtering between the two translations is part of the mechanism. The source retains that causal chain rather than replacing it with independent Cartesian XOR shortcuts.</p>
+<p>The selected I/Q tap then uses three continuous integrators, decimation by 64, and three delayed differences. Its normalized digital response is:</p>
+<pre class="math"><code>H(z) = [(1 − z^−64) / (64(1 − z^−1))]^3
+f_IQ = 25.5 MHz / 64 = 398,437.5 complex samples/s</code></pre>
+<p>The integrators are not periodically reset. Registered compressor reductions, four-bit terminal resolvers and serial/pipelined arithmetic carry the sums. The listening build uses 5,183 of 5,280 logic cells and <strong>zero DSP blocks</strong>. The full-band build uses 5,215 cells and zero DSP blocks.</p></section>
+
+<section><h2>Keep the RF, and bring the sound to software</h2>
+<p>The full-band image retains the comparator stream. Its lossless encoding restores every original RF word before checking the hardware input CRC. A separate integrated path uses matched four-decision sliding windows with stride two before its second mixer. The selected-channel CIC does not replace this wideband acquisition mode.</p>
+<p>At the nominal 408 Mdecision/s rate, the digital first Nyquist zone spans DC–204 MHz. A retained 211.227 ms full-band record supplies 4.734 Hz FFT bins. The spectrum explorer preserves those native bins as the user zooms; display columns are not the underlying spectral resolution. Record length and the FFT window set that numerical spacing.</p>
+<p>For listening, the host forms z[n] = I[n] + jQ[n] and recovers instantaneous frequency from adjacent complex vectors:</p>
+<pre class="math"><code>f[n] = f_IQ / (2π) · arg(z[n] · conjugate(z[n−1]))</code></pre>
+<p>The published path removes the record’s mean offset, applies a fourth-order 15 kHz Butterworth low-pass and 75 µs de-emphasis, then resamples to 48 kHz mono. The FPGA has no audio-rate output stage. The original receiver’s cross-product idea remains the geometric basis; the PC can now choose the discriminator and retain the original I/Q.</p>
+<p>The current buffered bridge is fixed at 115,200 baud. It transfers the 2.632-second I/Q recording in about twelve minutes. That download is separate from acquisition time. Each of the 64 numbered chunks and the complete numerical input stream is checked; the complete-record CRC is 60,422.</p></section>
+
+<section id="download"><h2>Download the whole receiving path</h2>
+<div class="cta-row"><a class="cta-link" href="one-pin-sdr/one-pin-sdr-2026-09-17.zip" download>Download source + RTL + recording ZIP</a><a class="cta-link" href="one-pin-sdr/source/README.md">Read the build and replay guide</a></div>
+<p>The MIT-licensed package includes both complete receiver tops, UART/control RTL, the FPGA bias controller, pin and clock constraints, build scripts, the pad-configuration patch, the exact bitstreams, bridge C firmware, host acquisition and decoding code, the circuit and mathematics, the received I/Q, the full-band RF recording and plotter, and the unchanged WAV. Third-party notices are preserved; the software license does not relicense the broadcast program.</p>
+<div class="table-wrap"><table><thead><tr><th>Start here</th><th>What it contains</th></tr></thead><tbody>
+<tr><td><a href="one-pin-sdr/source/rtl/listen/fm_receiver_silent.sv">Listening Verilog</a></td><td>Exact 106.5 MHz receiver, embedded controller, compressors, DDS, CIC and RAM path</td></tr>
+<tr><td><a href="one-pin-sdr/source/rtl/wideband/fm_receiver_silent.sv">Wideband Verilog</a></td><td>Raw, integrated and lossless full-band acquisition</td></tr>
+<tr><td><a href="one-pin-sdr/source/rtl/listen/fm_uart_stream.sv">UART controls</a></td><td>Target selection, arm, disarm and capture control</td></tr>
+<tr><td><a href="one-pin-sdr/source/host/receiver.py">Replay and capture entry point</a></td><td>CRC-checked replay and a portable serial/USBIP wrapper</td></tr>
+<tr><td><a href="one-pin-sdr/source/host/fm_listen_data.py">Numerical decoder and FM</a></td><td>Exact sample parsing, host demodulation and PNG generation</td></tr>
+<tr><td><a href="one-pin-sdr/source/docs/HARDWARE.md">Hardware</a> · <a href="one-pin-sdr/source/docs/MATH.md">Math</a></td><td>Wiring, current estimates, signs, filtering and feedback</td></tr>
+<tr><td><a href="one-pin-sdr/recording.json">Recording details</a> · <a href="one-pin-sdr/source/SHA256SUMS">SHA-256 manifest</a></td><td>Sample counts, exact identity and downloadable content checks</td></tr>
+</tbody></table></div>
+<p>To reproduce the audio without touching hardware, unpack the ZIP and run:</p>
+<pre><code>python -m pip install -r requirements.txt
+python host/receiver.py replay --output replayed-recording</code></pre>
+<p>This release replay regenerated the same <strong>503,034-byte WAV with the same SHA-256</strong>. Both FPGA builds also regenerated their original bitstreams byte for byte. The guide gives the two FPGA build commands, volatile-loading procedure and capture commands. Existing bench transport and signal-processing code are preserved; the portable release wrapper is documented separately from the physical capture that produced the clip.</p></section>
+
+<section><h2>A receiver whose boundary can be changed in logic</h2>
+<p>The system now owns three parts of the problem: the threshold decisions, the threshold’s operating point, and the numerical path from those decisions to sound. That makes the receiver useful beyond a single FM channel. The same retained stream can support different host demodulators, simultaneous analyses, and a calibrated gain/reference model as the front end develops.</p>
+<p>The next hardware work is controlled front-end gain and a defined bias actuator, followed by measured amplitude reconstruction and selectivity. The source is open now so those extensions can grow from the actual receiver. <a href="contact.html">Get in touch to build on this architecture</a>—from FPGA arithmetic and acquisition to a compact, controllable RF front end.</p></section>
+</main><nav class="article-links"><p>Next:</p><a href="how-much-radio-do-you-actually-need.html">The original one-pin FPGA FM receiver</a><p>Follow the threshold, quadrature and Weaver ideas that led to this numerical receiver.</p><p>More:</p><a href="fpga-systems.html">FPGA Systems From Pins To Bitstreams</a><a href="/">Back to greenforest.io</a></nav></body></html>

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+replayed-recording/
+bridge/build/
+bridge/pico-ice-sdk/
+rtl/*/receiver.json
+rtl/*/receiver.asc
+rtl/*/arithmetic.json
+rtl/*/timing_report.json
+rtl/*/*.log

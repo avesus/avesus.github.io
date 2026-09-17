@@ -1,0 +1,7 @@
+{
+  "usb_handoff_enabled": true,
+  "require_buffered_bridge": false,
+  "allowed_baud_rates": [
+    115200
+  ]
+}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="810" viewBox="0 0 1200 810">
+<rect width="1200" height="810" fill="#f8fbf9"/><style>text{font-family:Arial,sans-serif;fill:#143b32;font-size:22px}.small{font-size:18px}.head{font-size:30px;font-weight:bold}.wire{stroke:#175c4a;stroke-width:3;fill:none}.part{fill:white;stroke:#175c4a;stroke-width:2}</style>
+<text x="45" y="48" class="head">One-pin receiver · actual autonomous-bias circuit</text>
+<text x="45" y="82" class="small">pico-ice · iCE40UP5K SG48 package numbers · common ground</text>
+<rect x="790" y="150" width="365" height="540" rx="18" class="part"/>
+<text x="824" y="193" class="head">iCE40UP5K</text>
+<path d="M80 150 L110 190 L140 150 M110 190 V260 H270 M288 260 H790" class="wire"/>
+<path d="M270 235 V285 M288 235 V285" class="wire"/>
+<text x="48" y="125">Antenna</text><text x="178" y="321" class="small">AC coupling capacitor</text>
+<text x="177" y="346" class="small">Existing value retained</text>
+<circle cx="570" cy="260" r="5" fill="#175c4a"/>
+<text x="816" y="252">Pin 3 · RF input</text>
+<path d="M570 260 V370 M570 440 V510" class="wire"/>
+<rect x="549" y="370" width="42" height="70" class="part"/>
+<text x="456" y="412">100 kΩ</text>
+<path d="M110 430 H190 M290 430 H365 V510 H570" class="wire"/>
+<rect x="190" y="411" width="100" height="38" class="part"/>
+<text x="35" y="421">3.3 V</text><text x="193" y="397">470 Ω</text>
+<circle cx="365" cy="510" r="5" fill="#175c4a"/>
+<text x="385" y="495">1.240 V measured</text>
+<path d="M365 510 V555 M365 625 V652 M338 652 H392 M346 662 H384 M354 672 H376" class="wire"/>
+<rect x="312" y="555" width="106" height="70" rx="7" class="part"/>
+<text x="322" y="583" class="small">Shunt</text><text x="322" y="608" class="small">reference</text>
+<text x="45" y="557" class="small">Reference rail powered</text><text x="45" y="582" class="small">ADC and generator isolated</text>
+<path d="M675 410 H790 M675 410 V590 M653 590 H697 M653 608 H697 M675 608 V653 M648 653 H702 M656 663 H694 M664 673 H686" class="wire"/>
+<circle cx="675" cy="410" r="5" fill="#175c4a"/>
+<text x="704" y="575">47 µF</text><text x="692" y="596" class="small">+</text>
+<text x="812" y="408">Pin 4 · V_REF</text>
+<text x="814" y="292" class="small">Differential comparator</text>
+<path d="M813 330 H1128" class="wire"/>
+<text x="812" y="453" class="small">Weak charging toward the rail</text>
+<text x="812" y="487" class="small">Low-only sink: 39.216 ns</text>
+<text x="812" y="516" class="small">At least 128 clocks apart</text>
+<text x="812" y="569" class="small">4096-decision rolling feedback</text>
+<text x="812" y="598" class="small">Controller runs in FPGA</text>
+<text x="812" y="652" class="small">Pin 2 audio: high impedance</text>
+<text x="45" y="727">No external LNA. The 100 kΩ resistor biases pin 3, not the capacitor node.</text>
+<text x="45" y="766" class="small">Bench direct-capacitor actuator shown; see hardware notes for peak-current and deployment design.</text>
+</svg>

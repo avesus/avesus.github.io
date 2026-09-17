@@ -1,0 +1,78 @@
+{
+  "fmax": {
+    "CLK_168_MHZ": {
+      "achieved": 228.05015563964844,
+      "constraint": 204.0399932861328
+    },
+    "CLK_21_MHZ": {
+      "achieved": 29.41176414489746,
+      "constraint": 25.500446319580078
+    },
+    "RAM_102_MHZ": {
+      "achieved": 114.54754638671875,
+      "constraint": 102.00958251953125
+    }
+  },
+  "utilization": {
+    "ICESTORM_DSP": {
+      "available": 8,
+      "used": 0
+    },
+    "ICESTORM_HFOSC": {
+      "available": 1,
+      "used": 0
+    },
+    "ICESTORM_LC": {
+      "available": 5280,
+      "used": 5215
+    },
+    "ICESTORM_LFOSC": {
+      "available": 1,
+      "used": 0
+    },
+    "ICESTORM_PLL": {
+      "available": 1,
+      "used": 1
+    },
+    "ICESTORM_RAM": {
+      "available": 30,
+      "used": 5
+    },
+    "ICESTORM_SPRAM": {
+      "available": 4,
+      "used": 4
+    },
+    "IO_I3C": {
+      "available": 2,
+      "used": 0
+    },
+    "SB_GB": {
+      "available": 8,
+      "used": 8
+    },
+    "SB_I2C": {
+      "available": 2,
+      "used": 0
+    },
+    "SB_IO": {
+      "available": 96,
+      "used": 16
+    },
+    "SB_LEDDA_IP": {
+      "available": 1,
+      "used": 0
+    },
+    "SB_RGBA_DRV": {
+      "available": 1,
+      "used": 0
+    },
+    "SB_SPI": {
+      "available": 2,
+      "used": 0
+    },
+    "SB_WARMBOOT": {
+      "available": 1,
+      "used": 0
+    }
+  }
+}

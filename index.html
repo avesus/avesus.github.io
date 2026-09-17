@@ -161,6 +161,8 @@
             <p><a href="/forty-gigahertz-should-be-a-building-block.html">Follow the signal paths and compare the priced parts</a></p>
         </section>
 
+        <section id="one-pin-sdr-update"><h2><a href="one-pin-sdr-fpga-bias-control.html">One FPGA Input Captures DC–204 MHz—and Controls Its Own Bias</a></h2><p>Explore a simultaneous DC–204 MHz spectrum and listen to the actual 106.5 MHz recording, both received without an external LNA. The FPGA regulates its bias capacitor and exports RF decisions and numerical I/Q. <a href="one-pin-sdr-fpga-bias-control.html">Play the clip and download the complete Verilog, circuit, controller and host code.</a></p></section>
+
         <section id="open-radio">
             <h2>Why Wi-Fi Needs a Real-Time Radio</h2>
             <p>Build the path from I/Q samples to an encrypted HTTP page: Barker correlation, bit-serial multiplication, the 10 µs ACK deadline, association, WPA2 keys, CCMP, DHCP, ARP and TCP. Includes byte layouts, arithmetic, state transitions, full source and build scripts.</p>
@@ -222,9 +224,9 @@
                 <article class="capability-card">
                     <a href="how-much-radio-do-you-actually-need.html"><img src="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png" width="1672" height="941" loading="lazy" decoding="async" alt="Illustrated one-pin FPGA FM receiver path from thresholded RF to recovered audio"></a>
                     <span class="eyebrow">RF receive</span>
-                    <h3><a href="how-much-radio-do-you-actually-need.html">One FPGA input pin receives FM radio</a></h3>
-                    <p>One logical differential input thresholds RF. DDR decisions form I/Q bit lanes, DDS sign bits drive XOR mixers, and a cross product recovers FM phase motion for sigma-delta audio output.</p>
-                    <p><a href="how-much-radio-do-you-actually-need.html">Watch the receiver operate and read the Verilog path</a></p>
+                    <h3><a href="one-pin-sdr-fpga-bias-control.html">One FPGA input captures wideband RF</a></h3>
+                    <p>Simultaneous DC–204 MHz capture, clear FM audio and FPGA-only bias control, without an external LNA. Download the actual recordings, complete Verilog, circuits and host processing.</p>
+                    <p><a href="one-pin-sdr-fpga-bias-control.html">Hear the latest recording and download the autonomous receiver</a> · <a href="how-much-radio-do-you-actually-need.html">Original design</a></p>
                 </article>
 
                 <article class="capability-card">

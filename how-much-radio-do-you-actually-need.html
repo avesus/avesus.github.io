@@ -39,7 +39,7 @@
                 "name": "Brian Greenforest"
             },
             "datePublished": "2026-04-22",
-            "dateModified": "2026-07-28",
+            "dateModified": "2026-09-17",
             "image": "https://greenforest.io/one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png",
             "description": "A one-pin FPGA FM receiver using an LVDS input threshold, DDR sampling, DDS-controlled XOR mixing, Weaver-style recombination, integrate-and-dump filtering, cross-product FM recovery, and sigma-delta audio.",
             "mainEntityOfPage": "https://greenforest.io/how-much-radio-do-you-actually-need.html",
@@ -54,7 +54,7 @@
 
 <body class="article-structured">
     <header><h1 class="page-title">One-Pin FPGA FM Receiver: How Much Radio Do You Actually Need?</h1></header>
-    <address>April 22, 2026 &middot; Updated July 28, 2026</address>
+    <address>April 22, 2026 &middot; Updated September 17, 2026</address>
 
     <figure class="inspectable-image inspectable-image--fit">
         <a href="one-pin-RF/images/one-pin-fpga-fm-receiver-illustration.png">
@@ -78,6 +78,8 @@
     </figure>
 
     <main>
+        <section id="autonomous-sdr-update"><h2>September 2026: Listen to the FPGA-Controlled Receiver</h2><p>The receiver now exports numerical I/Q for PC audio and full-band analysis, while an FPGA-only controller maintains the bias capacitor. <a href="one-pin-sdr-fpga-bias-control.html">Explore simultaneous DC–204 MHz capture, listen to the actual 106.5 MHz recording received without an external LNA, and download the complete RTL, controller, circuit and host code.</a></p></section>
+
         <section>
             <h2>One Pin Works In Both Directions</h2>
             <p>The companion <a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM RF Transmitter</a> crosses the reverse boundary. Two one-bit control streams select four carrier phases, gate one iCE40 output pin, and drive a resonant network.</p>
@@ -341,8 +343,8 @@ assign PIN2 = ~dac_out;</code></pre>
 
     <nav class="article-links">
         <p>Next:</p>
-        <a href="one-pin-quadrature-sdm-transmitter.html">One-Pin Quadrature/SDM RF Transmitter</a>
-        <p>Follow two one-bit modulation streams through four RF phases, one switched output pin, and a resonant network.</p>
+        <a href="one-pin-sdr-fpga-bias-control.html">One-Pin SDR: Wideband Capture, Clear FM and FPGA-Controlled Bias</a>
+        <p>Hear the new recording and build the numerical receiver with autonomous threshold control.</p>
         <p>More:</p>
         <a href="fpga-systems.html">FPGA Systems From Pins To Bitstreams</a>
         <a href="/">Back to greenforest.io</a>

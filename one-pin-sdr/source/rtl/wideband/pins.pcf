@@ -1,0 +1,26 @@
+set_io -nowarn LED_G            39 # active-low
+set_io -nowarn LED_B            40 # active-low
+set_io -nowarn LED_R            41 # active-low
+set_io -nowarn CRYSTAL_12MHZ              35
+
+# SD DAC output
+set_io -nowarn PIN2 2
+
+set_io -nowarn DIFF_PINS_4P_3N 4
+
+
+#set_io -nowarn PIN32 32
+#set_io -nowarn DIFF_PINS_32P_31N 32
+# set_io -nowarn PIN31 31 complement of 32
+
+set_io -nowarn PIN42 42
+set_io -nowarn PIN43 43
+
+set_io UART_TX 25
+set_io UART_RX 27
+set_io RAM_DATA[0] 14
+set_io RAM_DATA[1] 17
+set_io RAM_DATA[2] 12
+set_io RAM_DATA[3] 13
+set_io RAM_CLK 15
+set_io RAM_SELECT 37
