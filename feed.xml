@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Greenforest I/O</title>
+    <link>https://greenforest.io/</link>
+    <description>Clear mechanisms, inspectable engineering, and ideas worth carrying forward by Brian Greenforest.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 18 Sep 2026 02:42:09 GMT</lastBuildDate>
+    <atom:link href="https://greenforest.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>One-Pin SDR: Wideband Capture, Clear FM and FPGA-Controlled Bias</title>
+      <link>https://greenforest.io/one-pin-sdr-fpga-bias-control.html</link>
+      <guid isPermaLink="true">https://greenforest.io/one-pin-sdr-fpga-bias-control.html</guid>
+      <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Explore simultaneous DC–204 MHz capture and listen to 106.5 MHz FM through one FPGA input without an external LNA. Download the complete Verilog, autonomous bias controller, circuit, bridge and host code.]]></description>
+      <media:content url="https://greenforest.io/social-previews/one-pin-sdr-fpga-bias-control.png" medium="image" />
+    </item>
+    <item>
+      <title>Thought Meltdown: Our Lives Are Too Short for This Mess</title>
+      <link>https://greenforest.io/thought-meltdown.html</link>
+      <guid isPermaLink="true">https://greenforest.io/thought-meltdown.html</guid>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Unfinished thoughts harden into systems we can barely understand. On overengineering, AI, the courage to start again, and building things worth inheriting.]]></description>
+      <media:content url="https://greenforest.io/social-previews/thought-meltdown.png" medium="image" />
+    </item>
+    <item>
+      <title>Forty Gigahertz Should Be a Building Block</title>
+      <link>https://greenforest.io/forty-gigahertz-should-be-a-building-block.html</link>
+      <guid isPermaLink="true">https://greenforest.io/forty-gigahertz-should-be-a-building-block.html</guid>
+      <pubDate>Thu, 10 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[What it costs to acquire one 40 GHz signal: raw ADCs, real-time oscilloscopes, PLL binary samplers, and $36 dual or $72 Weaver-quad microwave conversion.]]></description>
+      <media:content url="https://greenforest.io/social-previews/forty-gigahertz-should-be-a-building-block.png" medium="image" />
+    </item>
+    <item>
+      <title>Algorithms, patent records and source rights — Greenforest WPA2 AP</title>
+      <link>https://greenforest.io/e310-wpa2-access-point/patents.html</link>
+      <guid isPermaLink="true">https://greenforest.io/e310-wpa2-access-point/patents.html</guid>
+      <pubDate>Wed, 09 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[An implementation-specific research inventory: Barker DSSS, differential reception, SIFS, WPA2 primitives and the limits of patent-status conclusions.]]></description>
+    </item>
+    <item>
+      <title>Why Wi-Fi Needs a Real-Time Radio</title>
+      <link>https://greenforest.io/e310-wpa2-access-point/</link>
+      <guid isPermaLink="true">https://greenforest.io/e310-wpa2-access-point/</guid>
+      <pubDate>Wed, 09 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Build a Wi-Fi access point from I/Q to HTTP: Barker correlation, serial arithmetic, ACK timing, frame layouts, WPA2 keys, CCMP, DHCP, ARP and TCP. Full C++ and RTL source.]]></description>
+      <media:content url="https://greenforest.io/e310-wpa2-access-point/cover.png" medium="image" />
+    </item>
+    <item>
+      <title>A BPE Tokenizer Is a Learned Rewrite Program</title>
+      <link>https://greenforest.io/a-bpe-tokenizer-is-a-learned-rewrite-program.html</link>
+      <guid isPermaLink="true">https://greenforest.io/a-bpe-tokenizer-is-a-learned-rewrite-program.html</guid>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A mechanism-first explanation of BPE tokenizer training, inference-time encoding, token IDs, embeddings, byte fallback, and why detokenization is simply lookup and join.]]></description>
+      <media:content url="https://greenforest.io/social-previews/a-bpe-tokenizer-is-a-learned-rewrite-program.png" medium="image" />
+    </item>
+    <item>
+      <title>Your VLAN Is Not Your Rack: How VLANs Really Work</title>
+      <link>https://greenforest.io/how-vlans-really-work.html</link>
+      <guid isPermaLink="true">https://greenforest.io/how-vlans-really-work.html</guid>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A frame-by-frame explanation of access ports, 802.1Q trunks, MAC learning, routing, VXLAN, and why a VLAN crossing shared Cisco and Juniper infrastructure is not a physical LAN you own.]]></description>
+      <media:content url="https://greenforest.io/social-previews/how-vlans-really-work.png" medium="image" />
+    </item>
+    <item>
+      <title>Cartilage Rhombitrihex Visual Language v2 — Offline</title>
+      <link>https://greenforest.io/cartilage-rhombitrihex-visual-language-v2.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage-rhombitrihex-visual-language-v2.html</guid>
+      <pubDate>Wed, 02 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A self-contained offline Cartilage editor and simulator on the four-neighbor Rhombitrihex kite lattice.]]></description>
+    </item>
+    <item>
+      <title>Encanto Removed the Villain. Now Remove Power.</title>
+      <link>https://greenforest.io/encanto-removed-the-villain-now-remove-power.html</link>
+      <guid isPermaLink="true">https://greenforest.io/encanto-removed-the-villain-now-remove-power.html</guid>
+      <pubDate>Mon, 31 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A beautiful film showed how love can become control - and then rebuilt the house that made it happen.]]></description>
+      <media:content url="https://greenforest.io/social-previews/encanto-removed-the-villain-now-remove-power.png" medium="image" />
+    </item>
+    <item>
+      <title>Cartilage Simple Canvas — Build And Save Circuits Offline</title>
+      <link>https://greenforest.io/cartilage-simple-canvas/</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage-simple-canvas/</guid>
+      <pubDate>Mon, 03 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Download one complete Cartilage app, build and label circuits, debug waveforms, resize the fabric, and save or open local circuit files without an account or internet connection.]]></description>
+    </item>
+    <item>
+      <title>Cartilage At Home: Download One HTML File And Build Circuits Offline</title>
+      <link>https://greenforest.io/cartilage-simple-canvas-at-home.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage-simple-canvas-at-home.html</guid>
+      <pubDate>Mon, 03 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Download Cartilage Simple Canvas or the Rhombitrihex Visual Language canvas, work without internet access, author circuits, and keep every circuit as a local JSON file.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage-simple-canvas-at-home.png" medium="image" />
+    </item>
+    <item>
+      <title>Cartilage 4x4 Low-Nibble Multiplier — Open Browser Demo</title>
+      <link>https://greenforest.io/cartilage-multiplier-demo/</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage-multiplier-demo/</guid>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Run the self-contained low-nibble multiplier or initialize an all-GND Cartilage fabric and place cell roles locally. No account, backend, Load, or Save is present.]]></description>
+    </item>
+    <item>
+      <title>Run Cartilage in the Browser: Open Multiplier and Private Workstation</title>
+      <link>https://greenforest.io/cartilage-circuit-workstation.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage-circuit-workstation.html</guid>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Run and edit a self-contained Cartilage multiplier, initialize a GND fabric, place cell roles locally, then request private access for loading, saving, sharing, and cross-device development.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage-circuit-workstation.png" medium="image" />
+    </item>
+    <item>
+      <title>From Cellular Automata To A Reconfigurable Computing Fabric</title>
+      <link>https://greenforest.io/cellular-automata-2019/</link>
+      <guid isPermaLink="true">https://greenforest.io/cellular-automata-2019/</guid>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Executable GPU machines trace Brian Greenforest]]></description>
+      <media:content url="https://greenforest.io/social-previews/cellular-automata-2019/index.png" medium="image" />
+    </item>
+    <item>
+      <title>We Got It All Wrong: The Right To Create</title>
+      <link>https://greenforest.io/we-got-it-all-wrong.html</link>
+      <guid isPermaLink="true">https://greenforest.io/we-got-it-all-wrong.html</guid>
+      <pubDate>Fri, 31 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A forest, a finite human life, and a manually controlled camera expose a larger failure: people are trained to consume tools and culture instead of create them.]]></description>
+      <media:content url="https://greenforest.io/social-previews/we-got-it-all-wrong.png" medium="image" />
+    </item>
+    <item>
+      <title>One FPGA Pin Synthesizes 106 RF Channels Across 3 MHz</title>
+      <link>https://greenforest.io/fpga-radio-lab/106-channel-one-pin-transmitter.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-radio-lab/106-channel-one-pin-transmitter.html</guid>
+      <pubDate>Tue, 28 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[One HX8K synthesizes 106 independently phased FM channels across 3 MHz, reduces them through bit-serial I/Q, and transmits the complete band from one FPGA pin.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-radio-lab/106-channel-one-pin-transmitter.png" medium="image" />
+    </item>
+    <item>
+      <title>A One-Bit-Stream Binary32 Divider Sustains 6.75 Million Divisions Per Second</title>
+      <link>https://greenforest.io/serial-binary32-divider/</link>
+      <guid isPermaLink="true">https://greenforest.io/serial-binary32-divider/</guid>
+      <pubDate>Tue, 28 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[An open-source binary32 divider sustains 6.75 million divisions/s through one-bit arithmetic and passes 65,536 physical FPGA cases at 216 MHz.]]></description>
+      <media:content url="https://greenforest.io/social-previews/serial-binary32-divider/index.png" medium="image" />
+    </item>
+    <item>
+      <title>The FPGA Radio Loop That Protected the Message</title>
+      <link>https://greenforest.io/fpga-radio-lab/measurement-loop.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-radio-lab/measurement-loop.html</guid>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[On July 25 and 26, 2026, a closed hardware-in-the-loop cycle carried one-pin FPGA radio changes from RTL through volatile iCE40 hardware and recovered QPSK, delivering 8,592 checked bits with no observed errors.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-radio-lab/measurement-loop.png" medium="image" />
+    </item>
+    <item>
+      <title>One FPGA Pin Transmits QPSK Through Four Quadrature Mixers</title>
+      <link>https://greenforest.io/fpga-radio-hardware-in-the-loop.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-radio-hardware-in-the-loop.html</guid>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A one-pin FPGA Weaver transmitter carries QPSK through four quadrature mixers, a phase-domain summator, a 216 MHz output, and a resonant tank.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-radio-hardware-in-the-loop.png" medium="image" />
+    </item>
+    <item>
+      <title>Four Quadrature Mixers on One FPGA RF Pin</title>
+      <link>https://greenforest.io/fpga-radio-lab/one-pin-qpsk-signal-path.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-radio-lab/one-pin-qpsk-signal-path.html</guid>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[The Physical27 iCE40 Weaver transmitter combines four quadrature mixers through a 216 MHz phase-domain summator, placing QPSK on one N16 RF output and carrying 8,592 checked bits through the resonant tank.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-radio-lab/one-pin-qpsk-signal-path.png" medium="image" />
+    </item>
+    <item>
+      <title>8,592 QPSK Bits Through One FPGA Pin and a Resonant Tank</title>
+      <link>https://greenforest.io/fpga-radio-lab/received-qpsk.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-radio-lab/received-qpsk.html</guid>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Physical27 generated PRBS16 QPSK inside an iCE40, compressed complex I/Q onto one switched RF output, drove it through a resonant tank, and returned 8,592 checked bits from 4,296 directly observed held-out symbols with no observed errors.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-radio-lab/received-qpsk.png" medium="image" />
+    </item>
+    <item>
+      <title>A Vendor-Neutral Physical Benchmark For AI Lab Agents</title>
+      <link>https://greenforest.io/physical-benchmark-for-ai-lab-agents.html</link>
+      <guid isPermaLink="true">https://greenforest.io/physical-benchmark-for-ai-lab-agents.html</guid>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A vendor-neutral benchmark measures how safely and effectively AI agents diagnose and repair real electronic systems with real instruments.]]></description>
+      <media:content url="https://greenforest.io/social-previews/physical-benchmark-for-ai-lab-agents.png" medium="image" />
+    </item>
+    <item>
+      <title>Write the Failures</title>
+      <link>https://greenforest.io/miscellanies/write-the-failures.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/write-the-failures.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Failed ideas reveal the search space: what looked plausible, what reality changed, and what another builder can carry into the next attempt.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/write-the-failures.png" medium="image" />
+    </item>
+    <item>
+      <title>Arrows: A Graph Language That Can Become Hardware</title>
+      <link>https://greenforest.io/miscellanies/arrows-a-graph-language-that-can-become-hardware.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/arrows-a-graph-language-that-can-become-hardware.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A graph becomes executable when every arrow has explicit semantics for value, state, direction, timing, and physical cost.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/arrows-a-graph-language-that-can-become-hardware.png" medium="image" />
+    </item>
+    <item>
+      <title>Reconstructing a Shader Pipeline on an iCE40</title>
+      <link>https://greenforest.io/miscellanies/reconstructing-a-shader-pipeline-on-an-ice40.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/reconstructing-a-shader-pipeline-on-an-ice40.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Translate texture reads, cached state, parallel cell updates, and streamed output from a fragment shader into a compact iCE40 pipeline.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/reconstructing-a-shader-pipeline-on-an-ice40.png" medium="image" />
+    </item>
+    <item>
+      <title>Booting a Reconfigurable Fabric from Its Edge</title>
+      <link>https://greenforest.io/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[An edge FPGA reads a microSD image, streams configuration into a neighboring fabric, and brings networking up after the machine exists.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/booting-a-reconfigurable-fabric-from-its-edge.png" medium="image" />
+    </item>
+    <item>
+      <title>The PCB You Can Actually Build at Home</title>
+      <link>https://greenforest.io/miscellanies/the-pcb-you-can-actually-build-at-home.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-pcb-you-can-actually-build-at-home.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A home-buildable PCB aligns packages, layers, materials, footprints, vias, soldering, masks, test points, inspection, repair.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-pcb-you-can-actually-build-at-home.png" medium="image" />
+    </item>
+    <item>
+      <title>The Cartilage Editor and Seed I Wanted in 2021</title>
+      <link>https://greenforest.io/miscellanies/the-cartilage-editor-and-seed-i-wanted-in-2021.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-cartilage-editor-and-seed-i-wanted-in-2021.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Turn a raw GPU texture and FPGA starter board into a spatial editor with saving, selection, labels, named ports, and deployment.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-cartilage-editor-and-seed-i-wanted-in-2021.png" medium="image" />
+    </item>
+    <item>
+      <title>The Universe Is Connections</title>
+      <link>https://greenforest.io/miscellanies/the-universe-is-connections.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-universe-is-connections.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A connections-first physical model in which events and causal links are fundamental and spacetime emerges from the graph.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-universe-is-connections.png" medium="image" />
+    </item>
+    <item>
+      <title>Cartilage: The Architecture That Rebuilt Itself</title>
+      <link>https://greenforest.io/miscellanies/cartilage-the-architecture-that-rebuilt-itself.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/cartilage-the-architecture-that-rebuilt-itself.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A first-person history of Cartilage, from event membranes and dynamic cores to ownership trees, spatial programs, wiring, and application-laid clocks.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/cartilage-the-architecture-that-rebuilt-itself.png" medium="image" />
+    </item>
+    <item>
+      <title>Time, Memory, and the One Now</title>
+      <link>https://greenforest.io/miscellanies/time-memory-and-the-one-now.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/time-memory-and-the-one-now.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A lived philosophy of one present moment, finite attention, memory, possible selves, spiritual focus, and loving the world one would change.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/time-memory-and-the-one-now.png" medium="image" />
+    </item>
+    <item>
+      <title>A Computer That Boots by Growing Its Own Wires</title>
+      <link>https://greenforest.io/miscellanies/a-computer-that-boots-by-growing-its-own-wires.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/a-computer-that-boots-by-growing-its-own-wires.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A blank spatial fabric grows configuration paths, regions, programs, and wires until keyboard commands have assembled a working computer.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/a-computer-that-boots-by-growing-its-own-wires.png" medium="image" />
+    </item>
+    <item>
+      <title>Prohibit Action Upon Stale Data</title>
+      <link>https://greenforest.io/miscellanies/prohibit-action-upon-stale-data.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/prohibit-action-upon-stale-data.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Bind every consequential action to the revision and facts the user actually saw, then show material changes before asking for a fresh decision.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/prohibit-action-upon-stale-data.png" medium="image" />
+    </item>
+    <item>
+      <title>An Instruction Is a Wire Reused in Time</title>
+      <link>https://greenforest.io/miscellanies/an-instruction-is-a-wire-reused-in-time.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/an-instruction-is-a-wire-reused-in-time.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A stateful event fabric turns instructions into scheduled reconnections:, pattern matchers retain inputs, authorized packets carry changes.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/an-instruction-is-a-wire-reused-in-time.png" medium="image" />
+    </item>
+    <item>
+      <title>What Old Computers Got Right</title>
+      <link>https://greenforest.io/miscellanies/what-old-computers-got-right.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/what-old-computers-got-right.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A personal computer should preserve its owner]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/what-old-computers-got-right.png" medium="image" />
+    </item>
+    <item>
+      <title>The Fivefold Mind and Nested Agency</title>
+      <link>https://greenforest.io/miscellanies/the-fivefold-mind-and-nested-agency.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-fivefold-mind-and-nested-agency.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A personal five-layer model of mind joined to nested agency, where higher-order freedom grows from constrained lower-level choices.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-fivefold-mind-and-nested-agency.png" medium="image" />
+    </item>
+    <item>
+      <title>QuickPaster: A Paste-Only Handoff Between Devices</title>
+      <link>https://greenforest.io/miscellanies/quickpaster-a-paste-only-handoff-between-devices.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/quickpaster-a-paste-only-handoff-between-devices.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[QuickPaster pairs individual browser windows and sends one plain-text paste to one chosen online destination through an explicit, transient replace operation.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/quickpaster-a-paste-only-handoff-between-devices.png" medium="image" />
+    </item>
+    <item>
+      <title>A Statechart That Remembers How It Was Changed</title>
+      <link>https://greenforest.io/miscellanies/a-statechart-that-remembers-how-it-was-changed.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/a-statechart-that-remembers-how-it-was-changed.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A directed statechart history joins structural editing, live execution, transition lifecycles.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/a-statechart-that-remembers-how-it-was-changed.png" medium="image" />
+    </item>
+    <item>
+      <title>A Programming Language Made of Live Circuits</title>
+      <link>https://greenforest.io/miscellanies/a-programming-language-made-of-live-circuits.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/a-programming-language-made-of-live-circuits.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[This parallel, reactive language makes every instance a live circuit, every type a compact construction stream.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/a-programming-language-made-of-live-circuits.png" medium="image" />
+    </item>
+    <item>
+      <title>One Feature, Every Platform</title>
+      <link>https://greenforest.io/miscellanies/one-feature-every-platform.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/one-feature-every-platform.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[One feature team can carry a complete user promise through iOS, Android, Windows, macOS, Linux, services.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/one-feature-every-platform.png" medium="image" />
+    </item>
+    <item>
+      <title>Why I Put a Reconfigurable Fabric in WebGL</title>
+      <link>https://greenforest.io/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Why WebGL became a fast, visual laboratory for testing the local state and reconfiguration rules of a custom spatial fabric.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/why-i-put-a-reconfigurable-fabric-in-webgl.png" medium="image" />
+    </item>
+    <item>
+      <title>Where Does an Information System Live?</title>
+      <link>https://greenforest.io/miscellanies/where-does-an-information-system-live.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/where-does-an-information-system-live.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[An information system lives in the maintained correspondence among a problem, shared models, executable procedures, and coordinated human action.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/where-does-an-information-system-live.png" medium="image" />
+    </item>
+    <item>
+      <title>Model the World Around the State Machine</title>
+      <link>https://greenforest.io/miscellanies/model-the-world-around-the-state-machine.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/model-the-world-around-the-state-machine.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Design hierarchical statecharts by modeling the medium and subsystem states together, then choosing meaningful world-level macrostates.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/model-the-world-around-the-state-machine.png" medium="image" />
+    </item>
+    <item>
+      <title>LateReply: A Page, Not a Feed</title>
+      <link>https://greenforest.io/miscellanies/latereply-a-page-not-a-feed.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/latereply-a-page-not-a-feed.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[LateReply is a deliberate communication device: one patient e-ink page with a hard rule that the page never becomes a scrolling feed.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/latereply-a-page-not-a-feed.png" medium="image" />
+    </item>
+    <item>
+      <title>The Whole Thing: Static Verilog in a Dynamic World</title>
+      <link>https://greenforest.io/miscellanies/the-whole-thing-static-verilog-in-a-dynamic-world.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-whole-thing-static-verilog-in-a-dynamic-world.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Static circuit descriptions become a dynamic language when a spatial fabric can install, connect, own, and replace them while it runs.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-whole-thing-static-verilog-in-a-dynamic-world.png" medium="image" />
+    </item>
+    <item>
+      <title>Canopus and Agastya</title>
+      <link>https://greenforest.io/miscellanies/canopus-and-agastya.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/canopus-and-agastya.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Canopus and Agastya join stellar visibility, southward travel, seasonal knowledge, navigation, medicine, and story in one durable cultural memory system.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/canopus-and-agastya.png" medium="image" />
+    </item>
+    <item>
+      <title>Reverse the MUX: Abduction as Executable Inference</title>
+      <link>https://greenforest.io/miscellanies/reverse-the-mux-abduction-as-executable-inference.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/reverse-the-mux-abduction-as-executable-inference.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Run a multiplexer relation backward from an observed output, enumerate compatible causes, and rank the surviving explanations.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/reverse-the-mux-abduction-as-executable-inference.png" medium="image" />
+    </item>
+    <item>
+      <title>Physical Causality Has Geometry</title>
+      <link>https://greenforest.io/miscellanies/physical-causality-has-geometry.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/physical-causality-has-geometry.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[State transitions, bandwidth, clocks, ownership, topology, power, cooling, and allocation all inherit geometry and finite propagation.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/physical-causality-has-geometry.png" medium="image" />
+    </item>
+    <item>
+      <title>Definitions That Can Fail Their Own Tests</title>
+      <link>https://greenforest.io/miscellanies/definitions-that-can-fail-their-own-tests.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/definitions-that-can-fail-their-own-tests.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[People write hierarchical definitions and acceptance criteria; machines search for implementations that those definitions can test.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/definitions-that-can-fail-their-own-tests.png" medium="image" />
+    </item>
+    <item>
+      <title>Learn Electronics by Building One Whole Computer</title>
+      <link>https://greenforest.io/miscellanies/learn-electronics-by-building-one-whole-computer.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/learn-electronics-by-building-one-whole-computer.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Build one whole computer to learn digital logic, FPGA timing, processors, memory, displays, networking, analog electronics, radio, power, PCBs, and diagnosis.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/learn-electronics-by-building-one-whole-computer.png" medium="image" />
+    </item>
+    <item>
+      <title>The Indo-Austronesian Hypothesis</title>
+      <link>https://greenforest.io/miscellanies/the-indo-austronesian-hypothesis.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-indo-austronesian-hypothesis.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Turn Indo-European and Austronesian resemblances into a test using provenance, regular correspondences, and coincidence rates.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-indo-austronesian-hypothesis.png" medium="image" />
+    </item>
+    <item>
+      <title>EventEdge: A Privacy-First Cloud Over the Park</title>
+      <link>https://greenforest.io/miscellanies/eventedge-a-privacy-first-cloud-over-the-park.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/eventedge-a-privacy-first-cloud-over-the-park.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[EventEdge makes cloud computing local, place-owned, resilient, weather-aware, and privacy-first through explicit-input personal devices, nearby meshes.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/eventedge-a-privacy-first-cloud-over-the-park.png" medium="image" />
+    </item>
+    <item>
+      <title>The System of Catch-22: Plausible Deniability as Architecture</title>
+      <link>https://greenforest.io/miscellanies/the-system-of-catch-22-plausible-deniability-as-architecture.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-system-of-catch-22-plausible-deniability-as-architecture.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Institutions can route knowledge away from authority and responsibility;, protected review, recorded dissent, proportional disclosure.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-system-of-catch-22-plausible-deniability-as-architecture.png" medium="image" />
+    </item>
+    <item>
+      <title>The Infrastructure We Hide, and the Tools We Should Own</title>
+      <link>https://greenforest.io/miscellanies/the-infrastructure-we-hide-and-the-tools-we-should-own.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-infrastructure-we-hide-and-the-tools-we-should-own.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Legible infrastructure and shared fabrication tools let communities inspect energy and computation, repair products, and build physical technology.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-infrastructure-we-hide-and-the-tools-we-should-own.png" medium="image" />
+    </item>
+    <item>
+      <title>A Machine Small Enough to Explain All at Once</title>
+      <link>https://greenforest.io/miscellanies/a-machine-small-enough-to-explain-all-at-once.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/a-machine-small-enough-to-explain-all-at-once.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Build a complete stored-program computer from stores, moves, jumps, and a visible stack, then test it with a bracket checker.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/a-machine-small-enough-to-explain-all-at-once.png" medium="image" />
+    </item>
+    <item>
+      <title>From Domain Models Down to MUXes—and Back Up</title>
+      <link>https://greenforest.io/miscellanies/from-domain-models-down-to-muxes-and-back-up.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/from-domain-models-down-to-muxes-and-back-up.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Every domain consequence can travel through explicit transition rules, control, datapaths, Boolean relations, MUXes, retained state, energy.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/from-domain-models-down-to-muxes-and-back-up.png" medium="image" />
+    </item>
+    <item>
+      <title>The FPGA You Can Debug from a Mountain</title>
+      <link>https://greenforest.io/miscellanies/the-fpga-you-can-debug-from-a-mountain.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-fpga-you-can-debug-from-a-mountain.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A portable FPGA workbench can capture design, live sequential state, transition history, local stopping, safety controls.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-fpga-you-can-debug-from-a-mountain.png" medium="image" />
+    </item>
+    <item>
+      <title>The Mobile Web Interaction Kernel</title>
+      <link>https://greenforest.io/miscellanies/the-mobile-web-interaction-kernel.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-mobile-web-interaction-kernel.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A compact mobile-web interaction kernel gives state, composition, layout, touch, focus, scrolling.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-mobile-web-interaction-kernel.png" medium="image" />
+    </item>
+    <item>
+      <title>When Meaning Bends the Medium</title>
+      <link>https://greenforest.io/miscellanies/when-meaning-bends-the-medium.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/when-meaning-bends-the-medium.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Semantic content can request layout, controls, routing, storage, transformation, allocation.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/when-meaning-bends-the-medium.png" medium="image" />
+    </item>
+    <item>
+      <title>Matter That Computes and Moves</title>
+      <link>https://greenforest.io/miscellanies/matter-that-computes-and-moves.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/matter-that-computes-and-moves.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Artificial cells can make sensing, switching, communication, bonding, motion, energy.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/matter-that-computes-and-moves.png" medium="image" />
+    </item>
+    <item>
+      <title>Quantum Claims Under Stress</title>
+      <link>https://greenforest.io/miscellanies/quantum-claims-under-stress.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/quantum-claims-under-stress.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[The phenomenon-to-mission ladder turns a quantum effect into a reproducible device, complete system, comparative advantage.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/quantum-claims-under-stress.png" medium="image" />
+    </item>
+    <item>
+      <title>Speak in Changes, Not Commands</title>
+      <link>https://greenforest.io/miscellanies/speak-in-changes-not-commands.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/speak-in-changes-not-commands.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Voice programming transforms a visible model through sound symbols, references, semantic macros, explicit proposals, layered correction, reversible commits.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/speak-in-changes-not-commands.png" medium="image" />
+    </item>
+    <item>
+      <title>Play Harmony at Melody Speed</title>
+      <link>https://greenforest.io/miscellanies/play-harmony-at-melody-speed.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/play-harmony-at-melody-speed.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A programmable fret-forming instrument separates excitation from chord geometry, moving through harmony at keyboard speed while retaining physical expression.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/play-harmony-at-melody-speed.png" medium="image" />
+    </item>
+    <item>
+      <title>Enough Theory: How to Leave an Infinite Research Program</title>
+      <link>https://greenforest.io/miscellanies/enough-theory-how-to-leave-an-infinite-research-program.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/enough-theory-how-to-leave-an-infinite-research-program.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A practical way to preserve a boundless research field, define its path back to action, and redirect thought into an exact working instrument.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/enough-theory-how-to-leave-an-infinite-research-program.png" medium="image" />
+    </item>
+    <item>
+      <title>When Patterns Feel Like Physics</title>
+      <link>https://greenforest.io/miscellanies/when-patterns-feel-like-physics.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/when-patterns-feel-like-physics.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Numerical synchronicity can seed physical research when units, mechanisms, search accounting.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/when-patterns-feel-like-physics.png" medium="image" />
+    </item>
+    <item>
+      <title>Miscellanies: 53 Essays From Before 2023</title>
+      <link>https://greenforest.io/miscellanies/</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Fifty-three essays by Brian Greenforest on living circuits, software and interaction, physical models, culture, learning, and building.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/index.png" medium="image" />
+    </item>
+    <item>
+      <title>Cohesion: The Property That Makes a Model Worth Keeping</title>
+      <link>https://greenforest.io/miscellanies/cohesion-the-property-that-makes-a-model-worth-keeping.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/cohesion-the-property-that-makes-a-model-worth-keeping.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Cohesion compresses a complex system into fewer, stronger relations while preserving the distinctions that support prediction, construction, composition.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/cohesion-the-property-that-makes-a-model-worth-keeping.png" medium="image" />
+    </item>
+    <item>
+      <title>A Brain-Sized Machine in Real Units</title>
+      <link>https://greenforest.io/miscellanies/a-brain-sized-machine-in-real-units.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/a-brain-sized-machine-in-real-units.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A brain-scale machine becomes actionable when connections, update rates, memory, routing, geometry, power, cooling, service, and cost carry real units.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/a-brain-sized-machine-in-real-units.png" medium="image" />
+    </item>
+    <item>
+      <title>Logical Momentum: A State Needs a Direction, Not Just a Value</title>
+      <link>https://greenforest.io/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Logical momentum carries transition direction, phase, completion, release, and replay information with each value so reactive computations can compose.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/logical-momentum-a-state-needs-a-direction-not-just-a-value.png" medium="image" />
+    </item>
+    <item>
+      <title>The Consumer Paradox</title>
+      <link>https://greenforest.io/miscellanies/the-consumer-paradox.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/the-consumer-paradox.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Sales, marketing, money, and software become less manipulative when they help people discover and coordinate what they actually need.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/the-consumer-paradox.png" medium="image" />
+    </item>
+    <item>
+      <title>Events Entertain; Meetings Build</title>
+      <link>https://greenforest.io/miscellanies/events-entertain-meetings-build.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/events-entertain-meetings-build.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Recurring maker meetings turn private intentions into hidden activity proposals, promised attention, tangible accomplishments, negotiated plans.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/events-entertain-meetings-build.png" medium="image" />
+    </item>
+    <item>
+      <title>Headless Minds: Gaia, Democracy, and Collective Intelligence</title>
+      <link>https://greenforest.io/miscellanies/headless-minds-gaia-democracy-and-collective-intelligence.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/headless-minds-gaia-democracy-and-collective-intelligence.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Collective intelligence without a central thinker, spanning ecological networks, democracy, bureaucracy, invention, memory, and accountability.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/headless-minds-gaia-democracy-and-collective-intelligence.png" medium="image" />
+    </item>
+    <item>
+      <title>Presence Is a Device, Not a Video Call</title>
+      <link>https://greenforest.io/miscellanies/presence-is-a-device-not-a-video-call.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/presence-is-a-device-not-a-video-call.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A physical telepresence device for dedicated attention, tangible remote action, local autonomy, safety, and an always-available window.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/presence-is-a-device-not-a-video-call.png" medium="image" />
+    </item>
+    <item>
+      <title>Messages to the Future: Dissemination as a Form of Thought</title>
+      <link>https://greenforest.io/miscellanies/messages-to-the-future-dissemination-as-a-form-of-thought.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/messages-to-the-future-dissemination-as-a-form-of-thought.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Writing, building, copying, and publishing send thought into future situations where another act of attention can recover it, revise it, and give it new life.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/messages-to-the-future-dissemination-as-a-form-of-thought.png" medium="image" />
+    </item>
+    <item>
+      <title>Inventor Is Not a Rank</title>
+      <link>https://greenforest.io/miscellanies/inventor-is-not-a-rank.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/inventor-is-not-a-rank.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Inventor names a working practice, and recurring workshops give independent builders the continuity that turns ambitious mechanisms into shared results.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/inventor-is-not-a-rank.png" medium="image" />
+    </item>
+    <item>
+      <title>One Number Line for the Physical Universe</title>
+      <link>https://greenforest.io/miscellanies/one-number-line-for-the-physical-universe.html</link>
+      <guid isPermaLink="true">https://greenforest.io/miscellanies/one-number-line-for-the-physical-universe.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A scale-aware numerical interface spans huge physical magnitudes while keeping range, precision, units, uncertainty, representation, and conversions visible.]]></description>
+      <media:content url="https://greenforest.io/social-previews/miscellanies/one-number-line-for-the-physical-universe.png" medium="image" />
+    </item>
+    <item>
+      <title>Build The Cartilage Spatial Circuit Workstation: 28 Engineering Packages</title>
+      <link>https://greenforest.io/cartilage-reconfigurable-computing-roadmap.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage-reconfigurable-computing-roadmap.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A 28-part engineering program for readable Cartilage circuits, regional reconfiguration, single-writer shared objects, closed-contour recovery, browser projects, and live lessons.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage-reconfigurable-computing-roadmap.png" medium="image" />
+    </item>
+    <item>
+      <title>210 Problems We Have Learned to Call Normal</title>
+      <link>https://greenforest.io/210-problems-we-have-learned-to-call-normal.html</link>
+      <guid isPermaLink="true">https://greenforest.io/210-problems-we-have-learned-to-call-normal.html</guid>
+      <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A cross-layer map of 210 opportunities for capability-native agency, live reconfigurable physical computation, and minimal-apparatus physical intelligence.]]></description>
+      <media:content url="https://greenforest.io/social-previews/210-problems-we-have-learned-to-call-normal.png" medium="image" />
+    </item>
+    <item>
+      <title>Put Verilog On An FPGA</title>
+      <link>https://greenforest.io/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.html</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Carry Verilog through Yosys synthesis, nextpnr placement and routing, IceStorm bitstream packing, and Alchitry loading until physical LEDs run the design.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-verilog/yosys-nextpnr-icestorm-alchitry-cu.png" medium="image" />
+    </item>
+    <item>
+      <title>Recreate A CD4029B Counter In Verilog</title>
+      <link>https://greenforest.io/fpga-verilog/cd4029b-counter-verilog.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-verilog/cd4029b-counter-verilog.html</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Turn the TI CD4029B datasheet into an FPGA-portable Verilog counter with binary and decade modes, up/down control, carry, preset loading, and exhaustive tests.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-verilog/cd4029b-counter-verilog.png" medium="image" />
+    </item>
+    <item>
+      <title>Build A Complete Verilog Workbench</title>
+      <link>https://greenforest.io/fpga-verilog/verilog-workbench-iverilog-gtkwave.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-verilog/verilog-workbench-iverilog-gtkwave.html</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Build an Ubuntu Verilog workbench with Icarus Verilog, GTKWave, Make, and Verilator, then run a self-checking four-bit counter.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-verilog/verilog-workbench-iverilog-gtkwave.png" medium="image" />
+    </item>
+    <item>
+      <title>An FPGA Learning Roadmap</title>
+      <link>https://greenforest.io/fpga-verilog/fpga-learning-roadmap.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-verilog/fpga-learning-roadmap.html</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Build FPGA skill from Boolean logic through Verilog simulation and physical I/O, then carry that foundation into CMOS and ASIC design.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-verilog/fpga-learning-roadmap.png" medium="image" />
+    </item>
+    <item>
+      <title>Inside An FPGA: LUTs, Flip-Flops, And Routing</title>
+      <link>https://greenforest.io/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-verilog/fpga-architecture-luts-flip-flops-routing.html</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Trace a signal through an FPGA]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-verilog/fpga-architecture-luts-flip-flops-routing.png" medium="image" />
+    </item>
+    <item>
+      <title>WebGL and Computation From First Principles</title>
+      <link>https://greenforest.io/from-the-ground-up/</link>
+      <guid isPermaLink="true">https://greenforest.io/from-the-ground-up/</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Start with a switch, carry state through time, compose Boolean logic, and reach arithmetic through browser code that exposes every mechanism.]]></description>
+      <media:content url="https://greenforest.io/social-previews/from-the-ground-up/index.png" medium="image" />
+    </item>
+    <item>
+      <title>History of Control</title>
+      <link>https://greenforest.io/from-the-ground-up/history.html</link>
+      <guid isPermaLink="true">https://greenforest.io/from-the-ground-up/history.html</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A switch or valve makes control visible: one physical condition selects what can move, flow, or happen next, giving computation its first mechanism.]]></description>
+      <media:content url="https://greenforest.io/social-previews/from-the-ground-up/history.png" medium="image" />
+    </item>
+    <item>
+      <title>Core logic</title>
+      <link>https://greenforest.io/from-the-ground-up/logic/</link>
+      <guid isPermaLink="true">https://greenforest.io/from-the-ground-up/logic/</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A multiplexer turns one control bit into a concrete choice between two sources, then MUX graphs compose that operation into every Boolean function.]]></description>
+      <media:content url="https://greenforest.io/social-previews/from-the-ground-up/logic/index.png" medium="image" />
+    </item>
+    <item>
+      <title>What Is An FPGA? Logic, Bitstreams, And State</title>
+      <link>https://greenforest.io/fpga-verilog/what-is-an-fpga.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-verilog/what-is-an-fpga.html</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[See how a factory builds an FPGA fabric, a bitstream selects its LUTs and routes, and flip-flops carry concurrent Boolean logic through time.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-verilog/what-is-an-fpga.png" medium="image" />
+    </item>
+    <item>
+      <title>Anatomy Of A Verilog Project</title>
+      <link>https://greenforest.io/fpga-verilog/verilog-modules-testbenches-constraints.html</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-verilog/verilog-modules-testbenches-constraints.html</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Organize a Verilog project around its synthesis top, simulation testbench, and the pin, clock, I/O, and timing constraints that connect RTL to hardware.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-verilog/verilog-modules-testbenches-constraints.png" medium="image" />
+    </item>
+    <item>
+      <title>Learn FPGA And Verilog From First Principles</title>
+      <link>https://greenforest.io/fpga-verilog/</link>
+      <guid isPermaLink="true">https://greenforest.io/fpga-verilog/</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Build a digital circuit from Boolean logic to physical FPGA pins through seven chapters of Verilog, simulation, constraints, Yosys, nextpnr, and iCE40 configuration.]]></description>
+      <media:content url="https://greenforest.io/social-previews/fpga-verilog/index.png" medium="image" />
+    </item>
+    <item>
+      <title>Advanced R&amp;D Partner in Washington | Hardware, Software &amp; Physics</title>
+      <link>https://greenforest.io/reconfigurable-computing-rd-washington.html</link>
+      <guid isPermaLink="true">https://greenforest.io/reconfigurable-computing-rd-washington.html</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Brian Greenforest turns cross-layer problems into working systems across FPGA, GPU, radio, embedded software, distributed products, and semiconductor R&D.]]></description>
+      <media:content url="https://greenforest.io/social-previews/reconfigurable-computing-rd-washington.png" medium="image" />
+    </item>
+    <item>
+      <title>Addition</title>
+      <link>https://greenforest.io/from-the-ground-up/addition/</link>
+      <guid isPermaLink="true">https://greenforest.io/from-the-ground-up/addition/</guid>
+      <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A full-adder turns three input bits into a sum bit and a carry bit, using the same MUX choices that construct XOR, AND, and OR.]]></description>
+      <media:content url="https://greenforest.io/social-previews/from-the-ground-up/addition/index.png" medium="image" />
+    </item>
+    <item>
+      <title>Cartilage: From One MUX To Runtime Spatial Reconfiguration</title>
+      <link>https://greenforest.io/cartilage/</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage/</guid>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Build Cartilage understanding layer by layer: LUTs, CMOS restoration, distribution, statecharts, timing closure, metal routes, nested components, and runtime spatial reconfiguration.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage/index.png" medium="image" />
+    </item>
+    <item>
+      <title>Build LUT1-LUT6 From One Visible Multiplexer</title>
+      <link>https://greenforest.io/cartilage/logic-to-luts.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage/logic-to-luts.html</guid>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Build LUT1 through LUT6 from a visible 2:1 multiplexer, then connect the same stored-choice mechanism to Lattice iCE40 and AMD/Xilinx FPGA logic.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage/logic-to-luts.png" medium="image" />
+    </item>
+    <item>
+      <title>CMOS Inverters Restore Logic And Drive Real Loads</title>
+      <link>https://greenforest.io/cartilage/cmos-gain-and-output-drivers.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage/cmos-gain-and-output-drivers.html</guid>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Use CMOS inverter gain to restore digital levels, then size buffers and output drivers for fanout, capacitance, transition time, and physical reach.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage/cmos-gain-and-output-drivers.png" medium="image" />
+    </item>
+    <item>
+      <title>Deliver Clock, Event, And Reset Edges Across A Fabric</title>
+      <link>https://greenforest.io/cartilage/clock-event-reset-distribution.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage/clock-event-reset-distribution.html</guid>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Deliver clocks, events, and resets through buffer trees, H-trees, grids, roots, leaves, and regional networks while controlling skew, slew, delay, and energy.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage/clock-event-reset-distribution.png" medium="image" />
+    </item>
+    <item>
+      <title>Make Hierarchical Behavior Visible With Statecharts And One-Hot State</title>
+      <link>https://greenforest.io/cartilage/statecharts-and-one-hot-fsms.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage/statecharts-and-one-hot-fsms.html</guid>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Use Harel statecharts to organize hierarchical reactive behavior and one-hot encoding to give every hardware state a visible storage location.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage/statecharts-and-one-hot-fsms.png" medium="image" />
+    </item>
+    <item>
+      <title>Close Every Timed Path Across FPGA Clock Regions</title>
+      <link>https://greenforest.io/cartilage/clock-regions-and-timing-closure.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage/clock-regions-and-timing-closure.html</guid>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Place launch and capture state across FPGA clock regions, constrain setup and hold, account for routed delay and skew, and drive the design into timing closure.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage/clock-regions-and-timing-closure.png" medium="image" />
+    </item>
+    <item>
+      <title>Route Signals Through Metal Layers, Vias, Resistance, And Capacitance</title>
+      <link>https://greenforest.io/cartilage/metal-wires.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage/metal-wires.html</guid>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Replace schematic arrows with routing layers, vias, resistance, capacitance, direction, and finite capacity, then map Cartilage side-metals onto physical resources.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage/metal-wires.png" medium="image" />
+    </item>
+    <item>
+      <title>Create Parent-Owned Daughter Machines In Adjacent Space</title>
+      <link>https://greenforest.io/cartilage/nested-components-and-composition.html</link>
+      <guid isPermaLink="true">https://greenforest.io/cartilage/nested-components-and-composition.html</guid>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Compose Cartilage components as parent-owned daughter regions with explicit boundaries, local interfaces, independent configuration surfaces, identity, and lifetime.]]></description>
+      <media:content url="https://greenforest.io/social-previews/cartilage/nested-components-and-composition.png" medium="image" />
+    </item>
+    <item>
+      <title>Ethernet To An Adjacent iCE40: A Verilog FPGA Reprogrammer</title>
+      <link>https://greenforest.io/ethernet-udp-ice40-reprogrammer.html</link>
+      <guid isPermaLink="true">https://greenforest.io/ethernet-udp-ice40-reprogrammer.html</guid>
+      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A 2020 Verilog RMII Ethernet and ARP path receives a UDP-carried image, stores it in FPGA RAM, and directly reprograms an adjacent Lattice iCE40LP384.]]></description>
+      <media:content url="https://greenforest.io/social-previews/ethernet-udp-ice40-reprogrammer.png" medium="image" />
+    </item>
+  </channel>
+</rss>
