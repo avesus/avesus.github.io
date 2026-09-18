@@ -5,8 +5,16 @@
     <link>https://greenforest.io/</link>
     <description>Clear mechanisms, inspectable engineering, and ideas worth carrying forward by Brian Greenforest.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Sep 2026 02:42:09 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 05:40:46 GMT</lastBuildDate>
     <atom:link href="https://greenforest.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wi-Fi Through One FPGA Input</title>
+      <link>https://greenforest.io/wi-fi-through-one-fpga-input.html</link>
+      <guid isPermaLink="true">https://greenforest.io/wi-fi-through-one-fpga-input.html</guid>
+      <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A complete Wi-Fi beacon received through one FPGA differential input: 2.437 GHz downconverted to 67 MHz, no external LNA, autonomous bias, zero repaired bits. Download the packet, PCAP and open-source decoder.]]></description>
+      <media:content url="https://greenforest.io/social-previews/wi-fi-through-one-fpga-input.png" medium="image" />
+    </item>
     <item>
       <title>One-Pin SDR: Wideband Capture, Clear FM and FPGA-Controlled Bias</title>
       <link>https://greenforest.io/one-pin-sdr-fpga-bias-control.html</link>
@@ -794,14 +802,6 @@
       <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
       <description><![CDATA[Compose Cartilage components as parent-owned daughter regions with explicit boundaries, local interfaces, independent configuration surfaces, identity, and lifetime.]]></description>
       <media:content url="https://greenforest.io/social-previews/cartilage/nested-components-and-composition.png" medium="image" />
-    </item>
-    <item>
-      <title>Ethernet To An Adjacent iCE40: A Verilog FPGA Reprogrammer</title>
-      <link>https://greenforest.io/ethernet-udp-ice40-reprogrammer.html</link>
-      <guid isPermaLink="true">https://greenforest.io/ethernet-udp-ice40-reprogrammer.html</guid>
-      <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
-      <description><![CDATA[A 2020 Verilog RMII Ethernet and ARP path receives a UDP-carried image, stores it in FPGA RAM, and directly reprograms an adjacent Lattice iCE40LP384.]]></description>
-      <media:content url="https://greenforest.io/social-previews/ethernet-udp-ice40-reprogrammer.png" medium="image" />
     </item>
   </channel>
 </rss>

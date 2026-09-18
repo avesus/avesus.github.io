@@ -1,0 +1,39 @@
+Wi-Fi through one FPGA input — exact received packet
+Brian Greenforest · September 17, 2026
+
+129-byte 802.11 beacon, including FCS; no repaired or redacted bytes.
+ESP8266 device addresses published with the owner's explicit permission.
+PCAP timestamp is synthetic zero; its radiotap flag marks FCS-present.
+
+Frame control (0..1): 80 00 — management / beacon
+Duration (2..3): 0 us
+Destination (4..9): ff:ff:ff:ff:ff:ff
+Transmitter (10..15): de:4f:22:5e:d0:2a
+BSSID (16..21): de:4f:22:5e:d0:2a
+Sequence control (22..23): 0x41d0
+Beacon TSF (24..31): 1557706550 us
+Beacon interval (32..33): 100 TU
+Capabilities (34..35): 0x0001
+IE 0 SSID (36..49): HITL-RX-TEST
+IE 1 Supported rates (50..55): 82 84 8b 96
+IE 3 DS channel (56..58): 6
+IE 221 Vendor test field (59..124): 0b 30 55 7a 9f c4 e9 0e 33 58 7d a2 c7 ec 11 36 5b 80 a5 ca ef 14 39 5e 83 a8 cd f2 17 3c 61 86 ab d0 f5 1a 3f 64 89 ae d3 f8 1d 42 67 8c b1 d6 fb 20 45 6a 8f b4 d9 fe 23 48 6d 92 b7 dc 01 26
+FCS (125..128), transmitted little-endian: 88 79 f9 58
+CRC32(frame[0:125]): 0x58f97988 — PASS
+Known bytes at offsets 61..124: (37*i + 11) mod 256, i=0..63 — 512/512 bits match.
+
+PHY header, separate from the MAC frame: 0a 04 08 04 f5 cb
+SIGNAL: 1 Mb/s; LENGTH: 1032 us; CRC16 valid.
+
+OFFSET  HEX                                              ASCII
+0000    80 00 00 00 ff ff ff ff ff ff de 4f 22 5e d0 2a  ...........O"^.*
+0010    de 4f 22 5e d0 2a d0 41 36 b7 d8 5c 00 00 00 00  .O"^.*.A6..\....
+0020    64 00 01 00 00 0c 48 49 54 4c 2d 52 58 2d 54 45  d.....HITL-RX-TE
+0030    53 54 01 04 82 84 8b 96 03 01 06 dd 40 0b 30 55  ST..........@.0U
+0040    7a 9f c4 e9 0e 33 58 7d a2 c7 ec 11 36 5b 80 a5  z....3X}....6[..
+0050    ca ef 14 39 5e 83 a8 cd f2 17 3c 61 86 ab d0 f5  ...9^.....<a....
+0060    1a 3f 64 89 ae d3 f8 1d 42 67 8c b1 d6 fb 20 45  .?d.....Bg.... E
+0070    6a 8f b4 d9 fe 23 48 6d 92 b7 dc 01 26 88 79 f9  j....#Hm....&.y.
+0080    58                                               X
+
+SHA-256: a95cc5cb3ecdb9b97f1168708d2981d12f04185c02ca8077f583582e80f25a63
