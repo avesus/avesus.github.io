@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>What Hides Under the Clock? | Greenforest I/O</title>
     <meta name="author" content="Brian Greenforest">
-    <meta name="description" content="A path from hand-wired logic and impatient FPGA experiments to clocks, state, pipelines, metastability, clock-domain crossings, and GALS design.">
+    <meta name="description" content="An illustrated FPGA design journey through multiplexers, state machines, clock trees, synchronizers, asynchronous FIFOs, pipelines, and finite-state computation.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://greenforest.io/what-hides-under-the-clock.html">
     <meta property="og:title" content="What Hides Under the Clock?">
-    <meta property="og:description" content="The clock organizes state while switches, paths, delays, registers, feedback, and protocols perform the computation beneath it.">
+    <meta property="og:description" content="The original May 3, 2021 Austin FPGA talk, expanded with 24 slides and concrete examples of how computation occupies space and progresses through time.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://greenforest.io/what-hides-under-the-clock.html">
     <meta property="article:published_time" content="2021-04-11T19:27:45.300Z">
-    <meta property="article:modified_time" content="2026-07-28">
+    <meta property="article:modified_time" content="2026-10-01">
     <link rel="icon" href="/favicon.ico">
     <!-- greenforest:share-metadata:start -->
-    <!-- greenforest:preview-source:none -->
+    <!-- greenforest:preview-source:images/under-the-clock/slide-031.webp -->
     <meta property="og:site_name" content="Greenforest I/O">
     <meta property="og:image" content="https://greenforest.io/social-previews/what-hides-under-the-clock.png">
     <meta property="og:image:secure_url" content="https://greenforest.io/social-previews/what-hides-under-the-clock.png">
@@ -42,8 +42,8 @@
             },
             "dateCreated": "2021-04-11T19:27:45.300Z",
             "datePublished": "2021-04-11",
-            "dateModified": "2026-07-28",
-            "description": "A path from hand-wired logic and impatient FPGA experiments to clocks, state, pipelines, metastability, clock-domain crossings, and GALS design.",
+            "dateModified": "2026-10-01",
+            "description": "An illustrated FPGA design journey through multiplexers, state machines, clock trees, synchronizers, asynchronous FIFOs, pipelines, and finite-state computation.",
             "mainEntityOfPage": "https://greenforest.io/what-hides-under-the-clock.html",
             "proficiencyLevel": "Intermediate",
             "publisher": {
@@ -54,99 +54,269 @@
         }
     </script>
     <script src="/common-script.js" type="text/javascript"></script>
+    <style>
+        .clock-slide { margin: 2rem 0 2.5rem; }
+        .clock-slide img { display: block; width: 100%; height: auto; border: 1px solid #d4d9d1; box-sizing: border-box; background: white; }
+        .clock-slide a:focus-visible { outline: 3px solid #477745; outline-offset: 4px; }
+        .clock-slide figcaption { line-height: 1.5; }
+        .clock-slide .slide-source { white-space: nowrap; font-style: normal; }
+        .clock-table-scroll { max-width: 100%; overflow-x: auto; margin: 1.5rem 0; }
+        .clock-table { width: 100%; border-collapse: collapse; font-size: 18px; text-align: center; }
+        .clock-table th, .clock-table td { padding: .55rem .45rem; border: 1px solid #bbc8b4; }
+        .clock-table thead { background: #e9eee5; }
+        .clock-table tbody th { font-weight: normal; }
+        @media (max-width: 600px) {
+            .clock-table { font-size: 14px; }
+            .clock-table th, .clock-table td { padding: .4rem .25rem; }
+        }
+    </style>
 </head>
 
 <body class="article-structured">
     <header><h1 class="page-title">What Hides Under the Clock?</h1></header>
-    <address><time datetime="2021-04-11">April 11, 2021</time></address>
+    <address><time datetime="2021-04-11">April 11, 2021</time> · Expanded illustrated edition <time datetime="2026-10-01">October 1, 2026</time></address>
 
     <section class="abstract">
-        <p class="eyebrow">Digital design</p>
-        <p class="lead">Years spent trying to escape the clock revealed the discipline that the clock contributes.</p>
-        <p>Feedback, recursion, asynchronous events, metastability, timing closure, and clock-domain crossings all arise from one physical reality: state changes in actual places, signals take time to travel, and a machine must decide when a received change can drive the next action.</p>
-        <p>Sequential logic turns that reality into a composable method. Local agreements about state, time, and communication let many regions work concurrently while preserving causality.</p>
+        <p class="eyebrow">Digital design · Austin FPGA · May 3, 2021</p>
+        <p class="lead">A clock edge can advance thousands of pieces of a computation at once. What happens between those edges is the part software habits make easy to miss.</p>
+        <p>A multiplier works on one sample while an adder works on the previous sample. A packet receiver collects the next byte while a transmitter drains a buffer. A controller waits for an answer while its neighbors continue. The clock gives these circuits a way to preserve each other's results and keep moving.</p>
+        <p>I spent years looking for the right model of computation: something distributed, reactive, concurrent, and capable of accepting new work before the previous work finished. Returning to electronics made me recognize that much of what I wanted was already there, in the ordinary practice of sequential logic. Understanding it changed how I thought about software, too.</p>
+        <p>This article develops the argument from my <a href="https://www.meetup.com/austin-fpga-meetup-group/events/274719464/">May 3, 2021 Austin FPGA meetup talk, “What Hides Under the Clock?”</a>, with the <a href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit">original 129-slide presentation</a> alongside the explanations. Each illustration below comes from that deck; select an image to inspect it at full size.</p>
     </section>
+    <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-010.webp" aria-label="Open slide 10 at full size"><img src="/images/under-the-clock/slide-010.webp" srcset="/images/under-the-clock/slide-010-800.webp 800w, /images/under-the-clock/slide-010.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" fetchpriority="high" decoding="async" alt="The illustrated title slide combines the clock, a switching network, a multiplexer, and a state-machine drawing."></a>
+                <figcaption>The talk's visual premise: look beneath the clock at the machinery that routes values, remembers state, and decides what happens next. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.p">Original slide 10</a>.</figcaption>
+            </figure>
 
     <main>
-        <section>
-            <h2>Wire Came Before Abstraction</h2>
-            <p>In the 1990s, I soldered transistors and integrated circuits, drew large schematics on A1 sheets, etched printed circuit boards, and sometimes wired components directly together.</p>
-            <p>NAND gates, comparators, multiplexers, counters, and Schmitt triggers all resolved into arrangements of switches.</p>
-            <p>Programming then opened Turing machines, actors, cellular automata, lambda calculus, SKI combinators, interaction nets, processes, threads, recursion, functional programs, reactive programs, and distributed systems. The next twenty years traced the important differences among them.</p>
-            <p>Models that compute in many places and accept new arguments while earlier work remains in flight offered the richest direction. Code and data could occupy space together instead of advancing through one imagined register and source line at a time.</p>
-            <p>Each model supplies a different discipline for state, dependencies, and work. Every physical realization still moves signals, holds state, selects alternatives, and lets one event affect the next.</p>
+        <section id="switches">
+            <h2>A choice can occupy a piece of silicon</h2>
+            <p>In the 1990s, I soldered transistors and integrated circuits, drew large schematics on A1 sheets, etched circuit boards, and wired components directly together. A NAND gate, comparator, multiplexer, counter, or Schmitt trigger seemed like an arrangement of switches. That intuition was useful. What I had yet to appreciate was how much could be built by arranging the switches and their memory carefully.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-018.webp" aria-label="Open slide 18 at full size"><img src="/images/under-the-clock/slide-018.webp" srcset="/images/under-the-clock/slide-018-800.webp 800w, /images/under-the-clock/slide-018.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="CMOS NAND and NOR circuits, their gate symbols, truth tables, and transistor switching states."></a>
+                <figcaption>The transistor network implements the truth table. A logic symbol compresses a physical arrangement into a rule we can compose. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_46">Original slide 18</a>.</figcaption>
+            </figure>
+            <p>Take a two-input multiplexer. It has two data inputs, <code>A</code> and <code>B</code>, and a selection input, <code>S</code>. Its output follows <code>A</code> when <code>S</code> is one and <code>B</code> when <code>S</code> is zero:</p>
+            <pre><code>assign out = select ? a : b;</code></pre>
+            <p>The hardware meaning of this expression is wonderfully direct. The circuit exists continuously. A change at the selected input propagates to the output after the circuit's delay. Changing the selection changes which input can influence the output. There is no instruction pointer that has to revisit this line to make the multiplexer respond.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-031.webp" aria-label="Open slide 31 at full size"><img src="/images/under-the-clock/slide-031.webp" srcset="/images/under-the-clock/slide-031-800.webp 800w, /images/under-the-clock/slide-031.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A multistage switching network beside a transistor-level multiplexer and equivalent if-then-else expressions."></a>
+                <figcaption>A conditional expression becomes a place where one signal selects another. Connect many such places and the choices form a computation. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_85">Original slide 31</a>.</figcaption>
+            </figure>
+            <p>Fix <code>A=0</code> and <code>B=1</code>, and the output is <code>NOT S</code>. Fix <code>B=0</code>, and the output is <code>S AND A</code>. Fix <code>A=1</code>, and the output is <code>S OR B</code>. A multiplexer can implement each of these familiar Boolean operations. Cascading multiplexers lets one input choose between functions of the other inputs, which is the same decomposition behind a binary decision tree.</p>
+            <p>That gives us an excellent starting point for computation: inputs influence switches, switches influence other switches, and the resulting pattern appears at the outputs. But a combinational network, however elaborate, only transforms its present inputs. To remember a previous input, count a packet's bytes, or return from a function call, the machine needs state.</p>
         </section>
 
-        <section>
-            <h2>A Light Wand Reopened The Hardware Path</h2>
-            <p>A friend moved a persistence-of-vision light wand from Raspberry Pi and Arduino into an Artix-7 FPGA to achieve tighter sensor-to-light timing. His documented Verilog supplied a direct entry point.</p>
-            <p>The same Arty board and LED strip, Vivado on Debian, and the operating design turned FPGA architecture from a concept into a machine.</p>
-            <p>The Lattice IceStick and iCE40HX1K then exposed the lower layers. Open IceStorm documentation made configuration tangible; bitstream study, place-and-route changes, iCE40LP384 parts, QFN hot-air work, and later microscope-guided iron soldering connected logic to the package.</p>
-            <p>The software reflex demanded a fast change-run-observe cycle. Ethernet on the Arty made that possible: custom ARP and UDP RTL received a new image from a laptop and programmed an adjacent iCE40. That path became the <a href="/ethernet-udp-ice40-reprogrammer.html">Ethernet-to-iCE40 reprogrammer</a>.</p>
+        <section id="space">
+            <h2>Give the computation somewhere to live</h2>
+            <p>Programming introduced me to a much larger vocabulary: Turing machines, actors, cellular automata, lambda calculus, SKI combinators, interaction nets, processes, threads, recursion. I spent the next twenty years exploring their differences. The models that attracted me most allowed activity in many places and allowed several pieces of work to be in flight together.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-021.webp" aria-label="Open slide 21 at full size"><img src="/images/under-the-clock/slide-021.webp" srcset="/images/under-the-clock/slide-021-800.webp 800w, /images/under-the-clock/slide-021.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A collage of a Turing machine, state diagrams, lambda expressions, cellular automata, and circuit-like computational structures."></a>
+                <figcaption>Different models expose different aspects of computation: stored symbols, local transformations, transitions, and connections. A physical implementation must provide resources for all of them. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_55">Original slide 21</a>.</figcaption>
+            </figure>
+            <p>Suppose a program applies three transformations to a stream of samples. A sequential implementation can reuse one execution resource: perform the first operation, then the second, then the third. Its working state records where it is and the intermediate values it will need later. A spatial implementation can give each transformation its own circuit. Now the intermediate values have physical destinations, and the connections between those destinations express the dependencies.</p>
+            <p>Two engineering choices become visible. We can duplicate resources so that several values are processed side by side. We can also place storage between transformations so that a new value enters the first stage while an older one moves through the second. The latter is pipelining. The choices can be combined.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-025.webp" aria-label="Open slide 25 at full size"><img src="/images/under-the-clock/slide-025.webp" srcset="/images/under-the-clock/slide-025-800.webp 800w, /images/under-the-clock/slide-025.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="Coffee queues and timing diagrams contrast overlapping work, parallel workers, buffering, and pipelining."></a>
+                <figcaption>Several jobs can overlap in time; several resources can work at once; buffers can hold work between them. The useful question is where each job and each intermediate result reside. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_70">Original slide 25</a>.</figcaption>
+            </figure>
+            <p>This is a much more productive question than whether a language is sufficiently “high level.” Where are the values? Which operators exist simultaneously? Which operators are shared? What happens when the next value arrives before the previous one has finished? Those decisions determine throughput, storage, latency, and how a system behaves under load.</p>
+            <p>An FPGA makes these choices unusually tangible. You describe a network of logic and storage, and the tools map it into the device. A loop in the source may describe repeated hardware, or it may participate in a design that reuses hardware across cycles. The source text alone does not tell you which cost you are paying; the resulting circuit does.</p>
         </section>
 
-        <section>
-            <h2>Fifty Printed Pages Exposed Two Kinds Of Time</h2>
-            <p>Roughly fifty printed pages of Verilog seemed to say everything twice. Software habits looked for calls and assignments in sequence; the circuit kept equations continuously sensitive to levels while registers accepted state on edges.</p>
-            <p>David Harel’s 1987 statecharts report and Altera’s guidance on one-hot finite-state machines made that division legible. One-hot encoding trades flip-flops for simpler decoding and transition logic, often improving timing on LUT-rich FPGA architectures.</p>
-            <p>Years of object-oriented, functional, distributed, event-driven, streaming, and domain-driven design had built strong preferences around abstraction. Hardware demanded a more physical account of when state changes and how logic between those changes settles.</p>
+        <section id="bench">
+            <h2>A light wand brought the abstractions back to the bench</h2>
+            <p>The route back into hardware began with a friend, Mark, who was building a persistence-of-vision light wand. Move a strip of LEDs through the air and change its colors at the right moments, and the motion paints an image. Sensor-to-light timing becomes part of the picture itself. Delay the response and the light appears in the wrong place.</p>
+            <p>Mark had tried Raspberry Pi and Arduino approaches and moved to an Artix-7 FPGA. He documented his Verilog project carefully. I bought the same Arty board and LED strip, installed Vivado on my Debian laptop, and followed his work until the strip lit up.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-043.webp" aria-label="Open slide 43 at full size"><img src="/images/under-the-clock/slide-043.webp" srcset="/images/under-the-clock/slide-043-800.webp 800w, /images/under-the-clock/slide-043.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="Photographs of the working LED strip and FPGA setup from the original presentation."></a>
+                <figcaption>The LED strip made the timing problem visible: a calculation eventually completed is different from a light changed at the intended point in a movement. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_118">Original slide 43</a>.</figcaption>
+            </figure>
+            <p>Then the available hardware pulled me further in. The Lattice IceStick, with an iCE40HX1K, led to the open IceStorm documentation, the bitstream format, and the C++ source of arachne-pnr. I bought iCE40LP384 parts and learned to solder their QFN packages with hot air. A microscope later made working with an iron practical as well.</p>
+            <p>Years of Python and JavaScript had made me impatient with slow iteration. I wanted to change a design and see the result quickly. The Arty's Ethernet connector suggested a direct route from my laptop to the hardware. I wrote ARP and UDP logic and used the board to program an adjacent iCE40 through its configuration pins.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-051.webp" aria-label="Open slide 51 at full size"><img src="/images/under-the-clock/slide-051.webp" srcset="/images/under-the-clock/slide-051-800.webp 800w, /images/under-the-clock/slide-051.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A workbench with multiple FPGA boards, breadboards, jumper wires, a laptop, and a small display."></a>
+                <figcaption>The physical system behind the abstractions: one board could receive an image and configure another, making the development loop part of the design. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_142">Original slide 51</a>.</figcaption>
+            </figure>
+            <p>The <a href="/ethernet-udp-ice40-reprogrammer.html">Ethernet-to-iCE40 reprogrammer</a> grew from this work. A packet could arrive, its bytes could be received and stored, and a configuration sequence could deliver those bytes to another chip. Each activity had its own state and timing. Building the connection forced me to understand what the Verilog actually meant.</p>
         </section>
 
-        <section>
-            <h2>Removing The Clock Leaves Physical Time Behind</h2>
-            <p>Asynchronous control and hand-made edge detection exposed more timing relationships, not fewer. External inputs still changed at difficult moments, feedback still raced, and longer paths could deliver an earlier-launched signal after a later event.</p>
-            <p>The clock gave a circuit region an agreement about when state changes. A synchronous region divides the work:</p>
-            <ol>
-                <li>Registers hold the current state.</li>
-                <li>Combinational logic derives candidate next state and outputs.</li>
-                <li>Physical paths receive time to settle.</li>
-                <li>A clock edge commits the next state together.</li>
-            </ol>
-            <p>The clock travels through a physical distribution network and reaches different parts of the chip at different times. Data paths have minimum and maximum delays. Setup and hold requirements define the usable window around each receiving edge. Timing closure makes the local agreement true in the placed and routed circuit.</p>
+        <section id="state">
+            <h2>Two assignments can describe one simultaneous change</h2>
+            <p>I printed roughly fifty pages of my Verilog and read them closely. The code seemed to say everything twice. There were current values and next values, levels and edges, logic that continuously derived an answer and logic that decided when to preserve it. My software instincts wanted a shorter sequence of actions.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-055.webp" aria-label="Open slide 55 at full size"><img src="/images/under-the-clock/slide-055.webp" srcset="/images/under-the-clock/slide-055-800.webp 800w, /images/under-the-clock/slide-055.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A photograph of printed Verilog packet-receive code, including conditions and nonblocking assignments."></a>
+                <figcaption>Reading the printed RTL exposed the distinction that matters: deriving a value and committing that value to stored state are separate operations. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_154">Original slide 55</a>.</figcaption>
+            </figure>
+            <p>Consider two registers. Ignore reset for a moment and look only at their update rule:</p>
+            <pre><code>always_ff @(posedge clk) begin
+    a &lt;= b;
+    b &lt;= a;
+end</code></pre>
+            <p>At the active clock edge, each register takes the other's previous value. If <code>a</code> held 3 and <code>b</code> held 9, afterward they hold 9 and 3. The nonblocking assignments describe updates from the old state. Reading them as ordinary immediate software assignments would produce the wrong mental picture.</p>
+            <p>The wires from the registers' outputs already carry the old values before the edge. Each receiving register has a candidate value waiting at its input. The clock causes the receiving elements to capture those inputs, subject to their timing requirements. The two changes are part of one logical state transition even though, physically, every clock and data path has delay.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-117.webp" aria-label="Open slide 117 at full size"><img src="/images/under-the-clock/slide-117.webp" srcset="/images/under-the-clock/slide-117-800.webp 800w, /images/under-the-clock/slide-117.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="Sequential-logic diagrams show combinational logic feeding memory, state feedback, and clocked transitions."></a>
+                <figcaption>Stored state feeds the logic that computes the next state. The clock determines when that next state becomes the current state. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_340">Original slide 117</a>.</figcaption>
+            </figure>
+            <p>Write the entire stored state as <code>q</code> and the inputs as <code>x</code>. A synchronous machine can be described as <code>q_next = F(q, x)</code>. Between edges, the combinational circuit computes <code>F</code>. At the edge, the registers capture its result. An output may depend on the stored state alone, or on stored state and current inputs; that is the familiar Moore/Mealy distinction.</p>
+            <p>Feedback now has a precise meaning. A register's output returns through logic to help determine its next input. The storage separates one transition from the next. A wire loop without that discipline has different behavior: it may form a latch, oscillate, race, or fail to settle. Drawing an arrow back to the beginning does not by itself create the orderly iteration we expect from a software loop.</p>
         </section>
 
-        <section>
-            <h2>The Outer World Follows Its Own Time</h2>
-            <p>A pushbutton, radio comparator, network link, sensor, or neighboring clock domain can change near a local sampling edge. The receiving flip-flop may enter metastability and take extra time to resolve—physical uncertainty in when its output becomes usable.</p>
-            <p>For one slowly changing control bit, a synchronizer chain gives the first register time to resolve before the second exposes its value to sensitive logic. Multi-bit values and streams require shared structure: handshakes, Gray-coded pointers, asynchronous FIFOs, and explicit protocols preserve relationships that independent bit synchronizers could destroy.</p>
-            <p>A clock crossing is a communication interface. Its protocol carries meaning between regions that follow different time.</p>
-            <p>The <a href="/cartilage/clock-event-reset-distribution.html">clock, event, and reset article</a> develops the register-level pattern. The <a href="/cartilage/clock-regions-and-timing-closure.html">clock-region article</a> follows the same idea into placement, skew, and timing closure.</p>
+        <section id="control">
+            <h2>State machines give each cycle a purpose</h2>
+            <p>David Harel's 1987 paper, <a href="https://www.weizmann.ac.il/math/harel/sites/math.harel/files/users/user50/Statecharts.pdf">Statecharts: A Visual Formalism for Complex Systems</a>, helped me organize the control side. Hierarchy lets us describe a larger activity without repeating every internal detail. Concurrent regions let separate activities maintain their own progress. Transitions explain which events change that progress.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-059.webp" aria-label="Open slide 59 at full size"><img src="/images/under-the-clock/slide-059.webp" srcset="/images/under-the-clock/slide-059-800.webp 800w, /images/under-the-clock/slide-059.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="The title page of Harel&#x27;s statecharts paper overlaid with state-machine drawings."></a>
+                <figcaption>Statecharts made complex control legible: describe the states, their hierarchy, and the events that move the system between them. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_166">Original slide 59</a>.</figcaption>
+            </figure>
+            <p>A packet receiver offers a concrete example. It might wait in <code>IDLE</code>, recognize a header in <code>HEADER</code>, collect bytes in <code>PAYLOAD</code>, and report completion in <code>DONE</code>. A payload-byte counter records progress inside one of those states. The state selects which incoming bytes matter and which register enables should be asserted.</p>
+            <p>The counter does not need to know the entire protocol. The controller does not need to implement the arithmetic of incrementing a counter. Their interface is enough: an enable says “count this byte,” and a comparison says “the expected number has arrived.” That relationship can be repeated through a hierarchy of modules.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-061.webp" aria-label="Open slide 61 at full size"><img src="/images/under-the-clock/slide-061.webp" srcset="/images/under-the-clock/slide-061-800.webp 800w, /images/under-the-clock/slide-061.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="Altera&#x27;s State Machine Encoding application brief compares binary and one-hot state representations."></a>
+                <figcaption>A state diagram must become bits. The encoding changes how much storage and decoding logic the implementation needs. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_172">Original slide 61</a>.</figcaption>
+            </figure>
+            <p>For four states, binary encoding can use two flip-flops. One-hot encoding uses four, with one active bit identifying the state. That extra storage can simplify the logic that tests a state or computes a transition. It often suits FPGA resources well, though the best choice depends on the actual machine and its implementation.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-068.webp" aria-label="Open slide 68 at full size"><img src="/images/under-the-clock/slide-068.webp" srcset="/images/under-the-clock/slide-068-800.webp 800w, /images/under-the-clock/slide-068.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="Two interconnected state machines, each with its own states and transitions, exchange an effect signal."></a>
+                <figcaption>A large design can be many understandable machines whose signals influence one another. Each machine retains its own progress. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_193">Original slide 68</a>.</figcaption>
+            </figure>
+            <p>This was the missing connection to the distributed software I already knew. A component can wait for an event while another component keeps working. A request can influence a neighbor's next transition. The implementation does not require a single giant controller to visit every participant one at a time. The meaning of an interaction still has to be designed: which cycle presents a request, which cycle accepts it, and what keeps the request from being lost or counted twice?</p>
         </section>
 
-        <section>
-            <h2>Globally Asynchronous, Locally Synchronous</h2>
-            <p>General relativity rejects one universal time coordinate, and distributed software works with variable network delay. Digital systems also benefit from timing disciplines sized to their physical regions.</p>
-            <p>Daniel Chapiro’s globally asynchronous, locally synchronous architecture gives each region an engineered clock and lets separate regions communicate through interfaces that absorb delay, buffering, and independent progress.</p>
-            <p>GALS preserves the practical value of synchronous design within each island while protocols carry causality between islands.</p>
-            <pre><code>local state A -- protocol / buffer -- local state B
-     clock A                           clock B</code></pre>
-            <p>Inside each island, timing acts as a design constraint. A protocol carries causality between islands.</p>
+        <section id="timing">
+            <h2>The clock buys a bounded interval for the work</h2>
+            <p>I initially resisted the clock. It looked like an imposed global schedule in a world I wanted to make reactive. Trying asynchronous control and handmade edge detection made the timing relationships more visible. Signals still took time to travel. Feedback still needed an ordering rule. A circuit still needed a way to decide that an input was ready to use.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-067.webp" aria-label="Open slide 67 at full size"><img src="/images/under-the-clock/slide-067.webp" srcset="/images/under-the-clock/slide-067-800.webp 800w, /images/under-the-clock/slide-067.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A clock-distribution diagram descends from the clock root through tree or mesh drivers, a mesh, gating cells, and local clock trees."></a>
+                <figcaption>The clock is a signal distributed through real hardware. Its arrival time, fanout, and relationship to data paths are part of the circuit. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_190">Original slide 67</a>.</figcaption>
+            </figure>
+            <p>In a synchronous region, the clock gives us a useful interval. A launching register changes its output after an edge. The change propagates through logic and routing. The destination must receive a stable value early enough before its capture edge to meet setup time, and the value must remain stable long enough afterward to meet hold time.</p>
+            <p>For a simplified one-cycle path, the setup budget includes clock-to-output delay, maximum logic and routing delay, receiving setup time, and allowance for clock uncertainty and the relevant skew. Suppose a 100&nbsp;MHz clock gives us 10&nbsp;ns. An illustrative budget might be 0.4&nbsp;ns to leave the first register, 6.8&nbsp;ns through logic and routing, 0.6&nbsp;ns of setup, and 0.7&nbsp;ns of timing allowance. The total is 8.5&nbsp;ns, leaving 1.5&nbsp;ns of slack.</p>
+            <p>Those are example numbers, not a specification for a particular FPGA. The useful point is the accounting: the whole path must fit. Move the same logic farther apart and the routing delay can consume the margin. Increase the clock frequency and the available interval shrinks. Insert an appropriately placed pipeline register and each resulting stage gets its own interval.</p>
+            <p>Hold timing asks a different question: can the new value arrive too soon and disturb the value being captured? Slowing the clock does not generally repair a same-edge hold violation. Minimum delays and clock arrival relationships matter as well as maximum delays.</p>
+            <p>Timing closure is the work of making the placed and routed circuit obey these relationships across the specified operating conditions. The benefit is enormous. Once the conditions hold, we can reason about the region in state transitions instead of tracing every intermediate electrical change through the chip.</p>
         </section>
 
-        <section>
-            <h2>Pipelines Make Reactivity Physical</h2>
-            <p>A pipeline accepts a new input before the previous one reaches the end. Each stage transforms bounded state and passes a registered result onward while other stages work on different arguments.</p>
-            <p>FPGA computation feels massively parallel and naturally reactive because the structure occupies space. Registers remember progress, wiring expresses dependencies, and new values propagate without an instruction pointer polling every operator.</p>
-            <p>Datapath and control answer complementary questions. The datapath defines which values move and transform; control defines which captures, transfers, and transformations count now. Statecharts and one-hot machines clarify control while pipelined arithmetic keeps data moving continuously.</p>
-            <p>A nested hierarchy of buffered DSP pipelines can place soft custom-instruction CPU cores where sequential or irregular work fits best, then join everything through Boolean circuits and explicit protocols. Each kind of work occupies the structure that serves it without forcing every value through one instruction stream.</p>
+        <section id="crossings">
+            <h2>A clock boundary is a communication boundary</h2>
+            <p>A button, sensor, radio comparator, or independently clocked neighbor has no obligation to change at a convenient point in our local cycle. If an input changes close to a receiving edge, the first flip-flop can become metastable: its output can take longer than usual to resolve to a usable logic level.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-069.webp" aria-label="Open slide 69 at full size"><img src="/images/under-the-clock/slide-069.webp" srcset="/images/under-the-clock/slide-069-800.webp 800w, /images/under-the-clock/slide-069.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A two-flip-flop synchronizer places a second register between an asynchronous input&#x27;s first sampling register and the consuming logic."></a>
+                <figcaption>A synchronizer gives an uncertain first sample time to resolve before downstream logic uses it. It does not turn an arbitrary stream into a reliable communication protocol. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_196">Original slide 69</a>.</figcaption>
+            </figure>
+            <p>For a slowly changing single-bit level, two or more receiving-clock registers in series are a standard solution. The first samples the asynchronous input. The following stage samples later, allowing resolution time. Device characteristics, event rate, receiving frequency, placement, and available settling time affect reliability. This is why the synchronizer is a deliberately implemented structure, not just two convenient variables.</p>
+            <p>A short pulse needs more thought. It can occur entirely between sampling edges and never be observed. A request/acknowledge handshake can hold the event until it is accepted; a toggle scheme can encode an event as a persistent change, provided the event spacing and receiver protocol support it. The application determines what must be preserved.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-070.webp" aria-label="Open slide 70 at full size"><img src="/images/under-the-clock/slide-070.webp" srcset="/images/under-the-clock/slide-070-800.webp 800w, /images/under-the-clock/slide-070.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="Reset-synchronizer circuits show one reset input released separately into two clock domains."></a>
+                <figcaption>Reset release also has a timing relationship. Each clock domain needs a coherent return to normal operation. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_202">Original slide 70</a>.</figcaption>
+            </figure>
+            <p>Reset is part of the same design. Where asynchronous assertion is required, release is commonly synchronized separately to each receiving clock. Otherwise different state elements may leave reset on different cycles, damaging the very initial condition reset was meant to establish. The exact reset strategy follows the device and the system's startup requirements.</p>
+            <p>A multi-bit value makes the problem harder. Suppose a binary counter changes from <code>0111</code> to <code>1000</code>. Four bits change. Synchronizing each bit independently can expose a combination that was never a valid counter value at the source.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-098.webp" aria-label="Open slide 98 at full size"><img src="/images/under-the-clock/slide-098.webp" srcset="/images/under-the-clock/slide-098-800.webp 800w, /images/under-the-clock/slide-098.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="Three-bit binary and Gray-code sequences show multiple changing bits in binary and one changing bit between adjacent Gray-code values."></a>
+                <figcaption>Gray encoding controls how an adjacent state transition changes the wires. That property is useful when communicating FIFO pointer progress. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_289">Original slide 98</a>.</figcaption>
+            </figure>
+            <p>An asynchronous FIFO gives a stream a more complete interface. The writer stores data using its clock; the reader retrieves it using another. Read and write pointers track progress. A common implementation crosses Gray-coded pointers, whose adjacent values differ in one bit, and uses the synchronized progress to decide full and empty. Physical constraints must also preserve the intended pointer-crossing behavior. The payload is held in memory; it is not reconstructed by independently synchronizing every payload bit.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-071.webp" aria-label="Open slide 71 at full size"><img src="/images/under-the-clock/slide-071.webp" srcset="/images/under-the-clock/slide-071-800.webp 800w, /images/under-the-clock/slide-071.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A two-clock FIFO contains dual-ported RAM, separate read and write pointers, pointer synchronizers, and full/empty comparison logic."></a>
+                <figcaption>The memory holds the data while synchronized pointer information tells each side what it can safely consume or overwrite. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_205">Original slide 71</a>.</figcaption>
+            </figure>
+            <p>The <a href="https://docs.amd.com/r/en-US/ug949-vivado-design-methodology/Multi-Bit-CDC">FPGA vendor's CDC guidance</a> helps select an implementation suited to the kind of information crossing. The underlying design question remains straightforward: are we sending a level, an event, a coherent word, or a stream? Each has different obligations.</p>
+            <p>A FIFO can absorb bursts and short-term differences in progress. It cannot absorb an indefinitely faster producer with finite memory. The surrounding protocol needs backpressure, a rate guarantee, or an explicit policy for overflow. Buffering makes waiting manageable; it does not make storage infinite.</p>
         </section>
 
-        <section>
-            <h2>Finite State Eventually Returns</h2>
-            <p>A maximum-length linear-feedback shift register makes the lesson visible: four flip-flops and one XOR traverse a long, apparently irregular sequence before returning to their starting state.</p>
-            <p>A single-instruction self-modifying processor made it stronger. Its complete program fit in compact RAM, which allowed exhaustive runs across the instruction combinations. However strange the intermediate behavior appeared, the complete RAM state eventually recurred.</p>
-            <p>A closed deterministic machine with finitely many states must eventually revisit one. From that point, the same future repeats. A transient may precede the cycle, the cycle may run for an extraordinary length, and an open system may keep receiving new information. The finite closed state graph still returns.</p>
-            <p>State capacity and external input therefore shape computational novelty. Long trajectories, changing environments, randomness, and new information entering through interfaces all extend what the machine can do.</p>
-            <p>Process calculi and functional reactive systems fit the same physical account. Push versus pull decides where state waits, which dependency initiates work, and how far a change travels. Boolean circuits supply decisions; stored state supplies history. An extensible supply of both lets a finite construction grow into a general computer, as the <a href="/boolean-algebra-is-all-that-is-required.html">multiplexer construction</a> develops directly.</p>
+        <section id="gals">
+            <h2>Local clocks let the larger system keep moving</h2>
+            <p>The breakthrough for me was accepting that synchronous reasoning could be local. My familiarity with distributed systems and relativity had already made me suspicious of one universal “now.” Digital engineering gives that intuition a concrete form: clock domains can maintain their own timing, and interfaces can carry information between them.</p>
+            <p>Daniel Chapiro's 1984 work on <a href="https://www.researchgate.net/publication/234285814_Globally-asynchronous_locally-synchronous_systems">globally asynchronous, locally synchronous systems</a> gave this arrangement a name: GALS. Build synchronous regions that are practical to time and implement. Connect them with interfaces that handle independent progress.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-119.webp" aria-label="Open slide 119 at full size"><img src="/images/under-the-clock/slide-119.webp" srcset="/images/under-the-clock/slide-119-800.webp 800w, /images/under-the-clock/slide-119.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="GALS diagrams show locally synchronous modules linked through communication wrappers, and a FIFO between two independently clocked regions."></a>
+                <figcaption>Synchronous islands retain a simple internal discipline. Their interfaces handle the relationship between different clocks. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_349">Original slide 119</a>.</figcaption>
+            </figure>
+            <p>Imagine an acquisition block producing samples at its own rate, a processing block transforming them, and a host interface transferring results in bursts. An input FIFO can bridge acquisition and processing; an output FIFO can bridge processing and the host. Each region has an internal schedule. The FIFO protocols determine when data is available and when space is available.</p>
+            <p>That structure makes several kinds of reasoning possible at once. We can close timing within a region. We can check that a crossing preserves data and ordering. We can calculate whether the buffers cover the expected bursts. We can define what the source must do when the destination stops accepting work.</p>
+            <p>This applies at different scales, but the implementation details belong to each scale. An on-chip FIFO, an FPGA-to-FPGA link, and a network connection use different mechanisms. What they share is the need to preserve meaningful progress across an interface. The <a href="/cartilage/clock-regions-and-timing-closure.html">clock-region article</a> follows that concern into placement and timing.</p>
         </section>
 
-        <section>
-            <h2>The Clock Is A Local Treaty</h2>
-            <p>The clock organizes when stored state changes. Beneath that treaty, switches, paths, delays, registers, feedback, protocols, and timing regions perform the computation.</p>
-            <p>Hand-wired gates began the path, twenty years of software abstractions expanded it, and FPGA work returned those abstractions to physical mechanisms.</p>
-            <p>Non-tail recursion stores activation state somewhere. A process communicates across an interface. A reactive dependency becomes wiring or scheduling. A concurrent pipeline occupies several places at once. An asynchronous neighbor uses a protocol. The clock orchestrates those participants without pretending to replace them.</p>
+        <section id="datapath">
+            <h2>Datapath and control belong together</h2>
+            <p>I had also resisted the separation of datapath and control logic. It seemed like another unnecessary division imposed on a computation that should describe itself. The packet receiver had already supplied the answer: moving and transforming values is one part of a job; deciding which movement or transformation counts is another.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-083.webp" aria-label="Open slide 83 at full size"><img src="/images/under-the-clock/slide-083.webp" srcset="/images/under-the-clock/slide-083-800.webp 800w, /images/under-the-clock/slide-083.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="An FSM controller sends instructions to a datapath, and the datapath returns conditions to the controller."></a>
+                <figcaption>Control selects an action. The datapath performs it and reports conditions that influence subsequent actions. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_199">Original slide 83</a>.</figcaption>
+            </figure>
+            <p>A datapath may contain adders, multipliers, shifts, comparisons, registers, and multiplexers. Control selects operands, enables captures, identifies valid results, and decides when the next operation may begin. These are connections between circuits. “Control” does not imply a software thread supervising every gate.</p>
+            <p>For example, an iterative divider reuses arithmetic over several cycles and records its progress in registers. A pipelined multiplier distributes work over stages and may accept another operand pair before the preceding product emerges. Both need rules for identifying which inputs were accepted and which outputs are meaningful. Their storage and schedules are different because their resource choices are different.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-088.webp" aria-label="Open slide 88 at full size"><img src="/images/under-the-clock/slide-088.webp" srcset="/images/under-the-clock/slide-088-800.webp 800w, /images/under-the-clock/slide-088.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="The slide places a fused multiply-add datapath beside BLAS operations and the expression z = ax + y."></a>
+                <figcaption>A compact mathematical expression expands into arithmetic, operand alignment, storage, and a schedule for producing results. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_259">Original slide 88</a>.</figcaption>
+            </figure>
+            <p>Even <code>z = a × x + y</code> contains an architectural decision. If the multiplication takes several pipeline stages, the corresponding <code>y</code> value must wait or travel through matching storage so that the addition combines the correct operands. For floating-point fused multiply-add, the internal precision and final rounding are also part of the operation's meaning. A formula names the relationship; the circuit must preserve that relationship over time.</p>
+            <p>The same approach scales into a system: buffered DSP pipelines for regular streams, state machines for control, and soft CPU cores where sequential or irregular tasks make them useful. The interfaces join them. We can choose the structure that suits each task and still reason about the composed machine.</p>
+        </section>
+
+        <section id="pipeline">
+            <h2>A pipeline turns waiting time into useful overlap</h2>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-126.webp" aria-label="Open slide 126 at full size"><img src="/images/under-the-clock/slide-126.webp" srcset="/images/under-the-clock/slide-126-800.webp 800w, /images/under-the-clock/slide-126.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A sequence of logic stages separated by registers shares a clock, from input data at the left to output data at the right."></a>
+                <figcaption>Each register preserves one stage's result while all stages compute their next results. Several inputs can occupy the pipeline at once. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_367">Original slide 126</a>.</figcaption>
+            </figure>
+            <p>Consider a three-stage circuit that scales a sample, adds a fixed bias, and compares the result with a threshold. Label successive samples A, B, C, and D. An input register launches A at edge 0. After one interval, the first stage captures A's scaled value. Subsequent edges advance it while admitting more work:</p>
+            <div class="clock-table-scroll" role="region" aria-label="Pipeline progression" tabindex="0">
+                <table class="clock-table">
+                    <thead><tr><th scope="col">After edge</th><th scope="col">Input register</th><th scope="col">Scale result</th><th scope="col">Bias result</th><th scope="col">Comparison result</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">0</th><td>A</td><td>—</td><td>—</td><td>—</td></tr>
+                        <tr><th scope="row">1</th><td>B</td><td>A</td><td>—</td><td>—</td></tr>
+                        <tr><th scope="row">2</th><td>C</td><td>B</td><td>A</td><td>—</td></tr>
+                        <tr><th scope="row">3</th><td>D</td><td>C</td><td>B</td><td>A</td></tr>
+                        <tr><th scope="row">4</th><td>E</td><td>D</td><td>C</td><td>B</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>At edge 3, A has reached the output. At edge 4, B follows. The latency from input-register capture to output capture is three cycles. The initiation interval—the spacing between accepted samples—is one cycle. At an illustrative 100&nbsp;MHz, that is 30&nbsp;ns of latency and, once filled, 100 million results per second, assuming each stage meets timing and the interfaces sustain the stream.</p>
+            <p>The labels in the table are as important as the arithmetic. At any instant, the stages contain values from different samples. If the bias were an input that varied with each sample, it would need to travel with its own sample through the appropriate delays. A valid bit, channel identifier, or packet marker often needs the same treatment.</p>
+            <p>Now let the destination stop accepting results. A fixed-flow pipeline needs a guaranteed drain or enough output buffering for the pause. An elastic pipeline uses valid/ready relationships and storage so that occupied stages can hold their values and propagate backpressure. In either design, the rule must preserve the association between data and its meaning.</p>
+            <p>This was the concurrent, reactive behavior I had been searching for. The scale, bias, and comparison circuits all exist. A change at each stage's inputs starts that stage's work. Registers preserve the intermediate results. The next sample does not need to wait for the previous sample to finish the entire computation.</p>
+        </section>
+
+        <section id="recurrence">
+            <h2>Four flip-flops make finite state impossible to ignore</h2>
+            <p>A circuit I made in Logisim brought the state model into sharp focus: four D flip-flops and an XOR feedback function, arranged as a linear-feedback shift register. The output looked irregular, but I could watch every bit of memory that generated it.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-101.webp" aria-label="Open slide 101 at full size"><img src="/images/under-the-clock/slide-101.webp" srcset="/images/under-the-clock/slide-101-800.webp 800w, /images/under-the-clock/slide-101.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A Logisim circuit has four flip-flops, XOR feedback, a hexadecimal display, and an LED display of its sequence."></a>
+                <figcaption>A handful of stored bits can produce an apparently complicated sequence. The complete current state still determines the next step. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_298">Original slide 101</a>.</figcaption>
+            </figure>
+            <p>Four bits have sixteen possible patterns. A maximal-length four-bit XOR LFSR visits fifteen nonzero states before repeating; the all-zero state is a separate fixed point. The apparent irregularity comes from the order of the states. It does not create additional states beyond the memory available.</p>
+            <p>I encountered the same idea in a more surprising form while running programs for a very small single-instruction processor that could modify its own code. The deck points to BitBitJump: an instruction identifies a source bit, a destination bit, and the address of the next instruction. Copying a bit can alter the memory from which later instructions will be read.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-102.webp" aria-label="Open slide 102 at full size"><img src="/images/under-the-clock/slide-102.webp" srcset="/images/under-the-clock/slide-102-800.webp 800w, /images/under-the-clock/slide-102.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="The BitBitJump description shows its three operands A, B, and C: a source bit address, a destination bit address, and a next-instruction address."></a>
+                <figcaption>Self-modifying code changes future behavior by changing memory. It still operates within the machine's complete state. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_301">Original slide 102</a>.</figcaption>
+            </figure>
+            <p>When I explored the programs that fit in the small memory, the recurring sequences became impossible to dismiss. The reason is simple enough to state precisely. A closed deterministic machine with <code>N</code> bits of total state has at most <code>2^N</code> states. After more than that many observations, some complete state must have occurred before. Because the transition rule is deterministic, the same complete state has the same successor. From that point onward, the future repeats.</p>
+            <p>The word <em>complete</em> matters. For a processor, include the program counter, registers, memory, and any other state that affects the next step. A repeated RAM image alone need not mean a repeated machine state. The path can also have a transient before entering a cycle. A halted state can be represented as a state that keeps returning to itself.</p>
+            <p>An open machine receives new inputs, so its next state depends on more than its internal history. A keyboard event, a network packet, or a fresh sample can change the trajectory. This gives an interface real conceptual weight: it is where information from outside the machine enters its evolution.</p>
+            <p>The practical lesson is liberating. Complicated behavior can be understood through stored state, transition rules, and inputs. For a fixed physical machine, all three can be made concrete. General models of computation extend the available memory when the problem requires it; a particular chip gives us a particular finite implementation.</p>
+        </section>
+
+        <section id="reactive">
+            <h2>Reactive programming needs somewhere to put the value</h2>
+            <p>Once I could see circuits this way, familiar software arguments became easier to untangle. A reactive dependency says that a change upstream may require work downstream. The implementation still needs to decide where the value waits, who initiates a transfer, and what happens if the receiver is busy.</p>
+            <figure class="clock-slide">
+                <a href="/images/under-the-clock/slide-110.webp" aria-label="Open slide 110 at full size"><img src="/images/under-the-clock/slide-110.webp" srcset="/images/under-the-clock/slide-110-800.webp 800w, /images/under-the-clock/slide-110.webp 1600w" sizes="(max-width: 960px) calc(100vw - 40px), 900px" width="1600" height="900" loading="lazy" decoding="async" alt="A push-pull diagram shows data flowing from a publisher to a subscriber and demand flowing back toward the publisher."></a>
+                <figcaption>Data and demand travel in opposite directions. Their interaction decides when a value can move and where it must wait. <a class="slide-source" href="https://docs.google.com/presentation/d/15IV0bYs05rNpWRJ0YchkGbHJnLKn7fUEdnSQ2sWMKjw/edit#slide=id.gd5dd714824_0_325">Original slide 110</a>.</figcaption>
+            </figure>
+            <p>In a push arrangement, a producer presents work when it is available. A consumer must accept it, buffer it, or signal that it cannot yet proceed. In a pull arrangement, demand from the consumer initiates delivery. A buffered stream combines both ideas: production fills available storage, while consumption creates space and permits further production.</p>
+            <p>A same-clock valid/ready interface makes this explicit. The producer presents a value and asserts <code>valid</code>. The receiver asserts <code>ready</code> when it can accept the value. A transfer occurs on a clock edge when both are asserted. While valid is asserted and ready is low, the producer holds the offered value stable. These rules tell us exactly which event advances each participant.</p>
+            <p>Software queues, actor mailboxes, and streaming systems face comparable resource questions. Their runtime may implement the storage and scheduling for us, but the obligations remain: retain work until it is accepted, preserve required ordering, associate responses with requests, and decide how finite capacity affects admission.</p>
+            <p>Recursion has a physical account, too. If a call must return to unfinished work, some state must preserve that continuation and any values it will need. A stack is one arrangement of that storage. A circuit with multiple active invocations needs corresponding resources or a schedule for sharing them. Naming the abstraction does not eliminate its state.</p>
+            <p>What finally impressed me about sequential logic was its breadth. It supports parallel work because many circuits occupy different places. It supports overlapping work because registers and buffers preserve progress. It supports reactive behavior because connected logic responds to changing inputs. It supports larger distributed systems because local machines can communicate through designed interfaces.</p>
+            <p>The clock lets us use all of this with a tractable account of time. Beneath each edge is a network of choices; between edges, signals propagate; across edges, state carries history forward. Once those mechanisms become visible, a chip stops looking like a mysterious box that executes code. You can see where the computation lives, how it moves, and what another part of the machine is free to do while it waits.</p>
+            <p>If you are designing a stream processor, a reconfigurable system, or a piece of software whose concurrency has become difficult to explain, draw its storage and transfers. Mark what each participant remembers, when it may advance, and how it knows its neighbor is ready. That drawing is often the beginning of a much better architecture. <a href="/technology-research-and-consulting.html">Bring me the system you want to build, and let's work through it.</a></p>
         </section>
     </main>
+
 
     <nav class="article-links">
         <p>Next:</p>
