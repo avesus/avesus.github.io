@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gaussian Synthesis with Square Waves: SqBell for minilogue xd | Greenforest I/O</title>
+<meta name="author" content="Brian Greenforest">
+<meta name="description" content="Brian Greenforest’s SqBell v0.5 builds Gaussian spectral shapes with square-wave arithmetic. Download the MIT source, minilogue xd oscillator and audio.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://greenforest.io/gaussian-synthesis-with-square-waves.html">
+<link rel="icon" href="/favicon.ico">
+<meta property="og:site_name" content="Greenforest I/O">
+<meta property="og:title" content="Gaussian Synthesis with Square Waves: SqBell for minilogue xd">
+<meta property="og:description" content="Brian Greenforest’s SqBell v0.5 builds Gaussian spectral shapes with square-wave arithmetic. Download the MIT source, minilogue xd oscillator and audio.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://greenforest.io/gaussian-synthesis-with-square-waves.html">
+<meta property="article:published_time" content="2026-10-15">
+<meta property="article:modified_time" content="2026-10-15">
+<meta property="article:author" content="Brian Greenforest">
+<meta property="og:image" content="https://greenforest.io/synthesis/gaussian-synthesis-with-square-waves-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gaussian Synthesis with Square Waves: SqBell for minilogue xd — Brian Greenforest">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://greenforest.io/synthesis/gaussian-synthesis-with-square-waves-share.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Gaussian Synthesis with Square Waves: SqBell for minilogue xd", "description": "Brian Greenforest’s SqBell v0.5 builds Gaussian spectral shapes with square-wave arithmetic. Download the MIT source, minilogue xd oscillator and audio.", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "mainEntityOfPage": "https://greenforest.io/gaussian-synthesis-with-square-waves.html", "image": "https://greenforest.io/synthesis/gaussian-synthesis-with-square-waves-share.png", "author": {"@type": "Person", "name": "Brian Greenforest", "url": "https://greenforest.io/"}, "publisher": {"@type": "Organization", "name": "Greenforest I/O", "url": "https://greenforest.io/"}}</script>
+<script src="/common-script.js"></script>
+<script src="/site-analytics.js" defer></script>
+<link rel="stylesheet" href="/synthesis/articles.css">
+</head>
+<body class="article-structured synthesis-article">
+<header><h1 class="page-title">Gaussian Synthesis with Square Waves: SqBell for minilogue xd</h1></header>
+<address>By Brian Greenforest · <time datetime="2026-10-15">October 15, 2026</time></address>
+<main>
+
+
+<p class="deck">The robots in <em>Stray</em> made me want to build a voice with a life of its own. SqBell is my answer in a Korg minilogue xd user oscillator: a movable Gaussian spectrum assembled with fast square-wave arithmetic.</p>
+<p>The shape has a center, a width and a density. Pitch moves the center. SHAPE changes the width in hertz. Density changes how many frequency components fill it. I wanted those three decisions to remain separate, so I could play the sound instead of negotiating with its implementation.</p>
+<div class="downloads"><a href="/synthesis/sqbell-v0.5.mnlgxdunit" download>Download SqBell v0.5 · minilogue xd</a><a href="/synthesis/sqbell-v0.5-MIT-source.zip" download>Download the MIT source release</a></div>
+<p class="small">By Brian Greenforest. Free to use and modify under the <a href="/synthesis/LICENSE-SqBell.txt">MIT license</a>; <a href="/synthesis/SqBell-third-party-licenses.txt">KORG’s BSD notice</a> remains with SDK-derived material. The compiled download is for <strong>minilogue xd</strong>.</p>
+
+<section id="listen"><h2>Hear density change while width stays put</h2>
+<audio controls preload="metadata" aria-label="SqBell Density 16, 32, 64 and 96"><source src="/synthesis/sqbell-density-16-32-64-96.mp3" type="audio/mpeg"><a href="/synthesis/sqbell-density-16-32-64-96.wav">Download the audition</a></audio>
+<p>Four three-second sections: Density <strong>16, 32, 64, 96</strong>. Pitch is A4 and Gaussian width is about 400 Hz throughout. Each section has two plucks from an external amplitude envelope. Levels are matched so the comparison emphasizes the character of the oscillator. This is a 48 kHz rendering of the compiled WASM implementation through the XD SDK callbacks, with no effects. <a href="/synthesis/sqbell-density-16-32-64-96.wav" download>Download the 24-bit WAV</a>.</p>
+</section>
+
+<section id="inspiration"><h2>A robot voice, and a wonderfully simple Fourier page</h2>
+<p><em>Stray</em> was the creative spark: robots that feel like characters, with electronic voices that suggest intention and emotion. I wanted to explore that territory with synthesis I could understand and control. The game’s sound designers discuss their work in <a href="https://www.asoundeffect.com/stray-game-audio/">this interview with Yann van der Cruyssen and Raphaël Monnin</a>. SqBell is my own construction inspired by that world.</p>
+<p>Michael J. Ruiz’s <a href="https://www.mjtruiz.com/ped/fourier/fourier16.html">Fourier Synthesizer 16</a> was another important reference. It lets you set the amplitudes and phases of sixteen harmonics and hear their sum. That direct relationship between a few numbers, a visible shape and a sound is exactly what makes Fourier synthesis inviting. It led me toward a specific question: how cheaply could I build a useful bell-shaped spectrum inside an instrument?</p>
+</section>
+
+<section id="gaussian"><h2>I want Gaussians, not tiny triangles</h2>
+<p>A pointy little triangle is not a Gaussian just because both rise and fall. A triangle has straight sides, a sharp tip and a finite edge. A Gaussian has a smoothly rounded peak and exponentially diminishing tails. Compress either into a few pixels or a handful of prominent partials and the distinction becomes easy to lose. I want the shape to be a mathematical decision, not a flattering label on a tiny drawing.</p>
+<p>There are real Gaussian techniques already in synthesis. Paul Nasca’s <a href="https://www.paulnasca.com/algorithms-created-by-me">PADsynth</a>, documented in <a href="https://csound.com/docs/manual/GENpadsynth.html">Csound’s GENpadsynth</a>, spreads partials across spectral bins using a selected profile, including a Gaussian, then uses an inverse Fourier transform. SuperCollider’s <a href="https://doc.sccode.org/Classes/LFGauss.html">LFGauss</a> makes a Gaussian-shaped time-domain envelope. In Eurorack, the <a href="https://www.expert-sleepers.co.uk/downloads/manuals/disting_user_manual_4.28.pdf#page=117">Expert Sleepers disting mk4 Pulsar VCO</a> offers a Gaussian window for its pulsarets. Magnetic Freak’s <a href="https://magnetic-freak.com/wp-content/uploads/2022/08/Gaussian_Eurorack_UserGuide.pdf">GAUSSIAN</a> uses the word for a random distribution.</p>
+<p>Those are different objects: a spectral profile, a grain envelope and a probability distribution. For SqBell I wanted the bell in the amplitude spectrum, with its width under direct control. Each intended component receives the actual Gaussian weight:</p>
+<pre>a(k) = exp(−½ · (offset(k) / sigma)²)</pre>
+<p>Here <code>sigma</code> is the width of the <em>amplitude</em> spectrum. At an offset of one sigma the amplitude is about 0.607 of the peak; at two it is about 0.135; at four it is about 0.000335. That puts a rounded center and long, quiet shoulders into the coefficients themselves.</p>
+<figure><img src="/synthesis/gaussian-shape-and-density.png" width="1680" height="700" alt="Gaussian and triangular curves with the same half-height width, followed by 16 and 96 Gaussian-weighted spectral components"><figcaption>Left: matching the half-height width does not make a triangle Gaussian. Right: Density increases the number of components under the same Gaussian amplitude profile. These are coefficient diagrams, not oscilloscope traces.</figcaption></figure>
+</section>
+
+<section id="fourier"><h2>What the Fourier sum is doing</h2>
+<p>The ideal reference is a sum of frequency components around the played center frequency:</p>
+<pre>s(t) = Σ a(k) · cos(2π · (fc + offset(k)) · t + phase(k))</pre>
+<p>For N components, set <code>M = floor(N/2)</code> and spacing to <code>4·sigma/M</code>. Even counts use offsets from −M through M−1; odd counts use −M through M. Multiplying those indices by the spacing places the components across approximately eight standard deviations.</p>
+<p>With coherent phase, a Gaussian frequency profile and a Gaussian time envelope are Fourier partners. A finite, evenly spaced set of components gives a periodic version of that idea. Widening the frequency profile concentrates its time structure; closer frequency spacing changes its repetition. The played carrier moves that structure into the desired pitch region.</p>
+<p>The real-valued output also has the mirrored negative-frequency spectrum. A very broad profile at a low pitch can overlap that mirror. SqBell keeps the requested width instead of silently narrowing it to fit the note. Density remains a count of intended components; it does not turn a finite line spectrum into a continuous spectrum.</p>
+</section>
+
+<section id="square"><h2>The fast part: weighted square waves</h2>
+<p>I made the inner loop cheap by replacing a bank of per-component sine evaluations with square-wave sign decisions. A square wave is straightforward to generate from a phase accumulator: choose a sign from the phase bits. Weight and phase-shift several square waves, and their unwanted harmonics cancel each other.</p>
+<p>Each quadrature in v0.5 comes from seven weighted square branches, shifted in steps of π/8. The ideal mixer can be written:</p>
+<pre>m(θ) = sin(π/16) · Σ cos(kπ/8) · sign(sin(θ + kπ/8))
+                       k = −3 … 3</pre>
+<p>The <code>sin</code> inside <code>sign</code> describes a square wave mathematically; the runtime obtains that sign from phase bits. The branch weights are computed ahead of time. Their sum has sixteen phase regions and only four distinct positive levels, with the other levels supplied by symmetry.</p>
+<p>I reduce those seven branches algebraically into four combined levels and pack them into two coefficient words per component. At runtime, bit folding selects a level and its sign. Gaussian amplitude weighting is already present in those coefficients. There is no Gaussian filter after the sum and no dense sampled sine-wave table hiding behind it.</p>
+<p>Conjugate pairs share work. The component phases are integer multiples of one shared DDS phase accumulator. One recursive complex carrier rotation per output sample translates the result to the played note; its trigonometric coefficients are approximated when the pitch changes. This is where the speed comes from: simple phase arithmetic and coefficient selection do the repeated work.</p>
+<p>In the ideal coefficient limit, the sixteen-phase mixer cancels odd harmonics 3 through 13. Its first residual harmonic families are 15 and 17. The real implementation also has coefficient rounding and discrete-time aliasing, which the included spectral comparisons make visible.</p>
+</section>
+
+<section id="controls"><h2>Three controls with separate jobs</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">Control</th><th scope="col">What it changes</th></tr></thead><tbody>
+<tr><td>Played note</td><td>The intended spectral center, fc.</td></tr>
+<tr><td>SHAPE</td><td>Gaussian amplitude-spectrum width: sigma = 2 + 2398·SHAPE³ Hz, with SHAPE normalized to 0–1.</td></tr>
+<tr><td>Density</td><td>The actual intended component count, from 16 through 96.</td></tr>
+</tbody></table></div>
+<p>At sigma = 100 Hz, Density 16 gives 50 Hz spacing; 32 gives 25 Hz; 64 gives 12.5 Hz; 96 gives about 8.33 Hz. The width stays fixed. More components fill the same bell more densely, and more of those components sit near its audible center.</p>
+<p>Density changes use a brief fade down, a coefficient-bank switch and a fade back up, roughly 2.7–4 ms in total. That avoids an abrupt switch without paying to run two banks at once.</p>
+</section>
+
+<section id="measurements"><h2>What v0.5 delivers</h2>
+<p>The ARM ELF occupies <strong>12,292 bytes of text, data and BSS combined</strong>. Measured executed instruction counts per output sample are approximately 239 at Density 16, 351 at 32, 575 at 64 and 799 at 96. These are emulator instruction counts, not processor cycles or a benchmark against a sine implementation.</p>
+<p>At A5 and sigma about 100 Hz, the error power relative to an independent ideal Gaussian sum improved from −14.22 dB in SqBell16 v0.4 to <strong>−20.32 dB in v0.5</strong> at the same sixteen-component count: about 6.1 dB less error. Higher Density means closer lines; it is a separate choice from harmonic rejection.</p>
+<audio controls preload="metadata" aria-label="SqBell16 v0.4 followed by SqBell v0.5"><source src="/synthesis/sqbell16-old-then-sqbell-new.mp3" type="audio/mpeg"><a href="/synthesis/sqbell16-old-then-sqbell-new.wav">Download the comparison</a></audio>
+<p class="small">The earlier build plays for three seconds, followed by one second of silence and three seconds of v0.5. The sixteen-component count, pitch, width and external pluck envelope match; RMS is matched. <a href="/synthesis/sqbell16-old-then-sqbell-new.wav" download>24-bit WAV</a>.</p>
+<figure><img src="/synthesis/density-spectrum.png" loading="lazy" alt="Measured SqBell spectra compared across Density values at fixed width"><figcaption>Measured spectra from the compiled implementation. The release includes the <a href="/synthesis/spectrum-report.json">spectral report</a>, <a href="/synthesis/render-report.json">render checks</a> and <a href="/synthesis/arm-audit.json">ARM audit</a>.</figcaption></figure>
+<p>Checks cover all 81 Density settings, changes during held notes, pitch/width independence, retriggers, block sizes and modulation. Five ARM/WASM comparisons agree within 7.2 × 10<sup>−7</sup> full scale. The v0.5 listening examples and checks use software and ARM emulation; start at Density 32 when trying the instrument, since high-density polyphonic timing still needs an on-instrument check.</p>
+</section>
+
+<section id="install"><h2>Load it into your minilogue xd</h2>
+<ol><li>Download <a href="/synthesis/sqbell-v0.5.mnlgxdunit" download>sqbell-v0.5.mnlgxdunit</a>. Use the <a href="https://www.korg.com/us/support/download/product/0/811/">Korg minilogue xd Sound Librarian</a> to transfer it into an available USER oscillator slot.</li>
+<li>Select the USER oscillator and choose <strong>SqBell</strong> with TYPE. Turn SHAPE to explore the spectral width.</li>
+<li>Enter PROGRAM EDIT, press button <strong>10 (MULTI ENGINE)</strong>, and select parameter 1, <strong>Density</strong>. Choose 32 to begin. The full displayed range is 16–96.</li>
+<li>Save the program with WRITE to preserve the setting. Saved programs can restore their own Density value, so check the display when comparing sounds.</li></ol>
+<p>The <a href="https://cdn.korg.com/us/support/download/files/f75090725e8541eddad788a94e8c3cba.pdf#page=36">Korg owner’s manual</a> documents the user-oscillator parameter menu. This download is an oscillator unit; the instrument’s envelope, filter and effects are available for shaping your own programs around it.</p>
+<p>The <a href="/synthesis/sqbell-v0.5-MIT-source.zip" download>MIT source release</a> includes the C++ oscillator, coefficient generator, build scripts, compiled unit, WASM, ELF, measurement scripts, reports and WAVs. Its <a href="/synthesis/SqBell-README.txt">build instructions</a> identify the SDK layout, dependencies and pinned commit. <a href="/synthesis/sqbell-build-manifest.json">Build hashes</a> identify the exact published v0.5 source and binaries.</p>
+<p>If you enjoy getting a large behavior from a handful of operations, try <a href="/chaos-01.html">Chaos 01</a> next. Its ten-module feedback core uses stock VCV mixers and VCAs to make a drone evolve. SqBell uses phase bits and weighted signs to make a spectral shape playable. Both are open invitations to take the mechanism apart and make it your own.</p>
+<p><a href="/synthesis/sqbell-v0.5-MIT-source.zip" download>Build on the source</a>, play the oscillator, and <a href="/contact.html">send me what you make</a>.</p>
+</section>
+
+</main>
+<nav class="article-links" aria-label="Continue reading">
+<p>Next:</p><a href="/chaos-01.html">Chaos 01: A Minimal Chaotic Drone from Stock VCV Modules</a>
+<p>More:</p><a href="/site-map.html#synthesis">Open synthesis projects</a>
+<a href="/">Back to greenforest.io</a>
+</nav>
+</body>
+</html>

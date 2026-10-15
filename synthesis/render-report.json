@@ -1,0 +1,153 @@
+{
+  "state_bytes": 76,
+  "checks": {
+    "init_density": 32,
+    "all_81_density_values_both_directions": true,
+    "density_edit_peak": 0.550000011920929,
+    "out_of_range_density_clamped": true,
+    "block_size_invariant": true,
+    "coherent_retrigger": true,
+    "pitch_translation_only": true,
+    "minute_hold_peak": 0.550000011920929,
+    "shape_lfo": true,
+    "combined_density_width_pitch_modulation": true
+  },
+  "width_checks": [
+    {
+      "shape": 0,
+      "sigma_hz": 2
+    },
+    {
+      "shape": 256,
+      "sigma_hz": 39.5787353515625
+    },
+    {
+      "shape": 512,
+      "sigma_hz": 302.6298828125
+    },
+    {
+      "shape": 768,
+      "sigma_hz": 1016.6259155273438
+    },
+    {
+      "shape": 1023,
+      "sigma_hz": 2400
+    }
+  ],
+  "analysis": [
+    {
+      "id": "old16",
+      "density": 16,
+      "center": 880,
+      "shape": 352,
+      "sigma": 99.6900405883789,
+      "spacing": 49.84502029418945,
+      "step": null,
+      "normalization": 0.000006624351044592913
+    },
+    {
+      "id": "new16",
+      "density": 16,
+      "center": 880,
+      "shape": 352,
+      "sigma": 99.6900405883789,
+      "spacing": 49.84502029418945,
+      "step": 4460057,
+      "normalization": 0.000006810133527324069
+    },
+    {
+      "id": "new32",
+      "density": 32,
+      "center": 880,
+      "shape": 352,
+      "sigma": 99.6900405883789,
+      "spacing": 24.922510147094727,
+      "step": 2230028,
+      "normalization": 0.000003409457121961168
+    },
+    {
+      "id": "new64",
+      "density": 64,
+      "center": 880,
+      "shape": 352,
+      "sigma": 99.6900405883789,
+      "spacing": 12.461255073547363,
+      "step": 1115014,
+      "normalization": 0.0000017058177945727948
+    },
+    {
+      "id": "new96",
+      "density": 96,
+      "center": 880,
+      "shape": 352,
+      "sigma": 99.6900405883789,
+      "spacing": 8.307503700256348,
+      "step": 743342,
+      "normalization": 0.0000011374776249795104
+    }
+  ],
+  "audio": [
+    {
+      "file": "sqbell-density-16-32-64-96.wav",
+      "sections": [
+        {
+          "start": 0,
+          "end": 3,
+          "density": 16,
+          "sigma_hz": 399.5861511230469,
+          "rms_gain": 2.1095545966429876
+        },
+        {
+          "start": 3,
+          "end": 6,
+          "density": 32,
+          "sigma_hz": 399.5861511230469,
+          "rms_gain": 2.992162165344237
+        },
+        {
+          "start": 6,
+          "end": 9,
+          "density": 64,
+          "sigma_hz": 399.5861511230469,
+          "rms_gain": 4.289254861447811
+        },
+        {
+          "start": 9,
+          "end": 12,
+          "density": 96,
+          "sigma_hz": 399.5861511230469,
+          "rms_gain": 5.336971266521503
+        }
+      ],
+      "common_gain": 0.2854510630849799,
+      "note": "A4; same Gaussian sigma about 400 Hz; equal RMS per section, then one common peak gain; external pluck envelopes, no effects."
+    },
+    {
+      "file": "sqbell16-old-then-sqbell-new.wav",
+      "sections": [
+        {
+          "start": 0,
+          "end": 3,
+          "version": "SqBell16 v0.4",
+          "density": 16,
+          "rms_gain": 2.014550299077523
+        },
+        {
+          "start": 4,
+          "end": 7,
+          "version": "SqBell v0.5",
+          "density": 16,
+          "rms_gain": 2.1095545966429876
+        }
+      ],
+      "note": "Same pitch, width, component count, and external envelope; equal RMS. One-second silence between sections."
+    }
+  ],
+  "sdk": {
+    "api": "1.1.0",
+    "platform": 2,
+    "valid_thumb_hooks": true,
+    "payload_bytes": 12216,
+    "density_display": "16..96 (SDK typeless +1 display offset)"
+  }
+}

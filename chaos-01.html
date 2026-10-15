@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chaos 01: A Minimal Chaotic Drone from Stock VCV Modules | Greenforest I/O</title>
+<meta name="author" content="Brian Greenforest">
+<meta name="description" content="A free, open VCV Rack patch by Brian Greenforest: eight mixers, two VCAs, visible state equations and a two-minute audio render.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://greenforest.io/chaos-01.html">
+<link rel="icon" href="/favicon.ico">
+<meta property="og:site_name" content="Greenforest I/O">
+<meta property="og:title" content="Chaos 01: A Minimal Chaotic Drone from Stock VCV Modules">
+<meta property="og:description" content="A free, open VCV Rack patch by Brian Greenforest: eight mixers, two VCAs, visible state equations and a two-minute audio render.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://greenforest.io/chaos-01.html">
+<meta property="article:published_time" content="2026-10-15">
+<meta property="article:modified_time" content="2026-10-15">
+<meta property="article:author" content="Brian Greenforest">
+<meta property="og:image" content="https://greenforest.io/synthesis/chaos-01-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Chaos 01: A Minimal Chaotic Drone from Stock VCV Modules — Brian Greenforest">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://greenforest.io/synthesis/chaos-01-share.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Chaos 01: A Minimal Chaotic Drone from Stock VCV Modules", "description": "A free, open VCV Rack patch by Brian Greenforest: eight mixers, two VCAs, visible state equations and a two-minute audio render.", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "mainEntityOfPage": "https://greenforest.io/chaos-01.html", "image": "https://greenforest.io/synthesis/chaos-01-share.png", "author": {"@type": "Person", "name": "Brian Greenforest", "url": "https://greenforest.io/"}, "publisher": {"@type": "Organization", "name": "Greenforest I/O", "url": "https://greenforest.io/"}}</script>
+<script src="/common-script.js"></script>
+<script src="/site-analytics.js" defer></script>
+<link rel="stylesheet" href="/synthesis/articles.css">
+</head>
+<body class="article-structured synthesis-article">
+<header><h1 class="page-title">Chaos 01: A Minimal Chaotic Drone from Stock VCV Modules</h1></header>
+<address>By Brian Greenforest · <time datetime="2026-10-15">October 15, 2026</time></address>
+<main>
+
+
+<p class="deck">Ten elementary modules make the motion. Five more turn it into sound. Chaos 01 puts a nonlinear dynamical system directly into the cables of a free VCV Rack patch.</p>
+<p>I wanted a minimal chaotic drone whose mechanism I could actually follow: stock mixers and VCAs, a compact feedback core, and a sound worth leaving running. I could not find a published patch that met this requirement. So I built one, and I am releasing it here for the next person who searches.</p>
+<div class="downloads"><a href="/synthesis/brian-greenforest-chaos-01.vcv" download>Download Chaos 01 · VCV patch</a><a href="#listen">Listen to the two-minute render</a></div>
+<p class="small">Free, open patch by Brian Greenforest. <a href="/synthesis/LICENSE-Chaos-01.txt">MIT license</a>. Saved with Rack 2.6.6 and VCV Free 2.6.4. Also submitted to <a href="https://community.vcvrack.com/c/music/5">VCV Community’s Music &amp; Patches</a>.</p>
+
+<section id="listen"><h2>Let the circuit play</h2>
+<audio controls preload="metadata" aria-label="Chaos 01, two-minute Rack render"><source src="/synthesis/chaos-01-120s.mp3" type="audio/mpeg"><a href="/synthesis/chaos-01-120s.wav">Download the audio</a></audio>
+<p>The supplied sound patch, rendered for two minutes at 48 kHz using the actual Rack 2.6.6 engine and unmodified VCV Free 2.6.4 modules. All module parameters and all 27 cables are preserved. A capture sink replaces the audio hardware and applies the saved Audio-2 DC-filter setting. The published recording has a constant playback-gain adjustment and one-second edge fades; it has no added reverb, compression, or other effects.</p>
+<p><a href="/synthesis/chaos-01-120s.wav" download>Download the 24-bit WAV · 16.5 MiB</a> · <a href="/synthesis/chaos-01-render.json">Render settings and measurements</a></p>
+</section>
+
+<section id="run"><h2>Open it and listen</h2>
+<ol><li>Open the downloaded <code>brian-greenforest-chaos-01.vcv</code> in <a href="https://vcvrack.com/Rack">VCV Rack 2</a>.</li>
+<li>Set the <strong>engine sample rate to 48 kHz</strong>. The saved integration gains are calibrated for that rate.</li>
+<li>In Audio-2, select your audio driver and output device. The file remembers “MacBook Pro Speakers”; choose the output that exists on your computer.</li>
+<li>Start at a low playback level and adjust the VCA Mix master level. The patch is mono; Audio-2 duplicates its connected left input to the right output.</li>
+<li>Let it run. Its coordinate offset starts the core near <code>(x, y, z) = (0, 0.1, 0)</code>. Reopen the supplied file to restart. Initializing the modules would replace the carefully set gains with their defaults.</li></ol>
+<p>The mathematical core is <strong>eight CV Mix modules and two VCA modules in 30 HP</strong>. Noise, VCF, VCO, VCA Mix and Audio-2 complete the 15-module sound patch. Everything comes from VCV’s Fundamental and Core plugins.</p>
+</section>
+
+<section id="search"><h2>The search that led here</h2>
+<p>“Chaotic drone” covers a lot of territory. My requirement was narrower: downloadable, elementary stock modules only, a compact deterministic nonlinear core with the arithmetic visible in the patch, and an included drone voice. Searches of the VCV community, patch listings and the wider web through October 15, 2026 returned zero matches for that complete combination.</p>
+<p>Related work helped define the distinction. Wavtekt’s <a href="https://community.vcvrack.com/t/ambient-feedback-drone/14644">Ambient Feedback Drone</a> builds a sound through resonant EQ, spring reverb, delay and other feedback paths. Its documented routing includes Rings, Stages, Branches and Plateau. Don Cross’s <a href="https://community.vcvrack.com/t/sapphire-zoo-a-programmable-chaotic-oscillator/24636">Sapphire Zoo</a> puts programmable velocity-vector equations inside a dedicated oscillator module. Both are worthwhile approaches. I wanted the equation itself to occupy the rack as ordinary additions, multiplications and state feedback.</p>
+<p>The contribution here is that construction and its playable patch. Chaos has a long history in synthesis and mathematics; my unsuccessful search is an invitation to share another example with the same constraints.</p>
+</section>
+
+<section id="equations"><h2>Three states, two products</h2>
+<p>The core implements a sampled approximation to the Nosé–Hoover system, also listed as case A in J. C. Sprott’s <a href="https://sprott.physics.wisc.edu/pubs/PAPER212.HTM">Some Simple Chaotic Flows</a>. At parameter one, its equations fit in three lines:</p>
+<pre aria-label="State equations">dx/dt = y
+dy/dt = −x − y·z
+dz/dt = y² − 1</pre>
+<p>Read these as instructions to three accumulators. The current <em>y</em> pushes <em>x</em>. The next derivative pushes <em>y</em> back toward the center while <em>z</em> changes its damping. The square of <em>y</em>, measured against one, changes <em>z</em>. Each state changes the conditions under which the other states evolve. The deterministic nonlinear feedback is the source of the chaotic control motion.</p>
+<p>Use one volt per state unit. A CV Mix output returned to one of its own inputs at exactly unity gain remembers the previous sample. A second input supplies the increment:</p>
+<pre>next state = previous state + h·derivative
+h = 1 / 48000 second</pre>
+<p>Rack’s <a href="https://github.com/VCVRack/Rack/blob/v2.6.6/src/engine/Engine.cpp">engine processing order</a> makes the return cable a one-sample memory. Other cables also introduce sample delays, so the actual patch is a discrete, cable-delayed realization of the continuous equations. Its saved small gains are part of the circuit; rounding them by eye changes it.</p>
+<figure><img src="/synthesis/chaos-01-trajectory.png" width="1680" height="784" alt="Measured x versus y trajectory and x, y, z histories over 120 seconds in the actual Rack engine"><figcaption>The actual core state during the audio render, sampled for plotting at 100 Hz. <a href="/synthesis/chaos-01-states.csv">Download the state trace</a>. The x–y projection shows how the path folds through its state space.</figcaption></figure>
+</section>
+
+<section id="products"><h2>A stock VCA can do the multiplication</h2>
+<p>The <a href="https://github.com/VCVRack/Fundamental/blob/v2.6.4/src/VCA-1.cpp">VCV VCA</a> passes a signed signal, but its linear control operates between zero and ten volts. Offset the control and then subtract the unwanted linear term:</p>
+<pre>Cz = 5 + z/2
+Cy = 5 + y/2
+
+p = y·Cz/10 = y/2 + y·z/20
+q = y·Cy/10 = y/2 + y²/20
+
+dy/dt = −x + 10·y − 20·p
+dz/dt = 20·q − 10·y − 1</pre>
+<p>That is why there are two VCAs. One forms the cross-product; the other forms the square. Both have linear response and full level. The product identities hold while <em>y</em> and <em>z</em> stay between −10 and +10 V, keeping the controls within range. During this render, <em>y</em> stayed between −4.19 and +3.77 V and <em>z</em> between −3.91 and +3.56 V.</p>
+<p>The startup offset uses <code>u = y − 0.1</code> as the stored coordinate and a separate mixer to recover <code>y = u + 0.1</code>. It places the system at its starting point without continually adding a startup ramp.</p>
+</section>
+
+<section id="map"><h2>Read the patch from left to right</h2>
+<p>The first eight modules are CV Mix; the next two are VCA. Their outputs have the following meanings. The <a href="https://github.com/VCVRack/Fundamental/blob/v2.6.4/src/CVMix.cpp">CV Mix source</a> also makes the addition and offset behavior explicit.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Position</th><th scope="col">Module</th><th scope="col">Output / role</th></tr></thead><tbody>
+<tr><td>1</td><td>CV Mix</td><td>Cz = 5 + z/2</td></tr>
+<tr><td>2</td><td>CV Mix</td><td>Cy = 5.05 + u/2 = 5 + y/2</td></tr>
+<tr><td>3</td><td>CV Mix</td><td><strong>y = u + 0.1</strong></td></tr>
+<tr><td>4</td><td>CV Mix</td><td><strong>x</strong>, with unity feedback</td></tr>
+<tr><td>5</td><td>CV Mix</td><td>u, with unity feedback</td></tr>
+<tr><td>6</td><td>CV Mix</td><td>(y² − 1)/20</td></tr>
+<tr><td>7</td><td>CV Mix</td><td><strong>z</strong>, with unity feedback</td></tr>
+<tr><td>8</td><td>CV Mix</td><td>(−x − y·z)/20</td></tr>
+<tr><td>9</td><td>VCA</td><td>p = y/2 + y·z/20</td></tr>
+<tr><td>10</td><td>VCA</td><td>q = y/2 + y²/20</td></tr>
+</tbody></table></div>
+<p>The x accumulator’s derivative gain is <code>h</code>. The u and z accumulators use <code>20h</code> because their derivative inputs are divided by twenty. All three direct feedback gains are exactly one.</p>
+<p>Take <strong>x from position 4, y from position 3 and z from position 7</strong> to modulate another voice. An added VCV Scope makes the evolving coordinates visible; the supplied patch leaves that display out to keep the module count down.</p>
+</section>
+
+<section id="voice"><h2>Turning the state into a drone</h2>
+<p>The RED output of Noise enters the VCF. The core controls cutoff with q, resonance with z and drive with p. The filter’s low-pass output reaches both VCA Mix channel 1 and the VCO’s V/OCT input. The u state enters the VCO FM input; the VCO sine reaches VCA Mix channel 2. The mix goes to Audio-2.</p>
+<p>That gives the motion several ways to become audible: spectral brightness, resonance, drive and oscillator frequency. The noise is a source of sound in this voice; it never returns to the mathematical core. You can change the voice while keeping the ten-module state machine intact.</p>
+<p>I like synthesis that exposes a surprising amount of behavior in very few operations. The companion project, <a href="/gaussian-synthesis-with-square-waves.html">SqBell: Gaussian synthesis with square waves</a>, pursues that idea inside a Korg minilogue xd oscillator: weighted sign changes build a controllable spectral bell.</p>
+<p><a href="/synthesis/brian-greenforest-chaos-01.vcv" download>Take the patch</a>, connect its states to something you love, and <a href="https://community.vcvrack.com/c/music/5">share what you make on VCV Community</a>.</p>
+</section>
+
+</main>
+<nav class="article-links" aria-label="Continue reading">
+<p>Next:</p><a href="/gaussian-synthesis-with-square-waves.html">Gaussian Synthesis with Square Waves: SqBell for minilogue xd</a>
+<p>More:</p><a href="/site-map.html#synthesis">Open synthesis projects</a>
+<a href="/">Back to greenforest.io</a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,113 @@
+{
+  "method": "Actual compiled ARM ELF in Unicorn; executed instructions, NOT CPU cycles or instrument timing.",
+  "cases": [
+    {
+      "density": 16,
+      "note": 69,
+      "shape": 460,
+      "note_on_instructions": 132,
+      "steady_instructions_per_sample": 239.23681640625,
+      "max_steady_64_frame_instructions": 15328,
+      "max_width_change_64_frame_instructions": 15338,
+      "max_density_change_64_frame_instructions": 51453
+    },
+    {
+      "density": 32,
+      "note": 69,
+      "shape": 460,
+      "note_on_instructions": 132,
+      "steady_instructions_per_sample": 351.23681640625,
+      "max_steady_64_frame_instructions": 22496,
+      "max_width_change_64_frame_instructions": 22506,
+      "max_density_change_64_frame_instructions": 51461
+    },
+    {
+      "density": 32,
+      "note": 69,
+      "shape": 1023,
+      "note_on_instructions": 132,
+      "steady_instructions_per_sample": 351.0380859375,
+      "max_steady_64_frame_instructions": 22474,
+      "max_width_change_64_frame_instructions": 22567,
+      "max_density_change_64_frame_instructions": 51524
+    },
+    {
+      "density": 64,
+      "note": 69,
+      "shape": 1023,
+      "note_on_instructions": 132,
+      "steady_instructions_per_sample": 575.0380859375,
+      "max_steady_64_frame_instructions": 36810,
+      "max_width_change_64_frame_instructions": 36903,
+      "max_density_change_64_frame_instructions": 51524
+    },
+    {
+      "density": 96,
+      "note": 69,
+      "shape": 460,
+      "note_on_instructions": 132,
+      "steady_instructions_per_sample": 799.23681640625,
+      "max_steady_64_frame_instructions": 51168,
+      "max_width_change_64_frame_instructions": 51178,
+      "max_density_change_64_frame_instructions": 51359
+    },
+    {
+      "density": 96,
+      "note": 69,
+      "shape": 1023,
+      "note_on_instructions": 132,
+      "steady_instructions_per_sample": 799.43798828125,
+      "max_steady_64_frame_instructions": 51172,
+      "max_width_change_64_frame_instructions": 51239,
+      "max_density_change_64_frame_instructions": 51422
+    },
+    {
+      "density": 96,
+      "note": 96,
+      "shape": 1023,
+      "note_on_instructions": 132,
+      "steady_instructions_per_sample": 799.43798828125,
+      "max_steady_64_frame_instructions": 51172,
+      "max_width_change_64_frame_instructions": 51239,
+      "max_density_change_64_frame_instructions": 51422
+    }
+  ],
+  "parity": [
+    {
+      "density": 16,
+      "note": 69,
+      "shape": 460,
+      "max_absolute_error": 7.152557373046875e-07,
+      "rms_error": 1.1859852245628246e-07
+    },
+    {
+      "density": 32,
+      "note": 69,
+      "shape": 1023,
+      "max_absolute_error": 6.556510925292969e-07,
+      "rms_error": 5.53349009169695e-08
+    },
+    {
+      "density": 64,
+      "note": 96,
+      "shape": 1023,
+      "max_absolute_error": 5.364418029785156e-07,
+      "rms_error": 6.4973160797001e-08
+    },
+    {
+      "density": 95,
+      "note": 69,
+      "shape": 512,
+      "max_absolute_error": 5.960464477539063e-08,
+      "rms_error": 7.58047242424105e-09
+    },
+    {
+      "density": 96,
+      "note": 69,
+      "shape": 1023,
+      "max_absolute_error": 2.086162567138672e-07,
+      "rms_error": 1.8081221673359442e-08
+    }
+  ],
+  "software_double_helpers": []
+}

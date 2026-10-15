@@ -1,0 +1,37 @@
+{
+  "patch_sha256": "62ac96913d84be7cd9ae23dd5ce59b7bc81b0e49837b9df98134fbfcdc1af0ce",
+  "engine": "VCV Rack 2.6.6",
+  "modules": "VCV Free / Fundamental 2.6.4",
+  "seconds": 120,
+  "sample_rate": 48000,
+  "frames": 5760000,
+  "channels": 1,
+  "method": "Actual unmodified Fundamental plugin running in the Rack engine; Audio-2 hardware sink replaced with capture and its saved 10 Hz DC-filter recurrence. Original graph, module parameters and all 27 cables retained. Noise seed is freshly initialized.",
+  "post_processing": "Constant gain to -3 dBFS raw peak; one-second linear fades at beginning and end. No EQ, compression, effects or timing edits.",
+  "pre_gain_peak": 1.2452887296676636,
+  "gain": 0.5684993106563093,
+  "pcm_bits": 24,
+  "state_sampling_hz": 100,
+  "state_ranges": {
+    "x": [
+      -3.2939918,
+      2.34717894
+    ],
+    "y": [
+      -4.18631697,
+      3.7737112
+    ],
+    "z": [
+      -3.90194917,
+      3.55511975
+    ],
+    "p": [
+      -2.17183828,
+      2.05629182
+    ],
+    "q": [
+      -1.21689606,
+      2.5988965
+    ]
+  }
+}

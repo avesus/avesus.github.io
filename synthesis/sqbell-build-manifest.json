@@ -1,0 +1,14 @@
+{
+  "sdk_commit": "e84899398dc1a71468a79e293fe68e3ab22e19b6",
+  "api": "1.1-0",
+  "target": "minilogue-xd",
+  "files": {
+    "src\\bell.hpp": "09f70e97c8cea33f79662e5519b9d06c2d74c2b9c8b0628b6393a729f37279db",
+    "src\\oscillator.cpp": "2325c9e3417cf983dc08b0b95c85c845751af583e889594614d45134e64db647",
+    "src\\weights.hpp": "ab43ba8235608290e763b0e24337b3de732a0805dcaaec20100d8affa185f4d3",
+    "dist\\sqbell-v0.5.mnlgxdunit": "d3990f507fb926e78fc3d497c158616727fdce3894d4f143b124717d0e240f33",
+    "dist\\sqbell.js": "ea7a1ff8c4c301a8c088f35cfe85ea0382be834e8324b8bf0c986b9d390f1a70",
+    "dist\\sqbell.wasm": "a6f9481145c769e7d5ce197ce3a10c7ae3ae9ae2216f1f893c5d90179ee66694",
+    "manifest.json": "3d55c8bb10fb6a21b6250d5ca6e54ee155052fc257fb3e57e6b4bf1492e4b765"
+  }
+}

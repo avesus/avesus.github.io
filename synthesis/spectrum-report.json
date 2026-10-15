@@ -1,0 +1,57 @@
+{
+  "method": "Time-domain error against an independently computed ideal finite Gaussian sum, at A5 and sigma approximately 100 Hz. Includes square harmonics, aliases and numerical error. No hardware recording.",
+  "cases": [
+    {
+      "id": "old16",
+      "density": 16,
+      "sigma_hz": 99.6900405883789,
+      "spacing_hz": 49.84502029418945,
+      "ideal_sum_error_power_db": -14.219870791278627,
+      "intended_components_within_6_db": 5
+    },
+    {
+      "id": "new16",
+      "density": 16,
+      "sigma_hz": 99.6900405883789,
+      "spacing_hz": 49.84502029418945,
+      "ideal_sum_error_power_db": -20.316589478439738,
+      "intended_components_within_6_db": 5
+    },
+    {
+      "id": "new32",
+      "density": 32,
+      "sigma_hz": 99.6900405883789,
+      "spacing_hz": 24.922510147094727,
+      "ideal_sum_error_power_db": -19.53931309792531,
+      "intended_components_within_6_db": 9
+    },
+    {
+      "id": "new64",
+      "density": 64,
+      "sigma_hz": 99.6900405883789,
+      "spacing_hz": 12.461255073547363,
+      "ideal_sum_error_power_db": -19.315457347355817,
+      "intended_components_within_6_db": 19
+    },
+    {
+      "id": "new96",
+      "density": 96,
+      "sigma_hz": 99.6900405883789,
+      "spacing_hz": 8.307503700256348,
+      "ideal_sum_error_power_db": -19.36152251407978,
+      "intended_components_within_6_db": 29
+    }
+  ],
+  "same_density_error_reduction_db": 6.096718687161111,
+  "ideal_sign_mixer_harmonic_amplitudes": {
+    "1": 0.9935868511442058,
+    "3": 1.887729375695429e-16,
+    "5": 2.0084367335812724e-16,
+    "7": 1.3639029290288412e-15,
+    "9": 2.0071353352778946e-16,
+    "11": 1.4335415909527992e-16,
+    "13": 1.4698628654989674e-16,
+    "15": 0.06623912340961383,
+    "17": 0.05844628536142394
+  }
+}
