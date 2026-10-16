@@ -37,7 +37,7 @@
 <p class="deck">Ten elementary modules make the motion. Five more turn it into sound. Chaos 01 puts a nonlinear dynamical system directly into the cables of a free VCV Rack patch.</p>
 <p>I wanted a minimal chaotic drone whose mechanism I could actually follow: stock mixers and VCAs, a compact feedback core, and a sound worth leaving running. I could not find a published patch that met this requirement. So I built one, and I am releasing it here for the next person who searches.</p>
 <div class="downloads"><a href="/synthesis/brian-greenforest-chaos-01.vcv" download>Download Chaos 01 · VCV patch</a><a href="#listen">Listen to the two-minute render</a></div>
-<p class="small">Free, open patch by Brian Greenforest. <a href="/synthesis/LICENSE-Chaos-01.txt">MIT license</a>. Saved with Rack 2.6.6 and VCV Free 2.6.4. Also submitted to <a href="https://community.vcvrack.com/c/music/5">VCV Community’s Music &amp; Patches</a>.</p>
+<p class="small">Free, open patch by Brian Greenforest. <a href="/synthesis/LICENSE-Chaos-01.txt">MIT license</a>. Saved with Rack 2.6.6 and VCV Free 2.6.4. <a href="https://patchstorage.com/chaos-01-minimal-stock-module-chaotic-drone/">Download and discuss Chaos 01 on Patchstorage</a>. Also submitted to <a href="https://community.vcvrack.com/c/music/5">VCV Community’s Music &amp; Patches</a>.</p>
 
 <section id="listen"><h2>Let the circuit play</h2>
 <audio controls preload="metadata" aria-label="Chaos 01, two-minute Rack render"><source src="/synthesis/chaos-01-120s.mp3" type="audio/mpeg"><a href="/synthesis/chaos-01-120s.wav">Download the audio</a></audio>
@@ -109,7 +109,7 @@ dz/dt = 20·q − 10·y − 1</pre>
 <p>The RED output of Noise enters the VCF. The core controls cutoff with q, resonance with z and drive with p. The filter’s low-pass output reaches both VCA Mix channel 1 and the VCO’s V/OCT input. The u state enters the VCO FM input; the VCO sine reaches VCA Mix channel 2. The mix goes to Audio-2.</p>
 <p>That gives the motion several ways to become audible: spectral brightness, resonance, drive and oscillator frequency. The noise is a source of sound in this voice; it never returns to the mathematical core. You can change the voice while keeping the ten-module state machine intact.</p>
 <p>I like synthesis that exposes a surprising amount of behavior in very few operations. The companion project, <a href="/gaussian-synthesis-with-square-waves.html">SqBell: Gaussian synthesis with square waves</a>, pursues that idea inside a Korg minilogue xd oscillator: weighted sign changes build a controllable spectral bell.</p>
-<p><a href="/synthesis/brian-greenforest-chaos-01.vcv" download>Take the patch</a>, connect its states to something you love, and <a href="https://community.vcvrack.com/c/music/5">share what you make on VCV Community</a>.</p>
+<p><a href="/synthesis/brian-greenforest-chaos-01.vcv" download>Take the patch</a>, connect its states to something you love, and <a href="https://patchstorage.com/chaos-01-minimal-stock-module-chaotic-drone/#respond">share what you make on Patchstorage</a>.</p>
 </section>
 
 </main>
